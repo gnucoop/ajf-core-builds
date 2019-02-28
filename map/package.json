@@ -1,0 +1,8 @@
+{
+  "name": "@ajf/core/map",
+  "typings": "../map.d.ts",
+  "main": "../bundles/core-map.umd.js",
+  "module": "../esm5/map.es5.js",
+  "es2015": "../esm2015/map.js",
+  "sideEffects": false
+}

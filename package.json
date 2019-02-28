@@ -1,0 +1,44 @@
+{
+  "name": "@ajf/core",
+  "version": "7.0.0-alpha.17-ff4de9a",
+  "description": "",
+  "main": "./bundles/core.umd.js",
+  "module": "./esm5/core.es5.js",
+  "es2015": "./esm2015/core.js",
+  "typings": "./core.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnucoop/ajf.git"
+  },
+  "keywords": [],
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/gnucoop/ajf/issues"
+  },
+  "homepage": "https://github.com/gnucoop/ajf#readme",
+  "peerDependencies": {
+    "@angular/animations": ">=7.0.0",
+    "@angular/cdk": ">=7.0.0",
+    "@angular/core": ">=7.0.0",
+    "@angular/common": ">=7.0.0",
+    "@angular/forms": ">=7.0.0",
+    "@angular/router": ">=7.0.0",
+    "@ngx-translate/core": ">=11.0.0",
+    "chart.js": "^2.7.3",
+    "chart.piecelabel.js": "^0.15.0",
+    "css-element-queries": "^1.1.1",
+    "date-fns": "^1.30.1",
+    "debug": "^4.1.1",
+    "esprima": "^4.0.1",
+    "leaflet": "^1.4.0",
+    "numeral": "^2.0.6",
+    "url-parse": "^1.4.4"
+  },
+  "dependencies": {
+    "tslib": "^1.9.3"
+  },
+  "sideEffects": false,
+  "releaseGitCommitSha": "ff4de9af7b3bc5588c7dd6236edfedf65997f660",
+  "releaseGitBranch": "master",
+  "releaseGitUser": "trik <marco.marche@gnucoop.com>"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "@ajf/core/chart",
+  "typings": "../chart.d.ts",
+  "main": "../bundles/core-chart.umd.js",
+  "module": "../esm5/chart.es5.js",
+  "es2015": "../esm2015/chart.js",
+  "sideEffects": false
+}

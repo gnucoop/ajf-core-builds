@@ -1,0 +1,8 @@
+{
+  "name": "@ajf/core/text",
+  "typings": "../text.d.ts",
+  "main": "../bundles/core-text.umd.js",
+  "module": "../esm5/text.es5.js",
+  "es2015": "../esm2015/text.js",
+  "sideEffects": false
+}

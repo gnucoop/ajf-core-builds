@@ -1,0 +1,8 @@
+{
+  "name": "@ajf/core/utils",
+  "typings": "../utils.d.ts",
+  "main": "../bundles/core-utils.umd.js",
+  "module": "../esm5/utils.es5.js",
+  "es2015": "../esm2015/utils.js",
+  "sideEffects": false
+}

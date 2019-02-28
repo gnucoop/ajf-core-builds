@@ -1,0 +1,102 @@
+/**
+ * @license
+ * Copyright (C) 2018 Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+import { AjfNodeType, AjfFieldType } from '@ajf/core/forms';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ */
+var  /**
+ * @abstract
+ */
+AjfNodeIcon = /** @class */ (function () {
+    function AjfNodeIcon() {
+    }
+    Object.defineProperty(AjfNodeIcon.prototype, "fontSet", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this._fontSet; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AjfNodeIcon.prototype, "fontIcon", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this._fontIcon; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AjfNodeIcon.prototype, "node", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this._node; },
+        set: /**
+         * @param {?} node
+         * @return {?}
+         */
+        function (node) {
+            this._node = node;
+            this._fontSet = 'ajf-icon';
+            this._fontIcon = this._getFontIcon(node);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @private
+     * @param {?} node
+     * @return {?}
+     */
+    AjfNodeIcon.prototype._getFontIcon = /**
+     * @private
+     * @param {?} node
+     * @return {?}
+     */
+    function (node) {
+        switch (node.nodeType) {
+            case AjfNodeType.AjfField:
+                return "field-" + AjfFieldType[((/** @type {?} */ (node))).fieldType].toLowerCase();
+            default:
+                return "node-" + AjfNodeType[node.nodeType].toLowerCase().replace('ajf', '');
+        }
+    };
+    return AjfNodeIcon;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+export { AjfNodeIcon };
+//# sourceMappingURL=node-icon.es5.js.map

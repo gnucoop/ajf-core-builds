@@ -1,0 +1,8 @@
+{
+  "name": "@ajf/core/page-break",
+  "typings": "../page-break.d.ts",
+  "main": "../bundles/core-page-break.umd.js",
+  "module": "../esm5/page-break.es5.js",
+  "es2015": "../esm2015/page-break.js",
+  "sideEffects": false
+}

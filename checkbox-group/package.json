@@ -1,0 +1,8 @@
+{
+  "name": "@ajf/core/checkbox-group",
+  "typings": "../checkbox-group.d.ts",
+  "main": "../bundles/core-checkbox-group.umd.js",
+  "module": "../esm5/checkbox-group.es5.js",
+  "es2015": "../esm2015/checkbox-group.js",
+  "sideEffects": false
+}

@@ -1,0 +1,8 @@
+{
+  "name": "@ajf/core/models",
+  "typings": "../models.d.ts",
+  "main": "../bundles/core-models.umd.js",
+  "module": "../esm5/models.es5.js",
+  "es2015": "../esm2015/models.js",
+  "sideEffects": false
+}
