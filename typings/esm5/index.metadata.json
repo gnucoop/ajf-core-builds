@@ -1,1 +1,1 @@
-{"__symbolic":"module","version":4,"metadata":{"VERSION":{"__symbolic":"new","expression":{"__symbolic":"reference","module":"@angular/core","name":"Version","line":25,"character":27},"arguments":["7.0.0-beta.1-9ba2735"]}},"origins":{"VERSION":"./version"},"importAs":"@ajf/core"}
+{"__symbolic":"module","version":4,"metadata":{"VERSION":{"__symbolic":"new","expression":{"__symbolic":"reference","module":"@angular/core","name":"Version","line":25,"character":27},"arguments":["7.0.0-beta.1-2a96012"]}},"origins":{"VERSION":"./version"},"importAs":"@ajf/core"}
