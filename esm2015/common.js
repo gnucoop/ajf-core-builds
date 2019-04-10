@@ -19,7 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { Directive, ElementRef, Renderer2, Input, NgModule } from '@angular/core';
+import { Directive, ElementRef, Renderer2, Input, Pipe, NgModule } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -109,18 +111,69 @@ AutofocusDirective.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class FormatIfNumber extends DecimalPipe {
+    /**
+     * @param {?} value
+     * @param {?=} digitsInfo
+     * @param {?=} locale
+     * @return {?}
+     */
+    transform(value, digitsInfo, locale) {
+        if (typeof value === 'number') {
+            return super.transform(value, digitsInfo, locale);
+        }
+        else {
+            return value;
+        }
+    }
+}
+FormatIfNumber.decorators = [
+    { type: Pipe, args: [{ name: 'ajfFormatIfNumber' },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class TranslateIfString extends TranslatePipe {
+    /**
+     * @param {?} query
+     * @param {...?} args
+     * @return {?}
+     */
+    transform(query, ...args) {
+        if (typeof query === 'string') {
+            return super.transform(query, ...args);
+        }
+        else {
+            return query;
+        }
+    }
+}
+TranslateIfString.decorators = [
+    { type: Pipe, args: [{ name: 'ajfTranslateIfString' },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 class AjfCommonModule {
 }
 AjfCommonModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
                     ApplyStylesDirective,
-                    AutofocusDirective
+                    AutofocusDirective,
+                    FormatIfNumber,
+                    TranslateIfString,
                 ],
                 exports: [
                     ApplyStylesDirective,
-                    AutofocusDirective
-                ]
+                    AutofocusDirective,
+                    FormatIfNumber,
+                    TranslateIfString,
+                ],
             },] },
 ];
 
@@ -134,5 +187,5 @@ AjfCommonModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AjfCommonModule, ApplyStylesDirective as ɵa, AutofocusDirective as ɵb };
+export { ApplyStylesDirective, AutofocusDirective, AjfCommonModule, FormatIfNumber, TranslateIfString };
 //# sourceMappingURL=common.js.map

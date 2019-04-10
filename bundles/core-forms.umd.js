@@ -7489,12 +7489,12 @@
                         declarations: [
                             BoolToIntPipe,
                             FieldIconPipe,
-                            TableRowClass
+                            TableRowClass,
                         ],
                         exports: [
                             BoolToIntPipe,
                             FieldIconPipe,
-                            TableRowClass
+                            TableRowClass,
                         ],
                         providers: [
                             AjfFormRendererService,

@@ -20,10 +20,39 @@
  *
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/common', ['exports', '@angular/core'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.common = {}), global.ng.core));
-}(this, function (exports, core) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@ngx-translate/core')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/common', ['exports', '@angular/core', '@angular/common', '@ngx-translate/core'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.common = {}), global.ng.core, global.ng.common, global.ngxt.core));
+}(this, function (exports, core, common, core$1) { 'use strict';
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -120,6 +149,78 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var FormatIfNumber = /** @class */ (function (_super) {
+        __extends(FormatIfNumber, _super);
+        function FormatIfNumber() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * @param {?} value
+         * @param {?=} digitsInfo
+         * @param {?=} locale
+         * @return {?}
+         */
+        FormatIfNumber.prototype.transform = /**
+         * @param {?} value
+         * @param {?=} digitsInfo
+         * @param {?=} locale
+         * @return {?}
+         */
+        function (value, digitsInfo, locale) {
+            if (typeof value === 'number') {
+                return _super.prototype.transform.call(this, value, digitsInfo, locale);
+            }
+            else {
+                return value;
+            }
+        };
+        FormatIfNumber.decorators = [
+            { type: core.Pipe, args: [{ name: 'ajfFormatIfNumber' },] },
+        ];
+        return FormatIfNumber;
+    }(common.DecimalPipe));
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var TranslateIfString = /** @class */ (function (_super) {
+        __extends(TranslateIfString, _super);
+        function TranslateIfString() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * @param {?} query
+         * @param {...?} args
+         * @return {?}
+         */
+        TranslateIfString.prototype.transform = /**
+         * @param {?} query
+         * @param {...?} args
+         * @return {?}
+         */
+        function (query) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            if (typeof query === 'string') {
+                return _super.prototype.transform.apply(this, [query].concat(args));
+            }
+            else {
+                return query;
+            }
+        };
+        TranslateIfString.decorators = [
+            { type: core.Pipe, args: [{ name: 'ajfTranslateIfString' },] },
+        ];
+        return TranslateIfString;
+    }(core$1.TranslatePipe));
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     var AjfCommonModule = /** @class */ (function () {
         function AjfCommonModule() {
         }
@@ -127,20 +228,26 @@
             { type: core.NgModule, args: [{
                         declarations: [
                             ApplyStylesDirective,
-                            AutofocusDirective
+                            AutofocusDirective,
+                            FormatIfNumber,
+                            TranslateIfString,
                         ],
                         exports: [
                             ApplyStylesDirective,
-                            AutofocusDirective
-                        ]
+                            AutofocusDirective,
+                            FormatIfNumber,
+                            TranslateIfString,
+                        ],
                     },] },
         ];
         return AjfCommonModule;
     }());
 
+    exports.ApplyStylesDirective = ApplyStylesDirective;
+    exports.AutofocusDirective = AutofocusDirective;
     exports.AjfCommonModule = AjfCommonModule;
-    exports.ɵa = ApplyStylesDirective;
-    exports.ɵb = AutofocusDirective;
+    exports.FormatIfNumber = FormatIfNumber;
+    exports.TranslateIfString = TranslateIfString;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

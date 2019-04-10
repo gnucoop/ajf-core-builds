@@ -19,4 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+export * from './apply-styles-directive';
+export * from './auto-focus.directive';
 export * from './common-module';
+export * from './format-if-number';
+export * from './translate-if-string';

@@ -19,7 +19,10 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { Directive, ElementRef, Renderer2, Input, NgModule } from '@angular/core';
+import { Directive, ElementRef, Renderer2, Input, Pipe, NgModule } from '@angular/core';
+import { __extends } from 'tslib';
+import { DecimalPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -116,6 +119,78 @@ var AutofocusDirective = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var FormatIfNumber = /** @class */ (function (_super) {
+    __extends(FormatIfNumber, _super);
+    function FormatIfNumber() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @param {?} value
+     * @param {?=} digitsInfo
+     * @param {?=} locale
+     * @return {?}
+     */
+    FormatIfNumber.prototype.transform = /**
+     * @param {?} value
+     * @param {?=} digitsInfo
+     * @param {?=} locale
+     * @return {?}
+     */
+    function (value, digitsInfo, locale) {
+        if (typeof value === 'number') {
+            return _super.prototype.transform.call(this, value, digitsInfo, locale);
+        }
+        else {
+            return value;
+        }
+    };
+    FormatIfNumber.decorators = [
+        { type: Pipe, args: [{ name: 'ajfFormatIfNumber' },] },
+    ];
+    return FormatIfNumber;
+}(DecimalPipe));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var TranslateIfString = /** @class */ (function (_super) {
+    __extends(TranslateIfString, _super);
+    function TranslateIfString() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @param {?} query
+     * @param {...?} args
+     * @return {?}
+     */
+    TranslateIfString.prototype.transform = /**
+     * @param {?} query
+     * @param {...?} args
+     * @return {?}
+     */
+    function (query) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        if (typeof query === 'string') {
+            return _super.prototype.transform.apply(this, [query].concat(args));
+        }
+        else {
+            return query;
+        }
+    };
+    TranslateIfString.decorators = [
+        { type: Pipe, args: [{ name: 'ajfTranslateIfString' },] },
+    ];
+    return TranslateIfString;
+}(TranslatePipe));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var AjfCommonModule = /** @class */ (function () {
     function AjfCommonModule() {
     }
@@ -123,12 +198,16 @@ var AjfCommonModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [
                         ApplyStylesDirective,
-                        AutofocusDirective
+                        AutofocusDirective,
+                        FormatIfNumber,
+                        TranslateIfString,
                     ],
                     exports: [
                         ApplyStylesDirective,
-                        AutofocusDirective
-                    ]
+                        AutofocusDirective,
+                        FormatIfNumber,
+                        TranslateIfString,
+                    ],
                 },] },
     ];
     return AjfCommonModule;
@@ -144,5 +223,5 @@ var AjfCommonModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AjfCommonModule, ApplyStylesDirective as ɵa, AutofocusDirective as ɵb };
+export { ApplyStylesDirective, AutofocusDirective, AjfCommonModule, FormatIfNumber, TranslateIfString };
 //# sourceMappingURL=common.es5.js.map
