@@ -86,6 +86,36 @@ var ApplyStylesDirective = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var AutofocusDirective = /** @class */ (function () {
+    function AutofocusDirective(_el) {
+        this._el = _el;
+    }
+    /**
+     * @return {?}
+     */
+    AutofocusDirective.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        this._el.nativeElement.focus();
+    };
+    AutofocusDirective.decorators = [
+        { type: Directive, args: [{ selector: '[autoFocus]' },] },
+    ];
+    /** @nocollapse */
+    AutofocusDirective.ctorParameters = function () { return [
+        { type: ElementRef }
+    ]; };
+    AutofocusDirective.propDecorators = {
+        appAutoFocus: [{ type: Input }]
+    };
+    return AutofocusDirective;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var AjfCommonModule = /** @class */ (function () {
     function AjfCommonModule() {
     }
@@ -93,9 +123,11 @@ var AjfCommonModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [
                         ApplyStylesDirective,
+                        AutofocusDirective
                     ],
                     exports: [
-                        ApplyStylesDirective
+                        ApplyStylesDirective,
+                        AutofocusDirective
                     ]
                 },] },
     ];
@@ -112,5 +144,5 @@ var AjfCommonModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AjfCommonModule, ApplyStylesDirective as ɵa };
+export { AjfCommonModule, ApplyStylesDirective as ɵa, AutofocusDirective as ɵb };
 //# sourceMappingURL=common.es5.js.map

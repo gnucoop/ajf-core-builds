@@ -90,6 +90,36 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var AutofocusDirective = /** @class */ (function () {
+        function AutofocusDirective(_el) {
+            this._el = _el;
+        }
+        /**
+         * @return {?}
+         */
+        AutofocusDirective.prototype.ngAfterContentInit = /**
+         * @return {?}
+         */
+        function () {
+            this._el.nativeElement.focus();
+        };
+        AutofocusDirective.decorators = [
+            { type: core.Directive, args: [{ selector: '[autoFocus]' },] },
+        ];
+        /** @nocollapse */
+        AutofocusDirective.ctorParameters = function () { return [
+            { type: core.ElementRef }
+        ]; };
+        AutofocusDirective.propDecorators = {
+            appAutoFocus: [{ type: core.Input }]
+        };
+        return AutofocusDirective;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     var AjfCommonModule = /** @class */ (function () {
         function AjfCommonModule() {
         }
@@ -97,9 +127,11 @@
             { type: core.NgModule, args: [{
                         declarations: [
                             ApplyStylesDirective,
+                            AutofocusDirective
                         ],
                         exports: [
-                            ApplyStylesDirective
+                            ApplyStylesDirective,
+                            AutofocusDirective
                         ]
                     },] },
         ];
@@ -108,6 +140,7 @@
 
     exports.AjfCommonModule = AjfCommonModule;
     exports.ɵa = ApplyStylesDirective;
+    exports.ɵb = AutofocusDirective;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

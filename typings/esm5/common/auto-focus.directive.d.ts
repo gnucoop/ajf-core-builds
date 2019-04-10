@@ -19,25 +19,10 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core')) :
-	typeof define === 'function' && define.amd ? define('@ajf/core', ['exports', '@angular/core'], factory) :
-	(global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = {}), global.ng.core));
-}(this, function (exports, core) { 'use strict';
-
-	/**
-	 * @fileoverview added by tsickle
-	 * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-	 */
-	/**
-	 * Current version of Ajf.
-	 * @type {?}
-	 */
-	var VERSION = new core.Version('7.0.0-beta.2-46f4ecb');
-
-	exports.VERSION = VERSION;
-
-	Object.defineProperty(exports, '__esModule', { value: true });
-
-}));
-//# sourceMappingURL=core.umd.js.map
+import { AfterContentInit, ElementRef } from '@angular/core';
+export declare class AutofocusDirective implements AfterContentInit {
+    private _el;
+    appAutoFocus: boolean;
+    constructor(_el: ElementRef);
+    ngAfterContentInit(): void;
+}

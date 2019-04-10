@@ -80,15 +80,46 @@ ApplyStylesDirective.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class AutofocusDirective {
+    /**
+     * @param {?} _el
+     */
+    constructor(_el) {
+        this._el = _el;
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterContentInit() {
+        this._el.nativeElement.focus();
+    }
+}
+AutofocusDirective.decorators = [
+    { type: Directive, args: [{ selector: '[autoFocus]' },] },
+];
+/** @nocollapse */
+AutofocusDirective.ctorParameters = () => [
+    { type: ElementRef }
+];
+AutofocusDirective.propDecorators = {
+    appAutoFocus: [{ type: Input }]
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 class AjfCommonModule {
 }
 AjfCommonModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
                     ApplyStylesDirective,
+                    AutofocusDirective
                 ],
                 exports: [
-                    ApplyStylesDirective
+                    ApplyStylesDirective,
+                    AutofocusDirective
                 ]
             },] },
 ];
@@ -103,5 +134,5 @@ AjfCommonModule.decorators = [
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AjfCommonModule, ApplyStylesDirective as ɵa };
+export { AjfCommonModule, ApplyStylesDirective as ɵa, AutofocusDirective as ɵb };
 //# sourceMappingURL=common.js.map

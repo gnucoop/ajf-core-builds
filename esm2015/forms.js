@@ -4047,6 +4047,7 @@ class AjfFormRendererService {
         this._initNodesStreams();
         this._initErrorsStreams();
         this._initFormStreams();
+        this._updateFormValueAndValidity();
     }
     /**
      * @return {?}
@@ -4536,6 +4537,27 @@ class AjfFormRendererService {
             instance.slideNodes = slideNodes;
         }
         return result;
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    _updateFormValueAndValidity() {
+        this._nodesUpdates.asObservable()
+            .pipe(withLatestFrom(this._formGroup), filter((/**
+         * @param {?} values
+         * @return {?}
+         */
+        (values) => values[1] !== null)))
+            .subscribe((/**
+         * @param {?} values
+         * @return {?}
+         */
+        (values) => {
+            /** @type {?} */
+            const form = (/** @type {?} */ (values[1]));
+            form.updateValueAndValidity();
+        }));
     }
     /**
      * @private
@@ -5149,7 +5171,7 @@ class AjfFormRendererService {
             /** @type {?} */
             const control = new FormControl();
             control.setValue(fieldInstance.value);
-            formGroup.addControl(fieldInstanceName, control);
+            formGroup.registerControl(fieldInstanceName, control);
         }
         if (formGroup != null && fieldInstance instanceof AjfTableFieldInstance
             && ((/** @type {?} */ (fieldInstance.node))).editable) {
@@ -5172,7 +5194,7 @@ class AjfFormRendererService {
                     /** @type {?} */
                     const control = new FormControl();
                     control.setValue(fieldInstance.context[k]);
-                    (/** @type {?} */ (formGroup)).addControl(k, control);
+                    (/** @type {?} */ (formGroup)).registerControl(k, control);
                     r.push(control);
                 }));
                 value.push(r);
@@ -5302,7 +5324,7 @@ class AjfFormRendererService {
                 /** @type {?} */
                 const control = new FormControl();
                 control.setValue(nodeGroupInstance.reps);
-                formGroup.addControl(nodeGroupInstanceName, control);
+                formGroup.registerControl(nodeGroupInstanceName, control);
             }
         }
         return nodeGroupInstance;

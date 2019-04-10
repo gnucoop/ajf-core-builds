@@ -80,6 +80,7 @@ export declare class AjfFormRendererService {
     private _initFormStreams;
     private _initNodeInstance;
     private _adjustReps;
+    private _updateFormValueAndValidity;
     private _explodeRepeatingNode;
     private _orderedNodesInstancesTree;
     private _formValueDelta;
