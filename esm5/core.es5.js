@@ -29,7 +29,7 @@ import { Version } from '@angular/core';
  * Current version of Ajf.
  * @type {?}
  */
-var VERSION = new Version('7.0.0-beta.3-fb7b5b2');
+var VERSION = new Version('7.0.0-beta.4-ec2d95a');
 
 /**
  * @fileoverview added by tsickle
