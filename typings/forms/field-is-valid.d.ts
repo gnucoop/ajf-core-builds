@@ -19,25 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core')) :
-	typeof define === 'function' && define.amd ? define('@ajf/core', ['exports', '@angular/core'], factory) :
-	(global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = {}), global.ng.core));
-}(this, function (exports, core) { 'use strict';
-
-	/**
-	 * @fileoverview added by tsickle
-	 * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-	 */
-	/**
-	 * Current version of Ajf.
-	 * @type {?}
-	 */
-	var VERSION = new core.Version('7.0.0-beta.5-c58b992');
-
-	exports.VERSION = VERSION;
-
-	Object.defineProperty(exports, '__esModule', { value: true });
-
-}));
-//# sourceMappingURL=core.umd.js.map
+import { AjfFieldInstance } from './nodes-instances';
+export declare class AjfFieldIsValidPipe {
+    transform(fieldInstance: AjfFieldInstance): boolean;
+}

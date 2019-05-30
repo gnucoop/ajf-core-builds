@@ -7457,6 +7457,37 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var AjfFieldIsValidPipe = /** @class */ (function () {
+        function AjfFieldIsValidPipe() {
+        }
+        /**
+         * @param {?} fieldInstance
+         * @return {?}
+         */
+        AjfFieldIsValidPipe.prototype.transform = /**
+         * @param {?} fieldInstance
+         * @return {?}
+         */
+        function (fieldInstance) {
+            if (fieldInstance &&
+                fieldInstance.validationResults &&
+                fieldInstance.validationResults.length === 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+        AjfFieldIsValidPipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'ajfFieldIsValid' },] },
+        ];
+        return AjfFieldIsValidPipe;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     var TableRowClass = /** @class */ (function () {
         function TableRowClass() {
         }
@@ -7487,11 +7518,13 @@
         AjfFormsModule.decorators = [
             { type: core.NgModule, args: [{
                         declarations: [
+                            AjfFieldIsValidPipe,
                             BoolToIntPipe,
                             FieldIconPipe,
                             TableRowClass,
                         ],
                         exports: [
+                            AjfFieldIsValidPipe,
                             BoolToIntPipe,
                             FieldIconPipe,
                             TableRowClass,
@@ -7770,8 +7803,9 @@
     exports.AjfWarningResult = AjfWarningResult;
     exports.AjfWarning = AjfWarning;
     exports.AjfWarningGroup = AjfWarningGroup;
-    exports.ɵa = BoolToIntPipe;
-    exports.ɵb = TableRowClass;
+    exports.ɵb = BoolToIntPipe;
+    exports.ɵa = AjfFieldIsValidPipe;
+    exports.ɵc = TableRowClass;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

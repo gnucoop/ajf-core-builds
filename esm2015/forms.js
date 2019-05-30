@@ -6041,6 +6041,30 @@ BoolToIntPipe.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class AjfFieldIsValidPipe {
+    /**
+     * @param {?} fieldInstance
+     * @return {?}
+     */
+    transform(fieldInstance) {
+        if (fieldInstance &&
+            fieldInstance.validationResults &&
+            fieldInstance.validationResults.length === 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
+AjfFieldIsValidPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfFieldIsValid' },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 class TableRowClass {
     /**
      * @param {?} value
@@ -6063,11 +6087,13 @@ class AjfFormsModule {
 AjfFormsModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
+                    AjfFieldIsValidPipe,
                     BoolToIntPipe,
                     FieldIconPipe,
                     TableRowClass,
                 ],
                 exports: [
+                    AjfFieldIsValidPipe,
                     BoolToIntPipe,
                     FieldIconPipe,
                     TableRowClass,
@@ -6244,5 +6270,5 @@ class AjfForm extends AjfJsonSerializable {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AjfAttachmentsType, AjfAttachment, AjfAttachmentsOrigin, AjfAttachmentsFixedOrigin, AjfChoicesType, AjfChoice, AjfChoicesOrigin, AjfChoicesFixedOrigin, AjfChoicesFunctionOrigin, AjfChoicesObservableOrigin, AjfChoicesObservableArrayOrigin, AjfChoicesPromiseOrigin, AjfInvalidFieldDefinitionError, FieldIconPipe, fieldIconName, AjfFormFieldValueChanged, AjfFormField, orderedNodes, isRepeatingNode, isContainerNode, flattenNodes, flattenNodesInstances, getAncestorRepeatingNodes, getAncestorRepeatingNodesNames, flattenNodesTree, normalizeFormula, nodeToNodeInstance, findNodeInstanceInTree, flattenNodeInstances, isContainerNodeInstance, AjfFormInitStatus, AjfFormRendererService, AjfFormActionEvent, AjfFormRenderer, AjfFormsModule, AjfForm, getTypeName, AjfNodeInstance, AjfFieldInstance, AjfFieldWithChoicesInstance, AjfNodeGroupInstance, AjfSlideInstance, AjfRepeatingSlideInstance, AjfTableFieldInstance, AjfDateFieldInstance, AjfEmptyFieldInstance, AjfNodeType, AjfNode, AjfFieldNodeLink, AjfFieldType, AjfNodeGroup, AjfSlide, AjfRepeatingSlide, AjfField, AjfEmptyField, AjfStringField, AjfTextField, AjfNumberField, AjfBooleanField, AjfFieldWithChoices, AjfSingleChoiceField, AjfMultipleChoiceField, AjfFormulaField, AjfDateField, AjfDateInputField, AjfTimeField, AjfTableField, AjfValidationService, AjfValidationResult, AjfValidation, AjfValidationGroup, AjfWarningResult, AjfWarning, AjfWarningGroup, BoolToIntPipe as ɵa, TableRowClass as ɵb };
+export { AjfAttachmentsType, AjfAttachment, AjfAttachmentsOrigin, AjfAttachmentsFixedOrigin, AjfChoicesType, AjfChoice, AjfChoicesOrigin, AjfChoicesFixedOrigin, AjfChoicesFunctionOrigin, AjfChoicesObservableOrigin, AjfChoicesObservableArrayOrigin, AjfChoicesPromiseOrigin, AjfInvalidFieldDefinitionError, FieldIconPipe, fieldIconName, AjfFormFieldValueChanged, AjfFormField, orderedNodes, isRepeatingNode, isContainerNode, flattenNodes, flattenNodesInstances, getAncestorRepeatingNodes, getAncestorRepeatingNodesNames, flattenNodesTree, normalizeFormula, nodeToNodeInstance, findNodeInstanceInTree, flattenNodeInstances, isContainerNodeInstance, AjfFormInitStatus, AjfFormRendererService, AjfFormActionEvent, AjfFormRenderer, AjfFormsModule, AjfForm, getTypeName, AjfNodeInstance, AjfFieldInstance, AjfFieldWithChoicesInstance, AjfNodeGroupInstance, AjfSlideInstance, AjfRepeatingSlideInstance, AjfTableFieldInstance, AjfDateFieldInstance, AjfEmptyFieldInstance, AjfNodeType, AjfNode, AjfFieldNodeLink, AjfFieldType, AjfNodeGroup, AjfSlide, AjfRepeatingSlide, AjfField, AjfEmptyField, AjfStringField, AjfTextField, AjfNumberField, AjfBooleanField, AjfFieldWithChoices, AjfSingleChoiceField, AjfMultipleChoiceField, AjfFormulaField, AjfDateField, AjfDateInputField, AjfTimeField, AjfTableField, AjfValidationService, AjfValidationResult, AjfValidation, AjfValidationGroup, AjfWarningResult, AjfWarning, AjfWarningGroup, BoolToIntPipe as ɵb, AjfFieldIsValidPipe as ɵa, TableRowClass as ɵc };
 //# sourceMappingURL=forms.js.map
