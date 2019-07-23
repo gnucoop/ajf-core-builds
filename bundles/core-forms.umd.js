@@ -7664,8 +7664,8 @@
                             if (val instanceof Array && val.length > 0) {
                                 val = val.join(', ');
                             }
-                            if (typeof (val) === 'string' && val != null) {
-                                values.push(val);
+                            if (val != null) {
+                                values.push("" + val);
                             }
                         }));
                     }
