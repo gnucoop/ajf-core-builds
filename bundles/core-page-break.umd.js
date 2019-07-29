@@ -68,8 +68,8 @@
         return AjfPageBreakModule;
     }());
 
-    exports.AjfPageBreakModule = AjfPageBreakModule;
     exports.AjfPageBreakComponent = AjfPageBreakComponent;
+    exports.AjfPageBreakModule = AjfPageBreakModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

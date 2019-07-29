@@ -27,11 +27,6 @@ import { BehaviorSubject, Subscription } from 'rxjs';
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
 /** @enum {number} */
 const AjfImageType = {
     Image: 0,
@@ -146,15 +141,5 @@ class AjfImage {
     }
 }
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AjfImageType, AjfImage };
+export { AjfImage, AjfImageType };
 //# sourceMappingURL=image.js.map

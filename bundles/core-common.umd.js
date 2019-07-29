@@ -243,9 +243,9 @@
         return AjfCommonModule;
     }());
 
+    exports.AjfCommonModule = AjfCommonModule;
     exports.ApplyStylesDirective = ApplyStylesDirective;
     exports.AutofocusDirective = AutofocusDirective;
-    exports.AjfCommonModule = AjfCommonModule;
     exports.FormatIfNumber = FormatIfNumber;
     exports.TranslateIfString = TranslateIfString;
 

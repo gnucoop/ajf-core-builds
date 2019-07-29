@@ -29,16 +29,6 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     var AjfCalendarEntry = /** @class */ (function () {
         function AjfCalendarEntry(params) {
             this.disabled = false;
@@ -97,26 +87,11 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
     var AjfCalendarPeriod = /** @class */ (function () {
         function AjfCalendarPeriod() {
         }
         return AjfCalendarPeriod;
     }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
 
     /**
      * @fileoverview added by tsickle
@@ -896,10 +871,10 @@
         return AjfCalendar;
     }());
 
+    exports.AjfCalendar = AjfCalendar;
+    exports.AjfCalendarChange = AjfCalendarChange;
     exports.AjfCalendarEntry = AjfCalendarEntry;
     exports.AjfCalendarPeriod = AjfCalendarPeriod;
-    exports.AjfCalendarChange = AjfCalendarChange;
-    exports.AjfCalendar = AjfCalendar;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

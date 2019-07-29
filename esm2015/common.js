@@ -177,15 +177,5 @@ AjfCommonModule.decorators = [
             },] },
 ];
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { ApplyStylesDirective, AutofocusDirective, AjfCommonModule, FormatIfNumber, TranslateIfString };
+export { AjfCommonModule, ApplyStylesDirective, AutofocusDirective, FormatIfNumber, TranslateIfString };
 //# sourceMappingURL=common.js.map

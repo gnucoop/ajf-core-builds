@@ -54,7 +54,7 @@ export declare abstract class AjfChoicesOrigin<T> extends AjfJsonSerializable im
     setLabel(label: string): void;
     abstract getChoices(): Array<AjfChoice<T>>;
     getChoicesType(): string;
-    private guessChoicesType;
+    private _guessChoicesType;
 }
 export interface IAjfChoicesFunction<T> extends Function {
     (): AjfChoice<T>[];

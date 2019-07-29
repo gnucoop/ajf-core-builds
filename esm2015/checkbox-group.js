@@ -430,15 +430,5 @@ AjfCheckboxGroupModule.decorators = [
             },] },
 ];
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AJF_CHECKBOX_GROUP_VALUE_ACCESSOR, AjfCheckboxGroupItemChange, AjfCheckboxGroupChange, AjfCheckboxGroup, AjfCheckboxGroupItem, AjfCheckboxGroupModule };
+export { AJF_CHECKBOX_GROUP_VALUE_ACCESSOR, AjfCheckboxGroup, AjfCheckboxGroupChange, AjfCheckboxGroupItem, AjfCheckboxGroupItemChange, AjfCheckboxGroupModule };
 //# sourceMappingURL=checkbox-group.js.map

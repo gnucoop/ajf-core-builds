@@ -22,7 +22,8 @@
 import { __extends } from 'tslib';
 import * as debug from 'debug';
 import debug__default, {  } from 'debug';
-import { tokenize } from 'esprima';
+import * as esprima from 'esprima';
+import esprima__default, {  } from 'esprima';
 import { addDays, addMonths, addYears, endOfISOWeek, format, getDay, parse, startOfMonth, startOfISOWeek } from 'date-fns';
 import * as numeral from 'numeral';
 import numeral__default, {  } from 'numeral';
@@ -730,6 +731,9 @@ function getCoordinate(source, zoom) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
+var esprimaMod = esprima__default || esprima;
+var tokenize = esprimaMod.tokenize;
+/** @type {?} */
 var debugConstructor = debug__default || debug;
 /** @type {?} */
 var dbg = debugConstructor('ajf:models:validated-property');
@@ -1114,15 +1118,5 @@ var AjfFormula = /** @class */ (function (_super) {
     return AjfFormula;
 }(AjfValidatedProperty));
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AjfJsonSerializable, AjfError, AjfValidatedProperty, AjfCondition, AjfFormula };
+export { AjfCondition, AjfError, AjfFormula, AjfJsonSerializable, AjfValidatedProperty };
 //# sourceMappingURL=models.es5.js.map

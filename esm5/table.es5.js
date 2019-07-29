@@ -28,11 +28,6 @@ import { DomSanitizer } from '@angular/platform-browser';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 var AjfTable = /** @class */ (function () {
     /**
      * Creates an instance of TableComponent.
@@ -147,15 +142,5 @@ var AjfTableModule = /** @class */ (function () {
     return AjfTableModule;
 }());
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AjfTableModule, AjfTable };
+export { AjfTable, AjfTableModule };
 //# sourceMappingURL=table.es5.js.map

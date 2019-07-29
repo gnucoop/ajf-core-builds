@@ -345,11 +345,6 @@ var AjfChartDataset = /** @class */ (function (_super) {
  */
 
 /**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
  * @abstract
  */
 var  /**
@@ -2404,15 +2399,5 @@ AjfReportWidgetRenderer = /** @class */ (function () {
     return AjfReportWidgetRenderer;
 }());
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AjfAggregationType, AjfAggregation, chartToChartJsType, AjfChartType, AjfDataset, AjfTableDataset, AjfChartDataset, AjfReportRenderer, AjfReportContainerInstance, AjfReportInstance, AjfReportContainer, AjfReport, AjfReportWidgetRenderer, AjfReportWidgetInstance, AjfReportDataWidgetInstance, AjfReportLayoutWidgetInstance, AjfReportColumnWidgetInstance, AjfReportPageBreakWidgetInstance, AjfReportImageWidgetInstance, AjfReportImageContainerWidgetInstance, AjfReportTextWidgetInstance, AjfReportTableWidgetInstance, AjfReportChartWidgetInstance, AjfReportMapWidgetInstance, AjfReportFormulaWidgetInstance, AjfReportWidgetType, AjfReportDataType, AjfReportWidget, AjfReportLayoutWidget, AjfReportColumnWidget, AjfReportPageBreakWidget, AjfReportImageWidget, AjfReportImageContainerWidget, AjfReportTextWidget, AjfReportFormulaWidget, AjfReportDataWidget, AjfReportChartWidget, AjfReportTableWidget, AjfReportMapWidget };
+export { AjfAggregation, AjfAggregationType, AjfChartDataset, AjfChartType, AjfDataset, AjfReport, AjfReportChartWidget, AjfReportChartWidgetInstance, AjfReportColumnWidget, AjfReportColumnWidgetInstance, AjfReportContainer, AjfReportContainerInstance, AjfReportDataType, AjfReportDataWidget, AjfReportDataWidgetInstance, AjfReportFormulaWidget, AjfReportFormulaWidgetInstance, AjfReportImageContainerWidget, AjfReportImageContainerWidgetInstance, AjfReportImageWidget, AjfReportImageWidgetInstance, AjfReportInstance, AjfReportLayoutWidget, AjfReportLayoutWidgetInstance, AjfReportMapWidget, AjfReportMapWidgetInstance, AjfReportPageBreakWidget, AjfReportPageBreakWidgetInstance, AjfReportRenderer, AjfReportTableWidget, AjfReportTableWidgetInstance, AjfReportTextWidget, AjfReportTextWidgetInstance, AjfReportWidget, AjfReportWidgetInstance, AjfReportWidgetRenderer, AjfReportWidgetType, AjfTableDataset, chartToChartJsType };
 //# sourceMappingURL=reports.es5.js.map

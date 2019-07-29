@@ -107,15 +107,5 @@ var AjfTextModule = /** @class */ (function () {
     return AjfTextModule;
 }());
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AjfTextModule, AjfTextComponent };
+export { AjfTextComponent, AjfTextModule };
 //# sourceMappingURL=text.es5.js.map

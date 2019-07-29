@@ -178,21 +178,11 @@
             { type: core.Renderer2 }
         ]; };
         AjfPageSliderItem.propDecorators = {
-            wrapper: [{ type: core.ViewChild, args: ['wrapper',] }],
-            content: [{ type: core.ViewChild, args: ['content',] }]
+            wrapper: [{ type: core.ViewChild, args: ['wrapper', { static: true },] }],
+            content: [{ type: core.ViewChild, args: ['content', { static: true },] }]
         };
         return AjfPageSliderItem;
     }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
 
     /**
      * @fileoverview added by tsickle
@@ -751,8 +741,8 @@
         return AjfPageSliderModule;
     }());
 
-    exports.AjfPageSliderItem = AjfPageSliderItem;
     exports.AjfPageSlider = AjfPageSlider;
+    exports.AjfPageSliderItem = AjfPageSliderItem;
     exports.AjfPageSliderModule = AjfPageSliderModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });

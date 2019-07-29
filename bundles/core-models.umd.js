@@ -23,9 +23,10 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('debug'), require('esprima'), require('date-fns'), require('numeral'), require('@ajf/core/utils')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/models', ['exports', 'debug', 'esprima', 'date-fns', 'numeral', '@ajf/core/utils'], factory) :
     (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.models = {}), global.debug, global.esprima, global.dateFns, global.numeral, global.ajf.core.utils));
-}(this, function (exports, debug__default, esprima, dateFns, numeral__default, utils) { 'use strict';
+}(this, function (exports, debug__default, esprima__default, dateFns, numeral__default, utils) { 'use strict';
 
     var debug__default__default = 'default' in debug__default ? debug__default['default'] : debug__default;
+    var esprima__default__default = 'default' in esprima__default ? esprima__default['default'] : esprima__default;
     var numeral__default__default = 'default' in numeral__default ? numeral__default['default'] : numeral__default;
 
     /*! *****************************************************************************
@@ -759,6 +760,9 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /** @type {?} */
+    var esprimaMod = esprima__default__default || esprima__default;
+    var tokenize = esprimaMod.tokenize;
+    /** @type {?} */
     var debugConstructor = debug__default__default || debug__default;
     /** @type {?} */
     var dbg = debugConstructor('ajf:models:validated-property');
@@ -902,7 +906,7 @@
                 return formula.replace(/^"+|"+$/g, '');
             }
             /** @type {?} */
-            var identifiers = esprima.tokenize(formula)
+            var identifiers = tokenize(formula)
                 .filter((/**
              * @param {?} t
              * @return {?}
@@ -1143,11 +1147,11 @@
         return AjfFormula;
     }(AjfValidatedProperty));
 
-    exports.AjfJsonSerializable = AjfJsonSerializable;
-    exports.AjfError = AjfError;
-    exports.AjfValidatedProperty = AjfValidatedProperty;
     exports.AjfCondition = AjfCondition;
+    exports.AjfError = AjfError;
     exports.AjfFormula = AjfFormula;
+    exports.AjfJsonSerializable = AjfJsonSerializable;
+    exports.AjfValidatedProperty = AjfValidatedProperty;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

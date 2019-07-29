@@ -27,11 +27,6 @@ import { BehaviorSubject, Subscription } from 'rxjs';
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
 /** @enum {number} */
 var AjfImageType = {
     Image: 0,
@@ -179,15 +174,5 @@ AjfImage = /** @class */ (function () {
     return AjfImage;
 }());
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AjfImageType, AjfImage };
+export { AjfImage, AjfImageType };
 //# sourceMappingURL=image.es5.js.map

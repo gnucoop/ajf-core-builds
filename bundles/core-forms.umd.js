@@ -23,7 +23,9 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ajf/core/utils'), require('rxjs'), require('@ajf/core/models'), require('@angular/core'), require('rxjs/operators'), require('esprima'), require('@angular/forms')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@ajf/core/utils', 'rxjs', '@ajf/core/models', '@angular/core', 'rxjs/operators', 'esprima', '@angular/forms'], factory) :
     (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ajf.core.utils, global.rxjs, global.ajf.core.models, global.ng.core, global.rxjs.operators, global.esprima, global.ng.forms));
-}(this, function (exports, utils, rxjs, models, core, operators, esprima, forms) { 'use strict';
+}(this, function (exports, utils, rxjs, models, core, operators, esprima__default, forms) { 'use strict';
+
+    var esprima__default__default = 'default' in esprima__default ? esprima__default['default'] : esprima__default;
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -387,13 +389,13 @@
          * @return {?}
          */
         function () {
-            return this._choicesType || this.guessChoicesType();
+            return this._choicesType || this._guessChoicesType();
         };
         /**
          * @private
          * @return {?}
          */
-        AjfChoicesOrigin.prototype.guessChoicesType = /**
+        AjfChoicesOrigin.prototype._guessChoicesType = /**
          * @private
          * @return {?}
          */
@@ -4324,11 +4326,9 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
+    /** @type {?} */
+    var esprimaMod = esprima__default__default || esprima__default;
+    var tokenize = esprimaMod.tokenize;
     /**
      * @param {?} nodes
      * @param {?} parent
@@ -4512,7 +4512,7 @@
         /** @type {?} */
         var ancestorsNameStrings = Object.keys(ancestorsNames);
         /** @type {?} */
-        var tokens = esprima.tokenize(formula)
+        var tokens = tokenize(formula)
             .filter((/**
          * @param {?} token
          * @return {?}
@@ -4949,6 +4949,9 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var esprimaMod$1 = esprima__default__default || esprima__default;
+    var tokenize$1 = esprimaMod$1.tokenize;
     /** @enum {number} */
     var AjfFormInitStatus = {
         Initializing: 0,
@@ -6743,7 +6746,7 @@
          */
         function (nodesMap, nodeInstance, formula) {
             /** @type {?} */
-            var tokens = esprima.tokenize(formula)
+            var tokens = tokenize$1(formula)
                 .filter((/**
              * @param {?} token
              * @return {?}
@@ -6928,7 +6931,7 @@
          */
         function (nodesMap, nodeInstance, formula) {
             /** @type {?} */
-            var tokens = esprima.tokenize(formula)
+            var tokens = tokenize$1(formula)
                 .filter((/**
              * @param {?} token
              * @return {?}
@@ -7729,82 +7732,82 @@
         return AjfForm;
     }(models.AjfJsonSerializable));
 
-    exports.AjfAttachmentsType = AjfAttachmentsType;
     exports.AjfAttachment = AjfAttachment;
-    exports.AjfAttachmentsOrigin = AjfAttachmentsOrigin;
     exports.AjfAttachmentsFixedOrigin = AjfAttachmentsFixedOrigin;
-    exports.AjfChoicesType = AjfChoicesType;
+    exports.AjfAttachmentsOrigin = AjfAttachmentsOrigin;
+    exports.AjfAttachmentsType = AjfAttachmentsType;
+    exports.AjfBooleanField = AjfBooleanField;
     exports.AjfChoice = AjfChoice;
-    exports.AjfChoicesOrigin = AjfChoicesOrigin;
     exports.AjfChoicesFixedOrigin = AjfChoicesFixedOrigin;
     exports.AjfChoicesFunctionOrigin = AjfChoicesFunctionOrigin;
-    exports.AjfChoicesObservableOrigin = AjfChoicesObservableOrigin;
     exports.AjfChoicesObservableArrayOrigin = AjfChoicesObservableArrayOrigin;
+    exports.AjfChoicesObservableOrigin = AjfChoicesObservableOrigin;
+    exports.AjfChoicesOrigin = AjfChoicesOrigin;
     exports.AjfChoicesPromiseOrigin = AjfChoicesPromiseOrigin;
-    exports.AjfInvalidFieldDefinitionError = AjfInvalidFieldDefinitionError;
-    exports.FieldIconPipe = FieldIconPipe;
-    exports.fieldIconName = fieldIconName;
-    exports.AjfFormFieldValueChanged = AjfFormFieldValueChanged;
-    exports.AjfFormField = AjfFormField;
-    exports.orderedNodes = orderedNodes;
-    exports.isRepeatingNode = isRepeatingNode;
-    exports.isContainerNode = isContainerNode;
-    exports.flattenNodes = flattenNodes;
-    exports.flattenNodesInstances = flattenNodesInstances;
-    exports.getAncestorRepeatingNodes = getAncestorRepeatingNodes;
-    exports.getAncestorRepeatingNodesNames = getAncestorRepeatingNodesNames;
-    exports.flattenNodesTree = flattenNodesTree;
-    exports.normalizeFormula = normalizeFormula;
-    exports.nodeToNodeInstance = nodeToNodeInstance;
-    exports.findNodeInstanceInTree = findNodeInstanceInTree;
-    exports.flattenNodeInstances = flattenNodeInstances;
-    exports.isContainerNodeInstance = isContainerNodeInstance;
-    exports.AjfFormInitStatus = AjfFormInitStatus;
-    exports.AjfFormRendererService = AjfFormRendererService;
-    exports.AjfFormActionEvent = AjfFormActionEvent;
-    exports.AjfFormRenderer = AjfFormRenderer;
-    exports.AjfFormsModule = AjfFormsModule;
-    exports.AjfForm = AjfForm;
-    exports.getTypeName = getTypeName;
-    exports.AjfNodeInstance = AjfNodeInstance;
-    exports.AjfFieldInstance = AjfFieldInstance;
-    exports.AjfFieldWithChoicesInstance = AjfFieldWithChoicesInstance;
-    exports.AjfNodeGroupInstance = AjfNodeGroupInstance;
-    exports.AjfSlideInstance = AjfSlideInstance;
-    exports.AjfRepeatingSlideInstance = AjfRepeatingSlideInstance;
-    exports.AjfTableFieldInstance = AjfTableFieldInstance;
+    exports.AjfChoicesType = AjfChoicesType;
+    exports.AjfDateField = AjfDateField;
     exports.AjfDateFieldInstance = AjfDateFieldInstance;
+    exports.AjfDateInputField = AjfDateInputField;
+    exports.AjfEmptyField = AjfEmptyField;
     exports.AjfEmptyFieldInstance = AjfEmptyFieldInstance;
-    exports.AjfNodeType = AjfNodeType;
-    exports.AjfNode = AjfNode;
+    exports.AjfField = AjfField;
+    exports.AjfFieldInstance = AjfFieldInstance;
     exports.AjfFieldNodeLink = AjfFieldNodeLink;
     exports.AjfFieldType = AjfFieldType;
-    exports.AjfNodeGroup = AjfNodeGroup;
-    exports.AjfSlide = AjfSlide;
-    exports.AjfRepeatingSlide = AjfRepeatingSlide;
-    exports.AjfField = AjfField;
-    exports.AjfEmptyField = AjfEmptyField;
-    exports.AjfStringField = AjfStringField;
-    exports.AjfTextField = AjfTextField;
-    exports.AjfNumberField = AjfNumberField;
-    exports.AjfBooleanField = AjfBooleanField;
     exports.AjfFieldWithChoices = AjfFieldWithChoices;
-    exports.AjfSingleChoiceField = AjfSingleChoiceField;
-    exports.AjfMultipleChoiceField = AjfMultipleChoiceField;
+    exports.AjfFieldWithChoicesInstance = AjfFieldWithChoicesInstance;
+    exports.AjfForm = AjfForm;
+    exports.AjfFormActionEvent = AjfFormActionEvent;
+    exports.AjfFormField = AjfFormField;
+    exports.AjfFormFieldValueChanged = AjfFormFieldValueChanged;
+    exports.AjfFormInitStatus = AjfFormInitStatus;
+    exports.AjfFormRenderer = AjfFormRenderer;
+    exports.AjfFormRendererService = AjfFormRendererService;
+    exports.AjfFormsModule = AjfFormsModule;
     exports.AjfFormulaField = AjfFormulaField;
-    exports.AjfDateField = AjfDateField;
-    exports.AjfDateInputField = AjfDateInputField;
-    exports.AjfTimeField = AjfTimeField;
+    exports.AjfInvalidFieldDefinitionError = AjfInvalidFieldDefinitionError;
+    exports.AjfMultipleChoiceField = AjfMultipleChoiceField;
+    exports.AjfNode = AjfNode;
+    exports.AjfNodeGroup = AjfNodeGroup;
+    exports.AjfNodeGroupInstance = AjfNodeGroupInstance;
+    exports.AjfNodeInstance = AjfNodeInstance;
+    exports.AjfNodeType = AjfNodeType;
+    exports.AjfNumberField = AjfNumberField;
+    exports.AjfRepeatingSlide = AjfRepeatingSlide;
+    exports.AjfRepeatingSlideInstance = AjfRepeatingSlideInstance;
+    exports.AjfSingleChoiceField = AjfSingleChoiceField;
+    exports.AjfSlide = AjfSlide;
+    exports.AjfSlideInstance = AjfSlideInstance;
+    exports.AjfStringField = AjfStringField;
     exports.AjfTableField = AjfTableField;
-    exports.AjfValidationService = AjfValidationService;
-    exports.AjfValidationResult = AjfValidationResult;
+    exports.AjfTableFieldInstance = AjfTableFieldInstance;
+    exports.AjfTextField = AjfTextField;
+    exports.AjfTimeField = AjfTimeField;
     exports.AjfValidation = AjfValidation;
     exports.AjfValidationGroup = AjfValidationGroup;
-    exports.AjfWarningResult = AjfWarningResult;
+    exports.AjfValidationResult = AjfValidationResult;
+    exports.AjfValidationService = AjfValidationService;
     exports.AjfWarning = AjfWarning;
     exports.AjfWarningGroup = AjfWarningGroup;
-    exports.ɵb = BoolToIntPipe;
+    exports.AjfWarningResult = AjfWarningResult;
+    exports.FieldIconPipe = FieldIconPipe;
+    exports.fieldIconName = fieldIconName;
+    exports.findNodeInstanceInTree = findNodeInstanceInTree;
+    exports.flattenNodeInstances = flattenNodeInstances;
+    exports.flattenNodes = flattenNodes;
+    exports.flattenNodesInstances = flattenNodesInstances;
+    exports.flattenNodesTree = flattenNodesTree;
+    exports.getAncestorRepeatingNodes = getAncestorRepeatingNodes;
+    exports.getAncestorRepeatingNodesNames = getAncestorRepeatingNodesNames;
+    exports.getTypeName = getTypeName;
+    exports.isContainerNode = isContainerNode;
+    exports.isContainerNodeInstance = isContainerNodeInstance;
+    exports.isRepeatingNode = isRepeatingNode;
+    exports.nodeToNodeInstance = nodeToNodeInstance;
+    exports.normalizeFormula = normalizeFormula;
+    exports.orderedNodes = orderedNodes;
     exports.ɵa = AjfFieldIsValidPipe;
+    exports.ɵb = BoolToIntPipe;
     exports.ɵc = TableRowClass;
 
     Object.defineProperty(exports, '__esModule', { value: true });

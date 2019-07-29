@@ -385,11 +385,6 @@
      */
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
      * @abstract
      */
     var   /**
@@ -2444,45 +2439,45 @@
         return AjfReportWidgetRenderer;
     }());
 
-    exports.AjfAggregationType = AjfAggregationType;
     exports.AjfAggregation = AjfAggregation;
-    exports.chartToChartJsType = chartToChartJsType;
+    exports.AjfAggregationType = AjfAggregationType;
+    exports.AjfChartDataset = AjfChartDataset;
     exports.AjfChartType = AjfChartType;
     exports.AjfDataset = AjfDataset;
-    exports.AjfTableDataset = AjfTableDataset;
-    exports.AjfChartDataset = AjfChartDataset;
-    exports.AjfReportRenderer = AjfReportRenderer;
-    exports.AjfReportContainerInstance = AjfReportContainerInstance;
-    exports.AjfReportInstance = AjfReportInstance;
-    exports.AjfReportContainer = AjfReportContainer;
     exports.AjfReport = AjfReport;
-    exports.AjfReportWidgetRenderer = AjfReportWidgetRenderer;
-    exports.AjfReportWidgetInstance = AjfReportWidgetInstance;
-    exports.AjfReportDataWidgetInstance = AjfReportDataWidgetInstance;
-    exports.AjfReportLayoutWidgetInstance = AjfReportLayoutWidgetInstance;
-    exports.AjfReportColumnWidgetInstance = AjfReportColumnWidgetInstance;
-    exports.AjfReportPageBreakWidgetInstance = AjfReportPageBreakWidgetInstance;
-    exports.AjfReportImageWidgetInstance = AjfReportImageWidgetInstance;
-    exports.AjfReportImageContainerWidgetInstance = AjfReportImageContainerWidgetInstance;
-    exports.AjfReportTextWidgetInstance = AjfReportTextWidgetInstance;
-    exports.AjfReportTableWidgetInstance = AjfReportTableWidgetInstance;
-    exports.AjfReportChartWidgetInstance = AjfReportChartWidgetInstance;
-    exports.AjfReportMapWidgetInstance = AjfReportMapWidgetInstance;
-    exports.AjfReportFormulaWidgetInstance = AjfReportFormulaWidgetInstance;
-    exports.AjfReportWidgetType = AjfReportWidgetType;
-    exports.AjfReportDataType = AjfReportDataType;
-    exports.AjfReportWidget = AjfReportWidget;
-    exports.AjfReportLayoutWidget = AjfReportLayoutWidget;
-    exports.AjfReportColumnWidget = AjfReportColumnWidget;
-    exports.AjfReportPageBreakWidget = AjfReportPageBreakWidget;
-    exports.AjfReportImageWidget = AjfReportImageWidget;
-    exports.AjfReportImageContainerWidget = AjfReportImageContainerWidget;
-    exports.AjfReportTextWidget = AjfReportTextWidget;
-    exports.AjfReportFormulaWidget = AjfReportFormulaWidget;
-    exports.AjfReportDataWidget = AjfReportDataWidget;
     exports.AjfReportChartWidget = AjfReportChartWidget;
-    exports.AjfReportTableWidget = AjfReportTableWidget;
+    exports.AjfReportChartWidgetInstance = AjfReportChartWidgetInstance;
+    exports.AjfReportColumnWidget = AjfReportColumnWidget;
+    exports.AjfReportColumnWidgetInstance = AjfReportColumnWidgetInstance;
+    exports.AjfReportContainer = AjfReportContainer;
+    exports.AjfReportContainerInstance = AjfReportContainerInstance;
+    exports.AjfReportDataType = AjfReportDataType;
+    exports.AjfReportDataWidget = AjfReportDataWidget;
+    exports.AjfReportDataWidgetInstance = AjfReportDataWidgetInstance;
+    exports.AjfReportFormulaWidget = AjfReportFormulaWidget;
+    exports.AjfReportFormulaWidgetInstance = AjfReportFormulaWidgetInstance;
+    exports.AjfReportImageContainerWidget = AjfReportImageContainerWidget;
+    exports.AjfReportImageContainerWidgetInstance = AjfReportImageContainerWidgetInstance;
+    exports.AjfReportImageWidget = AjfReportImageWidget;
+    exports.AjfReportImageWidgetInstance = AjfReportImageWidgetInstance;
+    exports.AjfReportInstance = AjfReportInstance;
+    exports.AjfReportLayoutWidget = AjfReportLayoutWidget;
+    exports.AjfReportLayoutWidgetInstance = AjfReportLayoutWidgetInstance;
     exports.AjfReportMapWidget = AjfReportMapWidget;
+    exports.AjfReportMapWidgetInstance = AjfReportMapWidgetInstance;
+    exports.AjfReportPageBreakWidget = AjfReportPageBreakWidget;
+    exports.AjfReportPageBreakWidgetInstance = AjfReportPageBreakWidgetInstance;
+    exports.AjfReportRenderer = AjfReportRenderer;
+    exports.AjfReportTableWidget = AjfReportTableWidget;
+    exports.AjfReportTableWidgetInstance = AjfReportTableWidgetInstance;
+    exports.AjfReportTextWidget = AjfReportTextWidget;
+    exports.AjfReportTextWidgetInstance = AjfReportTextWidgetInstance;
+    exports.AjfReportWidget = AjfReportWidget;
+    exports.AjfReportWidgetInstance = AjfReportWidgetInstance;
+    exports.AjfReportWidgetRenderer = AjfReportWidgetRenderer;
+    exports.AjfReportWidgetType = AjfReportWidgetType;
+    exports.AjfTableDataset = AjfTableDataset;
+    exports.chartToChartJsType = chartToChartJsType;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

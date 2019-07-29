@@ -179,21 +179,11 @@ var AjfPageSliderItem = /** @class */ (function () {
         { type: Renderer2 }
     ]; };
     AjfPageSliderItem.propDecorators = {
-        wrapper: [{ type: ViewChild, args: ['wrapper',] }],
-        content: [{ type: ViewChild, args: ['content',] }]
+        wrapper: [{ type: ViewChild, args: ['wrapper', { static: true },] }],
+        content: [{ type: ViewChild, args: ['content', { static: true },] }]
     };
     return AjfPageSliderItem;
 }());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 
 /**
  * @fileoverview added by tsickle
@@ -752,15 +742,5 @@ var AjfPageSliderModule = /** @class */ (function () {
     return AjfPageSliderModule;
 }());
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AjfPageSliderItem, AjfPageSlider, AjfPageSliderModule };
+export { AjfPageSlider, AjfPageSliderItem, AjfPageSliderModule };
 //# sourceMappingURL=page-slider.es5.js.map

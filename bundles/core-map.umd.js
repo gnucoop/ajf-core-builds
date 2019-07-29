@@ -252,7 +252,7 @@
                     },] },
         ];
         AjfMapComponent.propDecorators = {
-            mapContainer: [{ type: core.ViewChild, args: [AjfMapContainerDirective,] }],
+            mapContainer: [{ type: core.ViewChild, args: [AjfMapContainerDirective, { static: true },] }],
             coordinate: [{ type: core.Input }],
             tileLayer: [{ type: core.Input }],
             attribution: [{ type: core.Input }],
@@ -282,8 +282,8 @@
         return AjfMapModule;
     }());
 
-    exports.AjfMapModule = AjfMapModule;
     exports.AjfMapComponent = AjfMapComponent;
+    exports.AjfMapModule = AjfMapModule;
     exports.ɵa = AjfMapContainerDirective;
 
     Object.defineProperty(exports, '__esModule', { value: true });

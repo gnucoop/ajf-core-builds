@@ -554,10 +554,10 @@
     }());
 
     exports.AJF_CHECKBOX_GROUP_VALUE_ACCESSOR = AJF_CHECKBOX_GROUP_VALUE_ACCESSOR;
-    exports.AjfCheckboxGroupItemChange = AjfCheckboxGroupItemChange;
-    exports.AjfCheckboxGroupChange = AjfCheckboxGroupChange;
     exports.AjfCheckboxGroup = AjfCheckboxGroup;
+    exports.AjfCheckboxGroupChange = AjfCheckboxGroupChange;
     exports.AjfCheckboxGroupItem = AjfCheckboxGroupItem;
+    exports.AjfCheckboxGroupItemChange = AjfCheckboxGroupItemChange;
     exports.AjfCheckboxGroupModule = AjfCheckboxGroupModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });

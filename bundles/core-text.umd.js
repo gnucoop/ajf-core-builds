@@ -108,8 +108,8 @@
         return AjfTextModule;
     }());
 
-    exports.AjfTextModule = AjfTextModule;
     exports.AjfTextComponent = AjfTextComponent;
+    exports.AjfTextModule = AjfTextModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

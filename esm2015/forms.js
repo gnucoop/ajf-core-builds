@@ -24,7 +24,8 @@ import { Subscription, ReplaySubject, Subject, BehaviorSubject, Observable, time
 import { AjfJsonSerializable, AjfError, AjfCondition, AjfFormula, AjfValidatedProperty } from '@ajf/core/models';
 import { Pipe, EventEmitter, Injectable, NgModule } from '@angular/core';
 import { withLatestFrom, filter, map, publishReplay, refCount, startWith, scan, share, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
-import { tokenize } from 'esprima';
+import * as esprima from 'esprima';
+import esprima__default, {  } from 'esprima';
 import { FormGroup, FormControl } from '@angular/forms';
 
 /**
@@ -270,13 +271,13 @@ class AjfChoicesOrigin extends AjfJsonSerializable {
      * @return {?}
      */
     getChoicesType() {
-        return this._choicesType || this.guessChoicesType();
+        return this._choicesType || this._guessChoicesType();
     }
     /**
      * @private
      * @return {?}
      */
-    guessChoicesType() {
+    _guessChoicesType() {
         /** @type {?} */
         let cs = this.getChoices();
         if (cs && cs.length > 0) {
@@ -3083,11 +3084,9 @@ class AjfFormField {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
+/** @type {?} */
+const esprimaMod = esprima__default || esprima;
+const { tokenize } = esprimaMod;
 /**
  * @param {?} nodes
  * @param {?} parent
@@ -4010,6 +4009,9 @@ AjfValidationService.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const esprimaMod$1 = esprima__default || esprima;
+const { tokenize: tokenize$1 } = esprimaMod$1;
 /** @enum {number} */
 const AjfFormInitStatus = {
     Initializing: 0,
@@ -5509,7 +5511,7 @@ class AjfFormRendererService {
      */
     _removeFromNodesMap(nodesMap, nodeInstance, formula) {
         /** @type {?} */
-        let tokens = tokenize(formula)
+        let tokens = tokenize$1(formula)
             .filter((/**
          * @param {?} token
          * @return {?}
@@ -5633,7 +5635,7 @@ class AjfFormRendererService {
      */
     _addToNodesMap(nodesMap, nodeInstance, formula) {
         /** @type {?} */
-        let tokens = tokenize(formula)
+        let tokens = tokenize$1(formula)
             .filter((/**
          * @param {?} token
          * @return {?}
@@ -6260,15 +6262,5 @@ class AjfForm extends AjfJsonSerializable {
     }
 }
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AjfAttachmentsType, AjfAttachment, AjfAttachmentsOrigin, AjfAttachmentsFixedOrigin, AjfChoicesType, AjfChoice, AjfChoicesOrigin, AjfChoicesFixedOrigin, AjfChoicesFunctionOrigin, AjfChoicesObservableOrigin, AjfChoicesObservableArrayOrigin, AjfChoicesPromiseOrigin, AjfInvalidFieldDefinitionError, FieldIconPipe, fieldIconName, AjfFormFieldValueChanged, AjfFormField, orderedNodes, isRepeatingNode, isContainerNode, flattenNodes, flattenNodesInstances, getAncestorRepeatingNodes, getAncestorRepeatingNodesNames, flattenNodesTree, normalizeFormula, nodeToNodeInstance, findNodeInstanceInTree, flattenNodeInstances, isContainerNodeInstance, AjfFormInitStatus, AjfFormRendererService, AjfFormActionEvent, AjfFormRenderer, AjfFormsModule, AjfForm, getTypeName, AjfNodeInstance, AjfFieldInstance, AjfFieldWithChoicesInstance, AjfNodeGroupInstance, AjfSlideInstance, AjfRepeatingSlideInstance, AjfTableFieldInstance, AjfDateFieldInstance, AjfEmptyFieldInstance, AjfNodeType, AjfNode, AjfFieldNodeLink, AjfFieldType, AjfNodeGroup, AjfSlide, AjfRepeatingSlide, AjfField, AjfEmptyField, AjfStringField, AjfTextField, AjfNumberField, AjfBooleanField, AjfFieldWithChoices, AjfSingleChoiceField, AjfMultipleChoiceField, AjfFormulaField, AjfDateField, AjfDateInputField, AjfTimeField, AjfTableField, AjfValidationService, AjfValidationResult, AjfValidation, AjfValidationGroup, AjfWarningResult, AjfWarning, AjfWarningGroup, BoolToIntPipe as ɵb, AjfFieldIsValidPipe as ɵa, TableRowClass as ɵc };
+export { AjfAttachment, AjfAttachmentsFixedOrigin, AjfAttachmentsOrigin, AjfAttachmentsType, AjfBooleanField, AjfChoice, AjfChoicesFixedOrigin, AjfChoicesFunctionOrigin, AjfChoicesObservableArrayOrigin, AjfChoicesObservableOrigin, AjfChoicesOrigin, AjfChoicesPromiseOrigin, AjfChoicesType, AjfDateField, AjfDateFieldInstance, AjfDateInputField, AjfEmptyField, AjfEmptyFieldInstance, AjfField, AjfFieldInstance, AjfFieldNodeLink, AjfFieldType, AjfFieldWithChoices, AjfFieldWithChoicesInstance, AjfForm, AjfFormActionEvent, AjfFormField, AjfFormFieldValueChanged, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormsModule, AjfFormulaField, AjfInvalidFieldDefinitionError, AjfMultipleChoiceField, AjfNode, AjfNodeGroup, AjfNodeGroupInstance, AjfNodeInstance, AjfNodeType, AjfNumberField, AjfRepeatingSlide, AjfRepeatingSlideInstance, AjfSingleChoiceField, AjfSlide, AjfSlideInstance, AjfStringField, AjfTableField, AjfTableFieldInstance, AjfTextField, AjfTimeField, AjfValidation, AjfValidationGroup, AjfValidationResult, AjfValidationService, AjfWarning, AjfWarningGroup, AjfWarningResult, FieldIconPipe, fieldIconName, findNodeInstanceInTree, flattenNodeInstances, flattenNodes, flattenNodesInstances, flattenNodesTree, getAncestorRepeatingNodes, getAncestorRepeatingNodesNames, getTypeName, isContainerNode, isContainerNodeInstance, isRepeatingNode, nodeToNodeInstance, normalizeFormula, orderedNodes, AjfFieldIsValidPipe as ɵa, BoolToIntPipe as ɵb, TableRowClass as ɵc };
 //# sourceMappingURL=forms.js.map

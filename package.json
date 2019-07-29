@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "7.0.0-beta.6-d9e270a",
+  "version": "8.0.0-beta.1-839626a",
   "description": "",
   "main": "./bundles/core.umd.js",
   "module": "./esm5/core.es5.js",
@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/gnucoop/ajf#readme",
   "peerDependencies": {
-    "@angular/animations": ">=7.0.0",
-    "@angular/cdk": ">=7.0.0",
-    "@angular/core": ">=7.0.0",
-    "@angular/common": ">=7.0.0",
-    "@angular/forms": ">=7.0.0",
-    "@angular/router": ">=7.0.0",
+    "@angular/animations": "^8.0.0",
+    "@angular/cdk": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/common": "^8.0.0",
+    "@angular/forms": "^8.0.0",
+    "@angular/router": "^8.0.0",
     "@ngx-translate/core": ">=11.0.0",
     "chart.js": "^2.7.3",
     "chart.piecelabel.js": "^0.15.0",
@@ -38,7 +38,7 @@
     "tslib": "^1.9.3"
   },
   "sideEffects": false,
-  "releaseGitCommitSha": "d9e270af2fc31232cca8a871b7385525097c2310",
+  "releaseGitCommitSha": "839626a8fba9d11f3e724f0f17f4b9bca80b8235",
   "releaseGitBranch": "",
   "releaseGitUser": " <>"
 }

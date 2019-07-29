@@ -21,7 +21,8 @@
  */
 import * as debug from 'debug';
 import debug__default, {  } from 'debug';
-import { tokenize } from 'esprima';
+import * as esprima from 'esprima';
+import esprima__default, {  } from 'esprima';
 import { addDays, addMonths, addYears, endOfISOWeek, format, getDay, parse, startOfMonth, startOfISOWeek } from 'date-fns';
 import * as numeral from 'numeral';
 import numeral__default, {  } from 'numeral';
@@ -675,6 +676,9 @@ function getCoordinate(source, zoom) {
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
+const esprimaMod = esprima__default || esprima;
+const { tokenize } = esprimaMod;
+/** @type {?} */
 const debugConstructor = debug__default || debug;
 /** @type {?} */
 const dbg = debugConstructor('ajf:models:validated-property');
@@ -784,19 +788,19 @@ class AjfValidatedProperty extends AjfJsonSerializable {
          * @param {?} t
          * @return {?}
          */
-        t => t.type === 'Identifier'))
+        (t) => t.type === 'Identifier'))
             .map((/**
          * @param {?} t
          * @return {?}
          */
-        t => t.value));
+        (t) => t.value));
         /** @type {?} */
         const ctx = [];
         identifiers.forEach((/**
          * @param {?} key
          * @return {?}
          */
-        key => {
+        (key) => {
             /** @type {?} */
             let val = null;
             if (context != null && context[key] !== undefined) {
@@ -961,15 +965,5 @@ class AjfFormula extends AjfValidatedProperty {
     getValidationFormula() { return this.formula; }
 }
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AjfJsonSerializable, AjfError, AjfValidatedProperty, AjfCondition, AjfFormula };
+export { AjfCondition, AjfError, AjfFormula, AjfJsonSerializable, AjfValidatedProperty };
 //# sourceMappingURL=models.js.map

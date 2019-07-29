@@ -30,11 +30,6 @@
      * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
     /** @enum {number} */
     var AjfImageType = {
         Image: 0,
@@ -182,8 +177,8 @@
         return AjfImage;
     }());
 
-    exports.AjfImageType = AjfImageType;
     exports.AjfImage = AjfImage;
+    exports.AjfImageType = AjfImageType;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

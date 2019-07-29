@@ -250,7 +250,7 @@ var AjfMapComponent = /** @class */ (function () {
                 },] },
     ];
     AjfMapComponent.propDecorators = {
-        mapContainer: [{ type: ViewChild, args: [AjfMapContainerDirective,] }],
+        mapContainer: [{ type: ViewChild, args: [AjfMapContainerDirective, { static: true },] }],
         coordinate: [{ type: Input }],
         tileLayer: [{ type: Input }],
         attribution: [{ type: Input }],
@@ -280,15 +280,5 @@ var AjfMapModule = /** @class */ (function () {
     return AjfMapModule;
 }());
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { AjfMapModule, AjfMapComponent, AjfMapContainerDirective as ɵa };
+export { AjfMapComponent, AjfMapModule, AjfMapContainerDirective as ɵa };
 //# sourceMappingURL=map.es5.js.map

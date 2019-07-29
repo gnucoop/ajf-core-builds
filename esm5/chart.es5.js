@@ -30,11 +30,6 @@ import { deepCopy } from '@ajf/core/utils';
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /** @type {?} */
 var chartClass = Chart__default || Chart;
 var AjfChartComponent = /** @class */ (function () {
@@ -253,16 +248,6 @@ var AjfChartModule = /** @class */ (function () {
     ];
     return AjfChartModule;
 }());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 
 export { AjfChartComponent, AjfChartModule };
 //# sourceMappingURL=chart.es5.js.map
