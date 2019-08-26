@@ -20,7 +20,8 @@
  *
  */
 import { PipeTransform } from '@angular/core';
-import { AjfField, AjfFieldType } from './nodes';
-export declare class FieldIconPipe implements PipeTransform {
+import { AjfField } from './interface/fields/field';
+import { AjfFieldType } from './interface/fields/field-type';
+export declare class AjfFieldIconPipe implements PipeTransform {
     transform(field: AjfField | AjfFieldType): string;
 }

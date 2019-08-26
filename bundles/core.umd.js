@@ -27,13 +27,13 @@
 
 	/**
 	 * @fileoverview added by tsickle
-	 * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+	 * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
 	 */
 	/**
 	 * Current version of Ajf.
 	 * @type {?}
 	 */
-	var VERSION = new core.Version('8.0.1-04a65ad');
+	var VERSION = new core.Version('8.0.1-b84de8b');
 
 	exports.VERSION = VERSION;
 

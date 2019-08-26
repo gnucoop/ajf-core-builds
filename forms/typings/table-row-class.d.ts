@@ -20,6 +20,6 @@
  *
  */
 import { PipeTransform } from '@angular/core';
-export declare class TableRowClass implements PipeTransform {
+export declare class AjfTableRowClass implements PipeTransform {
     transform(value: number): string;
 }

@@ -28,7 +28,7 @@ import { coerceBooleanProperty } from '@ajf/core/utils';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var AjfPageSliderItem = /** @class */ (function () {
     // private _player: AnimationPlayer | null;
@@ -187,7 +187,7 @@ var AjfPageSliderItem = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var AjfPageSlider = /** @class */ (function () {
     function AjfPageSlider(_animationBuilder, _cdr, _renderer) {
@@ -724,7 +724,7 @@ var AjfPageSlider = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var AjfPageSliderModule = /** @class */ (function () {
     function AjfPageSliderModule() {

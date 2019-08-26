@@ -20,5 +20,5 @@
  *
  */
 import { ExtendedChartType } from '@ajf/core/chart';
-import { AjfChartType } from './charts';
+import { AjfChartType } from './interface/charts/chart-type';
 export declare function chartToChartJsType(chartType?: AjfChartType): ExtendedChartType;

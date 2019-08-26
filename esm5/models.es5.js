@@ -27,148 +27,10 @@ import esprima__default, {  } from 'esprima';
 import { addDays, addMonths, addYears, endOfISOWeek, format, getDay, parse, startOfMonth, startOfISOWeek } from 'date-fns';
 import * as numeral from 'numeral';
 import numeral__default, {  } from 'numeral';
-import { deepCopy } from '@ajf/core/utils';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @abstract
- */
-var  /**
- * @abstract
- */
-AjfJsonSerializable = /** @class */ (function () {
-    function AjfJsonSerializable(_) {
-        this._jsonExportedMembers = [];
-    }
-    /**
-     * @param {?} _
-     * @return {?}
-     */
-    AjfJsonSerializable.fromJson = /**
-     * @param {?} _
-     * @return {?}
-     */
-    function (_) {
-        throw new Error('Not implemented');
-    };
-    /**
-     * @private
-     * @param {?} val
-     * @return {?}
-     */
-    AjfJsonSerializable._valueToJson = /**
-     * @private
-     * @param {?} val
-     * @return {?}
-     */
-    function (val) {
-        if (val instanceof Array) {
-            val = val.map((/**
-             * @param {?} v
-             * @return {?}
-             */
-            function (v) { return AjfJsonSerializable._valueToJson(v); }));
-        }
-        return val instanceof AjfJsonSerializable ? val.toJson() : val;
-    };
-    /**
-     * this private static method will get property to json
-     * @param obj  : any - object json
-     * @param prop : string - property
-     * @return any
-     */
-    /**
-     * this private static method will get property to json
-     * @private
-     * @param {?} obj  : any - object json
-     * @param {?} prop : string - property
-     * @return {?} any
-     */
-    AjfJsonSerializable._propertyToJson = /**
-     * this private static method will get property to json
-     * @private
-     * @param {?} obj  : any - object json
-     * @param {?} prop : string - property
-     * @return {?} any
-     */
-    function (obj, prop) {
-        /** @type {?} */
-        var val;
-        /** @type {?} */
-        var getter = "get" + prop.toLocaleUpperCase().substr(0, 1) + prop.substr(1);
-        if (obj.hasOwnProperty(prop)) {
-            val = obj[prop];
-        }
-        else if (typeof obj[getter] === 'function') {
-            val = obj[getter]();
-        }
-        else {
-            val = obj[prop];
-        }
-        return AjfJsonSerializable._valueToJson(val);
-    };
-    Object.defineProperty(AjfJsonSerializable.prototype, "jsonExportedMembers", {
-        /**
-         * this protected method will get json exported members
-         * @return string[] - json exported members
-         */
-        get: /**
-         * this protected method will get json exported members
-         * @protected
-         * @return {?} string[] - json exported members
-         */
-        function () {
-            return this._jsonExportedMembers;
-        },
-        /**
-         * this protected method will set json exported members
-         * @param string[] - json exported members
-         */
-        set: /**
-         * this protected method will set json exported members
-         * @protected
-         * @param {?} members
-         * @return {?}
-         */
-        function (members) {
-            this._jsonExportedMembers = members;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * this method will load json
-     * @return any - json
-     */
-    /**
-     * this method will load json
-     * @return {?} any - json
-     */
-    AjfJsonSerializable.prototype.toJson = /**
-     * this method will load json
-     * @return {?} any - json
-     */
-    function () {
-        var _this = this;
-        /** @type {?} */
-        var json = {};
-        this._jsonExportedMembers.forEach((/**
-         * @param {?} m
-         * @return {?}
-         */
-        function (m) { json[m] = AjfJsonSerializable._propertyToJson(_this, m); }));
-        return json;
-    };
-    return AjfJsonSerializable;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 var AjfError = /** @class */ (function (_super) {
@@ -202,14 +64,112 @@ var AjfError = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?=} condition
+ * @return {?}
+ */
+function createCondition(condition) {
+    if (condition === void 0) { condition = {}; }
+    return { condition: condition.condition || '' };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var AjfConditionSerializer = /** @class */ (function () {
+    function AjfConditionSerializer() {
+    }
+    /**
+     * @param {?} json
+     * @return {?}
+     */
+    AjfConditionSerializer.fromJson = /**
+     * @param {?} json
+     * @return {?}
+     */
+    function (json) {
+        return createCondition(json);
+    };
+    return AjfConditionSerializer;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?=} formula
+ * @return {?}
+ */
+function createFormula(formula) {
+    if (formula === void 0) { formula = {}; }
+    return { formula: formula.formula || '' };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var AjfFormulaSerializer = /** @class */ (function () {
+    function AjfFormulaSerializer() {
+    }
+    /**
+     * @param {?} json
+     * @return {?}
+     */
+    AjfFormulaSerializer.fromJson = /**
+     * @param {?} json
+     * @return {?}
+     */
+    function (json) {
+        return createFormula(json);
+    };
+    return AjfFormulaSerializer;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @return {?}
+ */
+function alwaysCondition() {
+    return createCondition({ condition: 'true' });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-var dateUtils = {
-    addDays: addDays, addMonths: addMonths, addYears: addYears, endOfISOWeek: endOfISOWeek, format: format, getDay: getDay, parse: parse, startOfMonth: startOfMonth, startOfISOWeek: startOfISOWeek
-};
+var debugConstructor = debug__default || debug;
+/** @type {?} */
+var dbg = debugConstructor('ajf:models:validated-property');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 var numeralConstructor = numeral__default || numeral;
+/** @type {?} */
+var dateUtils = {
+    addDays: addDays,
+    addMonths: addMonths,
+    addYears: addYears,
+    endOfISOWeek: endOfISOWeek,
+    format: format,
+    getDay: getDay,
+    parse: parse,
+    startOfMonth: startOfMonth,
+    startOfISOWeek: startOfISOWeek
+};
 /**
  * @param {?} x
  * @return {?}
@@ -329,7 +289,8 @@ function round(num, digits) {
         try {
             f = parseFloat(num);
         }
-        catch (e) { }
+        catch (e) {
+        }
     }
     else {
         f = num;
@@ -416,14 +377,14 @@ function extractArraySum(source, properties) {
 /**
  * @param {?} source
  * @param {?} property
- * @param {?} treshold
+ * @param {?} threshold
  * @return {?}
  */
-function drawThreshold(source, property, treshold) {
+function drawThreshold(source, property, threshold) {
     source = (source || []).slice(0);
-    treshold = treshold || [0];
-    if (!(treshold instanceof Array)) {
-        treshold = [treshold];
+    threshold = threshold || [0];
+    if (!(threshold instanceof Array)) {
+        threshold = [threshold];
     }
     /** @type {?} */
     var l = source.length;
@@ -433,11 +394,11 @@ function drawThreshold(source, property, treshold) {
     var count = 0;
     for (var i = 0; i < l; i++) {
         if (source[i][property] != null) {
-            if (treshold.length > count) {
-                res.push(treshold[count]);
+            if (threshold.length > count) {
+                res.push(threshold[count]);
             }
             else {
-                res.push(treshold[0]);
+                res.push(threshold[0]);
             }
             count++;
         }
@@ -628,9 +589,8 @@ function calculateAvgPropertyArray(source, properties, range, coefficient) {
         coefficient = coefficient || 1;
         range = range || 12;
         /** @type {?} */
-        var sourceArr = properties.length > 1
-            ? extractArraySum(source, properties)
-            : extractArray(source, properties[0]);
+        var sourceArr = properties.length > 1 ? extractArraySum(source, properties) :
+            extractArray(source, properties[0]);
         /** @type {?} */
         var l = sourceArr.length;
         for (var len = l; len > 0; len--) {
@@ -670,12 +630,12 @@ function calculateAvgPropertyArray(source, properties, range, coefficient) {
 /**
  * @param {?} source
  * @param {?} property
- * @param {?} treshold
+ * @param {?} threshold
  * @return {?}
  */
-function alert(source, property, treshold) {
+function alert(source, property, threshold) {
     source = (source || []).slice(0);
-    if (lastProperty(source, property) > treshold) {
+    if (lastProperty(source, property) > threshold) {
         return '<p><i class="material-icons" style="color:red">warning</i></p>';
     }
     else {
@@ -728,234 +688,13 @@ function getCoordinate(source, zoom) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-var esprimaMod = esprima__default || esprima;
-var tokenize = esprimaMod.tokenize;
-/** @type {?} */
-var debugConstructor = debug__default || debug;
-/** @type {?} */
-var dbg = debugConstructor('ajf:models:validated-property');
-/**
- * This abstract class will define an ajf validated property
- * @abstract
- */
-var AjfValidatedProperty = /** @class */ (function (_super) {
-    __extends(AjfValidatedProperty, _super);
-    function AjfValidatedProperty() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var AjfExpressionUtils = /** @class */ (function () {
+    function AjfExpressionUtils() {
     }
-    /**
-     * this method will load an AjfNode from json
-     * @param obj                : any - object node
-     * @param choicesOrigins     : any[] - array of choicesOrigins
-     * @param attachmentsOrigins : any[] - array of attachmentsOrigins
-     * @return AjfNode
-     */
-    /**
-     * this method will load an AjfNode from json
-     * @param {?} str
-     * @param {?=} context
-     * @return {?} AjfNode
-     */
-    AjfValidatedProperty.validate = /**
-     * this method will load an AjfNode from json
-     * @param {?} str
-     * @param {?=} context
-     * @return {?} AjfNode
-     */
-    function (str, context) {
-        if (context === this._cachedContext) {
-            console.log('cache hit');
-        }
-        else {
-            this._cachedContext = context;
-            this._cachedContextString = AjfValidatedProperty.getContextString(context);
-        }
-        /** @type {?} */
-        var ctx = this._cachedContextString;
-        try {
-            /** @type {?} */
-            var f = new Function("" + ctx + str);
-            dbg((/** @type {?} */ ("validating formula %s using context %j")), str, ctx);
-            f();
-            dbg("formula %s validated", str);
-            f = (/** @type {?} */ (null));
-            return true;
-        }
-        catch (e) {
-            dbg("formula %s not validated: error %j", str, e);
-            return false;
-        }
-    };
-    /**
-     * this public static method will get context string
-     * @param context : any - context
-     * @return string
-     */
-    /**
-     * this public static method will get context string
-     * @param {?=} context : any - context
-     * @return {?} string
-     */
-    AjfValidatedProperty.getContextString = /**
-     * this public static method will get context string
-     * @param {?=} context : any - context
-     * @return {?} string
-     */
-    function (context) {
-        /** @type {?} */
-        var fstr = AjfValidatedProperty.UTIL_FUNCTIONS;
-        if (context instanceof Array) {
-            for (var i = 0; i < context.length; i++) {
-                fstr = fstr + "var " + context[i] + " = true;";
-            }
-        }
-        else if (context != null) {
-            Object.keys(context).forEach((/**
-             * @param {?} x
-             * @return {?}
-             */
-            function (x) {
-                /** @type {?} */
-                var val = context[x];
-                if (val == null || isNaN(Number(val)) || val === '' ||
-                    val instanceof Array) {
-                    if (val instanceof Array) {
-                        for (var i = 0; i < val.length; i++) {
-                            val[i] =
-                                (val == null || isNaN(Number(val[i])) || val[i] === '') &&
-                                    val[i] ||
-                                    Number(val[i]);
-                        }
-                    }
-                    val = JSON.stringify(val);
-                }
-                else {
-                    val = Number(val);
-                }
-                fstr = fstr + "var " + x + " = " + val + "; ";
-            }));
-        }
-        return fstr;
-    };
-    /**
-     * this public method will evaluate context or forceFormula
-     * @param context      : any - context
-     * @param forceFormula : string - formula
-     * @return string
-     */
-    /**
-     * this public method will evaluate context or forceFormula
-     * @param {?=} context      : any - context
-     * @param {?=} forceFormula : string - formula
-     * @return {?} string
-     */
-    AjfValidatedProperty.prototype.evaluate = /**
-     * this public method will evaluate context or forceFormula
-     * @param {?=} context      : any - context
-     * @param {?=} forceFormula : string - formula
-     * @return {?} string
-     */
-    function (context, forceFormula) {
-        /** @type {?} */
-        var formula = forceFormula || this.getValidationFormula() || '';
-        if (formula === '') {
-            return '';
-        }
-        if (formula === 'true') {
-            return true;
-        }
-        if (formula === 'false') {
-            return false;
-        }
-        if (context != null && context[formula] !== undefined) {
-            return context[formula];
-        }
-        if (/^"[^"]*"$/.test(formula)) {
-            return formula.replace(/^"+|"+$/g, '');
-        }
-        /** @type {?} */
-        var identifiers = tokenize(formula)
-            .filter((/**
-         * @param {?} t
-         * @return {?}
-         */
-        function (t) { return t.type === 'Identifier'; }))
-            .map((/**
-         * @param {?} t
-         * @return {?}
-         */
-        function (t) { return t.value; }));
-        /** @type {?} */
-        var ctx = [];
-        identifiers.forEach((/**
-         * @param {?} key
-         * @return {?}
-         */
-        function (key) {
-            /** @type {?} */
-            var val = null;
-            if (context != null && context[key] !== undefined) {
-                val = context[key];
-            }
-            else if (AjfValidatedProperty.utils[key] !== undefined) {
-                /** @type {?} */
-                var util = AjfValidatedProperty.utils[key];
-                val = util.fn;
-            }
-            ctx.push(val);
-        }));
-        identifiers.push('execContext');
-        ctx.push(AjfValidatedProperty._execContext);
-        try {
-            if (dbg.enabled) {
-                dbg("evaluating formula %s using context %j", formula, ctx);
-            }
-            /** @type {?} */
-            var f = new (Function.bind.apply(Function, [void 0].concat(identifiers, ["return " + formula])))();
-            /** @type {?} */
-            var res = f.apply(void 0, ctx);
-            if (dbg.enabled) {
-                dbg("formula %s evaluated: result %s", formula, res);
-            }
-            f = (/** @type {?} */ (null));
-            return res;
-        }
-        catch (e) {
-            console.log(e);
-            if (dbg.enabled) {
-                dbg("formula %s not evaluated: error %j", formula, e.message);
-            }
-            return false;
-        }
-    };
-    /**
-     * @param {?} counterName
-     * @param {?} firstValue
-     * @return {?}
-     */
-    AjfValidatedProperty.nextCounterValue = /**
-     * @param {?} counterName
-     * @param {?} firstValue
-     * @return {?}
-     */
-    function (counterName, firstValue) {
-        firstValue = firstValue != null ? firstValue : 0;
-        if (this._execContext['$$' + counterName] == null) {
-            this._execContext['$$' + counterName] = firstValue;
-        }
-        else {
-            this._execContext['$$' + counterName]++;
-        }
-        return this._execContext['$$' + counterName];
-    };
-    AjfValidatedProperty.UTIL_FUNCTIONS = '';
-    AjfValidatedProperty._execContext = {};
-    AjfValidatedProperty._cachedContext = {};
-    AjfValidatedProperty._cachedContextString = '';
-    AjfValidatedProperty.utils = {
+    AjfExpressionUtils.UTIL_FUNCTIONS = '';
+    AjfExpressionUtils.utils = {
         digitCount: { fn: digitCount },
         decimalCount: { fn: decimalCount },
         isInt: { fn: isInt },
@@ -987,136 +726,226 @@ var AjfValidatedProperty = /** @class */ (function (_super) {
         parseDate: { fn: dateUtils.parse },
         Date: { fn: Date }
     };
-    return AjfValidatedProperty;
-}(AjfJsonSerializable));
+    return AjfExpressionUtils;
+}());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var esprimaMod = esprima__default || esprima;
+var tokenize = esprimaMod.tokenize;
+/** @type {?} */
+var execContext = {};
 /**
- * This class will define an Ajf condition
+ * @param {?} expression
+ * @param {?=} context
+ * @param {?=} forceFormula
+ * @return {?}
  */
-var  /**
- * This class will define an Ajf condition
- */
-AjfCondition = /** @class */ (function (_super) {
-    __extends(AjfCondition, _super);
-    function AjfCondition(obj) {
-        var _this = _super.call(this, obj) || this;
-        _this.jsonExportedMembers = ['condition'];
-        _this.condition = obj && obj.condition || '';
-        return _this;
+function evaluateExpression(expression, context, forceFormula) {
+    /** @type {?} */
+    var formula = forceFormula || expression || '';
+    if (formula === '') {
+        return '';
     }
-    /**
-     * this method will get true condition
-     * @return AjCondition
-     */
-    /**
-     * this method will get true condition
-     * @return {?} AjCondition
-     */
-    AjfCondition.alwaysCondition = /**
-     * this method will get true condition
-     * @return {?} AjCondition
-     */
-    function () {
-        return new AjfCondition({ condition: 'true' });
-    };
-    /**
-     * this method will get false condition
-     * @return AjCondition
-     */
-    /**
-     * this method will get false condition
-     * @return {?} AjCondition
-     */
-    AjfCondition.neverCondition = /**
-     * this method will get false condition
-     * @return {?} AjCondition
-     */
-    function () {
-        return new AjfCondition({ condition: 'false' });
-    };
-    /**
-     * this method will load an AjfCondition from json
-     * @param obj : any - object condition
-     * @return AjfCondition
-     */
-    /**
-     * this method will load an AjfCondition from json
-     * @param {?} obj : any - object condition
-     * @return {?} AjfCondition
-     */
-    AjfCondition.fromJson = /**
-     * this method will load an AjfCondition from json
-     * @param {?} obj : any - object condition
-     * @return {?} AjfCondition
-     */
-    function (obj) {
-        obj = deepCopy(obj);
-        return new AjfCondition(obj);
-    };
-    /**
+    if (formula === 'true') {
+        return true;
+    }
+    if (formula === 'false') {
+        return false;
+    }
+    if (context != null && context[formula] !== undefined) {
+        return context[formula];
+    }
+    if (/^"[^"]*"$/.test(formula)) {
+        return formula.replace(/^"+|"+$/g, '');
+    }
+    /** @type {?} */
+    var identifiers = tokenize(formula).filter((/**
+     * @param {?} t
      * @return {?}
      */
-    AjfCondition.prototype.getValidationFormula = /**
+    function (t) { return t.type === 'Identifier'; })).map((/**
+     * @param {?} t
      * @return {?}
      */
-    function () { return this.condition; };
-    return AjfCondition;
-}(AjfValidatedProperty));
+    function (t) { return t.value; }));
+    /** @type {?} */
+    var ctx = [];
+    identifiers.forEach((/**
+     * @param {?} key
+     * @return {?}
+     */
+    function (key) {
+        /** @type {?} */
+        var val = null;
+        if (context != null && context[key] !== undefined) {
+            val = context[key];
+        }
+        else if (AjfExpressionUtils.utils[key] !== undefined) {
+            /** @type {?} */
+            var util = AjfExpressionUtils.utils[key];
+            val = util.fn;
+        }
+        ctx.push(val);
+    }));
+    identifiers.push('execContext');
+    ctx.push(execContext);
+    try {
+        if (dbg.enabled) {
+            dbg("evaluating formula %s using context %j", formula, ctx);
+        }
+        /** @type {?} */
+        var f = new (Function.bind.apply(Function, [void 0].concat(identifiers, ["return " + formula])))();
+        /** @type {?} */
+        var res = f.apply(void 0, ctx);
+        if (dbg.enabled) {
+            dbg("formula %s evaluated: result %s", formula, res);
+        }
+        f = (/** @type {?} */ (null));
+        return res;
+    }
+    catch (e) {
+        console.log(e);
+        if (dbg.enabled) {
+            dbg("formula %s not evaluated: error %j", formula, e.message);
+        }
+        return false;
+    }
+}
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var AjfFormula = /** @class */ (function (_super) {
-    __extends(AjfFormula, _super);
-    /**
-     *
-     * @param obj
-     */
-    function AjfFormula(obj) {
-        var _this = _super.call(this) || this;
-        _this.jsonExportedMembers = ['formula'];
-        _this.formula = obj && obj.formula || null;
-        return _this;
+/**
+ * @param {?=} context
+ * @return {?}
+ */
+function getContextString(context) {
+    /** @type {?} */
+    var fstr = AjfExpressionUtils.UTIL_FUNCTIONS;
+    if (context instanceof Array) {
+        for (var i = 0; i < context.length; i++) {
+            fstr = fstr + "var " + context[i] + " = true;";
+        }
     }
-    /**
-     * this static method will load an AjfFormula from json
-     * @param obj : any - object formula
-     * @return AjfFormula
-     */
-    /**
-     * this static method will load an AjfFormula from json
-     * @param {?} obj : any - object formula
-     * @return {?} AjfFormula
-     */
-    AjfFormula.fromJson = /**
-     * this static method will load an AjfFormula from json
-     * @param {?} obj : any - object formula
-     * @return {?} AjfFormula
-     */
-    function (obj) {
-        obj = deepCopy(obj);
-        return new AjfFormula(obj);
-    };
-    /**
-     * this method will get validation formula
-     * @return string - a validation formula
-     */
-    /**
-     * this method will get validation formula
-     * @return {?} string - a validation formula
-     */
-    AjfFormula.prototype.getValidationFormula = /**
-     * this method will get validation formula
-     * @return {?} string - a validation formula
-     */
-    function () { return this.formula; };
-    return AjfFormula;
-}(AjfValidatedProperty));
+    else if (context != null) {
+        Object.keys(context).forEach((/**
+         * @param {?} x
+         * @return {?}
+         */
+        function (x) {
+            /** @type {?} */
+            var val = context[x];
+            if (val == null || isNaN(Number(val)) || val === '' || val instanceof Array) {
+                if (val instanceof Array) {
+                    for (var i = 0; i < val.length; i++) {
+                        val[i] =
+                            (val == null || isNaN(Number(val[i])) || val[i] === '') && val[i] || Number(val[i]);
+                    }
+                }
+                val = JSON.stringify(val);
+            }
+            else {
+                val = Number(val);
+            }
+            fstr = fstr + "var " + x + " = " + val + "; ";
+        }));
+    }
+    return fstr;
+}
 
-export { AjfCondition, AjfError, AjfFormula, AjfJsonSerializable, AjfValidatedProperty };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @return {?}
+ */
+function neverCondition() {
+    return createCondition({ condition: 'false' });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var esprimaMod$1 = esprima__default || esprima;
+var tokenize$1 = esprimaMod$1.tokenize;
+/**
+ * @param {?} formula
+ * @param {?} ancestorsNames
+ * @param {?} prefix
+ * @return {?}
+ */
+function normalizeExpression(formula, ancestorsNames, prefix) {
+    /** @type {?} */
+    var ancestorsNameStrings = Object.keys(ancestorsNames);
+    /** @type {?} */
+    var tokens = tokenize$1(formula)
+        .filter((/**
+     * @param {?} token
+     * @return {?}
+     */
+    function (token) { return token.type == 'Identifier' && token.value != '$value'; }))
+        .map((/**
+     * @param {?} token
+     * @return {?}
+     */
+    function (token) { return token.value; }));
+    tokens.forEach((/**
+     * @param {?} t
+     * @return {?}
+     */
+    function (t) {
+        if (ancestorsNameStrings.indexOf(t) > -1) {
+            formula = formula.replace(new RegExp("\\b" + t + "\\b", 'g'), t + "__" + prefix.slice(ancestorsNames[t]).join('__'));
+        }
+    }));
+    return formula;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var cachedContext = {};
+/** @type {?} */
+var cachedContextString = '{}';
+/**
+ * @param {?} str
+ * @param {?=} context
+ * @return {?}
+ */
+function validateExpression(str, context) {
+    if (context === cachedContext) {
+        console.log('cache hit');
+    }
+    else {
+        cachedContext = context;
+        cachedContextString = getContextString(context);
+    }
+    /** @type {?} */
+    var ctx = cachedContextString;
+    try {
+        /** @type {?} */
+        var f = new Function("" + ctx + str);
+        dbg((/** @type {?} */ ("validating formula %s using context %j")), str, ctx);
+        f();
+        dbg("formula %s validated", str);
+        f = (/** @type {?} */ (null));
+        return true;
+    }
+    catch (e) {
+        dbg("formula %s not validated: error %j", str, e);
+        return false;
+    }
+}
+
+export { AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, alert, alwaysCondition, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, dbg, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=models.es5.js.map

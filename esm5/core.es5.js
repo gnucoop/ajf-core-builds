@@ -23,13 +23,13 @@ import { Version } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Current version of Ajf.
  * @type {?}
  */
-var VERSION = new Version('8.0.1-04a65ad');
+var VERSION = new Version('8.0.1-b84de8b');
 
 export { VERSION };
 //# sourceMappingURL=core.es5.js.map

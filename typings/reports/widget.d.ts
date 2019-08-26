@@ -19,31 +19,46 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { ChangeDetectorRef } from '@angular/core';
 import { AjfImageType } from '@ajf/core/image';
-import { AjfReportChartWidgetInstance, AjfReportFormulaWidgetInstance, AjfReportImageContainerWidgetInstance, AjfReportImageWidgetInstance, AjfReportLayoutWidgetInstance, AjfReportMapWidgetInstance, AjfReportTableWidgetInstance, AjfReportTextWidgetInstance, AjfReportWidgetInstance } from './widgets-instances';
-import { AjfReportChartWidget, AjfReportImageWidget, AjfReportLayoutWidget, AjfReportMapWidget, AjfReportWidget, AjfReportWidgetType } from './widgets';
-export declare abstract class AjfReportWidgetRenderer {
+import { ChangeDetectorRef } from '@angular/core';
+import { AjfChartWidgetInstance } from './interface/widgets-instances/chart-widget-instance';
+import { AjfColumnWidgetInstance } from './interface/widgets-instances/column-widget-instance';
+import { AjfFormulaWidgetInstance } from './interface/widgets-instances/formula-widget-instance';
+import { AjfImageContainerWidgetInstance } from './interface/widgets-instances/image-container-widget-instance';
+import { AjfImageWidgetInstance } from './interface/widgets-instances/image-widget-instance';
+import { AjfLayoutWidgetInstance } from './interface/widgets-instances/layout-widget-instance';
+import { AjfMapWidgetInstance } from './interface/widgets-instances/map-widget-instance';
+import { AjfTableWidgetInstance } from './interface/widgets-instances/table-widget-instance';
+import { AjfTextWidgetInstance } from './interface/widgets-instances/text-widget-instance';
+import { AjfWidgetInstance } from './interface/widgets-instances/widget-instance';
+import { AjfChartWidget } from './interface/widgets/chart-widget';
+import { AjfImageWidget } from './interface/widgets/image-widget';
+import { AjfLayoutWidget } from './interface/widgets/layout-widget';
+import { AjfMapWidget } from './interface/widgets/map-widget';
+import { AjfWidget } from './interface/widgets/widget';
+import { AjfWidgetType } from './interface/widgets/widget-type';
+export declare abstract class AjfWidgetRenderer {
     private _cdr;
-    readonly widgetTypes: typeof AjfReportWidgetType;
+    readonly widgetTypes: typeof AjfWidgetType;
     private _widget;
-    readonly widget: AjfReportWidget | null;
+    readonly widget: AjfWidget | null;
     private _imageTypes;
     readonly imageTypes: typeof AjfImageType;
     private _widgetInstance;
-    widgetInstance: AjfReportWidgetInstance;
-    readonly imgwInst: AjfReportImageWidgetInstance;
-    readonly imgw: AjfReportImageWidget;
-    readonly imgcwInst: AjfReportImageContainerWidgetInstance;
-    readonly imgcw: AjfReportImageWidget;
-    readonly layoutwInst: AjfReportLayoutWidgetInstance;
-    readonly layoutw: AjfReportLayoutWidget;
-    readonly chartwInst: AjfReportChartWidgetInstance;
-    readonly chartw: AjfReportChartWidget;
-    readonly tablewInst: AjfReportTableWidgetInstance;
-    readonly textwInst: AjfReportTextWidgetInstance;
-    readonly mapwInst: AjfReportMapWidgetInstance;
-    readonly mapw: AjfReportMapWidget;
-    readonly formulawInst: AjfReportFormulaWidgetInstance;
+    widgetInstance: AjfWidgetInstance;
+    readonly columnInst: AjfColumnWidgetInstance;
+    readonly imgwInst: AjfImageWidgetInstance;
+    readonly imgw: AjfImageWidget;
+    readonly imgcwInst: AjfImageContainerWidgetInstance;
+    readonly imgcw: AjfImageWidget;
+    readonly layoutwInst: AjfLayoutWidgetInstance;
+    readonly layoutw: AjfLayoutWidget;
+    readonly chartwInst: AjfChartWidgetInstance;
+    readonly chartw: AjfChartWidget;
+    readonly tablewInst: AjfTableWidgetInstance;
+    readonly textwInst: AjfTextWidgetInstance;
+    readonly mapwInst: AjfMapWidgetInstance;
+    readonly mapw: AjfMapWidget;
+    readonly formulawInst: AjfFormulaWidgetInstance;
     constructor(_cdr: ChangeDetectorRef);
 }

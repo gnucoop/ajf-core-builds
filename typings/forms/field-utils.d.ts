@@ -19,5 +19,5 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfFieldType } from './nodes';
+import { AjfFieldType } from './interface/fields/field-type';
 export declare function fieldIconName(type: AjfFieldType): string;

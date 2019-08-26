@@ -20,6 +20,6 @@
  *
  */
 import { PipeTransform } from '@angular/core';
-export declare class BoolToIntPipe implements PipeTransform {
+export declare class AjfBoolToIntPipe implements PipeTransform {
     transform(value: boolean): number;
 }

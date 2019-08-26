@@ -19,3001 +19,82 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { FormControl, FormGroup } from '@angular/forms';
+import { Subscription, defer, Subject, BehaviorSubject, Observable, timer } from 'rxjs';
+import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
+import { Pipe, Directive, ViewContainerRef, EventEmitter, Injectable, NgModule, InjectionToken } from '@angular/core';
+import { AjfError, evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { deepCopy, coerceBooleanProperty } from '@ajf/core/utils';
-import { Subscription, ReplaySubject, Subject, BehaviorSubject, Observable, timer } from 'rxjs';
-import { AjfJsonSerializable, AjfError, AjfCondition, AjfFormula, AjfValidatedProperty } from '@ajf/core/models';
-import { Pipe, EventEmitter, Injectable, NgModule } from '@angular/core';
-import { withLatestFrom, filter, map, publishReplay, refCount, startWith, scan, share, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
 import * as esprima from 'esprima';
 import esprima__default, {  } from 'esprima';
-import { FormGroup, FormControl } from '@angular/forms';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @enum {number} */
-const AjfAttachmentsType = {
-    Link: 0,
-    Pdf: 1,
-    LENGTH: 2,
-};
-AjfAttachmentsType[AjfAttachmentsType.Link] = 'Link';
-AjfAttachmentsType[AjfAttachmentsType.Pdf] = 'Pdf';
-AjfAttachmentsType[AjfAttachmentsType.LENGTH] = 'LENGTH';
-/**
- * This class will define an ajf attachment
- * @template T
- */
-class AjfAttachment {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        this._label = obj && obj.label || null;
-        this._value = obj && obj.value || null;
-        this._type = obj && obj.type || null;
-    }
-    /**
-     * @return {?}
-     */
-    get label() { return this._label; }
-    /**
-     * @return {?}
-     */
-    get value() { return this._value; }
-    /**
-     * @return {?}
-     */
-    get type() { return this._type; }
-}
-/**
- * This class will define an ajf attachments orgin
- * @abstract
- */
-class AjfAttachmentsOrigin {
-    /**
-     * this static method will create attachment
-     * @param {?} obj : any - object attachment
-     * @return {?} AjfAttachment
-     */
-    static create(obj) {
-        /** @type {?} */
-        let attachments = [];
-        if (obj.attachments instanceof Array) {
-            for (let i = 0; i < obj.attachments.length; i++) {
-                /** @type {?} */
-                let att = obj.attachments[i];
-                switch (att.type) {
-                    case AjfAttachmentsType.Link:
-                        attachments.push(new AjfAttachment(att));
-                        break;
-                    case AjfAttachmentsType.Pdf:
-                        attachments.push(new AjfAttachment(att));
-                        break;
-                    default:
-                        throw new Error('Invalid attachment type');
-                }
-            }
-        }
-        obj.attachments = attachments;
-        return new AjfAttachmentsFixedOrigin(obj);
-    }
-    /**
-     * this static method will load an AjfAttachmentsOrigin from json
-     * @param {?} obj : any - object Attachments
-     * @return {?} AjfAttachmentsOrigin
-     */
-    static fromJson(obj) {
-        obj = deepCopy(obj);
-        /** @type {?} */
-        let keys = Object.keys(obj);
-        if (keys.indexOf('type') === -1) {
-            throw new Error('Attachments origin type missing type');
-        }
-        /** @type {?} */
-        let type = obj.type;
-        delete obj.type;
-        switch (type) {
-            case 'fixed':
-                return AjfAttachmentsFixedOrigin.create(obj);
-            default:
-                throw new Error('Invalid attachment origin type');
-        }
-    }
-    /**
-     * @return {?}
-     */
-    getName() { return this._name; }
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) { this._name = obj && obj.name || null; }
-}
-/**
- * This class will define an ajf attachments fixed origin
- */
-class AjfAttachmentsFixedOrigin extends AjfAttachmentsOrigin {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this._attachments = obj && obj.attachments || [];
-    }
-    /**
-     * @return {?}
-     */
-    getAttachments() { return this._attachments; }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @param {?} v
- * @return {?}
- */
-function getTypeName(v) {
-    /** @type {?} */
-    let typeStr = typeof v;
-    return typeStr === 'object'
-        ? v.constructor.toString().match(/\w+/g)[1]
-        : typeStr;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @enum {number} */
-const AjfChoicesType = {
-    String: 0,
-    Number: 1,
-    LENGTH: 2,
-};
-AjfChoicesType[AjfChoicesType.String] = 'String';
-AjfChoicesType[AjfChoicesType.Number] = 'Number';
-AjfChoicesType[AjfChoicesType.LENGTH] = 'LENGTH';
-/**
- * @template T
- */
-class AjfChoice extends AjfJsonSerializable {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.label = obj && obj.label || '';
-        this.value = obj && obj.value || null;
-    }
-}
 /**
  * @abstract
  * @template T
  */
-class AjfChoicesOrigin extends AjfJsonSerializable {
+class AjfBaseFieldComponent {
     /**
-     * @param {?=} obj
+     * @param {?} _changeDetectorRef
+     * @param {?} _service
+     * @param {?} _warningAlertService
      */
-    constructor(obj) {
-        super();
-        this.jsonExportedMembers = this.jsonExportedMembers.concat(['type', 'name', 'label', 'choicesType']);
-        this._name = obj && obj.name || null;
-        this._label = obj && obj.label || null;
-        this._choicesType = obj && obj.choicesType || null;
-    }
-    /**
-     * @param {?} type
-     * @param {?=} obj
-     * @return {?}
-     */
-    static create(type, obj) {
-        switch (type) {
-            case 'string':
-                return new AjfChoicesFixedOrigin(obj);
-            case 'number':
-                return new AjfChoicesFixedOrigin(obj);
-            default:
-                return null;
-        }
-    }
-    /**
-     * @param {?} obj
-     * @return {?}
-     */
-    static fromJson(obj) {
-        obj = deepCopy(obj);
-        /** @type {?} */
-        let keys = Object.keys(obj);
-        if (keys.indexOf('type') === -1) {
-            throw new Error('Choices origin type missing type');
-        }
-        /** @type {?} */
-        let type = obj.type;
-        delete obj.type;
-        switch (type) {
-            case 'fixed':
-                return new AjfChoicesFixedOrigin(obj);
-            case 'function':
-                return new AjfChoicesFunctionOrigin(obj);
-            case 'observable':
-                return new AjfChoicesObservableOrigin(obj);
-            case 'observableArray':
-                return new AjfChoicesObservableArrayOrigin(obj);
-            case 'promise':
-                return new AjfChoicesObservableOrigin(obj);
-            default:
-                throw new Error('Invalid choices origin type');
-        }
-    }
-    /**
-     * @return {?}
-     */
-    getName() { return this._name; }
-    /**
-     * @return {?}
-     */
-    getLabel() { return this._label; }
-    /**
-     * @param {?} name
-     * @return {?}
-     */
-    setName(name) { this._name = name; }
-    /**
-     * @param {?} label
-     * @return {?}
-     */
-    setLabel(label) { this._label = label; }
-    /**
-     * @return {?}
-     */
-    getChoicesType() {
-        return this._choicesType || this._guessChoicesType();
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _guessChoicesType() {
-        /** @type {?} */
-        let cs = this.getChoices();
-        if (cs && cs.length > 0) {
-            this._choicesType = getTypeName(cs[0].value);
-        }
-        return this._choicesType;
-    }
-}
-/**
- * @template T
- */
-class AjfChoicesFixedOrigin extends AjfChoicesOrigin {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.jsonExportedMembers = this.jsonExportedMembers.concat('choices');
-        this._choices = obj && (/** @type {?} */ (obj.choices)) || [];
-    }
-    /**
-     * @return {?}
-     */
-    getType() { return 'fixed'; }
-    /**
-     * @return {?}
-     */
-    getChoices() { return this._choices; }
-    /**
-     * @param {?} choices
-     * @return {?}
-     */
-    setChoices(choices) { this._choices = choices.slice(0); }
-}
-/**
- * @template T
- */
-class AjfChoicesFunctionOrigin extends AjfChoicesOrigin {
-    /**
-     * @param {?} generator
-     * @param {?=} obj
-     */
-    constructor(generator, obj) {
-        super(obj);
-        this.jsonExportedMembers = this.jsonExportedMembers.concat('generator');
-        this._generator = generator;
-    }
-    /**
-     * @return {?}
-     */
-    get generator() { return this._generator; }
-    /**
-     * @return {?}
-     */
-    getType() { return 'function'; }
-    /**
-     * @return {?}
-     */
-    getChoices() { return this._generator(); }
-}
-/**
- * @template T
- */
-class AjfChoicesObservableOrigin extends AjfChoicesOrigin {
-    /**
-     * @param {?} _observable
-     * @param {?=} obj
-     */
-    constructor(_observable, obj) {
-        super(obj);
-        this._observable = _observable;
-        this._currentChoices = [];
-        this._subscription = Subscription.EMPTY;
-        this.jsonExportedMembers = this.jsonExportedMembers.concat('observable');
-        /** @type {?} */
-        let self = this;
-        this._subscription = _observable.subscribe((/**
-         * @param {?} x
+    constructor(_changeDetectorRef, _service, _warningAlertService) {
+        this._changeDetectorRef = _changeDetectorRef;
+        this._service = _service;
+        this._warningAlertService = _warningAlertService;
+        this._warningTriggerSub = Subscription.EMPTY;
+        this._instanceUpdateSub = Subscription.EMPTY;
+        this._control = defer((/**
          * @return {?}
          */
-        (x) => self._currentChoices.push(x)));
-    }
-    /**
-     * @return {?}
-     */
-    get observable() {
-        return this._observable;
-    }
-    /**
-     * @return {?}
-     */
-    getType() { return 'observable'; }
-    /**
-     * @return {?}
-     */
-    getChoices() { return this._currentChoices.splice(0); }
-    /**
-     * @return {?}
-     */
-    destroy() {
-        this._subscription.unsubscribe();
-    }
-}
-/**
- * @template T
- */
-class AjfChoicesObservableArrayOrigin extends AjfChoicesOrigin {
-    /**
-     * @param {?} _observable
-     * @param {?=} obj
-     */
-    constructor(_observable, obj) {
-        super(obj);
-        this._observable = _observable;
-        this._currentChoices = [];
-        this._subscription = Subscription.EMPTY;
-        this.jsonExportedMembers = this.jsonExportedMembers.concat('observable');
-        /** @type {?} */
-        let self = this;
-        this._subscription = _observable.subscribe((/**
-         * @param {?} x
+        () => this._service.getControl(this.instance).pipe(map((/**
+         * @param {?} ctrl
          * @return {?}
          */
-        (x) => self._currentChoices = x.splice(0)));
+        ctrl => ctrl || new FormControl())))));
     }
     /**
      * @return {?}
      */
-    get observable() {
-        return this._observable;
-    }
-    /**
-     * @return {?}
-     */
-    getType() { return 'observableArray'; }
-    /**
-     * @return {?}
-     */
-    getChoices() { return this._currentChoices.splice(0); }
-    /**
-     * @return {?}
-     */
-    destroy() {
-        this._subscription.unsubscribe();
-    }
-}
-/**
- * @template T
- */
-class AjfChoicesPromiseOrigin extends AjfChoicesOrigin {
-    /**
-     * @param {?} promise
-     * @param {?=} obj
-     */
-    constructor(promise, obj) {
-        super(obj);
-        this._choices = [];
-        this.jsonExportedMembers = this.jsonExportedMembers.concat('promise');
-        promise.then((/**
-         * @param {?} x
-         * @return {?}
-         */
-        (x) => { this._choices = x.splice(0); }));
-    }
-    /**
-     * @return {?}
-     */
-    getType() { return 'promise'; }
-    /**
-     * @return {?}
-     */
-    getChoices() { return this._choices.splice(0); }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * This class will define an Ajf invalid field definition error
- */
-class AjfInvalidFieldDefinitionError extends AjfError {
-    /**
-     * @return {?}
-     */
-    get name() { return 'AjfInvalidFieldDefinitionError'; }
-    /**
-     * @param {?=} message
-     */
-    constructor(message) {
-        super(message);
-    }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @param {?} n
- * @return {?}
- */
-function factorial(n) {
-    /** @type {?} */
-    let f = 1;
-    for (let i = n; i > 1; i--) {
-        f = f * i;
-    }
-    return f;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfValidationResult {
-    /**
-     * this constructor will assign the parameters value to a class variables
-     * \@cVal : boolean
-     * @param {?} res : boolean
-     * @param {?} err : string
-     * @param {?} cVal
-     */
-    constructor(res, err, cVal) {
-        this.result = res;
-        this.error = err;
-        this.clientValidation = cVal;
-    }
-}
-/**
- * This class will define an ajf validation
- */
-class AjfValidation extends AjfCondition {
-    /**
-     * this static method will load an AjfValidation from json
-     * @param {?} obj  : any - object validation
-     * @return {?} AjfValidation
-     */
-    static fromJson(obj) {
-        obj = deepCopy(obj);
-        return new AjfValidation(obj);
-    }
-    /**
-     * this static method will get an ajfValidation with maxValue setted
-     * @param {?} maxValue : number - max value
-     * @return {?} AjfValidation
-     */
-    static getMaxCondition(maxValue) {
-        return new AjfValidation({
-            condition: '$value <= ' + maxValue.toString(),
-            errorMessage: 'Value must be <= ' + maxValue.toString()
-        });
-    }
-    /**
-     * this static method will get an ajfValidation with minValue setted
-     * @param {?} minValue : number - min value
-     * @return {?} AjfValidation
-     */
-    static getMinCondition(minValue) {
-        return new AjfValidation({
-            condition: '$value >= ' + minValue.toString(),
-            errorMessage: 'Value must be >= ' + minValue.toString()
-        });
-    }
-    /**
-     * this static method will get an ajfValidation with notEmpty setted
-     * @return {?} AjfValidation
-     */
-    static getNotEmptyCondition() {
-        return new AjfValidation({
-            condition: `notEmpty($value)`,
-            errorMessage: `Value must not be empty`
-        });
-    }
-    /**
-     * this static method will get an ajfValidation with maxDigit setted
-     * @param {?} maxValue
-     * @return {?} AjfValidation
-     */
-    static getMaxDigitsCondition(maxValue) {
-        return new AjfValidation({
-            condition: `$value ? $value.toString().length <= ${maxValue.toString()} : false`,
-            errorMessage: 'Digits count must be <= ' + maxValue.toString()
-        });
-    }
-    /**
-     * this static method will get an ajfValidation with minDigit setted
-     * @param {?} minValue
-     * @return {?} AjfValidation
-     */
-    static getMinDigitsCondition(minValue) {
-        return new AjfValidation({
-            condition: `$value ? $value.toString().length >= ${minValue.toString()} : false`,
-            errorMessage: 'Digits count must be >= ' + minValue.toString()
-        });
-    }
-    /**
-     * this constructor will assign the obj value to a class variables and call
-     * super()
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.clientValidation = obj && obj.clientValidation || false;
-        this.errorMessage = obj && obj.errorMessage || 'Undefined Error';
-        this.jsonExportedMembers = this.jsonExportedMembers
-            .concat(['clientValidation', 'errorMessage']);
-    }
-    /**
-     * this public method will evaluate context or forceFormula
-     * @param {?=} context      : any - context
-     * @param {?=} forceFormula : string - formula
-     * @return {?} AjfValidationResult
-     */
-    evaluate(context, forceFormula) {
-        return new AjfValidationResult(super.evaluate(context, forceFormula), this.errorMessage, this.clientValidation);
-    }
-}
-/**
- * This class will define an ajf validation group
- */
-class AjfValidationGroup extends AjfJsonSerializable {
-    /**
-     * this static method will load an AjfValidationGroup from json
-     * @param {?} obj  : any - object validationGroup
-     * @return {?} AjfValidationGroup
-     */
-    static fromJson(obj) {
-        /** @type {?} */
-        let keys = Object.keys(obj);
-        if (keys.indexOf('maxValue') > -1 && typeof obj.maxValue === 'number') {
-            obj.maxValue = AjfValidation.getMaxCondition(obj.maxValue);
-        }
-        if (keys.indexOf('minValue') > -1 && typeof obj.minValue === 'number') {
-            obj.minValue = AjfValidation.getMinCondition(obj.minValue);
-        }
-        if (keys.indexOf('notEmpty') > -1) {
-            obj.notEmpty = AjfValidation.getNotEmptyCondition();
-        }
-        if (keys.indexOf('forceValue') > -1) {
-            obj.forceValue = AjfCondition.fromJson(obj.forceValue);
-        }
-        if (keys.indexOf('maxDigits') > -1 && typeof obj.maxDigits === 'number') {
-            obj.maxDigits = AjfValidation.getMaxDigitsCondition(obj.maxDigits);
-        }
-        if (keys.indexOf('minDigits') > -1 && typeof obj.minDigits === 'number') {
-            obj.minDigits = AjfValidation.getMinDigitsCondition(obj.minDigits);
-        }
-        if (keys.indexOf('conditions') > -1 && obj.conditions instanceof Array) {
-            /** @type {?} */
-            let conditions = [];
-            for (let c of obj.conditions) {
-                conditions.push(AjfValidation.fromJson(c));
-            }
-            obj.conditions = conditions;
-        }
-        return new AjfValidationGroup(obj);
-    }
-    /**
-     * this constructor will assign the obj value to a class variables
-     * @param {?=} obj : any
-     */
-    constructor(obj) {
-        super(obj);
-        this.forceValue = obj && obj.forceValue || null;
-        this.maxValue = obj && obj.maxValue || null;
-        this.minValue = obj && obj.minValue || null;
-        this.notEmpty = obj && obj.notEmpty || null;
-        this.maxDigits = obj && obj.maxDigits || null;
-        this.minDigits = obj && obj.minDigits || null;
-        this.conditions = obj && obj.conditions || [];
-        this.jsonExportedMembers = this.jsonExportedMembers
-            .concat([
-            'forceValue', 'maxValue', 'minValue', 'notEmpty',
-            'maxDigits', 'minDigits', 'conditions'
-        ]);
-    }
-    /**
-     * @return {?}
-     */
-    toJson() {
-        /** @type {?} */
-        const json = {};
-        if (this.forceValue != null) {
-            json['forceValue'] = true;
-        }
-        if (this.maxValue != null) {
-            json['maxValue'] = this.maxValue.condition.replace('$value <= ', '');
-        }
-        if (this.minValue != null) {
-            json['minValue'] = this.minValue.condition.replace('$value >= ', '');
-        }
-        if (this.notEmpty != null) {
-            json['notEmpty'] = true;
-        }
-        if (this.maxDigits != null) {
-            json['maxDigits'] = this.maxDigits.condition.replace('$value ? $value.toString().length <=  : false', '');
-        }
-        if (this.minDigits != null) {
-            json['minDigits'] = this.minDigits.condition.replace('$value ? $value.toString().length >=  : false', '');
-        }
-        if (this.conditions != null) {
-            json['conditions'] = this.conditions.map((/**
-             * @param {?} c
-             * @return {?}
-             */
-            c => c.toJson()));
-        }
-        return json;
-    }
-    /**
-     * this protected method evaluate max value
-     * @protected
-     * @param {?} value : any
-     * @return {?} AjfValidationResult
-     */
-    _evaluateMaxValue(value) {
-        if (this.maxValue == null) {
-            return null;
-        }
-        return this.maxValue.evaluate({ '$value': value });
-    }
-    /**
-     * this protected method evaluate min value
-     * @protected
-     * @param {?} value : any
-     * @return {?} AjfValidationResult
-     */
-    _evaluateMinvalue(value) {
-        if (this.minValue == null) {
-            return null;
-        }
-        return this.minValue.evaluate({ '$value': value });
-    }
-    /**
-     * this protected method evaluate not empty value
-     * @protected
-     * @param {?} value : any
-     * @return {?} AjfValidationResult
-     */
-    _evaluateNotEmpty(value) {
-        if (this.notEmpty == null) {
-            return null;
-        }
-        return this.notEmpty.evaluate({ '$value': value });
-    }
-    /**
-     * this protected method evaluate conditions
-     * @protected
-     * @param {?} context : any
-     * @return {?} AjfValidationResult[]
-     */
-    _evaluateConditions(context) {
-        /** @type {?} */
-        let res = [];
-        this.conditions.forEach((/**
-         * @param {?} cond
-         * @return {?}
-         */
-        (cond) => {
-            res.push(cond.evaluate(context));
-        }));
-        return res;
-    }
-    /**
-     * this public method evaluate
-     * @param {?} value   : any
-     * @param {?=} context : any
-     * @return {?} AjfValidationResult[]
-     */
-    evaluate(value, context) {
-        /** @type {?} */
-        let res = [];
-        /** @type {?} */
-        let ctx = deepCopy(context);
-        ctx['$value'] = value;
-        res = this._evaluateConditions(ctx);
-        if (this.maxValue) {
-            /** @type {?} */
-            const maxValue = this._evaluateMaxValue(value);
-            if (maxValue != null) {
-                res.push();
-            }
-        }
-        if (this.minValue) {
-            /** @type {?} */
-            const minValue = this._evaluateMinvalue(value);
-            if (minValue != null) {
-                res.push(minValue);
-            }
-        }
-        if (this.notEmpty) {
-            /** @type {?} */
-            const notEmpty = this._evaluateNotEmpty(value);
-            if (notEmpty != null) {
-                res.push(notEmpty);
-            }
-        }
-        if (this.maxDigits) {
-            res.push(this.maxDigits.evaluate({ '$value': value }));
-        }
-        if (this.minDigits) {
-            res.push(this.minDigits.evaluate({ '$value': value }));
-        }
-        return res;
-    }
-    /**
-     * this public method evaluate force value
-     * @param {?} context : any
-     * @return {?} string
-     */
-    evaluateForceValue(context) {
-        return this.forceValue.evaluate(context);
-    }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * This class will define an ajf warning result
- */
-class AjfWarningResult {
-    /**
-     * this constructor will assign the parameters value to a class variables
-     * @param {?} res : boolean
-     * @param {?} wrn : string
-     */
-    constructor(res, wrn) {
-        this.result = res;
-        this.warning = wrn;
-    }
-}
-/**
- * This class will define an ajf warning
- */
-class AjfWarning extends AjfCondition {
-    /**
-     * this static method will load an AjfWarning from json
-     * @param {?} obj  : any - object warning
-     * @return {?} AjfWarning
-     */
-    static fromJson(obj) { return new AjfWarning(obj); }
-    /**
-     * @return {?}
-     */
-    static getNotEmptyWarning() {
-        return new AjfWarning({
-            condition: `notEmpty($value)`,
-            warningMessage: `Value must not be empty`
-        });
-    }
-    /**
-     * this constructor will assign the obj value to a class variables and call
-     * super()
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.warningMessage = obj && obj.warningMessage || 'Undefined Error';
-        this.jsonExportedMembers = this.jsonExportedMembers
-            .concat(['warningMessage']);
-    }
-    /**
-     * this public method will evaluate context or forceFormula
-     * @param {?=} context      : any - context
-     * @param {?=} forceFormula : string - formula
-     * @return {?} AjfWarningResult
-     */
-    evaluate(context, forceFormula) {
-        return new AjfWarningResult(super.evaluate(context, forceFormula), this.warningMessage);
-    }
-}
-/**
- * This class will define an ajf warning group
- */
-class AjfWarningGroup extends AjfJsonSerializable {
-    /**
-     * this static method will load an AjfWarningGroup from json
-     * @param {?} obj  : any - object warningGroup
-     * @return {?} AjfValidationGroup
-     */
-    static fromJson(obj) {
-        /** @type {?} */
-        let keys = Object.keys(obj);
-        if (keys.indexOf('notEmpty') > -1) {
-            obj.notEmpty = AjfWarning.getNotEmptyWarning();
-        }
-        if (keys.indexOf('conditions') > -1 && obj.conditions instanceof Array) {
-            /** @type {?} */
-            let conditions = [];
-            for (let c of obj.conditions) {
-                conditions.push(AjfWarning.fromJson(c));
-            }
-            obj.conditions = conditions;
-        }
-        return new AjfWarningGroup(obj);
-    }
-    /**
-     * this constructor will assign the obj value to a class variables
-     * @param {?=} obj : any
-     */
-    constructor(obj) {
-        super(obj);
-        this.notEmpty = obj && obj.notEmpty || null;
-        this.conditions = obj && obj.conditions || null;
-        this.jsonExportedMembers = this.jsonExportedMembers
-            .concat(['notEmpty', 'conditions']);
-    }
-    /**
-     * this protected method evaluate conditions
-     * @protected
-     * @param {?} context : any
-     * @return {?} AjfWarningResult[]
-     */
-    _evaluateConditions(context) {
-        /** @type {?} */
-        let res = [];
-        this.conditions.forEach((/**
-         * @param {?} cond
-         * @return {?}
-         */
-        (cond) => {
-            res.push(cond.evaluate(context));
-        }));
-        return res;
-    }
-    /**
-     * this public method evaluate
-     * @param {?=} context : any
-     * @return {?} AjfWarningResult[]
-     */
-    evaluate(context) {
-        /** @type {?} */
-        let res = this._evaluateConditions(context);
-        return res;
-    }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @enum {number} */
-const AjfNodeType = {
-    AjfField: 0,
-    AjfFieldNodeLink: 1,
-    AjfNodeGroup: 2,
-    AjfSlide: 3,
-    AjfRepeatingSlide: 4,
-    LENGTH: 5,
-};
-AjfNodeType[AjfNodeType.AjfField] = 'AjfField';
-AjfNodeType[AjfNodeType.AjfFieldNodeLink] = 'AjfFieldNodeLink';
-AjfNodeType[AjfNodeType.AjfNodeGroup] = 'AjfNodeGroup';
-AjfNodeType[AjfNodeType.AjfSlide] = 'AjfSlide';
-AjfNodeType[AjfNodeType.AjfRepeatingSlide] = 'AjfRepeatingSlide';
-AjfNodeType[AjfNodeType.LENGTH] = 'LENGTH';
-/**
- * This class will define an ajf node
- */
-class AjfNode extends AjfJsonSerializable {
-    /**
-     * @return {?}
-     */
-    get id() { return this._id; }
-    /**
-     * @param {?} id
-     * @return {?}
-     */
-    set id(id) { this._id = id; }
-    /**
-     * @return {?}
-     */
-    get parent() { return this._parent; }
-    /**
-     * @param {?} parent
-     * @return {?}
-     */
-    set parent(parent) { this._parent = parent; }
-    /**
-     * @return {?}
-     */
-    get parentNode() { return this._parentNode; }
-    /**
-     * @param {?} parentNode
-     * @return {?}
-     */
-    set parentNode(parentNode) { this._parentNode = parentNode; }
-    /**
-     * this method will get the conditionalBranches of the field
-     * @return {?} : _conditionalBranches
-     */
-    get conditionalBranches() {
-        return this._conditionalBranches;
-    }
-    /**
-     * this method will set the conditionalBranches of the field
-     * @param {?} conditionalBranches : AjfCondition[] - the new conditionalBranches
-     * @return {?}
-     */
-    set conditionalBranches(conditionalBranches) {
-        this._conditionalBranches = conditionalBranches;
-    }
-    /**
-     * this method will get the current name of field
-     * @return {?} : _name
-     */
-    get name() {
-        return this._name;
-    }
-    /**
-     * this method will set the current name of field
-     * @param {?} name : string - the new name
-     * @return {?}
-     */
-    set name(name) {
-        this._name = name;
-    }
-    /**
-     * this method will get the label of the field
-     * @return {?} : _label
-     */
-    get label() {
-        return this._label;
-    }
-    /**
-     * this method will set the label of the field
-     * @param {?} label : string - the new label
-     * @return {?}
-     */
-    set label(label) {
-        this._label = label;
-    }
-    /**
-     * this method will get the visibility of the field
-     * @return {?} : _visibility
-     */
-    get visibility() {
-        return this._visibility;
-    }
-    /**
-     * this method will set the visibility of the field
-     * @param {?} visibility : AjfCondition - the new visibility
-     * @return {?}
-     */
-    set visibility(visibility) {
-        this._visibility = visibility;
-    }
-    /**
-     * this method will load an AjfNode from json
-     * @param {?} obj                : any - object node
-     * @param {?=} choicesOrigins     : any[] - array of choicesOrigins
-     * @param {?=} attachmentsOrigins : any[] - array of attachmentsOrigins
-     * @param {?=} context
-     * @return {?} AjfNode
-     */
-    static fromJson(obj, choicesOrigins, attachmentsOrigins, context) {
-        // array of string:  contains a keys Object
-        // example:
-        // ["id", "name", "label", "visibility", "hasChoices", "parent",
-        //  "parentNode", "nodeType", "conditionalBranches", "fieldType", "nodes"]
-        obj = deepCopy(obj);
-        if (context) {
-            context = deepCopy(context);
-        }
-        /** @type {?} */
-        let keys = Object.keys(obj);
-        if (keys.indexOf('nodeType') === -1) {
-            throw new Error('Node type missing type');
-        }
-        /** @type {?} */
-        let nodeType = obj.nodeType;
-        delete obj.nodeType;
-        if (AjfNodeType[nodeType] == null) {
-            throw new Error('Invalid node type');
-        }
-        if (keys.indexOf('visibility') > -1) {
-            obj.visibility = AjfCondition.fromJson(obj.visibility);
-        }
-        if (keys.indexOf('conditionalBranches') > -1 && obj.conditionalBranches instanceof Array) {
-            /** @type {?} */
-            let cbs = [];
-            for (let i = 0; i < obj.conditionalBranches.length; i++) {
-                cbs.push(AjfCondition.fromJson(obj.conditionalBranches[i]));
-            }
-            if (cbs.length == 0) {
-                cbs.push(AjfCondition.alwaysCondition());
-            }
-            obj.conditionalBranches = cbs;
-        }
-        return AjfNode.createNode(nodeType, obj, choicesOrigins, attachmentsOrigins, context);
-    }
-    /**
-     * this method will create an AjfNode
-     * @param {?} nodeType           : identified a type of node (nodeGroup or nodeField)
-     * @param {?=} obj                : any - object node
-     * @param {?=} choicesOrigins     : any[] - array of choicesOrigins
-     * @param {?=} attachmentsOrigins : any[] - array of attachmentsOrigins
-     * @param {?=} context
-     * @return {?} AjfNode
-     */
-    static createNode(nodeType, obj, choicesOrigins, attachmentsOrigins, context) {
-        choicesOrigins = choicesOrigins || [];
-        attachmentsOrigins = attachmentsOrigins || [];
-        switch (nodeType) {
-            case AjfNodeType.AjfNodeGroup:
-                return AjfNodeGroup.fromJson(obj, choicesOrigins, attachmentsOrigins, context);
-            case AjfNodeType.AjfField:
-                return AjfField.fromJson(obj, choicesOrigins, attachmentsOrigins, context);
-            case AjfNodeType.AjfRepeatingSlide:
-                return AjfRepeatingSlide.fromJson(obj, choicesOrigins, attachmentsOrigins, context);
-            case AjfNodeType.AjfSlide:
-                return AjfSlide.fromJson(obj, choicesOrigins, attachmentsOrigins, context);
-            default:
-                throw new Error('Invalid node type');
-        }
-    }
-    /**
-     * this method get the nodeType
-     * @return {?} AjfNodeType
-     */
-    get nodeType() {
-        /** @type {?} */
-        const thisObj = this;
-        if (thisObj instanceof AjfField) {
-            return AjfNodeType.AjfField;
-        }
-        if (thisObj instanceof AjfFieldNodeLink) {
-            return AjfNodeType.AjfFieldNodeLink;
-        }
-        if (thisObj instanceof AjfNodeGroup) {
-            return AjfNodeType.AjfNodeGroup;
-        }
-        if (thisObj instanceof AjfRepeatingSlide) {
-            return AjfNodeType.AjfRepeatingSlide;
-        }
-        if (thisObj instanceof AjfSlide) {
-            return AjfNodeType.AjfSlide;
-        }
-        throw new Error('Invalid node type');
-    }
-    /**
-     * this constructor will assign the obj value to a class variables
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super();
-        this.jsonExportedMembers = this.jsonExportedMembers.concat([
-            'id', 'nodeType', 'parent', 'parentNode', 'visibility', 'name', 'label',
-            'conditionalBranches'
-        ]);
-        this._id = obj && obj.id || null;
-        this._parent = obj && obj.parent || null;
-        this._parentNode = obj && obj.parentNode || 0;
-        this._visibility = obj && obj.visibility || AjfCondition.alwaysCondition();
-        this._name = obj && obj.name || null;
-        this._label = obj && obj.label || null;
-        this._conditionalBranches = obj && obj.conditionalBranches || [AjfCondition.alwaysCondition()];
-    }
-    /**
-     * this method will set the conditiona branch number of the field
-     * @param {?} cbn : number
-     * @return {?}
-     */
-    setConditionalBranchesNum(cbn) {
-        if (this.getMaxConditionalBranches() >= 0) {
-            cbn = Math.min(cbn, this.getMaxConditionalBranches());
-        }
-        if (cbn < this.conditionalBranches.length) {
-            this.conditionalBranches = this.conditionalBranches.slice(0, cbn);
-        }
-        else if (cbn > this.conditionalBranches.length) {
-            for (let i = this.conditionalBranches.length; i < cbn; i++) {
-                this.conditionalBranches.push(AjfCondition.alwaysCondition());
-            }
-        }
-    }
-    /**
-     * this method will get the max xonditional branches of the field
-     * @return {?} number
-     */
-    getMaxConditionalBranches() {
-        return -1;
-    }
-}
-class AjfFieldNodeLink extends AjfNode {
-}
-/** @enum {number} */
-const AjfFieldType = {
-    String: 0,
-    Text: 1,
-    Number: 2,
-    Boolean: 3,
-    SingleChoice: 4,
-    MultipleChoice: 5,
-    Formula: 6,
-    Empty: 7,
-    Date: 8,
-    DateInput: 9,
-    Time: 10,
-    Table: 11,
-    LENGTH: 12,
-};
-AjfFieldType[AjfFieldType.String] = 'String';
-AjfFieldType[AjfFieldType.Text] = 'Text';
-AjfFieldType[AjfFieldType.Number] = 'Number';
-AjfFieldType[AjfFieldType.Boolean] = 'Boolean';
-AjfFieldType[AjfFieldType.SingleChoice] = 'SingleChoice';
-AjfFieldType[AjfFieldType.MultipleChoice] = 'MultipleChoice';
-AjfFieldType[AjfFieldType.Formula] = 'Formula';
-AjfFieldType[AjfFieldType.Empty] = 'Empty';
-AjfFieldType[AjfFieldType.Date] = 'Date';
-AjfFieldType[AjfFieldType.DateInput] = 'DateInput';
-AjfFieldType[AjfFieldType.Time] = 'Time';
-AjfFieldType[AjfFieldType.Table] = 'Table';
-AjfFieldType[AjfFieldType.LENGTH] = 'LENGTH';
-/**
- * This class will define an ajf node group
- */
-class AjfNodeGroup extends AjfNode {
-    /**
-     * @return {?}
-     */
-    get nodes() { return this._nodes; }
-    /**
-     * @param {?} nodes
-     * @return {?}
-     */
-    set nodes(nodes) { this._nodes = nodes; }
-    /**
-     * @return {?}
-     */
-    get formulaReps() { return this._formulaReps; }
-    /**
-     * @param {?} formulaReps
-     * @return {?}
-     */
-    set formulaReps(formulaReps) { this._formulaReps = formulaReps; }
-    /**
-     * @return {?}
-     */
-    get maxReps() { return this._maxReps; }
-    /**
-     * @param {?} maxReps
-     * @return {?}
-     */
-    set maxReps(maxReps) { this._maxReps = maxReps; }
-    /**
-     * @return {?}
-     */
-    get minReps() { return this._minReps; }
-    /**
-     * @param {?} minReps
-     * @return {?}
-     */
-    set minReps(minReps) { this._minReps = minReps; }
-    /**
-     * this method will load an AjfNodeGroup from json
-     * @param {?} obj                : any - object node
-     * @param {?} choicesOrigins     : any[] - array of choicesOrigins
-     * @param {?} attachmentsOrigins : any[] - array of attachmentsOrigins
-     * @param {?} context
-     * @return {?} AjfNodeGroup
-     */
-    static fromJson(obj, choicesOrigins, attachmentsOrigins, context) {
-        // array of string:  contains a keys Object
-        // example:
-        // ["id", "parent", "parentNode", "formulaReps", "nodes"]
-        obj = deepCopy(obj);
-        if (context) {
-            context = deepCopy(context);
-        }
-        /** @type {?} */
-        let keys = Object.keys(obj);
-        if (keys.indexOf('nodes') > -1 && obj.nodes instanceof Array) {
-            /** @type {?} */
-            let nodes = [];
-            for (let i = 0; i < obj.nodes.length; i++) {
-                nodes.push(AjfNode.fromJson(obj.nodes[i], choicesOrigins, attachmentsOrigins));
-            }
-            obj.nodes = nodes;
-        }
-        if (keys.indexOf('formulaReps') > -1 && obj.formulaReps != null) {
-            obj.formulaReps = AjfFormula.fromJson(obj.formulaReps);
-        }
-        if (keys.indexOf('visibility') > -1 && obj.visibility != null) {
-            obj.visibility = AjfCondition.fromJson(obj.visibility);
-        }
-        if (keys.indexOf('conditionalBranches') > -1 && obj.conditionalBranches instanceof Array) {
-            /** @type {?} */
-            let cbs = [];
-            for (let i = 0; i < obj.conditionalBranches.length; i++) {
-                cbs.push(AjfCondition.fromJson(obj.conditionalBranches[i]));
-            }
-            obj.conditionalBranches = cbs;
-        }
-        /** @type {?} */
-        let ret = new AjfNodeGroup(obj);
-        return ret;
-    }
-    /**
-     * this constructor will assign the obj value to a class variables
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.jsonExportedMembers = this.jsonExportedMembers.concat([
-            'formulaReps', 'minReps', 'maxReps', 'nodes'
-        ]);
-        this.nodes = obj && obj.nodes || [];
-        this.formulaReps = obj && obj.formulaReps || null;
-        this.maxReps = obj && obj.maxReps || null;
-        this.minReps = obj && obj.minReps || null;
-    }
-}
-/**
- * Represents a form slide.
- * Slides are specialized node groups used to layout the form.
- * They must be at the root level of the form
- *
- * @export
- */
-class AjfSlide extends AjfNode {
-    /**
-     * @return {?}
-     */
-    get nodes() { return this._nodes.slice(0); }
-    /**
-     * @param {?} nodes
-     * @return {?}
-     */
-    set nodes(nodes) { this._nodes = nodes.slice(0); }
-    /**
-     * @param {?} obj
-     * @param {?} choicesOrigins
-     * @param {?} attachmentsOrigins
-     * @param {?} context
-     * @return {?}
-     */
-    static fromJson(obj, choicesOrigins, attachmentsOrigins, context) {
-        obj = deepCopy(obj);
-        if (context) {
-            context = deepCopy(context);
-        }
-        /** @type {?} */
-        let keys = Object.keys(obj);
-        if (keys.indexOf('visibility') > -1 && obj.visibility != null) {
-            obj.visibility = AjfCondition.fromJson(obj.visibility);
-        }
-        if (keys.indexOf('nodes') > -1 && obj.nodes instanceof Array) {
-            /** @type {?} */
-            let nodes = [];
-            for (let i = 0; i < obj.nodes.length; i++) {
-                nodes.push(AjfNode.fromJson(obj.nodes[i], choicesOrigins, attachmentsOrigins));
-            }
-            obj.nodes = nodes;
-        }
-        if (keys.indexOf('conditionalBranches') > -1 && obj.conditionalBranches instanceof Array) {
-            /** @type {?} */
-            let cbs = [];
-            for (let i = 0; i < obj.conditionalBranches.length; i++) {
-                cbs.push(AjfCondition.fromJson(obj.conditionalBranches[i]));
-            }
-            obj.conditionalBranches = cbs;
-        }
-        return new AjfSlide(obj);
-    }
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.jsonExportedMembers = this.jsonExportedMembers.concat(['nodes']);
-        this._nodes = obj && obj.nodes || [];
-    }
-}
-class AjfRepeatingSlide extends AjfSlide {
-    /**
-     * @return {?}
-     */
-    get formulaReps() { return this._formulaReps; }
-    /**
-     * @param {?} formulaReps
-     * @return {?}
-     */
-    set formulaReps(formulaReps) { this._formulaReps = formulaReps; }
-    /**
-     * @return {?}
-     */
-    get maxReps() { return this._maxReps; }
-    /**
-     * @param {?} maxReps
-     * @return {?}
-     */
-    set maxReps(maxReps) { this._maxReps = maxReps; }
-    /**
-     * @return {?}
-     */
-    get minReps() { return this._minReps; }
-    /**
-     * @param {?} minReps
-     * @return {?}
-     */
-    set minReps(minReps) { this._minReps = minReps; }
-    /**
-     * @param {?} obj
-     * @param {?} choicesOrigins
-     * @param {?} attachmentsOrigins
-     * @param {?} context
-     * @return {?}
-     */
-    static fromJson(obj, choicesOrigins, attachmentsOrigins, context) {
-        obj = deepCopy(obj);
-        if (context) {
-            context = deepCopy(context);
-        }
-        /** @type {?} */
-        let keys = Object.keys(obj);
-        if (keys.indexOf('visibility') > -1 && obj.visibility != null) {
-            obj.visibility = AjfCondition.fromJson(obj.visibility);
-        }
-        if (keys.indexOf('nodes') > -1 && obj.nodes instanceof Array) {
-            /** @type {?} */
-            let nodes = [];
-            for (let i = 0; i < obj.nodes.length; i++) {
-                nodes.push(AjfNode.fromJson(obj.nodes[i], choicesOrigins, attachmentsOrigins));
-            }
-            obj.nodes = nodes;
-        }
-        if (keys.indexOf('formulaReps') > -1 && obj.formulaReps != null) {
-            obj.formulaReps = AjfFormula.fromJson(obj.formulaReps);
-        }
-        if (keys.indexOf('conditionalBranches') > -1 && obj.conditionalBranches instanceof Array) {
-            /** @type {?} */
-            let cbs = [];
-            for (let i = 0; i < obj.conditionalBranches.length; i++) {
-                cbs.push(AjfCondition.fromJson(obj.conditionalBranches[i]));
-            }
-            obj.conditionalBranches = cbs;
-        }
-        return new AjfRepeatingSlide(obj);
-    }
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.jsonExportedMembers = this.jsonExportedMembers.concat([
-            'nodes', 'formulaReps', 'minReps', 'maxReps'
-        ]);
-        this.formulaReps = obj && obj.formulaReps || null;
-        this.nodes = obj && obj.nodes || [];
-        this.minReps = obj && obj.minReps || 1;
-        this.maxReps = obj && obj.maxReps || 0;
-    }
-}
-/**
- * This class will define an ajf Field
- * @abstract
- */
-class AjfField extends AjfNode {
-    /**
-     * this constructor will assign the obj value to a class variables
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        // a boolean to identify if the field have choices
-        this._hasChoices = false;
-        //  a boolean to identify if field has attachments
-        this._hasAttachments = false;
-        this.jsonExportedMembers = this.jsonExportedMembers.concat([
-            'fieldType', 'description',
-            'editable', 'formula', 'validation', 'warning', 'hasChoices', 'defaultValue', 'size',
-            'nextSlideCondition'
-        ]);
-        this._description = obj && obj.description || null;
-        this._formula = obj && obj.formula || null;
-        this._validation = obj && obj.validation || null;
-        this._warning = obj && obj.warning || null;
-        this._attachmentsOrigin = obj && obj.attachmentsOrigin || null;
-        this.defaultValue = obj && obj.defaultValue != null ? obj.defaultValue : null;
-        this._size = obj && obj.size || 'normal';
-        this._nextSlideCondition = obj && obj.nextSlideCondition || null;
-        this.setHasAttachments(this._attachmentsOrigin && true || false);
-        this._hasChoices = false;
-        this.setEditable();
-    }
-    /**
-     * this method will get the description of the field
-     * @return {?} : _description
-     */
-    get description() {
-        return this._description;
-    }
-    /**
-     * this method will set the description of the field
-     * @param {?} description : string - the new description
-     * @return {?}
-     */
-    set description(description) {
-        this._description = description;
-    }
-    /**
-     * this method will get the editable status  of the field
-     * @return {?} : _editable
-     */
-    get editable() {
-        return this._editable;
-    }
-    /**
-     * this method will get the formula of the field
-     * @return {?} : _formula
-     */
-    get formula() {
-        return this._formula;
-    }
-    /**
-     * @param {?} formula
-     * @return {?}
-     */
-    set formula(formula) {
-        this._formula = formula;
-    }
-    /**
-     * this method will get the hasChoices status of the field
-     * @return {?} : _hasChoices
-     */
-    get hasChoices() {
-        return this._hasChoices;
-    }
-    /**
-     * this method will get the default value of the field
-     * @return {?} : _defaultValue
-     */
-    get defaultValue() {
-        return this._defaultValue;
-    }
-    /**
-     * this method will set the defaultValue of the field
-     * @param {?} defaultValue : any - the new defaultValue
-     * @return {?}
-     */
-    set defaultValue(defaultValue) {
-        if (defaultValue == null || this.validateValue(defaultValue)) {
-            this._defaultValue = defaultValue;
-        }
-        else {
-            throw new AjfInvalidFieldDefinitionError('The default value is not valid for this field type');
-        }
-    }
-    /**
-     * @return {?}
-     */
-    get size() {
-        return this._size;
-    }
-    /**
-     * @param {?} size
-     * @return {?}
-     */
-    set size(size) {
-        this._size = size;
-    }
-    /**
-     * this method will get the validation value of the field
-     * @return {?} : _validation
-     */
-    get validation() {
-        return this._validation;
-    }
-    /**
-     * @param {?} validation
-     * @return {?}
-     */
-    set validation(validation) {
-        this._validation = validation;
-    }
-    /**
-     * this method will get the warning value of the field
-     * @return {?} : _warning
-     */
-    get warning() {
-        return this._warning;
-    }
-    /**
-     * @param {?} warning
-     * @return {?}
-     */
-    set warning(warning) {
-        this._warning = warning;
-    }
-    /**
-     * this method will get the hasAttachments status of the field
-     * @return {?} : _hasAttachments
-     */
-    get hasAttachments() { return this._hasAttachments; }
-    /**
-     * this method will get the attachmentsOrigin of the field
-     * @return {?} : AjfAttachmentsOrigin
-     */
-    get attachmentsOrigin() {
-        return this.hasAttachments && this._attachmentsOrigin || null;
-    }
-    /**
-     * this method will get the attachments of the field
-     * @return {?} : any the attachments
-     */
-    get attachments() {
-        return this.hasAttachments &&
-            this._attachmentsOrigin.getAttachments() || [];
-    }
-    /**
-     * @return {?}
-     */
-    get nextSlideCondition() {
-        return this._nextSlideCondition;
-    }
-    /**
-     * @param {?} condition
-     * @return {?}
-     */
-    set nextSlideCondition(condition) {
-        this._nextSlideCondition = condition;
-    }
-    /**
-     * @return {?}
-     */
-    get nextSlide() {
-        return this._nextSlide;
-    }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
-    set nextSlide(val) {
-        this._nextSlide = val;
-    }
-    /**
-     * this method will get the field type
-     * @return {?} : AjfFieldType
-     */
-    get fieldType() {
-        /** @type {?} */
-        const thisObj = this;
-        if (thisObj instanceof AjfFormulaField) {
-            return AjfFieldType.Formula;
-        }
-        if (thisObj instanceof AjfMultipleChoiceField) {
-            return AjfFieldType.MultipleChoice;
-        }
-        if (thisObj instanceof AjfSingleChoiceField) {
-            return AjfFieldType.SingleChoice;
-        }
-        if (thisObj instanceof AjfBooleanField) {
-            return AjfFieldType.Boolean;
-        }
-        if (thisObj instanceof AjfNumberField) {
-            return AjfFieldType.Number;
-        }
-        if (thisObj instanceof AjfTextField) {
-            return AjfFieldType.Text;
-        }
-        if (thisObj instanceof AjfStringField) {
-            return AjfFieldType.String;
-        }
-        if (thisObj instanceof AjfDateField) {
-            return AjfFieldType.Date;
-        }
-        if (thisObj instanceof AjfDateInputField) {
-            return AjfFieldType.DateInput;
-        }
-        if (thisObj instanceof AjfTableField) {
-            return AjfFieldType.Table;
-        }
-        if (thisObj instanceof AjfTimeField) {
-            return AjfFieldType.Time;
-        }
-        return AjfFieldType.Empty;
-    }
-    /**
-     * this method will get the node type of the field
-     * @return {?} : AjfFieldType
-     */
-    get nodeType() { return AjfNodeType.AjfField; }
-    /**
-     * this method will create new field
-     * @param {?} fieldType
-     * @param {?=} obj
-     * @return {?} : ajfField
-     */
-    static create(fieldType, obj) {
-        /** @type {?} */
-        let ret;
-        switch (fieldType) {
-            case AjfFieldType.String:
-                ret = new AjfStringField(obj);
-                break;
-            case AjfFieldType.Text:
-                ret = new AjfTextField(obj);
-                break;
-            case AjfFieldType.Number:
-                ret = new AjfNumberField(obj);
-                break;
-            case AjfFieldType.Boolean:
-                ret = new AjfBooleanField(obj);
-                break;
-            case AjfFieldType.SingleChoice:
-                ret = new AjfSingleChoiceField(obj);
-                break;
-            case AjfFieldType.MultipleChoice:
-                ret = new AjfMultipleChoiceField(obj);
-                break;
-            case AjfFieldType.Formula:
-                ret = new AjfFormulaField(obj);
-                break;
-            case AjfFieldType.Empty:
-                ret = new AjfEmptyField(obj);
-                break;
-            case AjfFieldType.Date:
-                ret = new AjfDateField(obj);
-                break;
-            case AjfFieldType.DateInput:
-                ret = new AjfDateInputField(obj);
-                break;
-            case AjfFieldType.Time:
-                ret = new AjfTimeField(obj);
-                break;
-            case AjfFieldType.Table:
-                ret = new AjfTableField(obj);
-                break;
-            default:
-                throw new Error('Invalid field type');
-        }
-        return ret;
-    }
-    /**
-     * this method will load an AjfField from json
-     * @param {?} obj                : any - object node
-     * @param {?} choicesOrigins     : any[] - array of choicesOrigins
-     * @param {?} attachmentsOrigins : any[] - array of attachmentsOrigins
-     * @param {?} context
-     * @return {?} AjfNode
-     */
-    static fromJson(obj, choicesOrigins, attachmentsOrigins, context) {
-        // array of string: contains a keys object
-        // example:
-        // ["id", "name", "label", "visibility", "hasChoices", "parent",
-        // "parentNode", "conditionalBranches", "fieldType", "nodes"]
-        obj = deepCopy(obj);
-        if (context) {
-            context = deepCopy(context);
-        }
-        /** @type {?} */
-        let keys = Object.keys(obj);
-        if (keys.indexOf('fieldType') === -1) {
-            throw new Error('Field type missing type');
-        }
-        /** @type {?} */
-        let fieldType = obj.fieldType;
-        delete obj.fieldType;
-        if (AjfFieldType[fieldType] == null) {
-            throw new Error('Invalid field type');
-        }
-        if (keys.indexOf('visibility') > -1 && obj.visibility != null) {
-            obj.visibility = AjfCondition.fromJson(obj.visibility);
-        }
-        if (keys.indexOf('formula') > -1 && obj.formula != null) {
-            obj.formula = AjfFormula.fromJson(obj.formula);
-        }
-        if (keys.indexOf('choicesFilter') > -1 && obj.choicesFilter != null) {
-            obj.choicesFilter = AjfFormula.fromJson(obj.choicesFilter);
-        }
-        if (keys.indexOf('validation') > -1 && obj.validation != null) {
-            obj.validation = AjfValidationGroup.fromJson(obj.validation);
-        }
-        if (keys.indexOf('warning') > -1 && obj.warning != null) {
-            obj.warning = AjfWarningGroup.fromJson(obj.warning);
-        }
-        if (keys.indexOf('choicesOriginRef') > -1) {
-            /** @type {?} */
-            let origins = choicesOrigins.filter((/**
-             * @param {?} x
-             * @return {?}
-             */
-            x => x.getName() === obj.choicesOriginRef));
-            obj.choicesOrigin = origins.length > 0 ? origins[0] : null;
-        }
-        if (keys.indexOf('attachmentsOriginRef') > -1) {
-            /** @type {?} */
-            let origins = attachmentsOrigins.filter((/**
-             * @param {?} x
-             * @return {?}
-             */
-            x => x.getName() === obj.attachmentsOriginRef));
-            obj.attachmentsOrigin = origins.length > 0 ? origins[0] : null;
-        }
-        if (keys.indexOf('triggerConditions') > -1 &&
-            obj.triggerConditions != null &&
-            obj.triggerConditions.length > 0) {
-            obj.triggerConditions = obj.triggerConditions
-                .map((/**
-             * @param {?} t
-             * @return {?}
-             */
-            (t) => {
-                return AjfCondition.fromJson(t);
-            }));
-        }
-        if (keys.indexOf('nodes') > -1 && obj.nodes instanceof Array) {
-            /** @type {?} */
-            let nodes = [];
-            for (let i = 0; i < obj.nodes.length; i++) {
-                /** @type {?} */
-                let childNode = obj.nodes[i];
-                childNode.parentField = obj.id;
-                nodes.push(AjfNode.fromJson(childNode, choicesOrigins, attachmentsOrigins, context));
-            }
-            obj.nodes = nodes;
-        }
-        if (keys.indexOf('nextSlideCondition') > -1 && obj.nextSlideCondition != null) {
-            obj.nextSlideCondition = AjfCondition.fromJson(obj.nextSlideCondition);
-        }
-        if (keys.indexOf('conditionalBranches') > -1 && obj.conditionalBranches instanceof Array) {
-            /** @type {?} */
-            let cbs = [];
-            for (let i = 0; i < obj.conditionalBranches.length; i++) {
-                cbs.push(AjfCondition.fromJson(obj.conditionalBranches[i]));
-            }
-            obj.conditionalBranches = cbs;
-        }
-        return AjfField.create(fieldType, obj);
-    }
-    /**
-     * this method will set the editable value of the field
-     * @protected
-     * @param {?=} editable : boolean
-     * @return {?}
-     */
-    setEditable(editable = true) {
-        this._editable = editable;
-    }
-    /**
-     * this method will set the HasChoices value of the field
-     * @protected
-     * @param {?} hasChoices : boolean
-     * @return {?}
-     */
-    setHasChoices(hasChoices) {
-        this._hasChoices = hasChoices;
-    }
-    /**
-     * this method will set the hasAttachments value of the field
-     * @protected
-     * @param {?} hasAttachments : boolean
-     * @return {?}
-     */
-    setHasAttachments(hasAttachments) {
-        this._hasAttachments = hasAttachments;
-    }
-}
-/**
- * This class will define an ajf empty field
- */
-class AjfEmptyField extends AjfField {
-    /**
-     * @param {?} _
-     * @return {?}
-     */
-    validateValue(_) {
-        return true;
-    }
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.jsonExportedMembers = this.jsonExportedMembers.concat([
-            'HTML'
-        ]);
-        this.HTML = obj && obj.HTML || null;
-    }
-}
-/**
- * This class will define an ajf string field
- */
-class AjfStringField extends AjfField {
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    validateValue(value) {
-        return value === value.toString();
-    }
-}
-/**
- * This class will define an ajf text field
- */
-class AjfTextField extends AjfStringField {
-}
-/**
- * This class will define an ajf number field
- */
-class AjfNumberField extends AjfField {
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    validateValue(value) {
-        return value === parseInt(value, 10) || value === parseFloat(value);
-    }
-}
-/**
- * This class will define an ajf boolean field
- */
-class AjfBooleanField extends AjfField {
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    validateValue(value) {
-        return value === !!value;
-    }
-    /**
-     * @return {?}
-     */
-    getMaxConditionalBranches() {
-        return 2;
-    }
-}
-/**
- * This class will define an ajf field with choices
- */
-class AjfFieldWithChoices extends AjfField {
-    /**
-     * @return {?}
-     */
-    get choices() {
-        return this.choicesOrigin && this.choicesOrigin.getChoices() || [];
-    }
-    /**
-     * @return {?}
-     */
-    get choicesOriginRef() {
-        return this.choicesOrigin.getName();
-    }
-    /**
-     * @param {?} _
-     * @return {?}
-     */
-    validateValue(_) {
-        return true;
-    }
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.jsonExportedMembers = this.jsonExportedMembers
-            .concat([
-            'choicesOriginRef', 'choicesFilter',
-            'forceExpanded', 'forceNarrow', 'triggerConditions'
-        ]);
-        this.choicesOrigin = obj && obj.choicesOrigin || null;
-        this.choicesFilter = obj && obj.choicesFilter || null;
-        this.forceExpanded = obj && obj.forceExpanded || false;
-        this.forceNarrow = obj && obj.forceNarrow || false;
-        this.triggerConditions = obj && obj.triggerConditions || null;
-        this.setHasChoices(true);
-    }
-}
-/**
- * This class will define an ajf field with SingleChoice
- */
-class AjfSingleChoiceField extends AjfFieldWithChoices {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    validateValue(value) {
-        return value == null || this.choices.filter((/**
-         * @param {?} x
-         * @return {?}
-         */
-        x => x === value)).length > 0;
-    }
-    /**
-     * @return {?}
-     */
-    getMaxConditionalBranches() {
-        return Math.max(1, this.choices.length + 1);
-    }
-}
-/**
- * This class will define an ajf field with MultipleChoice
- */
-class AjfMultipleChoiceField extends AjfSingleChoiceField {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        /** @type {?} */
-        let defaultValue = obj && obj.defaultValue || [];
-        obj = Object.assign({}, obj || {}, { defaultValue });
-        super(obj);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    validateValue(value) {
-        if (value instanceof Array) {
-            /** @type {?} */
-            let i = 0;
-            /** @type {?} */
-            let l = value.length;
-            /** @type {?} */
-            let good = true;
-            while (good && i < l) {
-                good = super.validateValue(value[i++]);
-            }
-            return good;
-        }
-        else {
-            return super.validateValue(value);
-        }
-    }
-    /**
-     * @return {?}
-     */
-    getMaxConditionalBranches() {
-        /** @type {?} */
-        let total = 0;
-        /** @type {?} */
-        let l = this.choices.length;
-        /** @type {?} */
-        let f = [1];
-        for (let i = 1; i <= l; i++) {
-            f.push(factorial(i));
-        }
-        for (let i = 1; i <= l; i++) {
-            total += f[l] / (f[i] * f[l - i]);
-        }
-        return total;
-    }
-}
-/**
- * This class will define an formula field
- */
-class AjfFormulaField extends AjfNumberField {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.setEditable(false);
-    }
-}
-/**
- * This class will define an ajf date field
- */
-class AjfDateField extends AjfField {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.jsonExportedMembers = this.jsonExportedMembers
-            .concat(['maxDate', 'minDate']);
-        this.minDate = obj && obj.minDate || null;
-        this.maxDate = obj && obj.maxDate || null;
-        this.minDateValue = this.minDate === 'today' ? new Date() : (/** @type {?} */ (this.minDate));
-        this.maxDateValue = this.maxDate === 'today' ? new Date() : (/** @type {?} */ (this.maxDate));
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    validateValue(value) {
-        return value === value.toString();
-    }
-}
-class AjfDateInputField extends AjfField {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    validateValue(value) {
-        return value === value.toString();
-    }
-}
-class AjfTimeField extends AjfField {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.jsonExportedMembers = this.jsonExportedMembers
-            .concat([]);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    validateValue(value) {
-        return value === value.toString();
-    }
-}
-class AjfTableField extends AjfField {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.columnLabels = [];
-        this.rowLabels = [];
-        this.hideEmptyRows = false;
-        this.setEditable(obj && obj.editable || false);
-        this.jsonExportedMembers = this.jsonExportedMembers.concat(['rows', 'columnLabels', 'rowLabels']);
-        this.rows = obj && obj.rows || [];
-        this.columnLabels = obj && obj.columnLabels || [];
-        this.rowLabels = obj && obj.rowLabels || [];
-        this.hideEmptyRows = obj && obj.hideEmptyRows || false;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    validateValue(value) { return value === value.toString(); }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} type
- * @return {?}
- */
-function fieldIconName(type) {
-    return `ajf-icon-field-${AjfFieldType[type].toLowerCase()}`;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class FieldIconPipe {
-    /**
-     * @param {?} field
-     * @return {?}
-     */
-    transform(field) {
-        return fieldIconName(field instanceof AjfField ? field.fieldType : field);
-    }
-}
-FieldIconPipe.decorators = [
-    { type: Pipe, args: [{ name: 'fieldIcon' },] },
-];
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfNodeInstance {
-    /**
-     * @param {?} params
-     * @param {?=} _context
-     */
-    constructor(params, _context) {
-        this._updatedEvt = new EventEmitter();
-        this._updated = this._updatedEvt.asObservable();
-        this._node = params.node;
-        this._prefix = params.prefix != null ? params.prefix.slice(0) : [];
-        this._visible = params.visible != null ? params.visible : true;
-    }
-    /**
-     * @return {?}
-     */
-    get updated() { return this._updated; }
-    /**
-     * @return {?}
-     */
-    get node() { return this._node; }
-    /**
-     * @return {?}
-     */
-    get prefix() { return this._prefix.slice(0); }
-    /**
-     * @return {?}
-     */
-    get visible() { return this._visible; }
-    /**
-     * @return {?}
-     */
-    get suffix() {
-        if (this.prefix == null || this.prefix.length == 0) {
-            return '';
-        }
-        return `__${this.prefix.join('__')}`;
-    }
-    /**
-     * this method will get the complete name of the field
-     * @return {?} : string
-     */
-    get completeName() {
-        return `${this.node.name}${this.suffix}`;
-    }
-    /**
-     * @protected
-     * @param {?} node
-     * @return {?}
-     */
-    setNode(node) { this._node = node; }
-    /**
-     * @return {?}
-     */
-    triggerUpdate() {
-        this._updatedEvt.emit();
-    }
-    /**
-     * Update nodes visibility based on context value.
-     * Returns true if the visibility has changes
-     *
-     * \@memberOf AjfNodeInstance
-     * @param {?} context Context value
-     * @param {?=} branchVisibility
-     *
-     * @return {?}
-     */
-    updateVisibility(context, branchVisibility = true) {
-        if (this.visibility == null) {
-            return false;
-        }
-        /** @type {?} */
-        const visibility = this.visibility;
-        /** @type {?} */
-        const oldVisibility = this.visible;
-        /** @type {?} */
-        let newVisibility = branchVisibility && visibility.evaluate(context);
-        if (newVisibility !== this.visible) {
-            this._visible = newVisibility;
-        }
-        return oldVisibility !== newVisibility;
-    }
-    /**
-     * @param {?} context
-     * @return {?}
-     */
-    updateConditionalBranches(context) {
-        /** @type {?} */
-        const conditionalBranches = this.conditionalBranches;
-        if (conditionalBranches != null) {
-            /** @type {?} */
-            const oldBranch = this.verifiedBranch;
-            /** @type {?} */
-            let idx = 0;
-            /** @type {?} */
-            let found = false;
-            while (idx < conditionalBranches.length && !found) {
-                /** @type {?} */
-                let verified = conditionalBranches[idx].evaluate(context);
-                if (verified) {
-                    found = true;
-                    if (idx !== this.verifiedBranch) {
-                        this.verifiedBranch = idx;
-                    }
-                }
-                idx++;
-            }
-            if (oldBranch !== this.verifiedBranch) {
-                return true;
-            }
-        }
-        return false;
-    }
-}
-class AjfFieldInstance extends AjfNodeInstance {
-    /**
-     * @param {?} params
-     * @param {?=} context
-     */
-    constructor(params, context) {
-        super(params, context);
-        // number of repetitions
-        this.reps = 0;
-        // an array of AjfValidationResult
-        this._validationResults = [];
-        // an array of AjfWarningResult
-        this._warningResults = [];
-        this._defaultValue = null;
-        this._triggerWarning = new ReplaySubject(1);
-        if (this.node != null && context != null) {
-            if (context[this.node.name] != null) {
-                this.value = context[this.node.name];
-            }
-            else if (context[this.completeName] != null) {
-                this.value = context[this.completeName];
-            }
-            else {
-                this.value = null;
-            }
-        }
-        /** @type {?} */
-        const defVal = ((/** @type {?} */ (this.node))).defaultValue;
-        this._defaultValue = this.node && defVal != null ? defVal : null;
-    }
-    /**
-     * @return {?}
-     */
-    get field() { return (/** @type {?} */ (this.node)); }
-    /**
-     * @param {?} field
-     * @return {?}
-     */
-    set field(field) { this.setNode(field); }
-    // the value of field
-    /**
-     * @return {?}
-     */
-    get value() { return this._value != null && this._value || this._defaultValue; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set value(value) { this._value = value; }
-    /**
-     * @return {?}
-     */
-    get triggerWarning() { return this._triggerWarning.asObservable(); }
-    /**
-     * this method will get the validationResults value of the field
-     * @return {?} : _validationResults
-     */
-    get validationResults() {
-        return this._validationResults;
-    }
-    /**
-     * this method will get the warningResults value of the field
-     * @return {?} : _warningResults
-     */
-    get warningResults() {
-        return this._warningResults;
-    }
-    /**
-     * @param {?} context
-     * @return {?}
-     */
-    updateFormula(context) {
-        /** @type {?} */
-        const formula = this.formula;
-        /** @type {?} */
-        const editable = this.field.editable;
-        if (formula != null && this.visible && (!editable || (editable && this.value == null))) {
-            /** @type {?} */
-            let newValue = formula.evaluate(context);
-            /** @type {?} */
-            const oldValue = this.value;
-            if (newValue !== this.value) {
-                this.value = newValue;
-                context[this.completeName] = this.value;
-                context.$value = this.value;
-            }
-            return {
-                changed: newValue !== oldValue,
-                value: newValue
-            };
-        }
-        return { changed: false, value: this.value };
-    }
-    /**
-     * @private
-     * @param {?} context
-     * @param {?} supplementaryInformations
-     * @return {?}
-     */
-    _makeSupplementaryContext(context, supplementaryInformations) {
-        Object.keys(supplementaryInformations).forEach((/**
-         * @param {?} key
-         * @return {?}
-         */
-        (key) => {
-            context[`__supplementary__${key}__`] = supplementaryInformations[key];
-        }));
-        return context;
-    }
-    /**
-     * @param {?} context
-     * @param {?=} supplementaryInformations
-     * @return {?}
-     */
-    updateValidation(context, supplementaryInformations) {
-        /** @type {?} */
-        const validation = this.validation;
-        if (validation == null) {
-            return;
-        }
-        if (supplementaryInformations) {
-            this._makeSupplementaryContext(context, supplementaryInformations);
-        }
-        if (context[this.completeName] != null && validation && validation.forceValue) {
-            this.value = validation.evaluateForceValue(context);
-            context[this.completeName] = this.value;
-            context.$value = this.value;
-        }
-        if (validation != null) {
-            this._validationResults = validation.evaluate(context[this.completeName], context);
-            this.valid = this.validationResults
-                .reduce((/**
-             * @param {?} prev
-             * @param {?} x
-             * @return {?}
-             */
-            (prev, x) => prev && x.result), true);
-        }
-        else {
-            this.valid = true;
-        }
-    }
-    /**
-     * @param {?} context
-     * @return {?}
-     */
-    updateWarning(context) {
-        /** @type {?} */
-        const warning = this.warning;
-        if (context[this.completeName] != null && warning) {
-            this._warningResults = warning.evaluate(context);
-        }
-    }
-    /**
-     * @param {?} context
-     * @return {?}
-     */
-    updateNextSlideCondition(context) {
-        if (this.nextSlideCondition != null) {
-            return this.nextSlideCondition.evaluate(context);
-        }
-        return false;
-    }
-    /**
-     * this method will update the state of the field
-     * @param {?} context         : any - the context of the field to update
-     * @param {?=} branchVisibility
-     * @return {?}
-     */
-    updateFieldState(context, branchVisibility = true) {
-        this.updateVisibility(context, branchVisibility);
-        this.updateConditionalBranches(context);
-        this.updateFormula(context);
-        this.updateValidation(context);
-        this.updateWarning(context);
-        this.updateNextSlideCondition(context);
-    }
-    /**
-     * @return {?}
-     */
-    emitTriggerWarning() {
-        this._triggerWarning.next();
-    }
-}
-class AjfFieldWithChoicesInstance extends AjfFieldInstance {
-    /**
-     * @param {?} params
-     * @param {?=} context
-     */
-    constructor(params, context) {
-        super(params, context);
-        this._triggerSelection = new ReplaySubject(1);
-        this._firstTriggerConditionDone = {};
-        this.filteredChoices = this.field.choices.slice(0);
-    }
-    /**
-     * @return {?}
-     */
-    get field() { return (/** @type {?} */ (this.node)); }
-    /**
-     * @param {?} field
-     * @return {?}
-     */
-    set field(field) { this.setNode(field); }
-    /**
-     * @return {?}
-     */
-    get triggerSelection() { return this._triggerSelection.asObservable(); }
-    /**
-     * @param {?} context
-     * @return {?}
-     */
-    updateFilteredChoices(context) {
-        if (this.choicesFilter != null) {
-            this.filteredChoices = this.field.choicesOrigin
-                .getChoices()
-                .filter((/**
-             * @param {?} c
-             * @return {?}
-             */
-            c => {
-                context.$choiceValue = c.value;
-                return this.choicesFilter.evaluate(context);
-            }));
-        }
-        else {
-            this.filteredChoices = this.field.choicesOrigin
-                .getChoices();
-        }
-    }
-    /**
-     * @param {?} context
-     * @return {?}
-     */
-    updateTriggerConditions(context) {
-        if (this._firstTriggerConditionDone[this.completeName]) {
-            return false;
-        }
-        /** @type {?} */
-        let found = false;
-        /** @type {?} */
-        const conditionsNum = this.triggerConditions.length;
-        for (let i = 0; i < conditionsNum; i++) {
-            if (this.triggerConditions[i].evaluate(context)) {
-                found = true;
-                break;
-            }
-        }
-        this._firstTriggerConditionDone[this.completeName] = found;
-        return found;
-    }
-    /**
-     * @return {?}
-     */
-    emitTriggerSelection() {
-        this._triggerSelection.next(null);
-    }
-}
-class AjfNodeGroupInstance extends AjfNodeInstance {
-    /**
-     * @return {?}
-     */
-    get reps() { return this._reps; }
-    /**
-     * @param {?} reps
-     * @return {?}
-     */
-    set reps(reps) {
-        this._reps = reps;
-        this._repsArr = new Array(reps);
-    }
-    /**
-     * @return {?}
-     */
-    get repsArr() { return this._repsArr; }
-    /**
-     * @return {?}
-     */
-    get valid() {
-        return this.nodes.map((/**
-         * @param {?} n
-         * @return {?}
-         */
-        n => {
-            if (Object.keys(n).indexOf('valid') > -1) {
-                return ((/** @type {?} */ (n))).valid;
-            }
-            return true;
-        })).reduce((/**
-         * @param {?} v1
-         * @param {?} v2
-         * @return {?}
-         */
-        (v1, v2) => v1 && v2));
-    }
-    /**
-     * @return {?}
-     */
-    get nodeGroup() { return (/** @type {?} */ (this.node)); }
-    /**
-     * @protected
-     * @param {?} nodeGroup
-     * @return {?}
-     */
-    setNodeGroup(nodeGroup) { this.setNode(nodeGroup); }
-    /**
-     * @param {?} params
-     * @param {?=} context
-     */
-    constructor(params, context) {
-        super(params, context);
-    }
-    /**
-     * @param {?} context
-     * @return {?}
-     */
-    updateRepsNum(context) {
-        /** @type {?} */
-        const oldReps = this.reps || 0;
-        if (this.nodeGroup.formulaReps == null) {
-            /** @type {?} */
-            const ctxReps = context[this.completeName];
-            if (ctxReps != null) {
-                this.reps = ctxReps;
-            }
-            else if (oldReps == 0) {
-                this.reps = 1;
-            }
-        }
-        else {
-            /** @type {?} */
-            let newReps = this.nodeGroup.formulaReps.evaluate(context);
-            if (newReps !== oldReps) {
-                this.reps = newReps;
-            }
-        }
-        return oldReps;
-    }
-}
-class AjfSlideInstance extends AjfNodeInstance {
-    constructor() {
-        super(...arguments);
-        this.nodes = [];
-        this.flatNodes = [];
-    }
+    get instance() { return this._instance; }
     /**
+     * @param {?} instance
      * @return {?}
      */
-    get valid() {
-        return this.flatNodes.map((/**
-         * @param {?} n
-         * @return {?}
-         */
-        n => {
-            if (n.visible && Object.keys(n).indexOf('valid') > -1) {
-                return ((/** @type {?} */ (n))).valid;
-            }
-            return true;
-        })).reduce((/**
-         * @param {?} v1
-         * @param {?} v2
-         * @return {?}
-         */
-        (v1, v2) => v1 && v2), true);
-    }
-    /**
-     * @return {?}
-     */
-    get slide() { return (/** @type {?} */ (this.node)); }
-    /**
-     * @protected
-     * @param {?} slide
-     * @return {?}
-     */
-    setSlide(slide) { this.setNode(slide); }
-}
-class AjfRepeatingSlideInstance extends AjfSlideInstance {
-    /**
-     * @return {?}
-     */
-    get reps() { return this._reps; }
-    /**
-     * @param {?} reps
-     * @return {?}
-     */
-    set reps(reps) {
-        this._reps = reps;
-        this.canRemoveGroup = this.slide.minReps === 0 || reps > this.slide.minReps;
-        this.canAddGroup = this.slide.maxReps === 0 || reps < this.slide.maxReps;
-        this._repsArr = new Array(reps);
-    }
-    /**
-     * @return {?}
-     */
-    get repsArr() { return this._repsArr; }
-    /**
-     * @return {?}
-     */
-    get slide() { return (/** @type {?} */ (this.node)); }
-    /**
-     * @return {?}
-     */
-    get nodesPerSlide() {
-        return this.nodes != null ? this.nodes.length / this.reps : 0;
-    }
-    /**
-     * @protected
-     * @param {?} slide
-     * @return {?}
-     */
-    setSlide(slide) { this.setNode(slide); }
-    /**
-     * @param {?} params
-     * @param {?=} context
-     */
-    constructor(params, context) {
-        super(params, context);
-    }
-    /**
-     * @param {?} idx
-     * @return {?}
-     */
-    validSlide(idx) {
-        if (idx >= this.slideNodes.length) {
-            return true;
-        }
-        return this.slideNodes[idx]
-            .map((/**
-         * @param {?} n
-         * @return {?}
-         */
-        n => {
-            if (n.visible && Object.keys(n).indexOf('valid') > -1) {
-                return ((/** @type {?} */ (n))).valid;
-            }
-            return true;
-        })).reduce((/**
-         * @param {?} v1
-         * @param {?} v2
-         * @return {?}
-         */
-        (v1, v2) => v1 && v2), true);
-    }
-    /**
-     * @param {?} idx
-     * @return {?}
-     */
-    slidePosition(idx) {
-        return this.position + idx;
-    }
-    /**
-     * @param {?} context
-     * @return {?}
-     */
-    updateRepsNum(context) {
-        /** @type {?} */
-        const oldReps = this.reps || 0;
-        if (this.slide.formulaReps == null) {
-            /** @type {?} */
-            const ctxReps = context[this.completeName];
-            if (ctxReps != null) {
-                this.reps = ctxReps;
-            }
-            else if (oldReps == 0) {
-                this.reps = 1;
-            }
-        }
-        else {
-            /** @type {?} */
-            let newReps = this.slide.formulaReps.evaluate(context);
-            if (newReps !== oldReps) {
-                this.reps = newReps;
-            }
-        }
-        return oldReps;
-    }
-}
-class AjfTableFieldInstance extends AjfFieldInstance {
-    /**
-     * @param {?} params
-     * @param {?=} context
-     */
-    constructor(params, context) {
-        super(params, context);
-        this._context = {};
-        this.setValue(context);
-        this._hideEmptyRows = ((/** @type {?} */ (this.node))).hideEmptyRows;
-    }
-    /**
-     * @return {?}
-     */
-    get hideEmptyRows() {
-        return this._hideEmptyRows;
-    }
-    /**
-     * @return {?}
-     */
-    get controls() {
-        return this._matrixFormControl;
-    }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set controls(v) {
-        this._matrixFormControl = v;
-        this._matrixFormControlWithLabels = this._controlsWithLabels();
-    }
-    /**
-     * @return {?}
-     */
-    get controlsWithLabels() {
-        return this._matrixFormControlWithLabels;
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _controlsWithLabels() {
-        /** @type {?} */
-        let node = (/** @type {?} */ (this.node));
-        /** @type {?} */
-        let ret = [];
-        /** @type {?} */
-        let i = 0;
-        for (let rowLabel of (/** @type {?} */ ((node.rowLabels)))) {
-            ret.push([rowLabel].concat((/** @type {?} */ (this._matrixFormControl[i]))));
-            i = i + 1;
-        }
-        ret.unshift([node.label].concat(node.columnLabels));
-        return ret;
-    }
-    /**
-     * @return {?}
-     */
-    get value() {
-        /** @type {?} */
-        let node = (/** @type {?} */ (this.node));
-        if (node.editable) {
-            return this._matrixFormControl;
-        }
-        return this._matrixValue;
-    }
-    /**
-     * @param {?} _v
-     * @return {?}
-     */
-    set value(_v) { }
-    /**
-     * @return {?}
-     */
-    get context() {
-        return this._context;
-    }
-    /**
-     * @param {?} context
-     * @return {?}
-     */
-    setValue(context) {
-        /** @type {?} */
-        let node = (/** @type {?} */ (this.node));
-        if (!node.editable) {
-            /** @type {?} */
-            let value = [];
-            /** @type {?} */
-            let rowIndex = 0;
-            node.rows.forEach((/**
-             * @param {?} row
-             * @return {?}
-             */
-            (row) => {
-                row.forEach((/**
-                 * @param {?} k
-                 * @return {?}
-                 */
-                (k) => {
-                    this._context[k] = context[k];
-                }));
-                value[rowIndex] = [node.rowLabels[rowIndex]]
-                    .concat(row.map((/**
-                 * @param {?} k
-                 * @return {?}
-                 */
-                k => context[k])));
-                rowIndex += 1;
-            }));
-            value.unshift([node.label].concat(node.columnLabels));
-            this._matrixValue = value;
-        }
-        else {
-            this._context = context;
-        }
-    }
-    /**
-     * @return {?}
-     */
-    get visibleColumns() {
-        if (this.hideEmptyRows) {
-            return this.value
-                .filter((/**
-             * @param {?} column
-             * @return {?}
-             */
-            (column) => column
-                .slice(1)
-                .reduce((/**
-             * @param {?} a
-             * @param {?} b
-             * @return {?}
-             */
-            (a, b) => {
-                return a || (b != null && b !== '' && b !== 0 && b !== '0');
-            }), false)));
+    set instance(instance) {
+        if (instance !== this._instance) {
+            this._instance = instance;
+            this._setUpInstanceUpdate();
         }
-        return this.value;
-    }
-}
-class AjfDateFieldInstance extends AjfFieldInstance {
-    /**
-     * @return {?}
-     */
-    get field() { return this.field; }
-    /**
-     * @param {?} field
-     * @return {?}
-     */
-    set field(field) { this.setNode(field); }
-}
-class AjfEmptyFieldInstance extends AjfFieldInstance {
-    /**
-     * @return {?}
-     */
-    get field() { return this.field; }
-    /**
-     * @param {?} field
-     * @return {?}
-     */
-    set field(field) { this.setNode(field); }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfFormFieldValueChanged {
-}
-/**
- * @abstract
- */
-class AjfFormField {
-    /**
-     * this constructor will init _rendererService _changeDetectionRef _alertCtrl
-     * and init the messagesWarning subscription
-     * @param {?} _rendererService
-     * @param {?} _changeDetectionRef
-     */
-    constructor(_rendererService, _changeDetectionRef) {
-        this._rendererService = _rendererService;
-        this._changeDetectionRef = _changeDetectionRef;
-        // AjfFieldType obj implement the type of field
-        // ( String, Text, Number, Boolean, SingleChoice, MultipleChoice,
-        // Formula, Empty, Composed )
-        this.ajfFieldTypes = AjfFieldType;
-        // this private AjfFieldValueChanged event emitter emit an event when the
-        // field value is changed
-        this._valueChanged = new EventEmitter();
-        this._triggerSelectionSubscription = Subscription.EMPTY;
-        this._triggerWarningSubscription = Subscription.EMPTY;
-        this._fieldUpdateSubscription = Subscription.EMPTY;
-    }
-    /**
-     * @return {?}
-     */
-    get fieldInstance() { return this._fieldInstance; }
-    /**
-     * @param {?} fieldInstance
-     * @return {?}
-     */
-    set fieldInstance(fieldInstance) {
-        this._fieldInstance = fieldInstance;
-        this._fieldUpdateSubscription.unsubscribe();
-        this._fieldUpdateSubscription = fieldInstance.updated.subscribe((/**
-         * @return {?}
-         */
-        () => {
-            if (this._changeDetectionRef) {
-                try {
-                    this._changeDetectionRef.detectChanges();
-                }
-                catch (e) { }
-            }
-        }));
     }
     /**
      * @return {?}
      */
-    get fwcInst() {
-        return (/** @type {?} */ (this._fieldInstance));
-    }
-    /**
-     * @return {?}
-     */
-    get fwc() { return (/** @type {?} */ (this._fieldInstance.field)); }
-    /**
-     * @return {?}
-     */
-    get datefInst() { return (/** @type {?} */ (this._fieldInstance)); }
-    /**
-     * @return {?}
-     */
-    get tablefInst() { return (/** @type {?} */ (this._fieldInstance)); }
-    /**
-     * @return {?}
-     */
-    get emptyfInst() { return (/** @type {?} */ (this._fieldInstance)); }
-    // this @output expose the value changed like an observable
-    /**
-     * @return {?}
-     */
-    get valueChanged() {
-        return this._valueChanged.asObservable();
-    }
+    get control() { return this._control; }
     /**
-     * this method will init the control, the filtere choices and the change
-     * detection reference
      * @return {?}
      */
     ngOnInit() {
-        this.control = this._rendererService.getControl(this.fieldInstance);
-        this._triggerWarningSubscription = this.fieldInstance.triggerWarning
-            .pipe(withLatestFrom(this.control), filter((/**
+        this._warningTriggerSub = this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter((/**
          * @param {?} v
          * @return {?}
          */
-        v => v[1] != null)))
-            .subscribe((/**
+        v => v[1] != null))).subscribe((/**
          * @param {?} v
          * @return {?}
          */
         (v) => {
+            if (this.instance.warningResults == null) {
+                return;
+            }
             /** @type {?} */
             const control = v[1];
             /** @type {?} */
-            const s = this.showWarningAlertPrompt(this.fieldInstance.warningResults.filter((/**
+            const s = this._warningAlertService.showWarningAlertPrompt(this.instance.warningResults.filter((/**
              * @param {?} w
              * @return {?}
              */
@@ -3046,114 +127,960 @@ class AjfFormField {
     /**
      * @return {?}
      */
-    ngAfterViewInit() {
-        if (this.fieldInstance instanceof AjfFieldWithChoicesInstance) {
-            this._triggerSelectionSubscription = this.fieldInstance.triggerSelection
-                .subscribe((/**
-             * @return {?}
-             */
-            () => {
-                this._triggerSelection();
-            }));
-        }
-    }
-    /**
-     * @return {?}
-     */
     ngOnDestroy() {
-        this._triggerSelectionSubscription.unsubscribe();
-        this._triggerWarningSubscription.unsubscribe();
-        this._fieldUpdateSubscription.unsubscribe();
+        this._warningTriggerSub.unsubscribe();
+        this._instanceUpdateSub.unsubscribe();
     }
     /**
      * @private
      * @return {?}
      */
-    _triggerSelection() {
-        if (this.singleChoiceSelect != null && !this.singleChoiceSelect._isOpen) {
-            this.singleChoiceSelect.open();
+    _setUpInstanceUpdate() {
+        this._instanceUpdateSub.unsubscribe();
+        if (this._instance != null) {
+            this._instanceUpdateSub = this._instance.updated.subscribe((/**
+             * @return {?}
+             */
+            () => {
+                if (this._changeDetectorRef) {
+                    try {
+                        this._changeDetectorRef.detectChanges();
+                    }
+                    catch (e) { }
+                }
+            }));
         }
-        else if (this.multipleChoiceSelect != null &&
-            !this.multipleChoiceSelect._isOpen) {
-            this.multipleChoiceSelect.open();
+        else {
+            this._instanceUpdateSub = Subscription.EMPTY;
         }
     }
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-const esprimaMod = esprima__default || esprima;
-const { tokenize } = esprimaMod;
+class AjfDateValuePipe {
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    transform(date) {
+        return date === 'today' ? new Date() : (/** @type {?} */ (date));
+    }
+}
+AjfDateValuePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfDateValue' },] },
+];
+
 /**
- * @param {?} nodes
- * @param {?} parent
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * This class will define an Ajf invalid field definition error
+ */
+class AjfInvalidFieldDefinitionError extends AjfError {
+    /**
+     * @return {?}
+     */
+    get name() { return 'AjfInvalidFieldDefinitionError'; }
+    /**
+     * @param {?=} message
+     */
+    constructor(message) {
+        super(message);
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/** @enum {number} */
+const AjfFieldType = {
+    String: 0,
+    Text: 1,
+    Number: 2,
+    Boolean: 3,
+    SingleChoice: 4,
+    MultipleChoice: 5,
+    Formula: 6,
+    Empty: 7,
+    Date: 8,
+    DateInput: 9,
+    Time: 10,
+    Table: 11,
+    LENGTH: 12,
+};
+AjfFieldType[AjfFieldType.String] = 'String';
+AjfFieldType[AjfFieldType.Text] = 'Text';
+AjfFieldType[AjfFieldType.Number] = 'Number';
+AjfFieldType[AjfFieldType.Boolean] = 'Boolean';
+AjfFieldType[AjfFieldType.SingleChoice] = 'SingleChoice';
+AjfFieldType[AjfFieldType.MultipleChoice] = 'MultipleChoice';
+AjfFieldType[AjfFieldType.Formula] = 'Formula';
+AjfFieldType[AjfFieldType.Empty] = 'Empty';
+AjfFieldType[AjfFieldType.Date] = 'Date';
+AjfFieldType[AjfFieldType.DateInput] = 'DateInput';
+AjfFieldType[AjfFieldType.Time] = 'Time';
+AjfFieldType[AjfFieldType.Table] = 'Table';
+AjfFieldType[AjfFieldType.LENGTH] = 'LENGTH';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} type
  * @return {?}
  */
-function orderedNodes(nodes, parent) {
-    /** @type {?} */
-    let newNodes = [];
-    nodes.filter((/**
-     * @param {?} n
-     * @return {?}
-     */
-    (n) => n.parent == parent))
-        .sort((/**
-     * @param {?} n1
-     * @param {?} n2
-     * @return {?}
-     */
-    (n1, n2) => n1.parentNode - n2.parentNode))
-        .forEach((/**
-     * @param {?} n
-     * @return {?}
-     */
-    (n) => {
-        newNodes.push(n);
-        newNodes = newNodes.concat(orderedNodes(nodes, n.id));
-    }));
-    return newNodes;
+function fieldIconName(type) {
+    return `ajf-icon-field-${AjfFieldType[type].toLowerCase()}`;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfFieldIconPipe {
+    /**
+     * @param {?} field
+     * @return {?}
+     */
+    transform(field) {
+        return fieldIconName(((/** @type {?} */ (field))).fieldType ? ((/** @type {?} */ (field))).fieldType : (/** @type {?} */ (field)));
+    }
+}
+AjfFieldIconPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfFieldIcon' },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfFieldIsValidPipe {
+    /**
+     * @param {?} fieldInstance
+     * @return {?}
+     */
+    transform(fieldInstance) {
+        if (fieldInstance &&
+            fieldInstance.validationResults &&
+            fieldInstance.validationResults.length === 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
+AjfFieldIsValidPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfFieldIsValid' },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @abstract
+ */
+class AjfFormField {
+    /**
+     * @param {?} _cfr
+     */
+    constructor(_cfr) {
+        this._cfr = _cfr;
+    }
+    /**
+     * @return {?}
+     */
+    get instance() { return this._instance; }
+    /**
+     * @param {?} instance
+     * @return {?}
+     */
+    set instance(instance) {
+        if (this._instance !== instance) {
+            this._instance = instance;
+            this._loadComponent();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this._loadComponent();
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    _loadComponent() {
+        if (this._instance == null || this.fieldHost == null) {
+            return;
+        }
+        /** @type {?} */
+        const vcr = this.fieldHost.viewContainerRef;
+        vcr.clear();
+        /** @type {?} */
+        const componentDef = this.componentsMap[this._instance.node.fieldType];
+        if (componentDef == null) {
+            return;
+        }
+        /** @type {?} */
+        const component = componentDef.component;
+        try {
+            /** @type {?} */
+            const componentFactory = this._cfr.resolveComponentFactory(component);
+            /** @type {?} */
+            const componentRef = vcr.createComponent(componentFactory);
+            /** @type {?} */
+            const componentInstance = componentRef.instance;
+            componentInstance.instance = this._instance;
+            if (componentDef.inputs) {
+                Object.keys(componentDef.inputs).forEach((/**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                key => {
+                    if (key in componentInstance) {
+                        ((/** @type {?} */ (componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
+                    }
+                }));
+            }
+        }
+        catch (e) { }
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfFieldHost {
+    /**
+     * @param {?} viewContainerRef
+     */
+    constructor(viewContainerRef) {
+        this.viewContainerRef = viewContainerRef;
+    }
+}
+AjfFieldHost.decorators = [
+    { type: Directive, args: [{ selector: '[ajf-field-host]' },] },
+];
+/** @nocollapse */
+AjfFieldHost.ctorParameters = () => [
+    { type: ViewContainerRef }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ * @template T
+ */
+class AjfFieldWithChoicesComponent extends AjfBaseFieldComponent {
+    /**
+     * @param {?} cdr
+     * @param {?} service
+     * @param {?} warningAlertService
+     * @param {?} searchThreshold
+     */
+    constructor(cdr, service, warningAlertService, searchThreshold) {
+        super(cdr, service, warningAlertService);
+        this._searchThreshold = 6;
+        if (searchThreshold != null) {
+            this._searchThreshold = searchThreshold;
+        }
+    }
+    /**
+     * @return {?}
+     */
+    get searchThreshold() { return this._searchThreshold; }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/** @enum {number} */
+const AjfNodeType = {
+    AjfField: 0,
+    AjfFieldNodeLink: 1,
+    AjfNodeGroup: 2,
+    AjfSlide: 3,
+    AjfRepeatingSlide: 4,
+    LENGTH: 5,
+};
+AjfNodeType[AjfNodeType.AjfField] = 'AjfField';
+AjfNodeType[AjfNodeType.AjfFieldNodeLink] = 'AjfFieldNodeLink';
+AjfNodeType[AjfNodeType.AjfNodeGroup] = 'AjfNodeGroup';
+AjfNodeType[AjfNodeType.AjfSlide] = 'AjfSlide';
+AjfNodeType[AjfNodeType.AjfRepeatingSlide] = 'AjfRepeatingSlide';
+AjfNodeType[AjfNodeType.LENGTH] = 'LENGTH';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} field
+ * @return {?}
+ */
+function isFieldWithChoices(field) {
+    return field.fieldType === AjfFieldType.SingleChoice ||
+        field.fieldType === AjfFieldType.MultipleChoice;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} node
  * @return {?}
  */
-function isRepeatingNode(node) {
-    return node != null && (node instanceof AjfRepeatingSlide ||
-        node instanceof AjfNodeGroup);
+function isField(node) {
+    return node != null && node.nodeType === AjfNodeType.AjfField;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeInstance
+ * @return {?}
+ */
+function isFieldInstance(nodeInstance) {
+    return nodeInstance != null && nodeInstance.node != null && isField(nodeInstance.node);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeInstance
+ * @return {?}
+ */
+function isFieldWithChoicesInstance(nodeInstance) {
+    return nodeInstance != null && isFieldInstance(nodeInstance) &&
+        isFieldWithChoices(((/** @type {?} */ (nodeInstance))).node);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} field
+ * @return {?}
+ */
+function isTableField(field) {
+    return field.fieldType === AjfFieldType.Table;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeInstance
+ * @return {?}
+ */
+function isTableFieldInstance(nodeInstance) {
+    return nodeInstance != null && isFieldInstance(nodeInstance) &&
+        isTableField(((/** @type {?} */ (nodeInstance))).node);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @return {?}
+ */
+function updateConditionalBranches(instance, context) {
+    /** @type {?} */
+    const conditionalBranches = instance.conditionalBranches;
+    if (conditionalBranches != null) {
+        /** @type {?} */
+        const oldBranch = instance.verifiedBranch;
+        /** @type {?} */
+        let idx = 0;
+        /** @type {?} */
+        let found = false;
+        while (idx < conditionalBranches.length && !found) {
+            /** @type {?} */
+            let verified = evaluateExpression(conditionalBranches[idx].condition, context);
+            if (verified) {
+                found = true;
+                if (idx !== instance.verifiedBranch) {
+                    instance.verifiedBranch = idx;
+                }
+            }
+            idx++;
+        }
+        if (oldBranch !== instance.verifiedBranch) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @param {?=} branchVisibility
+ * @return {?}
+ */
+function updateVisibility(instance, context, branchVisibility = true) {
+    if (instance.visibility == null) {
+        instance.visible = false;
+        return false;
+    }
+    /** @type {?} */
+    const visibility = instance.visibility;
+    /** @type {?} */
+    const oldVisibility = instance.visible;
+    /** @type {?} */
+    let newVisibility = branchVisibility && evaluateExpression(visibility.condition, context);
+    if (newVisibility !== instance.visible) {
+        instance.visible = newVisibility;
+    }
+    return oldVisibility !== newVisibility;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?} instance
+ * @return {?}
+ */
+function nodeInstanceSuffix(instance) {
+    if (instance.prefix == null || instance.prefix.length == 0) {
+        return '';
+    }
+    return `__${instance.prefix.join('__')}`;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @return {?}
+ */
+function nodeInstanceCompleteName(instance) {
+    return `${instance.node.name}${nodeInstanceSuffix(instance)}`;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @return {?}
+ */
+function updateFormula(instance, context) {
+    /** @type {?} */
+    const formula = instance.formula;
+    /** @type {?} */
+    const editable = instance.node.editable;
+    if (formula != null && instance.visible && (!editable || (editable && instance.value == null))) {
+        /** @type {?} */
+        let newValue = evaluateExpression(formula.formula, context);
+        /** @type {?} */
+        const oldValue = instance.value;
+        if (newValue !== instance.value) {
+            instance.value = newValue;
+            context[nodeInstanceCompleteName(instance)] = instance.value;
+            context.$value = instance.value;
+        }
+        return { changed: newValue !== oldValue, value: newValue };
+    }
+    return { changed: false, value: instance.value };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @return {?}
+ */
+function updateNextSlideCondition(instance, context) {
+    if (instance.nextSlideCondition != null) {
+        return evaluateExpression(instance.nextSlideCondition.condition, context);
+    }
+    return false;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} validation
+ * @param {?=} context
+ * @param {?=} forceFormula
+ * @return {?}
+ */
+function evaluateValidation(validation, context, forceFormula) {
+    return {
+        result: evaluateExpression(validation.condition, context, forceFormula),
+        error: validation.errorMessage,
+        clientValidation: validation.clientValidation,
+    };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} validation
+ * @param {?=} context
+ * @return {?}
+ */
+function evaluateValidationConditions(validation, context) {
+    /** @type {?} */
+    let res = [];
+    validation.conditions.forEach((/**
+     * @param {?} cond
+     * @return {?}
+     */
+    (cond) => {
+        res.push(evaluateValidation(cond, context));
+    }));
+    return res;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} validation
+ * @param {?} value
+ * @return {?}
+ */
+function evaluateValidationMaxDigits(validation, value) {
+    if (validation.maxDigits == null) {
+        return null;
+    }
+    return evaluateValidation(validation.maxDigits, { '$value': value });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} validation
+ * @param {?} value
+ * @return {?}
+ */
+function evaluateValidationMaxValue(validation, value) {
+    if (validation.maxValue == null) {
+        return null;
+    }
+    return evaluateValidation(validation.maxValue, { '$value': value });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} validation
+ * @param {?} value
+ * @return {?}
+ */
+function evaluateValidationMinDigits(validation, value) {
+    if (validation.minDigits == null) {
+        return null;
+    }
+    return evaluateValidation(validation.minDigits, { '$value': value });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} validation
+ * @param {?} value
+ * @return {?}
+ */
+function evaluateValidationMinValue(validation, value) {
+    if (validation.minValue == null) {
+        return null;
+    }
+    return evaluateValidation(validation.minValue, { '$value': value });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} validation
+ * @param {?} value
+ * @return {?}
+ */
+function evaluateValidationNotEmpty(validation, value) {
+    if (validation.notEmpty == null) {
+        return null;
+    }
+    return evaluateValidation(validation.notEmpty, { '$value': value });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} validation
+ * @param {?} value
+ * @param {?=} context
+ * @return {?}
+ */
+function evaluateValidationGroup(validation, value, context) {
+    /** @type {?} */
+    let res = [];
+    /** @type {?} */
+    let ctx = deepCopy(context);
+    ctx['$value'] = value;
+    res = evaluateValidationConditions(validation, ctx);
+    if (validation.maxValue) {
+        /** @type {?} */
+        const maxValue = evaluateValidationMaxValue(validation, value);
+        if (maxValue != null) {
+            res.push();
+        }
+    }
+    if (validation.minValue) {
+        /** @type {?} */
+        const minValue = evaluateValidationMinValue(validation, value);
+        if (minValue != null) {
+            res.push(minValue);
+        }
+    }
+    if (validation.notEmpty) {
+        /** @type {?} */
+        const notEmpty = evaluateValidationNotEmpty(validation, value);
+        if (notEmpty != null) {
+            res.push(notEmpty);
+        }
+    }
+    if (validation.maxDigits) {
+        /** @type {?} */
+        const maxDigits = evaluateValidationMaxDigits(validation, value);
+        if (maxDigits != null) {
+            res.push(maxDigits);
+        }
+    }
+    if (validation.minDigits) {
+        /** @type {?} */
+        const minDigits = evaluateValidationMinDigits(validation, value);
+        if (minDigits != null) {
+            res.push(minDigits);
+        }
+    }
+    return res;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @param {?=} supplementaryInformations
+ * @return {?}
+ */
+function updateValidation(instance, context, supplementaryInformations) {
+    /** @type {?} */
+    const validation = instance.validation;
+    if (validation == null) {
+        return;
+    }
+    if (supplementaryInformations) {
+        Object.keys(supplementaryInformations).forEach((/**
+         * @param {?} key
+         * @return {?}
+         */
+        (key) => {
+            context[`__supplementary__${key}__`] = supplementaryInformations[key];
+        }));
+    }
+    /** @type {?} */
+    const completeName = nodeInstanceCompleteName(instance);
+    if (context[completeName] != null && validation && validation.forceValue) {
+        instance.value = evaluateExpression(validation.forceValue.condition, context);
+        context[completeName] = instance.value;
+        context.$value = instance.value;
+    }
+    if (validation != null) {
+        instance.validationResults =
+            evaluateValidationGroup(validation, context[completeName], context);
+        instance.valid = instance.validationResults.reduce((/**
+         * @param {?} prev
+         * @param {?} x
+         * @return {?}
+         */
+        (prev, x) => prev && x.result), true);
+    }
+    else {
+        instance.valid = true;
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} warning
+ * @param {?=} context
+ * @param {?=} forceFormula
+ * @return {?}
+ */
+function evaluateWarning(warning, context, forceFormula) {
+    return {
+        result: evaluateExpression(warning.condition, context, forceFormula),
+        warning: warning.warningMessage,
+    };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} warning
+ * @param {?=} context
+ * @return {?}
+ */
+function evaluateWarningConditions(warning, context) {
+    return warning.conditions.map((/**
+     * @param {?} cond
+     * @return {?}
+     */
+    cond => evaluateWarning(cond, context)));
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} warning
+ * @param {?=} context
+ * @return {?}
+ */
+function evaluateWarningGroup(warning, context) {
+    return evaluateWarningConditions(warning, context);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @return {?}
+ */
+function updateWarning(instance, context) {
+    /** @type {?} */
+    const warning = instance.warning;
+    if (warning == null) {
+        return;
+    }
+    /** @type {?} */
+    const completeName = nodeInstanceCompleteName(instance);
+    if (context[completeName] != null && warning) {
+        instance.warningResults = evaluateWarningGroup(warning, context);
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @param {?=} branchVisibility
+ * @return {?}
+ */
+function updateFieldInstanceState(instance, context, branchVisibility = true) {
+    updateVisibility(instance, context, branchVisibility);
+    updateConditionalBranches(instance, context);
+    updateFormula((/** @type {?} */ (instance)), context);
+    updateValidation(instance, context);
+    updateWarning(instance, context);
+    updateNextSlideCondition(instance, context);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @return {?}
+ */
+function updateFilteredChoices(instance, context) {
+    if (instance.choicesFilter != null) {
+        instance.filteredChoices = instance.node.choicesOrigin.choices.filter((/**
+         * @param {?} c
+         * @return {?}
+         */
+        c => {
+            context.$choiceValue = c.value;
+            return evaluateExpression((/** @type {?} */ (instance.choicesFilter)).formula, context);
+        }));
+    }
+    else {
+        instance.filteredChoices = instance.node.choicesOrigin.choices;
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @return {?}
+ */
+function updateTriggerConditions(instance, context) {
+    if (instance.triggerConditions == null) {
+        return false;
+    }
+    /** @type {?} */
+    const completeName = nodeInstanceCompleteName(instance);
+    if (instance.firstTriggerConditionDone[completeName]) {
+        return false;
+    }
+    /** @type {?} */
+    let found = false;
+    /** @type {?} */
+    const conditionsNum = instance.triggerConditions.length;
+    for (let i = 0; i < conditionsNum; i++) {
+        if (evaluateExpression(instance.triggerConditions[i].condition, context)) {
+            found = true;
+            break;
+        }
+    }
+    instance.firstTriggerConditionDone[completeName] = found;
+    return found;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function createNode(node) {
+    /** @type {?} */
+    const conditionalBranches = node.conditionalBranches != null && node.conditionalBranches.length > 0 ?
+        node.conditionalBranches :
+        [alwaysCondition()];
+    return Object.assign({}, node, { parentNode: node.parentNode != null ? node.parentNode : 0, label: node.label || '', visibility: node.visibility || alwaysCondition(), conditionalBranches });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} field
+ * @return {?}
+ */
+function createField(field) {
+    /** @type {?} */
+    const node = createNode(Object.assign({}, field, { nodeType: AjfNodeType.AjfField }));
+    /** @type {?} */
+    const editable = field.editable != null ?
+        field.editable :
+        field.fieldType !== AjfFieldType.Formula && field.fieldType !== AjfFieldType.Table;
+    return Object.assign({}, node, field, { nodeType: AjfNodeType.AjfField, editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function isSlidesNode(node) {
+    return node != null &&
+        (node.nodeType === AjfNodeType.AjfRepeatingSlide || node.nodeType === AjfNodeType.AjfSlide);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} node
  * @return {?}
  */
 function isContainerNode(node) {
-    return node != null && (node instanceof AjfSlide ||
-        node instanceof AjfRepeatingSlide ||
-        node instanceof AjfNodeGroup);
+    return node != null && (node.nodeType === AjfNodeType.AjfNodeGroup || isSlidesNode(node));
 }
+
 /**
- * @param {?} nodes
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeInstance
  * @return {?}
  */
-function flattenNodes(nodes) {
-    /** @type {?} */
-    let flatNodes = [];
-    nodes.forEach((/**
-     * @param {?} node
-     * @return {?}
-     */
-    (node) => {
-        flatNodes.push(node);
-        if (node instanceof AjfNodeGroup ||
-            node instanceof AjfSlide ||
-            node instanceof AjfRepeatingSlide) {
-            flatNodes = flatNodes.concat(flattenNodes(node.nodes));
-        }
-    }));
-    return flatNodes;
+function isContainerNodeInstance(nodeInstance) {
+    return nodeInstance != null && nodeInstance.node != null && isContainerNode(nodeInstance.node);
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} nodes
  * @param {?=} includeGroups
@@ -3167,21 +1094,267 @@ function flattenNodesInstances(nodes, includeGroups = false) {
      * @return {?}
      */
     (nodeInstance) => {
-        if (nodeInstance instanceof AjfFieldInstance) {
+        if (isFieldInstance(nodeInstance)) {
             flatNodes.push(nodeInstance);
         }
-        // @TODO missing composed fields
-        if (nodeInstance instanceof AjfNodeGroupInstance ||
-            nodeInstance instanceof AjfSlideInstance ||
-            nodeInstance instanceof AjfRepeatingSlideInstance) {
+        if (isContainerNodeInstance(nodeInstance)) {
             if (includeGroups) {
                 flatNodes.push(nodeInstance);
             }
-            flatNodes = flatNodes.concat(flattenNodesInstances(nodeInstance.nodes, includeGroups));
+            flatNodes = flatNodes.concat(flattenNodesInstances(((/** @type {?} */ (nodeInstance))).nodes, includeGroups));
         }
     }));
     return flatNodes;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeInstance
+ * @return {?}
+ */
+function isSlidesInstance(nodeInstance) {
+    return nodeInstance != null && nodeInstance.node != null && isSlidesNode(nodeInstance.node);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodes
+ * @return {?}
+ */
+function flattenNodesInstancesTree(nodes) {
+    /** @type {?} */
+    let flatTree = [];
+    nodes.forEach((/**
+     * @param {?} nodeInstance
+     * @return {?}
+     */
+    (nodeInstance) => {
+        if (isSlidesInstance(nodeInstance)) {
+            /** @type {?} */
+            const ni = (/** @type {?} */ (nodeInstance));
+            flatTree.push(ni);
+            ni.flatNodes = flattenNodesInstances(ni.nodes);
+        }
+    }));
+    return flatTree;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function isNodeGroup(node) {
+    return node != null && node.nodeType === AjfNodeType.AjfNodeGroup;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeInstance
+ * @return {?}
+ */
+function isNodeGroupInstance(nodeInstance) {
+    return nodeInstance != null && nodeInstance.node != null && isNodeGroup(nodeInstance.node);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function isSlideNode(node) {
+    return node != null && node.nodeType === AjfNodeType.AjfSlide;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeInstance
+ * @return {?}
+ */
+function isSlideInstance(nodeInstance) {
+    return nodeInstance != null && nodeInstance.node != null && isSlideNode(nodeInstance.node);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @return {?}
+ */
+function createNodeInstance(instance) {
+    return {
+        node: instance.node,
+        prefix: instance.prefix ? [...instance.prefix] : [],
+        visible: instance.visible != null ? instance.visible : true,
+        conditionalBranches: [],
+        updatedEvt: new EventEmitter()
+    };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @return {?}
+ */
+function createFieldInstance(instance, context) {
+    /** @type {?} */
+    const nodeInstance = createNodeInstance(instance);
+    /** @type {?} */
+    let value = null;
+    if (nodeInstance.node != null && context != null) {
+        /** @type {?} */
+        const completeName = nodeInstanceCompleteName(nodeInstance);
+        if (context[nodeInstance.node.name] != null) {
+            value = context[nodeInstance.node.name];
+        }
+        else if (context[completeName] != null) {
+            value = context[completeName];
+        }
+    }
+    return Object.assign({}, nodeInstance, { node: instance.node, value, valid: false, defaultValue: instance.defaultValue != null ? instance.defaultValue : null, validationResults: instance.validationResults || [], warningResults: instance.warningResults || [], warningTrigger: new EventEmitter(), updated: new EventEmitter() });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @template T
+ * @param {?} instance
+ * @param {?} context
+ * @return {?}
+ */
+function createFieldWithChoicesInstance(instance, context) {
+    /** @type {?} */
+    const fieldInstance = createFieldInstance(instance, context);
+    return Object.assign({}, fieldInstance, { node: instance.node, filteredChoices: [...instance.node.choices], firstTriggerConditionDone: {}, selectionTrigger: new EventEmitter() });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?} context
+ * @return {?}
+ */
+function createTableFieldInstance(instance, context) {
+    /** @type {?} */
+    const fieldInstance = createFieldInstance(instance, context);
+    return Object.assign({}, fieldInstance, { node: instance.node, context, hideEmptyRows: instance.hideEmptyRows || false, controls: [], controlsWithLabels: [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @return {?}
+ */
+function createNodeGroupInstance(instance) {
+    /** @type {?} */
+    const nodeInstance = createNodeInstance(instance);
+    return Object.assign({}, nodeInstance, { node: instance.node, formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @return {?}
+ */
+function createSlideInstance(instance) {
+    /** @type {?} */
+    const nodeInstance = createNodeInstance(instance);
+    return Object.assign({}, nodeInstance, { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0 });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @return {?}
+ */
+function createRepeatingSlideInstance(instance) {
+    /** @type {?} */
+    const slideInstance = createSlideInstance(instance);
+    return Object.assign({}, slideInstance, { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?} group
+ * @return {?}
+ */
+function createValidationGroup(group) {
+    return Object.assign({}, group, { conditions: group.conditions || [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?} group
+ * @return {?}
+ */
+function createWarningGroup(group) {
+    return Object.assign({}, group, { conditions: group.conditions || [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function isRepeatingContainerNode(node) {
+    return node != null &&
+        (node.nodeType === AjfNodeType.AjfNodeGroup ||
+            node.nodeType === AjfNodeType.AjfRepeatingSlide);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} allNodes
  * @param {?} node
@@ -3193,23 +1366,31 @@ function getAncestorRepeatingNodes(allNodes, node) {
     /** @type {?} */
     let curParent = node.parent;
     while (curParent != null) {
-        node = ((/** @type {?} */ (allNodes))).find((/**
+        /** @type {?} */
+        const curNode = allNodes.map((/**
          * @param {?} n
          * @return {?}
          */
-        (n) => {
-            return n instanceof AjfNode ? n.id == curParent : n.node.id == curParent;
-        }));
-        if (node instanceof AjfNodeInstance) {
-            node = node.node;
+        (n) => ((/** @type {?} */ (n))).node || (/** @type {?} */ (n))))
+            .find((/**
+         * @param {?} n
+         * @return {?}
+         */
+        n => n.id == curParent));
+        if (curNode) {
+            if (isRepeatingContainerNode(curNode)) {
+                nodeGroups.push(curNode);
+            }
         }
-        if (isRepeatingNode(node)) {
-            nodeGroups.push(node);
-        }
-        curParent = node != null ? node.parent : null;
+        curParent = curNode != null ? curNode.parent : null;
     }
     return nodeGroups;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} allNodes
  * @param {?} node
@@ -3218,79 +1399,29 @@ function getAncestorRepeatingNodes(allNodes, node) {
 function getAncestorRepeatingNodesNames(allNodes, node) {
     /** @type {?} */
     let names = {};
-    getAncestorRepeatingNodes(allNodes, node)
-        .forEach((/**
+    /** @type {?} */
+    const nodeGroups = (/** @type {?} */ (getAncestorRepeatingNodes(allNodes, node)));
+    nodeGroups.forEach((/**
      * @param {?} n
      * @param {?} idx
      * @return {?}
      */
-    (n, idx) => {
-        (((/** @type {?} */ (n))).nodes || [])
-            .forEach((/**
-         * @param {?} sn
-         * @return {?}
-         */
-        (sn) => {
-            if (sn instanceof AjfField) {
-                names[sn.name] = idx;
-            }
-        }));
-    }));
+    (n, idx) => (n.nodes || []).forEach((/**
+     * @param {?} sn
+     * @return {?}
+     */
+    (sn) => {
+        if (isField(sn)) {
+            names[sn.name] = idx;
+        }
+    }))));
     return names;
 }
+
 /**
- * @param {?} nodes
- * @return {?}
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-function flattenNodesTree(nodes) {
-    /** @type {?} */
-    let flatTree = [];
-    nodes
-        .forEach((/**
-     * @param {?} nodeInstance
-     * @return {?}
-     */
-    (nodeInstance) => {
-        if (nodeInstance instanceof AjfSlideInstance ||
-            nodeInstance instanceof AjfRepeatingSlideInstance) {
-            flatTree.push(nodeInstance);
-            nodeInstance.flatNodes = flattenNodesInstances(nodeInstance.nodes);
-        }
-    }));
-    return flatTree;
-}
-/**
- * @param {?} formula
- * @param {?} ancestorsNames
- * @param {?} prefix
- * @return {?}
- */
-function normalizeFormula(formula, ancestorsNames, prefix) {
-    /** @type {?} */
-    const ancestorsNameStrings = Object.keys(ancestorsNames);
-    /** @type {?} */
-    const tokens = tokenize(formula)
-        .filter((/**
-     * @param {?} token
-     * @return {?}
-     */
-    (token) => token.type == 'Identifier' && token.value != '$value'))
-        .map((/**
-     * @param {?} token
-     * @return {?}
-     */
-    (token) => token.value));
-    tokens.forEach((/**
-     * @param {?} t
-     * @return {?}
-     */
-    (t) => {
-        if (ancestorsNameStrings.indexOf(t) > -1) {
-            formula = formula.replace(new RegExp(`\\b${t}\\b`, 'g'), `${t}__${prefix.slice(ancestorsNames[t]).join('__')}`);
-        }
-    }));
-    return formula;
-}
 /**
  * @param {?} condition
  * @param {?} ancestorsNames
@@ -3301,28 +1432,17 @@ function getInstanceCondition(condition, ancestorsNames, prefix) {
     /** @type {?} */
     const oldCondition = condition.condition;
     /** @type {?} */
-    let newCondition = normalizeFormula(oldCondition, ancestorsNames, prefix);
+    let newCondition = normalizeExpression(oldCondition, ancestorsNames, prefix);
     if (newCondition === oldCondition) {
         return condition;
     }
-    return new AjfCondition({ condition: newCondition });
+    return { condition: newCondition };
 }
+
 /**
- * @param {?} formula
- * @param {?} ancestorsNames
- * @param {?} prefix
- * @return {?}
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-function getInstanceFormula(formula, ancestorsNames, prefix) {
-    /** @type {?} */
-    const oldFormula = formula.formula;
-    /** @type {?} */
-    let newFormula = normalizeFormula(oldFormula, ancestorsNames, prefix);
-    if (newFormula === oldFormula) {
-        return formula;
-    }
-    return new AjfFormula({ formula: newFormula });
-}
 /**
  * @param {?} conditions
  * @param {?} ancestorsNames
@@ -3347,6 +1467,45 @@ function getInstanceConditions(conditions, ancestorsNames, prefix) {
     }));
     return changed ? newConditions : conditions;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} formula
+ * @param {?} ancestorsNames
+ * @param {?} prefix
+ * @return {?}
+ */
+function getInstanceFormula(formula, ancestorsNames, prefix) {
+    /** @type {?} */
+    const oldFormula = formula.formula;
+    /** @type {?} */
+    let newFormula = normalizeExpression(oldFormula, ancestorsNames, prefix);
+    if (newFormula === oldFormula) {
+        return formula;
+    }
+    return { formula: newFormula };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?} validation
+ * @return {?}
+ */
+function createValidation(validation) {
+    return Object.assign({}, validation, { clientValidation: validation.clientValidation || false, errorMessage: validation.errorMessage || 'Undefined Error' });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} validation
  * @param {?} ancestorsNames
@@ -3357,12 +1516,17 @@ function getInstanceValidation(validation, ancestorsNames, prefix) {
     /** @type {?} */
     const oldValidation = validation.condition;
     /** @type {?} */
-    let newValidation = normalizeFormula(oldValidation, ancestorsNames, prefix);
+    let newValidation = normalizeExpression(oldValidation, ancestorsNames, prefix);
     if (newValidation === oldValidation) {
         return validation;
     }
-    return new AjfValidation({ condition: newValidation });
+    return createValidation({ condition: newValidation });
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} validations
  * @param {?} ancestorsNames
@@ -3387,6 +1551,24 @@ function getInstanceValidations(validations, ancestorsNames, prefix) {
     }));
     return changed ? newValidations : validations;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?} warning
+ * @return {?}
+ */
+function createWarning(warning) {
+    return Object.assign({}, warning, { warningMessage: warning.warningMessage || 'Undefined Warning' });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} warning
  * @param {?} ancestorsNames
@@ -3397,12 +1579,17 @@ function getInstanceWarning(warning, ancestorsNames, prefix) {
     /** @type {?} */
     const oldWarning = warning.condition;
     /** @type {?} */
-    let newWarning = normalizeFormula(oldWarning, ancestorsNames, prefix);
+    let newWarning = normalizeExpression(oldWarning, ancestorsNames, prefix);
     if (newWarning === oldWarning) {
         return warning;
     }
-    return new AjfWarning({ condition: newWarning });
+    return createWarning({ condition: newWarning });
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} warnings
  * @param {?} ancestorsNames
@@ -3427,6 +1614,36 @@ function getInstanceWarnings(warnings, ancestorsNames, prefix) {
     }));
     return changed ? newWarnings : warnings;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} node
+ * @return {?}
+ */
+function isRepeatingSlide(node) {
+    return node != null && node.nodeType === AjfNodeType.AjfRepeatingSlide;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeInstance
+ * @return {?}
+ */
+function isRepeatingSlideInstance(nodeInstance) {
+    return nodeInstance != null && nodeInstance.node != null && isSlidesInstance(nodeInstance) &&
+        isRepeatingSlide(nodeInstance.node);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} allNodes
  * @param {?} node
@@ -3437,23 +1654,34 @@ function getInstanceWarnings(warnings, ancestorsNames, prefix) {
 function nodeToNodeInstance(allNodes, node, prefix, context) {
     /** @type {?} */
     let instance = null;
-    if (node instanceof AjfFieldWithChoices) {
-        instance = new AjfFieldWithChoicesInstance({ node: node, prefix: prefix }, context);
-    }
-    else if (node instanceof AjfTableField) {
-        instance = new AjfTableFieldInstance({ node: node, prefix: prefix }, context);
-    }
-    else if (node instanceof AjfField) {
-        instance = new AjfFieldInstance({ node: node, prefix: prefix }, context);
-    }
-    else if (node instanceof AjfNodeGroup) {
-        instance = new AjfNodeGroupInstance({ node: node, prefix: prefix }, context);
-    }
-    else if (node instanceof AjfRepeatingSlide) {
-        instance = new AjfRepeatingSlideInstance({ node: node, prefix: prefix }, context);
-    }
-    else if (node instanceof AjfSlide) {
-        instance = new AjfSlideInstance({ node: node, prefix: prefix }, context);
+    /** @type {?} */
+    const nodeType = node.nodeType;
+    switch (nodeType) {
+        case AjfNodeType.AjfField:
+            /** @type {?} */
+            const field = (/** @type {?} */ (node));
+            switch (field.fieldType) {
+                case AjfFieldType.SingleChoice:
+                case AjfFieldType.MultipleChoice:
+                    instance = createFieldWithChoicesInstance({ node: (/** @type {?} */ (node)), prefix }, context);
+                    break;
+                case AjfFieldType.Table:
+                    instance = createTableFieldInstance({ node: (/** @type {?} */ (node)), prefix }, context);
+                    break;
+                default:
+                    instance = createFieldInstance({ node: (/** @type {?} */ (node)), prefix }, context);
+                    break;
+            }
+            break;
+        case AjfNodeType.AjfNodeGroup:
+            instance = createNodeGroupInstance({ node: (/** @type {?} */ (node)), prefix });
+            break;
+        case AjfNodeType.AjfRepeatingSlide:
+            instance = createRepeatingSlideInstance({ node: (/** @type {?} */ (node)), prefix });
+            break;
+        case AjfNodeType.AjfSlide:
+            instance = createSlideInstance({ node: (/** @type {?} */ (node)), prefix });
+            break;
     }
     if (instance != null) {
         /** @type {?} */
@@ -3465,154 +1693,244 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
                 /** @type {?} */
                 const oldVisibility = node.visibility.condition;
                 /** @type {?} */
-                const newVisibility = normalizeFormula(oldVisibility, ancestorsNames, prefix);
-                instance.visibility = newVisibility !== oldVisibility ? new AjfCondition({
-                    condition: newVisibility
-                }) : node.visibility;
+                const newVisibility = normalizeExpression(oldVisibility, ancestorsNames, prefix);
+                instance.visibility = newVisibility !== oldVisibility ?
+                    createCondition({ condition: newVisibility }) :
+                    node.visibility;
             }
-            instance.conditionalBranches = getInstanceConditions(instance.node.conditionalBranches, ancestorsNames, prefix);
-            if (instance instanceof AjfNodeGroupInstance || instance instanceof AjfRepeatingSlideInstance) {
+            /** @type {?} */
+            const conditionalBranches = instance.node.conditionalBranches != null
+                && instance.node.conditionalBranches.length > 0
+                ? instance.node.conditionalBranches
+                : [alwaysCondition()];
+            instance.conditionalBranches = getInstanceConditions(conditionalBranches, ancestorsNames, prefix);
+            if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
                 /** @type {?} */
-                const formulaReps = instance instanceof AjfNodeGroupInstance ?
-                    instance.nodeGroup.formulaReps :
-                    instance.slide.formulaReps;
+                const ngInstance = (/** @type {?} */ (instance));
+                /** @type {?} */
+                const formulaReps = ngInstance.node.formulaReps;
                 if (formulaReps != null) {
                     /** @type {?} */
                     const oldFormula = formulaReps.formula;
                     /** @type {?} */
-                    let newFormula = normalizeFormula(oldFormula, ancestorsNames, prefix);
-                    instance.formulaReps = newFormula !== oldFormula ?
-                        new AjfFormula({ formula: newFormula }) : formulaReps;
+                    let newFormula = normalizeExpression(oldFormula, ancestorsNames, prefix);
+                    ngInstance.formulaReps =
+                        newFormula !== oldFormula ? createFormula({ formula: newFormula }) : formulaReps;
                 }
             }
-            else if (instance instanceof AjfFieldInstance) {
-                if (instance.field.formula != null) {
-                    instance.formula = getInstanceFormula(instance.field.formula, ancestorsNames, prefix);
+            else if (nodeType === AjfNodeType.AjfField) {
+                /** @type {?} */
+                const fInstance = (/** @type {?} */ (instance));
+                /** @type {?} */
+                const fNode = fInstance.node;
+                if (fNode.formula) {
+                    fInstance.formula = getInstanceFormula(fNode.formula, ancestorsNames, prefix);
                 }
-                if (instance.field.validation != null) {
+                if (fNode.validation != null) {
                     /** @type {?} */
-                    const newConditions = getInstanceValidations(instance.field.validation.conditions, ancestorsNames, prefix);
-                    if (newConditions !== instance.field.validation.conditions) {
-                        instance.validation = new AjfValidationGroup(instance.field.validation);
-                        instance.validation.conditions = newConditions;
+                    const newConditions = getInstanceValidations(fNode.validation.conditions, ancestorsNames, prefix);
+                    if (newConditions !== fNode.validation.conditions) {
+                        fInstance.validation = createValidationGroup(fNode.validation);
+                        fInstance.validation.conditions = newConditions;
                     }
                     else {
-                        instance.validation = instance.field.validation;
+                        fInstance.validation = fNode.validation;
                     }
                 }
-                if (instance.field.warning != null) {
+                if (fNode.warning != null) {
                     /** @type {?} */
-                    const newWarnings = getInstanceWarnings(instance.field.warning.conditions, ancestorsNames, prefix);
-                    if (newWarnings !== instance.field.warning.conditions) {
-                        instance.warning = new AjfWarningGroup(instance.field.warning);
-                        instance.warning.conditions = newWarnings;
+                    const newWarnings = getInstanceWarnings(fNode.warning.conditions, ancestorsNames, prefix);
+                    if (newWarnings !== fNode.warning.conditions) {
+                        fInstance.warning = createWarningGroup(fNode.warning);
+                        fInstance.warning.conditions = newWarnings;
                     }
                     else {
-                        instance.warning = instance.field.warning;
+                        fInstance.warning = fNode.warning;
                     }
                 }
-                if (instance.field.nextSlideCondition != null) {
-                    instance.nextSlideCondition = getInstanceCondition(instance.field.nextSlideCondition, ancestorsNames, prefix);
+                if (fNode.nextSlideCondition != null) {
+                    fInstance.nextSlideCondition =
+                        getInstanceCondition(fNode.nextSlideCondition, ancestorsNames, prefix);
                 }
-                if (instance instanceof AjfFieldWithChoicesInstance) {
-                    if (instance.field.choicesFilter != null) {
-                        instance.choicesFilter = getInstanceFormula(instance.field.choicesFilter, ancestorsNames, prefix);
+                if (isFieldWithChoices(fNode)) {
+                    /** @type {?} */
+                    const fwcInstance = (/** @type {?} */ (instance));
+                    /** @type {?} */
+                    const fwcNode = fwcInstance.node;
+                    if (fwcNode.choicesFilter != null) {
+                        fwcInstance.choicesFilter =
+                            getInstanceFormula(fwcNode.choicesFilter, ancestorsNames, prefix);
                     }
-                    if (instance.field.triggerConditions != null) {
-                        instance.triggerConditions = getInstanceConditions(instance.field.triggerConditions, ancestorsNames, prefix);
+                    if (fwcNode.triggerConditions != null) {
+                        fwcInstance.triggerConditions =
+                            getInstanceConditions(fwcNode.triggerConditions, ancestorsNames, prefix);
                     }
                 }
             }
         }
         else {
             instance.visibility = instance.node.visibility;
-            instance.conditionalBranches = instance.node.conditionalBranches;
-            if (instance instanceof AjfNodeGroupInstance || instance instanceof AjfRepeatingSlideInstance) {
-                instance.formulaReps = (instance instanceof AjfNodeGroupInstance ?
-                    instance.nodeGroup : instance.slide).formulaReps;
+            /** @type {?} */
+            const conditionalBranches = instance.node.conditionalBranches != null
+                && instance.node.conditionalBranches.length > 0
+                ? instance.node.conditionalBranches
+                : [alwaysCondition()];
+            instance.conditionalBranches = conditionalBranches;
+            if (isNodeGroupInstance(instance) || isRepeatingSlideInstance(instance)) {
+                /** @type {?} */
+                const rgInstance = (/** @type {?} */ (instance));
+                rgInstance.formulaReps = rgInstance.node.formulaReps;
             }
-            else if (instance instanceof AjfFieldInstance) {
-                instance.formula = instance.field.formula;
-                instance.validation = instance.field.validation;
-                instance.warning = instance.field.warning;
-                instance.nextSlideCondition = instance.field.nextSlideCondition;
-                if (instance instanceof AjfFieldWithChoicesInstance) {
-                    instance.choicesFilter = instance.field.choicesFilter;
-                    instance.triggerConditions = instance.field.triggerConditions;
+            else if (isFieldInstance(instance)) {
+                /** @type {?} */
+                const fInstance = (/** @type {?} */ (instance));
+                fInstance.validation = fInstance.node.validation;
+                fInstance.warning = fInstance.node.warning;
+                fInstance.nextSlideCondition = fInstance.node.nextSlideCondition;
+                if (isFieldWithChoicesInstance(instance)) {
+                    /** @type {?} */
+                    const fwcInstance = (/** @type {?} */ (instance));
+                    fwcInstance.choicesFilter = fwcInstance.node.choicesFilter;
+                    fwcInstance.triggerConditions = fwcInstance.node.triggerConditions;
                 }
+                fInstance.formula = fInstance.node.formula;
             }
         }
     }
     return instance;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /**
  * @param {?} nodes
- * @param {?} node
  * @return {?}
  */
-function findNodeInstanceInTree(nodes, node) {
-    /** @type {?} */
-    const index = nodes.indexOf(node);
-    if (index > -1) {
-        return { container: nodes, index: index };
-    }
-    /** @type {?} */
-    const groups = nodes.filter((/**
-     * @param {?} n
-     * @return {?}
-     */
-    n => isContainerNodeInstance(n)));
-    /** @type {?} */
-    let i = 0;
-    /** @type {?} */
-    const len = groups.length;
-    while (i < len) {
-        /** @type {?} */
-        const res = findNodeInstanceInTree(((/** @type {?} */ (groups[i]))).node.nodes, node);
-        if (res.index > -1) {
-            return res;
-        }
-        i++;
-    }
-    return {
-        container: [],
-        index: -1
-    };
-}
-/**
- * @param {?=} nodes
- * @return {?}
- */
-function flattenNodeInstances(nodes = []) {
+function flattenNodes(nodes) {
     /** @type {?} */
     let flatNodes = [];
     nodes.forEach((/**
-     * @param {?} nodeInstance
+     * @param {?} node
      * @return {?}
      */
-    (nodeInstance) => {
-        flatNodes.push(nodeInstance);
-        if (nodeInstance instanceof AjfNodeGroupInstance ||
-            nodeInstance instanceof AjfSlideInstance ||
-            nodeInstance instanceof AjfRepeatingSlideInstance) {
-            flatNodes = flatNodes.concat(flattenNodeInstances(nodeInstance.nodes));
+    (node) => {
+        flatNodes.push(node);
+        if (isContainerNode(node)) {
+            flatNodes = flatNodes.concat(flattenNodes(((/** @type {?} */ (node))).nodes));
         }
     }));
     return flatNodes;
 }
+
 /**
- * @param {?} node
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?} nodes
+ * @param {?} parent
  * @return {?}
  */
-function isContainerNodeInstance(node) {
-    return node != null && (node instanceof AjfSlideInstance ||
-        node instanceof AjfRepeatingSlideInstance ||
-        node instanceof AjfNodeGroupInstance);
+function orderedNodes(nodes, parent) {
+    /** @type {?} */
+    let newNodes = [];
+    nodes
+        .filter((/**
+     * @param {?} n
+     * @return {?}
+     */
+    (n) => parent != null ? n.parent == parent : n.parent == null || n.parent === 0))
+        .sort((/**
+     * @param {?} n1
+     * @param {?} n2
+     * @return {?}
+     */
+    (n1, n2) => n1.parentNode - n2.parentNode))
+        .forEach((/**
+     * @param {?} n
+     * @return {?}
+     */
+    (n) => {
+        newNodes.push(n);
+        newNodes = newNodes.concat(orderedNodes(nodes, n.id));
+    }));
+    return newNodes;
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} instance
+ * @param {?=} context
+ * @return {?}
+ */
+function updateRepsNum(instance, context) {
+    /** @type {?} */
+    const oldReps = instance.reps || 0;
+    context = context || {};
+    if (instance.node.formulaReps == null) {
+        /** @type {?} */
+        const ctxReps = context[nodeInstanceCompleteName(instance)];
+        if (ctxReps != null) {
+            instance.reps = ctxReps;
+        }
+        else if (oldReps == 0) {
+            instance.reps = 1;
+        }
+    }
+    else {
+        /** @type {?} */
+        let newReps = evaluateExpression(instance.node.formulaReps.formula, context);
+        if (newReps !== oldReps) {
+            instance.reps = newReps;
+        }
+    }
+    instance.canAdd = instance.node.maxReps === 0 || instance.reps < instance.node.maxReps;
+    instance.canRemove = instance.node.minReps === 0 || instance.reps > instance.node.minReps;
+    return oldReps;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?} slide
+ * @param {?} idx
+ * @return {?}
+ */
+function validSlide(slide, idx) {
+    if (idx >= slide.slideNodes.length) {
+        return true;
+    }
+    return slide.slideNodes[idx]
+        .map((/**
+     * @param {?} n
+     * @return {?}
+     */
+    n => {
+        if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+            return ((/** @type {?} */ (n))).valid;
+        }
+        return true;
+    }))
+        .reduce((/**
+     * @param {?} v1
+     * @param {?} v2
+     * @return {?}
+     */
+    (v1, v2) => v1 && v2), true);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class AjfValidationService {
     constructor() {
@@ -3769,13 +2087,13 @@ class AjfValidationService {
         * @param  property the property on wich we want filter
         * @return array of dates
       */
-      var drawThreshold = function(source, property, treshold) {
+      var drawThreshold = function(source, property, threshold) {
         source = (source || []).slice(0);
         var l = source.length;
         var res = [];
         for (var i = 0; i < l ; i++) {
           if (source[i][property] != null) {
-            res.push(treshold);
+            res.push(threshold);
           }
         }
         return res;
@@ -3878,7 +2196,7 @@ class AjfValidationService {
         * @param  source array of object wich contains property
         * @param  property the property on wich we want to calculate the average
         * @param  range the range on wich we want to calculate the average
-        * @param  coefficent the coefficent used for calculate the treshold
+        * @param  coefficent the coefficent used for calculate the threshold
                   if coefficent is 0 mean return the count of property > 0
         * @return the average value || the count of property > 0
       */
@@ -3915,15 +2233,15 @@ class AjfValidationService {
         if (coefficient == 0) {
           return noZero;
         } else {
-          var treshold = (res/counter)*coefficient || 0;
-          return treshold;
+          var threshold = (res/counter)*coefficient || 0;
+          return threshold;
         }
       }`,
-            `var alert = function(source, property, treshold, fmt) {
+            `var alert = function(source, property, threshold, fmt) {
         source = (source || []).slice(0);
         var l = source.length;
 
-        if ( lastProperty(source, property)  > treshold ) {
+        if ( lastProperty(source, property)  > threshold ) {
           return '<p><i class="material-icons" style="color:red">warning</i></p>';
           } else {
             return '<p></p>';
@@ -3978,8 +2296,8 @@ class AjfValidationService {
      * @return {?}
      */
     addFunctionHandler(name, fn) {
-        if (AjfValidatedProperty.utils[name] === undefined) {
-            AjfValidatedProperty.utils[name] = { fn };
+        if (AjfExpressionUtils.utils[name] === undefined) {
+            AjfExpressionUtils.utils[name] = { fn };
         }
     }
     /**
@@ -3996,7 +2314,7 @@ class AjfValidationService {
         f => typeof f === 'string' ? f : f.toString()))
             .join('; ');
         this._functionsStr = `${this._baseUtilFunctions.join('; ')}; ${functionsStr}`;
-        AjfValidatedProperty.UTIL_FUNCTIONS = this._functionsStr;
+        AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
     }
 }
 AjfValidationService.decorators = [
@@ -4007,11 +2325,11 @@ AjfValidationService.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const esprimaMod$1 = esprima__default || esprima;
-const { tokenize: tokenize$1 } = esprimaMod$1;
+const esprimaMod = esprima__default || esprima;
+const { tokenize } = esprimaMod;
 /** @enum {number} */
 const AjfFormInitStatus = {
     Initializing: 0,
@@ -4054,7 +2372,9 @@ class AjfFormRendererService {
     /**
      * @return {?}
      */
-    get nodesTree() { return this._flatNodesTree; }
+    get nodesTree() {
+        return this._flatNodesTree;
+    }
     /**
      * @return {?}
      */
@@ -4079,8 +2399,8 @@ class AjfFormRendererService {
     setForm(form, context = {}) {
         this._initUpdateMapStreams();
         if (form != null && Object.keys(context).length === 0 &&
-            Object.keys(form.initContext).length > 0) {
-            context = form.initContext;
+            Object.keys(form.initContext || {}).length > 0) {
+            context = form.initContext || {};
         }
         /** @type {?} */
         const currentForm = this._form.getValue();
@@ -4118,8 +2438,7 @@ class AjfFormRendererService {
                 return;
             }
             /** @type {?} */
-            const maxReps = group instanceof AjfNodeGroupInstance ?
-                group.nodeGroup.maxReps : group.slide.maxReps;
+            const maxReps = group.node.maxReps;
             if (maxReps > 0 && group.reps + 1 > maxReps) {
                 subscriber.next(false);
                 subscriber.complete();
@@ -4128,6 +2447,8 @@ class AjfFormRendererService {
             /** @type {?} */
             const oldReps = group.reps;
             group.reps = group.reps + 1;
+            group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
+            group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
             this._nodesUpdates.next((/**
              * @param {?} nodes
              * @return {?}
@@ -4158,8 +2479,7 @@ class AjfFormRendererService {
                 return;
             }
             /** @type {?} */
-            const minReps = group instanceof AjfNodeGroupInstance ?
-                group.nodeGroup.minReps : group.slide.minReps;
+            const minReps = group.node.minReps;
             if (group.reps - 1 < minReps) {
                 subscriber.next(false);
                 subscriber.complete();
@@ -4168,6 +2488,8 @@ class AjfFormRendererService {
             /** @type {?} */
             const oldReps = group.reps;
             group.reps = group.reps - 1;
+            group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
+            group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
             this._nodesUpdates.next((/**
              * @param {?} nodes
              * @return {?}
@@ -4191,7 +2513,7 @@ class AjfFormRendererService {
          */
         (f) => {
             /** @type {?} */
-            const fieldName = field.completeName;
+            const fieldName = nodeInstanceCompleteName(field);
             return f != null && f.contains(fieldName) ? f.controls[fieldName] : null;
         })));
     }
@@ -4222,24 +2544,28 @@ class AjfFormRendererService {
              * @return {?}
              */
             (node) => {
-                if (node instanceof AjfRepeatingSlideInstance) {
-                    for (let i = 0; i < node.reps; i++) {
+                if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+                    /** @type {?} */
+                    const rsNode = (/** @type {?} */ (node));
+                    for (let i = 0; i < rsNode.reps; i++) {
                         if (node.visible) {
                             currentPosition++;
                             if (i == 0) {
-                                node.position = currentPosition;
+                                rsNode.position = currentPosition;
                             }
-                            if (!node.validSlide(i)) {
+                            if (!validSlide(rsNode, i)) {
                                 errors.push(currentPosition);
                             }
                         }
                     }
                 }
-                else if (node instanceof AjfSlideInstance) {
-                    if (node.visible) {
+                else if (node.node.nodeType === AjfNodeType.AjfSlide) {
+                    /** @type {?} */
+                    const sNode = (/** @type {?} */ (node));
+                    if (sNode.visible) {
                         currentPosition++;
-                        node.position = currentPosition;
-                        if (!node.valid) {
+                        sNode.position = currentPosition;
+                        if (!sNode.valid) {
                             errors.push(currentPosition);
                         }
                     }
@@ -4261,7 +2587,8 @@ class AjfFormRendererService {
      */
     _initUpdateMapStreams() {
         this._visibilityNodesMap =
-            ((/** @type {?} */ (this._visibilityNodesMapUpdates))).pipe(scan((/**
+            ((/** @type {?} */ (this._visibilityNodesMapUpdates)))
+                .pipe(scan((/**
              * @param {?} rmap
              * @param {?} op
              * @return {?}
@@ -4270,7 +2597,8 @@ class AjfFormRendererService {
                 return op(rmap);
             }), {}), startWith({}), share());
         this._repetitionNodesMap =
-            ((/** @type {?} */ (this._repetitionNodesMapUpdates))).pipe(scan((/**
+            ((/** @type {?} */ (this._repetitionNodesMapUpdates)))
+                .pipe(scan((/**
              * @param {?} rmap
              * @param {?} op
              * @return {?}
@@ -4279,7 +2607,8 @@ class AjfFormRendererService {
                 return op(rmap);
             }), {}), startWith({}), share());
         this._conditionalBranchNodesMap =
-            ((/** @type {?} */ (this._conditionalBranchNodesMapUpdates))).pipe(scan((/**
+            ((/** @type {?} */ (this._conditionalBranchNodesMapUpdates)))
+                .pipe(scan((/**
              * @param {?} rmap
              * @param {?} op
              * @return {?}
@@ -4288,7 +2617,8 @@ class AjfFormRendererService {
                 return op(rmap);
             }), {}), startWith({}), share());
         this._formulaNodesMap =
-            ((/** @type {?} */ (this._formulaNodesMapUpdates))).pipe(scan((/**
+            ((/** @type {?} */ (this._formulaNodesMapUpdates)))
+                .pipe(scan((/**
              * @param {?} rmap
              * @param {?} op
              * @return {?}
@@ -4297,7 +2627,8 @@ class AjfFormRendererService {
                 return op(rmap);
             }), {}), startWith({}), share());
         this._validationNodesMap =
-            ((/** @type {?} */ (this._validationNodesMapUpdates))).pipe(scan((/**
+            ((/** @type {?} */ (this._validationNodesMapUpdates)))
+                .pipe(scan((/**
              * @param {?} rmap
              * @param {?} op
              * @return {?}
@@ -4306,7 +2637,8 @@ class AjfFormRendererService {
                 return op(rmap);
             }), {}), startWith({}), share());
         this._warningNodesMap =
-            ((/** @type {?} */ (this._warningNodesMapUpdates))).pipe(scan((/**
+            ((/** @type {?} */ (this._warningNodesMapUpdates)))
+                .pipe(scan((/**
              * @param {?} rmap
              * @param {?} op
              * @return {?}
@@ -4315,7 +2647,8 @@ class AjfFormRendererService {
                 return op(rmap);
             }), {}), startWith({}), share());
         this._filteredChoicesNodesMap =
-            ((/** @type {?} */ (this._filteredChoicesNodesMapUpdates))).pipe(scan((/**
+            ((/** @type {?} */ (this._filteredChoicesNodesMapUpdates)))
+                .pipe(scan((/**
              * @param {?} rmap
              * @param {?} op
              * @return {?}
@@ -4334,7 +2667,8 @@ class AjfFormRendererService {
                 return op(rmap);
             }), {}), startWith({}), share());
         this._nextSlideConditionsNodesMap =
-            ((/** @type {?} */ (this._nextSlideConditionsNodesMapUpdates))).pipe(scan((/**
+            ((/** @type {?} */ (this._nextSlideConditionsNodesMapUpdates)))
+                .pipe(scan((/**
              * @param {?} rmap
              * @param {?} op
              * @return {?}
@@ -4383,7 +2717,8 @@ class AjfFormRendererService {
             (_nodesInstances) => {
                 /** @type {?} */
                 const nodes = form != null && form.form != null ?
-                    this._orderedNodesInstancesTree(flattenNodes(form.form.nodes), form.form.nodes, undefined, [], form.context) : [];
+                    this._orderedNodesInstancesTree(flattenNodes(form.form.nodes), form.form.nodes, undefined, [], form.context || {}) :
+                    [];
                 /** @type {?} */
                 let currentPosition = 0;
                 nodes.forEach((/**
@@ -4391,20 +2726,24 @@ class AjfFormRendererService {
                  * @return {?}
                  */
                 (node) => {
-                    if (node instanceof AjfRepeatingSlideInstance) {
-                        for (let i = 0; i < node.reps; i++) {
+                    if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+                        /** @type {?} */
+                        const rsNode = (/** @type {?} */ (node));
+                        for (let i = 0; i < rsNode.reps; i++) {
                             if (node.visible) {
                                 currentPosition++;
                                 if (i == 0) {
-                                    node.position = currentPosition;
+                                    rsNode.position = currentPosition;
                                 }
                             }
                         }
                     }
-                    else if (node instanceof AjfSlideInstance) {
-                        if (node.visible) {
+                    else if (node.node.nodeType === AjfNodeType.AjfSlide) {
+                        /** @type {?} */
+                        const sNode = (/** @type {?} */ (node));
+                        if (sNode.visible) {
                             currentPosition++;
-                            node.position = currentPosition;
+                            sNode.position = currentPosition;
                         }
                     }
                 }));
@@ -4426,21 +2765,28 @@ class AjfFormRendererService {
         /** @type {?} */
         let instance = nodeToNodeInstance(allNodes, node, prefix, context);
         if (instance != null) {
-            if (instance instanceof AjfNodeGroupInstance ||
-                instance instanceof AjfRepeatingSlideInstance) {
-                this._explodeRepeatingNode(allNodes, instance, context);
+            /** @type {?} */
+            const nodeType = instance.node.nodeType;
+            if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
+                this._explodeRepeatingNode(allNodes, (/** @type {?} */ (instance)), context);
             }
-            else if (instance instanceof AjfSlideInstance) {
-                instance.nodes = this._orderedNodesInstancesTree(allNodes, instance.slide.nodes, instance.slide.id, prefix, context);
+            else if (nodeType === AjfNodeType.AjfSlide) {
+                /** @type {?} */
+                const sInstance = (/** @type {?} */ (instance));
+                sInstance.nodes = this._orderedNodesInstancesTree(allNodes, sInstance.node.nodes, sInstance.node.id, prefix, context);
             }
-            instance.updateVisibility(context, branchVisibility);
-            instance.updateConditionalBranches(context);
-            if (instance instanceof AjfFieldWithChoicesInstance) {
-                instance.updateFilteredChoices(context);
-            }
-            else if (instance instanceof AjfFieldInstance) {
-                instance.value = context[instance.completeName];
-                instance.updateFieldState(context);
+            updateVisibility(instance, context, branchVisibility);
+            updateConditionalBranches(instance, context);
+            if (nodeType === AjfNodeType.AjfField) {
+                /** @type {?} */
+                const fInstance = (/** @type {?} */ (instance));
+                if (isFieldWithChoices(fInstance.node)) {
+                    updateFilteredChoices((/** @type {?} */ (fInstance)), context);
+                }
+                else {
+                    fInstance.value = context[nodeInstanceCompleteName(instance)];
+                    updateFieldInstanceState(fInstance, context);
+                }
             }
             this._addNodeInstance(instance);
         }
@@ -4468,11 +2814,15 @@ class AjfFormRendererService {
             if (instance.nodes == null) {
                 instance.nodes = [];
             }
-            if (instance instanceof AjfNodeGroupInstance) {
+            if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
                 /** @type {?} */
-                const node = new AjfEmptyField({
-                    'label': instance.node.label
-                });
+                const node = (/** @type {?} */ (createField({
+                    id: 999,
+                    name: '',
+                    parent: -1,
+                    fieldType: AjfFieldType.Empty,
+                    label: instance.node.label
+                })));
                 /** @type {?} */
                 const newInstance = this._initNodeInstance(allNodes, node, instance.prefix.slice(0), context);
                 if (newInstance != null) {
@@ -4483,8 +2833,7 @@ class AjfFormRendererService {
                 /** @type {?} */
                 const prefix = instance.prefix.slice(0);
                 /** @type {?} */
-                const group = instance instanceof AjfNodeGroupInstance ?
-                    instance.nodeGroup : instance.slide;
+                const group = instance.node;
                 prefix.push(i);
                 orderedNodes(group.nodes, instance.node.id)
                     .forEach((/**
@@ -4506,7 +2855,7 @@ class AjfFormRendererService {
         else if (oldReps > newReps) {
             /** @type {?} */
             let nodesNum = instance.nodes.length / oldReps;
-            if (instance instanceof AjfNodeGroupInstance) {
+            if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
                 nodesNum++;
             }
             result.removed = instance.nodes.splice(newReps * nodesNum, nodesNum);
@@ -4521,22 +2870,26 @@ class AjfFormRendererService {
         if (oldReps != newReps && instance.formulaReps == null) {
             /** @type {?} */
             const fg = this._formGroup.getValue();
-            if (fg != null && fg.contains(instance.completeName)) {
-                fg.controls[instance.completeName].setValue(instance.reps);
+            /** @type {?} */
+            const completeName = nodeInstanceCompleteName(instance);
+            if (fg != null && fg.contains(completeName)) {
+                fg.controls[completeName].setValue(instance.reps);
             }
         }
         instance.flatNodes = flattenNodesInstances(instance.nodes);
-        if (instance instanceof AjfRepeatingSlideInstance) {
+        if (instance.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+            /** @type {?} */
+            const rsInstance = (/** @type {?} */ (instance));
             /** @type {?} */
             const slideNodes = [];
             /** @type {?} */
-            const nodesPerSlide = instance.nodesPerSlide;
+            const nodesPerSlide = rsInstance.nodes != null ? rsInstance.nodes.length / rsInstance.reps : 0;
             for (let i = 0; i < instance.reps; i++) {
                 /** @type {?} */
                 const startNode = i * nodesPerSlide;
                 slideNodes.push(instance.nodes.slice(startNode, startNode + nodesPerSlide));
             }
-            instance.slideNodes = slideNodes;
+            rsInstance.slideNodes = slideNodes;
         }
         return result;
     }
@@ -4570,7 +2923,7 @@ class AjfFormRendererService {
      */
     _explodeRepeatingNode(allNodes, instance, context) {
         /** @type {?} */
-        const oldReps = instance.updateRepsNum(context);
+        const oldReps = updateRepsNum(instance, context);
         if (oldReps !== instance.reps) {
             this._adjustReps(allNodes, instance, oldReps, context);
         }
@@ -4589,8 +2942,7 @@ class AjfFormRendererService {
         let nodesInstances = [];
         /** @type {?} */
         const curSuffix = prefix.length > 0 ? '__' + prefix.join('__') : '';
-        orderedNodes(nodes, parent)
-            .forEach((/**
+        orderedNodes(nodes, parent).forEach((/**
          * @param {?} node
          * @return {?}
          */
@@ -4600,11 +2952,12 @@ class AjfFormRendererService {
              * @param {?} ni
              * @return {?}
              */
-            ni => ni.node.id == node.parent && ni.suffix == curSuffix));
+            ni => ni.node.id == node.parent && nodeInstanceSuffix(ni) == curSuffix));
             /** @type {?} */
             const branchVisibility = parentNodeInstance != null ?
                 parentNodeInstance.verifiedBranch != null &&
-                    parentNodeInstance.verifiedBranch == node.parentNode : true;
+                    parentNodeInstance.verifiedBranch == node.parentNode :
+                true;
             /** @type {?} */
             const nni = this._initNodeInstance(allNodes, node, prefix, context, branchVisibility);
             if (nni != null) {
@@ -4639,255 +2992,284 @@ class AjfFormRendererService {
         /** @type {?} */
         let initForm = true;
         this._formInitEvent.emit(AjfFormInitStatus.Initializing);
-        this._formGroupSubscription = formGroup.valueChanges.pipe(startWith({}), pairwise(), debounceTime(200), withLatestFrom(...(this._nodesMaps), this._flatNodes)).subscribe((/**
-         * @param {?} v
-         * @return {?}
-         */
-        (v) => {
-            /** @type {?} */
-            const oldFormValue = init && {} || v[0][0];
-            init = false;
-            /** @type {?} */
-            const newFormValue = v[0][1];
-            /** @type {?} */
-            const visibilityMap = v[1];
-            /** @type {?} */
-            const repetitionMap = v[2];
-            /** @type {?} */
-            const conditionalBranchesMap = v[3];
-            /** @type {?} */
-            const formulaMap = v[4];
-            /** @type {?} */
-            const validationMap = v[5];
-            /** @type {?} */
-            const warningMap = v[6];
-            /** @type {?} */
-            const nextSlideConditionsMap = v[7];
-            /** @type {?} */
-            const filteredChoicesMap = v[8];
-            /** @type {?} */
-            const triggerConditionsMap = v[9];
-            /** @type {?} */
-            const nodes = v[10];
-            /** @type {?} */
-            const delta = this._formValueDelta(oldFormValue, newFormValue);
-            /** @type {?} */
-            const deltaLen = delta.length;
-            /** @type {?} */
-            let updatedNodes = [];
-            delta.forEach((/**
-             * @param {?} fieldName
+        this._formGroupSubscription =
+            formGroup.valueChanges
+                .pipe(startWith({}), pairwise(), debounceTime(200), withLatestFrom(...(this._nodesMaps), this._flatNodes))
+                .subscribe((/**
+             * @param {?} v
              * @return {?}
              */
-            (fieldName) => {
-                updatedNodes = updatedNodes.concat(nodes.filter((/**
+            (v) => {
+                /** @type {?} */
+                const oldFormValue = init && {} || v[0][0];
+                init = false;
+                /** @type {?} */
+                const newFormValue = v[0][1];
+                /** @type {?} */
+                const visibilityMap = v[1];
+                /** @type {?} */
+                const repetitionMap = v[2];
+                /** @type {?} */
+                const conditionalBranchesMap = v[3];
+                /** @type {?} */
+                const formulaMap = v[4];
+                /** @type {?} */
+                const validationMap = v[5];
+                /** @type {?} */
+                const warningMap = v[6];
+                /** @type {?} */
+                const nextSlideConditionsMap = v[7];
+                /** @type {?} */
+                const filteredChoicesMap = v[8];
+                /** @type {?} */
+                const triggerConditionsMap = v[9];
+                /** @type {?} */
+                const nodes = v[10];
+                ((/** @type {?} */ (window))).nodes = nodes;
+                /** @type {?} */
+                const delta = this._formValueDelta(oldFormValue, newFormValue);
+                /** @type {?} */
+                const deltaLen = delta.length;
+                /** @type {?} */
+                let updatedNodes = [];
+                delta.forEach((/**
+                 * @param {?} fieldName
+                 * @return {?}
+                 */
+                (fieldName) => {
+                    updatedNodes = updatedNodes.concat(nodes.filter((/**
+                     * @param {?} n
+                     * @return {?}
+                     */
+                    n => nodeInstanceCompleteName(n) === fieldName)));
+                    if (visibilityMap[fieldName] != null) {
+                        visibilityMap[fieldName].forEach((/**
+                         * @param {?} nodeInstance
+                         * @return {?}
+                         */
+                        nodeInstance => {
+                            /** @type {?} */
+                            const completeName = nodeInstanceCompleteName(nodeInstance);
+                            /** @type {?} */
+                            const visibilityChanged = updateVisibility(nodeInstance, newFormValue);
+                            /** @type {?} */
+                            const isField = isFieldInstance(nodeInstance);
+                            if (visibilityChanged && !nodeInstance.visible) {
+                                /** @type {?} */
+                                const fg = this._formGroup.getValue();
+                                if (fg != null) {
+                                    /** @type {?} */
+                                    const s = timer(200).subscribe((/**
+                                     * @return {?}
+                                     */
+                                    () => {
+                                        if (s && !s.closed) {
+                                            s.unsubscribe();
+                                        }
+                                        fg.controls[completeName].setValue(null);
+                                    }));
+                                }
+                                if (isField) {
+                                    ((/** @type {?} */ (nodeInstance))).value = null;
+                                }
+                            }
+                            else if (visibilityChanged && nodeInstance.visible && isField) {
+                                /** @type {?} */
+                                const fg = this._formGroup.getValue();
+                                /** @type {?} */
+                                const res = updateFormula((/** @type {?} */ (nodeInstance)), newFormValue);
+                                if (fg != null && res.changed) {
+                                    fg.controls[completeName].setValue(res.value);
+                                }
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        }));
+                    }
+                    if (repetitionMap[fieldName] != null) {
+                        repetitionMap[fieldName].forEach((/**
+                         * @param {?} nodeInstance
+                         * @return {?}
+                         */
+                        nodeInstance => {
+                            if (isRepeatingContainerNode(nodeInstance.node)) {
+                                /** @type {?} */
+                                const rnInstance = (/** @type {?} */ (nodeInstance));
+                                /** @type {?} */
+                                const oldReps = updateRepsNum(rnInstance, newFormValue);
+                                if (oldReps !== rnInstance.reps) {
+                                    this._adjustReps(nodes, rnInstance, oldReps, newFormValue);
+                                }
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        }));
+                    }
+                    if (conditionalBranchesMap[fieldName] != null) {
+                        conditionalBranchesMap[fieldName].forEach((/**
+                         * @param {?} nodeInstance
+                         * @return {?}
+                         */
+                        (nodeInstance) => {
+                            // const branchChanged = nodeInstance.updateConditionalBranches(newFormValue);
+                            updateConditionalBranches(nodeInstance, newFormValue);
+                            // if (branchChanged) {
+                            /** @type {?} */
+                            const verifiedBranch = nodeInstance.verifiedBranch;
+                            nodeInstance.conditionalBranches.forEach((/**
+                             * @param {?} _condition
+                             * @param {?} idx
+                             * @return {?}
+                             */
+                            (_condition, idx) => {
+                                if (idx == verifiedBranch) {
+                                    this._showSubtree(newFormValue, nodes, nodeInstance, idx);
+                                }
+                                else {
+                                    this._hideSubtree(newFormValue, nodes, nodeInstance, idx);
+                                }
+                            }));
+                            // }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        }));
+                    }
+                    if (formulaMap[fieldName] != null) {
+                        formulaMap[fieldName].forEach((/**
+                         * @param {?} nodeInstance
+                         * @return {?}
+                         */
+                        (nodeInstance) => {
+                            if (isFieldInstance(nodeInstance)) {
+                                /** @type {?} */
+                                const fInstance = (/** @type {?} */ (nodeInstance));
+                                /** @type {?} */
+                                const res = updateFormula(fInstance, newFormValue);
+                                /** @type {?} */
+                                const fg = this._formGroup.getValue();
+                                if (fg != null && res.changed) {
+                                    updateValidation(fInstance, newFormValue);
+                                    fg.controls[nodeInstanceCompleteName(nodeInstance)].setValue(res.value);
+                                }
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        }));
+                    }
+                    if (validationMap[fieldName] != null) {
+                        validationMap[fieldName].forEach((/**
+                         * @param {?} nodeInstance
+                         * @return {?}
+                         */
+                        (nodeInstance) => {
+                            if (isFieldInstance(nodeInstance)) {
+                                /** @type {?} */
+                                const fInstance = (/** @type {?} */ (nodeInstance));
+                                newFormValue.$value = newFormValue[nodeInstanceCompleteName(nodeInstance)];
+                                updateValidation(fInstance, newFormValue, this.currentSupplementaryInformations);
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        }));
+                    }
+                    if (warningMap[fieldName] != null) {
+                        warningMap[fieldName].forEach((/**
+                         * @param {?} nodeInstance
+                         * @return {?}
+                         */
+                        (nodeInstance) => {
+                            if (isFieldInstance(nodeInstance)) {
+                                /** @type {?} */
+                                const fInstance = (/** @type {?} */ (nodeInstance));
+                                updateWarning(fInstance, newFormValue);
+                                if (fInstance.warningResults != null &&
+                                    fInstance.warningResults.filter((/**
+                                     * @param {?} warning
+                                     * @return {?}
+                                     */
+                                    warning => warning.result)).length > 0) {
+                                    fInstance.warningTrigger.emit();
+                                }
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        }));
+                    }
+                    if (deltaLen == 1 && nextSlideConditionsMap[fieldName] != null) {
+                        if (nextSlideConditionsMap[fieldName]
+                            .filter((/**
+                         * @param {?} nodeInstance
+                         * @return {?}
+                         */
+                        (nodeInstance) => {
+                            if (isFieldInstance(nodeInstance)) {
+                                /** @type {?} */
+                                const fInstance = (/** @type {?} */ (nodeInstance));
+                                return updateNextSlideCondition(fInstance, newFormValue);
+                            }
+                            return false;
+                        }))
+                            .length == 1) {
+                            this._nextSlideTrigger.emit();
+                        }
+                    }
+                    if (filteredChoicesMap[fieldName] != null) {
+                        filteredChoicesMap[fieldName].forEach((/**
+                         * @param {?} nodeInstance
+                         * @return {?}
+                         */
+                        (nodeInstance) => {
+                            if (isFieldInstance(nodeInstance)) {
+                                /** @type {?} */
+                                const fInstance = (/** @type {?} */ (nodeInstance));
+                                if (isFieldWithChoices(fInstance.node)) {
+                                    updateFilteredChoices((/** @type {?} */ (fInstance)), newFormValue);
+                                }
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        }));
+                    }
+                    if (deltaLen == 1 && triggerConditionsMap[fieldName] != null) {
+                        /** @type {?} */
+                        const res = triggerConditionsMap[fieldName].filter((/**
+                         * @param {?} nodeInstance
+                         * @return {?}
+                         */
+                        (nodeInstance) => {
+                            if (!isFieldInstance(nodeInstance)) {
+                                return false;
+                            }
+                            /** @type {?} */
+                            const fInstance = (/** @type {?} */ (nodeInstance));
+                            if (!isFieldWithChoices(fInstance.node)) {
+                                return false;
+                            }
+                            return updateTriggerConditions((/** @type {?} */ (fInstance)), newFormValue);
+                        }));
+                        if (res.length == 1) {
+                            ((/** @type {?} */ (res[0]))).selectionTrigger.emit();
+                        }
+                    }
+                }));
+                updatedNodes.forEach((/**
                  * @param {?} n
                  * @return {?}
                  */
-                n => n.completeName === fieldName)));
-                if (visibilityMap[fieldName] != null) {
-                    visibilityMap[fieldName].forEach((/**
-                     * @param {?} nodeInstance
-                     * @return {?}
-                     */
-                    nodeInstance => {
-                        /** @type {?} */
-                        const visibilityChanged = nodeInstance.updateVisibility(newFormValue);
-                        if (visibilityChanged && !nodeInstance.visible) {
-                            /** @type {?} */
-                            const fg = this._formGroup.getValue();
-                            if (fg != null) {
-                                /** @type {?} */
-                                const s = timer(200).subscribe((/**
-                                 * @return {?}
-                                 */
-                                () => {
-                                    if (s && !s.closed) {
-                                        s.unsubscribe();
-                                    }
-                                    fg.controls[nodeInstance.completeName].setValue(null);
-                                }));
-                            }
-                            if (nodeInstance instanceof AjfFieldInstance) {
-                                ((/** @type {?} */ (nodeInstance))).value = null;
-                            }
-                        }
-                        else if (visibilityChanged && nodeInstance.visible &&
-                            nodeInstance instanceof AjfFieldInstance) {
-                            /** @type {?} */
-                            const fg = this._formGroup.getValue();
-                            /** @type {?} */
-                            const res = ((/** @type {?} */ (nodeInstance))).updateFormula(newFormValue);
-                            if (fg != null && res.changed) {
-                                fg.controls[nodeInstance.completeName].setValue(res.value);
-                            }
-                        }
-                        if (updatedNodes.indexOf(nodeInstance) === -1) {
-                            updatedNodes.push(nodeInstance);
-                        }
-                    }));
+                n => n.updatedEvt.emit()));
+                if (initForm) {
+                    initForm = false;
+                    this._formInitEvent.emit(AjfFormInitStatus.Complete);
                 }
-                if (repetitionMap[fieldName] != null) {
-                    repetitionMap[fieldName].forEach((/**
-                     * @param {?} nodeInstance
-                     * @return {?}
-                     */
-                    nodeInstance => {
-                        if (nodeInstance instanceof AjfNodeGroupInstance ||
-                            nodeInstance instanceof AjfRepeatingSlideInstance) {
-                            /** @type {?} */
-                            const oldReps = nodeInstance.updateRepsNum(newFormValue);
-                            if (oldReps !== nodeInstance.reps) {
-                                this._adjustReps(nodes, nodeInstance, oldReps, newFormValue);
-                            }
-                        }
-                        if (updatedNodes.indexOf(nodeInstance) === -1) {
-                            updatedNodes.push(nodeInstance);
-                        }
-                    }));
-                }
-                if (conditionalBranchesMap[fieldName] != null) {
-                    conditionalBranchesMap[fieldName].forEach((/**
-                     * @param {?} nodeInstance
-                     * @return {?}
-                     */
-                    (nodeInstance) => {
-                        // const branchChanged = nodeInstance.updateConditionalBranches(newFormValue);
-                        nodeInstance.updateConditionalBranches(newFormValue);
-                        // if (branchChanged) {
-                        /** @type {?} */
-                        const verifiedBranch = nodeInstance.verifiedBranch;
-                        nodeInstance.conditionalBranches.forEach((/**
-                         * @param {?} _condition
-                         * @param {?} idx
-                         * @return {?}
-                         */
-                        (_condition, idx) => {
-                            if (idx == verifiedBranch) {
-                                this._showSubtree(newFormValue, nodes, nodeInstance, idx);
-                            }
-                            else {
-                                this._hideSubtree(newFormValue, nodes, nodeInstance, idx);
-                            }
-                        }));
-                        // }
-                        if (updatedNodes.indexOf(nodeInstance) === -1) {
-                            updatedNodes.push(nodeInstance);
-                        }
-                    }));
-                }
-                if (formulaMap[fieldName] != null) {
-                    formulaMap[fieldName].forEach((/**
-                     * @param {?} nodeInstance
-                     * @return {?}
-                     */
-                    (nodeInstance) => {
-                        if (nodeInstance instanceof AjfFieldInstance) {
-                            /** @type {?} */
-                            const res = nodeInstance.updateFormula(newFormValue);
-                            /** @type {?} */
-                            const fg = this._formGroup.getValue();
-                            if (fg != null && res.changed) {
-                                nodeInstance.updateValidation(newFormValue);
-                                fg.controls[nodeInstance.completeName].setValue(res.value);
-                            }
-                        }
-                        if (updatedNodes.indexOf(nodeInstance) === -1) {
-                            updatedNodes.push(nodeInstance);
-                        }
-                    }));
-                }
-                if (validationMap[fieldName] != null) {
-                    validationMap[fieldName].forEach((/**
-                     * @param {?} nodeInstance
-                     * @return {?}
-                     */
-                    (nodeInstance) => {
-                        if (nodeInstance instanceof AjfFieldInstance) {
-                            newFormValue.$value = newFormValue[nodeInstance.completeName];
-                            nodeInstance.updateValidation(newFormValue, this.currentSupplementaryInformations);
-                        }
-                        if (updatedNodes.indexOf(nodeInstance) === -1) {
-                            updatedNodes.push(nodeInstance);
-                        }
-                    }));
-                }
-                if (warningMap[fieldName] != null) {
-                    warningMap[fieldName].forEach((/**
-                     * @param {?} nodeInstance
-                     * @return {?}
-                     */
-                    (nodeInstance) => {
-                        if (nodeInstance instanceof AjfFieldInstance) {
-                            nodeInstance.updateWarning(newFormValue);
-                            if (nodeInstance.warningResults.filter((/**
-                             * @param {?} warning
-                             * @return {?}
-                             */
-                            warning => warning.result)).length > 0) {
-                                nodeInstance.emitTriggerWarning();
-                            }
-                        }
-                        if (updatedNodes.indexOf(nodeInstance) === -1) {
-                            updatedNodes.push(nodeInstance);
-                        }
-                    }));
-                }
-                if (deltaLen == 1 && nextSlideConditionsMap[fieldName] != null) {
-                    if (nextSlideConditionsMap[fieldName].filter((/**
-                     * @param {?} nodeInstance
-                     * @return {?}
-                     */
-                    (nodeInstance) => {
-                        if (nodeInstance instanceof AjfFieldInstance) {
-                            return nodeInstance.updateNextSlideCondition(newFormValue);
-                        }
-                        return false;
-                    })).length == 1) {
-                        this._nextSlideTrigger.emit();
-                    }
-                }
-                if (filteredChoicesMap[fieldName] != null) {
-                    filteredChoicesMap[fieldName].forEach((/**
-                     * @param {?} nodeInstance
-                     * @return {?}
-                     */
-                    (nodeInstance) => {
-                        if (nodeInstance instanceof AjfFieldWithChoicesInstance) {
-                            nodeInstance.updateFilteredChoices(newFormValue);
-                        }
-                        if (updatedNodes.indexOf(nodeInstance) === -1) {
-                            updatedNodes.push(nodeInstance);
-                        }
-                    }));
-                }
-                if (deltaLen == 1 && triggerConditionsMap[fieldName] != null) {
-                    /** @type {?} */
-                    const res = triggerConditionsMap[fieldName]
-                        .filter((/**
-                     * @param {?} nodeInstance
-                     * @return {?}
-                     */
-                    (nodeInstance) => {
-                        return nodeInstance instanceof AjfFieldWithChoicesInstance &&
-                            nodeInstance.updateTriggerConditions(newFormValue);
-                    }));
-                    if (res.length == 1) {
-                        ((/** @type {?} */ (res[0]))).emitTriggerSelection();
-                    }
-                }
+                this._valueChanged.next();
             }));
-            updatedNodes.forEach((/**
-             * @param {?} n
-             * @return {?}
-             */
-            n => n.triggerUpdate()));
-            if (initForm) {
-                initForm = false;
-                this._formInitEvent.emit(AjfFormInitStatus.Complete);
-            }
-            this._valueChanged.next();
-        }));
         return formGroup;
     }
     /**
@@ -4924,14 +3306,17 @@ class AjfFormRendererService {
     _updateSubtreeVisibility(context, nodes, node, visible, branch) {
         /** @type {?} */
         let subNodes;
+        /** @type {?} */
+        const nodeSuffix = nodeInstanceSuffix(node);
         if (branch != null) {
             subNodes = nodes.filter((/**
              * @param {?} n
              * @return {?}
              */
             n => {
-                return n.suffix == node.suffix && n.node.parent == node.node.id &&
-                    n.node.parentNode == branch;
+                /** @type {?} */
+                const suffix = nodeInstanceSuffix(n);
+                return suffix == nodeSuffix && n.node.parent == node.node.id && n.node.parentNode == branch;
             }));
         }
         else {
@@ -4939,7 +3324,11 @@ class AjfFormRendererService {
              * @param {?} n
              * @return {?}
              */
-            n => n.suffix == node.suffix && n.node.parent == node.node.id));
+            n => {
+                /** @type {?} */
+                const suffix = nodeInstanceSuffix(n);
+                return suffix == nodeSuffix && n.node.parent == node.node.id;
+            }));
         }
         /** @type {?} */
         const isContainer = isContainerNode(node.node);
@@ -4954,10 +3343,8 @@ class AjfFormRendererService {
                  * @return {?}
                  */
                 cn => cn.id == n.node.id)) == null)) {
-                n.updateVisibility(context, visible);
-                if (n instanceof AjfFieldInstance) {
-                    ((/** @type {?} */ (n))).updateFormula(context);
-                }
+                updateVisibility(n, context, visible);
+                updateFormula((/** @type {?} */ (n)), context);
                 this._updateSubtreeVisibility(context, nodes, n, visible);
             }
         }));
@@ -4967,19 +3354,20 @@ class AjfFormRendererService {
      * @return {?}
      */
     _initNodesStreams() {
-        this._nodes = this._nodesUpdates.pipe(scan((/**
-         * @param {?} nodes
-         * @param {?} op
-         * @return {?}
-         */
-        (nodes, op) => {
-            return op(nodes);
-        }), []), share());
+        this._nodes =
+            this._nodesUpdates.pipe(scan((/**
+             * @param {?} nodes
+             * @param {?} op
+             * @return {?}
+             */
+            (nodes, op) => {
+                return op(nodes);
+            }), []), share());
         this._flatNodesTree = this._nodes.pipe(map((/**
          * @param {?} nodes
          * @return {?}
          */
-        nodes => flattenNodesTree(nodes))), share());
+        nodes => flattenNodesInstancesTree(nodes))), share());
         this._flatNodes = this._flatNodesTree.pipe(map((/**
          * @param {?} slides
          * @return {?}
@@ -5005,7 +3393,7 @@ class AjfFormRendererService {
      */
     _removeNodeInstance(nodeInstance) {
         /** @type {?} */
-        const nodeName = nodeInstance.completeName;
+        const nodeName = nodeInstanceCompleteName(nodeInstance);
         this._removeNodesVisibilityMapIndex(nodeName);
         this._removeNodesRepetitionMapIndex(nodeName);
         this._removeNodesConditionalBranchMapIndex(nodeName);
@@ -5015,14 +3403,14 @@ class AjfFormRendererService {
         this._removeNodesNextSlideConditionsMapIndex(nodeName);
         this._removeNodesFilteredChoicesMapIndex(nodeName);
         this._removeNodesTriggerConditionsMapIndex(nodeName);
-        if (nodeInstance instanceof AjfSlideInstance) {
-            return this._removeSlideInstance(nodeInstance);
+        if (isSlidesInstance(nodeInstance)) {
+            return this._removeSlideInstance((/** @type {?} */ (nodeInstance)));
         }
-        else if (isRepeatingNode(nodeInstance.node)) {
+        else if (isRepeatingContainerNode(nodeInstance.node)) {
             this._removeNodeGroupInstance((/** @type {?} */ (nodeInstance)));
         }
-        else if (nodeInstance instanceof AjfFieldInstance) {
-            this._removeFieldInstance(nodeInstance);
+        else if (isFieldInstance(nodeInstance)) {
+            this._removeFieldInstance((/** @type {?} */ (nodeInstance)));
         }
         return nodeInstance;
     }
@@ -5033,7 +3421,7 @@ class AjfFormRendererService {
      */
     _removeSlideInstance(slideInstance) {
         /** @type {?} */
-        const slide = slideInstance.slide;
+        const slide = slideInstance.node;
         if (slide.visibility != null) {
             this._removeFromNodesVisibilityMap(slideInstance, slide.visibility.condition);
         }
@@ -5053,8 +3441,7 @@ class AjfFormRendererService {
      */
     _removeNodeGroupInstance(nodeGroupInstance) {
         /** @type {?} */
-        const nodeGroup = nodeGroupInstance instanceof AjfNodeGroupInstance ?
-            nodeGroupInstance.nodeGroup : nodeGroupInstance.slide;
+        const nodeGroup = nodeGroupInstance.node;
         if (nodeGroup.visibility != null) {
             this._removeFromNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
         }
@@ -5072,7 +3459,7 @@ class AjfFormRendererService {
         /** @type {?} */
         const formGroup = this._formGroup.getValue();
         /** @type {?} */
-        const fieldInstanceName = fieldInstance.completeName;
+        const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
         if (formGroup != null && formGroup.contains(fieldInstanceName)) {
             formGroup.removeControl(fieldInstanceName);
         }
@@ -5098,12 +3485,15 @@ class AjfFormRendererService {
         (conditionalBranch) => {
             this._removeFromNodesConditionalBranchMap(fieldInstance, conditionalBranch.condition);
         }));
-        if (fieldInstance.formula != null) {
+        if (fieldInstance.formula) {
             this._removeFromNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
         }
-        if (fieldInstance instanceof AjfNodeGroupInstance) {
-            if (fieldInstance.formulaReps != null) {
-                this._removeFromNodesRepetitionMap(fieldInstance, fieldInstance.formulaReps.formula);
+        // TODO: check this, probably is never verified
+        if (isRepeatingContainerNode(fieldInstance.node)) {
+            /** @type {?} */
+            const rcInstance = ((/** @type {?} */ ((/** @type {?} */ (fieldInstance)))));
+            if (rcInstance.formulaReps != null) {
+                this._removeFromNodesRepetitionMap(fieldInstance, rcInstance.formulaReps.formula);
             }
         }
         if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
@@ -5127,16 +3517,20 @@ class AjfFormRendererService {
         if (fieldInstance.nextSlideCondition != null) {
             this._removeFromNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
         }
-        if (fieldInstance instanceof AjfFieldWithChoicesInstance && fieldInstance.choicesFilter != null) {
-            this._removeFromNodesFilteredChoicesMap(fieldInstance, fieldInstance.choicesFilter.formula);
-            if (fieldInstance.triggerConditions != null) {
-                fieldInstance.triggerConditions.forEach((/**
-                 * @param {?} condition
-                 * @return {?}
-                 */
-                (condition) => {
-                    this._removeFromNodesTriggerConditionsMap(fieldInstance, condition.condition);
-                }));
+        if (isFieldWithChoices(fieldInstance.node)) {
+            /** @type {?} */
+            const fwcInstance = (/** @type {?} */ (fieldInstance));
+            if (fwcInstance.choicesFilter != null) {
+                this._removeFromNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
+                if (fwcInstance.triggerConditions != null) {
+                    fwcInstance.triggerConditions.forEach((/**
+                     * @param {?} condition
+                     * @return {?}
+                     */
+                    (condition) => {
+                        this._removeFromNodesTriggerConditionsMap(fieldInstance, condition.condition);
+                    }));
+                }
             }
         }
         return fieldInstance;
@@ -5147,15 +3541,14 @@ class AjfFormRendererService {
      * @return {?}
      */
     _addNodeInstance(nodeInstance) {
-        if (nodeInstance instanceof AjfRepeatingSlideInstance ||
-            nodeInstance instanceof AjfNodeGroupInstance) {
-            return this._addNodeGroupInstance(nodeInstance);
+        if (isRepeatingContainerNode(nodeInstance.node)) {
+            return this._addNodeGroupInstance((/** @type {?} */ (nodeInstance)));
         }
-        else if (nodeInstance instanceof AjfSlideInstance) {
-            return this._addSlideInstance(nodeInstance);
+        else if (isSlideInstance(nodeInstance)) {
+            return this._addSlideInstance((/** @type {?} */ (nodeInstance)));
         }
-        else if (nodeInstance instanceof AjfFieldInstance) {
-            return this._addFieldInstance(nodeInstance);
+        else if (isFieldInstance(nodeInstance)) {
+            return this._addFieldInstance((/** @type {?} */ (nodeInstance)));
         }
         return nodeInstance;
     }
@@ -5168,40 +3561,43 @@ class AjfFormRendererService {
         /** @type {?} */
         const formGroup = this._formGroup.getValue();
         /** @type {?} */
-        const fieldInstanceName = fieldInstance.completeName;
+        const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
         if (formGroup != null && !formGroup.contains(fieldInstanceName)) {
             /** @type {?} */
             const control = new FormControl();
             control.setValue(fieldInstance.value);
             formGroup.registerControl(fieldInstanceName, control);
         }
-        if (formGroup != null && fieldInstance instanceof AjfTableFieldInstance
-            && ((/** @type {?} */ (fieldInstance.node))).editable) {
-            /** @type {?} */
-            let node = (/** @type {?} */ (fieldInstance.node));
-            /** @type {?} */
-            let value = [];
-            node.rows.forEach((/**
-             * @param {?} row
-             * @return {?}
-             */
-            (row) => {
+        if (formGroup != null && isTableFieldInstance(fieldInstance)) {
+            if (((/** @type {?} */ (fieldInstance.node))).editable) {
                 /** @type {?} */
-                let r = [];
-                row.forEach((/**
-                 * @param {?} k
+                const tfInstance = (/** @type {?} */ (fieldInstance));
+                /** @type {?} */
+                let node = (/** @type {?} */ (fieldInstance.node));
+                /** @type {?} */
+                let value = [];
+                node.rows.forEach((/**
+                 * @param {?} row
                  * @return {?}
                  */
-                (k) => {
+                (row) => {
                     /** @type {?} */
-                    const control = new FormControl();
-                    control.setValue(fieldInstance.context[k]);
-                    (/** @type {?} */ (formGroup)).registerControl(k, control);
-                    r.push(control);
+                    let r = [];
+                    row.forEach((/**
+                     * @param {?} k
+                     * @return {?}
+                     */
+                    (k) => {
+                        /** @type {?} */
+                        const control = new FormControl();
+                        control.setValue(tfInstance.context[k]);
+                        (/** @type {?} */ (formGroup)).registerControl(k, control);
+                        r.push(control);
+                    }));
+                    value.push(r);
                 }));
-                value.push(r);
-            }));
-            fieldInstance.controls = value;
+                tfInstance.controls = value;
+            }
         }
         if (fieldInstance.validation != null) {
             this._validationNodesMapUpdates.next((/**
@@ -5228,12 +3624,14 @@ class AjfFormRendererService {
         (conditionalBranch) => {
             this._addToNodesConditionalBranchMap(fieldInstance, conditionalBranch.condition);
         }));
-        if (fieldInstance.formula != null) {
+        if (fieldInstance.formula) {
             this._addToNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
         }
-        if (fieldInstance instanceof AjfNodeGroupInstance) {
-            if (fieldInstance.formulaReps != null) {
-                this._addToNodesRepetitionMap(fieldInstance, fieldInstance.formulaReps.formula);
+        if (isNodeGroupInstance(fieldInstance)) {
+            /** @type {?} */
+            const ngInstance = (/** @type {?} */ ((/** @type {?} */ (fieldInstance))));
+            if (ngInstance.formulaReps != null) {
+                this._addToNodesRepetitionMap(fieldInstance, ngInstance.formulaReps.formula);
             }
         }
         if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
@@ -5257,12 +3655,14 @@ class AjfFormRendererService {
         if (fieldInstance.nextSlideCondition != null) {
             this._addToNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
         }
-        if (fieldInstance instanceof AjfFieldWithChoicesInstance) {
-            if (fieldInstance.choicesFilter != null) {
-                this._addToNodesFilteredChoicesMap(fieldInstance, fieldInstance.choicesFilter.formula);
+        if (isFieldWithChoicesInstance(fieldInstance)) {
+            /** @type {?} */
+            const fwcInstance = (/** @type {?} */ (fieldInstance));
+            if (fwcInstance.choicesFilter != null) {
+                this._addToNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
             }
-            if (fieldInstance.triggerConditions != null) {
-                fieldInstance.triggerConditions.forEach((/**
+            if (fwcInstance.triggerConditions != null) {
+                fwcInstance.triggerConditions.forEach((/**
                  * @param {?} condition
                  * @return {?}
                  */
@@ -5280,7 +3680,7 @@ class AjfFormRendererService {
      */
     _addSlideInstance(slideInstance) {
         /** @type {?} */
-        const slide = slideInstance.slide;
+        const slide = slideInstance.node;
         if (slide.visibility != null) {
             this._addToNodesVisibilityMap(slideInstance, slide.visibility.condition);
         }
@@ -5300,8 +3700,7 @@ class AjfFormRendererService {
      */
     _addNodeGroupInstance(nodeGroupInstance) {
         /** @type {?} */
-        const nodeGroup = nodeGroupInstance instanceof AjfNodeGroupInstance ?
-            nodeGroupInstance.nodeGroup : nodeGroupInstance.slide;
+        const nodeGroup = nodeGroupInstance.node;
         if (nodeGroup.visibility != null) {
             this._addToNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
         }
@@ -5321,7 +3720,7 @@ class AjfFormRendererService {
             /** @type {?} */
             let formGroup = this._formGroup.getValue();
             /** @type {?} */
-            let nodeGroupInstanceName = nodeGroupInstance.completeName;
+            let nodeGroupInstanceName = nodeInstanceCompleteName(nodeGroupInstance);
             if (formGroup != null && !formGroup.contains(nodeGroupInstanceName)) {
                 /** @type {?} */
                 const control = new FormControl();
@@ -5511,7 +3910,7 @@ class AjfFormRendererService {
      */
     _removeFromNodesMap(nodesMap, nodeInstance, formula) {
         /** @type {?} */
-        let tokens = tokenize$1(formula)
+        let tokens = tokenize(formula)
             .filter((/**
          * @param {?} token
          * @return {?}
@@ -5635,7 +4034,7 @@ class AjfFormRendererService {
      */
     _addToNodesMap(nodesMap, nodeInstance, formula) {
         /** @type {?} */
-        let tokens = tokenize$1(formula)
+        let tokens = tokenize(formula)
             .filter((/**
          * @param {?} token
          * @return {?}
@@ -5676,7 +4075,7 @@ AjfFormRendererService.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class AjfFormActionEvent {
 }
@@ -5834,13 +4233,6 @@ class AjfFormRenderer {
         if (this._init) {
             this._rendererService.setForm(this._form);
         }
-    }
-    /**
-     * @param {?} slide
-     * @return {?}
-     */
-    isRepeatingSlide(slide) {
-        return slide instanceof AjfRepeatingSlideInstance;
     }
     /**
      * this method will scroll to next error received by subscribe
@@ -6018,15 +4410,15 @@ class AjfFormRenderer {
      * @return {?}
      */
     trackNodeById(_, node) {
-        return node.completeName;
+        return nodeInstanceCompleteName(node);
     }
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class BoolToIntPipe {
+class AjfBoolToIntPipe {
     /**
      * @param {?} value
      * @return {?}
@@ -6035,39 +4427,111 @@ class BoolToIntPipe {
         return value ? 1 : 0;
     }
 }
-BoolToIntPipe.decorators = [
-    { type: Pipe, args: [{ name: 'boolToInt' },] },
+AjfBoolToIntPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfBoolToInt' },] },
 ];
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class AjfFieldIsValidPipe {
+class AjfExpandFieldWithChoicesPipe {
     /**
-     * @param {?} fieldInstance
+     * @param {?} instance
+     * @param {?} threshold
      * @return {?}
      */
-    transform(fieldInstance) {
-        if (fieldInstance &&
-            fieldInstance.validationResults &&
-            fieldInstance.validationResults.length === 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    transform(instance, threshold) {
+        return !instance.node.forceNarrow && (instance.node.forceExpanded
+            || (instance.filteredChoices && instance.filteredChoices.length <= threshold));
     }
 }
-AjfFieldIsValidPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfFieldIsValid' },] },
+AjfExpandFieldWithChoicesPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] },
 ];
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class TableRowClass {
+class AjfIncrementPipe {
+    /**
+     * @param {?} value
+     * @param {?=} increment
+     * @return {?}
+     */
+    transform(value, increment = 1) {
+        return value + increment;
+    }
+}
+AjfIncrementPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfIncrement' },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfIsRepeatingSlideInstancePipe {
+    /**
+     * @param {?} instance
+     * @return {?}
+     */
+    transform(instance) {
+        return isRepeatingSlideInstance(instance);
+    }
+}
+AjfIsRepeatingSlideInstancePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfIsRepeatingSlideInstance' },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfNodeCompleteNamePipe {
+    /**
+     * @param {?} instance
+     * @return {?}
+     */
+    transform(instance) {
+        return instance ? nodeInstanceCompleteName(instance) : '';
+    }
+}
+AjfNodeCompleteNamePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfNodeCompleteName' },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfRangePipe {
+    /**
+     * @param {?=} size
+     * @param {?=} start
+     * @param {?=} step
+     * @return {?}
+     */
+    transform(size = 0, start = 1, step = 1) {
+        /** @type {?} */
+        const range = [];
+        for (let length = 0; length < size; ++length) {
+            range.push(start);
+            start += step;
+        }
+        return range;
+    }
+}
+AjfRangePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfRange' },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfTableRowClass {
     /**
      * @param {?} value
      * @return {?}
@@ -6076,191 +4540,870 @@ class TableRowClass {
         return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
     }
 }
-TableRowClass.decorators = [
-    { type: Pipe, args: [{ name: 'tableRowClass' },] },
+AjfTableRowClass.decorators = [
+    { type: Pipe, args: [{ name: 'ajfTableRowClass' },] },
 ];
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfTableVisibleColumnsPipe {
+    /**
+     * @param {?} instance
+     * @return {?}
+     */
+    transform(instance) {
+        if (instance.hideEmptyRows) {
+            return instance.value.filter((/**
+             * @param {?} column
+             * @return {?}
+             */
+            (column) => column.slice(1).reduce((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            (a, b) => {
+                return a || (b != null && b !== '' && b !== 0 && b !== '0');
+            }), false)));
+        }
+        return instance.value;
+    }
+}
+AjfTableVisibleColumnsPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfTableVisibleColumns' },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfValidSlidePipe {
+    /**
+     * @param {?} slide
+     * @param {?} idx
+     * @return {?}
+     */
+    transform(slide, idx) {
+        if (idx == null || typeof idx !== 'number') {
+            return false;
+        }
+        if (idx >= slide.slideNodes.length) {
+            return true;
+        }
+        return slide.slideNodes[idx]
+            .map((/**
+         * @param {?} n
+         * @return {?}
+         */
+        n => {
+            if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+                return ((/** @type {?} */ (n))).valid;
+            }
+            return true;
+        })).reduce((/**
+         * @param {?} v1
+         * @param {?} v2
+         * @return {?}
+         */
+        (v1, v2) => v1 && v2), true);
+    }
+}
+AjfValidSlidePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfValidSlide', pure: false },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class AjfFormsModule {
 }
 AjfFormsModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
+                    AjfBoolToIntPipe,
+                    AjfDateValuePipe,
+                    AjfExpandFieldWithChoicesPipe,
+                    AjfFieldHost,
+                    AjfFieldIconPipe,
                     AjfFieldIsValidPipe,
-                    BoolToIntPipe,
-                    FieldIconPipe,
-                    TableRowClass,
+                    AjfIncrementPipe,
+                    AjfIsRepeatingSlideInstancePipe,
+                    AjfNodeCompleteNamePipe,
+                    AjfRangePipe,
+                    AjfTableRowClass,
+                    AjfTableVisibleColumnsPipe,
+                    AjfValidSlidePipe,
                 ],
                 exports: [
+                    AjfBoolToIntPipe,
+                    AjfDateValuePipe,
+                    AjfExpandFieldWithChoicesPipe,
+                    AjfFieldHost,
+                    AjfFieldIconPipe,
                     AjfFieldIsValidPipe,
-                    BoolToIntPipe,
-                    FieldIconPipe,
-                    TableRowClass,
+                    AjfIncrementPipe,
+                    AjfIsRepeatingSlideInstancePipe,
+                    AjfNodeCompleteNamePipe,
+                    AjfRangePipe,
+                    AjfTableRowClass,
+                    AjfTableVisibleColumnsPipe,
+                    AjfValidSlidePipe,
                 ],
-                providers: [
-                    AjfFormRendererService,
-                    AjfValidationService
-                ]
+                providers: [AjfFormRendererService, AjfValidationService]
             },] },
 ];
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class AjfForm extends AjfJsonSerializable {
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super();
-        this.valid = true;
-        this.lastSelectedLocation = true;
-        this.jsonExportedMembers = this.jsonExportedMembers.concat(['nodes', 'choicesOrigins', 'stringIdentifier', 'topBar']);
-        this.nodes = obj && obj.nodes || [];
-        this.choicesOrigins = obj && obj.choicesOrigins || [];
-        this.attachmentsOrigins = obj && obj.attachmentsOrigins || [];
-        this.initContext = obj && obj.initContext || {};
-        this.stringIdentifier = obj && obj.stringIdentifier || [];
-        this.lastSelectedLocation = obj && obj.lastSelectedLocation == false ? false : true;
-        this.supplementaryInformations = obj && obj.supplementaryInformations || null;
+
+/**
+ * @param {?} v
+ * @return {?}
+ */
+function getTypeName(v) {
+    /** @type {?} */
+    let typeStr = typeof v;
+    return typeStr === 'object'
+        ? v.constructor.toString().match(/\w+/g)[1]
+        : typeStr;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ */
+class AjfInputFieldComponent extends AjfBaseFieldComponent {
+    constructor() {
+        super(...arguments);
+        this.type = 'text';
+        this._readonly = false;
     }
     /**
-     * this method will load an AjfForm from json
-     * @param {?} obj : any - object form
-     * @param {?=} context
-     * @return {?} AjfForm
-     */
-    static fromJson(obj, context) {
-        obj = deepCopy(obj);
-        if (context) {
-            context = deepCopy(context);
-            obj.initContext = context;
-        }
-        /** @type {?} */
-        let keys = Object.keys(obj);
-        if (keys.indexOf('choicesOrigins') > -1 &&
-            obj.choicesOrigins instanceof Array) {
-            /** @type {?} */
-            let cos = [];
-            for (let i = 0; i < obj.choicesOrigins.length; i++) {
-                cos.push(AjfChoicesOrigin.fromJson(obj.choicesOrigins[i]));
-            }
-            obj.choicesOrigins = cos;
-        }
-        if (keys.indexOf('attachmentsOrigins') > -1 &&
-            obj.attachmentsOrigins instanceof Array) {
-            /** @type {?} */
-            let cos = [];
-            for (let i = 0; i < obj.attachmentsOrigins.length; i++) {
-                cos.push(AjfAttachmentsOrigin.fromJson(obj.attachmentsOrigins[i]));
-            }
-            obj.attachmentsOrigins = cos;
-        }
-        if (keys.indexOf('nodes') > -1 && obj.nodes instanceof Array) {
-            /** @type {?} */
-            let fs = [];
-            for (let i = 0; i < obj.nodes.length; i++) {
-                /** @type {?} */
-                let nodeObj = obj.nodes[i];
-                /** @type {?} */
-                let node;
-                node = AjfNode.fromJson(nodeObj, obj.choicesOrigins, obj.attachmentsOrigins, context);
-                fs.push(node);
-            }
-            obj.nodes = fs;
-        }
-        return new AjfForm(obj);
-    }
-    /**
-     * @param {?} schema
-     * @param {?} json
-     * @param {?=} emptyString
      * @return {?}
      */
-    static toString(schema, json, emptyString = '') {
-        if (schema.stringIdentifier != null && schema.stringIdentifier.length > 0) {
-            /** @type {?} */
-            let str = schema.stringIdentifier.map((/**
-             * @param {?} s
-             * @return {?}
-             */
-            (s) => {
-                /** @type {?} */
-                let values = [];
-                if (s.value != null && s.value.length > 0) {
-                    s.value.forEach((/**
-                     * @param {?} curValue
-                     * @return {?}
-                     */
-                    (curValue) => {
-                        /** @type {?} */
-                        let val;
-                        /** @type {?} */
-                        let vp = curValue.split('.');
-                        /** @type {?} */
-                        let cp = json;
-                        vp.forEach((/**
-                         * @param {?} k
-                         * @return {?}
-                         */
-                        k => {
-                            if (Object.keys(cp).indexOf(k) > -1) {
-                                val = cp[k];
-                                cp = cp[k];
-                            }
-                        }));
-                        if (val instanceof Array && val.length > 0) {
-                            val = val.join(', ');
-                        }
-                        if (val != null) {
-                            values.push(`${val}`);
-                        }
-                    }));
-                }
-                return `${s.label}: ${values.length > 0 ? values.join(', ')
-                    : emptyString}`;
-            }));
-            return str.join(' - ');
-        }
-        return null;
-    }
+    get readonly() { return this._readonly; }
     /**
-     * this method will get child nodes from ajfNode
-     * @param {?} node : AjfNode
-     * @return {?} ajfNode[] - the child og AjfNode
+     * @param {?} readonly
+     * @return {?}
      */
-    getChildNodes(node) {
-        return this.nodes.filter((/**
-         * @param {?} n
-         * @return {?}
-         */
-        n => n.parent === node.id)).sort((/**
-         * @param {?} n
-         * @return {?}
-         */
-        n => n.parentNode));
-    }
-    /**
-     * this method will get root node
-     * @return {?} ajfNode - the root node
-     */
-    getRootNode() {
-        if (this.nodes == null || this.nodes.length === 0) {
-            return null;
-        }
-        /** @type {?} */
-        let ns = this.nodes.filter((/**
-         * @param {?} n
-         * @return {?}
-         */
-        n => n.parent == null));
-        return ns.length === 1 ? ns[0] : null;
+    set readonly(readonly) {
+        this._readonly = coerceBooleanProperty(readonly);
     }
 }
 
-export { AjfAttachment, AjfAttachmentsFixedOrigin, AjfAttachmentsOrigin, AjfAttachmentsType, AjfBooleanField, AjfChoice, AjfChoicesFixedOrigin, AjfChoicesFunctionOrigin, AjfChoicesObservableArrayOrigin, AjfChoicesObservableOrigin, AjfChoicesOrigin, AjfChoicesPromiseOrigin, AjfChoicesType, AjfDateField, AjfDateFieldInstance, AjfDateInputField, AjfEmptyField, AjfEmptyFieldInstance, AjfField, AjfFieldInstance, AjfFieldNodeLink, AjfFieldType, AjfFieldWithChoices, AjfFieldWithChoicesInstance, AjfForm, AjfFormActionEvent, AjfFormField, AjfFormFieldValueChanged, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormsModule, AjfFormulaField, AjfInvalidFieldDefinitionError, AjfMultipleChoiceField, AjfNode, AjfNodeGroup, AjfNodeGroupInstance, AjfNodeInstance, AjfNodeType, AjfNumberField, AjfRepeatingSlide, AjfRepeatingSlideInstance, AjfSingleChoiceField, AjfSlide, AjfSlideInstance, AjfStringField, AjfTableField, AjfTableFieldInstance, AjfTextField, AjfTimeField, AjfValidation, AjfValidationGroup, AjfValidationResult, AjfValidationService, AjfWarning, AjfWarningGroup, AjfWarningResult, FieldIconPipe, fieldIconName, findNodeInstanceInTree, flattenNodeInstances, flattenNodes, flattenNodesInstances, flattenNodesTree, getAncestorRepeatingNodes, getAncestorRepeatingNodesNames, getTypeName, isContainerNode, isContainerNodeInstance, isRepeatingNode, nodeToNodeInstance, normalizeFormula, orderedNodes, AjfFieldIsValidPipe as ɵa, BoolToIntPipe as ɵb, TableRowClass as ɵc };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const AJF_SEARCH_ALERT_THRESHOLD = new InjectionToken('AJF_SEARCH_ALERT_THRESHOLD');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @template T
+ * @param {?} origin
+ * @return {?}
+ */
+function createAttachmentsOrigin(origin) {
+    return Object.assign({}, origin, { attachments: origin.attachments || [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfAttachmentsOriginSerializer {
+    /**
+     * @param {?} origin
+     * @return {?}
+     */
+    static fromJson(origin) {
+        if (origin.name == null) {
+            throw new Error('Malformed attachments origin');
+        }
+        return createAttachmentsOrigin((/** @type {?} */ (origin)));
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @template T
+ * @param {?} origin
+ * @return {?}
+ */
+function createChoicesOrigin(origin) {
+    return Object.assign({}, origin, { type: origin.type, label: origin.label || '', choices: origin.choices || [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfChoicesOriginSerializer {
+    /**
+     * @param {?} origin
+     * @return {?}
+     */
+    static fromJson(origin) {
+        return createChoicesOrigin((/** @type {?} */ (Object.assign({}, origin, { type: origin.type || 'fixed', name: origin.name || '' }))));
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @template T
+ * @param {?} field
+ * @return {?}
+ */
+function createFieldWithChoices(field) {
+    /** @type {?} */
+    const node = createField(Object.assign({}, field));
+    return Object.assign({}, node, field, { choices: field.choices || [], forceExpanded: field.forceExpanded || false, forceNarrow: field.forceNarrow || false });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} containerNode
+ * @return {?}
+ */
+function createContainerNode(containerNode) {
+    /** @type {?} */
+    const node = createNode(containerNode);
+    return Object.assign({}, node, { nodes: containerNode.nodes || [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} repeatingNode
+ * @return {?}
+ */
+function createRepeatingNode(repeatingNode) {
+    /** @type {?} */
+    const node = createNode(repeatingNode);
+    return Object.assign({}, repeatingNode, node, { minReps: repeatingNode.minReps != null ? repeatingNode.minReps : 1, maxReps: repeatingNode.maxReps != null ? repeatingNode.maxReps : 0 });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeGroup
+ * @return {?}
+ */
+function createNodeGroup(nodeGroup) {
+    return Object.assign({}, createContainerNode(nodeGroup), createRepeatingNode(nodeGroup), { nodeType: AjfNodeType.AjfNodeGroup });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeGroup
+ * @return {?}
+ */
+function createRepeatingSlide(nodeGroup) {
+    return Object.assign({}, createContainerNode(nodeGroup), createRepeatingNode(nodeGroup), { nodeType: AjfNodeType.AjfRepeatingSlide });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} nodeGroup
+ * @return {?}
+ */
+function createSlide(nodeGroup) {
+    return Object.assign({}, createContainerNode(nodeGroup), { nodeType: AjfNodeType.AjfSlide });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfValidationGroupSerializer {
+    /**
+     * @param {?} group
+     * @return {?}
+     */
+    static fromJson(group) {
+        return createValidationGroup(group);
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfWarningGroupSerializer {
+    /**
+     * @param {?} group
+     * @return {?}
+     */
+    static fromJson(group) {
+        return createWarningGroup(group);
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfNodeSerializer {
+    /**
+     * @param {?} json
+     * @param {?=} choicesOrigins
+     * @param {?=} attachmentsOrigins
+     * @return {?}
+     */
+    static fromJson(json, choicesOrigins, attachmentsOrigins) {
+        /** @type {?} */
+        const err = 'Malformed node';
+        json.name = json.name || '';
+        if (json.id == null || json.parent == null || json.nodeType == null) {
+            throw new Error(err);
+        }
+        /** @type {?} */
+        const obj = (/** @type {?} */ (json));
+        if (obj.visibility) {
+            obj.visibility = AjfConditionSerializer.fromJson(obj.visibility);
+        }
+        obj.conditionalBranches =
+            (obj.conditionalBranches || []).map((/**
+             * @param {?} c
+             * @return {?}
+             */
+            c => AjfConditionSerializer.fromJson(c)));
+        switch (obj.nodeType) {
+            case AjfNodeType.AjfField:
+                return AjfNodeSerializer._fieldFromJson((/** @type {?} */ (obj)), choicesOrigins, attachmentsOrigins);
+            case AjfNodeType.AjfFieldNodeLink:
+                return AjfNodeSerializer._fieldNodeLinkFromJson((/** @type {?} */ (obj)));
+            case AjfNodeType.AjfNodeGroup:
+                return AjfNodeSerializer._nodeGroupFromJson((/** @type {?} */ (obj)), choicesOrigins, attachmentsOrigins);
+            case AjfNodeType.AjfRepeatingSlide:
+                return AjfNodeSerializer._repeatingSlideFromJson((/** @type {?} */ (obj)), choicesOrigins, attachmentsOrigins);
+            case AjfNodeType.AjfSlide:
+                return AjfNodeSerializer._slideFromJson((/** @type {?} */ (obj)), choicesOrigins, attachmentsOrigins);
+        }
+        throw new Error(err);
+    }
+    /**
+     * @private
+     * @param {?} json
+     * @param {?=} choicesOrigins
+     * @param {?=} attachmentsOrigins
+     * @return {?}
+     */
+    static _containerNodeFromJson(json, choicesOrigins, attachmentsOrigins) {
+        json.nodes = (json.nodes ||
+            []).map((/**
+         * @param {?} n
+         * @return {?}
+         */
+        n => AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins)));
+        return createContainerNode(json);
+    }
+    /**
+     * @private
+     * @param {?} json
+     * @param {?=} choicesOrigins
+     * @param {?=} attachmentsOrigins
+     * @return {?}
+     */
+    static _fieldFromJson(json, choicesOrigins, attachmentsOrigins) {
+        if (json.fieldType == null) {
+            throw new Error('Malformed field');
+        }
+        /** @type {?} */
+        const obj = (/** @type {?} */ (json));
+        if (obj.validation) {
+            obj.validation = AjfValidationGroupSerializer.fromJson(obj.validation);
+        }
+        if (obj.warning) {
+            obj.warning = AjfWarningGroupSerializer.fromJson(obj.warning);
+        }
+        if (json.attachmentsOriginRef) {
+            obj.attachmentOrigin =
+                (attachmentsOrigins || []).find((/**
+                 * @param {?} a
+                 * @return {?}
+                 */
+                a => a.name === json.attachmentsOriginRef));
+        }
+        if (obj.nextSlideCondition) {
+            obj.nextSlideCondition = AjfConditionSerializer.fromJson(obj.nextSlideCondition);
+        }
+        switch (obj.fieldType) {
+            case AjfFieldType.Formula:
+                return AjfNodeSerializer._formulaFieldFromJson((/** @type {?} */ (json)));
+            case AjfFieldType.MultipleChoice:
+            case AjfFieldType.SingleChoice:
+                return AjfNodeSerializer._fieldWithChoicesFromJson((/** @type {?} */ (json)), choicesOrigins);
+        }
+        return createField(obj);
+    }
+    /**
+     * @private
+     * @param {?} json
+     * @return {?}
+     */
+    static _fieldNodeLinkFromJson(json) {
+        return Object.assign({}, createNode(json), { nodeType: AjfNodeType.AjfFieldNodeLink });
+    }
+    /**
+     * @private
+     * @param {?} json
+     * @param {?=} choicesOrigins
+     * @return {?}
+     */
+    static _fieldWithChoicesFromJson(json, choicesOrigins) {
+        /** @type {?} */
+        const err = 'Malformed field with choices';
+        if (json.choicesOriginRef == null) {
+            throw new Error(err);
+        }
+        /** @type {?} */
+        const choicesOrigin = (choicesOrigins || []).find((/**
+         * @param {?} c
+         * @return {?}
+         */
+        c => c.name === json.choicesOriginRef));
+        if (choicesOrigin == null) {
+            throw new Error(err);
+        }
+        if (json.choicesFilter) {
+            json.choicesFilter = AjfFormulaSerializer.fromJson(json.choicesFilter);
+        }
+        if (json.triggerConditions) {
+            json.triggerConditions = json.triggerConditions.map((/**
+             * @param {?} t
+             * @return {?}
+             */
+            t => AjfConditionSerializer.fromJson(t)));
+        }
+        return createFieldWithChoices(Object.assign({}, json, { choicesOrigin }));
+    }
+    /**
+     * @private
+     * @param {?} json
+     * @return {?}
+     */
+    static _formulaFieldFromJson(json) {
+        if (json.formula) {
+            json.formula = AjfFormulaSerializer.fromJson(json.formula);
+        }
+        return Object.assign({}, createField(json), { fieldType: AjfFieldType.Formula });
+    }
+    /**
+     * @private
+     * @param {?} json
+     * @param {?=} choicesOrigins
+     * @param {?=} attachmentsOrigins
+     * @return {?}
+     */
+    static _nodeGroupFromJson(json, choicesOrigins, attachmentsOrigins) {
+        return createNodeGroup(Object.assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins), AjfNodeSerializer._repeatingNodeFromJson(json)));
+    }
+    /**
+     * @private
+     * @param {?} json
+     * @return {?}
+     */
+    static _repeatingNodeFromJson(json) {
+        if (json.formulaReps) {
+            json.formulaReps = AjfFormulaSerializer.fromJson(json.formulaReps);
+        }
+        return createRepeatingNode(json);
+    }
+    /**
+     * @private
+     * @param {?} json
+     * @param {?=} choicesOrigins
+     * @param {?=} attachmentsOrigins
+     * @return {?}
+     */
+    static _repeatingSlideFromJson(json, choicesOrigins, attachmentsOrigins) {
+        return createRepeatingSlide(Object.assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins), AjfNodeSerializer._repeatingNodeFromJson(json)));
+    }
+    /**
+     * @private
+     * @param {?} json
+     * @param {?=} choicesOrigins
+     * @param {?=} attachmentsOrigins
+     * @return {?}
+     */
+    static _slideFromJson(json, choicesOrigins, attachmentsOrigins) {
+        return createSlide(AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins));
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfFormSerializer {
+    /**
+     * @param {?} form
+     * @param {?=} context
+     * @return {?}
+     */
+    static fromJson(form, context) {
+        /** @type {?} */
+        const choicesOrigins = (form.choicesOrigins || []).map((/**
+         * @param {?} c
+         * @return {?}
+         */
+        c => AjfChoicesOriginSerializer.fromJson(c)));
+        /** @type {?} */
+        const attachmentsOrigins = (form.attachmentsOrigins || []).map((/**
+         * @param {?} a
+         * @return {?}
+         */
+        a => AjfAttachmentsOriginSerializer.fromJson(a)));
+        /** @type {?} */
+        const nodes = (/** @type {?} */ ((form.nodes || [])
+            .map((/**
+         * @param {?} n
+         * @return {?}
+         */
+        n => AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins)))));
+        return Object.assign({}, form, { choicesOrigins,
+            attachmentsOrigins,
+            nodes, stringIdentifier: form.stringIdentifier || [], initContext: deepCopy(context || {}) });
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/** @enum {number} */
+const AjfAttachmentsType = {
+    Link: 0,
+    Pdf: 1,
+    LENGTH: 2,
+};
+AjfAttachmentsType[AjfAttachmentsType.Link] = 'Link';
+AjfAttachmentsType[AjfAttachmentsType.Pdf] = 'Pdf';
+AjfAttachmentsType[AjfAttachmentsType.LENGTH] = 'LENGTH';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/** @enum {number} */
+const AjfChoicesType = {
+    String: 0,
+    Number: 1,
+    LENGTH: 2,
+};
+AjfChoicesType[AjfChoicesType.String] = 'String';
+AjfChoicesType[AjfChoicesType.Number] = 'Number';
+AjfChoicesType[AjfChoicesType.LENGTH] = 'LENGTH';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @template T
+ * @param {?} origin
+ * @return {?}
+ */
+function createChoicesFixedOrigin(origin) {
+    /** @type {?} */
+    const type = 'fixed';
+    return Object.assign({}, createChoicesOrigin(Object.assign({}, origin, { type })), { type });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @template T
+ * @param {?} origin
+ * @return {?}
+ */
+function createChoicesFunctionOrigin(origin) {
+    return Object.assign({}, origin, { type: 'function', label: origin.label || '', choices: origin.choices || [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @template T
+ * @param {?} origin
+ * @return {?}
+ */
+function createChoicesObservableArrayOrigin(origin) {
+    return Object.assign({}, origin, { type: 'observableArray', label: origin.label || '', choices: origin.choices || [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @template T
+ * @param {?} origin
+ * @return {?}
+ */
+function createChoicesObservableOrigin(origin) {
+    return Object.assign({}, origin, { type: 'observable', label: origin.label || '', choices: origin.choices || [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @template T
+ * @param {?} origin
+ * @return {?}
+ */
+function createChoicesPromiseOrigin(origin) {
+    return Object.assign({}, origin, { type: 'promise', label: origin.label || '', choices: origin.choices || [] });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?} origin
+ * @return {?}
+ */
+function initChoicesOrigin(origin) {
+    if (origin.type === 'fixed') {
+        return Promise.resolve();
+    }
+    if (origin.type === 'function') {
+        /** @type {?} */
+        const fo = (/** @type {?} */ (origin));
+        fo.choices = fo.generator();
+        return Promise.resolve();
+    }
+    if (origin.type === 'promise') {
+        /** @type {?} */
+        const po = (/** @type {?} */ (origin));
+        return po.generator.then((/**
+         * @param {?} choices
+         * @return {?}
+         */
+        choices => po.choices = choices)).then();
+    }
+    if (origin.type === 'observable') {
+        /** @type {?} */
+        const obso = (/** @type {?} */ (origin));
+        if (obso.generator != null) {
+            obso.choices = [];
+            return new Promise((/**
+             * @param {?} res
+             * @return {?}
+             */
+            res => {
+                obso.generator.subscribe((/**
+                 * @param {?} c
+                 * @return {?}
+                 */
+                c => obso.choices.push(c)), (/**
+                 * @return {?}
+                 */
+                () => { }), (/**
+                 * @return {?}
+                 */
+                () => res()));
+            }));
+        }
+    }
+    if (origin.type === 'observableArray') {
+        /** @type {?} */
+        const aoo = (/** @type {?} */ (origin));
+        if (aoo.generator != null) {
+            aoo.choices = [];
+            return new Promise((/**
+             * @param {?} res
+             * @return {?}
+             */
+            res => {
+                aoo.generator.subscribe((/**
+                 * @param {?} choices
+                 * @return {?}
+                 */
+                choices => {
+                    aoo.choices = choices;
+                    res();
+                }));
+            }));
+        }
+    }
+    return Promise.resolve();
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?} origin
+ * @return {?}
+ */
+function isChoicesFixedOrigin(origin) {
+    return origin.type === 'fixed';
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} field
+ * @return {?}
+ */
+function isNumberField(field) {
+    return field.fieldType === AjfFieldType.Number;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?=} form
+ * @return {?}
+ */
+function createForm(form = {}) {
+    return {
+        nodes: form.nodes || [],
+        choicesOrigins: form.choicesOrigins || [],
+        attachmentsOrigins: form.attachmentsOrigins || [],
+        initContext: form.initContext || {},
+        stringIdentifier: form.stringIdentifier || (/** @type {?} */ ([])),
+        supplementaryInformations: form.supplementaryInformations,
+    };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} maxValue
+ * @return {?}
+ */
+function maxDigitsValidation(maxValue) {
+    return createValidation({
+        condition: `$value ? $value.toString().length >= ${maxValue.toString()} : false`,
+        errorMessage: 'Digits count must be >= ' + maxValue.toString()
+    });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} maxValue
+ * @return {?}
+ */
+function maxValidation(maxValue) {
+    return createValidation({
+        condition: '$value >= ' + maxValue.toString(),
+        errorMessage: 'Value must be >= ' + maxValue.toString()
+    });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} minValue
+ * @return {?}
+ */
+function minDigitsValidation(minValue) {
+    return createValidation({
+        condition: `$value ? $value.toString().length >= ${minValue.toString()} : false`,
+        errorMessage: 'Digits count must be >= ' + minValue.toString()
+    });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} minValue
+ * @return {?}
+ */
+function minValidation(minValue) {
+    return createValidation({
+        condition: '$value >= ' + minValue.toString(),
+        errorMessage: 'Value must be >= ' + minValue.toString()
+    });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @return {?}
+ */
+function notEmptyValidation() {
+    return createValidation({ condition: `notEmpty($value)`, errorMessage: `Value must not be empty` });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @return {?}
+ */
+function notEmptyWarning() {
+    return createWarning({ condition: 'notEmpty($value)', warningMessage: 'Value must not be empty' });
+}
+
+export { AJF_SEARCH_ALERT_THRESHOLD, AjfAttachmentsOriginSerializer, AjfAttachmentsType, AjfBaseFieldComponent, AjfChoicesOriginSerializer, AjfChoicesType, AjfDateValuePipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createField, createFieldInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isContainerNode, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, AjfBoolToIntPipe as ɵa, AjfExpandFieldWithChoicesPipe as ɵb, AjfIncrementPipe as ɵc, AjfIsRepeatingSlideInstancePipe as ɵd, AjfRangePipe as ɵe, AjfValidSlidePipe as ɵf, createNodeGroup as ɵg, createRepeatingSlide as ɵh, createSlide as ɵi };
 //# sourceMappingURL=forms.js.map

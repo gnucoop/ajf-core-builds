@@ -20,10 +20,10 @@
  *
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ajf/core/models'), require('@ajf/core/utils'), require('rxjs'), require('@ajf/core/image')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/reports', ['exports', '@ajf/core/models', '@ajf/core/utils', 'rxjs', '@ajf/core/image'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.reports = {}), global.ajf.core.models, global.ajf.core.utils, global.rxjs, global.ajf.core.image));
-}(this, function (exports, models, utils, rxjs, image) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ajf/core/models'), require('@ajf/core/image'), require('@ajf/core/utils')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/reports', ['exports', '@angular/core', '@ajf/core/models', '@ajf/core/image', '@ajf/core/utils'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.reports = {}), global.ng.core, global.ajf.core.models, global.ajf.core.image, global.ajf.core.utils));
+}(this, function (exports, core, models, image, utils) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -39,20 +39,6 @@
     See the Apache Version 2.0 License for specific language governing permissions
     and limitations under the License.
     ***************************************************************************** */
-    /* global Reflect, Promise */
-
-    var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-
-    function __extends(d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    }
 
     var __assign = function() {
         __assign = Object.assign || function __assign(t) {
@@ -67,118 +53,7 @@
 
     /**
      * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @enum {number} */
-    var AjfAggregationType = {
-        None: 0,
-        Sum: 1,
-        Average: 2,
-        WeightedAverage: 3,
-        LENGTH: 4,
-    };
-    AjfAggregationType[AjfAggregationType.None] = 'None';
-    AjfAggregationType[AjfAggregationType.Sum] = 'Sum';
-    AjfAggregationType[AjfAggregationType.Average] = 'Average';
-    AjfAggregationType[AjfAggregationType.WeightedAverage] = 'WeightedAverage';
-    AjfAggregationType[AjfAggregationType.LENGTH] = 'LENGTH';
-    /**
-     * This class will define an ajf aggregator
-     */
-    var   /**
-     * This class will define an ajf aggregator
-     */
-    AjfAggregation = /** @class */ (function (_super) {
-        __extends(AjfAggregation, _super);
-        /**
-         *
-         * @param obj
-         */
-        function AjfAggregation(obj) {
-            var _this = _super.call(this) || this;
-            _this.jsonExportedMembers = ['aggregation'];
-            _this.aggregation = obj && obj.aggregation || AjfAggregationType.None;
-            return _this;
-        }
-        /**
-         * this static method will load an AjfAggregator from json
-         * @param obj : any - object aggregator
-         * @return AjfFormula
-         */
-        /**
-         * this static method will load an AjfAggregator from json
-         * @param {?} obj : any - object aggregator
-         * @return {?} AjfFormula
-         */
-        AjfAggregation.fromJson = /**
-         * this static method will load an AjfAggregator from json
-         * @param {?} obj : any - object aggregator
-         * @return {?} AjfFormula
-         */
-        function (obj) {
-            obj = utils.deepCopy(obj);
-            return new AjfAggregation(obj);
-        };
-        /**
-         * @param {?} formulas
-         * @param {?} context
-         * @return {?}
-         */
-        AjfAggregation.prototype.evaluate = /**
-         * @param {?} formulas
-         * @param {?} context
-         * @return {?}
-         */
-        function (formulas, context) {
-            /** @type {?} */
-            var data = formulas.map((/**
-             * @param {?} f
-             * @return {?}
-             */
-            function (f) { return f.evaluate(context); }));
-            switch (this.aggregation) {
-                case AjfAggregationType.None:
-                    if (data.length !== 1) {
-                        throw new Error('Invalid aggregation');
-                    }
-                    return data[0];
-                case AjfAggregationType.Sum:
-                    return data.map((/**
-                     * @param {?} r
-                     * @return {?}
-                     */
-                    function (r) { return r.reduce((/**
-                     * @param {?} s
-                     * @param {?} d
-                     * @return {?}
-                     */
-                    function (s, d) { return s + d; }), 0); }));
-                case AjfAggregationType.Average:
-                case AjfAggregationType.WeightedAverage:
-                    return data.map((/**
-                     * @param {?} r
-                     * @return {?}
-                     */
-                    function (r) {
-                        /** @type {?} */
-                        var sum = r.reduce((/**
-                         * @param {?} s
-                         * @param {?} d
-                         * @return {?}
-                         */
-                        function (s, d) { return s + d; }), 0);
-                        return sum / data.length;
-                    }));
-                default:
-                    return [];
-            }
-        };
-        return AjfAggregation;
-    }(models.AjfJsonSerializable));
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
     /** @enum {number} */
@@ -207,7 +82,7 @@
 
     /**
      * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /**
      * @param {?=} chartType
@@ -240,148 +115,57 @@
 
     /**
      * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /**
-     * This class will define an ajf dataset
-     */
-    var   /**
-     * This class will define an ajf dataset
-     */
-    AjfDataset = /** @class */ (function (_super) {
-        __extends(AjfDataset, _super);
-        /**
-         *
-         * @param obj
-         */
-        function AjfDataset(obj) {
-            var _this = _super.call(this) || this;
-            _this.jsonExportedMembers =
-                _this.jsonExportedMembers.concat(['formula', 'aggregation', 'label']);
-            _this.formula = obj && obj.formula || null;
-            _this.aggregation = obj && obj.aggregation || AjfAggregationType.None;
-            _this.label = obj && obj.label || null;
-            return _this;
-        }
-        /**
-         * this static method will load an AjfDataset from json
-         * @param obj : any - object formula
-         * @return AjfFormula
-         */
-        /**
-         * this static method will load an AjfDataset from json
-         * @param {?} obj : any - object formula
-         * @return {?} AjfFormula
-         */
-        AjfDataset.fromJson = /**
-         * this static method will load an AjfDataset from json
-         * @param {?} obj : any - object formula
-         * @return {?} AjfFormula
-         */
-        function (obj) {
-            return new AjfDataset(AjfDataset._parseJsonObject(obj));
-        };
-        /**
-         * @protected
-         * @param {?} obj
-         * @return {?}
-         */
-        AjfDataset._parseJsonObject = /**
-         * @protected
-         * @param {?} obj
-         * @return {?}
-         */
-        function (obj) {
-            obj = utils.deepCopy(obj);
-            /** @type {?} */
-            var keys = Object.keys(obj);
-            if (keys.indexOf('formula') === -1) {
-                throw new Error('dataset formula missing');
-            }
-            if (keys.indexOf('aggregation') === -1) {
-                throw new Error('dataset aggregation missing');
-            }
-            if (keys.indexOf('label') === -1) {
-                throw new Error('dataset label missing');
-            }
-            /** @type {?} */
-            var formula;
-            if (obj.formula instanceof Array) {
-                formula = ((/** @type {?} */ (obj.formula))).map((/**
-                 * @param {?} f
-                 * @return {?}
-                 */
-                function (f) { return models.AjfFormula.fromJson(f); }));
-            }
-            else {
-                formula = models.AjfFormula.fromJson(obj.formula);
-            }
-            /** @type {?} */
-            var aggregation = AjfAggregation.fromJson(obj.aggregation);
-            obj.formula = formula;
-            obj.aggregation = aggregation;
-            return obj;
-        };
-        return AjfDataset;
-    }(models.AjfJsonSerializable));
-    var AjfTableDataset = /** @class */ (function (_super) {
-        __extends(AjfTableDataset, _super);
-        function AjfTableDataset(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers =
-                _this.jsonExportedMembers.concat(['rowspan', 'colspan', 'style']);
-            _this.rowspan = obj && obj.rowspan || null;
-            _this.colspan = obj && obj.colspan || null;
-            _this.style = obj && obj.style || null;
-            return _this;
-        }
-        /**
-         * @param {?} obj
-         * @return {?}
-         */
-        AjfTableDataset.fromJson = /**
-         * @param {?} obj
-         * @return {?}
-         */
-        function (obj) {
-            return new AjfTableDataset(AjfDataset._parseJsonObject(obj));
-        };
-        return AjfTableDataset;
-    }(AjfDataset));
-    var AjfChartDataset = /** @class */ (function (_super) {
-        __extends(AjfChartDataset, _super);
-        function AjfChartDataset(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers =
-                _this.jsonExportedMembers.concat(['chartType', 'options']);
-            if (obj.chartType != null) {
-                _this.chartType = obj.chartType;
-            }
-            if (obj.options != null) {
-                _this.options = obj.options;
-            }
-            if (obj.datalabels != null) {
-                _this.datalabels = obj.datalabels;
-            }
-            return _this;
-        }
-        /**
-         * @param {?} obj
-         * @return {?}
-         */
-        AjfChartDataset.fromJson = /**
-         * @param {?} obj
-         * @return {?}
-         */
-        function (obj) {
-            return new AjfChartDataset(AjfDataset._parseJsonObject(obj));
-        };
-        return AjfChartDataset;
-    }(AjfDataset));
+
+    /** @enum {number} */
+    var AjfAggregationType = {
+        None: 0,
+        Sum: 1,
+        Average: 2,
+        WeightedAverage: 3,
+        LENGTH: 4,
+    };
+    AjfAggregationType[AjfAggregationType.None] = 'None';
+    AjfAggregationType[AjfAggregationType.Sum] = 'Sum';
+    AjfAggregationType[AjfAggregationType.Average] = 'Average';
+    AjfAggregationType[AjfAggregationType.WeightedAverage] = 'WeightedAverage';
+    AjfAggregationType[AjfAggregationType.LENGTH] = 'LENGTH';
 
     /**
      * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /** @enum {number} */
+    var AjfWidgetType = {
+        Layout: 0,
+        PageBreak: 1,
+        Image: 2,
+        Text: 3,
+        Chart: 4,
+        Table: 5,
+        Map: 6,
+        Column: 7,
+        Formula: 8,
+        ImageContainer: 9,
+        LENGTH: 10,
+    };
+    AjfWidgetType[AjfWidgetType.Layout] = 'Layout';
+    AjfWidgetType[AjfWidgetType.PageBreak] = 'PageBreak';
+    AjfWidgetType[AjfWidgetType.Image] = 'Image';
+    AjfWidgetType[AjfWidgetType.Text] = 'Text';
+    AjfWidgetType[AjfWidgetType.Chart] = 'Chart';
+    AjfWidgetType[AjfWidgetType.Table] = 'Table';
+    AjfWidgetType[AjfWidgetType.Map] = 'Map';
+    AjfWidgetType[AjfWidgetType.Column] = 'Column';
+    AjfWidgetType[AjfWidgetType.Formula] = 'Formula';
+    AjfWidgetType[AjfWidgetType.ImageContainer] = 'ImageContainer';
+    AjfWidgetType[AjfWidgetType.LENGTH] = 'LENGTH';
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
     /**
@@ -426,133 +210,210 @@
 
     /**
      * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /** @enum {number} */
-    var AjfReportWidgetType = {
-        Layout: 0,
-        PageBreak: 1,
-        Image: 2,
-        Text: 3,
-        Chart: 4,
-        Table: 5,
-        Map: 6,
-        Column: 7,
-        Formula: 8,
-        ImageContainer: 9,
-        LENGTH: 10,
-    };
-    AjfReportWidgetType[AjfReportWidgetType.Layout] = 'Layout';
-    AjfReportWidgetType[AjfReportWidgetType.PageBreak] = 'PageBreak';
-    AjfReportWidgetType[AjfReportWidgetType.Image] = 'Image';
-    AjfReportWidgetType[AjfReportWidgetType.Text] = 'Text';
-    AjfReportWidgetType[AjfReportWidgetType.Chart] = 'Chart';
-    AjfReportWidgetType[AjfReportWidgetType.Table] = 'Table';
-    AjfReportWidgetType[AjfReportWidgetType.Map] = 'Map';
-    AjfReportWidgetType[AjfReportWidgetType.Column] = 'Column';
-    AjfReportWidgetType[AjfReportWidgetType.Formula] = 'Formula';
-    AjfReportWidgetType[AjfReportWidgetType.ImageContainer] = 'ImageContainer';
-    AjfReportWidgetType[AjfReportWidgetType.LENGTH] = 'LENGTH';
-    /** @enum {number} */
-    var AjfReportDataType = {
-        EPI: 0,
-        Month: 1,
-        Year: 2,
-        LENGTH: 3,
-    };
-    AjfReportDataType[AjfReportDataType.EPI] = 'EPI';
-    AjfReportDataType[AjfReportDataType.Month] = 'Month';
-    AjfReportDataType[AjfReportDataType.Year] = 'Year';
-    AjfReportDataType[AjfReportDataType.LENGTH] = 'LENGTH';
-    /**
-     * Base abstract class that represent a report widget.
-     *
-     * @abstract
-     */
-    var   /**
-     * Base abstract class that represent a report widget.
-     *
-     * @abstract
-     */
-    AjfReportWidget = /** @class */ (function (_super) {
-        __extends(AjfReportWidget, _super);
-        function AjfReportWidget(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers = _this.jsonExportedMembers
-                .concat(['widgetType', 'content', 'styles', 'visibility']);
-            _this.content = obj && obj.content || [];
-            _this.styles = obj && obj.styles || {};
-            _this.visibility = obj && obj.visibility || models.AjfCondition.alwaysCondition();
-            return _this;
+    var AjfGetColumnContentPipe = /** @class */ (function () {
+        function AjfGetColumnContentPipe() {
         }
         /**
-         * Creates a report widget from its JSON representation
-         *
-         * @param obj: any The JSON representation
-         * @throws 'Widget type missing' when the JSON representation lacks of a widget type
-         * @throws 'Invalid widget type' when the JSON representation contains an invalid widget type
-         * @return AjfReportWidget The report widget
+         * @param {?} instance
+         * @param {?} column
+         * @return {?}
          */
-        /**
-         * Creates a report widget from its JSON representation
-         *
-         * @throws 'Widget type missing' when the JSON representation lacks of a widget type / 'Invalid widget type' when the JSON representation contains an invalid widget type
-         * @param {?} obj
-         * @return {?} AjfReportWidget The report widget
+        AjfGetColumnContentPipe.prototype.transform = /**
+         * @param {?} instance
+         * @param {?} column
+         * @return {?}
          */
-        AjfReportWidget.fromJson = /**
-         * Creates a report widget from its JSON representation
-         *
-         * @throws 'Widget type missing' when the JSON representation lacks of a widget type / 'Invalid widget type' when the JSON representation contains an invalid widget type
-         * @param {?} obj
-         * @return {?} AjfReportWidget The report widget
-         */
-        function (obj) {
-            /** @type {?} */
-            var keys = Object.keys(obj);
-            if (keys.indexOf('widgetType') === -1) {
-                throw new Error('Widget type missing');
-            }
-            /** @type {?} */
-            var widgetType = obj.widgetType;
-            if (AjfReportWidgetType[widgetType] == null) {
-                throw new Error('Invalid widget type');
-            }
-            obj = this.parseJsonObject(obj);
-            delete obj.widgetType;
-            return AjfReportWidget.createWidget(widgetType, obj);
+        function (instance, column) {
+            return column >= 0 && column < instance.content.length ? instance.content[column] : null;
         };
+        AjfGetColumnContentPipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'ajfGetColumnContent' },] },
+        ];
+        return AjfGetColumnContentPipe;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var AjfReportsModule = /** @class */ (function () {
+        function AjfReportsModule() {
+        }
+        AjfReportsModule.decorators = [
+            { type: core.NgModule, args: [{
+                        declarations: [
+                            AjfGetColumnContentPipe,
+                        ],
+                        exports: [
+                            AjfGetColumnContentPipe,
+                        ],
+                    },] },
+        ];
+        return AjfReportsModule;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} aggregation
+     * @return {?}
+     */
+    function createAggregation(aggregation) {
+        return __assign({}, aggregation, { aggregation: aggregation.aggregation || AjfAggregationType.None });
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var AjfAggregationSerializer = /** @class */ (function () {
+        function AjfAggregationSerializer() {
+        }
         /**
-         * @protected
-         * @param {?} obj
+         * @param {?} json
          * @return {?}
          */
-        AjfReportWidget.parseJsonObject = /**
-         * @protected
-         * @param {?} obj
+        AjfAggregationSerializer.fromJson = /**
+         * @param {?} json
          * @return {?}
          */
-        function (obj) {
-            obj = utils.deepCopy(obj);
-            /** @type {?} */
-            var keys = Object.keys(obj);
-            if (keys.indexOf('visibility') > -1) {
-                obj.visibility = models.AjfCondition.fromJson(obj.visibility);
+        function (json) {
+            if (json.aggregation == null) {
+                throw new Error('Malformed aggregation');
             }
-            else {
-                obj.visibility = models.AjfCondition.alwaysCondition();
+            return createAggregation(__assign({}, json, { aggregation: json.aggregation }));
+        };
+        return AjfAggregationSerializer;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} dataset
+     * @return {?}
+     */
+    function createDataset(dataset) {
+        return __assign({}, dataset, { aggregation: dataset.aggregation || createAggregation({ aggregation: AjfAggregationType.None }) });
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var AjfDatasetSerializer = /** @class */ (function () {
+        function AjfDatasetSerializer() {
+        }
+        /**
+         * @param {?} json
+         * @return {?}
+         */
+        AjfDatasetSerializer.fromJson = /**
+         * @param {?} json
+         * @return {?}
+         */
+        function (json) {
+            if (json.formula == null || json.aggregation == null || json.label == null) {
+                throw new Error('Malformed dataset');
             }
-            if (keys.indexOf('content') > -1 && obj.content instanceof Array) {
-                obj.content = obj.content.map((/**
-                 * @param {?} w
+            json.formula = json.formula instanceof Array ?
+                json.formula = json.formula.map((/**
+                 * @param {?} f
                  * @return {?}
                  */
-                function (w) { return AjfReportWidget.fromJson(w); }));
+                function (f) { return models.AjfFormulaSerializer.fromJson(f); })) :
+                models.AjfFormulaSerializer.fromJson(json.formula);
+            json.aggregation = AjfAggregationSerializer.fromJson(json.aggregation);
+            return createDataset(json);
+        };
+        return AjfDatasetSerializer;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} widget
+     * @return {?}
+     */
+    function createWidget(widget) {
+        return __assign({}, widget, { styles: widget.styles || {}, visibility: widget.visibility || models.alwaysCondition() });
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var AjfWidgetSerializer = /** @class */ (function () {
+        function AjfWidgetSerializer() {
+        }
+        /**
+         * @param {?} json
+         * @return {?}
+         */
+        AjfWidgetSerializer.fromJson = /**
+         * @param {?} json
+         * @return {?}
+         */
+        function (json) {
+            if (json.widgetType == null) {
+                throw new Error('Malformed widget');
             }
-            if (keys.indexOf('dataset') > -1 && obj['dataset'] instanceof Array) {
-                if (obj.widgetType == AjfReportWidgetType.Table) {
+            json.visibility =
+                json.visibility ? models.AjfConditionSerializer.fromJson(json.visibility) : models.alwaysCondition();
+            json.styles = json.styles || {};
+            /** @type {?} */
+            var obj = (/** @type {?} */ (json));
+            if (obj.widgetType === AjfWidgetType.Layout || obj.widgetType === AjfWidgetType.Column) {
+                return AjfWidgetSerializer._widgetWithContentFromJson(obj);
+            }
+            if (obj.widgetType === AjfWidgetType.Chart || obj.widgetType === AjfWidgetType.Table) {
+                /** @type {?} */
+                var w = AjfWidgetSerializer._dataWidgetFromJson(obj);
+                if (obj.widgetType === AjfWidgetType.Chart) {
                     /** @type {?} */
-                    var data = obj.dataset
+                    var cw = (/** @type {?} */ (w));
+                    if (cw.labels instanceof Array) {
+                        cw.labels.map((/**
+                         * @param {?} l
+                         * @return {?}
+                         */
+                        function (l) { return models.AjfFormulaSerializer.fromJson(l); }));
+                    }
+                    else if (cw.labels != null) {
+                        cw.labels = models.AjfFormulaSerializer.fromJson(cw.labels);
+                    }
+                }
+                return w;
+            }
+            if (obj.widgetType === AjfWidgetType.Map) {
+                /** @type {?} */
+                var mw = (/** @type {?} */ (obj));
+                mw.coordinate = models.AjfFormulaSerializer.fromJson(mw.coordinate);
+            }
+            return obj;
+        };
+        /**
+         * @private
+         * @param {?} json
+         * @return {?}
+         */
+        AjfWidgetSerializer._dataWidgetFromJson = /**
+         * @private
+         * @param {?} json
+         * @return {?}
+         */
+        function (json) {
+            /** @type {?} */
+            var dataset = json.dataset ?
+                (json.widgetType === AjfWidgetType.Table ?
+                    ((/** @type {?} */ (json.dataset)))
                         .map((/**
                      * @param {?} row
                      * @return {?}
@@ -561,725 +422,185 @@
                      * @param {?} cell
                      * @return {?}
                      */
-                    function (cell) { return AjfTableDataset.fromJson(cell); })); }));
-                    obj.dataset = data;
-                }
-                else if (obj.widgetType == AjfReportWidgetType.Chart) {
-                    /** @type {?} */
-                    var data = obj.dataset
-                        .map((/**
-                     * @param {?} row
+                    function (cell) { return AjfDatasetSerializer.fromJson(cell); })); })) :
+                    ((/** @type {?} */ (json.dataset))).map((/**
+                     * @param {?} d
                      * @return {?}
                      */
-                    function (row) { return AjfChartDataset.fromJson(row); }));
-                    obj.dataset = data;
-                }
-            }
-            if (keys.indexOf('labels') > -1) {
-                if (obj['labels'] instanceof Array) {
-                    obj.labels = obj.labels.map((/**
-                     * @param {?} l
-                     * @return {?}
-                     */
-                    function (l) { return models.AjfFormula.fromJson(l); }));
-                }
-                else {
-                    obj.labels = models.AjfFormula.fromJson(obj.labels);
-                }
-            }
-            if (keys.indexOf('coordinate') > -1) {
-                obj.coordinate = models.AjfFormula.fromJson(obj.coordinate);
-            }
-            return obj;
+                    function (d) { return AjfDatasetSerializer.fromJson(d); }))) :
+                [];
+            return __assign({}, createWidget(json), { dataset: dataset });
         };
         /**
-         * Creates a report widget given a widget type (@see AjfReportWidgetType)
-         */
-        /**
-         * Creates a report widget given a widget type (\@see AjfReportWidgetType)
-         * @param {?} widgetType
-         * @param {?=} obj
+         * @private
+         * @param {?} json
          * @return {?}
          */
-        AjfReportWidget.createWidget = /**
-         * Creates a report widget given a widget type (\@see AjfReportWidgetType)
-         * @param {?} widgetType
-         * @param {?=} obj
+        AjfWidgetSerializer._widgetWithContentFromJson = /**
+         * @private
+         * @param {?} json
          * @return {?}
          */
-        function (widgetType, obj) {
-            switch (widgetType) {
-                case AjfReportWidgetType.Layout:
-                    return new AjfReportLayoutWidget(obj);
-                case AjfReportWidgetType.PageBreak:
-                    return new AjfReportPageBreakWidget(obj);
-                case AjfReportWidgetType.Image:
-                    return new AjfReportImageWidget(obj);
-                case AjfReportWidgetType.Text:
-                    return new AjfReportTextWidget(obj);
-                case AjfReportWidgetType.Chart:
-                    return new AjfReportChartWidget(obj);
-                case AjfReportWidgetType.Table:
-                    return new AjfReportTableWidget(obj);
-                case AjfReportWidgetType.Map:
-                    return new AjfReportMapWidget(obj);
-                case AjfReportWidgetType.Column:
-                    return new AjfReportColumnWidget(obj);
-                case AjfReportWidgetType.Formula:
-                    return new AjfReportFormulaWidget(obj);
-                case AjfReportWidgetType.ImageContainer:
-                    return new AjfReportImageContainerWidget(obj);
-                default:
-                    throw new Error('Invalid widget type');
-            }
+        function (json) {
+            /** @type {?} */
+            var content = (json.content || []).map((/**
+             * @param {?} c
+             * @return {?}
+             */
+            function (c) { return AjfWidgetSerializer.fromJson(c); }));
+            return __assign({}, createWidget(json), { content: content });
         };
-        Object.defineProperty(AjfReportWidget.prototype, "widgetType", {
-            /**
-             * The widget type (@see AjfReportWidgetType)
-             */
-            get: /**
-             * The widget type (\@see AjfReportWidgetType)
-             * @return {?}
-             */
-            function () {
-                /** @type {?} */
-                var thisObj = this;
-                if (thisObj instanceof AjfReportLayoutWidget) {
-                    return AjfReportWidgetType.Layout;
-                }
-                if (thisObj instanceof AjfReportColumnWidget) {
-                    return AjfReportWidgetType.Column;
-                }
-                if (thisObj instanceof AjfReportPageBreakWidget) {
-                    return AjfReportWidgetType.PageBreak;
-                }
-                if (thisObj instanceof AjfReportImageWidget) {
-                    return AjfReportWidgetType.Image;
-                }
-                if (thisObj instanceof AjfReportTextWidget) {
-                    return AjfReportWidgetType.Text;
-                }
-                if (thisObj instanceof AjfReportChartWidget) {
-                    return AjfReportWidgetType.Chart;
-                }
-                if (thisObj instanceof AjfReportTableWidget) {
-                    return AjfReportWidgetType.Table;
-                }
-                if (thisObj instanceof AjfReportMapWidget) {
-                    return AjfReportWidgetType.Map;
-                }
-                if (thisObj instanceof AjfReportFormulaWidget) {
-                    return AjfReportWidgetType.Formula;
-                }
-                if (thisObj instanceof AjfReportImageContainerWidget) {
-                    return AjfReportWidgetType.ImageContainer;
-                }
-                throw new Error('Invalid widget type');
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfReportWidget;
-    }(models.AjfJsonSerializable));
-    var AjfReportLayoutWidget = /** @class */ (function (_super) {
-        __extends(AjfReportLayoutWidget, _super);
-        function AjfReportLayoutWidget(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers = _this.jsonExportedMembers.concat(['columns']);
-            if (obj && obj.columns) {
-                _this.columns = obj.columns;
-            }
-            else {
-                _this.content = [new AjfReportColumnWidget()];
-                _this.columns = [1];
-            }
-            return _this;
-        }
-        Object.defineProperty(AjfReportLayoutWidget.prototype, "hasContent", {
-            get: /**
-             * @return {?}
-             */
-            function () { return true; },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfReportLayoutWidget;
-    }(AjfReportWidget));
-    var AjfReportColumnWidget = /** @class */ (function (_super) {
-        __extends(AjfReportColumnWidget, _super);
-        function AjfReportColumnWidget(obj) {
-            return _super.call(this, obj) || this;
-        }
-        Object.defineProperty(AjfReportColumnWidget.prototype, "hasContent", {
-            get: /**
-             * @return {?}
-             */
-            function () { return true; },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfReportColumnWidget;
-    }(AjfReportWidget));
-    var AjfReportPageBreakWidget = /** @class */ (function (_super) {
-        __extends(AjfReportPageBreakWidget, _super);
-        function AjfReportPageBreakWidget(obj) {
-            return _super.call(this, obj) || this;
-        }
-        Object.defineProperty(AjfReportPageBreakWidget.prototype, "hasContent", {
-            get: /**
-             * @return {?}
-             */
-            function () { return false; },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfReportPageBreakWidget;
-    }(AjfReportWidget));
-    var AjfReportImageWidget = /** @class */ (function (_super) {
-        __extends(AjfReportImageWidget, _super);
-        function AjfReportImageWidget(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this._imageType = image.AjfImageType.Image;
-            _this.jsonExportedMembers = _this.jsonExportedMembers.concat([
-                'imageType', 'url', 'icon', 'flag'
-            ]);
-            _this._imageType = obj && obj.imageType != null ? obj.imageType : null;
-            _this._url = obj && obj.url ?
-                (obj.url instanceof models.AjfFormula ? obj.url : models.AjfFormula.fromJson(obj.url)) :
-                null;
-            _this._icon = obj && obj.icon ?
-                (obj.icon instanceof models.AjfFormula ? obj.icon : models.AjfFormula.fromJson(obj.icon)) :
-                null;
-            _this._flag = obj && obj.flag ?
-                (obj.flag instanceof models.AjfFormula ? obj.flag : models.AjfFormula.fromJson(obj.flag)) :
-                null;
-            return _this;
-        }
-        Object.defineProperty(AjfReportImageWidget.prototype, "hasContent", {
-            get: /**
-             * @return {?}
-             */
-            function () { return false; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportImageWidget.prototype, "imageType", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._imageType; },
-            set: /**
-             * @param {?} imageType
-             * @return {?}
-             */
-            function (imageType) {
-                this._imageType = imageType;
-                this._icon = null;
-                this._flag = null;
-                this._url = null;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportImageWidget.prototype, "icon", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._icon; },
-            set: /**
-             * @param {?} icon
-             * @return {?}
-             */
-            function (icon) {
-                if (this._imageType === image.AjfImageType.Icon) {
-                    this._icon = icon;
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportImageWidget.prototype, "flag", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._flag; },
-            set: /**
-             * @param {?} flag
-             * @return {?}
-             */
-            function (flag) {
-                if (this._imageType === image.AjfImageType.Flag) {
-                    this._flag = flag;
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportImageWidget.prototype, "url", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._url; },
-            set: /**
-             * @param {?} url
-             * @return {?}
-             */
-            function (url) {
-                if (this._imageType === image.AjfImageType.Image) {
-                    this._url = url;
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} imageUrl
-         * @return {?}
-         */
-        AjfReportImageWidget.prototype.setUrl = /**
-         * @param {?} imageUrl
-         * @return {?}
-         */
-        function (imageUrl) {
-            this.imageType = image.AjfImageType.Image;
-            this._url = new models.AjfFormula({ formula: "\"" + imageUrl + "\"" });
-        };
-        /**
-         * @param {?} icon
-         * @return {?}
-         */
-        AjfReportImageWidget.prototype.setIcon = /**
-         * @param {?} icon
-         * @return {?}
-         */
-        function (icon) {
-            this.imageType = image.AjfImageType.Icon;
-            this._icon = new models.AjfFormula({
-                formula: "{fontSet: \"" + icon.fontSet + "\", fontIcon: \"" + icon.fontIcon + "\"}"
-            });
-        };
-        /**
-         * @param {?} flag
-         * @return {?}
-         */
-        AjfReportImageWidget.prototype.setFlag = /**
-         * @param {?} flag
-         * @return {?}
-         */
-        function (flag) {
-            this.imageType = image.AjfImageType.Flag;
-            this._flag = new models.AjfFormula({ formula: "\"" + flag + "\"" });
-        };
-        return AjfReportImageWidget;
-    }(AjfReportWidget));
-    var AjfReportImageContainerWidget = /** @class */ (function (_super) {
-        __extends(AjfReportImageContainerWidget, _super);
-        function AjfReportImageContainerWidget(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this._imageType = image.AjfImageType.Image;
-            _this.jsonExportedMembers = _this.jsonExportedMembers.concat([
-                'imageType', 'urls', 'icons', 'flags'
-            ]);
-            _this._imageType = obj && obj.imageType != null ? obj.imageType : null;
-            _this.urls = obj && obj.urls ?
-                (obj.urls instanceof models.AjfFormula ? obj.urls :
-                    (obj.urls instanceof Array ? obj.urls : models.AjfFormula.fromJson(obj.urls))) : [];
-            _this.flags = obj && obj.flags ?
-                (obj.flags instanceof models.AjfFormula ? obj.flags :
-                    (obj.flags instanceof Array ? obj.flags : models.AjfFormula.fromJson(obj.flags))) : [];
-            _this.icons = obj && obj.icons
-                ? (obj.icons instanceof models.AjfFormula
-                    ? obj.icons
-                    : obj.icons.map((/**
-                     * @param {?} l
-                     * @return {?}
-                     */
-                    function (l) { return models.AjfFormula.fromJson(l); })))
-                : [];
-            return _this;
-        }
-        Object.defineProperty(AjfReportImageContainerWidget.prototype, "hasContent", {
-            get: /**
-             * @return {?}
-             */
-            function () { return false; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportImageContainerWidget.prototype, "imageType", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._imageType; },
-            set: /**
-             * @param {?} imageType
-             * @return {?}
-             */
-            function (imageType) {
-                this._imageType = imageType;
-                this.urls = [];
-                this.flags = [];
-                this.icons = [];
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfReportImageContainerWidget;
-    }(AjfReportWidget));
-    var AjfReportTextWidget = /** @class */ (function (_super) {
-        __extends(AjfReportTextWidget, _super);
-        function AjfReportTextWidget(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers = _this.jsonExportedMembers.concat(['htmlText']);
-            _this._htmlText = obj && obj.htmlText || '';
-            return _this;
-        }
-        Object.defineProperty(AjfReportTextWidget.prototype, "htmlText", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._htmlText; },
-            set: /**
-             * @param {?} htmlText
-             * @return {?}
-             */
-            function (htmlText) {
-                this._htmlText = htmlText;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportTextWidget.prototype, "hasContent", {
-            get: /**
-             * @return {?}
-             */
-            function () { return false; },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfReportTextWidget;
-    }(AjfReportWidget));
-    var AjfReportFormulaWidget = /** @class */ (function (_super) {
-        __extends(AjfReportFormulaWidget, _super);
-        function AjfReportFormulaWidget(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers =
-                _this.jsonExportedMembers.concat(['content', 'formula']);
-            _this.content = obj && obj.content || [];
-            _this.formula = obj && obj.formula ?
-                (obj.formula instanceof models.AjfFormula ? obj.formula : models.AjfFormula.fromJson(obj.formula)) : null;
-            return _this;
-        }
-        Object.defineProperty(AjfReportFormulaWidget.prototype, "formula", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._formula; },
-            set: /**
-             * @param {?} formula
-             * @return {?}
-             */
-            function (formula) { this._formula = formula; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportFormulaWidget.prototype, "hasContent", {
-            get: /**
-             * @return {?}
-             */
-            function () { return true; },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfReportFormulaWidget;
-    }(AjfReportWidget));
-    /**
-     * @abstract
-     */
-    var   /**
-     * @abstract
-     */
-    AjfReportDataWidget = /** @class */ (function (_super) {
-        __extends(AjfReportDataWidget, _super);
-        function AjfReportDataWidget(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers = _this.jsonExportedMembers
-                .concat(['dataset']);
-            _this.dataset = obj && obj.dataset || [];
-            return _this;
-        }
-        Object.defineProperty(AjfReportDataWidget.prototype, "hasContent", {
-            get: /**
-             * @return {?}
-             */
-            function () { return false; },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfReportDataWidget;
-    }(AjfReportWidget));
-    /**
-     * Concrete class for manage chart.
-     *
-     *
-     *
-     * @throws 'labels or data or backgroundColor or borderColor missed'
-     *         if the length of arrays passed by obj are not the same
-     */
-    var   /**
-     * Concrete class for manage chart.
-     *
-     *
-     *
-     * @throws 'labels or data or backgroundColor or borderColor missed'
-     *         if the length of arrays passed by obj are not the same
-     */
-    AjfReportChartWidget = /** @class */ (function (_super) {
-        __extends(AjfReportChartWidget, _super);
-        function AjfReportChartWidget(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers = _this.jsonExportedMembers
-                .concat(['chartType', 'labels', 'options']);
-            _this.chartType = obj && obj.type || AjfChartType.Line;
-            _this.dataset = obj && obj.dataset || [];
-            _this.labels = obj && obj.labels || [];
-            _this.options = obj && obj.options || null;
-            return _this;
-        }
-        return AjfReportChartWidget;
-    }(AjfReportDataWidget));
-    var AjfReportTableWidget = /** @class */ (function (_super) {
-        __extends(AjfReportTableWidget, _super);
-        function AjfReportTableWidget(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers = _this.jsonExportedMembers
-                .concat(['cellStyles']);
-            _this.cellStyles = obj && obj.cellStyles || null;
-            return _this;
-        }
-        return AjfReportTableWidget;
-    }(AjfReportDataWidget));
-    var AjfReportMapWidget = /** @class */ (function (_super) {
-        __extends(AjfReportMapWidget, _super);
-        function AjfReportMapWidget(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers = _this.jsonExportedMembers
-                .concat(['coordinate', 'tileLayer', 'attribution', 'disabled']);
-            _this.coordinate = obj && obj.coordinate || '';
-            _this.tileLayer = obj && obj.tileLayer || '';
-            _this.attribution = obj && obj.attribution || '';
-            _this.disabled = obj && obj.disabled || false;
-            return _this;
-        }
-        Object.defineProperty(AjfReportMapWidget.prototype, "coordinateMap", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this.coordinate; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportMapWidget.prototype, "tileLayerMap", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this.tileLayer; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportMapWidget.prototype, "attributionMap", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this.attribution; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportMapWidget.prototype, "disabledMap", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this.disabled; },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfReportMapWidget;
-    }(AjfReportDataWidget));
+        return AjfWidgetSerializer;
+    }());
 
     /**
      * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var AjfReportWidgetInstance = /** @class */ (function () {
-        function AjfReportWidgetInstance(widget, context, ts) {
-            this.ts = ts;
-            this._visible = true;
-            this._widget = widget;
-            if (widget != null) {
-                this._styles = widget.styles;
-                this._widgetType = widget.widgetType;
-            }
-            this._context = context;
-            this._initInstance();
-            this.initContext(context);
+    var AjfReportContainerSerializer = /** @class */ (function () {
+        function AjfReportContainerSerializer() {
         }
-        Object.defineProperty(AjfReportWidgetInstance.prototype, "widget", {
-            get: /**
+        /**
+         * @param {?} json
+         * @return {?}
+         */
+        AjfReportContainerSerializer.fromJson = /**
+         * @param {?} json
+         * @return {?}
+         */
+        function (json) {
+            json.content = (json.content || []).map((/**
+             * @param {?} c
              * @return {?}
              */
-            function () { return this._widget; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetInstance.prototype, "visible", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._visible; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetInstance.prototype, "content", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._content; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetInstance.prototype, "styles", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._styles;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetInstance.prototype, "widgetType", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._widgetType;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} widget
-         * @param {?} context
-         * @param {?} ts
-         * @return {?}
-         */
-        AjfReportWidgetInstance.create = /**
-         * @param {?} widget
-         * @param {?} context
-         * @param {?} ts
-         * @return {?}
-         */
-        function (widget, context, ts) {
-            if (widget instanceof AjfReportLayoutWidget) {
-                return new AjfReportLayoutWidgetInstance(widget, context, ts);
-            }
-            else if (widget instanceof AjfReportImageWidget) {
-                return new AjfReportImageWidgetInstance(widget, context, ts);
-            }
-            else if (widget instanceof AjfReportTextWidget) {
-                return new AjfReportTextWidgetInstance(widget, context, ts);
-            }
-            else if (widget instanceof AjfReportTableWidget) {
-                return new AjfReportTableWidgetInstance(widget, context, ts);
-            }
-            else if (widget instanceof AjfReportChartWidget) {
-                return new AjfReportChartWidgetInstance(widget, context, ts);
-            }
-            else if (widget instanceof AjfReportMapWidget) {
-                return new AjfReportMapWidgetInstance(widget, context, ts);
-            }
-            else if (widget instanceof AjfReportDataWidget) {
-                return new AjfReportDataWidgetInstance(widget, context, ts);
-            }
-            else if (widget instanceof AjfReportFormulaWidget) {
-                return new AjfReportFormulaWidgetInstance(widget, context, ts);
-            }
-            else if (widget instanceof AjfReportImageContainerWidget) {
-                return new AjfReportImageContainerWidgetInstance(widget, context, ts);
-            }
-            else if (widget instanceof AjfReportWidget) {
-                return new AjfReportWidgetInstance(widget, context, ts);
-            }
-            throw new Error('Invalid widget type');
+            function (c) { return AjfWidgetSerializer.fromJson(c); }));
+            return __assign({}, json, { content: (/** @type {?} */ (json.content)), styles: json.styles || {} });
         };
-        /**
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportWidgetInstance.prototype.initContext = /**
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            this._evaluateVisibility(context);
-        };
-        /**
-         * @protected
-         * @return {?}
-         */
-        AjfReportWidgetInstance.prototype._initInstance = /**
-         * @protected
-         * @return {?}
-         */
-        function () {
-            this._populateContent();
-        };
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfReportWidgetInstance.prototype._populateContent = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            /** @type {?} */
-            var content = [];
-            if (this._widget.hasContent) {
-                this._widget.content.forEach((/**
-                 * @param {?} w
-                 * @return {?}
-                 */
-                function (w) {
-                    content.push(AjfReportWidgetInstance.create(w, _this._context, _this.ts));
-                }));
-            }
-            this._content = content;
-        };
-        /**
-         * @private
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportWidgetInstance.prototype._evaluateVisibility = /**
-         * @private
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            if (this._widget.visibility != null) {
-                this._visible = this._widget.visibility.evaluate(context);
-            }
-        };
-        return AjfReportWidgetInstance;
+        return AjfReportContainerSerializer;
     }());
-    var AjfReportDataWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportDataWidgetInstance, _super);
-        function AjfReportDataWidgetInstance(widget, context, ts) {
-            return _super.call(this, widget, context, ts) || this;
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @param {?} report
+     * @return {?}
+     */
+    function createReport(report) {
+        return __assign({}, report);
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var AjfReportSerializer = /** @class */ (function () {
+        function AjfReportSerializer() {
         }
-        Object.defineProperty(AjfReportDataWidgetInstance.prototype, "widget", {
+        /**
+         * @param {?} json
+         * @return {?}
+         */
+        AjfReportSerializer.fromJson = /**
+         * @param {?} json
+         * @return {?}
+         */
+        function (json) {
+            /** @type {?} */
+            var containers = ['header', 'footer', 'content'];
+            containers.forEach((/**
+             * @param {?} c
+             * @return {?}
+             */
+            function (c) {
+                if (json[c]) {
+                    ((/** @type {?} */ (json[c]))) =
+                        AjfReportContainerSerializer.fromJson((/** @type {?} */ (json[c])));
+                }
+            }));
+            return createReport(json);
+        };
+        return AjfReportSerializer;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @abstract
+     */
+    var   /**
+     * @abstract
+     */
+    AjfWidgetRenderer = /** @class */ (function () {
+        function AjfWidgetRenderer(_cdr) {
+            this._cdr = _cdr;
+            this.widgetTypes = AjfWidgetType;
+            this._imageTypes = image.AjfImageType;
+        }
+        Object.defineProperty(AjfWidgetRenderer.prototype, "widget", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._widget;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "imageTypes", {
+            get: /**
+             * @return {?}
+             */
+            function () { return this._imageTypes; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "widgetInstance", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._widgetInstance;
+            },
+            set: /**
+             * @param {?} widgetInstance
+             * @return {?}
+             */
+            function (widgetInstance) {
+                if (this._widgetInstance !== widgetInstance) {
+                    this._widgetInstance = widgetInstance;
+                    this._widget = this._widgetInstance != null ? this._widgetInstance.widget : null;
+                    this._cdr.markForCheck();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "columnInst", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widgetInstance));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "imgwInst", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widgetInstance));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "imgw", {
             get: /**
              * @return {?}
              */
@@ -1289,500 +610,254 @@
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(AjfReportDataWidgetInstance.prototype, "dataset", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._dataset; },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportDataWidgetInstance.prototype.initContext = /**
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            _super.prototype.initContext.call(this, context);
-            this._populateData(context);
-        };
-        /**
-         * @protected
-         * @return {?}
-         */
-        AjfReportDataWidgetInstance.prototype._initInstance = /**
-         * @protected
-         * @return {?}
-         */
-        function () {
-            _super.prototype._initInstance.call(this);
-        };
-        /**
-         * @private
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportDataWidgetInstance.prototype._populateData = /**
-         * @private
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            this._dataset = ((/** @type {?} */ ((this.widget.dataset || []))))
-                .map((/**
-             * @param {?} row
-             * @return {?}
-             */
-            function (row) {
-                if (row instanceof Array) {
-                    return ((/** @type {?} */ (row))).map((/**
-                     * @param {?} cell
-                     * @return {?}
-                     */
-                    function (cell) {
-                        return cell.formula instanceof Array ?
-                            cell.formula.map((/**
-                             * @param {?} f
-                             * @return {?}
-                             */
-                            function (f) { return f.evaluate(context); })) :
-                            cell.formula.evaluate(context);
-                    }));
-                }
-                else {
-                    /** @type {?} */
-                    var formula = ((/** @type {?} */ (row))).formula;
-                    return formula instanceof Array ?
-                        formula.map((/**
-                         * @param {?} f
-                         * @return {?}
-                         */
-                        function (f) { return f.evaluate(context); })) :
-                        formula.evaluate(context);
-                }
-            }));
-        };
-        return AjfReportDataWidgetInstance;
-    }(AjfReportWidgetInstance));
-    var AjfReportLayoutWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportLayoutWidgetInstance, _super);
-        function AjfReportLayoutWidgetInstance(widget, context, ts) {
-            return _super.call(this, widget, context, ts) || this;
-        }
-        /**
-         * @param {?} column
-         * @return {?}
-         */
-        AjfReportLayoutWidgetInstance.prototype.getColumnContent = /**
-         * @param {?} column
-         * @return {?}
-         */
-        function (column) {
-            return column >= 0 && column < this.content.length ? this.content[column] : null;
-        };
-        return AjfReportLayoutWidgetInstance;
-    }(AjfReportWidgetInstance));
-    var AjfReportColumnWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportColumnWidgetInstance, _super);
-        function AjfReportColumnWidgetInstance(widget, context, ts) {
-            return _super.call(this, widget, context, ts) || this;
-        }
-        return AjfReportColumnWidgetInstance;
-    }(AjfReportWidgetInstance));
-    var AjfReportPageBreakWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportPageBreakWidgetInstance, _super);
-        function AjfReportPageBreakWidgetInstance(widget, context, ts) {
-            return _super.call(this, widget, context, ts) || this;
-        }
-        return AjfReportPageBreakWidgetInstance;
-    }(AjfReportWidgetInstance));
-    var AjfReportImageWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportImageWidgetInstance, _super);
-        function AjfReportImageWidgetInstance() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        Object.defineProperty(AjfReportImageWidgetInstance.prototype, "icon", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._icon; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportImageWidgetInstance.prototype, "flag", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._flag; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportImageWidgetInstance.prototype, "url", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._url; },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportImageWidgetInstance.prototype.initContext = /**
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            _super.prototype.initContext.call(this, context);
-            /** @type {?} */
-            var widget = ((/** @type {?} */ (this.widget)));
-            /** @type {?} */
-            var icon = widget.icon;
-            /** @type {?} */
-            var flag = widget.flag;
-            /** @type {?} */
-            var url = widget.url;
-            this._icon = icon ? icon.evaluate(context) : '';
-            this._flag = flag ? flag.evaluate(context) : '';
-            this._url = url ? url.evaluate(context) : '';
-        };
-        return AjfReportImageWidgetInstance;
-    }(AjfReportWidgetInstance));
-    var AjfReportImageContainerWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportImageContainerWidgetInstance, _super);
-        function AjfReportImageContainerWidgetInstance() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        Object.defineProperty(AjfReportImageContainerWidgetInstance.prototype, "icons", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._icons; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportImageContainerWidgetInstance.prototype, "flags", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._flags; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportImageContainerWidgetInstance.prototype, "urls", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._urls; },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportImageContainerWidgetInstance.prototype.initContext = /**
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            _super.prototype.initContext.call(this, context);
-            /** @type {?} */
-            var widget = ((/** @type {?} */ (this.widget)));
-            // TODO: check! perche' evaluate torna una lista di liste?
-            // this._urls[0][0] contiene la lista di url..
-            this._urls = widget.urls ?
-                (widget.urls instanceof Array ? widget.urls :
-                    (widget.urls instanceof models.AjfFormula ? widget.urls.evaluate(context) : []))
-                : [];
-            this._flags = widget.flags ?
-                (widget.flags instanceof Array ? widget.flags :
-                    (widget.flags instanceof models.AjfFormula ? widget.flags.evaluate(context) : []))
-                : [];
-            this._icons = widget.icons ?
-                (widget.icons instanceof Array ? widget.icons.map((/**
-                 * @param {?} l
-                 * @return {?}
-                 */
-                function (l) { return l.evaluate(context); })) :
-                    (widget.icons instanceof models.AjfFormula ? widget.icons.evaluate(context) : []))
-                : [];
-        };
-        return AjfReportImageContainerWidgetInstance;
-    }(AjfReportWidgetInstance));
-    var AjfReportTextWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportTextWidgetInstance, _super);
-        function AjfReportTextWidgetInstance() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        Object.defineProperty(AjfReportTextWidgetInstance.prototype, "htmlText", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._htmlText; },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportTextWidgetInstance.prototype.initContext = /**
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            _super.prototype.initContext.call(this, context);
-            /** @type {?} */
-            var formulaRegEx = /\[\[(.+?)\]\]/g;
-            /** @type {?} */
-            var widget = ((/** @type {?} */ (this.widget)));
-            /** @type {?} */
-            var htmlText = widget.htmlText;
-            /** @type {?} */
-            var matches = [];
-            /** @type {?} */
-            var match;
-            while (match = formulaRegEx.exec(htmlText)) {
-                /** @type {?} */
-                var idx = match['index'];
-                /** @type {?} */
-                var len = match[0].length;
-                /** @type {?} */
-                var formula = new models.AjfFormula({ formula: match[1] });
-                matches.push({ idx: idx, len: len, formula: formula });
-            }
-            matches.reverse().forEach((/**
-             * @param {?} m
-             * @return {?}
-             */
-            function (m) {
-                /** @type {?} */
-                var calcValue;
-                try {
-                    calcValue = m.formula.evaluate(context);
-                }
-                catch (e) {
-                    calcValue = '';
-                }
-                htmlText = "" + htmlText.substr(0, m.idx) + calcValue + htmlText.substr(m.idx + m.len);
-            }));
-            this._htmlText = htmlText;
-        };
-        return AjfReportTextWidgetInstance;
-    }(AjfReportWidgetInstance));
-    var AjfReportTableWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportTableWidgetInstance, _super);
-        function AjfReportTableWidgetInstance(widget, context, ts) {
-            var _this = _super.call(this, widget, context, ts) || this;
-            _this._recalcEvt = new rxjs.Subject();
-            _this._recalc = _this._recalcEvt.asObservable();
-            return _this;
-        }
-        Object.defineProperty(AjfReportTableWidgetInstance.prototype, "data", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._data; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportTableWidgetInstance.prototype, "recalc", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._recalc; },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportTableWidgetInstance.prototype.initContext = /**
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            _super.prototype.initContext.call(this, context);
-            /** @type {?} */
-            var widget = (/** @type {?} */ (this.widget));
-            this._data = [];
-            /** @type {?} */
-            var rows = (widget.dataset || []);
-            /** @type {?} */
-            var rowsNum = rows.length;
-            for (var i = 0; i < rowsNum; i++) {
-                /** @type {?} */
-                var row = rows[i];
-                /** @type {?} */
-                var cellsNum = row.length;
-                this._data.push([]);
-                for (var j = 0; j < cellsNum; j++) {
-                    /** @type {?} */
-                    var cell = row[j];
-                    /** @type {?} */
-                    var value = cell.formula.evaluate(context);
-                    /** @type {?} */
-                    var style = __assign({}, widget.cellStyles, cell.style);
-                    this._data[i].push((/** @type {?} */ ({
-                        value: value,
-                        style: style,
-                        rowspan: cell.rowspan,
-                        colspan: cell.colspan
-                    })));
-                }
-            }
-            // this._data = (widget.dataset || []).map((row: AjfDataset[]) => {
-            //   return row.map((cell: AjfTableDataset) => {
-            //     return <AjfTableCell>{
-            //       value: cell.formula.evaluate(context),
-            //       style: {...widget.cellStyles, ...cell.style},
-            //       rowspan: cell.rowspan,
-            //       colspan: cell.colspan
-            //     };
-            //   });
-            // });
-        };
-        /**
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportTableWidgetInstance.prototype.calcValues = /**
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            if (context === undefined) {
-                return;
-            }
-            /** @type {?} */
-            var widget = (/** @type {?} */ (this.widget));
-            /** @type {?} */
-            var rows = (widget.dataset || []);
-            /** @type {?} */
-            var rowsNum = rows.length;
-            for (var i = 0; i < rowsNum; i++) {
-                /** @type {?} */
-                var row = rows[i];
-                /** @type {?} */
-                var cellsNum = row.length;
-                for (var j = 0; j < cellsNum; j++) {
-                    /** @type {?} */
-                    var cell = row[j];
-                    this._data[i][j].value = cell.formula.evaluate(context);
-                }
-            }
-            this._data = this._data.slice(0);
-            this._recalcEvt.next(true);
-        };
-        return AjfReportTableWidgetInstance;
-    }(AjfReportWidgetInstance));
-    var AjfReportChartWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportChartWidgetInstance, _super);
-        function AjfReportChartWidgetInstance(widget, context, ts) {
-            return _super.call(this, widget, context, ts) || this;
-        }
-        Object.defineProperty(AjfReportChartWidgetInstance.prototype, "data", {
+        Object.defineProperty(AjfWidgetRenderer.prototype, "imgcwInst", {
             get: /**
              * @return {?}
              */
             function () {
-                return this._data;
+                return (/** @type {?} */ (this._widgetInstance));
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(AjfReportChartWidgetInstance.prototype, "chartType", {
+        Object.defineProperty(AjfWidgetRenderer.prototype, "imgcw", {
             get: /**
              * @return {?}
              */
-            function () { return this._chartType; },
+            function () {
+                return (/** @type {?} */ (this._widget));
+            },
             enumerable: true,
             configurable: true
         });
-        /**
-         * @private
-         * @param {?} formula
-         * @param {?} context
+        Object.defineProperty(AjfWidgetRenderer.prototype, "layoutwInst", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widgetInstance));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "layoutw", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widget));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "chartwInst", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widgetInstance));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "chartw", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widget));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "tablewInst", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widgetInstance));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "textwInst", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widgetInstance));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "mapwInst", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widgetInstance));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "mapw", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widget));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfWidgetRenderer.prototype, "formulawInst", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return (/** @type {?} */ (this._widgetInstance));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return AjfWidgetRenderer;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} aggregation
+     * @param {?} formulas
+     * @param {?} context
+     * @return {?}
+     */
+    function evaluateAggregation(aggregation, formulas, context) {
+        /** @type {?} */
+        var data = formulas.map((/**
+         * @param {?} f
          * @return {?}
          */
-        AjfReportChartWidgetInstance.prototype._translate = /**
-         * @private
-         * @param {?} formula
-         * @param {?} context
-         * @return {?}
-         */
-        function (formula, context) {
-            var _this = this;
-            /** @type {?} */
-            var evaluatedfunction = formula.evaluate(context);
-            try {
-                if (Array.isArray(evaluatedfunction)) {
-                    evaluatedfunction.forEach((/**
-                     * @param {?} rowValue
-                     * @param {?} index
-                     * @return {?}
-                     */
-                    function (rowValue, index) {
-                        if (Array.isArray(rowValue)) {
-                            rowValue.forEach((/**
-                             * @param {?} value
-                             * @param {?} rowIndex
-                             * @return {?}
-                             */
-                            function (value, rowIndex) {
-                                evaluatedfunction[index][rowIndex] = _this.ts.instant(value);
-                            }));
-                        }
-                        else {
-                            evaluatedfunction[index] = _this.ts.instant(rowValue);
-                        }
-                    }));
+        function (f) { return models.evaluateExpression(f.formula, context); }));
+        switch (aggregation.aggregation) {
+            case AjfAggregationType.None:
+                if (data.length !== 1) {
+                    throw new Error('Invalid aggregation');
                 }
-                return evaluatedfunction;
-            }
-            catch (e) {
-                return evaluatedfunction;
-            }
-        };
-        /**
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportChartWidgetInstance.prototype.initContext = /**
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            var _this = this;
-            _super.prototype.initContext.call(this, context);
-            /** @type {?} */
-            var widget = (/** @type {?} */ (this.widget));
-            this._chartType = chartToChartJsType(widget.chartType);
-            if (widget.labels instanceof Array) {
-                widget.labels.map((/**
-                 * @param {?} l
+                return data[0];
+            case AjfAggregationType.Sum:
+                return data.map((/**
+                 * @param {?} r
                  * @return {?}
                  */
-                function (l) {
-                    _this._labels.concat(_this._translate(l, context));
+                function (r) { return r.reduce((/**
+                 * @param {?} s
+                 * @param {?} d
+                 * @return {?}
+                 */
+                function (s, d) { return s + d; }), 0); }));
+            case AjfAggregationType.Average:
+            case AjfAggregationType.WeightedAverage:
+                return data.map((/**
+                 * @param {?} r
+                 * @return {?}
+                 */
+                function (r) {
+                    /** @type {?} */
+                    var sum = r.reduce((/**
+                     * @param {?} s
+                     * @param {?} d
+                     * @return {?}
+                     */
+                    function (s, d) { return s + d; }), 0);
+                    return sum / data.length;
                 }));
-            }
-            else {
-                this._labels = this._translate(widget.labels, context);
-            }
-            this._datasets = widget.dataset.map(((/**
+            default:
+                return [];
+        }
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} widget
+     * @param {?} context
+     * @param {?} ts
+     * @return {?}
+     */
+    function createWidgetInstance(widget, context, ts) {
+        return {
+            widget: widget,
+            widgetType: widget.widgetType,
+            visible: models.evaluateExpression(widget.visibility.condition, context),
+            styles: widget.styles || {},
+        };
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} widget
+     * @param {?} context
+     * @param {?} ts
+     * @return {?}
+     */
+    function widgetToWidgetInstance(widget, context, ts) {
+        /** @type {?} */
+        var wi = createWidgetInstance(widget, context);
+        if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
+            /** @type {?} */
+            var wwc = (/** @type {?} */ (widget));
+            /** @type {?} */
+            var wwci = (/** @type {?} */ (wi));
+            wwci.content = wwc.content.map((/**
+             * @param {?} c
+             * @return {?}
+             */
+            function (c) { return widgetToWidgetInstance(c, context, ts); }));
+        }
+        else if (widget.widgetType === AjfWidgetType.Chart) {
+            /** @type {?} */
+            var cw = (/** @type {?} */ (widget));
+            /** @type {?} */
+            var cwi = (/** @type {?} */ (wi));
+            /** @type {?} */
+            var labels = cw.labels instanceof Array ? cw.labels : [cw.labels];
+            cwi.labels = labels.map((/**
+             * @param {?} l
+             * @return {?}
+             */
+            function (l) {
+                /** @type {?} */
+                var evf = models.evaluateExpression(l.formula, context);
+                try {
+                    if (evf instanceof Array) {
+                        evf = evf.map((/**
+                         * @param {?} v
+                         * @return {?}
+                         */
+                        function (v) { return ts.instant(v); }));
+                    }
+                    else {
+                        evf = ts.instant(evf);
+                    }
+                }
+                catch (_e) {
+                }
+                return evf;
+            }));
+            cwi.dataset = cw.dataset.map((/**
              * @param {?} d
              * @return {?}
              */
             function (d) {
                 /** @type {?} */
-                var ds = (/** @type {?} */ (__assign({}, d.options || {}, { data: d.aggregation.evaluate(d.formula, context) })));
+                var ds = __assign({}, d.options || {}, { data: evaluateAggregation(d.aggregation, d.formula, context) });
                 if (d.chartType != null) {
                     /** @type {?} */
                     var ct = chartToChartJsType(d.chartType);
@@ -1798,686 +873,232 @@
                     ds.datalabels = utils.deepCopy(d.datalabels);
                 }
                 return ds;
-            })));
-            this._data = { labels: this._labels, datasets: this._datasets };
-        };
-        return AjfReportChartWidgetInstance;
-    }(AjfReportDataWidgetInstance));
-    var AjfReportMapWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportMapWidgetInstance, _super);
-        function AjfReportMapWidgetInstance() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        /**
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportMapWidgetInstance.prototype.initContext = /**
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            _super.prototype.initContext.call(this, context);
-            /** @type {?} */
-            var widget = (/** @type {?} */ (this.widget));
-            this.coordinate = widget.coordinate.evaluate(context);
-        };
-        return AjfReportMapWidgetInstance;
-    }(AjfReportDataWidgetInstance));
-    var AjfReportFormulaWidgetInstance = /** @class */ (function (_super) {
-        __extends(AjfReportFormulaWidgetInstance, _super);
-        function AjfReportFormulaWidgetInstance() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        Object.defineProperty(AjfReportFormulaWidgetInstance.prototype, "formula", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._formula; },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} context
-         * @return {?}
-         */
-        AjfReportFormulaWidgetInstance.prototype.initContext = /**
-         * @param {?} context
-         * @return {?}
-         */
-        function (context) {
-            _super.prototype.initContext.call(this, context);
-            /** @type {?} */
-            var widget = (/** @type {?} */ (this.widget));
-            this._formula = widget.formula.evaluate(context);
-        };
-        return AjfReportFormulaWidgetInstance;
-    }(AjfReportWidgetInstance));
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var AjfReportContainerInstance = /** @class */ (function () {
-        function AjfReportContainerInstance(container, context, _ts) {
-            this._ts = _ts;
-            this._styles = {};
-            this._container = container;
-            this._styles = this._container != null ? this._container.styles : {};
-            this._context = context;
-            this._populateContent();
-        }
-        Object.defineProperty(AjfReportContainerInstance.prototype, "container", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._container; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportContainerInstance.prototype, "content", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._content; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportContainerInstance.prototype, "styles", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._styles; },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfReportContainerInstance.prototype._populateContent = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            /** @type {?} */
-            var content = [];
-            this._container.content.forEach((/**
-             * @param {?} c
-             * @return {?}
-             */
-            function (c) {
-                _this._translate(c);
-                content.push(AjfReportWidgetInstance.create(c, _this._context, _this._ts));
             }));
-            this._content = content;
-        };
-        /**
-         * @private
-         * @param {?} reportWidget
-         * @return {?}
-         */
-        AjfReportContainerInstance.prototype._translate = /**
-         * @private
-         * @param {?} reportWidget
-         * @return {?}
-         */
-        function (reportWidget) {
-            var _this = this;
-            if (reportWidget.hasContent) {
-                reportWidget.content.forEach((/**
-                 * @param {?} subReportWidget
-                 * @return {?}
-                 */
-                function (subReportWidget) {
-                    _this._translate(subReportWidget);
-                }));
-            }
-            if (reportWidget instanceof AjfReportTextWidget && reportWidget.htmlText) {
-                reportWidget.htmlText = this._ts.instant(reportWidget.htmlText);
-            }
-            if (reportWidget instanceof AjfReportChartWidget && reportWidget.dataset) {
-                reportWidget.dataset.forEach((/**
-                 * @param {?} element
-                 * @return {?}
-                 */
-                function (element) {
-                    element.label = element.label ? _this._ts.instant(element.label) : '';
-                }));
-            }
-            if (reportWidget instanceof AjfReportTableWidget && reportWidget.dataset) {
-                reportWidget.dataset.forEach((/**
-                 * @param {?} row
-                 * @return {?}
-                 */
-                function (row) {
-                    row.forEach((/**
-                     * @param {?} element
-                     * @return {?}
-                     */
-                    function (element) {
-                        if (element.formula && element.formula.formula) {
-                            try {
-                                /** @type {?} */
-                                var formulaToBeTranslate = element.formula.formula;
-                                if (formulaToBeTranslate[0] === '"') {
-                                    formulaToBeTranslate = formulaToBeTranslate.slice(1, -1);
-                                    element.formula.formula = formulaToBeTranslate.length > 0
-                                        ? "\"" + _this._ts.instant(formulaToBeTranslate) + "\"" : element.formula.formula;
-                                }
-                                else {
-                                    element.formula.formula = _this._ts.instant(formulaToBeTranslate);
-                                }
-                            }
-                            catch (e) { }
-                        }
-                    }));
-                }));
-            }
-        };
-        return AjfReportContainerInstance;
-    }());
-    /**
-     * A report instance. Report + data
-     */
-    var   /**
-     * A report instance. Report + data
-     */
-    AjfReportInstance = /** @class */ (function () {
-        function AjfReportInstance(report, context, _ts) {
-            this._ts = _ts;
-            this._report = report;
-            this._context = context;
-            this._populateReport();
+            cwi.data = { labels: cwi.labels, datasets: cwi.datasets };
         }
-        Object.defineProperty(AjfReportInstance.prototype, "report", {
-            get: /**
+        else if (widget.widgetType === AjfWidgetType.Table) {
+            /** @type {?} */
+            var tw_1 = (/** @type {?} */ (widget));
+            /** @type {?} */
+            var twi = (/** @type {?} */ (wi));
+            /** @type {?} */
+            var trFormula_1 = (/**
+             * @param {?} f
              * @return {?}
              */
-            function () { return this._report; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportInstance.prototype, "header", {
-            get: /**
+            function (f) {
+                /** @type {?} */
+                var formula = f.formula;
+                if (formula.substr(0, 1) === '"') {
+                    /** @type {?} */
+                    var ft = formula.slice(1, -1);
+                    if (ft.length > 0) {
+                        formula = "\"" + ts.instant(ft) + "\"";
+                    }
+                }
+                else {
+                    formula = ts.instant(formula);
+                }
+                return models.evaluateExpression(formula, context);
+            });
+            twi.dataset = tw_1.dataset.map((/**
+             * @param {?} row
              * @return {?}
              */
-            function () { return this._header; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportInstance.prototype, "content", {
-            get: /**
+            function (row) { return row.map((/**
+             * @param {?} cell
              * @return {?}
              */
-            function () { return this._content; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportInstance.prototype, "footer", {
-            get: /**
+            function (cell) {
+                return cell.formula instanceof Array ? cell.formula.map((/**
+                 * @param {?} f
+                 * @return {?}
+                 */
+                function (f) { return trFormula_1((/** @type {?} */ (f))); })) :
+                    trFormula_1((/** @type {?} */ (cell.formula)));
+            })); }));
+            twi.data = (tw_1.dataset ||
+                []).map((/**
+             * @param {?} row
              * @return {?}
              */
-            function () { return this._footer; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportInstance.prototype, "data", {
-            get: /**
+            function (row) { return row.map((/**
+             * @param {?} cell
              * @return {?}
              */
-            function () { return this._data; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportInstance.prototype, "styles", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._report != null ? this._report.styles : {};
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportInstance.prototype, "context", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._context; },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfReportInstance.prototype._populateReport = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            this._header = this._populateContainer(this._report.header);
-            this._content = this._populateContainer(this._report.content);
-            this._footer = this._populateContainer(this._report.footer);
-        };
-        /**
-         * @private
-         * @param {?} container
-         * @return {?}
-         */
-        AjfReportInstance.prototype._populateContainer = /**
-         * @private
-         * @param {?} container
-         * @return {?}
-         */
-        function (container) {
-            return new AjfReportContainerInstance(container, this._context, this._ts);
-        };
-        return AjfReportInstance;
-    }());
+            function (cell) { return ({
+                value: models.evaluateExpression(cell.formula.formula, context),
+                style: __assign({}, tw_1.cellStyles, cell.style),
+                rowspan: cell.rowspan,
+                colspan: cell.colspan,
+            }); })); }));
+        }
+        else if (widget.widgetType === AjfWidgetType.Image) {
+            /** @type {?} */
+            var iw = (/** @type {?} */ (widget));
+            /** @type {?} */
+            var iwi = (/** @type {?} */ (wi));
+            if (iw.flag) {
+                iwi.flag = models.evaluateExpression(iw.flag.formula, context);
+            }
+            if (iw.icon) {
+                iwi.icon = models.evaluateExpression(iw.icon.formula, context);
+            }
+            if (iw.url) {
+                iwi.url = models.evaluateExpression(iw.url.formula, context);
+            }
+        }
+        else if (widget.widgetType === AjfWidgetType.ImageContainer) {
+            /** @type {?} */
+            var icw = (/** @type {?} */ (widget));
+            /** @type {?} */
+            var icwi = (/** @type {?} */ (wi));
+            if (icw.flags) {
+                /** @type {?} */
+                var flags = icw.flags instanceof Array ? icw.flags : [icw.flags];
+                icwi.flags = flags.map((/**
+                 * @param {?} f
+                 * @return {?}
+                 */
+                function (f) { return models.evaluateExpression(f.formula, context); }));
+            }
+            if (icw.icons) {
+                /** @type {?} */
+                var icons = icw.icons instanceof Array ? icw.icons : [icw.icons];
+                icwi.icons = icons.map((/**
+                 * @param {?} f
+                 * @return {?}
+                 */
+                function (f) { return models.evaluateExpression(f.formula, context); }));
+            }
+            if (icw.urls) {
+                /** @type {?} */
+                var urls = icw.urls instanceof Array ? icw.urls : [icw.urls];
+                icwi.urls = urls.map((/**
+                 * @param {?} f
+                 * @return {?}
+                 */
+                function (f) { return models.evaluateExpression(f.formula, context); }));
+            }
+        }
+        else if (widget.widgetType === AjfWidgetType.Text) {
+            /** @type {?} */
+            var tew = (/** @type {?} */ (widget));
+            /** @type {?} */
+            var tewi = (/** @type {?} */ (wi));
+            /** @type {?} */
+            var formulaRegEx = /\[\[(.+?)\]\]/g;
+            /** @type {?} */
+            var matches = [];
+            /** @type {?} */
+            var match = void 0;
+            /** @type {?} */
+            var htmlText_1 = tew.htmlText;
+            while (match = formulaRegEx.exec(htmlText_1)) {
+                /** @type {?} */
+                var idx = match.index;
+                /** @type {?} */
+                var len = match[0].length;
+                /** @type {?} */
+                var formula = models.createFormula({ formula: match[1] });
+                matches.push({ idx: idx, len: len, formula: formula });
+                matches.reverse().forEach((/**
+                 * @param {?} m
+                 * @return {?}
+                 */
+                function (m) {
+                    /** @type {?} */
+                    var calcValue;
+                    try {
+                        calcValue = models.evaluateExpression(m.formula.formula, context);
+                    }
+                    catch (e) {
+                        calcValue = '';
+                    }
+                    htmlText_1 = "" + htmlText_1.substr(0, m.idx) + calcValue + htmlText_1.substr(m.idx + m.len);
+                }));
+            }
+            tewi.htmlText = ts.instant(htmlText_1);
+        }
+        else if (widget.widgetType === AjfWidgetType.Formula) {
+            /** @type {?} */
+            var fw = (/** @type {?} */ (widget));
+            /** @type {?} */
+            var fwi = (/** @type {?} */ (wi));
+            fwi.formula = models.evaluateExpression(fw.formula.formula, context);
+        }
+        else if (widget.widgetType === AjfWidgetType.Map) {
+            /** @type {?} */
+            var mw = (/** @type {?} */ (widget));
+            /** @type {?} */
+            var mwi = (/** @type {?} */ (wi));
+            mwi.coordinate = models.evaluateExpression(mw.coordinate.formula, context);
+        }
+        return wi;
+    }
 
     /**
      * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var AjfReportContainer = /** @class */ (function (_super) {
-        __extends(AjfReportContainer, _super);
-        function AjfReportContainer(obj) {
-            var _this = _super.call(this, obj) || this;
-            _this.jsonExportedMembers = _this.jsonExportedMembers.concat(['content', 'styles']);
-            _this._content = obj && obj.content || [];
-            _this._styles = obj && obj.styles || {};
-            return _this;
-        }
-        Object.defineProperty(AjfReportContainer.prototype, "content", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._content; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportContainer.prototype, "styles", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._styles; },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} obj
-         * @return {?}
-         */
-        AjfReportContainer.fromJson = /**
-         * @param {?} obj
-         * @return {?}
-         */
-        function (obj) {
-            obj = utils.deepCopy(obj);
-            /** @type {?} */
-            var keys = Object.keys(obj);
-            if (keys.indexOf('content') > -1 && obj['content'] instanceof Array) {
-                obj['content'] = obj['content'].map((/**
-                 * @param {?} cw
-                 * @return {?}
-                 */
-                function (cw) { return AjfReportWidget.fromJson(cw); }));
-            }
-            return new AjfReportContainer(obj);
-        };
-        return AjfReportContainer;
-    }(models.AjfJsonSerializable));
     /**
-     * Class that represents a report.
-     * A report is defined as three trees of report widgets (\@see AjfReportWidget),
-     * displayed each in the header / content / footer of the report.
-     *
+     * @param {?} container
+     * @param {?} context
+     * @param {?} ts
+     * @return {?}
      */
-    var   /**
-     * Class that represents a report.
-     * A report is defined as three trees of report widgets (\@see AjfReportWidget),
-     * displayed each in the header / content / footer of the report.
-     *
-     */
-    AjfReport = /** @class */ (function (_super) {
-        __extends(AjfReport, _super);
-        /**
-         * Creates a report.
-         * @param form : AjfForm The form that defines the data structure
-         * @param obj : any Report initial data
+    function createReportContainerInstance(container, context, ts) {
+        /** @type {?} */
+        var content = container.content.map((/**
+         * @param {?} c
+         * @return {?}
          */
-        function AjfReport(forms, obj) {
-            var _this = _super.call(this, obj) || this;
-            _this._forms = forms.slice(0);
-            _this.jsonExportedMembers = _this.jsonExportedMembers
-                .concat(['header', 'footer', 'content', 'styles']);
-            _this._header = obj && obj.header || null;
-            _this._footer = obj && obj.footer || null;
-            _this._content = obj && obj.content || null;
-            _this._styles = obj && obj.styles || null;
-            return _this;
-        }
-        Object.defineProperty(AjfReport.prototype, "header", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._header; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReport.prototype, "footer", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._footer; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReport.prototype, "content", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._content; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReport.prototype, "styles", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._styles; },
-            set: /**
-             * @param {?} styles
-             * @return {?}
-             */
-            function (styles) {
-                this._styles = styles;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReport.prototype, "forms", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._forms; },
-            set: /**
-             * @param {?} forms
-             * @return {?}
-             */
-            function (forms) {
-                this._forms = forms;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * Creates a report starting from a JSON representation.
-         * The form definition can be nested in the report JSON.
-         * @param obj : any The JSON representation of the report
-         * @param form : AjfForm The form that defines the data structure
-         * @return AjfReport The report
-         */
-        /**
-         * Creates a report starting from a JSON representation.
-         * The form definition can be nested in the report JSON.
-         * @param {?} obj : any The JSON representation of the report
-         * @param {?=} forms
-         * @return {?} AjfReport The report
-         */
-        AjfReport.fromJson = /**
-         * Creates a report starting from a JSON representation.
-         * The form definition can be nested in the report JSON.
-         * @param {?} obj : any The JSON representation of the report
-         * @param {?=} forms
-         * @return {?} AjfReport The report
-         */
-        function (obj, forms) {
-            obj = utils.deepCopy(obj);
-            /** @type {?} */
-            var keys = Object.keys(obj);
-            /** @type {?} */
-            var containers = ['header', 'footer', 'content'];
-            containers.forEach((/**
-             * @param {?} c
-             * @return {?}
-             */
-            function (c) {
-                if (keys.indexOf(c) > -1) {
-                    obj[c] = AjfReportContainer.fromJson(obj[c]);
-                }
-            }));
-            return new AjfReport(forms || [], obj);
+        function (c) { return widgetToWidgetInstance(c, context, ts); }));
+        return {
+            container: container,
+            content: content,
+            styles: container.styles,
         };
-        return AjfReport;
-    }(models.AjfJsonSerializable));
+    }
 
     /**
      * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     /**
-     * @abstract
+     * @param {?} report
+     * @param {?} context
+     * @param {?} ts
+     * @return {?}
      */
-    var   /**
-     * @abstract
-     */
-    AjfReportWidgetRenderer = /** @class */ (function () {
-        function AjfReportWidgetRenderer(_cdr) {
-            this._cdr = _cdr;
-            this.widgetTypes = AjfReportWidgetType;
-            this._imageTypes = image.AjfImageType;
-        }
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "widget", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._widget; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "imageTypes", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._imageTypes; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "widgetInstance", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._widgetInstance; },
-            set: /**
-             * @param {?} widgetInstance
-             * @return {?}
-             */
-            function (widgetInstance) {
-                if (this._widgetInstance !== widgetInstance) {
-                    this._widgetInstance = widgetInstance;
-                    this._widget = this._widgetInstance != null ? this._widgetInstance.widget : null;
-                    this._cdr.markForCheck();
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "imgwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "imgw", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widget));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "imgcwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "imgcw", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widget));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "layoutwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "layoutw", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widget));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "chartwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "chartw", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widget));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "tablewInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "textwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "mapwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "mapw", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widget));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfReportWidgetRenderer.prototype, "formulawInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfReportWidgetRenderer;
-    }());
+    function createReportInstance(report, context, ts) {
+        return {
+            report: report,
+            header: report.header ? createReportContainerInstance(report.header, context, ts) : undefined,
+            content: report.content ? createReportContainerInstance(report.content, context, ts) :
+                undefined,
+            footer: report.footer ? createReportContainerInstance(report.footer, context, ts) : undefined,
+            styles: report.styles || {},
+        };
+    }
 
-    exports.AjfAggregation = AjfAggregation;
+    exports.AjfAggregationSerializer = AjfAggregationSerializer;
     exports.AjfAggregationType = AjfAggregationType;
-    exports.AjfChartDataset = AjfChartDataset;
     exports.AjfChartType = AjfChartType;
-    exports.AjfDataset = AjfDataset;
-    exports.AjfReport = AjfReport;
-    exports.AjfReportChartWidget = AjfReportChartWidget;
-    exports.AjfReportChartWidgetInstance = AjfReportChartWidgetInstance;
-    exports.AjfReportColumnWidget = AjfReportColumnWidget;
-    exports.AjfReportColumnWidgetInstance = AjfReportColumnWidgetInstance;
-    exports.AjfReportContainer = AjfReportContainer;
-    exports.AjfReportContainerInstance = AjfReportContainerInstance;
-    exports.AjfReportDataType = AjfReportDataType;
-    exports.AjfReportDataWidget = AjfReportDataWidget;
-    exports.AjfReportDataWidgetInstance = AjfReportDataWidgetInstance;
-    exports.AjfReportFormulaWidget = AjfReportFormulaWidget;
-    exports.AjfReportFormulaWidgetInstance = AjfReportFormulaWidgetInstance;
-    exports.AjfReportImageContainerWidget = AjfReportImageContainerWidget;
-    exports.AjfReportImageContainerWidgetInstance = AjfReportImageContainerWidgetInstance;
-    exports.AjfReportImageWidget = AjfReportImageWidget;
-    exports.AjfReportImageWidgetInstance = AjfReportImageWidgetInstance;
-    exports.AjfReportInstance = AjfReportInstance;
-    exports.AjfReportLayoutWidget = AjfReportLayoutWidget;
-    exports.AjfReportLayoutWidgetInstance = AjfReportLayoutWidgetInstance;
-    exports.AjfReportMapWidget = AjfReportMapWidget;
-    exports.AjfReportMapWidgetInstance = AjfReportMapWidgetInstance;
-    exports.AjfReportPageBreakWidget = AjfReportPageBreakWidget;
-    exports.AjfReportPageBreakWidgetInstance = AjfReportPageBreakWidgetInstance;
+    exports.AjfDatasetSerializer = AjfDatasetSerializer;
+    exports.AjfReportContainerSerializer = AjfReportContainerSerializer;
     exports.AjfReportRenderer = AjfReportRenderer;
-    exports.AjfReportTableWidget = AjfReportTableWidget;
-    exports.AjfReportTableWidgetInstance = AjfReportTableWidgetInstance;
-    exports.AjfReportTextWidget = AjfReportTextWidget;
-    exports.AjfReportTextWidgetInstance = AjfReportTextWidgetInstance;
-    exports.AjfReportWidget = AjfReportWidget;
-    exports.AjfReportWidgetInstance = AjfReportWidgetInstance;
-    exports.AjfReportWidgetRenderer = AjfReportWidgetRenderer;
-    exports.AjfReportWidgetType = AjfReportWidgetType;
-    exports.AjfTableDataset = AjfTableDataset;
+    exports.AjfReportSerializer = AjfReportSerializer;
+    exports.AjfReportsModule = AjfReportsModule;
+    exports.AjfWidgetRenderer = AjfWidgetRenderer;
+    exports.AjfWidgetSerializer = AjfWidgetSerializer;
+    exports.AjfWidgetType = AjfWidgetType;
     exports.chartToChartJsType = chartToChartJsType;
+    exports.createAggregation = createAggregation;
+    exports.createReportInstance = createReportInstance;
+    exports.createWidget = createWidget;
+    exports.ɵa = AjfGetColumnContentPipe;
+    exports.ɵb = createReportContainerInstance;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

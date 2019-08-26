@@ -19,15 +19,18 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AfterViewInit, AfterViewChecked, ChangeDetectorRef, OnDestroy, QueryList } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { AjfPageSlider, AjfPageSliderOrientation } from '@ajf/core/page-slider';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, OnDestroy, QueryList } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AjfFormField } from './field';
 import { AjfFormRendererService } from './form-renderer';
-import { AjfForm } from './forms';
-import { AjfFieldType } from './nodes';
-import { AjfNodeGroupInstance, AjfNodeInstance, AjfRepeatingSlideInstance, IAjfSlideInstance } from './nodes-instances';
+import { AjfFieldType } from './interface/fields/field-type';
+import { AjfForm } from './interface/forms/form';
+import { AjfNodeGroupInstance } from './interface/nodes-instances/node-group-instance';
+import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
+import { AjfRepeatingSlideInstance } from './interface/slides-instances/repeating-slide-instance';
+import { AjfSlideInstance } from './interface/slides-instances/slide-instance';
 export declare class AjfFormActionEvent {
     source: AjfFormRenderer;
     value: Object;
@@ -37,7 +40,7 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
     private _rendererService;
     protected _changeDetectorRef: ChangeDetectorRef;
     readonly formGroup: Observable<FormGroup | null>;
-    readonly slides: Observable<IAjfSlideInstance[]>;
+    readonly slides: Observable<AjfSlideInstance[]>;
     readonly slidesNum: Observable<number>;
     readonly errors: Observable<number>;
     readonly formIsInit: Observable<boolean>;
@@ -77,7 +80,6 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
      * this constructor will init current formula by ajfBuilderService
      */
     constructor(_rendererService: AjfFormRendererService, _changeDetectorRef: ChangeDetectorRef);
-    isRepeatingSlide(slide: IAjfSlideInstance): boolean;
     /**
      * this method will scroll to next error received by subscribe
      */

@@ -26,104 +26,10 @@ import esprima__default, {  } from 'esprima';
 import { addDays, addMonths, addYears, endOfISOWeek, format, getDay, parse, startOfMonth, startOfISOWeek } from 'date-fns';
 import * as numeral from 'numeral';
 import numeral__default, {  } from 'numeral';
-import { deepCopy } from '@ajf/core/utils';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-/**
- * @abstract
- */
-class AjfJsonSerializable {
-    /**
-     * @param {?=} _
-     */
-    constructor(_) {
-        this._jsonExportedMembers = [];
-    }
-    /**
-     * @param {?} _
-     * @return {?}
-     */
-    static fromJson(_) {
-        throw new Error('Not implemented');
-    }
-    /**
-     * @private
-     * @param {?} val
-     * @return {?}
-     */
-    static _valueToJson(val) {
-        if (val instanceof Array) {
-            val = val.map((/**
-             * @param {?} v
-             * @return {?}
-             */
-            (v) => AjfJsonSerializable._valueToJson(v)));
-        }
-        return val instanceof AjfJsonSerializable ? val.toJson() : val;
-    }
-    /**
-     * this private static method will get property to json
-     * @private
-     * @param {?} obj  : any - object json
-     * @param {?} prop : string - property
-     * @return {?} any
-     */
-    static _propertyToJson(obj, prop) {
-        /** @type {?} */
-        let val;
-        /** @type {?} */
-        let getter = `get${prop.toLocaleUpperCase().substr(0, 1)}${prop.substr(1)}`;
-        if (obj.hasOwnProperty(prop)) {
-            val = obj[prop];
-        }
-        else if (typeof obj[getter] === 'function') {
-            val = obj[getter]();
-        }
-        else {
-            val = obj[prop];
-        }
-        return AjfJsonSerializable._valueToJson(val);
-    }
-    /**
-     * this protected method will get json exported members
-     * @protected
-     * @return {?} string[] - json exported members
-     */
-    get jsonExportedMembers() {
-        return this._jsonExportedMembers;
-    }
-    /**
-     * this protected method will set json exported members
-     * @protected
-     * @param {?} members
-     * @return {?}
-     */
-    set jsonExportedMembers(members) {
-        this._jsonExportedMembers = members;
-    }
-    /**
-     * this method will load json
-     * @return {?} any - json
-     */
-    toJson() {
-        /** @type {?} */
-        let json = {};
-        this._jsonExportedMembers.forEach((/**
-         * @param {?} m
-         * @return {?}
-         */
-        (m) => { json[m] = AjfJsonSerializable._propertyToJson(this, m); }));
-        return json;
-    }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 class AjfError extends Error {
@@ -147,14 +53,96 @@ class AjfError extends Error {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?=} condition
+ * @return {?}
+ */
+function createCondition(condition = {}) {
+    return { condition: condition.condition || '' };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfConditionSerializer {
+    /**
+     * @param {?} json
+     * @return {?}
+     */
+    static fromJson(json) {
+        return createCondition(json);
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @param {?=} formula
+ * @return {?}
+ */
+function createFormula(formula = {}) {
+    return { formula: formula.formula || '' };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfFormulaSerializer {
+    /**
+     * @param {?} json
+     * @return {?}
+     */
+    static fromJson(json) {
+        return createFormula(json);
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @return {?}
+ */
+function alwaysCondition() {
+    return createCondition({ condition: 'true' });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
-const dateUtils = {
-    addDays, addMonths, addYears, endOfISOWeek, format, getDay, parse, startOfMonth, startOfISOWeek
-};
+const debugConstructor = debug__default || debug;
+/** @type {?} */
+const dbg = debugConstructor('ajf:models:validated-property');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 const numeralConstructor = numeral__default || numeral;
+/** @type {?} */
+const dateUtils = {
+    addDays,
+    addMonths,
+    addYears,
+    endOfISOWeek,
+    format,
+    getDay,
+    parse,
+    startOfMonth,
+    startOfISOWeek
+};
 /**
  * @param {?} x
  * @return {?}
@@ -274,7 +262,8 @@ function round(num, digits) {
         try {
             f = parseFloat(num);
         }
-        catch (e) { }
+        catch (e) {
+        }
     }
     else {
         f = num;
@@ -361,14 +350,14 @@ function extractArraySum(source, properties) {
 /**
  * @param {?} source
  * @param {?} property
- * @param {?} treshold
+ * @param {?} threshold
  * @return {?}
  */
-function drawThreshold(source, property, treshold) {
+function drawThreshold(source, property, threshold) {
     source = (source || []).slice(0);
-    treshold = treshold || [0];
-    if (!(treshold instanceof Array)) {
-        treshold = [treshold];
+    threshold = threshold || [0];
+    if (!(threshold instanceof Array)) {
+        threshold = [threshold];
     }
     /** @type {?} */
     const l = source.length;
@@ -378,11 +367,11 @@ function drawThreshold(source, property, treshold) {
     let count = 0;
     for (let i = 0; i < l; i++) {
         if (source[i][property] != null) {
-            if (treshold.length > count) {
-                res.push(treshold[count]);
+            if (threshold.length > count) {
+                res.push(threshold[count]);
             }
             else {
-                res.push(treshold[0]);
+                res.push(threshold[0]);
             }
             count++;
         }
@@ -573,9 +562,8 @@ function calculateAvgPropertyArray(source, properties, range, coefficient) {
         coefficient = coefficient || 1;
         range = range || 12;
         /** @type {?} */
-        const sourceArr = properties.length > 1
-            ? extractArraySum(source, properties)
-            : extractArray(source, properties[0]);
+        const sourceArr = properties.length > 1 ? extractArraySum(source, properties) :
+            extractArray(source, properties[0]);
         /** @type {?} */
         let l = sourceArr.length;
         for (let len = l; len > 0; len--) {
@@ -615,12 +603,12 @@ function calculateAvgPropertyArray(source, properties, range, coefficient) {
 /**
  * @param {?} source
  * @param {?} property
- * @param {?} treshold
+ * @param {?} threshold
  * @return {?}
  */
-function alert(source, property, treshold) {
+function alert(source, property, threshold) {
     source = (source || []).slice(0);
-    if (lastProperty(source, property) > treshold) {
+    if (lastProperty(source, property) > threshold) {
         return '<p><i class="material-icons" style="color:red">warning</i></p>';
     }
     else {
@@ -673,191 +661,12 @@ function getCoordinate(source, zoom) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-const esprimaMod = esprima__default || esprima;
-const { tokenize } = esprimaMod;
-/** @type {?} */
-const debugConstructor = debug__default || debug;
-/** @type {?} */
-const dbg = debugConstructor('ajf:models:validated-property');
-/**
- * This abstract class will define an ajf validated property
- * @abstract
- */
-class AjfValidatedProperty extends AjfJsonSerializable {
-    /**
-     * this method will load an AjfNode from json
-     * @param {?} str
-     * @param {?=} context
-     * @return {?} AjfNode
-     */
-    static validate(str, context) {
-        if (context === this._cachedContext) {
-            console.log('cache hit');
-        }
-        else {
-            this._cachedContext = context;
-            this._cachedContextString = AjfValidatedProperty.getContextString(context);
-        }
-        /** @type {?} */
-        let ctx = this._cachedContextString;
-        try {
-            /** @type {?} */
-            let f = new Function(`${ctx}${str}`);
-            dbg((/** @type {?} */ (`validating formula %s using context %j`)), str, ctx);
-            f();
-            dbg(`formula %s validated`, str);
-            f = (/** @type {?} */ (null));
-            return true;
-        }
-        catch (e) {
-            dbg(`formula %s not validated: error %j`, str, e);
-            return false;
-        }
-    }
-    /**
-     * this public static method will get context string
-     * @param {?=} context : any - context
-     * @return {?} string
-     */
-    static getContextString(context) {
-        /** @type {?} */
-        let fstr = AjfValidatedProperty.UTIL_FUNCTIONS;
-        if (context instanceof Array) {
-            for (let i = 0; i < context.length; i++) {
-                fstr = `${fstr}var ${context[i]} = true;`;
-            }
-        }
-        else if (context != null) {
-            Object.keys(context).forEach((/**
-             * @param {?} x
-             * @return {?}
-             */
-            x => {
-                /** @type {?} */
-                let val = context[x];
-                if (val == null || isNaN(Number(val)) || val === '' ||
-                    val instanceof Array) {
-                    if (val instanceof Array) {
-                        for (let i = 0; i < val.length; i++) {
-                            val[i] =
-                                (val == null || isNaN(Number(val[i])) || val[i] === '') &&
-                                    val[i] ||
-                                    Number(val[i]);
-                        }
-                    }
-                    val = JSON.stringify(val);
-                }
-                else {
-                    val = Number(val);
-                }
-                fstr = `${fstr}var ${x} = ${val}; `;
-            }));
-        }
-        return fstr;
-    }
-    /**
-     * this public method will evaluate context or forceFormula
-     * @param {?=} context      : any - context
-     * @param {?=} forceFormula : string - formula
-     * @return {?} string
-     */
-    evaluate(context, forceFormula) {
-        /** @type {?} */
-        let formula = forceFormula || this.getValidationFormula() || '';
-        if (formula === '') {
-            return '';
-        }
-        if (formula === 'true') {
-            return true;
-        }
-        if (formula === 'false') {
-            return false;
-        }
-        if (context != null && context[formula] !== undefined) {
-            return context[formula];
-        }
-        if (/^"[^"]*"$/.test(formula)) {
-            return formula.replace(/^"+|"+$/g, '');
-        }
-        /** @type {?} */
-        const identifiers = tokenize(formula)
-            .filter((/**
-         * @param {?} t
-         * @return {?}
-         */
-        (t) => t.type === 'Identifier'))
-            .map((/**
-         * @param {?} t
-         * @return {?}
-         */
-        (t) => t.value));
-        /** @type {?} */
-        const ctx = [];
-        identifiers.forEach((/**
-         * @param {?} key
-         * @return {?}
-         */
-        (key) => {
-            /** @type {?} */
-            let val = null;
-            if (context != null && context[key] !== undefined) {
-                val = context[key];
-            }
-            else if (AjfValidatedProperty.utils[key] !== undefined) {
-                /** @type {?} */
-                const util = AjfValidatedProperty.utils[key];
-                val = util.fn;
-            }
-            ctx.push(val);
-        }));
-        identifiers.push('execContext');
-        ctx.push(AjfValidatedProperty._execContext);
-        try {
-            if (dbg.enabled) {
-                dbg(`evaluating formula %s using context %j`, formula, ctx);
-            }
-            /** @type {?} */
-            let f = new Function(...identifiers, `return ${formula}`);
-            /** @type {?} */
-            const res = f(...ctx);
-            if (dbg.enabled) {
-                dbg(`formula %s evaluated: result %s`, formula, res);
-            }
-            f = (/** @type {?} */ (null));
-            return res;
-        }
-        catch (e) {
-            console.log(e);
-            if (dbg.enabled) {
-                dbg(`formula %s not evaluated: error %j`, formula, e.message);
-            }
-            return false;
-        }
-    }
-    /**
-     * @param {?} counterName
-     * @param {?} firstValue
-     * @return {?}
-     */
-    static nextCounterValue(counterName, firstValue) {
-        firstValue = firstValue != null ? firstValue : 0;
-        if (this._execContext['$$' + counterName] == null) {
-            this._execContext['$$' + counterName] = firstValue;
-        }
-        else {
-            this._execContext['$$' + counterName]++;
-        }
-        return this._execContext['$$' + counterName];
-    }
+class AjfExpressionUtils {
 }
-AjfValidatedProperty.UTIL_FUNCTIONS = '';
-AjfValidatedProperty._execContext = {};
-AjfValidatedProperty._cachedContext = {};
-AjfValidatedProperty._cachedContextString = '';
-AjfValidatedProperty.utils = {
+AjfExpressionUtils.UTIL_FUNCTIONS = '';
+AjfExpressionUtils.utils = {
     digitCount: { fn: digitCount },
     decimalCount: { fn: decimalCount },
     isInt: { fn: isInt },
@@ -892,78 +701,221 @@ AjfValidatedProperty.utils = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const esprimaMod = esprima__default || esprima;
+const { tokenize } = esprimaMod;
+/** @type {?} */
+let execContext = {};
 /**
- * This class will define an Ajf condition
+ * @param {?} expression
+ * @param {?=} context
+ * @param {?=} forceFormula
+ * @return {?}
  */
-class AjfCondition extends AjfValidatedProperty {
-    /**
-     * this method will get true condition
-     * @return {?} AjCondition
-     */
-    static alwaysCondition() {
-        return new AjfCondition({ condition: 'true' });
+function evaluateExpression(expression, context, forceFormula) {
+    /** @type {?} */
+    let formula = forceFormula || expression || '';
+    if (formula === '') {
+        return '';
     }
-    /**
-     * this method will get false condition
-     * @return {?} AjCondition
-     */
-    static neverCondition() {
-        return new AjfCondition({ condition: 'false' });
+    if (formula === 'true') {
+        return true;
     }
-    /**
-     * this method will load an AjfCondition from json
-     * @param {?} obj : any - object condition
-     * @return {?} AjfCondition
-     */
-    static fromJson(obj) {
-        obj = deepCopy(obj);
-        return new AjfCondition(obj);
+    if (formula === 'false') {
+        return false;
     }
-    /**
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super(obj);
-        this.jsonExportedMembers = ['condition'];
-        this.condition = obj && obj.condition || '';
+    if (context != null && context[formula] !== undefined) {
+        return context[formula];
     }
-    /**
+    if (/^"[^"]*"$/.test(formula)) {
+        return formula.replace(/^"+|"+$/g, '');
+    }
+    /** @type {?} */
+    const identifiers = tokenize(formula).filter((/**
+     * @param {?} t
      * @return {?}
      */
-    getValidationFormula() { return this.condition; }
+    (t) => t.type === 'Identifier')).map((/**
+     * @param {?} t
+     * @return {?}
+     */
+    (t) => t.value));
+    /** @type {?} */
+    const ctx = [];
+    identifiers.forEach((/**
+     * @param {?} key
+     * @return {?}
+     */
+    (key) => {
+        /** @type {?} */
+        let val = null;
+        if (context != null && context[key] !== undefined) {
+            val = context[key];
+        }
+        else if (AjfExpressionUtils.utils[key] !== undefined) {
+            /** @type {?} */
+            const util = AjfExpressionUtils.utils[key];
+            val = util.fn;
+        }
+        ctx.push(val);
+    }));
+    identifiers.push('execContext');
+    ctx.push(execContext);
+    try {
+        if (dbg.enabled) {
+            dbg(`evaluating formula %s using context %j`, formula, ctx);
+        }
+        /** @type {?} */
+        let f = new Function(...identifiers, `return ${formula}`);
+        /** @type {?} */
+        const res = f(...ctx);
+        if (dbg.enabled) {
+            dbg(`formula %s evaluated: result %s`, formula, res);
+        }
+        f = (/** @type {?} */ (null));
+        return res;
+    }
+    catch (e) {
+        console.log(e);
+        if (dbg.enabled) {
+            dbg(`formula %s not evaluated: error %j`, formula, e.message);
+        }
+        return false;
+    }
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class AjfFormula extends AjfValidatedProperty {
-    /**
-     * this static method will load an AjfFormula from json
-     * @param {?} obj : any - object formula
-     * @return {?} AjfFormula
-     */
-    static fromJson(obj) {
-        obj = deepCopy(obj);
-        return new AjfFormula(obj);
+/**
+ * @param {?=} context
+ * @return {?}
+ */
+function getContextString(context) {
+    /** @type {?} */
+    let fstr = AjfExpressionUtils.UTIL_FUNCTIONS;
+    if (context instanceof Array) {
+        for (let i = 0; i < context.length; i++) {
+            fstr = `${fstr}var ${context[i]} = true;`;
+        }
     }
-    /**
-     *
-     * @param {?=} obj
-     */
-    constructor(obj) {
-        super();
-        this.jsonExportedMembers = ['formula'];
-        this.formula = obj && obj.formula || null;
+    else if (context != null) {
+        Object.keys(context).forEach((/**
+         * @param {?} x
+         * @return {?}
+         */
+        x => {
+            /** @type {?} */
+            let val = context[x];
+            if (val == null || isNaN(Number(val)) || val === '' || val instanceof Array) {
+                if (val instanceof Array) {
+                    for (let i = 0; i < val.length; i++) {
+                        val[i] =
+                            (val == null || isNaN(Number(val[i])) || val[i] === '') && val[i] || Number(val[i]);
+                    }
+                }
+                val = JSON.stringify(val);
+            }
+            else {
+                val = Number(val);
+            }
+            fstr = `${fstr}var ${x} = ${val}; `;
+        }));
     }
-    /**
-     * this method will get validation formula
-     * @return {?} string - a validation formula
-     */
-    getValidationFormula() { return this.formula; }
+    return fstr;
 }
 
-export { AjfCondition, AjfError, AjfFormula, AjfJsonSerializable, AjfValidatedProperty };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @return {?}
+ */
+function neverCondition() {
+    return createCondition({ condition: 'false' });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const esprimaMod$1 = esprima__default || esprima;
+const { tokenize: tokenize$1 } = esprimaMod$1;
+/**
+ * @param {?} formula
+ * @param {?} ancestorsNames
+ * @param {?} prefix
+ * @return {?}
+ */
+function normalizeExpression(formula, ancestorsNames, prefix) {
+    /** @type {?} */
+    const ancestorsNameStrings = Object.keys(ancestorsNames);
+    /** @type {?} */
+    const tokens = tokenize$1(formula)
+        .filter((/**
+     * @param {?} token
+     * @return {?}
+     */
+    (token) => token.type == 'Identifier' && token.value != '$value'))
+        .map((/**
+     * @param {?} token
+     * @return {?}
+     */
+    (token) => token.value));
+    tokens.forEach((/**
+     * @param {?} t
+     * @return {?}
+     */
+    (t) => {
+        if (ancestorsNameStrings.indexOf(t) > -1) {
+            formula = formula.replace(new RegExp(`\\b${t}\\b`, 'g'), `${t}__${prefix.slice(ancestorsNames[t]).join('__')}`);
+        }
+    }));
+    return formula;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+let cachedContext = {};
+/** @type {?} */
+let cachedContextString = '{}';
+/**
+ * @param {?} str
+ * @param {?=} context
+ * @return {?}
+ */
+function validateExpression(str, context) {
+    if (context === cachedContext) {
+        console.log('cache hit');
+    }
+    else {
+        cachedContext = context;
+        cachedContextString = getContextString(context);
+    }
+    /** @type {?} */
+    let ctx = cachedContextString;
+    try {
+        /** @type {?} */
+        let f = new Function(`${ctx}${str}`);
+        dbg((/** @type {?} */ (`validating formula %s using context %j`)), str, ctx);
+        f();
+        dbg(`formula %s validated`, str);
+        f = (/** @type {?} */ (null));
+        return true;
+    }
+    catch (e) {
+        dbg(`formula %s not validated: error %j`, str, e);
+        return false;
+    }
+}
+
+export { AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, alert, alwaysCondition, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, dbg, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=models.js.map

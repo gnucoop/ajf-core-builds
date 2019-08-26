@@ -1,0 +1,8 @@
+{
+  "name": "@ajf/core/time",
+  "typings": "../time.d.ts",
+  "main": "../bundles/core-time.umd.js",
+  "module": "../esm5/time.es5.js",
+  "es2015": "../esm2015/time.js",
+  "sideEffects": false
+}

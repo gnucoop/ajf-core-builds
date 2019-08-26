@@ -19,10 +19,15 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfContext } from '@ajf/core/models';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { AjfForm } from './forms';
-import { AjfFieldInstance, AjfNodeGroupInstance, AjfNodeInstance, AjfRepeatingSlideInstance, IAjfSlideInstance } from './nodes-instances';
+import { AjfFieldInstance } from './interface/fields-instances/field-instance';
+import { AjfForm } from './interface/forms/form';
+import { AjfNodeGroupInstance } from './interface/nodes-instances/node-group-instance';
+import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
+import { AjfRepeatingSlideInstance } from './interface/slides-instances/repeating-slide-instance';
+import { AjfSlideInstance } from './interface/slides-instances/slide-instance';
 import { AjfValidationService } from './validation-service';
 export declare enum AjfFormInitStatus {
     Initializing = 0,
@@ -65,12 +70,12 @@ export declare class AjfFormRendererService {
     readonly nextSlideTrigger: Observable<AjfNodeInstance>;
     private _slidesNum;
     readonly slidesNum: Observable<number>;
-    readonly nodesTree: Observable<IAjfSlideInstance[]>;
+    readonly nodesTree: Observable<AjfSlideInstance[]>;
     readonly errorPositions: Observable<number[]>;
     readonly errors: Observable<number>;
     readonly currentSupplementaryInformations: any;
     constructor(_: AjfValidationService);
-    setForm(form: AjfForm | null, context?: any): void;
+    setForm(form: AjfForm | null, context?: AjfContext): void;
     getFormValue(): any;
     addGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean>;
     removeGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean>;

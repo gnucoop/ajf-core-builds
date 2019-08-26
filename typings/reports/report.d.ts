@@ -20,8 +20,8 @@
  *
  */
 import { ChangeDetectorRef } from '@angular/core';
-import { AjfReport } from './reports';
-import { AjfReportInstance } from './reports-instances';
+import { AjfReportInstance } from './interface/reports-instances/report-instance';
+import { AjfReport } from './interface/reports/report';
 export declare abstract class AjfReportRenderer {
     private _cdr;
     private _reportInstance;

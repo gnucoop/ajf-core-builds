@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfFieldInstance } from './nodes-instances';
+import { AjfFieldInstance } from './interface/fields-instances/field-instance';
 export declare class AjfFieldIsValidPipe {
     transform(fieldInstance: AjfFieldInstance): boolean;
 }

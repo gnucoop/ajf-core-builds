@@ -19,49 +19,17 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AfterViewInit, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { AjfFieldType, AjfFieldWithChoices } from './nodes';
-import { AjfDateFieldInstance, AjfEmptyFieldInstance, AjfFieldInstance, AjfFieldWithChoicesInstance, AjfTableFieldInstance } from './nodes-instances';
-import { AjfFormRendererService } from './form-renderer';
-export interface AjfFormFieldWarningAlertResult {
-    result: boolean;
-}
-export declare class AjfFormFieldValueChanged {
-    field: AjfFormField;
-}
-export declare abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
-    protected _rendererService: AjfFormRendererService;
-    protected _changeDetectionRef: ChangeDetectorRef;
-    ajfFieldTypes: typeof AjfFieldType;
-    control: Observable<AbstractControl | null>;
-    private _fieldInstance;
-    fieldInstance: AjfFieldInstance;
-    readonly fwcInst: AjfFieldWithChoicesInstance;
-    readonly fwc: AjfFieldWithChoices;
-    readonly datefInst: AjfDateFieldInstance;
-    readonly tablefInst: AjfTableFieldInstance;
-    readonly emptyfInst: AjfEmptyFieldInstance;
-    singleChoiceSelect: any;
-    multipleChoiceSelect: any;
-    private _valueChanged;
-    readonly valueChanged: Observable<AjfFormFieldValueChanged>;
-    private _triggerSelectionSubscription;
-    private _triggerWarningSubscription;
-    private _fieldUpdateSubscription;
-    /**
-     * this constructor will init _rendererService _changeDetectionRef _alertCtrl
-     * and init the messagesWarning subscription
-     */
-    constructor(_rendererService: AjfFormRendererService, _changeDetectionRef: ChangeDetectorRef);
-    abstract showWarningAlertPrompt(messagesWarning: string[]): Observable<AjfFormFieldWarningAlertResult>;
-    /**
-     * this method will init the control, the filtere choices and the change
-     * detection reference
-     */
+import { ComponentFactoryResolver, OnInit } from '@angular/core';
+import { AjfFieldComponentsMap } from './field-components-map';
+import { AjfFieldHost } from './field-host';
+import { AjfFieldInstance } from './interface/fields-instances/field-instance';
+export declare abstract class AjfFormField implements OnInit {
+    private _cfr;
+    fieldHost: AjfFieldHost;
+    private _instance;
+    instance: AjfFieldInstance;
+    protected abstract componentsMap: AjfFieldComponentsMap;
+    constructor(_cfr: ComponentFactoryResolver);
     ngOnInit(): void;
-    ngAfterViewInit(): void;
-    ngOnDestroy(): void;
-    private _triggerSelection;
+    private _loadComponent;
 }
