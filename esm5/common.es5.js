@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { Directive, ElementRef, Renderer2, Input, Pipe, NgModule } from '@angular/core';
+import { Directive, ElementRef, Renderer2, Input, Output, EventEmitter, Pipe, NgModule } from '@angular/core';
 import { __extends } from 'tslib';
 import { DecimalPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -119,6 +119,76 @@ var AutofocusDirective = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var AjfDndDirective = /** @class */ (function () {
+    function AjfDndDirective() {
+        this.file = new EventEmitter();
+        this.background = '#eee';
+    }
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    AjfDndDirective.prototype.onDragOver = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.background = '#999';
+    };
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    AjfDndDirective.prototype.onDragLeave = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.background = '#eee';
+    };
+    /**
+     * @param {?} evt
+     * @return {?}
+     */
+    AjfDndDirective.prototype.onDrop = /**
+     * @param {?} evt
+     * @return {?}
+     */
+    function (evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        /** @type {?} */
+        var files = evt.dataTransfer.files;
+        if (files.length > 0) {
+            this.background = '#eee';
+            this.file.emit(files);
+        }
+    };
+    AjfDndDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[ajfDnd]',
+                    host: {
+                        '[style.background]': 'background',
+                        '(dragover)': 'onDragOver($event)',
+                        '(dragleave)': 'onDragLeave($event)',
+                        '(drop)': 'onDrop($event)',
+                    }
+                },] },
+    ];
+    AjfDndDirective.propDecorators = {
+        file: [{ type: Output }]
+    };
+    return AjfDndDirective;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var FormatIfNumber = /** @class */ (function (_super) {
     __extends(FormatIfNumber, _super);
     function FormatIfNumber() {
@@ -191,18 +261,102 @@ var TranslateIfString = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var AjfVideoDirective = /** @class */ (function () {
+    function AjfVideoDirective(_el, _renderer) {
+        this._el = _el;
+        this._renderer = _renderer;
+        this.isInit = new EventEmitter();
+    }
+    Object.defineProperty(AjfVideoDirective.prototype, "source", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this._source; },
+        set: /**
+         * @param {?} source
+         * @return {?}
+         */
+        function (source) {
+            this._source = source;
+            this._initCam();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @private
+     * @return {?}
+     */
+    AjfVideoDirective.prototype._initCam = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia((/** @type {?} */ ({ video: true })))
+                .then((/**
+             * @param {?} stream
+             * @return {?}
+             */
+            function (stream) {
+                ((/** @type {?} */ (_this._source))).srcObject = stream;
+                ((/** @type {?} */ (_this._source))).play();
+            }))
+                .catch((/**
+             * @param {?} err
+             * @return {?}
+             */
+            function (err) {
+                console.log(err);
+            }));
+        }
+    };
+    /**
+     * @return {?}
+     */
+    AjfVideoDirective.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        this._renderer.appendChild(this._el.nativeElement, this._source);
+        this.isInit.emit();
+    };
+    AjfVideoDirective.decorators = [
+        { type: Directive, args: [{ selector: '[ajfVideoDirective]' },] },
+    ];
+    /** @nocollapse */
+    AjfVideoDirective.ctorParameters = function () { return [
+        { type: ElementRef },
+        { type: Renderer2 }
+    ]; };
+    AjfVideoDirective.propDecorators = {
+        source: [{ type: Input }],
+        isInit: [{ type: Output }]
+    };
+    return AjfVideoDirective;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var AjfCommonModule = /** @class */ (function () {
     function AjfCommonModule() {
     }
     AjfCommonModule.decorators = [
         { type: NgModule, args: [{
                     declarations: [
+                        AjfDndDirective,
+                        AjfVideoDirective,
                         ApplyStylesDirective,
                         AutofocusDirective,
                         FormatIfNumber,
                         TranslateIfString,
                     ],
                     exports: [
+                        AjfDndDirective,
+                        AjfVideoDirective,
                         ApplyStylesDirective,
                         AutofocusDirective,
                         FormatIfNumber,
@@ -213,5 +367,5 @@ var AjfCommonModule = /** @class */ (function () {
     return AjfCommonModule;
 }());
 
-export { AjfCommonModule, ApplyStylesDirective, AutofocusDirective, FormatIfNumber, TranslateIfString };
+export { AjfCommonModule, AjfDndDirective, ApplyStylesDirective, AutofocusDirective, FormatIfNumber, TranslateIfString, AjfVideoDirective as ɵa };
 //# sourceMappingURL=common.es5.js.map

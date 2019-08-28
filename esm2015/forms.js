@@ -212,7 +212,9 @@ const AjfFieldType = {
     DateInput: 9,
     Time: 10,
     Table: 11,
-    LENGTH: 12,
+    Geolocation: 12,
+    Barcode: 13,
+    LENGTH: 14,
 };
 AjfFieldType[AjfFieldType.String] = 'String';
 AjfFieldType[AjfFieldType.Text] = 'Text';
@@ -226,6 +228,8 @@ AjfFieldType[AjfFieldType.Date] = 'Date';
 AjfFieldType[AjfFieldType.DateInput] = 'DateInput';
 AjfFieldType[AjfFieldType.Time] = 'Time';
 AjfFieldType[AjfFieldType.Table] = 'Table';
+AjfFieldType[AjfFieldType.Geolocation] = 'Geolocation';
+AjfFieldType[AjfFieldType.Barcode] = 'Barcode';
 AjfFieldType[AjfFieldType.LENGTH] = 'LENGTH';
 
 /**

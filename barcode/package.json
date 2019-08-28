@@ -1,0 +1,8 @@
+{
+  "name": "@ajf/core/barcode",
+  "typings": "../barcode.d.ts",
+  "main": "../bundles/core-barcode.umd.js",
+  "module": "../esm5/barcode.es5.js",
+  "es2015": "../esm2015/barcode.js",
+  "sideEffects": false
+}
