@@ -5737,11 +5737,30 @@
      */
 
     /**
+     * @param {?} co
+     * @return {?}
+     */
+    function isChoicesOrigin(co) {
+        return co != null
+            && typeof co === 'object'
+            && co.name != null
+            && typeof co.name === 'string'
+            && co.label != null
+            && typeof co.label === 'string'
+            && ['fixed', 'promise', 'observable', 'observableArray', 'function'].indexOf(co.type) > -1
+            && co.choices instanceof Array;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
      * @param {?} origin
      * @return {?}
      */
     function isChoicesFixedOrigin(origin) {
-        return origin.type === 'fixed';
+        return isChoicesOrigin(origin) && origin.type === 'fixed';
     }
 
     /**
@@ -5908,6 +5927,7 @@
     exports.getTypeName = getTypeName;
     exports.initChoicesOrigin = initChoicesOrigin;
     exports.isChoicesFixedOrigin = isChoicesFixedOrigin;
+    exports.isChoicesOrigin = isChoicesOrigin;
     exports.isContainerNode = isContainerNode;
     exports.isField = isField;
     exports.isFieldWithChoices = isFieldWithChoices;
