@@ -21,7 +21,8 @@
  */
 import { Directive, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Input, NgModule } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { map, tileLayer } from 'leaflet';
+import * as L from 'leaflet';
+import L__default, {  } from 'leaflet';
 
 /**
  * @fileoverview added by tsickle
@@ -55,6 +56,8 @@ var AjfMapContainerDirective = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+var leafletLib = L__default || L;
 var AjfMapComponent = /** @class */ (function () {
     function AjfMapComponent() {
         this._columnWidthChanged = Subscription.EMPTY;
@@ -163,7 +166,7 @@ var AjfMapComponent = /** @class */ (function () {
             zoomControl: false,
             attributionControl: false
         };
-        this._map = map(this.mapContainer.htmlElement, options);
+        this._map = leafletLib.map(this.mapContainer.htmlElement, options);
     };
     /**
      * @private
@@ -213,7 +216,7 @@ var AjfMapComponent = /** @class */ (function () {
          * @return {?}
          */
         function (l) { return _this._map.removeLayer(l); }));
-        tileLayer(this._tileLayer, {
+        leafletLib.tileLayer(this._tileLayer, {
             attribution: this._attribution
         }).addTo(this._map);
     };
@@ -244,7 +247,7 @@ var AjfMapComponent = /** @class */ (function () {
     AjfMapComponent.decorators = [
         { type: Component, args: [{selector: 'ajf-map',
                     template: "<div mapContainer></div>",
-                    styles: ["ajf-map{position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}"],
+                    styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}"],
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None
                 },] },

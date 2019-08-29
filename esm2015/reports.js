@@ -19,10 +19,41 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { Pipe, NgModule } from '@angular/core';
+import { Pipe, Directive, ViewContainerRef, NgModule } from '@angular/core';
 import { AjfFormulaSerializer, alwaysCondition, AjfConditionSerializer, evaluateExpression, createFormula } from '@ajf/core/models';
-import { AjfImageType } from '@ajf/core/image';
 import { deepCopy } from '@ajf/core/utils';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @abstract
+ * @template T
+ */
+class AjfBaseWidgetComponent {
+    /**
+     * @param {?} _cdr
+     */
+    constructor(_cdr) {
+        this._cdr = _cdr;
+    }
+    /**
+     * @return {?}
+     */
+    get instance() { return this._instance; }
+    /**
+     * @param {?} instance
+     * @return {?}
+     */
+    set instance(instance) {
+        if (this._instance !== instance) {
+            this._instance = instance;
+            this._cdr.detectChanges();
+        }
+    }
+}
 
 /**
  * @fileoverview added by tsickle
@@ -154,14 +185,14 @@ class AjfReportRenderer {
     /**
      * @return {?}
      */
-    get reportInstance() { return this._reportInstance; }
+    get instance() { return this._instance; }
     /**
-     * @param {?} reportInstance
+     * @param {?} instance
      * @return {?}
      */
-    set reportInstance(reportInstance) {
-        this._reportInstance = reportInstance;
-        this._report = reportInstance != null ? reportInstance.report : null;
+    set instance(instance) {
+        this._instance = instance;
+        this._report = instance != null ? instance.report : null;
         this._cdr.markForCheck();
     }
     /**
@@ -194,15 +225,37 @@ AjfGetColumnContentPipe.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+class AjfWidgetHost {
+    /**
+     * @param {?} viewContainerRef
+     */
+    constructor(viewContainerRef) {
+        this.viewContainerRef = viewContainerRef;
+    }
+}
+AjfWidgetHost.decorators = [
+    { type: Directive, args: [{ selector: '[ajf-widget-host]' },] },
+];
+/** @nocollapse */
+AjfWidgetHost.ctorParameters = () => [
+    { type: ViewContainerRef }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 class AjfReportsModule {
 }
 AjfReportsModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
                     AjfGetColumnContentPipe,
+                    AjfWidgetHost,
                 ],
                 exports: [
                     AjfGetColumnContentPipe,
+                    AjfWidgetHost,
                 ],
             },] },
 ];
@@ -437,128 +490,76 @@ class AjfReportSerializer {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
 /**
  * @abstract
  */
-class AjfWidgetRenderer {
+class AjfReportWidget {
     /**
-     * @param {?} _cdr
+     * @param {?} _cfr
      */
-    constructor(_cdr) {
-        this._cdr = _cdr;
-        this.widgetTypes = AjfWidgetType;
-        this._imageTypes = AjfImageType;
+    constructor(_cfr) {
+        this._cfr = _cfr;
     }
     /**
      * @return {?}
      */
-    get widget() {
-        return this._widget;
-    }
+    get instance() { return this._instance; }
     /**
+     * @param {?} instance
      * @return {?}
      */
-    get imageTypes() { return this._imageTypes; }
-    /**
-     * @return {?}
-     */
-    get widgetInstance() {
-        return this._widgetInstance;
-    }
-    /**
-     * @param {?} widgetInstance
-     * @return {?}
-     */
-    set widgetInstance(widgetInstance) {
-        if (this._widgetInstance !== widgetInstance) {
-            this._widgetInstance = widgetInstance;
-            this._widget = this._widgetInstance != null ? this._widgetInstance.widget : null;
-            this._cdr.markForCheck();
+    set instance(instance) {
+        if (this._instance !== instance) {
+            this._instance = instance;
+            this._loadComponent();
         }
     }
     /**
      * @return {?}
      */
-    get columnInst() {
-        return (/** @type {?} */ (this._widgetInstance));
+    ngAfterViewInit() {
+        this._loadComponent();
     }
     /**
+     * @private
      * @return {?}
      */
-    get imgwInst() {
-        return (/** @type {?} */ (this._widgetInstance));
-    }
-    /**
-     * @return {?}
-     */
-    get imgw() {
-        return (/** @type {?} */ (this._widget));
-    }
-    /**
-     * @return {?}
-     */
-    get imgcwInst() {
-        return (/** @type {?} */ (this._widgetInstance));
-    }
-    /**
-     * @return {?}
-     */
-    get imgcw() {
-        return (/** @type {?} */ (this._widget));
-    }
-    /**
-     * @return {?}
-     */
-    get layoutwInst() {
-        return (/** @type {?} */ (this._widgetInstance));
-    }
-    /**
-     * @return {?}
-     */
-    get layoutw() {
-        return (/** @type {?} */ (this._widget));
-    }
-    /**
-     * @return {?}
-     */
-    get chartwInst() {
-        return (/** @type {?} */ (this._widgetInstance));
-    }
-    /**
-     * @return {?}
-     */
-    get chartw() {
-        return (/** @type {?} */ (this._widget));
-    }
-    /**
-     * @return {?}
-     */
-    get tablewInst() {
-        return (/** @type {?} */ (this._widgetInstance));
-    }
-    /**
-     * @return {?}
-     */
-    get textwInst() {
-        return (/** @type {?} */ (this._widgetInstance));
-    }
-    /**
-     * @return {?}
-     */
-    get mapwInst() {
-        return (/** @type {?} */ (this._widgetInstance));
-    }
-    /**
-     * @return {?}
-     */
-    get mapw() {
-        return (/** @type {?} */ (this._widget));
-    }
-    /**
-     * @return {?}
-     */
-    get formulawInst() {
-        return (/** @type {?} */ (this._widgetInstance));
+    _loadComponent() {
+        if (this._instance == null || this.widgetHost == null) {
+            return;
+        }
+        /** @type {?} */
+        const vcr = this.widgetHost.viewContainerRef;
+        vcr.clear();
+        /** @type {?} */
+        const componentDef = this.widgetsMap[this._instance.widget.widgetType];
+        if (componentDef == null) {
+            return;
+        }
+        /** @type {?} */
+        const component = componentDef.component;
+        try {
+            /** @type {?} */
+            const componentFactory = this._cfr.resolveComponentFactory(component);
+            /** @type {?} */
+            const componentRef = vcr.createComponent(componentFactory);
+            /** @type {?} */
+            const componentInstance = componentRef.instance;
+            componentInstance.instance = this._instance;
+            if (componentDef.inputs) {
+                Object.keys(componentDef.inputs).forEach((/**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                key => {
+                    if (key in componentInstance) {
+                        ((/** @type {?} */ (componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
+                    }
+                }));
+            }
+        }
+        catch (e) { }
     }
 }
 
@@ -921,5 +922,5 @@ function createReportInstance(report, context, ts) {
     };
 }
 
-export { AjfAggregationSerializer, AjfAggregationType, AjfChartType, AjfDatasetSerializer, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportsModule, AjfWidgetRenderer, AjfWidgetSerializer, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createWidget, AjfGetColumnContentPipe as ɵa, createReportContainerInstance as ɵb };
+export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportWidget, AjfReportsModule, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createWidget, createWidgetInstance, widgetToWidgetInstance, AjfGetColumnContentPipe as ɵa, createReportContainerInstance as ɵb };
 //# sourceMappingURL=reports.js.map

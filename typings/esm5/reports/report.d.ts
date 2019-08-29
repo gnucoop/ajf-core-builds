@@ -24,8 +24,8 @@ import { AjfReportInstance } from './interface/reports-instances/report-instance
 import { AjfReport } from './interface/reports/report';
 export declare abstract class AjfReportRenderer {
     private _cdr;
-    private _reportInstance;
-    reportInstance: AjfReportInstance;
+    private _instance;
+    instance: AjfReportInstance;
     private _report;
     readonly report: AjfReport | null;
     constructor(_cdr: ChangeDetectorRef);

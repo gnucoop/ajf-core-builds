@@ -23,7 +23,9 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('leaflet')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/map', ['exports', '@angular/core', 'rxjs', 'leaflet'], factory) :
     (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.map = {}), global.ng.core, global.rxjs, global.leaflet));
-}(this, function (exports, core, rxjs, leaflet) { 'use strict';
+}(this, function (exports, core, rxjs, L__default) { 'use strict';
+
+    var L__default__default = 'default' in L__default ? L__default['default'] : L__default;
 
     /**
      * @fileoverview added by tsickle
@@ -57,6 +59,8 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /** @type {?} */
+    var leafletLib = L__default__default || L__default;
     var AjfMapComponent = /** @class */ (function () {
         function AjfMapComponent() {
             this._columnWidthChanged = rxjs.Subscription.EMPTY;
@@ -165,7 +169,7 @@
                 zoomControl: false,
                 attributionControl: false
             };
-            this._map = leaflet.map(this.mapContainer.htmlElement, options);
+            this._map = leafletLib.map(this.mapContainer.htmlElement, options);
         };
         /**
          * @private
@@ -215,7 +219,7 @@
              * @return {?}
              */
             function (l) { return _this._map.removeLayer(l); }));
-            leaflet.tileLayer(this._tileLayer, {
+            leafletLib.tileLayer(this._tileLayer, {
                 attribution: this._attribution
             }).addTo(this._map);
         };
@@ -246,7 +250,7 @@
         AjfMapComponent.decorators = [
             { type: core.Component, args: [{selector: 'ajf-map',
                         template: "<div mapContainer></div>",
-                        styles: ["ajf-map{position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}"],
+                        styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}"],
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None
                     },] },

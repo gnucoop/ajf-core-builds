@@ -20,10 +20,10 @@
  *
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ajf/core/models'), require('@ajf/core/image'), require('@ajf/core/utils')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/reports', ['exports', '@angular/core', '@ajf/core/models', '@ajf/core/image', '@ajf/core/utils'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.reports = {}), global.ng.core, global.ajf.core.models, global.ajf.core.image, global.ajf.core.utils));
-}(this, function (exports, core, models, image, utils) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ajf/core/models'), require('@ajf/core/utils')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/reports', ['exports', '@angular/core', '@ajf/core/models', '@ajf/core/utils'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.reports = {}), global.ng.core, global.ajf.core.models, global.ajf.core.utils));
+}(this, function (exports, core, models, utils) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -50,6 +50,44 @@
         };
         return __assign.apply(this, arguments);
     };
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @abstract
+     * @template T
+     */
+    var   /**
+     * @abstract
+     * @template T
+     */
+    AjfBaseWidgetComponent = /** @class */ (function () {
+        function AjfBaseWidgetComponent(_cdr) {
+            this._cdr = _cdr;
+        }
+        Object.defineProperty(AjfBaseWidgetComponent.prototype, "instance", {
+            get: /**
+             * @return {?}
+             */
+            function () { return this._instance; },
+            set: /**
+             * @param {?} instance
+             * @return {?}
+             */
+            function (instance) {
+                if (this._instance !== instance) {
+                    this._instance = instance;
+                    this._cdr.detectChanges();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return AjfBaseWidgetComponent;
+    }());
 
     /**
      * @fileoverview added by tsickle
@@ -178,18 +216,18 @@
         function AjfReportRenderer(_cdr) {
             this._cdr = _cdr;
         }
-        Object.defineProperty(AjfReportRenderer.prototype, "reportInstance", {
+        Object.defineProperty(AjfReportRenderer.prototype, "instance", {
             get: /**
              * @return {?}
              */
-            function () { return this._reportInstance; },
+            function () { return this._instance; },
             set: /**
-             * @param {?} reportInstance
+             * @param {?} instance
              * @return {?}
              */
-            function (reportInstance) {
-                this._reportInstance = reportInstance;
-                this._report = reportInstance != null ? reportInstance.report : null;
+            function (instance) {
+                this._instance = instance;
+                this._report = instance != null ? instance.report : null;
                 this._cdr.markForCheck();
             },
             enumerable: true,
@@ -238,6 +276,24 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    var AjfWidgetHost = /** @class */ (function () {
+        function AjfWidgetHost(viewContainerRef) {
+            this.viewContainerRef = viewContainerRef;
+        }
+        AjfWidgetHost.decorators = [
+            { type: core.Directive, args: [{ selector: '[ajf-widget-host]' },] },
+        ];
+        /** @nocollapse */
+        AjfWidgetHost.ctorParameters = function () { return [
+            { type: core.ViewContainerRef }
+        ]; };
+        return AjfWidgetHost;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     var AjfReportsModule = /** @class */ (function () {
         function AjfReportsModule() {
         }
@@ -245,9 +301,11 @@
             { type: core.NgModule, args: [{
                         declarations: [
                             AjfGetColumnContentPipe,
+                            AjfWidgetHost,
                         ],
                         exports: [
                             AjfGetColumnContentPipe,
+                            AjfWidgetHost,
                         ],
                     },] },
         ];
@@ -529,198 +587,89 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+
     /**
      * @abstract
      */
     var   /**
      * @abstract
      */
-    AjfWidgetRenderer = /** @class */ (function () {
-        function AjfWidgetRenderer(_cdr) {
-            this._cdr = _cdr;
-            this.widgetTypes = AjfWidgetType;
-            this._imageTypes = image.AjfImageType;
+    AjfReportWidget = /** @class */ (function () {
+        function AjfReportWidget(_cfr) {
+            this._cfr = _cfr;
         }
-        Object.defineProperty(AjfWidgetRenderer.prototype, "widget", {
+        Object.defineProperty(AjfReportWidget.prototype, "instance", {
             get: /**
              * @return {?}
              */
-            function () {
-                return this._widget;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "imageTypes", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._imageTypes; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "widgetInstance", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._widgetInstance;
-            },
+            function () { return this._instance; },
             set: /**
-             * @param {?} widgetInstance
+             * @param {?} instance
              * @return {?}
              */
-            function (widgetInstance) {
-                if (this._widgetInstance !== widgetInstance) {
-                    this._widgetInstance = widgetInstance;
-                    this._widget = this._widgetInstance != null ? this._widgetInstance.widget : null;
-                    this._cdr.markForCheck();
+            function (instance) {
+                if (this._instance !== instance) {
+                    this._instance = instance;
+                    this._loadComponent();
                 }
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "columnInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "imgwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "imgw", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widget));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "imgcwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "imgcw", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widget));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "layoutwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "layoutw", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widget));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "chartwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "chartw", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widget));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "tablewInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "textwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "mapwInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "mapw", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widget));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfWidgetRenderer.prototype, "formulawInst", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (this._widgetInstance));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfWidgetRenderer;
+        /**
+         * @return {?}
+         */
+        AjfReportWidget.prototype.ngAfterViewInit = /**
+         * @return {?}
+         */
+        function () {
+            this._loadComponent();
+        };
+        /**
+         * @private
+         * @return {?}
+         */
+        AjfReportWidget.prototype._loadComponent = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            if (this._instance == null || this.widgetHost == null) {
+                return;
+            }
+            /** @type {?} */
+            var vcr = this.widgetHost.viewContainerRef;
+            vcr.clear();
+            /** @type {?} */
+            var componentDef = this.widgetsMap[this._instance.widget.widgetType];
+            if (componentDef == null) {
+                return;
+            }
+            /** @type {?} */
+            var component = componentDef.component;
+            try {
+                /** @type {?} */
+                var componentFactory = this._cfr.resolveComponentFactory(component);
+                /** @type {?} */
+                var componentRef = vcr.createComponent(componentFactory);
+                /** @type {?} */
+                var componentInstance_1 = componentRef.instance;
+                componentInstance_1.instance = this._instance;
+                if (componentDef.inputs) {
+                    Object.keys(componentDef.inputs).forEach((/**
+                     * @param {?} key
+                     * @return {?}
+                     */
+                    function (key) {
+                        if (key in componentInstance_1) {
+                            ((/** @type {?} */ (componentInstance_1)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
+                        }
+                    }));
+                }
+            }
+            catch (e) { }
+        };
+        return AjfReportWidget;
     }());
 
     /**
@@ -1084,19 +1033,23 @@
 
     exports.AjfAggregationSerializer = AjfAggregationSerializer;
     exports.AjfAggregationType = AjfAggregationType;
+    exports.AjfBaseWidgetComponent = AjfBaseWidgetComponent;
     exports.AjfChartType = AjfChartType;
     exports.AjfDatasetSerializer = AjfDatasetSerializer;
     exports.AjfReportContainerSerializer = AjfReportContainerSerializer;
     exports.AjfReportRenderer = AjfReportRenderer;
     exports.AjfReportSerializer = AjfReportSerializer;
+    exports.AjfReportWidget = AjfReportWidget;
     exports.AjfReportsModule = AjfReportsModule;
-    exports.AjfWidgetRenderer = AjfWidgetRenderer;
+    exports.AjfWidgetHost = AjfWidgetHost;
     exports.AjfWidgetSerializer = AjfWidgetSerializer;
     exports.AjfWidgetType = AjfWidgetType;
     exports.chartToChartJsType = chartToChartJsType;
     exports.createAggregation = createAggregation;
     exports.createReportInstance = createReportInstance;
     exports.createWidget = createWidget;
+    exports.createWidgetInstance = createWidgetInstance;
+    exports.widgetToWidgetInstance = widgetToWidgetInstance;
     exports.ɵa = AjfGetColumnContentPipe;
     exports.ɵb = createReportContainerInstance;
 

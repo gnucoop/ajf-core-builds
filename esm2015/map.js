@@ -21,7 +21,8 @@
  */
 import { Directive, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Input, NgModule } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { map, tileLayer } from 'leaflet';
+import * as L from 'leaflet';
+import L__default, {  } from 'leaflet';
 
 /**
  * @fileoverview added by tsickle
@@ -53,6 +54,8 @@ AjfMapContainerDirective.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/** @type {?} */
+const leafletLib = L__default || L;
 class AjfMapComponent {
     constructor() {
         this._columnWidthChanged = Subscription.EMPTY;
@@ -128,7 +131,7 @@ class AjfMapComponent {
             zoomControl: false,
             attributionControl: false
         };
-        this._map = map(this.mapContainer.htmlElement, options);
+        this._map = leafletLib.map(this.mapContainer.htmlElement, options);
     }
     /**
      * @private
@@ -169,7 +172,7 @@ class AjfMapComponent {
          * @return {?}
          */
         (l) => this._map.removeLayer(l)));
-        tileLayer(this._tileLayer, {
+        leafletLib.tileLayer(this._tileLayer, {
             attribution: this._attribution
         }).addTo(this._map);
     }
@@ -197,7 +200,7 @@ class AjfMapComponent {
 AjfMapComponent.decorators = [
     { type: Component, args: [{selector: 'ajf-map',
                 template: "<div mapContainer></div>",
-                styles: ["ajf-map{position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}"],
+                styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None
             },] },

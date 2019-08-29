@@ -19,17 +19,11 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AfterViewInit, ComponentFactoryResolver } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { AjfWidgetInstance } from './interface/widgets-instances/widget-instance';
-import { AjfWidgetComponentsMap } from './widget-components-map';
-import { AjfWidgetHost } from './widget-host';
-export declare abstract class AjfReportWidget implements AfterViewInit {
-    private _cfr;
-    widgetHost: AjfWidgetHost;
+export declare abstract class AjfBaseWidgetComponent<T extends AjfWidgetInstance = AjfWidgetInstance> {
+    private _cdr;
     private _instance;
-    instance: AjfWidgetInstance;
-    protected abstract widgetsMap: AjfWidgetComponentsMap;
-    constructor(_cfr: ComponentFactoryResolver);
-    ngAfterViewInit(): void;
-    private _loadComponent;
+    instance: T;
+    constructor(_cdr: ChangeDetectorRef);
 }
