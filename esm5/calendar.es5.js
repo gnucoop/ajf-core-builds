@@ -542,24 +542,28 @@ AjfCalendar = /** @class */ (function () {
      * @return {?}
      */
     function (date) {
-        /** @type {?} */
-        var startDate = startOfMonth(date);
-        /** @type {?} */
-        var endDate = endOfMonth(date);
-        if (this._isoMode) {
-            /** @type {?} */
-            var startWeekDay = startDate.getDay();
-            /** @type {?} */
-            var endWeekDay = endDate.getDay();
-            if (startWeekDay == 0 || startWeekDay > 4) {
-                startDate = addWeeks(startDate, 1);
-            }
-            if (endWeekDay > 0 && endWeekDay < 4) {
-                endDate = subWeeks(endDate, 1);
-            }
-            startDate = startOfISOWeek(startDate);
-            endDate = endOfISOWeek(endDate);
+        if (!this._isoMode) {
+            return {
+                start: startOfMonth(date),
+                end: endOfMonth(date),
+            };
         }
+        /** @type {?} */
+        var startDate = startOfMonth(endOfISOWeek(date));
+        /** @type {?} */
+        var endDate = endOfMonth(startDate);
+        /** @type {?} */
+        var startWeekDay = startDate.getDay();
+        /** @type {?} */
+        var endWeekDay = endDate.getDay();
+        if (startWeekDay == 0 || startWeekDay > 4) {
+            startDate = addWeeks(startDate, 1);
+        }
+        if (endWeekDay > 0 && endWeekDay < 4) {
+            endDate = subWeeks(endDate, 1);
+        }
+        startDate = startOfISOWeek(startDate);
+        endDate = endOfISOWeek(endDate);
         return { start: startDate, end: endDate };
     };
     /**

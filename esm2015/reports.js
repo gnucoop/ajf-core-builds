@@ -35,9 +35,11 @@ import { deepCopy } from '@ajf/core/utils';
 class AjfBaseWidgetComponent {
     /**
      * @param {?} _cdr
+     * @param {?} el
      */
-    constructor(_cdr) {
+    constructor(_cdr, el) {
         this._cdr = _cdr;
+        this.el = el;
     }
     /**
      * @return {?}
@@ -497,9 +499,11 @@ class AjfReportSerializer {
 class AjfReportWidget {
     /**
      * @param {?} _cfr
+     * @param {?} _renderer
      */
-    constructor(_cfr) {
+    constructor(_cfr, _renderer) {
         this._cfr = _cfr;
+        this._renderer = _renderer;
     }
     /**
      * @return {?}
@@ -546,6 +550,16 @@ class AjfReportWidget {
             const componentRef = vcr.createComponent(componentFactory);
             /** @type {?} */
             const componentInstance = componentRef.instance;
+            Object.keys(this._instance.widget.styles).forEach((/**
+             * @param {?} style
+             * @return {?}
+             */
+            (style) => {
+                try {
+                    this._renderer.setStyle(componentInstance.el.nativeElement, style, `${this._instance.widget.styles[style]}`);
+                }
+                catch (e) { }
+            }));
             componentInstance.instance = this._instance;
             if (componentDef.inputs) {
                 Object.keys(componentDef.inputs).forEach((/**
@@ -668,7 +682,8 @@ function widgetToWidgetInstance(widget, context, ts) {
         const cwi = (/** @type {?} */ (wi));
         /** @type {?} */
         const labels = cw.labels instanceof Array ? cw.labels : [cw.labels];
-        cwi.labels = labels.map((/**
+        /** @type {?} */
+        const evLabels = labels.map((/**
          * @param {?} l
          * @return {?}
          */
@@ -691,7 +706,8 @@ function widgetToWidgetInstance(widget, context, ts) {
             }
             return evf;
         }));
-        cwi.dataset = cw.dataset.map((/**
+        cwi.labels = cw.labels instanceof Array ? evLabels : evLabels[0];
+        cwi.datasets = cw.dataset.map((/**
          * @param {?} d
          * @return {?}
          */
@@ -715,6 +731,7 @@ function widgetToWidgetInstance(widget, context, ts) {
             return ds;
         }));
         cwi.data = { labels: cwi.labels, datasets: cwi.datasets };
+        cwi.chartType = chartToChartJsType(cw.type || cw.chartType);
     }
     else if (widget.widgetType === AjfWidgetType.Table) {
         /** @type {?} */
@@ -858,7 +875,7 @@ function widgetToWidgetInstance(widget, context, ts) {
                 htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
             }));
         }
-        tewi.htmlText = ts.instant(htmlText);
+        tewi.htmlText = htmlText != null && htmlText.length > 0 ? ts.instant(htmlText) : htmlText;
     }
     else if (widget.widgetType === AjfWidgetType.Formula) {
         /** @type {?} */

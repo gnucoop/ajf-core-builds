@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "8.0.1-e4317dd",
+  "version": "8.1.1-f1eb650",
   "description": "",
   "main": "./bundles/core.umd.js",
   "module": "./esm5/core.es5.js",
@@ -24,6 +24,7 @@
     "@angular/forms": "^8.0.0",
     "@angular/router": "^8.0.0",
     "@ngx-translate/core": ">=11.0.0",
+    "@zxing/library": "^0.15.1",
     "chart.js": "^2.8.0",
     "chart.piecelabel.js": "^0.15.0",
     "css-element-queries": "^1.2.1",
@@ -38,7 +39,7 @@
     "tslib": "^1.9.3"
   },
   "sideEffects": false,
-  "releaseGitCommitSha": "e4317dd16e9b9fd980b128e7fe52bd3e62b1d737",
+  "releaseGitCommitSha": "f1eb650ac1f11b58b8636a2418981fa6e78b98c4",
   "releaseGitBranch": "",
   "releaseGitUser": " <>"
 }

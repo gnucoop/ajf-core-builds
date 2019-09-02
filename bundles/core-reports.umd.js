@@ -65,8 +65,9 @@
      * @template T
      */
     AjfBaseWidgetComponent = /** @class */ (function () {
-        function AjfBaseWidgetComponent(_cdr) {
+        function AjfBaseWidgetComponent(_cdr, el) {
             this._cdr = _cdr;
+            this.el = el;
         }
         Object.defineProperty(AjfBaseWidgetComponent.prototype, "instance", {
             get: /**
@@ -595,8 +596,9 @@
      * @abstract
      */
     AjfReportWidget = /** @class */ (function () {
-        function AjfReportWidget(_cfr) {
+        function AjfReportWidget(_cfr, _renderer) {
             this._cfr = _cfr;
+            this._renderer = _renderer;
         }
         Object.defineProperty(AjfReportWidget.prototype, "instance", {
             get: /**
@@ -634,6 +636,7 @@
          * @return {?}
          */
         function () {
+            var _this = this;
             if (this._instance == null || this.widgetHost == null) {
                 return;
             }
@@ -654,6 +657,16 @@
                 var componentRef = vcr.createComponent(componentFactory);
                 /** @type {?} */
                 var componentInstance_1 = componentRef.instance;
+                Object.keys(this._instance.widget.styles).forEach((/**
+                 * @param {?} style
+                 * @return {?}
+                 */
+                function (style) {
+                    try {
+                        _this._renderer.setStyle(componentInstance_1.el.nativeElement, style, "" + _this._instance.widget.styles[style]);
+                    }
+                    catch (e) { }
+                }));
                 componentInstance_1.instance = this._instance;
                 if (componentDef.inputs) {
                     Object.keys(componentDef.inputs).forEach((/**
@@ -777,7 +790,8 @@
             var cwi = (/** @type {?} */ (wi));
             /** @type {?} */
             var labels = cw.labels instanceof Array ? cw.labels : [cw.labels];
-            cwi.labels = labels.map((/**
+            /** @type {?} */
+            var evLabels = labels.map((/**
              * @param {?} l
              * @return {?}
              */
@@ -800,7 +814,8 @@
                 }
                 return evf;
             }));
-            cwi.dataset = cw.dataset.map((/**
+            cwi.labels = cw.labels instanceof Array ? evLabels : evLabels[0];
+            cwi.datasets = cw.dataset.map((/**
              * @param {?} d
              * @return {?}
              */
@@ -824,6 +839,7 @@
                 return ds;
             }));
             cwi.data = { labels: cwi.labels, datasets: cwi.datasets };
+            cwi.chartType = chartToChartJsType(cw.type || cw.chartType);
         }
         else if (widget.widgetType === AjfWidgetType.Table) {
             /** @type {?} */
@@ -967,7 +983,7 @@
                     htmlText_1 = "" + htmlText_1.substr(0, m.idx) + calcValue + htmlText_1.substr(m.idx + m.len);
                 }));
             }
-            tewi.htmlText = ts.instant(htmlText_1);
+            tewi.htmlText = htmlText_1 != null && htmlText_1.length > 0 ? ts.instant(htmlText_1) : htmlText_1;
         }
         else if (widget.widgetType === AjfWidgetType.Formula) {
             /** @type {?} */

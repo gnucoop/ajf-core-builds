@@ -545,24 +545,28 @@
          * @return {?}
          */
         function (date) {
-            /** @type {?} */
-            var startDate = dateFns.startOfMonth(date);
-            /** @type {?} */
-            var endDate = dateFns.endOfMonth(date);
-            if (this._isoMode) {
-                /** @type {?} */
-                var startWeekDay = startDate.getDay();
-                /** @type {?} */
-                var endWeekDay = endDate.getDay();
-                if (startWeekDay == 0 || startWeekDay > 4) {
-                    startDate = dateFns.addWeeks(startDate, 1);
-                }
-                if (endWeekDay > 0 && endWeekDay < 4) {
-                    endDate = dateFns.subWeeks(endDate, 1);
-                }
-                startDate = dateFns.startOfISOWeek(startDate);
-                endDate = dateFns.endOfISOWeek(endDate);
+            if (!this._isoMode) {
+                return {
+                    start: dateFns.startOfMonth(date),
+                    end: dateFns.endOfMonth(date),
+                };
             }
+            /** @type {?} */
+            var startDate = dateFns.startOfMonth(dateFns.endOfISOWeek(date));
+            /** @type {?} */
+            var endDate = dateFns.endOfMonth(startDate);
+            /** @type {?} */
+            var startWeekDay = startDate.getDay();
+            /** @type {?} */
+            var endWeekDay = endDate.getDay();
+            if (startWeekDay == 0 || startWeekDay > 4) {
+                startDate = dateFns.addWeeks(startDate, 1);
+            }
+            if (endWeekDay > 0 && endWeekDay < 4) {
+                endDate = dateFns.subWeeks(endDate, 1);
+            }
+            startDate = dateFns.startOfISOWeek(startDate);
+            endDate = dateFns.endOfISOWeek(endDate);
             return { start: startDate, end: endDate };
         };
         /**
