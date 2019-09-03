@@ -144,7 +144,10 @@ AjfCalendar = /** @class */ (function () {
          * @param {?} viewDate
          * @return {?}
          */
-        function (viewDate) { this._setViewDate(viewDate); },
+        function (viewDate) {
+            this._setViewDate(viewDate);
+            this._cdr.markForCheck();
+        },
         enumerable: true,
         configurable: true
     });
@@ -179,6 +182,7 @@ AjfCalendar = /** @class */ (function () {
          */
         function (dateOnlyForDay) {
             this._dateOnlyForDay = dateOnlyForDay != null && "" + dateOnlyForDay !== 'false';
+            this._cdr.markForCheck();
         },
         enumerable: true,
         configurable: true
@@ -195,6 +199,7 @@ AjfCalendar = /** @class */ (function () {
         function (viewMode) {
             this._viewMode = viewMode;
             this._buildCalendar();
+            this._cdr.markForCheck();
         },
         enumerable: true,
         configurable: true
@@ -210,6 +215,7 @@ AjfCalendar = /** @class */ (function () {
          */
         function (selectionMode) {
             this._selectionMode = selectionMode;
+            this._cdr.markForCheck();
         },
         enumerable: true,
         configurable: true
@@ -230,6 +236,7 @@ AjfCalendar = /** @class */ (function () {
             if (this._viewMode === 'month') {
                 this._buildCalendar();
             }
+            this._cdr.markForCheck();
         },
         enumerable: true,
         configurable: true
@@ -243,7 +250,10 @@ AjfCalendar = /** @class */ (function () {
          * @param {?} isoMode
          * @return {?}
          */
-        function (isoMode) { this._isoMode = isoMode; },
+        function (isoMode) {
+            this._isoMode = isoMode;
+            this._cdr.markForCheck();
+        },
         enumerable: true,
         configurable: true
     });
@@ -258,6 +268,7 @@ AjfCalendar = /** @class */ (function () {
          */
         function (minDate) {
             this._minDate = minDate != null ? new Date(minDate.valueOf()) : null;
+            this._cdr.markForCheck();
         },
         enumerable: true,
         configurable: true
@@ -273,6 +284,7 @@ AjfCalendar = /** @class */ (function () {
          */
         function (maxDate) {
             this._maxDate = maxDate != null ? new Date(maxDate.valueOf()) : null;
+            this._cdr.markForCheck();
         },
         enumerable: true,
         configurable: true
@@ -300,6 +312,7 @@ AjfCalendar = /** @class */ (function () {
                 period: period
             });
             this._refreshSelection();
+            this._cdr.markForCheck();
         },
         enumerable: true,
         configurable: true
@@ -334,6 +347,7 @@ AjfCalendar = /** @class */ (function () {
                 this.selectedPeriod = (/** @type {?} */ (period));
                 this._onChangeCallback(period);
             }
+            this._cdr.markForCheck();
         },
         enumerable: true,
         configurable: true

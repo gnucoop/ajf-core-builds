@@ -133,7 +133,10 @@ class AjfCalendar {
      * @param {?} viewDate
      * @return {?}
      */
-    set viewDate(viewDate) { this._setViewDate(viewDate); }
+    set viewDate(viewDate) {
+        this._setViewDate(viewDate);
+        this._cdr.markForCheck();
+    }
     /**
      * @return {?}
      */
@@ -160,6 +163,7 @@ class AjfCalendar {
      */
     set dateOnlyForDay(dateOnlyForDay) {
         this._dateOnlyForDay = dateOnlyForDay != null && `${dateOnlyForDay}` !== 'false';
+        this._cdr.markForCheck();
     }
     /**
      * @return {?}
@@ -172,6 +176,7 @@ class AjfCalendar {
     set viewMode(viewMode) {
         this._viewMode = viewMode;
         this._buildCalendar();
+        this._cdr.markForCheck();
     }
     /**
      * @return {?}
@@ -183,6 +188,7 @@ class AjfCalendar {
      */
     set selectionMode(selectionMode) {
         this._selectionMode = selectionMode;
+        this._cdr.markForCheck();
     }
     /**
      * @return {?}
@@ -199,6 +205,7 @@ class AjfCalendar {
         if (this._viewMode === 'month') {
             this._buildCalendar();
         }
+        this._cdr.markForCheck();
     }
     /**
      * @return {?}
@@ -208,7 +215,10 @@ class AjfCalendar {
      * @param {?} isoMode
      * @return {?}
      */
-    set isoMode(isoMode) { this._isoMode = isoMode; }
+    set isoMode(isoMode) {
+        this._isoMode = isoMode;
+        this._cdr.markForCheck();
+    }
     /**
      * @return {?}
      */
@@ -219,6 +229,7 @@ class AjfCalendar {
      */
     set minDate(minDate) {
         this._minDate = minDate != null ? new Date(minDate.valueOf()) : null;
+        this._cdr.markForCheck();
     }
     /**
      * @return {?}
@@ -230,6 +241,7 @@ class AjfCalendar {
      */
     set maxDate(maxDate) {
         this._maxDate = maxDate != null ? new Date(maxDate.valueOf()) : null;
+        this._cdr.markForCheck();
     }
     /**
      * @return {?}
@@ -249,6 +261,7 @@ class AjfCalendar {
             period: period
         });
         this._refreshSelection();
+        this._cdr.markForCheck();
     }
     /**
      * @return {?}
@@ -279,6 +292,7 @@ class AjfCalendar {
             this.selectedPeriod = (/** @type {?} */ (period));
             this._onChangeCallback(period);
         }
+        this._cdr.markForCheck();
     }
     /**
      * @return {?}

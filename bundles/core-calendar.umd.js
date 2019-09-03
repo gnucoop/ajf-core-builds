@@ -147,7 +147,10 @@
              * @param {?} viewDate
              * @return {?}
              */
-            function (viewDate) { this._setViewDate(viewDate); },
+            function (viewDate) {
+                this._setViewDate(viewDate);
+                this._cdr.markForCheck();
+            },
             enumerable: true,
             configurable: true
         });
@@ -182,6 +185,7 @@
              */
             function (dateOnlyForDay) {
                 this._dateOnlyForDay = dateOnlyForDay != null && "" + dateOnlyForDay !== 'false';
+                this._cdr.markForCheck();
             },
             enumerable: true,
             configurable: true
@@ -198,6 +202,7 @@
             function (viewMode) {
                 this._viewMode = viewMode;
                 this._buildCalendar();
+                this._cdr.markForCheck();
             },
             enumerable: true,
             configurable: true
@@ -213,6 +218,7 @@
              */
             function (selectionMode) {
                 this._selectionMode = selectionMode;
+                this._cdr.markForCheck();
             },
             enumerable: true,
             configurable: true
@@ -233,6 +239,7 @@
                 if (this._viewMode === 'month') {
                     this._buildCalendar();
                 }
+                this._cdr.markForCheck();
             },
             enumerable: true,
             configurable: true
@@ -246,7 +253,10 @@
              * @param {?} isoMode
              * @return {?}
              */
-            function (isoMode) { this._isoMode = isoMode; },
+            function (isoMode) {
+                this._isoMode = isoMode;
+                this._cdr.markForCheck();
+            },
             enumerable: true,
             configurable: true
         });
@@ -261,6 +271,7 @@
              */
             function (minDate) {
                 this._minDate = minDate != null ? new Date(minDate.valueOf()) : null;
+                this._cdr.markForCheck();
             },
             enumerable: true,
             configurable: true
@@ -276,6 +287,7 @@
              */
             function (maxDate) {
                 this._maxDate = maxDate != null ? new Date(maxDate.valueOf()) : null;
+                this._cdr.markForCheck();
             },
             enumerable: true,
             configurable: true
@@ -303,6 +315,7 @@
                     period: period
                 });
                 this._refreshSelection();
+                this._cdr.markForCheck();
             },
             enumerable: true,
             configurable: true
@@ -337,6 +350,7 @@
                     this.selectedPeriod = (/** @type {?} */ (period));
                     this._onChangeCallback(period);
                 }
+                this._cdr.markForCheck();
             },
             enumerable: true,
             configurable: true

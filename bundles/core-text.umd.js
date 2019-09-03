@@ -48,7 +48,7 @@
             function (htmlText) {
                 // type checking and length checking for instant method
                 /** @type {?} */
-                var htmlTextToBeTranslate = htmlText.length > 0 && typeof htmlText === 'string'
+                var htmlTextToBeTranslate = htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0
                     ? this._ts.instant(htmlText) : htmlText;
                 this._htmlText = this._domSanitizer.bypassSecurityTrustHtml(htmlTextToBeTranslate);
                 this._cdr.markForCheck();
