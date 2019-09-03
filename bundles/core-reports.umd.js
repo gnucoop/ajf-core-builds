@@ -952,7 +952,7 @@
             /** @type {?} */
             var tewi = (/** @type {?} */ (wi));
             /** @type {?} */
-            var formulaRegEx = /\[\[(.+?)\]\]/g;
+            var formulaRegEx = /\[{2}(.+?)\]{2}/g;
             /** @type {?} */
             var matches = [];
             /** @type {?} */
@@ -967,22 +967,22 @@
                 /** @type {?} */
                 var formula = models.createFormula({ formula: match[1] });
                 matches.push({ idx: idx, len: len, formula: formula });
-                matches.reverse().forEach((/**
-                 * @param {?} m
-                 * @return {?}
-                 */
-                function (m) {
-                    /** @type {?} */
-                    var calcValue;
-                    try {
-                        calcValue = models.evaluateExpression(m.formula.formula, context);
-                    }
-                    catch (e) {
-                        calcValue = '';
-                    }
-                    htmlText_1 = "" + htmlText_1.substr(0, m.idx) + calcValue + htmlText_1.substr(m.idx + m.len);
-                }));
             }
+            matches.reverse().forEach((/**
+             * @param {?} m
+             * @return {?}
+             */
+            function (m) {
+                /** @type {?} */
+                var calcValue;
+                try {
+                    calcValue = models.evaluateExpression(m.formula.formula, context);
+                }
+                catch (e) {
+                    calcValue = '';
+                }
+                htmlText_1 = "" + htmlText_1.substr(0, m.idx) + calcValue + htmlText_1.substr(m.idx + m.len);
+            }));
             tewi.htmlText = htmlText_1 != null && htmlText_1.length > 0 ? ts.instant(htmlText_1) : htmlText_1;
         }
         else if (widget.widgetType === AjfWidgetType.Formula) {

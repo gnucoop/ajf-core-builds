@@ -844,7 +844,7 @@ function widgetToWidgetInstance(widget, context, ts) {
         /** @type {?} */
         const tewi = (/** @type {?} */ (wi));
         /** @type {?} */
-        const formulaRegEx = /\[\[(.+?)\]\]/g;
+        const formulaRegEx = /\[{2}(.+?)\]{2}/g;
         /** @type {?} */
         const matches = [];
         /** @type {?} */
@@ -859,22 +859,22 @@ function widgetToWidgetInstance(widget, context, ts) {
             /** @type {?} */
             const formula = createFormula({ formula: match[1] });
             matches.push({ idx, len, formula });
-            matches.reverse().forEach((/**
-             * @param {?} m
-             * @return {?}
-             */
-            (m) => {
-                /** @type {?} */
-                let calcValue;
-                try {
-                    calcValue = evaluateExpression(m.formula.formula, context);
-                }
-                catch (e) {
-                    calcValue = '';
-                }
-                htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
-            }));
         }
+        matches.reverse().forEach((/**
+         * @param {?} m
+         * @return {?}
+         */
+        (m) => {
+            /** @type {?} */
+            let calcValue;
+            try {
+                calcValue = evaluateExpression(m.formula.formula, context);
+            }
+            catch (e) {
+                calcValue = '';
+            }
+            htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
+        }));
         tewi.htmlText = htmlText != null && htmlText.length > 0 ? ts.instant(htmlText) : htmlText;
     }
     else if (widget.widgetType === AjfWidgetType.Formula) {
