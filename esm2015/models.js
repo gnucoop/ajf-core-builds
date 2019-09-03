@@ -47,6 +47,9 @@ class AjfError extends Error {
      */
     constructor(message) {
         super(message);
+        // Set the prototype explicitly. Workaround needed in TS >= 2.1 when extending built-ins
+        // See: https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md
+        Object.setPrototypeOf(this, AjfError.prototype);
         this._message = message || '';
     }
 }
@@ -148,23 +151,23 @@ const dateUtils = {
  * @return {?}
  */
 function digitCount(x) {
-    if (x == null) {
+    if (isNaN(x) || typeof (x) !== 'number') {
         return 0;
     }
-    return x.toString().length;
+    if (!isFinite(x)) {
+        return Infinity;
+    }
+    return x.toString().replace(/[^0-9]/g, '').length;
 }
 /**
  * @param {?} x
  * @return {?}
  */
 function decimalCount(x) {
-    if (x == null) {
-        return 0;
-    }
     if (typeof x === 'string') {
         x = parseFloat(x);
     }
-    if (isNaN(x)) {
+    if (typeof x !== 'number' || isNaN(x)) {
         return 0;
     }
     /** @type {?} */
@@ -176,7 +179,13 @@ function decimalCount(x) {
  * @return {?}
  */
 function isInt(x) {
-    return !/[,.]/.test(x);
+    if (typeof (x) === 'string') {
+        return /^-?\d+$/.test(x);
+    }
+    if (typeof (x) === 'number') {
+        return Math.round(x) === x;
+    }
+    return false;
 }
 /**
  * @param {?} x

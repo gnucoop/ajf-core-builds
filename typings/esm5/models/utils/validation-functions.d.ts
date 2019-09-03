@@ -33,7 +33,7 @@ export declare const dateUtils: {
 };
 export declare function digitCount(x: number): number;
 export declare function decimalCount(x: string | number): number;
-export declare function isInt(x: string): boolean;
+export declare function isInt(x: string | number): boolean;
 export declare function notEmpty(x: any): boolean;
 export declare function valueInChoice(array: any[], x: any): boolean;
 export declare function scanGroupField(reps: number, acc: any, callback: any): any;
