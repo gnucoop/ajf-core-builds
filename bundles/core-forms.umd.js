@@ -1375,7 +1375,7 @@
     function createTableFieldInstance(instance, context) {
         /** @type {?} */
         var fieldInstance = createFieldInstance(instance, context);
-        return __assign({}, fieldInstance, { node: instance.node, context: context, hideEmptyRows: instance.hideEmptyRows || false, controls: [], controlsWithLabels: [] });
+        return __assign({}, fieldInstance, { node: instance.node, context: context, hideEmptyRows: instance.hideEmptyRows || false, controls: [] });
     }
 
     /**
@@ -2649,7 +2649,68 @@
                         updateFilteredChoices((/** @type {?} */ (fInstance)), context);
                     }
                     else {
-                        fInstance.value = context[nodeInstanceCompleteName(instance)];
+                        if (isTableFieldInstance(fInstance)) {
+                            /** @type {?} */
+                            var tfInstance_1 = (/** @type {?} */ (fInstance));
+                            /** @type {?} */
+                            var tNode_1 = tfInstance_1.node;
+                            tfInstance_1.context = {};
+                            if (!tNode_1.editable) {
+                                /** @type {?} */
+                                var value_1 = [];
+                                value_1.push([tNode_1.label, tNode_1.columnLabels]);
+                                tNode_1.rows.forEach((/**
+                                 * @param {?} row
+                                 * @param {?} rowIndex
+                                 * @return {?}
+                                 */
+                                function (row, rowIndex) {
+                                    value_1[rowIndex] = [tNode_1.rowLabels[rowIndex], row.map((/**
+                                         * @param {?} k
+                                         * @return {?}
+                                         */
+                                        function (k) {
+                                            tfInstance_1.context[k] = context[k];
+                                            return context[k];
+                                        }))];
+                                }));
+                                tfInstance_1.value = value_1;
+                            }
+                            else {
+                                /** @type {?} */
+                                var formGroup_1 = this._formGroup.getValue();
+                                /** @type {?} */
+                                var controlsWithLabels_1 = [];
+                                controlsWithLabels_1.push([node.label, tNode_1.columnLabels]);
+                                tNode_1.rows.forEach((/**
+                                 * @param {?} row
+                                 * @param {?} idx
+                                 * @return {?}
+                                 */
+                                function (row, idx) {
+                                    /** @type {?} */
+                                    var r = [];
+                                    row.forEach((/**
+                                     * @param {?} k
+                                     * @return {?}
+                                     */
+                                    function (k) {
+                                        /** @type {?} */
+                                        var control = new forms.FormControl();
+                                        control.setValue(tfInstance_1.context[k]);
+                                        if (formGroup_1 != null) {
+                                            formGroup_1.registerControl(k, control);
+                                        }
+                                        r.push(control);
+                                    }));
+                                    controlsWithLabels_1.push([tNode_1.rowLabels[idx], r]);
+                                }));
+                                tfInstance_1.controls = controlsWithLabels_1;
+                            }
+                        }
+                        else {
+                            fInstance.value = context[nodeInstanceCompleteName(instance)];
+                        }
                         updateFieldInstanceState(fInstance, context);
                     }
                 }
@@ -3543,37 +3604,6 @@
                 var control = new forms.FormControl();
                 control.setValue(fieldInstance.value);
                 formGroup.registerControl(fieldInstanceName, control);
-            }
-            if (formGroup != null && isTableFieldInstance(fieldInstance)) {
-                if (((/** @type {?} */ (fieldInstance.node))).editable) {
-                    /** @type {?} */
-                    var tfInstance_1 = (/** @type {?} */ (fieldInstance));
-                    /** @type {?} */
-                    var node = (/** @type {?} */ (fieldInstance.node));
-                    /** @type {?} */
-                    var value_1 = [];
-                    node.rows.forEach((/**
-                     * @param {?} row
-                     * @return {?}
-                     */
-                    function (row) {
-                        /** @type {?} */
-                        var r = [];
-                        row.forEach((/**
-                         * @param {?} k
-                         * @return {?}
-                         */
-                        function (k) {
-                            /** @type {?} */
-                            var control = new forms.FormControl();
-                            control.setValue(tfInstance_1.context[k]);
-                            (/** @type {?} */ (formGroup)).registerControl(k, control);
-                            r.push(control);
-                        }));
-                        value_1.push(r);
-                    }));
-                    tfInstance_1.controls = value_1;
-                }
             }
             if (fieldInstance.validation != null) {
                 this._validationNodesMapUpdates.next((/**
@@ -4888,21 +4918,35 @@
          * @return {?}
          */
         function (instance) {
-            if (instance.hideEmptyRows) {
-                return instance.value.filter((/**
-                 * @param {?} column
-                 * @return {?}
-                 */
-                function (column) { return column.slice(1).reduce((/**
-                 * @param {?} a
-                 * @param {?} b
-                 * @return {?}
-                 */
-                function (a, b) {
-                    return a || (b != null && b !== '' && b !== 0 && b !== '0');
-                }), false); }));
+            if (!instance.node.editable) {
+                return instance.hideEmptyRows
+                    ? (instance.value || []).filter((/**
+                     * @param {?} col
+                     * @return {?}
+                     */
+                    function (col) { return col[1].reduce((/**
+                     * @param {?} prev
+                     * @param {?} cur
+                     * @return {?}
+                     */
+                    function (prev, cur) {
+                        return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
+                    }), false); })).map((/**
+                     * @param {?} v
+                     * @return {?}
+                     */
+                    function (v) { return [v[0]].concat(v[1]); }))
+                    : instance.value.map((/**
+                     * @param {?} v
+                     * @return {?}
+                     */
+                    function (v) { return [v[0]].concat(v[1]); }));
             }
-            return instance.value;
+            return (instance.controls || []).map((/**
+             * @param {?} v
+             * @return {?}
+             */
+            function (v) { return [v[0]].concat(v[1]); }));
         };
         AjfTableVisibleColumnsPipe.decorators = [
             { type: core.Pipe, args: [{ name: 'ajfTableVisibleColumns' },] },

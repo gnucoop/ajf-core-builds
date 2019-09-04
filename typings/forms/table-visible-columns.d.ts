@@ -20,7 +20,8 @@
  *
  */
 import { PipeTransform } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { AjfTableFieldInstance } from './interface/fields-instances/table-field-instance';
 export declare class AjfTableVisibleColumnsPipe implements PipeTransform {
-    transform(instance: AjfTableFieldInstance): string[][];
+    transform(instance: AjfTableFieldInstance): (string | number | FormControl)[][];
 }
