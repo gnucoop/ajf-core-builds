@@ -174,6 +174,7 @@ AjfBaseFieldComponent = /** @class */ (function () {
         else {
             this._instanceUpdateSub = Subscription.EMPTY;
         }
+        this._changeDetectorRef.detectChanges();
     };
     return AjfBaseFieldComponent;
 }());

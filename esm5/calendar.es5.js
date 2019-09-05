@@ -128,12 +128,10 @@ AjfCalendar = /** @class */ (function () {
          * @return {?}
          */
         function (_) { });
-        // tslint:disable-next-line
         this._onTouchedCallback = (/**
-         * @param {?} _
          * @return {?}
          */
-        function (_) { });
+        function () { });
     }
     Object.defineProperty(AjfCalendar.prototype, "viewDate", {
         get: /**
@@ -476,6 +474,7 @@ AjfCalendar = /** @class */ (function () {
             };
         }
         this.value = newPeriod;
+        this._onTouchedCallback();
         this._cdr.markForCheck();
     };
     /**

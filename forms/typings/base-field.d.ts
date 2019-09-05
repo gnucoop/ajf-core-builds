@@ -26,7 +26,7 @@ import { AjfFormRendererService } from './form-renderer';
 import { AjfFieldInstance } from './interface/fields-instances/field-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
 export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFieldInstance> implements OnDestroy, OnInit {
-    private _changeDetectorRef;
+    protected _changeDetectorRef: ChangeDetectorRef;
     private _service;
     private _warningAlertService;
     private _instance;

@@ -118,12 +118,10 @@ class AjfCalendar {
          * @return {?}
          */
         (_) => { });
-        // tslint:disable-next-line
         this._onTouchedCallback = (/**
-         * @param {?} _
          * @return {?}
          */
-        (_) => { });
+        () => { });
     }
     /**
      * @return {?}
@@ -393,6 +391,7 @@ class AjfCalendar {
             };
         }
         this.value = newPeriod;
+        this._onTouchedCallback();
         this._cdr.markForCheck();
     }
     /**

@@ -747,10 +747,10 @@
     /**
      * @param {?} widget
      * @param {?} context
-     * @param {?} ts
+     * @param {?} _ts
      * @return {?}
      */
-    function createWidgetInstance(widget, context, ts) {
+    function createWidgetInstance(widget, context, _ts) {
         return {
             widget: widget,
             widgetType: widget.widgetType,

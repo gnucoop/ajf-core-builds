@@ -153,6 +153,7 @@ class AjfBaseFieldComponent {
         else {
             this._instanceUpdateSub = Subscription.EMPTY;
         }
+        this._changeDetectorRef.detectChanges();
     }
 }
 

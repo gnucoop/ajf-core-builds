@@ -212,6 +212,7 @@
             else {
                 this._instanceUpdateSub = rxjs.Subscription.EMPTY;
             }
+            this._changeDetectorRef.detectChanges();
         };
         return AjfBaseFieldComponent;
     }());

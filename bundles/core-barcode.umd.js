@@ -72,10 +72,9 @@
                 var data = _this._getDataFromVideo(_this.videoSource);
                 return _this._readBarcodeFromData(data);
             })), operators.catchError((/**
-             * @param {?} e
              * @return {?}
              */
-            function (e) {
+            function () {
                 return rxjs.of((/** @type {?} */ ({})));
             })))
                 .subscribe((/**

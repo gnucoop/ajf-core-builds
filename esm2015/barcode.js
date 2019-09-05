@@ -71,10 +71,9 @@ class AjfBarcode {
             const data = this._getDataFromVideo(this.videoSource);
             return this._readBarcodeFromData(data);
         })), catchError((/**
-         * @param {?} e
          * @return {?}
          */
-        (e) => {
+        () => {
             return of((/** @type {?} */ ({})));
         })))
             .subscribe((/**

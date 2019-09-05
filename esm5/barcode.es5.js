@@ -71,10 +71,9 @@ AjfBarcode = /** @class */ (function () {
             var data = _this._getDataFromVideo(_this.videoSource);
             return _this._readBarcodeFromData(data);
         })), catchError((/**
-         * @param {?} e
          * @return {?}
          */
-        function (e) {
+        function () {
             return of((/** @type {?} */ ({})));
         })))
             .subscribe((/**

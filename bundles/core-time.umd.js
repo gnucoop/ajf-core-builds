@@ -133,7 +133,6 @@
              * @return {?}
              */
             function (_) { });
-            // tslint:disable-next-line
             this._onTouchedCallback = (/**
              * @return {?}
              */
@@ -242,9 +241,18 @@
         function (fn) {
             this._onTouchedCallback = fn;
         };
+        /**
+         * @return {?}
+         */
+        AjfTime.prototype.focusHandler = /**
+         * @return {?}
+         */
+        function () {
+            this._onTouchedCallback();
+        };
         AjfTime.decorators = [
             { type: core.Component, args: [{selector: 'ajf-time',
-                        template: "<div><input min=\"0\" max=\"24\" [(ngModel)]=\"hours\" type=\"number\" (ngModelChange)=\"hours = $event\"> <input min=\"0\" max=\"60\" [(ngModel)]=\"minutes\" type=\"number\" (ngModelChange)=\"minutes = $event\"></div>",
+                        template: "<div><input min=\"0\" max=\"24\" (focus)=\"focusHandler()\" [(ngModel)]=\"hours\" type=\"number\" (ngModelChange)=\"hours = $event\"> <input min=\"0\" max=\"60\" (focus)=\"focusHandler()\" [(ngModel)]=\"minutes\" type=\"number\" (ngModelChange)=\"minutes = $event\"></div>",
                         styles: [""],
                         providers: [AJF_TIME_CONTROL_VALUE_ACCESSOR],
                         encapsulation: core.ViewEncapsulation.None,

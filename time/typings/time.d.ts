@@ -34,4 +34,5 @@ export declare class AjfTime implements ControlValueAccessor {
     writeValue(value: string): void;
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: any): void;
+    focusHandler(): void;
 }
