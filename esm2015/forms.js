@@ -2838,14 +2838,14 @@ class AjfFormRendererService {
                              * @return {?}
                              */
                             (row, rowIndex) => {
-                                value[rowIndex] = [tNode.rowLabels[rowIndex], row.map((/**
+                                value.push([tNode.rowLabels[rowIndex], row.map((/**
                                      * @param {?} k
                                      * @return {?}
                                      */
                                     k => {
                                         tfInstance.context[k] = context[k];
                                         return context[k];
-                                    }))];
+                                    }))]);
                             }));
                             tfInstance.value = value;
                         }

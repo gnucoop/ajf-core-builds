@@ -2672,14 +2672,14 @@ var AjfFormRendererService = /** @class */ (function () {
                              * @return {?}
                              */
                             function (row, rowIndex) {
-                                value_1[rowIndex] = [tNode_1.rowLabels[rowIndex], row.map((/**
+                                value_1.push([tNode_1.rowLabels[rowIndex], row.map((/**
                                      * @param {?} k
                                      * @return {?}
                                      */
                                     function (k) {
                                         tfInstance_1.context[k] = context[k];
                                         return context[k];
-                                    }))];
+                                    }))]);
                             }));
                             tfInstance_1.value = value_1;
                         }
