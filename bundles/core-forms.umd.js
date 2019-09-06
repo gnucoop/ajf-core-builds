@@ -20,10 +20,10 @@
  *
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@angular/core'), require('@ajf/core/models'), require('@ajf/core/utils'), require('esprima')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/forms', 'rxjs', 'rxjs/operators', '@angular/core', '@ajf/core/models', '@ajf/core/utils', 'esprima'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.core, global.ajf.core.models, global.ajf.core.utils, global.esprima));
-}(this, function (exports, forms, rxjs, operators, core, models, utils, esprima__default) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@angular/core'), require('date-fns'), require('@ajf/core/models'), require('@ajf/core/utils'), require('esprima')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/forms', 'rxjs', 'rxjs/operators', '@angular/core', 'date-fns', '@ajf/core/models', '@ajf/core/utils', 'esprima'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.core, global.dateFns, global.ajf.core.models, global.ajf.core.utils, global.esprima));
+}(this, function (exports, forms, rxjs, operators, core, dateFns, models, utils, esprima__default) { 'use strict';
 
     var esprima__default__default = 'default' in esprima__default ? esprima__default['default'] : esprima__default;
 
@@ -109,6 +109,7 @@
                 if (instance !== this._instance) {
                     this._instance = instance;
                     this._setUpInstanceUpdate();
+                    this._onInstanceChange();
                 }
             },
             enumerable: true,
@@ -186,6 +187,15 @@
             this._instanceUpdateSub.unsubscribe();
         };
         /**
+         * @protected
+         * @return {?}
+         */
+        AjfBaseFieldComponent.prototype._onInstanceChange = /**
+         * @protected
+         * @return {?}
+         */
+        function () { };
+        /**
          * @private
          * @return {?}
          */
@@ -233,12 +243,45 @@
          * @return {?}
          */
         function (date) {
+            if (date == null) {
+                return undefined;
+            }
             return date === 'today' ? new Date() : (/** @type {?} */ (date));
         };
         AjfDateValuePipe.decorators = [
             { type: core.Pipe, args: [{ name: 'ajfDateValue' },] },
         ];
         return AjfDateValuePipe;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var AjfDateValueStringPipe = /** @class */ (function () {
+        function AjfDateValueStringPipe() {
+        }
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        AjfDateValueStringPipe.prototype.transform = /**
+         * @param {?} date
+         * @return {?}
+         */
+        function (date) {
+            if (date == null) {
+                return undefined;
+            }
+            /** @type {?} */
+            var dateObj = date === 'today' ? new Date() : date;
+            return dateFns.format(dateObj, 'YYYY-MM-DD');
+        };
+        AjfDateValueStringPipe.decorators = [
+            { type: core.Injectable },
+            { type: core.Pipe, args: [{ name: 'ajfDateValueString' },] },
+        ];
+        return AjfDateValueStringPipe;
     }());
 
     /**
@@ -5014,6 +5057,7 @@
                         declarations: [
                             AjfBoolToIntPipe,
                             AjfDateValuePipe,
+                            AjfDateValueStringPipe,
                             AjfExpandFieldWithChoicesPipe,
                             AjfFieldHost,
                             AjfFieldIconPipe,
@@ -5029,6 +5073,7 @@
                         exports: [
                             AjfBoolToIntPipe,
                             AjfDateValuePipe,
+                            AjfDateValueStringPipe,
                             AjfExpandFieldWithChoicesPipe,
                             AjfFieldHost,
                             AjfFieldIconPipe,
@@ -5041,7 +5086,7 @@
                             AjfTableVisibleColumnsPipe,
                             AjfValidSlidePipe,
                         ],
-                        providers: [AjfFormRendererService, AjfValidationService]
+                        providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService]
                     },] },
         ];
         return AjfFormsModule;
@@ -5934,6 +5979,7 @@
     exports.AjfChoicesOriginSerializer = AjfChoicesOriginSerializer;
     exports.AjfChoicesType = AjfChoicesType;
     exports.AjfDateValuePipe = AjfDateValuePipe;
+    exports.AjfDateValueStringPipe = AjfDateValueStringPipe;
     exports.AjfFieldHost = AjfFieldHost;
     exports.AjfFieldIconPipe = AjfFieldIconPipe;
     exports.AjfFieldIsValidPipe = AjfFieldIsValidPipe;

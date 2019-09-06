@@ -19,9 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfBaseFieldComponent } from './base-field';
-export declare abstract class AjfInputFieldComponent extends AjfBaseFieldComponent {
-    type: 'text' | 'number';
-    private _readonly;
-    readonly: boolean;
+import { AjfDateInputField } from '../fields/date-input-field';
+import { AjfFieldInstance } from './field-instance';
+export interface AjfDateInputFieldInstance extends AjfFieldInstance {
+    node: AjfDateInputField;
 }

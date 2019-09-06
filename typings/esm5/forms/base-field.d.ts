@@ -38,5 +38,6 @@ export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance =
     constructor(_changeDetectorRef: ChangeDetectorRef, _service: AjfFormRendererService, _warningAlertService: AjfWarningAlertService);
     ngOnInit(): void;
     ngOnDestroy(): void;
+    protected _onInstanceChange(): void;
     private _setUpInstanceUpdate;
 }

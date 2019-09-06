@@ -21,7 +21,7 @@
  */
 import { AjfBaseFieldComponent } from './base-field';
 export declare abstract class AjfInputFieldComponent extends AjfBaseFieldComponent {
-    type: 'text' | 'number' | 'date';
+    type: 'text' | 'number';
     private _readonly;
     readonly: boolean;
 }

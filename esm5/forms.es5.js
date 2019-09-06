@@ -22,7 +22,8 @@
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription, defer, Observable, timer, Subject, BehaviorSubject } from 'rxjs';
 import { withLatestFrom, filter, map, publishReplay, refCount, startWith, scan, share, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
-import { Pipe, Directive, ViewContainerRef, EventEmitter, Injectable, NgModule, InjectionToken } from '@angular/core';
+import { Pipe, Injectable, Directive, ViewContainerRef, EventEmitter, NgModule, InjectionToken } from '@angular/core';
+import { format } from 'date-fns';
 import { __extends, __assign } from 'tslib';
 import { AjfError, evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { deepCopy, coerceBooleanProperty } from '@ajf/core/utils';
@@ -71,6 +72,7 @@ AjfBaseFieldComponent = /** @class */ (function () {
             if (instance !== this._instance) {
                 this._instance = instance;
                 this._setUpInstanceUpdate();
+                this._onInstanceChange();
             }
         },
         enumerable: true,
@@ -148,6 +150,15 @@ AjfBaseFieldComponent = /** @class */ (function () {
         this._instanceUpdateSub.unsubscribe();
     };
     /**
+     * @protected
+     * @return {?}
+     */
+    AjfBaseFieldComponent.prototype._onInstanceChange = /**
+     * @protected
+     * @return {?}
+     */
+    function () { };
+    /**
      * @private
      * @return {?}
      */
@@ -195,12 +206,45 @@ var AjfDateValuePipe = /** @class */ (function () {
      * @return {?}
      */
     function (date) {
+        if (date == null) {
+            return undefined;
+        }
         return date === 'today' ? new Date() : (/** @type {?} */ (date));
     };
     AjfDateValuePipe.decorators = [
         { type: Pipe, args: [{ name: 'ajfDateValue' },] },
     ];
     return AjfDateValuePipe;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var AjfDateValueStringPipe = /** @class */ (function () {
+    function AjfDateValueStringPipe() {
+    }
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    AjfDateValueStringPipe.prototype.transform = /**
+     * @param {?} date
+     * @return {?}
+     */
+    function (date) {
+        if (date == null) {
+            return undefined;
+        }
+        /** @type {?} */
+        var dateObj = date === 'today' ? new Date() : date;
+        return format(dateObj, 'YYYY-MM-DD');
+    };
+    AjfDateValueStringPipe.decorators = [
+        { type: Injectable },
+        { type: Pipe, args: [{ name: 'ajfDateValueString' },] },
+    ];
+    return AjfDateValueStringPipe;
 }());
 
 /**
@@ -4976,6 +5020,7 @@ var AjfFormsModule = /** @class */ (function () {
                     declarations: [
                         AjfBoolToIntPipe,
                         AjfDateValuePipe,
+                        AjfDateValueStringPipe,
                         AjfExpandFieldWithChoicesPipe,
                         AjfFieldHost,
                         AjfFieldIconPipe,
@@ -4991,6 +5036,7 @@ var AjfFormsModule = /** @class */ (function () {
                     exports: [
                         AjfBoolToIntPipe,
                         AjfDateValuePipe,
+                        AjfDateValueStringPipe,
                         AjfExpandFieldWithChoicesPipe,
                         AjfFieldHost,
                         AjfFieldIconPipe,
@@ -5003,7 +5049,7 @@ var AjfFormsModule = /** @class */ (function () {
                         AjfTableVisibleColumnsPipe,
                         AjfValidSlidePipe,
                     ],
-                    providers: [AjfFormRendererService, AjfValidationService]
+                    providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService]
                 },] },
     ];
     return AjfFormsModule;
@@ -5889,5 +5935,5 @@ function notEmptyWarning() {
     return createWarning({ condition: 'notEmpty($value)', warningMessage: 'Value must not be empty' });
 }
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AjfAttachmentsOriginSerializer, AjfAttachmentsType, AjfBaseFieldComponent, AjfChoicesOriginSerializer, AjfChoicesType, AjfDateValuePipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createField, createFieldInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, AjfBoolToIntPipe as ɵa, AjfExpandFieldWithChoicesPipe as ɵb, AjfIncrementPipe as ɵc, AjfIsRepeatingSlideInstancePipe as ɵd, AjfRangePipe as ɵe, AjfValidSlidePipe as ɵf, createNodeGroup as ɵg, createRepeatingSlide as ɵh, createSlide as ɵi };
+export { AJF_SEARCH_ALERT_THRESHOLD, AjfAttachmentsOriginSerializer, AjfAttachmentsType, AjfBaseFieldComponent, AjfChoicesOriginSerializer, AjfChoicesType, AjfDateValuePipe, AjfDateValueStringPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createField, createFieldInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, AjfBoolToIntPipe as ɵa, AjfExpandFieldWithChoicesPipe as ɵb, AjfIncrementPipe as ɵc, AjfIsRepeatingSlideInstancePipe as ɵd, AjfRangePipe as ɵe, AjfValidSlidePipe as ɵf, createNodeGroup as ɵg, createRepeatingSlide as ɵh, createSlide as ɵi };
 //# sourceMappingURL=forms.es5.js.map

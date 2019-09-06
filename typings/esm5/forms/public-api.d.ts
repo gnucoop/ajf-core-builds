@@ -21,6 +21,7 @@
  */
 export * from './base-field';
 export * from './date-value';
+export * from './date-value-string';
 export * from './errors';
 export * from './field-icon';
 export * from './field-is-valid';
@@ -78,6 +79,7 @@ export * from './interface/fields/table-field';
 export * from './interface/fields/text-field';
 export * from './interface/fields/time-field';
 export * from './interface/fields-instances/date-field-instance';
+export * from './interface/fields-instances/date-input-field-instance';
 export * from './interface/fields-instances/empty-field-instance';
 export * from './interface/fields-instances/field-instance';
 export * from './interface/fields-instances/field-state';

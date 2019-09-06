@@ -21,5 +21,5 @@
  */
 import { PipeTransform } from '@angular/core';
 export declare class AjfDateValuePipe implements PipeTransform {
-    transform(date: Date | 'today'): Date;
+    transform(date: Date | 'today' | undefined): Date | undefined;
 }

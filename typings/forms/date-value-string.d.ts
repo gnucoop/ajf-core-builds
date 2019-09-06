@@ -19,9 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfBaseFieldComponent } from './base-field';
-export declare abstract class AjfInputFieldComponent extends AjfBaseFieldComponent {
-    type: 'text' | 'number';
-    private _readonly;
-    readonly: boolean;
+import { PipeTransform } from '@angular/core';
+export declare class AjfDateValueStringPipe implements PipeTransform {
+    transform(date: Date | 'today' | undefined): string | undefined;
 }
