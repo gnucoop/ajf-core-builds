@@ -599,6 +599,7 @@
         function AjfReportWidget(_cfr, _renderer) {
             this._cfr = _cfr;
             this._renderer = _renderer;
+            this._init = false;
         }
         Object.defineProperty(AjfReportWidget.prototype, "instance", {
             get: /**
@@ -612,7 +613,9 @@
             function (instance) {
                 if (this._instance !== instance) {
                     this._instance = instance;
-                    this._loadComponent();
+                    if (this._init) {
+                        this._loadComponent();
+                    }
                 }
             },
             enumerable: true,
@@ -621,10 +624,11 @@
         /**
          * @return {?}
          */
-        AjfReportWidget.prototype.ngAfterViewInit = /**
+        AjfReportWidget.prototype.ngOnInit = /**
          * @return {?}
          */
         function () {
+            this._init = true;
             this._loadComponent();
         };
         /**
@@ -637,7 +641,8 @@
          */
         function () {
             var _this = this;
-            if (this._instance == null || this.widgetHost == null) {
+            if (!this._init || this._instance == null
+                || this.widgetHost == null || !this.instance.visible) {
                 return;
             }
             /** @type {?} */
@@ -774,14 +779,29 @@
         var wi = createWidgetInstance(widget, context);
         if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
             /** @type {?} */
-            var wwc = (/** @type {?} */ (widget));
+            var wwc_1 = (/** @type {?} */ (widget));
             /** @type {?} */
-            var wwci = (/** @type {?} */ (wi));
-            wwci.content = wwc.content.map((/**
+            var wwci_1 = (/** @type {?} */ (wi));
+            /** @type {?} */
+            var content_1 = (/** @type {?} */ ([]));
+            wwc_1.content.forEach((/**
              * @param {?} c
              * @return {?}
              */
-            function (c) { return widgetToWidgetInstance(c, context, ts); }));
+            function (c) {
+                if (wwc_1.repetitions != null) {
+                    wwci_1.repetitions = models.evaluateExpression(wwc_1.repetitions.formula, context);
+                    if (typeof wwci_1.repetitions === 'number' && wwci_1.repetitions > 0) {
+                        for (var i = 0; i < wwci_1.repetitions; i++) {
+                            content_1.push(widgetToWidgetInstance(c, __assign({}, context, { '$repetition': i }), ts));
+                        }
+                    }
+                }
+                else {
+                    content_1.push(widgetToWidgetInstance(c, context, ts));
+                }
+                wwci_1.content = content_1;
+            }));
         }
         else if (widget.widgetType === AjfWidgetType.Chart) {
             /** @type {?} */
@@ -1043,6 +1063,13 @@
      * @return {?}
      */
     function createReportInstance(report, context, ts) {
+        (report.variables || []).forEach((/**
+         * @param {?} variable
+         * @return {?}
+         */
+        function (variable) {
+            context[variable.name] = models.evaluateExpression(variable.formula.formula, context);
+        }));
         return {
             report: report,
             header: report.header ? createReportContainerInstance(report.header, context, ts) : undefined,
@@ -1073,7 +1100,6 @@
     exports.createWidgetInstance = createWidgetInstance;
     exports.widgetToWidgetInstance = widgetToWidgetInstance;
     exports.ɵa = AjfGetColumnContentPipe;
-    exports.ɵb = createReportContainerInstance;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -22,10 +22,12 @@
 import { AjfForm } from '@ajf/core/forms';
 import { AjfStyles } from '../styles';
 import { AjfReportContainer } from './report-container';
+import { AjfReportVariable } from './report-variable';
 export interface AjfReport {
     header?: AjfReportContainer;
     content?: AjfReportContainer;
     footer?: AjfReportContainer;
     styles?: AjfStyles;
     forms?: AjfForm[];
+    variables?: AjfReportVariable[];
 }

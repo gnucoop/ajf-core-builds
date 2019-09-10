@@ -504,6 +504,7 @@ class AjfReportWidget {
     constructor(_cfr, _renderer) {
         this._cfr = _cfr;
         this._renderer = _renderer;
+        this._init = false;
     }
     /**
      * @return {?}
@@ -516,13 +517,16 @@ class AjfReportWidget {
     set instance(instance) {
         if (this._instance !== instance) {
             this._instance = instance;
-            this._loadComponent();
+            if (this._init) {
+                this._loadComponent();
+            }
         }
     }
     /**
      * @return {?}
      */
-    ngAfterViewInit() {
+    ngOnInit() {
+        this._init = true;
         this._loadComponent();
     }
     /**
@@ -530,7 +534,8 @@ class AjfReportWidget {
      * @return {?}
      */
     _loadComponent() {
-        if (this._instance == null || this.widgetHost == null) {
+        if (!this._init || this._instance == null
+            || this.widgetHost == null || !this.instance.visible) {
             return;
         }
         /** @type {?} */
@@ -669,11 +674,26 @@ function widgetToWidgetInstance(widget, context, ts) {
         const wwc = (/** @type {?} */ (widget));
         /** @type {?} */
         const wwci = (/** @type {?} */ (wi));
-        wwci.content = wwc.content.map((/**
+        /** @type {?} */
+        let content = (/** @type {?} */ ([]));
+        wwc.content.forEach((/**
          * @param {?} c
          * @return {?}
          */
-        c => widgetToWidgetInstance(c, context, ts)));
+        c => {
+            if (wwc.repetitions != null) {
+                wwci.repetitions = evaluateExpression(wwc.repetitions.formula, context);
+                if (typeof wwci.repetitions === 'number' && wwci.repetitions > 0) {
+                    for (let i = 0; i < wwci.repetitions; i++) {
+                        content.push(widgetToWidgetInstance(c, Object.assign({}, context, { '$repetition': i }), ts));
+                    }
+                }
+            }
+            else {
+                content.push(widgetToWidgetInstance(c, context, ts));
+            }
+            wwci.content = content;
+        }));
     }
     else if (widget.widgetType === AjfWidgetType.Chart) {
         /** @type {?} */
@@ -935,6 +955,13 @@ function createReportContainerInstance(container, context, ts) {
  * @return {?}
  */
 function createReportInstance(report, context, ts) {
+    (report.variables || []).forEach((/**
+     * @param {?} variable
+     * @return {?}
+     */
+    variable => {
+        context[variable.name] = evaluateExpression(variable.formula.formula, context);
+    }));
     return {
         report,
         header: report.header ? createReportContainerInstance(report.header, context, ts) : undefined,
@@ -945,5 +972,5 @@ function createReportInstance(report, context, ts) {
     };
 }
 
-export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportWidget, AjfReportsModule, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createWidget, createWidgetInstance, widgetToWidgetInstance, AjfGetColumnContentPipe as ɵa, createReportContainerInstance as ɵb };
+export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportWidget, AjfReportsModule, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createWidget, createWidgetInstance, widgetToWidgetInstance, AjfGetColumnContentPipe as ɵa };
 //# sourceMappingURL=reports.js.map

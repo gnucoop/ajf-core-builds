@@ -843,7 +843,16 @@
         if (validation.maxDigits == null) {
             return null;
         }
-        return evaluateValidation(validation.maxDigits, { '$value': value });
+        /** @type {?} */
+        var ctx = { '$value': value };
+        if (typeof validation.maxDigits === 'number') {
+            return {
+                result: models.evaluateExpression("$value.toString().length <= " + validation.maxDigits, ctx),
+                error: "Digits count must be <= " + validation.minValue,
+                clientValidation: false
+            };
+        }
+        return evaluateValidation(validation.maxDigits, ctx);
     }
 
     /**
@@ -858,6 +867,15 @@
     function evaluateValidationMaxValue(validation, value) {
         if (validation.maxValue == null) {
             return null;
+        }
+        /** @type {?} */
+        var ctx = { '$value': value };
+        if (typeof validation.maxValue === 'number') {
+            return {
+                result: models.evaluateExpression("$value.length <= " + validation.maxValue, ctx),
+                error: "Value must be <= " + validation.minValue,
+                clientValidation: false
+            };
         }
         return evaluateValidation(validation.maxValue, { '$value': value });
     }
@@ -875,7 +893,16 @@
         if (validation.minDigits == null) {
             return null;
         }
-        return evaluateValidation(validation.minDigits, { '$value': value });
+        /** @type {?} */
+        var ctx = { '$value': value };
+        if (typeof validation.minDigits === 'number') {
+            return {
+                result: models.evaluateExpression("$value.toString().length >= " + validation.minDigits, ctx),
+                error: "Digits count must be >= " + validation.minValue,
+                clientValidation: false
+            };
+        }
+        return evaluateValidation(validation.minDigits, ctx);
     }
 
     /**
@@ -890,6 +917,15 @@
     function evaluateValidationMinValue(validation, value) {
         if (validation.minValue == null) {
             return null;
+        }
+        /** @type {?} */
+        var ctx = { '$value': value };
+        if (typeof validation.minValue === 'number') {
+            return {
+                result: models.evaluateExpression("$value.length <= " + validation.minValue, ctx),
+                error: "Value must be >= " + validation.minValue,
+                clientValidation: false
+            };
         }
         return evaluateValidation(validation.minValue, { '$value': value });
     }
@@ -907,7 +943,16 @@
         if (validation.notEmpty == null) {
             return null;
         }
-        return evaluateValidation(validation.notEmpty, { '$value': value });
+        /** @type {?} */
+        var ctx = { '$value': value };
+        if (typeof validation.notEmpty === 'boolean') {
+            return {
+                result: models.evaluateExpression("($value != null) === " + validation.notEmpty, ctx),
+                error: 'Value must not be empty',
+                clientValidation: false
+            };
+        }
+        return evaluateValidation(validation.notEmpty);
     }
 
     /**
@@ -931,7 +976,7 @@
             /** @type {?} */
             var maxValue = evaluateValidationMaxValue(validation, value);
             if (maxValue != null) {
-                res.push();
+                res.push(maxValue);
             }
         }
         if (validation.minValue) {
@@ -3281,7 +3326,39 @@
                      * @param {?} n
                      * @return {?}
                      */
-                    function (n) { return n.updatedEvt.emit(); }));
+                    function (n) {
+                        /** @type {?} */
+                        var nodeIdx = nodes.indexOf(n);
+                        /** @type {?} */
+                        var idx = nodeIdx - 1;
+                        while (idx >= 0) {
+                            /** @type {?} */
+                            var curNode = nodes[idx];
+                            if (isSlidesInstance(curNode)) {
+                                /** @type {?} */
+                                var slide = (/** @type {?} */ (curNode));
+                                /** @type {?} */
+                                var subNodesNum = slide.flatNodes.length;
+                                /** @type {?} */
+                                var valid = true;
+                                for (var i = 0; i < subNodesNum; i++) {
+                                    /** @type {?} */
+                                    var subNode = slide.flatNodes[i];
+                                    if (subNode.visible && isFieldInstance(subNode)
+                                        && !((/** @type {?} */ (subNode))).valid) {
+                                        valid = false;
+                                        break;
+                                    }
+                                }
+                                if (slide.valid !== valid) {
+                                    slide.valid = valid;
+                                }
+                                slide.updatedEvt.emit();
+                            }
+                            idx--;
+                        }
+                        n.updatedEvt.emit();
+                    }));
                     if (initForm) {
                         initForm = false;
                         _this._formInitEvent.emit(AjfFormInitStatus.Complete);

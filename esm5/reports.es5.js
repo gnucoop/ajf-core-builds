@@ -572,6 +572,7 @@ AjfReportWidget = /** @class */ (function () {
     function AjfReportWidget(_cfr, _renderer) {
         this._cfr = _cfr;
         this._renderer = _renderer;
+        this._init = false;
     }
     Object.defineProperty(AjfReportWidget.prototype, "instance", {
         get: /**
@@ -585,7 +586,9 @@ AjfReportWidget = /** @class */ (function () {
         function (instance) {
             if (this._instance !== instance) {
                 this._instance = instance;
-                this._loadComponent();
+                if (this._init) {
+                    this._loadComponent();
+                }
             }
         },
         enumerable: true,
@@ -594,10 +597,11 @@ AjfReportWidget = /** @class */ (function () {
     /**
      * @return {?}
      */
-    AjfReportWidget.prototype.ngAfterViewInit = /**
+    AjfReportWidget.prototype.ngOnInit = /**
      * @return {?}
      */
     function () {
+        this._init = true;
         this._loadComponent();
     };
     /**
@@ -610,7 +614,8 @@ AjfReportWidget = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (this._instance == null || this.widgetHost == null) {
+        if (!this._init || this._instance == null
+            || this.widgetHost == null || !this.instance.visible) {
             return;
         }
         /** @type {?} */
@@ -747,14 +752,29 @@ function widgetToWidgetInstance(widget, context, ts) {
     var wi = createWidgetInstance(widget, context);
     if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
         /** @type {?} */
-        var wwc = (/** @type {?} */ (widget));
+        var wwc_1 = (/** @type {?} */ (widget));
         /** @type {?} */
-        var wwci = (/** @type {?} */ (wi));
-        wwci.content = wwc.content.map((/**
+        var wwci_1 = (/** @type {?} */ (wi));
+        /** @type {?} */
+        var content_1 = (/** @type {?} */ ([]));
+        wwc_1.content.forEach((/**
          * @param {?} c
          * @return {?}
          */
-        function (c) { return widgetToWidgetInstance(c, context, ts); }));
+        function (c) {
+            if (wwc_1.repetitions != null) {
+                wwci_1.repetitions = evaluateExpression(wwc_1.repetitions.formula, context);
+                if (typeof wwci_1.repetitions === 'number' && wwci_1.repetitions > 0) {
+                    for (var i = 0; i < wwci_1.repetitions; i++) {
+                        content_1.push(widgetToWidgetInstance(c, __assign({}, context, { '$repetition': i }), ts));
+                    }
+                }
+            }
+            else {
+                content_1.push(widgetToWidgetInstance(c, context, ts));
+            }
+            wwci_1.content = content_1;
+        }));
     }
     else if (widget.widgetType === AjfWidgetType.Chart) {
         /** @type {?} */
@@ -1016,6 +1036,13 @@ function createReportContainerInstance(container, context, ts) {
  * @return {?}
  */
 function createReportInstance(report, context, ts) {
+    (report.variables || []).forEach((/**
+     * @param {?} variable
+     * @return {?}
+     */
+    function (variable) {
+        context[variable.name] = evaluateExpression(variable.formula.formula, context);
+    }));
     return {
         report: report,
         header: report.header ? createReportContainerInstance(report.header, context, ts) : undefined,
@@ -1026,5 +1053,5 @@ function createReportInstance(report, context, ts) {
     };
 }
 
-export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportWidget, AjfReportsModule, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createWidget, createWidgetInstance, widgetToWidgetInstance, AjfGetColumnContentPipe as ɵa, createReportContainerInstance as ɵb };
+export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportWidget, AjfReportsModule, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createWidget, createWidgetInstance, widgetToWidgetInstance, AjfGetColumnContentPipe as ɵa };
 //# sourceMappingURL=reports.es5.js.map

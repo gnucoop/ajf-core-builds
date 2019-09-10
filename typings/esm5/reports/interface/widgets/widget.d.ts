@@ -19,11 +19,12 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfCondition } from '@ajf/core/models';
+import { AjfCondition, AjfFormula } from '@ajf/core/models';
 import { AjfStyles } from '../styles';
 import { AjfWidgetType } from './widget-type';
 export interface AjfWidget {
     widgetType: AjfWidgetType;
     styles: AjfStyles;
     visibility: AjfCondition;
+    repetitions?: AjfFormula;
 }
