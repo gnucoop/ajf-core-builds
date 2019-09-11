@@ -20,12 +20,14 @@
  *
  */
 import { ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { AjfImageIcon } from './image-icon';
 import { AjfImageType } from './image-type';
 export declare abstract class AjfImage implements OnDestroy, OnInit {
     private _el;
     private _renderer;
+    private _domSanitizer;
     iconComponent: ElementRef;
     /**
      * if 0 take image by url
@@ -41,13 +43,13 @@ export declare abstract class AjfImage implements OnDestroy, OnInit {
     private _imageType;
     readonly imageType: Observable<AjfImageType | null>;
     private _url;
-    readonly url: Observable<string | null>;
+    readonly url: Observable<string | SafeResourceUrl | null>;
     private _iconObj;
     readonly iconObj: Observable<AjfImageIcon | null>;
     private _flagName;
     readonly flagName: Observable<string | null>;
     private _iconSub;
-    constructor(_el: ElementRef, _renderer: Renderer2);
+    constructor(_el: ElementRef, _renderer: Renderer2, _domSanitizer: DomSanitizer);
     ngOnDestroy(): void;
     ngOnInit(): void;
     private _updateIconSize;

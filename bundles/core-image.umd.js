@@ -53,10 +53,11 @@
      * @abstract
      */
     AjfImage = /** @class */ (function () {
-        function AjfImage(_el, _renderer) {
+        function AjfImage(_el, _renderer, _domSanitizer) {
             var _this = this;
             this._el = _el;
             this._renderer = _renderer;
+            this._domSanitizer = _domSanitizer;
             this.imageTypes = AjfImageType;
             this._imageType = new rxjs.BehaviorSubject(null);
             this.imageType = this._imageType.asObservable();
@@ -99,7 +100,9 @@
              * @return {?}
              */
             function (imageUrl) {
-                this._url.next(imageUrl);
+                this._url.next((imageUrl || '').startsWith('data:image/svg+xml;base64,')
+                    ? this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl)
+                    : imageUrl);
             },
             enumerable: true,
             configurable: true

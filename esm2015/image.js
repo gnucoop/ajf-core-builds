@@ -50,10 +50,12 @@ class AjfImage {
     /**
      * @param {?} _el
      * @param {?} _renderer
+     * @param {?} _domSanitizer
      */
-    constructor(_el, _renderer) {
+    constructor(_el, _renderer, _domSanitizer) {
         this._el = _el;
         this._renderer = _renderer;
+        this._domSanitizer = _domSanitizer;
         this.imageTypes = AjfImageType;
         this._imageType = new BehaviorSubject(null);
         this.imageType = this._imageType.asObservable();
@@ -85,7 +87,9 @@ class AjfImage {
      * @return {?}
      */
     set imageUrl(imageUrl) {
-        this._url.next(imageUrl);
+        this._url.next((imageUrl || '').startsWith('data:image/svg+xml;base64,')
+            ? this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl)
+            : imageUrl);
     }
     /**
      * @param {?} icon
