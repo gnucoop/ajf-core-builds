@@ -837,31 +837,31 @@ function widgetToWidgetInstance(widget, context, ts) {
         /** @type {?} */
         const icwi = (/** @type {?} */ (wi));
         if (icw.flags) {
-            /** @type {?} */
-            const flags = icw.flags instanceof Array ? icw.flags : [icw.flags];
-            icwi.flags = flags.map((/**
-             * @param {?} f
-             * @return {?}
-             */
-            f => evaluateExpression(f.formula, context)));
+            icwi.flags = icw.flags instanceof Array
+                ? icw.flags.map((/**
+                 * @param {?} f
+                 * @return {?}
+                 */
+                f => evaluateExpression(f.formula, context)))
+                : evaluateExpression(icw.flags.formula, context);
         }
         if (icw.icons) {
-            /** @type {?} */
-            const icons = icw.icons instanceof Array ? icw.icons : [icw.icons];
-            icwi.icons = icons.map((/**
-             * @param {?} f
-             * @return {?}
-             */
-            f => evaluateExpression(f.formula, context)));
+            icwi.icons = icw.icons instanceof Array
+                ? icw.icons.map((/**
+                 * @param {?} f
+                 * @return {?}
+                 */
+                f => evaluateExpression(f.formula, context)))
+                : evaluateExpression(icw.icons.formula, context);
         }
         if (icw.urls) {
-            /** @type {?} */
-            const urls = icw.urls instanceof Array ? icw.urls : [icw.urls];
-            icwi.urls = urls.map((/**
-             * @param {?} f
-             * @return {?}
-             */
-            f => evaluateExpression(f.formula, context)));
+            icwi.urls = icw.urls instanceof Array
+                ? icw.urls.map((/**
+                 * @param {?} f
+                 * @return {?}
+                 */
+                f => evaluateExpression(f.formula, context)))
+                : evaluateExpression(icw.urls.formula, context);
         }
     }
     else if (widget.widgetType === AjfWidgetType.Text) {
