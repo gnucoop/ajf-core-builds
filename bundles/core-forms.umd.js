@@ -563,7 +563,7 @@
             if (component == null) {
                 throw new Error('Invalid custom field component');
             }
-            this.componentsMap[fieldType] = { component: component };
+            this.componentsMap[fieldType] = field;
         };
         return AjfFieldService;
     }());
@@ -6150,6 +6150,7 @@
     exports.createChoicesPromiseOrigin = createChoicesPromiseOrigin;
     exports.createField = createField;
     exports.createFieldInstance = createFieldInstance;
+    exports.createFieldWithChoicesInstance = createFieldWithChoicesInstance;
     exports.createForm = createForm;
     exports.createNode = createNode;
     exports.createNodeInstance = createNodeInstance;
