@@ -19,25 +19,10 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core')) :
-	typeof define === 'function' && define.amd ? define('@ajf/core', ['exports', '@angular/core'], factory) :
-	(global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = {}), global.ng.core));
-}(this, function (exports, core) { 'use strict';
-
-	/**
-	 * @fileoverview added by tsickle
-	 * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-	 */
-	/**
-	 * Current version of Ajf.
-	 * @type {?}
-	 */
-	var VERSION = new core.Version('8.2.4-89aa77c');
-
-	exports.VERSION = VERSION;
-
-	Object.defineProperty(exports, '__esModule', { value: true });
-
-}));
-//# sourceMappingURL=core.umd.js.map
+import { Type } from '@angular/core';
+import { AjfBaseFieldComponent } from './base-field';
+import { AjfFieldComponentsMap } from './field-components-map';
+export declare abstract class AjfFieldService {
+    readonly componentsMap: AjfFieldComponentsMap;
+    registerCustomField(fieldType: number, component: Type<AjfBaseFieldComponent>): void;
+}

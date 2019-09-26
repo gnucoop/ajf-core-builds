@@ -527,6 +527,42 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+
+    /**
+     * @abstract
+     */
+    var   /**
+     * @abstract
+     */
+    AjfFieldService = /** @class */ (function () {
+        function AjfFieldService() {
+        }
+        /**
+         * @param {?} fieldType
+         * @param {?} component
+         * @return {?}
+         */
+        AjfFieldService.prototype.registerCustomField = /**
+         * @param {?} fieldType
+         * @param {?} component
+         * @return {?}
+         */
+        function (fieldType, component) {
+            if (fieldType < 100) {
+                throw new Error('Invalid custom field type, it must be greater than 100');
+            }
+            if (component == null) {
+                throw new Error('Invalid custom field component');
+            }
+            this.componentsMap[fieldType] = { component: component };
+        };
+        return AjfFieldService;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     /**
      * @abstract
      * @template T
@@ -2743,7 +2779,7 @@
                             var tfInstance_1 = (/** @type {?} */ (fInstance));
                             /** @type {?} */
                             var tNode_1 = tfInstance_1.node;
-                            tfInstance_1.context = {};
+                            tfInstance_1.context = context[nodeInstanceCompleteName(tfInstance_1)] || context;
                             if (!tNode_1.editable) {
                                 /** @type {?} */
                                 var value_1 = [];
@@ -2786,6 +2822,8 @@
                                     function (k) {
                                         /** @type {?} */
                                         var control = new forms.FormControl();
+                                        console.log(k);
+                                        console.log(tfInstance_1.context[k]);
                                         control.setValue(tfInstance_1.context[k]);
                                         if (formGroup_1 != null) {
                                             formGroup_1.registerControl(k, control);
@@ -6060,6 +6098,7 @@
     exports.AjfFieldHost = AjfFieldHost;
     exports.AjfFieldIconPipe = AjfFieldIconPipe;
     exports.AjfFieldIsValidPipe = AjfFieldIsValidPipe;
+    exports.AjfFieldService = AjfFieldService;
     exports.AjfFieldType = AjfFieldType;
     exports.AjfFieldWithChoicesComponent = AjfFieldWithChoicesComponent;
     exports.AjfFormActionEvent = AjfFormActionEvent;
