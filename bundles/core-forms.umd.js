@@ -5596,6 +5596,13 @@
             if (obj.nextSlideCondition) {
                 obj.nextSlideCondition = models.AjfConditionSerializer.fromJson(obj.nextSlideCondition);
             }
+            /** @type {?} */
+            var isCustomFieldWithChoice = obj.fieldType > 100
+                && componentsMap[obj.fieldType] != null
+                && componentsMap[obj.fieldType].isFieldWithChoice === true;
+            if (isCustomFieldWithChoice) {
+                return AjfNodeSerializer._fieldWithChoicesFromJson((/** @type {?} */ (json)), choicesOrigins);
+            }
             switch (obj.fieldType) {
                 case AjfFieldType.Formula:
                     return AjfNodeSerializer._formulaFieldFromJson((/** @type {?} */ (json)));
