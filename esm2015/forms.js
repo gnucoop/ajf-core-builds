@@ -438,11 +438,11 @@ class AjfFieldService {
         this.componentsMap = componentsMap;
     }
     /**
-     * @param {?} fieldType
-     * @param {?} component
+     * @param {?} field
      * @return {?}
      */
-    registerCustomField(fieldType, component) {
+    registerCustomField(field) {
+        const { fieldType, component } = field;
         if (fieldType < 100) {
             throw new Error('Invalid custom field type, it must be greater than 100');
         }

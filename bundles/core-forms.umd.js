@@ -548,16 +548,15 @@
             this.componentsMap = componentsMap;
         }
         /**
-         * @param {?} fieldType
-         * @param {?} component
+         * @param {?} field
          * @return {?}
          */
         AjfFieldService.prototype.registerCustomField = /**
-         * @param {?} fieldType
-         * @param {?} component
+         * @param {?} field
          * @return {?}
          */
-        function (fieldType, component) {
+        function (field) {
+            var fieldType = field.fieldType, component = field.component;
             if (fieldType < 100) {
                 throw new Error('Invalid custom field type, it must be greater than 100');
             }
