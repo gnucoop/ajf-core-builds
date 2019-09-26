@@ -19,13 +19,5 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { Type } from '@angular/core';
-import { AjfBaseFieldComponent } from './base-field';
-export interface AjfFieldComponentsMap {
-    [key: number]: {
-        component: Type<AjfBaseFieldComponent>;
-        inputs?: {
-            [key: string]: any;
-        };
-    };
-}
+import { AjfFieldComponentsMap } from '../../interface/fields/field-components-map';
+export declare const componentsMap: AjfFieldComponentsMap;

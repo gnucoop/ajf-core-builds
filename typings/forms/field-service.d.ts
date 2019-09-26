@@ -21,7 +21,7 @@
  */
 import { Type } from '@angular/core';
 import { AjfBaseFieldComponent } from './base-field';
-import { AjfFieldComponentsMap } from './field-components-map';
+import { AjfFieldComponentsMap } from './interface/fields/field-components-map';
 export declare abstract class AjfFieldService {
     readonly componentsMap: AjfFieldComponentsMap;
     registerCustomField(fieldType: number, component: Type<AjfBaseFieldComponent>): void;

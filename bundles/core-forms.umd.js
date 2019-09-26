@@ -530,6 +530,13 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
 
+    /** @type {?} */
+    var componentsMap = {};
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
     /**
      * @abstract
      */
@@ -538,6 +545,7 @@
      */
     AjfFieldService = /** @class */ (function () {
         function AjfFieldService() {
+            this.componentsMap = componentsMap;
         }
         /**
          * @param {?} fieldType
@@ -1896,17 +1904,28 @@
             case AjfNodeType.AjfField:
                 /** @type {?} */
                 var field = (/** @type {?} */ (node));
-                switch (field.fieldType) {
-                    case AjfFieldType.SingleChoice:
-                    case AjfFieldType.MultipleChoice:
-                        instance = createFieldWithChoicesInstance({ node: (/** @type {?} */ (node)), prefix: prefix }, context);
-                        break;
-                    case AjfFieldType.Table:
-                        instance = createTableFieldInstance({ node: (/** @type {?} */ (node)), prefix: prefix }, context);
-                        break;
-                    default:
+                if (field.fieldType > 100) {
+                    if (componentsMap[field.fieldType] != null
+                        && componentsMap[field.fieldType].createInstance != null) {
+                        instance = (/** @type {?} */ (componentsMap[field.fieldType].createInstance))({ node: (/** @type {?} */ (node)), prefix: prefix }, context);
+                    }
+                    else {
                         instance = createFieldInstance({ node: (/** @type {?} */ (node)), prefix: prefix }, context);
-                        break;
+                    }
+                }
+                else {
+                    switch (field.fieldType) {
+                        case AjfFieldType.SingleChoice:
+                        case AjfFieldType.MultipleChoice:
+                            instance = createFieldWithChoicesInstance({ node: (/** @type {?} */ (node)), prefix: prefix }, context);
+                            break;
+                        case AjfFieldType.Table:
+                            instance = createTableFieldInstance({ node: (/** @type {?} */ (node)), prefix: prefix }, context);
+                            break;
+                        default:
+                            instance = createFieldInstance({ node: (/** @type {?} */ (node)), prefix: prefix }, context);
+                            break;
+                    }
                 }
                 break;
             case AjfNodeType.AjfNodeGroup:
@@ -3822,7 +3841,11 @@
             if (fieldInstance.nextSlideCondition != null) {
                 this._addToNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
             }
-            if (isFieldWithChoicesInstance(fieldInstance)) {
+            /** @type {?} */
+            var isCustomFieldWithChoice = fieldInstance.node.fieldType > 100
+                && componentsMap[fieldInstance.node.fieldType] != null
+                && componentsMap[fieldInstance.node.fieldType].isFieldWithChoice === true;
+            if (isCustomFieldWithChoice || isFieldWithChoicesInstance(fieldInstance)) {
                 /** @type {?} */
                 var fwcInstance = (/** @type {?} */ (fieldInstance));
                 if (fwcInstance.choicesFilter != null) {

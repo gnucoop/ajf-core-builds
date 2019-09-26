@@ -20,9 +20,9 @@
  *
  */
 import { ComponentFactoryResolver, OnInit } from '@angular/core';
-import { AjfFieldComponentsMap } from './field-components-map';
-import { AjfFieldHost } from './field-host';
+import { AjfFieldComponentsMap } from './interface/fields/field-components-map';
 import { AjfFieldInstance } from './interface/fields-instances/field-instance';
+import { AjfFieldHost } from './field-host';
 export declare abstract class AjfFormField implements OnInit {
     private _cfr;
     fieldHost: AjfFieldHost;
