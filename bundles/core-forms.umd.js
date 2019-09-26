@@ -358,7 +358,9 @@
      * @return {?}
      */
     function fieldIconName(type) {
-        return "ajf-icon-field-" + AjfFieldType[type].toLowerCase();
+        return "ajf-icon-field-" + (typeof AjfFieldType[type] === 'string'
+            ? AjfFieldType[type].toLowerCase()
+            : type);
     }
 
     /**
