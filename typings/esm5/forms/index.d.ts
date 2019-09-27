@@ -7,6 +7,7 @@ export { AjfExpandFieldWithChoicesPipe as ɵb } from './expand-input-with-choice
 export { AjfIncrementPipe as ɵc } from './increment';
 export { AjfIsRepeatingSlideInstancePipe as ɵd } from './is-repeating-slide';
 export { AjfRangePipe as ɵe } from './range';
+export { componentsMap as ɵj } from './utils/fields/fields-map';
 export { createNodeGroup as ɵg } from './utils/nodes/create-node-group';
 export { createRepeatingSlide as ɵh } from './utils/slides/create-repeating-slide';
 export { createSlide as ɵi } from './utils/slides/create-slide';

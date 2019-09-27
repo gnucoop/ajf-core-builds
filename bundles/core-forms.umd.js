@@ -630,6 +630,20 @@
      * @param {?} field
      * @return {?}
      */
+    function isCustomFieldWithChoices(field) {
+        return field.fieldType > 100
+            && componentsMap[field.fieldType] != null
+            && componentsMap[field.fieldType].isFieldWithChoice === true;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} field
+     * @return {?}
+     */
     function isFieldWithChoices(field) {
         return field.fieldType === AjfFieldType.SingleChoice ||
             field.fieldType === AjfFieldType.MultipleChoice;
@@ -2790,7 +2804,7 @@
                 if (nodeType === AjfNodeType.AjfField) {
                     /** @type {?} */
                     var fInstance = (/** @type {?} */ (instance));
-                    if (isFieldWithChoices(fInstance.node)) {
+                    if (isCustomFieldWithChoices(fInstance.node) || isFieldWithChoices(fInstance.node)) {
                         updateFilteredChoices((/** @type {?} */ (fInstance)), context);
                     }
                     else {
@@ -3840,11 +3854,7 @@
             if (fieldInstance.nextSlideCondition != null) {
                 this._addToNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
             }
-            /** @type {?} */
-            var isCustomFieldWithChoice = fieldInstance.node.fieldType > 100
-                && componentsMap[fieldInstance.node.fieldType] != null
-                && componentsMap[fieldInstance.node.fieldType].isFieldWithChoice === true;
-            if (isCustomFieldWithChoice || isFieldWithChoicesInstance(fieldInstance)) {
+            if (isCustomFieldWithChoices(fieldInstance.node) || isFieldWithChoicesInstance(fieldInstance)) {
                 /** @type {?} */
                 var fwcInstance = (/** @type {?} */ (fieldInstance));
                 if (fwcInstance.choicesFilter != null) {
@@ -5600,6 +5610,10 @@
             var isCustomFieldWithChoice = obj.fieldType > 100
                 && componentsMap[obj.fieldType] != null
                 && componentsMap[obj.fieldType].isFieldWithChoice === true;
+            if (obj.fieldType > 100) {
+                console.log(obj);
+                console.log(componentsMap[obj.fieldType]);
+            }
             if (isCustomFieldWithChoice) {
                 return AjfNodeSerializer._fieldWithChoicesFromJson((/** @type {?} */ (json)), choicesOrigins);
             }
@@ -6172,6 +6186,7 @@
     exports.isChoicesFixedOrigin = isChoicesFixedOrigin;
     exports.isChoicesOrigin = isChoicesOrigin;
     exports.isContainerNode = isContainerNode;
+    exports.isCustomFieldWithChoices = isCustomFieldWithChoices;
     exports.isField = isField;
     exports.isFieldWithChoices = isFieldWithChoices;
     exports.isNumberField = isNumberField;
@@ -6192,6 +6207,7 @@
     exports.ɵg = createNodeGroup;
     exports.ɵh = createRepeatingSlide;
     exports.ɵi = createSlide;
+    exports.ɵj = componentsMap;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

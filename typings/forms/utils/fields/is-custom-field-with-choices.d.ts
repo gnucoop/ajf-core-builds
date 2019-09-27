@@ -19,17 +19,5 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { Version } from '@angular/core';
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * Current version of Ajf.
- * @type {?}
- */
-const VERSION = new Version('8.2.7-61fea81');
-
-export { VERSION };
-//# sourceMappingURL=core.js.map
+import { AjfField } from '../../interface/fields/field';
+export declare function isCustomFieldWithChoices(field: AjfField): boolean;
