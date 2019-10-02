@@ -303,18 +303,16 @@ AjfFieldIconPipe.decorators = [
  */
 class AjfFieldIsValidPipe {
     /**
-     * @param {?} fieldInstance
+     * @param {?=} validationResults
      * @return {?}
      */
-    transform(fieldInstance) {
-        if (fieldInstance &&
-            fieldInstance.validationResults &&
-            fieldInstance.validationResults.length === 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    transform(validationResults) {
+        return validationResults != null
+            && validationResults.filter((/**
+             * @param {?} f
+             * @return {?}
+             */
+            (f) => !f.result)).length === 0;
     }
 }
 AjfFieldIsValidPipe.decorators = [

@@ -55,6 +55,7 @@ let _uniqueIdCounter = 0;
  */
 class AjfCheckboxGroup {
     constructor() {
+        this.checkboxes = [];
         /**
          * The value for the button toggle group. Should match currently selected button toggle.
          */
@@ -210,6 +211,13 @@ class AjfCheckboxGroup {
         this._updateSelectedCheckboxesFromValue();
     }
     /**
+     * @param {?} item
+     * @return {?}
+     */
+    registerItem(item) {
+        this.checkboxes.push(item);
+    }
+    /**
      * @private
      * @return {?}
      */
@@ -222,6 +230,9 @@ class AjfCheckboxGroup {
          * @return {?}
          */
         (checkbox) => {
+            if (checkbox == null) {
+                return;
+            }
             checkbox.name = this._name;
         }));
     }
@@ -238,6 +249,9 @@ class AjfCheckboxGroup {
          * @return {?}
          */
         checkbox => {
+            if (checkbox == null) {
+                return;
+            }
             if ((this._value || []).indexOf(checkbox.value) > -1) {
                 checkbox.checked = true;
             }
@@ -309,6 +323,7 @@ class AjfCheckboxGroupItem {
         r => r[0] ? r[1] : r[2])));
         if (checkboxGroup) {
             this.checkboxGroup = checkboxGroup;
+            this.checkboxGroup.registerItem(this);
         }
     }
     /**

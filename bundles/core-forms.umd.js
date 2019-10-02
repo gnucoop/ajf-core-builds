@@ -395,22 +395,20 @@
         function AjfFieldIsValidPipe() {
         }
         /**
-         * @param {?} fieldInstance
+         * @param {?=} validationResults
          * @return {?}
          */
         AjfFieldIsValidPipe.prototype.transform = /**
-         * @param {?} fieldInstance
+         * @param {?=} validationResults
          * @return {?}
          */
-        function (fieldInstance) {
-            if (fieldInstance &&
-                fieldInstance.validationResults &&
-                fieldInstance.validationResults.length === 0) {
-                return true;
-            }
-            else {
-                return false;
-            }
+        function (validationResults) {
+            return validationResults != null
+                && validationResults.filter((/**
+                 * @param {?} f
+                 * @return {?}
+                 */
+                function (f) { return !f.result; })).length === 0;
         };
         AjfFieldIsValidPipe.decorators = [
             { type: core.Pipe, args: [{ name: 'ajfFieldIsValid' },] },

@@ -67,6 +67,7 @@
      */
     var AjfCheckboxGroup = /** @class */ (function () {
         function AjfCheckboxGroup() {
+            this.checkboxes = [];
             /**
              * The value for the button toggle group. Should match currently selected button toggle.
              */
@@ -273,6 +274,17 @@
             this._updateSelectedCheckboxesFromValue();
         };
         /**
+         * @param {?} item
+         * @return {?}
+         */
+        AjfCheckboxGroup.prototype.registerItem = /**
+         * @param {?} item
+         * @return {?}
+         */
+        function (item) {
+            this.checkboxes.push(item);
+        };
+        /**
          * @private
          * @return {?}
          */
@@ -290,6 +302,9 @@
              * @return {?}
              */
             function (checkbox) {
+                if (checkbox == null) {
+                    return;
+                }
                 checkbox.name = _this._name;
             }));
         };
@@ -311,6 +326,9 @@
              * @return {?}
              */
             function (checkbox) {
+                if (checkbox == null) {
+                    return;
+                }
                 if ((_this._value || []).indexOf(checkbox.value) > -1) {
                     checkbox.checked = true;
                 }
@@ -389,6 +407,7 @@
             function (r) { return r[0] ? r[1] : r[2]; })));
             if (checkboxGroup) {
                 this.checkboxGroup = checkboxGroup;
+                this.checkboxGroup.registerItem(this);
             }
         }
         Object.defineProperty(AjfCheckboxGroupItem.prototype, "id", {

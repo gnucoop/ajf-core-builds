@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AfterContentInit, OnInit, QueryList } from '@angular/core';
+import { AfterContentInit, OnInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
 export declare const AJF_CHECKBOX_GROUP_VALUE_ACCESSOR: any;
@@ -32,8 +32,7 @@ export declare class AjfCheckboxGroupChange<T> {
     value: any;
 }
 export declare class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccessor {
-    /** Child button toggle buttons. */
-    checkboxes: QueryList<AjfCheckboxGroupItem<T>>;
+    checkboxes: AjfCheckboxGroupItem<T>[];
     /** The value for the button toggle group. Should match currently selected button toggle. */
     private _value;
     value: T[];
@@ -66,6 +65,7 @@ export declare class AjfCheckboxGroup<T> implements AfterContentInit, ControlVal
     addValue(value: T): void;
     removeValue(value: T): void;
     ngAfterContentInit(): void;
+    registerItem(item: AjfCheckboxGroupItem<T>): void;
     /** The method to be called in order to update ngModel. */
     private _controlValueAccessorChangeFn;
     private _updateCheckboxesNames;

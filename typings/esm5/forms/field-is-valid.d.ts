@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfFieldInstance } from './interface/fields-instances/field-instance';
+import { AjfValidationResult } from './interface/validation/validation-results';
 export declare class AjfFieldIsValidPipe {
-    transform(fieldInstance: AjfFieldInstance): boolean;
+    transform(validationResults?: AjfValidationResult[]): boolean;
 }
