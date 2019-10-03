@@ -19,17 +19,20 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { ComponentFactoryResolver, OnInit } from '@angular/core';
+import { ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, OnInit } from '@angular/core';
 import { AjfFieldComponentsMap } from './interface/fields/field-components-map';
 import { AjfFieldInstance } from './interface/fields-instances/field-instance';
 import { AjfFieldHost } from './field-host';
-export declare abstract class AjfFormField implements OnInit {
+export declare abstract class AjfFormField implements OnDestroy, OnInit {
+    private _cdr;
     private _cfr;
     fieldHost: AjfFieldHost;
     private _instance;
     instance: AjfFieldInstance;
     protected abstract componentsMap: AjfFieldComponentsMap;
-    constructor(_cfr: ComponentFactoryResolver);
+    private _updatedSub;
+    constructor(_cdr: ChangeDetectorRef, _cfr: ComponentFactoryResolver);
+    ngOnDestroy(): void;
     ngOnInit(): void;
     private _loadComponent;
 }

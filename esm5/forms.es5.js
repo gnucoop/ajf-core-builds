@@ -383,7 +383,6 @@ var AjfFieldIsValidPipe = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-
 /**
  * @abstract
  */
@@ -391,8 +390,10 @@ var  /**
  * @abstract
  */
 AjfFormField = /** @class */ (function () {
-    function AjfFormField(_cfr) {
+    function AjfFormField(_cdr, _cfr) {
+        this._cdr = _cdr;
         this._cfr = _cfr;
+        this._updatedSub = Subscription.EMPTY;
     }
     Object.defineProperty(AjfFormField.prototype, "instance", {
         get: /**
@@ -415,6 +416,15 @@ AjfFormField = /** @class */ (function () {
     /**
      * @return {?}
      */
+    AjfFormField.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._updatedSub.unsubscribe();
+    };
+    /**
+     * @return {?}
+     */
     AjfFormField.prototype.ngOnInit = /**
      * @return {?}
      */
@@ -430,6 +440,9 @@ AjfFormField = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
+        this._updatedSub.unsubscribe();
+        this._updatedSub = Subscription.EMPTY;
         if (this._instance == null || this.fieldHost == null) {
             return;
         }
@@ -462,6 +475,10 @@ AjfFormField = /** @class */ (function () {
                     }
                 }));
             }
+            this._updatedSub = this._instance.updatedEvt.subscribe((/**
+             * @return {?}
+             */
+            function () { return _this._cdr.markForCheck(); }));
         }
         catch (e) { }
     };
@@ -868,7 +885,7 @@ function evaluateValidationMaxDigits(validation, value) {
     if (typeof validation.maxDigits === 'number') {
         return {
             result: evaluateExpression("$value.toString().length <= " + validation.maxDigits, ctx),
-            error: "Digits count must be <= " + validation.minValue,
+            error: "Digits count must be <= " + validation.maxDigits,
             clientValidation: false
         };
     }
@@ -972,7 +989,7 @@ function evaluateValidationNotEmpty(validation, value) {
             clientValidation: false
         };
     }
-    return evaluateValidation(validation.notEmpty);
+    return evaluateValidation(validation.notEmpty, ctx);
 }
 
 /**

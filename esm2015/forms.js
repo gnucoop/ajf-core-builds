@@ -323,16 +323,18 @@ AjfFieldIsValidPipe.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-
 /**
  * @abstract
  */
 class AjfFormField {
     /**
+     * @param {?} _cdr
      * @param {?} _cfr
      */
-    constructor(_cfr) {
+    constructor(_cdr, _cfr) {
+        this._cdr = _cdr;
         this._cfr = _cfr;
+        this._updatedSub = Subscription.EMPTY;
     }
     /**
      * @return {?}
@@ -351,6 +353,12 @@ class AjfFormField {
     /**
      * @return {?}
      */
+    ngOnDestroy() {
+        this._updatedSub.unsubscribe();
+    }
+    /**
+     * @return {?}
+     */
     ngOnInit() {
         this._loadComponent();
     }
@@ -359,6 +367,8 @@ class AjfFormField {
      * @return {?}
      */
     _loadComponent() {
+        this._updatedSub.unsubscribe();
+        this._updatedSub = Subscription.EMPTY;
         if (this._instance == null || this.fieldHost == null) {
             return;
         }
@@ -391,6 +401,10 @@ class AjfFormField {
                     }
                 }));
             }
+            this._updatedSub = this._instance.updatedEvt.subscribe((/**
+             * @return {?}
+             */
+            () => this._cdr.markForCheck()));
         }
         catch (e) { }
     }
@@ -784,7 +798,7 @@ function evaluateValidationMaxDigits(validation, value) {
     if (typeof validation.maxDigits === 'number') {
         return {
             result: evaluateExpression(`$value.toString().length <= ${validation.maxDigits}`, ctx),
-            error: `Digits count must be <= ${validation.minValue}`,
+            error: `Digits count must be <= ${validation.maxDigits}`,
             clientValidation: false
         };
     }
@@ -888,7 +902,7 @@ function evaluateValidationNotEmpty(validation, value) {
             clientValidation: false
         };
     }
-    return evaluateValidation(validation.notEmpty);
+    return evaluateValidation(validation.notEmpty, ctx);
 }
 
 /**
