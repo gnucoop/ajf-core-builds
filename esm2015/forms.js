@@ -974,6 +974,7 @@ function updateValidation(instance, context, supplementaryInformations) {
     /** @type {?} */
     const validation = instance.validation;
     if (validation == null) {
+        instance.valid = true;
         return;
     }
     if (supplementaryInformations) {
@@ -992,19 +993,14 @@ function updateValidation(instance, context, supplementaryInformations) {
         context[completeName] = instance.value;
         context.$value = instance.value;
     }
-    if (validation != null) {
-        instance.validationResults =
-            evaluateValidationGroup(validation, context[completeName], context);
-        instance.valid = instance.validationResults.reduce((/**
-         * @param {?} prev
-         * @param {?} x
-         * @return {?}
-         */
-        (prev, x) => prev && x.result), true);
-    }
-    else {
-        instance.valid = true;
-    }
+    instance.validationResults =
+        evaluateValidationGroup(validation, context[completeName], context);
+    instance.valid = instance.validationResults.reduce((/**
+     * @param {?} prev
+     * @param {?} x
+     * @return {?}
+     */
+    (prev, x) => prev && x.result), true);
 }
 
 /**
