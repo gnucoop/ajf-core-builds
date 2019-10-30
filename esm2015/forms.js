@@ -2985,8 +2985,6 @@ class AjfFormRendererService {
                                 (k) => {
                                     /** @type {?} */
                                     const control = new FormControl();
-                                    console.log(k);
-                                    console.log(tfInstance.context[k]);
                                     control.setValue(tfInstance.context[k]);
                                     if (formGroup != null) {
                                         formGroup.registerControl(k, control);
@@ -3241,7 +3239,6 @@ class AjfFormRendererService {
                 const triggerConditionsMap = v[9];
                 /** @type {?} */
                 const nodes = v[10];
-                ((/** @type {?} */ (window))).nodes = nodes;
                 /** @type {?} */
                 const delta = this._formValueDelta(oldFormValue, newFormValue);
                 /** @type {?} */

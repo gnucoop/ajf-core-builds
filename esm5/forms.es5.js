@@ -2830,8 +2830,6 @@ var AjfFormRendererService = /** @class */ (function () {
                                 function (k) {
                                     /** @type {?} */
                                     var control = new FormControl();
-                                    console.log(k);
-                                    console.log(tfInstance_1.context[k]);
                                     control.setValue(tfInstance_1.context[k]);
                                     if (formGroup_1 != null) {
                                         formGroup_1.registerControl(k, control);
@@ -3134,7 +3132,6 @@ var AjfFormRendererService = /** @class */ (function () {
                 var triggerConditionsMap = v[9];
                 /** @type {?} */
                 var nodes = v[10];
-                ((/** @type {?} */ (window))).nodes = nodes;
                 /** @type {?} */
                 var delta = _this._formValueDelta(oldFormValue, newFormValue);
                 /** @type {?} */
