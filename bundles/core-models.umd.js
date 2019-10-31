@@ -355,7 +355,7 @@
         var res = [];
         for (var i = 0; i < l; i++) {
             if (source[i][property] != null && property2 != null && source[i][property2] != null) {
-                res.push(source[i][property] + source[i][property2]);
+                res.push(Number(source[i][property]) + Number(source[i][property2]));
             }
             else if (source[i][property] != null) {
                 res.push(source[i][property]);
@@ -380,7 +380,9 @@
             /** @type {?} */
             var leng = array.length;
             for (var j = 0; j < leng; j++) {
-                sumVal += array[j];
+                if (!isNaN(Number(array[j]))) {
+                    sumVal += Number(array[j]);
+                }
             }
         }
         return sumVal;
@@ -406,7 +408,7 @@
                 /** @type {?} */
                 var sumVal = 0;
                 for (var propI = 0; propI < properties.length; propI++) {
-                    sumVal = sumVal + arrays[propI][weekI];
+                    sumVal = sumVal + Number(arrays[propI][weekI]);
                 }
                 res.push(sumVal);
             }
@@ -501,8 +503,13 @@
         source = (source || []).slice(0);
         /** @type {?} */
         var sumVal = 0;
+        /** @type {?} */
+        var val = 0;
         for (var i = 0; i < properties.length; i++) {
-            sumVal += lastProperty(source, properties[i]);
+            val = Number(lastProperty(source, properties[i]));
+            if (!isNaN(val)) {
+                sumVal += val;
+            }
         }
         return sumVal;
     }
@@ -596,7 +603,7 @@
         while (range != 0) {
             if (source[l - 1][property] != null) {
                 counter++;
-                res += source[l - 1][property];
+                res += Number(source[l - 1][property]);
                 if (source[l - 1][property] > 0) {
                     noZero++;
                 }
@@ -647,7 +654,7 @@
                     var val = sourceArr[len - r];
                     if (val != null) {
                         counter++;
-                        res += val;
+                        res += Number(val);
                         if (val > 0) {
                             noZero++;
                         }
