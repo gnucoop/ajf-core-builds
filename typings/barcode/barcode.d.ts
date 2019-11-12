@@ -26,6 +26,8 @@ import { Subscription } from 'rxjs';
 export declare abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     private _cdr;
     private _renderer;
+    protected _readonly: boolean;
+    readonly: boolean;
     readonly codeReader: BrowserBarcodeReader;
     readonly startDetection: EventEmitter<void>;
     readonly startCalculation: EventEmitter<string>;

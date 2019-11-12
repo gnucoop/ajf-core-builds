@@ -20,10 +20,10 @@
  *
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@ajf/core/utils')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/checkbox-group', ['exports', '@angular/core', '@angular/forms', 'rxjs', 'rxjs/operators', '@ajf/core/utils'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.checkboxGroup = {}), global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators, global.ajf.core.utils));
-}(this, function (exports, core, forms, rxjs, operators, utils) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@ajf/core/utils'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/checkbox-group', ['exports', '@angular/core', '@angular/forms', '@ajf/core/utils', 'rxjs', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.checkboxGroup = {}), global.ng.core, global.ng.forms, global.ajf.core.utils, global.rxjs, global.rxjs.operators));
+}(this, function (exports, core, forms, utils, rxjs, operators) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -464,6 +464,21 @@
                 if (this._value !== value) {
                     this._value = value;
                 }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfCheckboxGroupItem.prototype, "readonly", {
+            get: /**
+             * @return {?}
+             */
+            function () { return this._readonly; },
+            set: /**
+             * @param {?} readonly
+             * @return {?}
+             */
+            function (readonly) {
+                this._readonly = utils.coerceBooleanProperty(readonly);
             },
             enumerable: true,
             configurable: true

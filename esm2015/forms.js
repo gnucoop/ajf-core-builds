@@ -19,13 +19,13 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { coerceBooleanProperty, deepCopy } from '@ajf/core/utils';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription, defer, Subject, BehaviorSubject, Observable, timer } from 'rxjs';
 import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
 import { Pipe, Injectable, Directive, ViewContainerRef, EventEmitter, NgModule, InjectionToken } from '@angular/core';
 import { format } from 'date-fns';
 import { AjfError, evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
-import { deepCopy, coerceBooleanProperty } from '@ajf/core/utils';
 import * as esprima from 'esprima';
 import esprima__default, {  } from 'esprima';
 
@@ -72,6 +72,18 @@ class AjfBaseFieldComponent {
             this._setUpInstanceUpdate();
             this._onInstanceChange();
         }
+    }
+    /**
+     * @return {?}
+     */
+    get readonly() { return this._readonly; }
+    /**
+     * @param {?} readonly
+     * @return {?}
+     */
+    set readonly(readonly) {
+        this._readonly = coerceBooleanProperty(readonly);
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * @return {?}
@@ -353,6 +365,20 @@ class AjfFormField {
     /**
      * @return {?}
      */
+    get readonly() { return this._readonly; }
+    /**
+     * @param {?} readonly
+     * @return {?}
+     */
+    set readonly(readonly) {
+        this._readonly = coerceBooleanProperty(readonly);
+        this._componentInstance.readonly = this._readonly;
+        this._cdr.markForCheck();
+        console.log(readonly);
+    }
+    /**
+     * @return {?}
+     */
     ngOnDestroy() {
         this._updatedSub.unsubscribe();
     }
@@ -387,17 +413,17 @@ class AjfFormField {
             const componentFactory = this._cfr.resolveComponentFactory(component);
             /** @type {?} */
             const componentRef = vcr.createComponent(componentFactory);
-            /** @type {?} */
-            const componentInstance = componentRef.instance;
-            componentInstance.instance = this._instance;
+            this._componentInstance = componentRef.instance;
+            this._componentInstance.instance = this._instance;
+            this._componentInstance.readonly = this._readonly;
             if (componentDef.inputs) {
                 Object.keys(componentDef.inputs).forEach((/**
                  * @param {?} key
                  * @return {?}
                  */
                 key => {
-                    if (key in componentInstance) {
-                        ((/** @type {?} */ (componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
+                    if (key in this._componentInstance) {
+                        ((/** @type {?} */ (this._componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
                     }
                 }));
             }
@@ -4317,6 +4343,7 @@ class AjfFormRenderer {
         this._hideBottomToolbar = false;
         this._hideNavigationButtons = false;
         this._fixedOrientation = false;
+        this._readonly = false;
         this._orientation = 'horizontal';
         this._errorMoveEvent = new EventEmitter();
         // _init is a private boolean
@@ -4418,6 +4445,18 @@ class AjfFormRenderer {
      */
     set fixedOrientation(fixedOrientation) {
         this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
+        this._changeDetectorRef.markForCheck();
+    }
+    /**
+     * @return {?}
+     */
+    get readonly() { return this._readonly; }
+    /**
+     * @param {?} readonly
+     * @return {?}
+     */
+    set readonly(readonly) {
+        this._readonly = coerceBooleanProperty(readonly);
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -4914,18 +4953,6 @@ class AjfInputFieldComponent extends AjfBaseFieldComponent {
     constructor() {
         super(...arguments);
         this.type = 'text';
-        this._readonly = false;
-    }
-    /**
-     * @return {?}
-     */
-    get readonly() { return this._readonly; }
-    /**
-     * @param {?} readonly
-     * @return {?}
-     */
-    set readonly(readonly) {
-        this._readonly = coerceBooleanProperty(readonly);
     }
 }
 

@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { EventEmitter, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { EventEmitter, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 
 /**
@@ -249,7 +249,7 @@ var AjfTime = /** @class */ (function () {
     };
     AjfTime.decorators = [
         { type: Component, args: [{selector: 'ajf-time',
-                    template: "<div><input min=\"0\" max=\"24\" (focus)=\"focusHandler()\" [(ngModel)]=\"hours\" type=\"number\" (ngModelChange)=\"hours = $event\"> <input min=\"0\" max=\"60\" (focus)=\"focusHandler()\" [(ngModel)]=\"minutes\" type=\"number\" (ngModelChange)=\"minutes = $event\"></div>",
+                    template: "<div><input min=\"0\" max=\"24\" (focus)=\"focusHandler()\" [(ngModel)]=\"hours\" type=\"number\" (ngModelChange)=\"hours = $event\" [readonly]=\"readonly\"> <input min=\"0\" max=\"60\" (focus)=\"focusHandler()\" [(ngModel)]=\"minutes\" type=\"number\" (ngModelChange)=\"minutes = $event\" [readonly]=\"readonly\"></div>",
                     styles: [""],
                     providers: [AJF_TIME_CONTROL_VALUE_ACCESSOR],
                     encapsulation: ViewEncapsulation.None,
@@ -258,6 +258,9 @@ var AjfTime = /** @class */ (function () {
     ];
     /** @nocollapse */
     AjfTime.ctorParameters = function () { return []; };
+    AjfTime.propDecorators = {
+        readonly: [{ type: Input }]
+    };
     return AjfTime;
 }());
 

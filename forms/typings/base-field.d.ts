@@ -31,6 +31,8 @@ export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance =
     private _warningAlertService;
     private _instance;
     instance: T;
+    protected _readonly: boolean;
+    readonly: boolean;
     private _control;
     readonly control: Observable<AbstractControl | null>;
     private _warningTriggerSub;

@@ -19,7 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { EventEmitter } from '@angular/core';
+import { Input, EventEmitter } from '@angular/core';
+import { coerceBooleanProperty } from '@ajf/core/utils';
 import { BrowserBarcodeReader } from '@zxing/library';
 import { from, of, Subscription } from 'rxjs';
 import { catchError, debounceTime, switchMap } from 'rxjs/operators';
@@ -31,10 +32,7 @@ import { catchError, debounceTime, switchMap } from 'rxjs/operators';
 /**
  * @abstract
  */
-var  /**
- * @abstract
- */
-AjfBarcode = /** @class */ (function () {
+var AjfBarcode = /** @class */ (function () {
     function AjfBarcode(_cdr, _renderer) {
         var _this = this;
         this._cdr = _cdr;
@@ -107,6 +105,22 @@ AjfBarcode = /** @class */ (function () {
             }
         }));
     }
+    Object.defineProperty(AjfBarcode.prototype, "readonly", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this._readonly; },
+        set: /**
+         * @param {?} readonly
+         * @return {?}
+         */
+        function (readonly) {
+            this._readonly = coerceBooleanProperty(readonly);
+            this._cdr.markForCheck();
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(AjfBarcode.prototype, "canvasCtx", {
         get: /**
          * @return {?}
@@ -401,6 +415,9 @@ AjfBarcode = /** @class */ (function () {
             image.src = data;
         }
         return image;
+    };
+    AjfBarcode.propDecorators = {
+        readonly: [{ type: Input }]
     };
     return AjfBarcode;
 }());

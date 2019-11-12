@@ -19,6 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { coerceBooleanProperty, deepCopy } from '@ajf/core/utils';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription, defer, Observable, timer, Subject, BehaviorSubject } from 'rxjs';
 import { withLatestFrom, filter, map, publishReplay, refCount, startWith, scan, share, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
@@ -26,7 +27,6 @@ import { Pipe, Injectable, Directive, ViewContainerRef, EventEmitter, NgModule, 
 import { format } from 'date-fns';
 import { __extends, __assign } from 'tslib';
 import { AjfError, evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
-import { deepCopy, coerceBooleanProperty } from '@ajf/core/utils';
 import * as esprima from 'esprima';
 import esprima__default, {  } from 'esprima';
 
@@ -74,6 +74,22 @@ AjfBaseFieldComponent = /** @class */ (function () {
                 this._setUpInstanceUpdate();
                 this._onInstanceChange();
             }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AjfBaseFieldComponent.prototype, "readonly", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this._readonly; },
+        set: /**
+         * @param {?} readonly
+         * @return {?}
+         */
+        function (readonly) {
+            this._readonly = coerceBooleanProperty(readonly);
+            this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
         configurable: true
@@ -413,6 +429,24 @@ AjfFormField = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(AjfFormField.prototype, "readonly", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this._readonly; },
+        set: /**
+         * @param {?} readonly
+         * @return {?}
+         */
+        function (readonly) {
+            this._readonly = coerceBooleanProperty(readonly);
+            this._componentInstance.readonly = this._readonly;
+            this._cdr.markForCheck();
+            console.log(readonly);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -461,17 +495,17 @@ AjfFormField = /** @class */ (function () {
             var componentFactory = this._cfr.resolveComponentFactory(component);
             /** @type {?} */
             var componentRef = vcr.createComponent(componentFactory);
-            /** @type {?} */
-            var componentInstance_1 = componentRef.instance;
-            componentInstance_1.instance = this._instance;
+            this._componentInstance = componentRef.instance;
+            this._componentInstance.instance = this._instance;
+            this._componentInstance.readonly = this._readonly;
             if (componentDef.inputs) {
                 Object.keys(componentDef.inputs).forEach((/**
                  * @param {?} key
                  * @return {?}
                  */
                 function (key) {
-                    if (key in componentInstance_1) {
-                        ((/** @type {?} */ (componentInstance_1)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
+                    if (key in _this._componentInstance) {
+                        ((/** @type {?} */ (_this._componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
                     }
                 }));
             }
@@ -4463,6 +4497,7 @@ AjfFormRenderer = /** @class */ (function () {
         this._hideBottomToolbar = false;
         this._hideNavigationButtons = false;
         this._fixedOrientation = false;
+        this._readonly = false;
         this._orientation = 'horizontal';
         this._errorMoveEvent = new EventEmitter();
         // _init is a private boolean
@@ -4593,6 +4628,22 @@ AjfFormRenderer = /** @class */ (function () {
          */
         function (fixedOrientation) {
             this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
+            this._changeDetectorRef.markForCheck();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AjfFormRenderer.prototype, "readonly", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this._readonly; },
+        set: /**
+         * @param {?} readonly
+         * @return {?}
+         */
+        function (readonly) {
+            this._readonly = coerceBooleanProperty(readonly);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
@@ -5244,24 +5295,8 @@ AjfInputFieldComponent = /** @class */ (function (_super) {
     function AjfInputFieldComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.type = 'text';
-        _this._readonly = false;
         return _this;
     }
-    Object.defineProperty(AjfInputFieldComponent.prototype, "readonly", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._readonly; },
-        set: /**
-         * @param {?} readonly
-         * @return {?}
-         */
-        function (readonly) {
-            this._readonly = coerceBooleanProperty(readonly);
-        },
-        enumerable: true,
-        configurable: true
-    });
     return AjfInputFieldComponent;
 }(AjfBaseFieldComponent));
 

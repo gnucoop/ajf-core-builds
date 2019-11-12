@@ -63,6 +63,8 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
     hideNavigationButtons: boolean;
     private _fixedOrientation;
     fixedOrientation: boolean;
+    private _readonly;
+    readonly: boolean;
     private _orientation;
     orientation: AjfPageSliderOrientation;
     formSlider: AjfPageSlider;

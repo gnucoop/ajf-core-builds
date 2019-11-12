@@ -21,9 +21,9 @@
  */
 import { forwardRef, EventEmitter, Directive, Input, Output, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { coerceBooleanProperty } from '@ajf/core/utils';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { coerceBooleanProperty } from '@ajf/core/utils';
 
 /**
  * @fileoverview added by tsickle
@@ -367,6 +367,17 @@ class AjfCheckboxGroupItem {
         if (this._value !== value) {
             this._value = value;
         }
+    }
+    /**
+     * @return {?}
+     */
+    get readonly() { return this._readonly; }
+    /**
+     * @param {?} readonly
+     * @return {?}
+     */
+    set readonly(readonly) {
+        this._readonly = coerceBooleanProperty(readonly);
     }
     /**
      * @return {?}

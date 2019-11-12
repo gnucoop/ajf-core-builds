@@ -23,6 +23,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { AjfTimeModel } from './time-model';
 export declare const AJF_TIME_CONTROL_VALUE_ACCESSOR: any;
 export declare class AjfTime implements ControlValueAccessor {
+    readonly: boolean;
     private _value;
     readonly time: AjfTimeModel;
     value: string;

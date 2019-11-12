@@ -19,7 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Input } from '@angular/core';
+import { coerceBooleanProperty } from '@ajf/core/utils';
 import { BrowserBarcodeReader } from '@zxing/library';
 import { Subscription, of, from } from 'rxjs';
 import { debounceTime, switchMap, catchError } from 'rxjs/operators';
@@ -106,6 +107,18 @@ class AjfBarcode {
                 this.value = result.text;
             }
         }));
+    }
+    /**
+     * @return {?}
+     */
+    get readonly() { return this._readonly; }
+    /**
+     * @param {?} readonly
+     * @return {?}
+     */
+    set readonly(readonly) {
+        this._readonly = coerceBooleanProperty(readonly);
+        this._cdr.markForCheck();
     }
     /**
      * @return {?}
@@ -289,6 +302,9 @@ class AjfBarcode {
         return image;
     }
 }
+AjfBarcode.propDecorators = {
+    readonly: [{ type: Input }]
+};
 
 export { AjfBarcode };
 //# sourceMappingURL=barcode.js.map

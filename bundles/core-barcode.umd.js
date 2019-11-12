@@ -20,10 +20,10 @@
  *
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@zxing/library'), require('rxjs'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/barcode', ['exports', '@angular/core', '@zxing/library', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.barcode = {}), global.ng.core, global.zxing.library, global.rxjs, global.rxjs.operators));
-}(this, function (exports, core, library, rxjs, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ajf/core/utils'), require('@zxing/library'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/barcode', ['exports', '@angular/core', '@ajf/core/utils', '@zxing/library', 'rxjs', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.barcode = {}), global.ng.core, global.ajf.core.utils, global.zxing.library, global.rxjs, global.rxjs.operators));
+}(this, function (exports, core, utils, library, rxjs, operators) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -32,10 +32,7 @@
     /**
      * @abstract
      */
-    var   /**
-     * @abstract
-     */
-    AjfBarcode = /** @class */ (function () {
+    var AjfBarcode = /** @class */ (function () {
         function AjfBarcode(_cdr, _renderer) {
             var _this = this;
             this._cdr = _cdr;
@@ -108,6 +105,22 @@
                 }
             }));
         }
+        Object.defineProperty(AjfBarcode.prototype, "readonly", {
+            get: /**
+             * @return {?}
+             */
+            function () { return this._readonly; },
+            set: /**
+             * @param {?} readonly
+             * @return {?}
+             */
+            function (readonly) {
+                this._readonly = utils.coerceBooleanProperty(readonly);
+                this._cdr.markForCheck();
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(AjfBarcode.prototype, "canvasCtx", {
             get: /**
              * @return {?}
@@ -402,6 +415,9 @@
                 image.src = data;
             }
             return image;
+        };
+        AjfBarcode.propDecorators = {
+            readonly: [{ type: core.Input }]
         };
         return AjfBarcode;
     }());

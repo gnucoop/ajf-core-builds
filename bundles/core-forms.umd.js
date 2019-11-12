@@ -20,10 +20,10 @@
  *
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@angular/core'), require('date-fns'), require('@ajf/core/models'), require('@ajf/core/utils'), require('esprima')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/forms', 'rxjs', 'rxjs/operators', '@angular/core', 'date-fns', '@ajf/core/models', '@ajf/core/utils', 'esprima'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.core, global.dateFns, global.ajf.core.models, global.ajf.core.utils, global.esprima));
-}(this, function (exports, forms, rxjs, operators, core, dateFns, models, utils, esprima__default) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ajf/core/utils'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@angular/core'), require('date-fns'), require('@ajf/core/models'), require('esprima')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@ajf/core/utils', '@angular/forms', 'rxjs', 'rxjs/operators', '@angular/core', 'date-fns', '@ajf/core/models', 'esprima'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ajf.core.utils, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.core, global.dateFns, global.ajf.core.models, global.esprima));
+}(this, function (exports, utils, forms, rxjs, operators, core, dateFns, models, esprima__default) { 'use strict';
 
     var esprima__default__default = 'default' in esprima__default ? esprima__default['default'] : esprima__default;
 
@@ -111,6 +111,22 @@
                     this._setUpInstanceUpdate();
                     this._onInstanceChange();
                 }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfBaseFieldComponent.prototype, "readonly", {
+            get: /**
+             * @return {?}
+             */
+            function () { return this._readonly; },
+            set: /**
+             * @param {?} readonly
+             * @return {?}
+             */
+            function (readonly) {
+                this._readonly = utils.coerceBooleanProperty(readonly);
+                this._changeDetectorRef.markForCheck();
             },
             enumerable: true,
             configurable: true
@@ -450,6 +466,24 @@
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(AjfFormField.prototype, "readonly", {
+            get: /**
+             * @return {?}
+             */
+            function () { return this._readonly; },
+            set: /**
+             * @param {?} readonly
+             * @return {?}
+             */
+            function (readonly) {
+                this._readonly = utils.coerceBooleanProperty(readonly);
+                this._componentInstance.readonly = this._readonly;
+                this._cdr.markForCheck();
+                console.log(readonly);
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @return {?}
          */
@@ -498,17 +532,17 @@
                 var componentFactory = this._cfr.resolveComponentFactory(component);
                 /** @type {?} */
                 var componentRef = vcr.createComponent(componentFactory);
-                /** @type {?} */
-                var componentInstance_1 = componentRef.instance;
-                componentInstance_1.instance = this._instance;
+                this._componentInstance = componentRef.instance;
+                this._componentInstance.instance = this._instance;
+                this._componentInstance.readonly = this._readonly;
                 if (componentDef.inputs) {
                     Object.keys(componentDef.inputs).forEach((/**
                      * @param {?} key
                      * @return {?}
                      */
                     function (key) {
-                        if (key in componentInstance_1) {
-                            ((/** @type {?} */ (componentInstance_1)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
+                        if (key in _this._componentInstance) {
+                            ((/** @type {?} */ (_this._componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
                         }
                     }));
                 }
@@ -4500,6 +4534,7 @@
             this._hideBottomToolbar = false;
             this._hideNavigationButtons = false;
             this._fixedOrientation = false;
+            this._readonly = false;
             this._orientation = 'horizontal';
             this._errorMoveEvent = new core.EventEmitter();
             // _init is a private boolean
@@ -4630,6 +4665,22 @@
              */
             function (fixedOrientation) {
                 this._fixedOrientation = utils.coerceBooleanProperty(fixedOrientation);
+                this._changeDetectorRef.markForCheck();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfFormRenderer.prototype, "readonly", {
+            get: /**
+             * @return {?}
+             */
+            function () { return this._readonly; },
+            set: /**
+             * @param {?} readonly
+             * @return {?}
+             */
+            function (readonly) {
+                this._readonly = utils.coerceBooleanProperty(readonly);
                 this._changeDetectorRef.markForCheck();
             },
             enumerable: true,
@@ -5281,24 +5332,8 @@
         function AjfInputFieldComponent() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.type = 'text';
-            _this._readonly = false;
             return _this;
         }
-        Object.defineProperty(AjfInputFieldComponent.prototype, "readonly", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._readonly; },
-            set: /**
-             * @param {?} readonly
-             * @return {?}
-             */
-            function (readonly) {
-                this._readonly = utils.coerceBooleanProperty(readonly);
-            },
-            enumerable: true,
-            configurable: true
-        });
         return AjfInputFieldComponent;
     }(AjfBaseFieldComponent));
 

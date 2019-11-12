@@ -92,6 +92,8 @@ export declare class AjfCheckboxGroupItem<T> implements OnInit {
     /** Value assigned to this button toggle. */
     private _value;
     value: T;
+    protected _readonly: boolean;
+    readonly: boolean;
     private _checkedIconVal;
     checkedIcon: string;
     private _notCheckedIconVal;

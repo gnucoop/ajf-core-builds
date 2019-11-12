@@ -252,7 +252,7 @@
         };
         AjfTime.decorators = [
             { type: core.Component, args: [{selector: 'ajf-time',
-                        template: "<div><input min=\"0\" max=\"24\" (focus)=\"focusHandler()\" [(ngModel)]=\"hours\" type=\"number\" (ngModelChange)=\"hours = $event\"> <input min=\"0\" max=\"60\" (focus)=\"focusHandler()\" [(ngModel)]=\"minutes\" type=\"number\" (ngModelChange)=\"minutes = $event\"></div>",
+                        template: "<div><input min=\"0\" max=\"24\" (focus)=\"focusHandler()\" [(ngModel)]=\"hours\" type=\"number\" (ngModelChange)=\"hours = $event\" [readonly]=\"readonly\"> <input min=\"0\" max=\"60\" (focus)=\"focusHandler()\" [(ngModel)]=\"minutes\" type=\"number\" (ngModelChange)=\"minutes = $event\" [readonly]=\"readonly\"></div>",
                         styles: [""],
                         providers: [AJF_TIME_CONTROL_VALUE_ACCESSOR],
                         encapsulation: core.ViewEncapsulation.None,
@@ -261,6 +261,9 @@
         ];
         /** @nocollapse */
         AjfTime.ctorParameters = function () { return []; };
+        AjfTime.propDecorators = {
+            readonly: [{ type: core.Input }]
+        };
         return AjfTime;
     }());
 
