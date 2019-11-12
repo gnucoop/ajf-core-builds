@@ -435,14 +435,16 @@ function extractDates(source, property, fmt) {
             switch (fmt) {
                 case 'WW':
                     prefix = 'W';
+                    res.push(prefix + formatDate(source[i]['date_start'], fmt));
                     break;
                 case 'MM':
                     prefix = 'M';
+                    res.push(prefix + isoMonth(source[i]['date_start'], fmt));
                     break;
                 default:
                     prefix = '';
+                    res.push(prefix + formatDate(source[i]['date_start'], fmt));
             }
-            res.push(prefix + formatDate(source[i]['date_start'], fmt));
         }
     }
     return res;
