@@ -33,7 +33,7 @@
 	 * Current version of Ajf.
 	 * @type {?}
 	 */
-	var VERSION = new core.Version('8.2.13-249bd2d');
+	var VERSION = new core.Version('8.2.14-0457889');
 
 	exports.VERSION = VERSION;
 

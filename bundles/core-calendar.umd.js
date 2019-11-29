@@ -689,7 +689,9 @@
             this._viewHeader = dateFns.format(this._viewDate, 'MMM YYYY');
             this._buildMonthViewWeekDays();
             /** @type {?} */
-            var monthBounds = this._getMonthStartEnd(this._viewDate);
+            var monthDay = new Date(this._viewDate.getFullYear(), this._viewDate.getMonth(), 5);
+            /** @type {?} */
+            var monthBounds = this._getMonthStartEnd(monthDay);
             /** @type {?} */
             var viewStartDate = new Date(monthBounds.start);
             /** @type {?} */

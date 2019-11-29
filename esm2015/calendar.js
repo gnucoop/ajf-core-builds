@@ -559,7 +559,9 @@ class AjfCalendar {
         this._viewHeader = format(this._viewDate, 'MMM YYYY');
         this._buildMonthViewWeekDays();
         /** @type {?} */
-        const monthBounds = this._getMonthStartEnd(this._viewDate);
+        const monthDay = new Date(this._viewDate.getFullYear(), this._viewDate.getMonth(), 5);
+        /** @type {?} */
+        const monthBounds = this._getMonthStartEnd(monthDay);
         /** @type {?} */
         let viewStartDate = new Date(monthBounds.start);
         /** @type {?} */
