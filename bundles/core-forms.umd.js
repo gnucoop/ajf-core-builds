@@ -479,7 +479,6 @@
                 this._readonly = utils.coerceBooleanProperty(readonly);
                 this._componentInstance.readonly = this._readonly;
                 this._cdr.markForCheck();
-                console.log(readonly);
             },
             enumerable: true,
             configurable: true
@@ -850,7 +849,9 @@
      * @return {?}
      */
     function nodeInstanceCompleteName(instance) {
-        return "" + instance.node.name + nodeInstanceSuffix(instance);
+        return instance != null && instance.node != null
+            ? "" + instance.node.name + nodeInstanceSuffix(instance)
+            : '';
     }
 
     /**

@@ -374,7 +374,6 @@ class AjfFormField {
         this._readonly = coerceBooleanProperty(readonly);
         this._componentInstance.readonly = this._readonly;
         this._cdr.markForCheck();
-        console.log(readonly);
     }
     /**
      * @return {?}
@@ -718,7 +717,9 @@ function nodeInstanceSuffix(instance) {
  * @return {?}
  */
 function nodeInstanceCompleteName(instance) {
-    return `${instance.node.name}${nodeInstanceSuffix(instance)}`;
+    return instance != null && instance.node != null
+        ? `${instance.node.name}${nodeInstanceSuffix(instance)}`
+        : '';
 }
 
 /**
