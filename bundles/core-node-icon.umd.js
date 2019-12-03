@@ -84,9 +84,13 @@
         function (node) {
             switch (node.nodeType) {
                 case forms.AjfNodeType.AjfField:
-                    return "field-" + forms.AjfFieldType[((/** @type {?} */ (node))).fieldType].toLowerCase();
+                    /** @type {?} */
+                    var fieldType = forms.AjfFieldType[((/** @type {?} */ (node))).fieldType];
+                    return fieldType != null ? "field-" + fieldType.toLowerCase() : '';
                 default:
-                    return "node-" + forms.AjfNodeType[node.nodeType].toLowerCase().replace('ajf', '');
+                    /** @type {?} */
+                    var nodeType = forms.AjfNodeType[node.nodeType];
+                    return nodeType != null ? "node-" + nodeType.toLowerCase().replace('ajf', '') : '';
             }
         };
         return AjfNodeIcon;

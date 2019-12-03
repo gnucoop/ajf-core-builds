@@ -372,7 +372,9 @@ class AjfFormField {
      */
     set readonly(readonly) {
         this._readonly = coerceBooleanProperty(readonly);
-        this._componentInstance.readonly = this._readonly;
+        if (this._componentInstance != null) {
+            this._componentInstance.readonly = this._readonly;
+        }
         this._cdr.markForCheck();
     }
     /**

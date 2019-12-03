@@ -80,9 +80,13 @@ AjfNodeIcon = /** @class */ (function () {
     function (node) {
         switch (node.nodeType) {
             case AjfNodeType.AjfField:
-                return "field-" + AjfFieldType[((/** @type {?} */ (node))).fieldType].toLowerCase();
+                /** @type {?} */
+                var fieldType = AjfFieldType[((/** @type {?} */ (node))).fieldType];
+                return fieldType != null ? "field-" + fieldType.toLowerCase() : '';
             default:
-                return "node-" + AjfNodeType[node.nodeType].toLowerCase().replace('ajf', '');
+                /** @type {?} */
+                var nodeType = AjfNodeType[node.nodeType];
+                return nodeType != null ? "node-" + nodeType.toLowerCase().replace('ajf', '') : '';
         }
     };
     return AjfNodeIcon;
