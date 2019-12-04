@@ -852,7 +852,7 @@ function evaluateValidationMaxValue(validation, value) {
     if (typeof validation.maxValue === 'number') {
         return {
             result: evaluateExpression(`$value.length <= ${validation.maxValue}`, ctx),
-            error: `Value must be <= ${validation.minValue}`,
+            error: `Value must be <= ${validation.maxValue}`,
             clientValidation: false
         };
     }
@@ -877,7 +877,7 @@ function evaluateValidationMinDigits(validation, value) {
     if (typeof validation.minDigits === 'number') {
         return {
             result: evaluateExpression(`$value.toString().length >= ${validation.minDigits}`, ctx),
-            error: `Digits count must be >= ${validation.minValue}`,
+            error: `Digits count must be >= ${validation.minDigits}`,
             clientValidation: false
         };
     }

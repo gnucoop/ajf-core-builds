@@ -20,24 +20,26 @@
  *
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/operators'), require('css-element-queries'), require('@angular/animations'), require('rxjs'), require('@ajf/core/utils')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/page-slider', ['exports', '@angular/core', 'rxjs/operators', 'css-element-queries', '@angular/animations', 'rxjs', '@ajf/core/utils'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.pageSlider = {}), global.ng.core, global.rxjs.operators, global.cssElementQueries, global.ng.animations, global.rxjs, global.ajf.core.utils));
-}(this, function (exports, core, operators, cssElementQueries, animations, rxjs, utils) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('css-element-queries'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@ajf/core/utils')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/page-slider', ['exports', '@angular/core', 'css-element-queries', 'rxjs', 'rxjs/operators', '@angular/animations', '@ajf/core/utils'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.pageSlider = {}), global.ng.core, global.cssElementQueries, global.rxjs, global.rxjs.operators, global.ng.animations, global.ajf.core.utils));
+}(this, function (exports, core, cssElementQueries, rxjs, operators, animations, utils) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var AjfPageSliderItem = /** @class */ (function () {
-        // private _player: AnimationPlayer | null;
         function AjfPageSliderItem(_el, _renderer) {
             var _this = this;
             this._el = _el;
             this._renderer = _renderer;
+            this._scrollEvt = new core.EventEmitter();
+            this.scroll = this._scrollEvt.asObservable();
             this._scrollX = 0;
             this._scrollY = 0;
             this._resizeEvent = new core.EventEmitter();
+            this._resizeSub = rxjs.Subscription.EMPTY;
             this._resizeSensor = new cssElementQueries.ResizeSensor(_el.nativeElement, (/**
              * @return {?}
              */
@@ -120,7 +122,7 @@
                 }
             }
             this._renderer.setStyle(wrapper, 'transform', "translate(" + this._scrollX + "px, " + this._scrollY + "px)");
-            // this._animateScroll(duration);
+            this._scrollEvt.emit({ x: this._scrollX, y: this._scrollY });
             return true;
         };
         /**
@@ -161,7 +163,7 @@
                 this._scrollY = Math.max(maxScrollY, this._scrollY - (content.scrollTop != null ? content.scrollTop : 0));
                 content.scrollTop = content.scrollLeft = 0;
                 this._renderer.setStyle(wrapper, 'transform', "translate(" + this._scrollX + "px, " + this._scrollY + "px)");
-                // this._animateScroll(0);
+                this._scrollEvt.emit({ x: this._scrollX, y: this._scrollY });
             }
         };
         AjfPageSliderItem.decorators = [
@@ -179,7 +181,8 @@
         ]; };
         AjfPageSliderItem.propDecorators = {
             wrapper: [{ type: core.ViewChild, args: ['wrapper', { static: true },] }],
-            content: [{ type: core.ViewChild, args: ['content', { static: true },] }]
+            content: [{ type: core.ViewChild, args: ['content', { static: true },] }],
+            scroll: [{ type: core.Output }]
         };
         return AjfPageSliderItem;
     }());

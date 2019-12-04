@@ -20,12 +20,18 @@
  *
  */
 import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AjfPageSliderItemScrollDirection } from './page-slider-item-scroll-direction';
 export declare class AjfPageSliderItem implements OnDestroy {
     private _el;
     private _renderer;
     wrapper: ElementRef;
     content: ElementRef;
+    private _scrollEvt;
+    readonly scroll: Observable<{
+        x: number;
+        y: number;
+    }>;
     private _scrollX;
     private _scrollY;
     private _resizeSensor;

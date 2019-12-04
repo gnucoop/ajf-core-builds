@@ -984,7 +984,7 @@
         if (typeof validation.maxValue === 'number') {
             return {
                 result: models.evaluateExpression("$value.length <= " + validation.maxValue, ctx),
-                error: "Value must be <= " + validation.minValue,
+                error: "Value must be <= " + validation.maxValue,
                 clientValidation: false
             };
         }
@@ -1009,7 +1009,7 @@
         if (typeof validation.minDigits === 'number') {
             return {
                 result: models.evaluateExpression("$value.toString().length >= " + validation.minDigits, ctx),
-                error: "Digits count must be >= " + validation.minValue,
+                error: "Digits count must be >= " + validation.minDigits,
                 clientValidation: false
             };
         }

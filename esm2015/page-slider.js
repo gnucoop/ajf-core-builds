@@ -19,11 +19,11 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, ViewChild, NgModule } from '@angular/core';
-import { debounceTime, map, filter, scan, throttleTime } from 'rxjs/operators';
+import { EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, ViewChild, Output, NgModule } from '@angular/core';
 import { ResizeSensor } from 'css-element-queries';
-import { animate, style } from '@angular/animations';
 import { Subscription } from 'rxjs';
+import { debounceTime, map, filter, scan, throttleTime } from 'rxjs/operators';
+import { animate, style } from '@angular/animations';
 import { coerceBooleanProperty } from '@ajf/core/utils';
 
 /**
@@ -31,7 +31,6 @@ import { coerceBooleanProperty } from '@ajf/core/utils';
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class AjfPageSliderItem {
-    // private _player: AnimationPlayer | null;
     /**
      * @param {?} _el
      * @param {?} _renderer
@@ -39,9 +38,12 @@ class AjfPageSliderItem {
     constructor(_el, _renderer) {
         this._el = _el;
         this._renderer = _renderer;
+        this._scrollEvt = new EventEmitter();
+        this.scroll = this._scrollEvt.asObservable();
         this._scrollX = 0;
         this._scrollY = 0;
         this._resizeEvent = new EventEmitter();
+        this._resizeSub = Subscription.EMPTY;
         this._resizeSensor = new ResizeSensor(_el.nativeElement, (/**
          * @return {?}
          */
@@ -115,7 +117,7 @@ class AjfPageSliderItem {
             }
         }
         this._renderer.setStyle(wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`);
-        // this._animateScroll(duration);
+        this._scrollEvt.emit({ x: this._scrollX, y: this._scrollY });
         return true;
     }
     /**
@@ -148,7 +150,7 @@ class AjfPageSliderItem {
             this._scrollY = Math.max(maxScrollY, this._scrollY - (content.scrollTop != null ? content.scrollTop : 0));
             content.scrollTop = content.scrollLeft = 0;
             this._renderer.setStyle(wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`);
-            // this._animateScroll(0);
+            this._scrollEvt.emit({ x: this._scrollX, y: this._scrollY });
         }
     }
 }
@@ -167,7 +169,8 @@ AjfPageSliderItem.ctorParameters = () => [
 ];
 AjfPageSliderItem.propDecorators = {
     wrapper: [{ type: ViewChild, args: ['wrapper', { static: true },] }],
-    content: [{ type: ViewChild, args: ['content', { static: true },] }]
+    content: [{ type: ViewChild, args: ['content', { static: true },] }],
+    scroll: [{ type: Output }]
 };
 
 /**
