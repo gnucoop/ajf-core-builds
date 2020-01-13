@@ -39,5 +39,4 @@ export interface AjfFieldInstance extends AjfNodeInstance {
     validationResults?: AjfValidationResult[];
     warningResults?: AjfWarningResult[];
     warningTrigger: EventEmitter<void>;
-    updated: EventEmitter<void>;
 }

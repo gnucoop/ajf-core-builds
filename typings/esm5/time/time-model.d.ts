@@ -19,11 +19,12 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
 export declare class AjfTimeModel {
+    private _changed;
+    readonly changed: Observable<string>;
     private _hours;
     private _minutes;
-    changed: EventEmitter<string>;
     minutes: number;
     hours: number;
     toString(): string;

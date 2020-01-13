@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { EventEmitter, Input } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { coerceBooleanProperty } from '@ajf/core/utils';
 import { BrowserBarcodeReader } from '@zxing/library';
 import { Subscription, of, from } from 'rxjs';
@@ -302,9 +302,6 @@ class AjfBarcode {
         return image;
     }
 }
-AjfBarcode.propDecorators = {
-    readonly: [{ type: Input }]
-};
 
 export { AjfBarcode };
 //# sourceMappingURL=barcode.js.map

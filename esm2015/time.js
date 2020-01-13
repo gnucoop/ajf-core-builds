@@ -19,8 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { EventEmitter, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { EventEmitter } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 /**
  * @fileoverview added by tsickle
@@ -28,9 +28,10 @@ import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
  */
 class AjfTimeModel {
     constructor() {
+        this._changed = new EventEmitter();
+        this.changed = this._changed.asObservable();
         this._hours = 0;
         this._minutes = 0;
-        this.changed = new EventEmitter();
     }
     /**
      * @return {?}
@@ -45,7 +46,7 @@ class AjfTimeModel {
     set minutes(value) {
         if (value > -1 && value < 61) {
             this._minutes = value;
-            this.changed.emit(this.toString());
+            this._changed.emit(this.toString());
         }
     }
     /**
@@ -61,7 +62,7 @@ class AjfTimeModel {
     set hours(value) {
         if (value > -1 && value < 24) {
             this._hours = value;
-            this.changed.emit(this.toString());
+            this._changed.emit(this.toString());
         }
     }
     /**
@@ -96,15 +97,9 @@ class AjfTimeModel {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/** @type {?} */
-const AJF_TIME_CONTROL_VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef((/**
-     * @return {?}
-     */
-    () => AjfTime)),
-    multi: true
-};
+/**
+ * @abstract
+ */
 class AjfTime {
     constructor() {
         this._value = new AjfTimeModel();
@@ -117,7 +112,8 @@ class AjfTime {
          * @return {?}
          */
         () => { });
-        this._value.changed
+        this._valueChangeSub = Subscription.EMPTY;
+        this._valueChangeSub = this._value.changed
             .subscribe((/**
          * @param {?} x
          * @return {?}
@@ -158,7 +154,7 @@ class AjfTime {
      */
     set hours(hours) {
         this._value.hours = hours;
-        this._onChangeCallback(this._value);
+        this._onChangeCallback(this._value.toString());
     }
     /**
      * @return {?}
@@ -170,7 +166,13 @@ class AjfTime {
      */
     set minutes(minutes) {
         this._value.minutes = minutes;
-        this._onChangeCallback(this._value);
+        this._onChangeCallback(this._value.toString());
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._valueChangeSub.unsubscribe();
     }
     /**
      * @param {?} value
@@ -200,40 +202,6 @@ class AjfTime {
         this._onTouchedCallback();
     }
 }
-AjfTime.decorators = [
-    { type: Component, args: [{selector: 'ajf-time',
-                template: "<div><input min=\"0\" max=\"24\" (focus)=\"focusHandler()\" [(ngModel)]=\"hours\" type=\"number\" (ngModelChange)=\"hours = $event\" [readonly]=\"readonly\"> <input min=\"0\" max=\"60\" (focus)=\"focusHandler()\" [(ngModel)]=\"minutes\" type=\"number\" (ngModelChange)=\"minutes = $event\" [readonly]=\"readonly\"></div>",
-                styles: [""],
-                providers: [AJF_TIME_CONTROL_VALUE_ACCESSOR],
-                encapsulation: ViewEncapsulation.None,
-                changeDetection: ChangeDetectionStrategy.OnPush
-            },] },
-];
-/** @nocollapse */
-AjfTime.ctorParameters = () => [];
-AjfTime.propDecorators = {
-    readonly: [{ type: Input }]
-};
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfTimeModule {
-}
-AjfTimeModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    FormsModule,
-                ],
-                declarations: [
-                    AjfTime,
-                ],
-                exports: [
-                    AjfTime,
-                ]
-            },] },
-];
-
-export { AJF_TIME_CONTROL_VALUE_ACCESSOR, AjfTime, AjfTimeModel, AjfTimeModule };
+export { AjfTime, AjfTimeModel };
 //# sourceMappingURL=time.js.map

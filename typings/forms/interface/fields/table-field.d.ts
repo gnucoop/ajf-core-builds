@@ -21,9 +21,13 @@
  */
 import { AjfField } from './field';
 import { AjfFieldType } from './field-type';
+export interface AjfTableCell {
+    formula: string;
+    editable?: boolean;
+}
 export interface AjfTableField extends AjfField {
     fieldType: AjfFieldType.Table;
-    rows: string[][];
+    rows: (string | AjfTableCell)[][];
     columnLabels: string[];
     rowLabels: string[];
     hideEmptyRows: boolean;

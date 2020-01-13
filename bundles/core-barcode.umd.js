@@ -32,7 +32,10 @@
     /**
      * @abstract
      */
-    var AjfBarcode = /** @class */ (function () {
+    var   /**
+     * @abstract
+     */
+    AjfBarcode = /** @class */ (function () {
         function AjfBarcode(_cdr, _renderer) {
             var _this = this;
             this._cdr = _cdr;
@@ -415,9 +418,6 @@
                 image.src = data;
             }
             return image;
-        };
-        AjfBarcode.propDecorators = {
-            readonly: [{ type: core.Input }]
         };
         return AjfBarcode;
     }());

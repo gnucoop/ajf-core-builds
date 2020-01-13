@@ -21,6 +21,10 @@
  */
 import { AjfContext } from '@ajf/core/models';
 import { AjfFieldInstance } from '../../interface/fields-instances/field-instance';
+/**
+ * update the relative instance value and the context
+ * if !editable evaluate expression once one time and flag changed is false
+ */
 export declare function updateFormula(instance: AjfFieldInstance, context: AjfContext): {
     changed: boolean;
     value: any;

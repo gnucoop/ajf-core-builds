@@ -20,10 +20,10 @@
  *
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/time', ['exports', '@angular/core', '@angular/forms'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.time = {}), global.ng.core, global.ng.forms));
-}(this, function (exports, core, forms) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/time', ['exports', '@angular/core', 'rxjs'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.time = {}), global.ng.core, global.rxjs));
+}(this, function (exports, core, rxjs) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -31,9 +31,10 @@
      */
     var AjfTimeModel = /** @class */ (function () {
         function AjfTimeModel() {
+            this._changed = new core.EventEmitter();
+            this.changed = this._changed.asObservable();
             this._hours = 0;
             this._minutes = 0;
-            this.changed = new core.EventEmitter();
         }
         Object.defineProperty(AjfTimeModel.prototype, "minutes", {
             get: /**
@@ -49,7 +50,7 @@
             function (value) {
                 if (value > -1 && value < 61) {
                     this._minutes = value;
-                    this.changed.emit(this.toString());
+                    this._changed.emit(this.toString());
                 }
             },
             enumerable: true,
@@ -69,7 +70,7 @@
             function (value) {
                 if (value > -1 && value < 24) {
                     this._hours = value;
-                    this.changed.emit(this.toString());
+                    this._changed.emit(this.toString());
                 }
             },
             enumerable: true,
@@ -115,16 +116,13 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /** @type {?} */
-    var AJF_TIME_CONTROL_VALUE_ACCESSOR = {
-        provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef((/**
-         * @return {?}
-         */
-        function () { return AjfTime; })),
-        multi: true
-    };
-    var AjfTime = /** @class */ (function () {
+    /**
+     * @abstract
+     */
+    var   /**
+     * @abstract
+     */
+    AjfTime = /** @class */ (function () {
         function AjfTime() {
             var _this = this;
             this._value = new AjfTimeModel();
@@ -137,7 +135,8 @@
              * @return {?}
              */
             function () { });
-            this._value.changed
+            this._valueChangeSub = rxjs.Subscription.EMPTY;
+            this._valueChangeSub = this._value.changed
                 .subscribe((/**
              * @param {?} x
              * @return {?}
@@ -187,7 +186,7 @@
              */
             function (hours) {
                 this._value.hours = hours;
-                this._onChangeCallback(this._value);
+                this._onChangeCallback(this._value.toString());
             },
             enumerable: true,
             configurable: true
@@ -203,11 +202,20 @@
              */
             function (minutes) {
                 this._value.minutes = minutes;
-                this._onChangeCallback(this._value);
+                this._onChangeCallback(this._value.toString());
             },
             enumerable: true,
             configurable: true
         });
+        /**
+         * @return {?}
+         */
+        AjfTime.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+        function () {
+            this._valueChangeSub.unsubscribe();
+        };
         /**
          * @param {?} value
          * @return {?}
@@ -250,50 +258,11 @@
         function () {
             this._onTouchedCallback();
         };
-        AjfTime.decorators = [
-            { type: core.Component, args: [{selector: 'ajf-time',
-                        template: "<div><input min=\"0\" max=\"24\" (focus)=\"focusHandler()\" [(ngModel)]=\"hours\" type=\"number\" (ngModelChange)=\"hours = $event\" [readonly]=\"readonly\"> <input min=\"0\" max=\"60\" (focus)=\"focusHandler()\" [(ngModel)]=\"minutes\" type=\"number\" (ngModelChange)=\"minutes = $event\" [readonly]=\"readonly\"></div>",
-                        styles: [""],
-                        providers: [AJF_TIME_CONTROL_VALUE_ACCESSOR],
-                        encapsulation: core.ViewEncapsulation.None,
-                        changeDetection: core.ChangeDetectionStrategy.OnPush
-                    },] },
-        ];
-        /** @nocollapse */
-        AjfTime.ctorParameters = function () { return []; };
-        AjfTime.propDecorators = {
-            readonly: [{ type: core.Input }]
-        };
         return AjfTime;
     }());
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var AjfTimeModule = /** @class */ (function () {
-        function AjfTimeModule() {
-        }
-        AjfTimeModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [
-                            forms.FormsModule,
-                        ],
-                        declarations: [
-                            AjfTime,
-                        ],
-                        exports: [
-                            AjfTime,
-                        ]
-                    },] },
-        ];
-        return AjfTimeModule;
-    }());
-
-    exports.AJF_TIME_CONTROL_VALUE_ACCESSOR = AJF_TIME_CONTROL_VALUE_ACCESSOR;
     exports.AjfTime = AjfTime;
     exports.AjfTimeModel = AjfTimeModel;
-    exports.AjfTimeModule = AjfTimeModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

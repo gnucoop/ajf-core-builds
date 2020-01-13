@@ -19,19 +19,21 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { AjfTimeModel } from './time-model';
-export declare const AJF_TIME_CONTROL_VALUE_ACCESSOR: any;
-export declare class AjfTime implements ControlValueAccessor {
+export declare abstract class AjfTime implements ControlValueAccessor, OnDestroy {
     readonly: boolean;
-    private _value;
     readonly time: AjfTimeModel;
+    private _value;
     value: string;
     hours: number;
     minutes: number;
     private _onChangeCallback;
     private _onTouchedCallback;
+    private _valueChangeSub;
     constructor();
+    ngOnDestroy(): void;
     writeValue(value: string): void;
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: any): void;

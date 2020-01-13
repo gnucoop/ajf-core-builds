@@ -157,7 +157,7 @@ class AjfBaseFieldComponent {
     _setUpInstanceUpdate() {
         this._instanceUpdateSub.unsubscribe();
         if (this._instance != null) {
-            this._instanceUpdateSub = this._instance.updated.subscribe((/**
+            this._instanceUpdateSub = this._instance.updatedEvt.subscribe((/**
              * @return {?}
              */
             () => {
@@ -433,7 +433,9 @@ class AjfFormField {
              */
             () => this._cdr.markForCheck()));
         }
-        catch (e) { }
+        catch (e) {
+            console.log(e);
+        }
     }
 }
 
@@ -729,6 +731,8 @@ function nodeInstanceCompleteName(instance) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
+ * update the relative instance value and the context
+ * if !editable evaluate expression once one time and flag changed is false
  * @param {?} instance
  * @param {?} context
  * @return {?}
@@ -1136,6 +1140,7 @@ function updateFilteredChoices(instance, context) {
          * @return {?}
          */
         c => {
+            context.$choice = c;
             context.$choiceValue = c.value;
             return evaluateExpression((/** @type {?} */ (instance.choicesFilter)).formula, context);
         }));
@@ -1406,7 +1411,7 @@ function createFieldInstance(instance, context) {
             value = context[completeName];
         }
     }
-    return Object.assign({}, nodeInstance, { node: instance.node, value, valid: false, defaultValue: instance.defaultValue != null ? instance.defaultValue : null, validationResults: instance.validationResults || [], warningResults: instance.warningResults || [], warningTrigger: new EventEmitter(), updated: new EventEmitter() });
+    return Object.assign({}, nodeInstance, { node: instance.node, value, valid: false, defaultValue: instance.defaultValue != null ? instance.defaultValue : null, validationResults: instance.validationResults || [], warningResults: instance.warningResults || [], warningTrigger: new EventEmitter() });
 }
 
 /**
@@ -1430,11 +1435,41 @@ function createFieldWithChoicesInstance(instance, context) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
+ * to mantain retrocompatibility with old string type convert string to AjfTableCell
+ * check  node.rows: (string|AjfTableCell)[][];
+ * if elem of map is string convert in to AjfTableCell object
+ * @param {?} node
+ * @return {?}
+ */
+function normalizeRows(node) {
+    node.rows.forEach((/**
+     * @param {?} row
+     * @param {?} rowIdx
+     * @return {?}
+     */
+    (row, rowIdx) => {
+        row.forEach((/**
+         * @param {?} elem
+         * @param {?} elemIdx
+         * @return {?}
+         */
+        (elem, elemIdx) => {
+            if (typeof elem === 'string') {
+                node.rows[rowIdx][elemIdx] = (/** @type {?} */ ({
+                    formula: elem,
+                    editable: node.editable
+                }));
+            }
+        }));
+    }));
+}
+/**
  * @param {?} instance
  * @param {?} context
  * @return {?}
  */
 function createTableFieldInstance(instance, context) {
+    normalizeRows((/** @type {?} */ (instance.node)));
     /** @type {?} */
     const fieldInstance = createFieldInstance(instance, context);
     return Object.assign({}, fieldInstance, { node: instance.node, context, hideEmptyRows: instance.hideEmptyRows || false, controls: [] });
@@ -2972,55 +3007,57 @@ class AjfFormRendererService {
                         /** @type {?} */
                         const tNode = tfInstance.node;
                         tfInstance.context = context[nodeInstanceCompleteName(tfInstance)] || context;
-                        if (!tNode.editable) {
-                            /** @type {?} */
-                            const value = [];
-                            value.push([tNode.label, tNode.columnLabels]);
+                        /** @type {?} */
+                        const formGroup = this._formGroup.getValue();
+                        /** @type {?} */
+                        let controlsWithLabels = [];
+                        controlsWithLabels.push([node.label, tNode.columnLabels]);
+                        if (formGroup != null) {
                             tNode.rows.forEach((/**
                              * @param {?} row
-                             * @param {?} rowIndex
+                             * @param {?} rowIdx
                              * @return {?}
                              */
-                            (row, rowIndex) => {
-                                value.push([tNode.rowLabels[rowIndex], row.map((/**
-                                     * @param {?} k
-                                     * @return {?}
-                                     */
-                                    k => {
-                                        tfInstance.context[k] = context[k];
-                                        return context[k];
-                                    }))]);
-                            }));
-                            tfInstance.value = value;
-                        }
-                        else {
-                            /** @type {?} */
-                            const formGroup = this._formGroup.getValue();
-                            /** @type {?} */
-                            let controlsWithLabels = [];
-                            controlsWithLabels.push([node.label, tNode.columnLabels]);
-                            tNode.rows.forEach((/**
-                             * @param {?} row
-                             * @param {?} idx
-                             * @return {?}
-                             */
-                            (row, idx) => {
+                            (row, rowIdx) => {
                                 /** @type {?} */
                                 let r = [];
-                                row.forEach((/**
-                                 * @param {?} k
+                                ((/** @type {?} */ (row))).forEach((/**
+                                 * @param {?} cell
+                                 * @param {?} idx
                                  * @return {?}
                                  */
-                                (k) => {
+                                (cell, idx) => {
+                                    /*
+                                                        every control is registered with the cell position
+                                                        inside the form control matrix
+                                                        with this mask `${tNode.name}__${rowIdx}__${idx}`
+                                                        */
+                                    /** @type {?} */
+                                    const name = `${tNode.name}__${rowIdx}__${idx}`;
                                     /** @type {?} */
                                     const control = new FormControl();
-                                    control.setValue(tfInstance.context[k]);
-                                    if (formGroup != null) {
-                                        formGroup.registerControl(k, control);
-                                    }
+                                    control.setValue(tfInstance.context[cell.formula]);
+                                    formGroup
+                                        .registerControl(name, control);
                                     r.push(control);
+                                    /* create a object that respect the instance interface
+                                                        with the minimum defined properties to allow to run addToNodeFormula map*/
+                                    /** @type {?} */
+                                    const fakeInstance = (/** @type {?} */ ((/** @type {?} */ ({
+                                        formula: { formula: cell.formula },
+                                        node: {
+                                            name,
+                                            nodeType: 0,
+                                            editable: false
+                                        },
+                                        visible: true,
+                                        prefix: [],
+                                        conditionalBranches: [],
+                                        updatedEvt: new EventEmitter()
+                                    }))));
+                                    this._addToNodesFormulaMap(fakeInstance, cell.formula);
                                 }));
-                                controlsWithLabels.push([tNode.rowLabels[idx], r]);
+                                controlsWithLabels.push([tNode.rowLabels[rowIdx], r]);
                             }));
                             tfInstance.controls = controlsWithLabels;
                         }
@@ -3268,12 +3305,18 @@ class AjfFormRendererService {
                 const triggerConditionsMap = v[9];
                 /** @type {?} */
                 const nodes = v[10];
+                // takes the names of the fields that have changed
                 /** @type {?} */
                 const delta = this._formValueDelta(oldFormValue, newFormValue);
                 /** @type {?} */
                 const deltaLen = delta.length;
                 /** @type {?} */
                 let updatedNodes = [];
+                /*
+                  for each field update all properties map
+                  with the following rule  "if fieldname is in map update it" and
+                  push on updateNodes the node instance that wrap field
+                */
                 delta.forEach((/**
                  * @param {?} fieldName
                  * @return {?}
@@ -5225,10 +5268,6 @@ class AjfNodeSerializer {
         const isCustomFieldWithChoice = obj.fieldType > 100
             && componentsMap[obj.fieldType] != null
             && componentsMap[obj.fieldType].isFieldWithChoice === true;
-        if (obj.fieldType > 100) {
-            console.log(obj);
-            console.log(componentsMap[obj.fieldType]);
-        }
         if (isCustomFieldWithChoice) {
             return AjfNodeSerializer._fieldWithChoicesFromJson((/** @type {?} */ (json)), choicesOrigins);
         }
@@ -5695,5 +5734,5 @@ function notEmptyWarning() {
     return createWarning({ condition: 'notEmpty($value)', warningMessage: 'Value must not be empty' });
 }
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AjfAttachmentsOriginSerializer, AjfAttachmentsType, AjfBaseFieldComponent, AjfChoicesOriginSerializer, AjfChoicesType, AjfDateValuePipe, AjfDateValueStringPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, AjfBoolToIntPipe as ɵa, AjfExpandFieldWithChoicesPipe as ɵb, AjfIncrementPipe as ɵc, AjfIsRepeatingSlideInstancePipe as ɵd, AjfRangePipe as ɵe, AjfValidSlidePipe as ɵf, createNodeGroup as ɵg, createRepeatingSlide as ɵh, createSlide as ɵi, componentsMap as ɵj };
+export { AJF_SEARCH_ALERT_THRESHOLD, AjfAttachmentsOriginSerializer, AjfAttachmentsType, AjfBaseFieldComponent, AjfChoicesOriginSerializer, AjfChoicesType, AjfDateValuePipe, AjfDateValueStringPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, AjfBoolToIntPipe as ɵa, AjfExpandFieldWithChoicesPipe as ɵb, AjfIncrementPipe as ɵc, AjfIsRepeatingSlideInstancePipe as ɵd, AjfRangePipe as ɵe, AjfValidSlidePipe as ɵf, createNodeGroup as ɵg, createRepeatingSlide as ɵh, createSlide as ɵi, componentsMap as ɵj };
 //# sourceMappingURL=forms.js.map
