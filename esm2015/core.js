@@ -29,7 +29,7 @@ import { Version } from '@angular/core';
  * Current version of Ajf.
  * @type {?}
  */
-const VERSION = new Version('8.3.3-9eaba28');
+const VERSION = new Version('8.3.4-1c614af');
 
 export { VERSION };
 //# sourceMappingURL=core.js.map
