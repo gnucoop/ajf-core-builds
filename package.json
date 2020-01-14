@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "8.3.4-1c614af",
+  "version": "8.3.5-dff923f",
   "description": "",
   "main": "./bundles/core.umd.js",
   "module": "./esm5/core.es5.js",
@@ -39,7 +39,7 @@
     "tslib": "^1.9.3"
   },
   "sideEffects": false,
-  "releaseGitCommitSha": "1c614af887ab44e6c80c1177e9f16b4e5135cca9",
+  "releaseGitCommitSha": "dff923fa644357cf0dc93ec1e95032ca5df6349a",
   "releaseGitBranch": "",
   "releaseGitUser": " <>"
 }
