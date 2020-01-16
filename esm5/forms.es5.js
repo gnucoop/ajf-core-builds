@@ -6124,8 +6124,8 @@ function maxDigitsValidation(maxValue) {
  */
 function maxValidation(maxValue) {
     return createValidation({
-        condition: '$value >= ' + maxValue.toString(),
-        errorMessage: 'Value must be >= ' + maxValue.toString()
+        condition: '$value <= ' + maxValue.toString(),
+        errorMessage: 'Value must be <= ' + maxValue.toString()
     });
 }
 

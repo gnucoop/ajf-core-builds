@@ -330,16 +330,13 @@ AjfCalendar = /** @class */ (function () {
          * @return {?}
          */
         function (period) {
-            if (this._dateOnlyForDay && this.selectionMode === 'day') {
-                if (period instanceof Date &&
-                    (this._selectedPeriod == null || period !== this._selectedPeriod.startDate)) {
-                    this.selectedPeriod = {
-                        type: 'day',
-                        startDate: period,
-                        endDate: period
-                    };
-                    this._onChangeCallback(period);
-                }
+            if (this._dateOnlyForDay && this.selectionMode === 'day' && period instanceof Date
+                && (this._selectedPeriod == null || period !== this._selectedPeriod.startDate)) {
+                this.selectedPeriod = {
+                    type: 'day',
+                    startDate: period,
+                    endDate: period
+                };
             }
             else if (period instanceof Object && period !== this._selectedPeriod) {
                 this.selectedPeriod = (/** @type {?} */ (period));
