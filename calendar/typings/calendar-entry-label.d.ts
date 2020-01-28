@@ -19,5 +19,11 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-!function(e,o){"object"==typeof exports&&"undefined"!=typeof module?o(exports,require("@angular/core")):"function"==typeof define&&define.amd?define("@ajf/core",["exports","@angular/core"],o):o(((e=e||self).ajf=e.ajf||{},e.ajf.core={}),e.ng.core)}(this,function(e,o){"use strict";var n=new o.Version("8.3.7-086b527");e.VERSION=n,Object.defineProperty(e,"__esModule",{value:!0})});
-//# sourceMappingURL=core.umd.min.js.map
+import { PipeTransform } from '@angular/core';
+import { AjfCalendarEntry } from './calendar-entry';
+import { AjfCalendarService } from './calendar-service';
+export declare class AjfCalendarEntryLabelPipe implements PipeTransform {
+    private _service;
+    constructor(_service: AjfCalendarService);
+    transform(entry: AjfCalendarEntry): string;
+}

@@ -25,6 +25,7 @@ import { Observable } from 'rxjs';
 import { AjfCalendarEntry } from './calendar-entry';
 import { AjfCalendarPeriodType } from './calendar-period-type';
 import { AjfCalendarPeriod } from './calendar-period';
+import { AjfCalendarService } from './calendar-service';
 import { AjfCalendarViewMode } from './calendar-view-mode';
 import { AjfCalendarWeekDay } from './calendar-week-day';
 export declare class AjfCalendarChange {
@@ -33,6 +34,7 @@ export declare class AjfCalendarChange {
 }
 export declare abstract class AjfCalendar implements AfterContentInit, ControlValueAccessor, OnInit {
     private _cdr;
+    private _service;
     viewDate: Date;
     private _disabled;
     disabled: boolean;
@@ -55,14 +57,14 @@ export declare abstract class AjfCalendar implements AfterContentInit, ControlVa
     private _selectedPeriod;
     private selectedPeriod;
     value: AjfCalendarPeriod | Date | null;
+    readonly calendarHeaders: string[];
     readonly calendarRows: AjfCalendarEntry[][];
     readonly viewHeader: string;
-    readonly weekDays: string[];
     private _viewDate;
     private _viewHeader;
     private _calendarRows;
-    private _weekDays;
-    constructor(_cdr: ChangeDetectorRef);
+    private _calendarHeaders;
+    constructor(_cdr: ChangeDetectorRef, _service: AjfCalendarService);
     prevPage(): void;
     nextPage(): void;
     previousViewMode(): void;
@@ -75,15 +77,7 @@ export declare abstract class AjfCalendar implements AfterContentInit, ControlVa
     private _onChangeCallback;
     private _onTouchedCallback;
     private _setViewDate;
-    private _getMonthStartEnd;
     private _buildCalendar;
-    private _buildDecadeView;
-    private _buildYearView;
-    private _buildMonthView;
-    private _buildMonthViewWeekDays;
-    private _periodOrder;
-    private _isEntrySelected;
-    private _isBetween;
     private _refreshSelection;
     private _canSelectEntry;
     private _nextViewMode;

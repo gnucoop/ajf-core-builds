@@ -19,61 +19,386 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { format, startOfMonth, startOfYear, endOfMonth, endOfYear, subMonths, subYears, addMonths, addYears, startOfISOWeek, startOfWeek, endOfISOWeek, endOfWeek, parse, addWeeks, subWeeks, isBefore, isAfter, addDays, setISODay, startOfDay, endOfDay, isSameDay } from 'date-fns';
-import { EventEmitter } from '@angular/core';
+import { Injectable, Pipe, NgModule, EventEmitter } from '@angular/core';
+import { format, startOfMonth, endOfMonth, getISODay, endOfISOWeek, startOfISOWeek, addWeeks, subWeeks, startOfYear, endOfYear, startOfDay, endOfDay, isAfter, isSameDay, isBefore, addMonths, addYears, subMonths, subYears, setISODay, startOfWeek, addDays, endOfWeek, parse } from 'date-fns';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class AjfCalendarEntry {
+/**
+ * @param {?} date
+ * @param {?} rangeLeft
+ * @param {?} rangeRight
+ * @return {?}
+ */
+function isBetween(date, rangeLeft, rangeRight) {
+    return (isAfter(date, rangeLeft) || isSameDay(date, rangeLeft))
+        && (isBefore(date, rangeRight) || isSameDay(date, rangeRight));
+}
+/**
+ * @param {?} entryType
+ * @return {?}
+ */
+function periodOrder(entryType) {
+    return ['day', 'week', 'month', 'year'].indexOf(entryType);
+}
+class AjfCalendarService {
     /**
      * @param {?} params
+     * @return {?}
      */
-    constructor(params) {
-        this.disabled = false;
-        this.highlight = false;
+    buildView(params) {
+        const { viewMode, viewDate } = params;
+        switch (viewMode) {
+            case 'decade':
+                /** @type {?} */
+                let curYear = viewDate.getFullYear();
+                /** @type {?} */
+                let firstYear = curYear - (curYear % 10) + 1;
+                /** @type {?} */
+                let lastYear = firstYear + 11;
+                return {
+                    header: `${firstYear} - ${lastYear}`,
+                    headerRow: [],
+                    rows: this._decadeCalendarRows(params),
+                };
+            case 'year':
+                return {
+                    header: `${viewDate.getFullYear()}`,
+                    headerRow: [],
+                    rows: this._yearCalendarRows(params),
+                };
+            case 'month':
+                return {
+                    header: format(viewDate, 'MMM YYYY'),
+                    headerRow: this._monthHeaderRow(params),
+                    rows: this._monthCalendarRows(params),
+                };
+        }
+        return {
+            header: '',
+            headerRow: [],
+            rows: [],
+        };
+    }
+    /**
+     * @param {?} date
+     * @param {?} isoMode
+     * @return {?}
+     */
+    monthBounds(date, isoMode) {
+        if (!isoMode) {
+            return {
+                start: startOfMonth(date),
+                end: endOfMonth(date),
+            };
+        }
         /** @type {?} */
-        let keys = Object.keys(params);
-        this.type = params.type;
-        this.date = params.date;
-        this.selected = params.selected;
-        if (keys.indexOf('disabled') > -1) {
-            this.disabled = (/** @type {?} */ (params.disabled));
+        const isoDay = getISODay(date);
+        date = isoDay < 4 ? endOfISOWeek(date) : startOfISOWeek(date);
+        /** @type {?} */
+        let startDate = startOfMonth(date);
+        /** @type {?} */
+        let endDate = endOfMonth(startDate);
+        /** @type {?} */
+        const startWeekDay = startDate.getDay();
+        /** @type {?} */
+        const endWeekDay = endDate.getDay();
+        if (startWeekDay == 0 || startWeekDay > 4) {
+            startDate = addWeeks(startDate, 1);
         }
-        if (keys.indexOf('highlight') > -1) {
-            this.highlight = (/** @type {?} */ (params.highlight));
+        if (endWeekDay > 0 && endWeekDay < 4) {
+            endDate = subWeeks(endDate, 1);
         }
+        startDate = startOfISOWeek(startDate);
+        endDate = endOfISOWeek(endDate);
+        return { start: startDate, end: endDate };
     }
     /**
+     * @param {?} entry
      * @return {?}
      */
-    toString() {
-        if (this.type === 'day') {
-            return `${this.date.getDate()}`;
-        }
-        if (this.type === 'month') {
-            return format(this.date, 'MMM');
-        }
-        return `${this.date.getFullYear()}`;
-    }
-    /**
-     * @return {?}
-     */
-    getRange() {
-        if (this.type === 'day') {
-            return { start: new Date(this.date), end: new Date(this.date) };
+    getEntryRange(entry) {
+        if (entry.type === 'day') {
+            return { start: new Date(entry.date), end: new Date(entry.date) };
         }
         else {
             /** @type {?} */
-            let curDate = new Date(this.date);
+            let curDate = new Date(entry.date);
             return {
-                start: this.type === 'month' ? startOfMonth(curDate) : startOfYear(curDate),
-                end: this.type === 'month' ? endOfMonth(curDate) : endOfYear(curDate)
+                start: entry.type === 'month' ? startOfMonth(curDate) : startOfYear(curDate),
+                end: entry.type === 'month' ? endOfMonth(curDate) : endOfYear(curDate)
             };
         }
     }
+    /**
+     * @param {?} entry
+     * @param {?} selection
+     * @return {?}
+     */
+    isEntrySelected(entry, selection) {
+        if (selection != null && selection.startDate != null && selection.endDate != null) {
+            /** @type {?} */
+            let selectionStart = startOfDay(selection.startDate);
+            /** @type {?} */
+            let selectionEnd = endOfDay(selection.endDate);
+            /** @type {?} */
+            let selectionPeriodOrder = periodOrder(selection.type);
+            /** @type {?} */
+            let entryPeriodOrder = periodOrder(entry.type);
+            /** @type {?} */
+            let entryRange = this.getEntryRange(entry);
+            if (entryPeriodOrder <= selectionPeriodOrder &&
+                isBetween(entryRange.start, selectionStart, selectionEnd) &&
+                isBetween(entryRange.end, selectionStart, selectionEnd)) {
+                return 'full';
+            }
+            else if (entryPeriodOrder > selectionPeriodOrder &&
+                isBetween(selectionStart, entryRange.start, entryRange.end) &&
+                isBetween(selectionEnd, entryRange.start, entryRange.end)) {
+                return 'partial';
+            }
+        }
+        return 'none';
+    }
+    /**
+     * @param {?} entry
+     * @return {?}
+     */
+    entryLabel(entry) {
+        if (entry.type === 'day') {
+            return `${entry.date.getDate()}`;
+        }
+        if (entry.type === 'month') {
+            return format(entry.date, 'MMM');
+        }
+        return `${entry.date.getFullYear()}`;
+    }
+    /**
+     * @param {?} viewDate
+     * @param {?} viewMode
+     * @return {?}
+     */
+    nextView(viewDate, viewMode) {
+        if (viewMode == 'month') {
+            return addMonths(viewDate, 1);
+        }
+        else if (viewMode == 'year') {
+            return addYears(viewDate, 1);
+        }
+        else if (viewMode == 'decade') {
+            return addYears(viewDate, 10);
+        }
+        return viewDate;
+    }
+    /**
+     * @param {?} viewDate
+     * @param {?} viewMode
+     * @return {?}
+     */
+    previousView(viewDate, viewMode) {
+        if (viewMode == 'month') {
+            return subMonths(viewDate, 1);
+        }
+        else if (viewMode == 'year') {
+            return subYears(viewDate, 1);
+        }
+        else if (viewMode == 'decade') {
+            return subYears(viewDate, 10);
+        }
+        return viewDate;
+    }
+    /**
+     * @private
+     * @param {?} params
+     * @return {?}
+     */
+    _monthHeaderRow(params) {
+        const { isoMode, viewDate } = params;
+        /** @type {?} */
+        let curDate;
+        if (isoMode) {
+            curDate = setISODay(startOfWeek(viewDate), 1);
+        }
+        else {
+            curDate = startOfWeek(viewDate);
+        }
+        /** @type {?} */
+        let weekDayNames = [];
+        for (let i = 0; i < 7; i++) {
+            weekDayNames.push(format(curDate, 'dddd'));
+            curDate = addDays(curDate, 1);
+        }
+        return weekDayNames;
+    }
+    /**
+     * @private
+     * @param {?} params
+     * @return {?}
+     */
+    _decadeCalendarRows(params) {
+        const { viewDate, selection } = params;
+        /** @type {?} */
+        let curYear = viewDate.getFullYear();
+        /** @type {?} */
+        let firstYear = curYear - (curYear % 10) + 1;
+        /** @type {?} */
+        let curDate = startOfYear(viewDate);
+        curDate.setFullYear(firstYear);
+        /** @type {?} */
+        let rows = [];
+        for (let i = 0; i < 4; i++) {
+            /** @type {?} */
+            let row = [];
+            for (let j = 0; j < 3; j++) {
+                /** @type {?} */
+                let date = new Date(curDate);
+                /** @type {?} */
+                let newEntry = {
+                    type: 'year',
+                    date: date,
+                    selected: 'none'
+                };
+                newEntry.selected = this.isEntrySelected(newEntry, selection);
+                row.push(newEntry);
+                curDate = addYears(curDate, 1);
+            }
+            rows.push(row);
+        }
+        return rows;
+    }
+    /**
+     * @private
+     * @param {?} params
+     * @return {?}
+     */
+    _yearCalendarRows(params) {
+        const { viewDate, selection } = params;
+        /** @type {?} */
+        let curDate = startOfYear(viewDate);
+        /** @type {?} */
+        let rows = [];
+        for (let i = 0; i < 4; i++) {
+            /** @type {?} */
+            let row = [];
+            for (let j = 0; j < 3; j++) {
+                /** @type {?} */
+                let date = new Date(curDate);
+                /** @type {?} */
+                let newEntry = {
+                    type: 'month',
+                    date: date,
+                    selected: 'none'
+                };
+                newEntry.selected = this.isEntrySelected(newEntry, selection);
+                row.push(newEntry);
+                curDate = addMonths(curDate, 1);
+            }
+            rows.push(row);
+        }
+        return rows;
+    }
+    /**
+     * @private
+     * @param {?} params
+     * @return {?}
+     */
+    _monthCalendarRows(params) {
+        const { viewDate, selection, isoMode, minDate, maxDate } = params;
+        /** @type {?} */
+        const monthBounds = this.monthBounds(viewDate, isoMode);
+        /** @type {?} */
+        let viewStartDate = new Date(monthBounds.start);
+        /** @type {?} */
+        let viewEndDate = new Date(monthBounds.end);
+        if (!isoMode) {
+            viewStartDate = startOfWeek(viewStartDate);
+            viewEndDate = endOfWeek(viewEndDate);
+        }
+        /** @type {?} */
+        let rows = [];
+        /** @type {?} */
+        let todayDate = new Date();
+        /** @type {?} */
+        let curDate = new Date(viewStartDate);
+        while (curDate < viewEndDate) {
+            /** @type {?} */
+            let row = [];
+            for (let i = 0; i < 7; i++) {
+                /** @type {?} */
+                let disabled = (minDate != null && isBefore(curDate, minDate)) ||
+                    (maxDate != null && isAfter(curDate, maxDate));
+                /** @type {?} */
+                let date = new Date(curDate);
+                /** @type {?} */
+                let newEntry = {
+                    type: 'day',
+                    date: date,
+                    selected: 'none',
+                    highlight: format(todayDate, 'YYYY-MM-DD') === format(curDate, 'YYYY-MM-DD'),
+                    disabled: disabled
+                };
+                newEntry.selected = this.isEntrySelected(newEntry, selection);
+                row.push(newEntry);
+                curDate = addDays(curDate, 1);
+            }
+            rows.push(row);
+        }
+        return rows;
+    }
 }
+AjfCalendarService.decorators = [
+    { type: Injectable },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfCalendarEntryLabelPipe {
+    /**
+     * @param {?} _service
+     */
+    constructor(_service) {
+        this._service = _service;
+    }
+    /**
+     * @param {?} entry
+     * @return {?}
+     */
+    transform(entry) {
+        return this._service.entryLabel(entry);
+    }
+}
+AjfCalendarEntryLabelPipe.decorators = [
+    { type: Injectable },
+    { type: Pipe, args: [{ name: 'ajfCalendarEntryLabel' },] },
+];
+/** @nocollapse */
+AjfCalendarEntryLabelPipe.ctorParameters = () => [
+    { type: AjfCalendarService }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfCalendarModule {
+}
+AjfCalendarModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [
+                    AjfCalendarEntryLabelPipe,
+                ],
+                exports: [
+                    AjfCalendarEntryLabelPipe,
+                ],
+                providers: [
+                    AjfCalendarService,
+                ],
+            },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -99,9 +424,11 @@ class AjfCalendarChange {
 class AjfCalendar {
     /**
      * @param {?} _cdr
+     * @param {?} _service
      */
-    constructor(_cdr) {
+    constructor(_cdr, _service) {
         this._cdr = _cdr;
+        this._service = _service;
         this._disabled = false;
         this._dateOnlyForDay = false;
         this._viewMode = 'month';
@@ -112,7 +439,7 @@ class AjfCalendar {
         this._viewDate = new Date();
         this._viewHeader = '';
         this._calendarRows = [];
-        this._weekDays = [];
+        this._calendarHeaders = [];
         this._onChangeCallback = (/**
          * @param {?} _
          * @return {?}
@@ -292,6 +619,10 @@ class AjfCalendar {
     /**
      * @return {?}
      */
+    get calendarHeaders() { return this._calendarHeaders; }
+    /**
+     * @return {?}
+     */
     get calendarRows() { return this._calendarRows; }
     /**
      * @return {?}
@@ -300,29 +631,15 @@ class AjfCalendar {
     /**
      * @return {?}
      */
-    get weekDays() { return this._weekDays; }
-    /**
-     * @return {?}
-     */
     prevPage() {
-        if (this._viewMode == 'month') {
-            this.viewDate = subMonths(this.viewDate, 1);
-        }
-        else if (this._viewMode == 'year') {
-            this.viewDate = subYears(this.viewDate, 1);
-        }
+        this.viewDate = this._service.previousView(this._viewDate, this._viewMode);
         this._buildCalendar();
     }
     /**
      * @return {?}
      */
     nextPage() {
-        if (this._viewMode == 'month') {
-            this.viewDate = addMonths(this.viewDate, 1);
-        }
-        else if (this._viewMode == 'year') {
-            this.viewDate = addYears(this.viewDate, 1);
-        }
+        this.viewDate = this._service.nextView(this._viewDate, this._viewMode);
         this._buildCalendar();
     }
     /**
@@ -350,7 +667,7 @@ class AjfCalendar {
         }
         /** @type {?} */
         let newPeriod = null;
-        if (this._isEntrySelected(entry) == 'full') {
+        if (this._service.isEntrySelected(entry, this._selectedPeriod) == 'full') {
             newPeriod = null;
         }
         else if (this._selectionMode == 'day') {
@@ -373,7 +690,7 @@ class AjfCalendar {
         }
         else if (this._selectionMode == 'month') {
             /** @type {?} */
-            const monthBounds = this._getMonthStartEnd(entry.date);
+            const monthBounds = this._service.monthBounds(entry.date, this._isoMode);
             newPeriod = {
                 type: 'month',
                 startDate: new Date(monthBounds.start),
@@ -437,242 +754,22 @@ class AjfCalendar {
     }
     /**
      * @private
-     * @param {?} date
-     * @return {?}
-     */
-    _getMonthStartEnd(date) {
-        if (!this._isoMode) {
-            return {
-                start: startOfMonth(date),
-                end: endOfMonth(date),
-            };
-        }
-        /** @type {?} */
-        let startDate = startOfMonth(endOfISOWeek(date));
-        /** @type {?} */
-        let endDate = endOfMonth(startDate);
-        /** @type {?} */
-        const startWeekDay = startDate.getDay();
-        /** @type {?} */
-        const endWeekDay = endDate.getDay();
-        if (startWeekDay == 0 || startWeekDay > 4) {
-            startDate = addWeeks(startDate, 1);
-        }
-        if (endWeekDay > 0 && endWeekDay < 4) {
-            endDate = subWeeks(endDate, 1);
-        }
-        startDate = startOfISOWeek(startDate);
-        endDate = endOfISOWeek(endDate);
-        return { start: startDate, end: endDate };
-    }
-    /**
-     * @private
      * @return {?}
      */
     _buildCalendar() {
-        if (this._viewMode == 'month') {
-            this._buildMonthView();
-        }
-        else if (this._viewMode == 'year') {
-            this._buildYearView();
-        }
-        else if (this._viewMode == 'decade') {
-            this._buildDecadeView();
-        }
+        /** @type {?} */
+        const calendarView = this._service.buildView({
+            viewMode: this._viewMode,
+            viewDate: this._viewDate,
+            selection: this._selectedPeriod,
+            isoMode: this._isoMode,
+            minDate: this._minDate == null ? null : new Date(this._minDate),
+            maxDate: this._maxDate == null ? null : new Date(this._maxDate),
+        });
+        this._viewHeader = calendarView.header;
+        this._calendarHeaders = calendarView.headerRow;
+        this._calendarRows = calendarView.rows;
         this._cdr.markForCheck();
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _buildDecadeView() {
-        /** @type {?} */
-        let curYear = this._viewDate.getFullYear();
-        /** @type {?} */
-        let firstYear = curYear - (curYear % 10) + 1;
-        /** @type {?} */
-        let lastYear = firstYear + 11;
-        this._viewHeader = `${firstYear} - ${lastYear}`;
-        /** @type {?} */
-        let curDate = startOfYear(this._viewDate);
-        curDate.setFullYear(firstYear);
-        /** @type {?} */
-        let rows = [];
-        for (let i = 0; i < 4; i++) {
-            /** @type {?} */
-            let row = [];
-            for (let j = 0; j < 3; j++) {
-                /** @type {?} */
-                let date = new Date(curDate);
-                /** @type {?} */
-                let newEntry = new AjfCalendarEntry({
-                    type: 'year',
-                    date: date,
-                    selected: 'none'
-                });
-                newEntry.selected = this._isEntrySelected(newEntry);
-                row.push(newEntry);
-                curDate = addYears(curDate, 1);
-            }
-            rows.push(row);
-        }
-        this._calendarRows = rows;
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _buildYearView() {
-        this._viewHeader = `${this._viewDate.getFullYear()}`;
-        /** @type {?} */
-        let curDate = startOfYear(this._viewDate);
-        /** @type {?} */
-        let rows = [];
-        for (let i = 0; i < 4; i++) {
-            /** @type {?} */
-            let row = [];
-            for (let j = 0; j < 3; j++) {
-                /** @type {?} */
-                let date = new Date(curDate);
-                /** @type {?} */
-                let newEntry = new AjfCalendarEntry({
-                    type: 'month',
-                    date: date,
-                    selected: 'none'
-                });
-                newEntry.selected = this._isEntrySelected(newEntry);
-                row.push(newEntry);
-                curDate = addMonths(curDate, 1);
-            }
-            rows.push(row);
-        }
-        this._calendarRows = rows;
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _buildMonthView() {
-        this._viewHeader = format(this._viewDate, 'MMM YYYY');
-        this._buildMonthViewWeekDays();
-        /** @type {?} */
-        const monthDay = new Date(this._viewDate.getFullYear(), this._viewDate.getMonth(), 5);
-        /** @type {?} */
-        const monthBounds = this._getMonthStartEnd(monthDay);
-        /** @type {?} */
-        let viewStartDate = new Date(monthBounds.start);
-        /** @type {?} */
-        let viewEndDate = new Date(monthBounds.end);
-        if (!this._isoMode) {
-            viewStartDate = startOfWeek(viewStartDate);
-            viewEndDate = endOfWeek(viewEndDate);
-        }
-        /** @type {?} */
-        let rows = [];
-        /** @type {?} */
-        let todayDate = new Date();
-        /** @type {?} */
-        let curDate = new Date(viewStartDate);
-        /** @type {?} */
-        let minDate = this.minDate == null ? null : new Date(this.minDate);
-        /** @type {?} */
-        let maxDate = this.maxDate == null ? null : new Date(this.maxDate);
-        while (curDate < viewEndDate) {
-            /** @type {?} */
-            let row = [];
-            for (let i = 0; i < 7; i++) {
-                /** @type {?} */
-                let disabled = (minDate != null && isBefore(curDate, minDate)) ||
-                    (maxDate != null && isAfter(curDate, maxDate));
-                /** @type {?} */
-                let date = new Date(curDate);
-                /** @type {?} */
-                let newEntry = new AjfCalendarEntry({
-                    type: 'day',
-                    date: date,
-                    selected: 'none',
-                    highlight: format(todayDate, 'YYYY-MM-DD') === format(curDate, 'YYYY-MM-DD'),
-                    disabled: disabled
-                });
-                newEntry.selected = this._isEntrySelected(newEntry);
-                row.push(newEntry);
-                curDate = addDays(curDate, 1);
-            }
-            rows.push(row);
-        }
-        this._calendarRows = rows;
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _buildMonthViewWeekDays() {
-        /** @type {?} */
-        let curDate;
-        if (this._isoMode) {
-            curDate = setISODay(startOfWeek(this._viewDate), 1);
-        }
-        else {
-            curDate = startOfWeek(this._viewDate);
-        }
-        /** @type {?} */
-        let weekDayNames = [];
-        for (let i = 0; i < 7; i++) {
-            weekDayNames.push(format(curDate, 'dddd'));
-            curDate = addDays(curDate, 1);
-        }
-        this._weekDays = weekDayNames;
-        this._cdr.markForCheck();
-    }
-    /**
-     * @private
-     * @param {?} entryType
-     * @return {?}
-     */
-    _periodOrder(entryType) {
-        return ['day', 'week', 'month', 'year'].indexOf(entryType);
-    }
-    /**
-     * @private
-     * @param {?} entry
-     * @return {?}
-     */
-    _isEntrySelected(entry) {
-        if (this._selectedPeriod != null && this._selectedPeriod.startDate != null &&
-            this._selectedPeriod.endDate != null) {
-            /** @type {?} */
-            let selectionStart = startOfDay(this._selectedPeriod.startDate);
-            /** @type {?} */
-            let selectionEnd = endOfDay(this._selectedPeriod.endDate);
-            /** @type {?} */
-            let selectionPeriodOrder = this._periodOrder(this._selectedPeriod.type);
-            /** @type {?} */
-            let entryPeriodOrder = this._periodOrder(entry.type);
-            /** @type {?} */
-            let entryRange = entry.getRange();
-            if (entryPeriodOrder <= selectionPeriodOrder &&
-                this._isBetween(entryRange.start, selectionStart, selectionEnd) &&
-                this._isBetween(entryRange.end, selectionStart, selectionEnd)) {
-                return 'full';
-            }
-            else if (entryPeriodOrder > selectionPeriodOrder &&
-                this._isBetween(selectionStart, entryRange.start, entryRange.end) &&
-                this._isBetween(selectionEnd, entryRange.start, entryRange.end)) {
-                return 'partial';
-            }
-        }
-        return 'none';
-    }
-    /**
-     * @private
-     * @param {?} date
-     * @param {?} rangeLeft
-     * @param {?} rangeRight
-     * @return {?}
-     */
-    _isBetween(date, rangeLeft, rangeRight) {
-        return (isAfter(date, rangeLeft) || isSameDay(date, rangeLeft))
-            && (isBefore(date, rangeRight) || isSameDay(date, rangeRight));
     }
     /**
      * @private
@@ -681,7 +778,7 @@ class AjfCalendar {
     _refreshSelection() {
         for (let row of this._calendarRows) {
             for (let entry of row) {
-                entry.selected = this._isEntrySelected(entry);
+                entry.selected = this._service.isEntrySelected(entry, this._selectedPeriod);
             }
         }
     }
@@ -719,5 +816,5 @@ class AjfCalendar {
     }
 }
 
-export { AjfCalendar, AjfCalendarChange, AjfCalendarEntry, AjfCalendarPeriod };
+export { AjfCalendar, AjfCalendarChange, AjfCalendarModule, AjfCalendarPeriod, AjfCalendarService, AjfCalendarEntryLabelPipe as ɵa };
 //# sourceMappingURL=calendar.js.map

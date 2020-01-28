@@ -21,22 +21,10 @@
  */
 import { AjfCalendarEntrySelectedState } from './calendar-entry-selected-state';
 import { AjfCalendarEntryType } from './calendar-entry-type';
-export declare class AjfCalendarEntry {
+export interface AjfCalendarEntry {
     type: AjfCalendarEntryType;
     date: Date;
     selected: AjfCalendarEntrySelectedState;
-    disabled: boolean;
-    highlight: boolean;
-    constructor(params: {
-        type: AjfCalendarEntryType;
-        date: Date;
-        selected: AjfCalendarEntrySelectedState;
-        highlight?: boolean;
-        disabled?: boolean;
-    });
-    toString(): string;
-    getRange(): {
-        start: Date;
-        end: Date;
-    };
+    disabled?: boolean;
+    highlight?: boolean;
 }
