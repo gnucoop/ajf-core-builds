@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { Injectable, Pipe, NgModule, EventEmitter } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, Pipe, NgModule, EventEmitter } from '@angular/core';
 import { format, startOfMonth, endOfMonth, getISODay, endOfISOWeek, startOfISOWeek, addWeeks, subWeeks, startOfYear, endOfYear, startOfDay, endOfDay, isAfter, isSameDay, isBefore, addMonths, addYears, subMonths, subYears, setISODay, startOfWeek, addDays, endOfWeek, parse } from 'date-fns';
 
 /**
@@ -402,8 +402,9 @@ var AjfCalendarService = /** @class */ (function () {
         return rows;
     };
     AjfCalendarService.decorators = [
-        { type: Injectable },
+        { type: Injectable, args: [{ providedIn: 'root' },] },
     ];
+    /** @nocollapse */ AjfCalendarService.ngInjectableDef = ɵɵdefineInjectable({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
     return AjfCalendarService;
 }());
 
@@ -452,12 +453,21 @@ var AjfCalendarModule = /** @class */ (function () {
                     exports: [
                         AjfCalendarEntryLabelPipe,
                     ],
+                },] },
+    ];
+    return AjfCalendarModule;
+}());
+var AjfGregorianCalendarModule = /** @class */ (function () {
+    function AjfGregorianCalendarModule() {
+    }
+    AjfGregorianCalendarModule.decorators = [
+        { type: NgModule, args: [{
                     providers: [
                         AjfCalendarService,
                     ],
                 },] },
     ];
-    return AjfCalendarModule;
+    return AjfGregorianCalendarModule;
 }());
 
 /**
@@ -632,7 +642,7 @@ AjfCalendar = /** @class */ (function () {
          */
         function (isoMode) {
             this._isoMode = isoMode;
-            this._cdr.markForCheck();
+            this._buildCalendar();
         },
         enumerable: true,
         configurable: true
@@ -998,5 +1008,5 @@ AjfCalendar = /** @class */ (function () {
     return AjfCalendar;
 }());
 
-export { AjfCalendar, AjfCalendarChange, AjfCalendarModule, AjfCalendarPeriod, AjfCalendarService, AjfCalendarEntryLabelPipe as ɵa };
+export { AjfCalendar, AjfCalendarChange, AjfCalendarModule, AjfCalendarPeriod, AjfCalendarService, AjfGregorianCalendarModule, AjfCalendarEntryLabelPipe as ɵa };
 //# sourceMappingURL=calendar.es5.js.map

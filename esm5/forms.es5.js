@@ -6109,8 +6109,8 @@ function createForm(form) {
  */
 function maxDigitsValidation(maxValue) {
     return createValidation({
-        condition: "$value ? $value.toString().length >= " + maxValue.toString() + " : false",
-        errorMessage: 'Digits count must be >= ' + maxValue.toString()
+        condition: "$value ? $value.toString().length <= " + maxValue.toString() + " : false",
+        errorMessage: 'Digits count must be <= ' + maxValue.toString()
     });
 }
 

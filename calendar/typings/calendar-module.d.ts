@@ -21,3 +21,5 @@
  */
 export declare class AjfCalendarModule {
 }
+export declare class AjfGregorianCalendarModule {
+}

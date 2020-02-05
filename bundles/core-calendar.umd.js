@@ -405,8 +405,9 @@
             return rows;
         };
         AjfCalendarService.decorators = [
-            { type: core.Injectable },
+            { type: core.Injectable, args: [{ providedIn: 'root' },] },
         ];
+        /** @nocollapse */ AjfCalendarService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
         return AjfCalendarService;
     }());
 
@@ -455,12 +456,21 @@
                         exports: [
                             AjfCalendarEntryLabelPipe,
                         ],
+                    },] },
+        ];
+        return AjfCalendarModule;
+    }());
+    var AjfGregorianCalendarModule = /** @class */ (function () {
+        function AjfGregorianCalendarModule() {
+        }
+        AjfGregorianCalendarModule.decorators = [
+            { type: core.NgModule, args: [{
                         providers: [
                             AjfCalendarService,
                         ],
                     },] },
         ];
-        return AjfCalendarModule;
+        return AjfGregorianCalendarModule;
     }());
 
     /**
@@ -635,7 +645,7 @@
              */
             function (isoMode) {
                 this._isoMode = isoMode;
-                this._cdr.markForCheck();
+                this._buildCalendar();
             },
             enumerable: true,
             configurable: true
@@ -1006,6 +1016,7 @@
     exports.AjfCalendarModule = AjfCalendarModule;
     exports.AjfCalendarPeriod = AjfCalendarPeriod;
     exports.AjfCalendarService = AjfCalendarService;
+    exports.AjfGregorianCalendarModule = AjfGregorianCalendarModule;
     exports.ɵa = AjfCalendarEntryLabelPipe;
 
     Object.defineProperty(exports, '__esModule', { value: true });
