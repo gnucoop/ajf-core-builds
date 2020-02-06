@@ -19,17 +19,4 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { Version } from '@angular/core';
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * Current version of Ajf.
- * @type {?}
- */
-const VERSION = new Version('8.4.0-2ee9e58');
-
-export { VERSION };
-//# sourceMappingURL=core.js.map
+export declare function registerChartPlugins(plugins: any[]): void;

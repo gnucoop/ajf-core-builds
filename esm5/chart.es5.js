@@ -19,10 +19,10 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { __assign } from 'tslib';
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, Input, NgModule } from '@angular/core';
 import * as Chart from 'chart.js';
 import Chart__default, {  } from 'chart.js';
+import { __assign } from 'tslib';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, Input, NgModule } from '@angular/core';
 import 'chart.piecelabel.js';
 import { deepCopy } from '@ajf/core/utils';
 
@@ -32,6 +32,26 @@ import { deepCopy } from '@ajf/core/utils';
  */
 /** @type {?} */
 var chartClass = Chart__default || Chart;
+/**
+ * @param {?} plugins
+ * @return {?}
+ */
+function registerChartPlugins(plugins) {
+    if (plugins != null && plugins.length > 0) {
+        plugins.forEach((/**
+         * @param {?} plugin
+         * @return {?}
+         */
+        function (plugin) { return chartClass.plugins.register(plugin); }));
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var chartClass$1 = Chart__default || Chart;
 var AjfChartComponent = /** @class */ (function () {
     function AjfChartComponent(_el, _renderer) {
         this._el = _el;
@@ -158,7 +178,7 @@ var AjfChartComponent = /** @class */ (function () {
             this._renderer.appendChild(this._el.nativeElement, this._chartCanvasElement);
             /** @type {?} */
             var ctx = this._chartCanvasElement.getContext('2d');
-            this._chart = new chartClass(ctx, {
+            this._chart = new chartClass$1(ctx, {
                 type: this.chartType,
                 data: this._fixData(this.chartType, this.data),
                 options: this._fixChartOptions(this.options)
@@ -249,5 +269,5 @@ var AjfChartModule = /** @class */ (function () {
     return AjfChartModule;
 }());
 
-export { AjfChartComponent, AjfChartModule };
+export { AjfChartComponent, AjfChartModule, registerChartPlugins };
 //# sourceMappingURL=chart.es5.js.map

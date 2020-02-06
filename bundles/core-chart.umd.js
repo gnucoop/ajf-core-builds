@@ -20,10 +20,10 @@
  *
  */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('chart.js'), require('chart.piecelabel.js'), require('@ajf/core/utils')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/chart', ['exports', '@angular/core', 'chart.js', 'chart.piecelabel.js', '@ajf/core/utils'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.ng.core, global.chartJs, global.chartPiecelabel, global.ajf.core.utils));
-}(this, function (exports, core, Chart__default, chart_piecelabel_js, utils) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('chart.js'), require('@angular/core'), require('chart.piecelabel.js'), require('@ajf/core/utils')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/chart', ['exports', 'chart.js', '@angular/core', 'chart.piecelabel.js', '@ajf/core/utils'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.chartJs, global.ng.core, global.chartPiecelabel, global.ajf.core.utils));
+}(this, function (exports, Chart__default, core, chart_piecelabel_js, utils) { 'use strict';
 
     var Chart__default__default = 'default' in Chart__default ? Chart__default['default'] : Chart__default;
 
@@ -59,6 +59,26 @@
      */
     /** @type {?} */
     var chartClass = Chart__default__default || Chart__default;
+    /**
+     * @param {?} plugins
+     * @return {?}
+     */
+    function registerChartPlugins(plugins) {
+        if (plugins != null && plugins.length > 0) {
+            plugins.forEach((/**
+             * @param {?} plugin
+             * @return {?}
+             */
+            function (plugin) { return chartClass.plugins.register(plugin); }));
+        }
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var chartClass$1 = Chart__default__default || Chart__default;
     var AjfChartComponent = /** @class */ (function () {
         function AjfChartComponent(_el, _renderer) {
             this._el = _el;
@@ -185,7 +205,7 @@
                 this._renderer.appendChild(this._el.nativeElement, this._chartCanvasElement);
                 /** @type {?} */
                 var ctx = this._chartCanvasElement.getContext('2d');
-                this._chart = new chartClass(ctx, {
+                this._chart = new chartClass$1(ctx, {
                     type: this.chartType,
                     data: this._fixData(this.chartType, this.data),
                     options: this._fixChartOptions(this.options)
@@ -278,6 +298,7 @@
 
     exports.AjfChartComponent = AjfChartComponent;
     exports.AjfChartModule = AjfChartModule;
+    exports.registerChartPlugins = registerChartPlugins;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
