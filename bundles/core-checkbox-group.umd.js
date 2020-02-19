@@ -1,116 +1,66 @@
-/**
- * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@ajf/core/utils'), require('rxjs'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/checkbox-group', ['exports', '@angular/core', '@angular/forms', '@ajf/core/utils', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.checkboxGroup = {}), global.ng.core, global.ng.forms, global.ajf.core.utils, global.rxjs, global.rxjs.operators));
-}(this, function (exports, core, forms, utils, rxjs, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/forms'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/checkbox-group', ['exports', '@angular/cdk/coercion', '@angular/core', '@angular/forms', 'rxjs', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.checkboxGroup = {}), global.ng.cdk.coercion, global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators));
+}(this, (function (exports, coercion, core, forms, rxjs, operators) { 'use strict';
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
-    /** @type {?} */
     var AJF_CHECKBOX_GROUP_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
-        useExisting: core.forwardRef((/**
-         * @return {?}
-         */
-        function () { return AjfCheckboxGroup; })),
+        useExisting: core.forwardRef(function () { return AjfCheckboxGroup; }),
         multi: true
     };
-    /**
-     * @template T
-     */
-    var   /**
-     * @template T
-     */
-    AjfCheckboxGroupItemChange = /** @class */ (function () {
+    var AjfCheckboxGroupItemChange = /** @class */ (function () {
         function AjfCheckboxGroupItemChange() {
         }
         return AjfCheckboxGroupItemChange;
     }());
-    /**
-     * @template T
-     */
-    var   /**
-     * @template T
-     */
-    AjfCheckboxGroupChange = /** @class */ (function () {
+    var AjfCheckboxGroupChange = /** @class */ (function () {
         function AjfCheckboxGroupChange() {
         }
         return AjfCheckboxGroupChange;
     }());
-    /** @type {?} */
     var _uniqueIdCounter = 0;
-    /**
-     * @template T
-     */
     var AjfCheckboxGroup = /** @class */ (function () {
         function AjfCheckboxGroup() {
             this.checkboxes = [];
-            /**
-             * The value for the button toggle group. Should match currently selected button toggle.
-             */
+            /** The value for the button toggle group. Should match currently selected button toggle. */
             this._value = [];
-            /**
-             * Disables all toggles in the group.
-             */
+            /** Disables all toggles in the group. */
             this._disabled = false;
-            /**
-             * The currently selected button toggle, should match the value.
-             */
+            /** The currently selected button toggle, should match the value. */
             this._selected = [];
-            /**
-             * Event emitted when the group's value changes.
-             */
+            /** Event emitted when the group's value changes. */
             this._change = new core.EventEmitter();
             this.change = this._change.asObservable();
-            /**
-             * onTouch function registered via registerOnTouch (ControlValueAccessor).
-             */
-            this.onTouched = (/**
-             * @return {?}
-             */
-            function () { });
-            /**
-             * The method to be called in order to update ngModel.
-             */
-            this._controlValueAccessorChangeFn = (/**
-             * @param {?} _
-             * @return {?}
-             */
-            function (_) { });
+            /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+            this.onTouched = function () { };
+            /** The method to be called in order to update ngModel. */
+            this._controlValueAccessorChangeFn = function (_) { };
         }
         Object.defineProperty(AjfCheckboxGroup.prototype, "value", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._value; },
-            set: /**
-             * @param {?} newValue
-             * @return {?}
-             */
-            function (newValue) {
+            get: function () { return this._value; },
+            set: function (newValue) {
                 if (this._value !== newValue) {
                     this._value = newValue;
                     this._updateSelectedCheckboxesFromValue();
@@ -121,15 +71,8 @@
             configurable: true
         });
         Object.defineProperty(AjfCheckboxGroup.prototype, "name", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._name; },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
+            get: function () { return this._name; },
+            set: function (value) {
                 this._name = value;
                 this._updateCheckboxesNames();
             },
@@ -137,44 +80,25 @@
             configurable: true
         });
         Object.defineProperty(AjfCheckboxGroup.prototype, "disabled", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._disabled; },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                this._disabled = utils.coerceBooleanProperty(value);
+            get: function () { return this._disabled; },
+            set: function (value) {
+                this._disabled = coercion.coerceBooleanProperty(value);
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfCheckboxGroup.prototype, "selected", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._selected; },
-            set: /**
-             * @param {?} selected
-             * @return {?}
-             */
-            function (selected) {
+            get: function () { return this._selected; },
+            set: function (selected) {
                 this._selected = selected;
-                /** @type {?} */
                 var values = [];
                 if (selected) {
-                    selected.forEach((/**
-                     * @param {?} c
-                     * @return {?}
-                     */
-                    function (c) {
+                    selected.forEach(function (c) {
                         values.push(c.value);
                         if (!c.checked) {
                             c.checked = true;
                         }
-                    }));
+                    });
                 }
                 this._value = values;
             },
@@ -184,148 +108,61 @@
         /**
          * Implemented as part of ControlValueAccessor.
          */
-        /**
-         * Implemented as part of ControlValueAccessor.
-         * @param {?} value
-         * @return {?}
-         */
-        AjfCheckboxGroup.prototype.writeValue = /**
-         * Implemented as part of ControlValueAccessor.
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
+        AjfCheckboxGroup.prototype.writeValue = function (value) {
             this.value = value;
         };
         /**
          * Implemented as part of ControlValueAccessor.
          */
-        /**
-         * Implemented as part of ControlValueAccessor.
-         * @param {?} fn
-         * @return {?}
-         */
-        AjfCheckboxGroup.prototype.registerOnChange = /**
-         * Implemented as part of ControlValueAccessor.
-         * @param {?} fn
-         * @return {?}
-         */
-        function (fn) {
+        AjfCheckboxGroup.prototype.registerOnChange = function (fn) {
             this._controlValueAccessorChangeFn = fn;
         };
         /**
          * Implemented as part of ControlValueAccessor.
          */
-        /**
-         * Implemented as part of ControlValueAccessor.
-         * @param {?} fn
-         * @return {?}
-         */
-        AjfCheckboxGroup.prototype.registerOnTouched = /**
-         * Implemented as part of ControlValueAccessor.
-         * @param {?} fn
-         * @return {?}
-         */
-        function (fn) {
+        AjfCheckboxGroup.prototype.registerOnTouched = function (fn) {
             this.onTouched = fn;
         };
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        AjfCheckboxGroup.prototype.addValue = /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            /** @type {?} */
+        AjfCheckboxGroup.prototype.addValue = function (value) {
             var curValue = (this._value || []).slice(0);
             if (curValue.indexOf(value) === -1) {
                 curValue.push(value);
                 this.value = curValue;
             }
         };
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        AjfCheckboxGroup.prototype.removeValue = /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            /** @type {?} */
+        AjfCheckboxGroup.prototype.removeValue = function (value) {
             var curValue = (this._value || []).slice(0);
-            /** @type {?} */
             var idx = curValue.indexOf(value);
             if (idx > -1) {
                 curValue.splice(idx, 1);
                 this.value = curValue;
             }
         };
-        /**
-         * @return {?}
-         */
-        AjfCheckboxGroup.prototype.ngAfterContentInit = /**
-         * @return {?}
-         */
-        function () {
+        AjfCheckboxGroup.prototype.ngAfterContentInit = function () {
             this._updateCheckboxesNames();
             this._updateSelectedCheckboxesFromValue();
         };
-        /**
-         * @param {?} item
-         * @return {?}
-         */
-        AjfCheckboxGroup.prototype.registerItem = /**
-         * @param {?} item
-         * @return {?}
-         */
-        function (item) {
+        AjfCheckboxGroup.prototype.registerItem = function (item) {
             this.checkboxes.push(item);
         };
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfCheckboxGroup.prototype._updateCheckboxesNames = /**
-         * @private
-         * @return {?}
-         */
-        function () {
+        AjfCheckboxGroup.prototype._updateCheckboxesNames = function () {
             var _this = this;
             if (this.checkboxes == null) {
                 return;
             }
-            this.checkboxes.forEach((/**
-             * @param {?} checkbox
-             * @return {?}
-             */
-            function (checkbox) {
+            this.checkboxes.forEach(function (checkbox) {
                 if (checkbox == null) {
                     return;
                 }
                 checkbox.name = _this._name;
-            }));
+            });
         };
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfCheckboxGroup.prototype._updateSelectedCheckboxesFromValue = /**
-         * @private
-         * @return {?}
-         */
-        function () {
+        AjfCheckboxGroup.prototype._updateSelectedCheckboxesFromValue = function () {
             var _this = this;
             if (this.checkboxes == null) {
                 return;
             }
-            this.checkboxes.forEach((/**
-             * @param {?} checkbox
-             * @return {?}
-             */
-            function (checkbox) {
+            this.checkboxes.forEach(function (checkbox) {
                 if (checkbox == null) {
                     return;
                 }
@@ -335,21 +172,10 @@
                 else {
                     checkbox.checked = false;
                 }
-            }));
+            });
         };
         /** Dispatch change event with current selection and group value. */
-        /**
-         * Dispatch change event with current selection and group value.
-         * @private
-         * @return {?}
-         */
-        AjfCheckboxGroup.prototype._emitChangeEvent = /**
-         * Dispatch change event with current selection and group value.
-         * @private
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
+        AjfCheckboxGroup.prototype._emitChangeEvent = function () {
             var event = new AjfCheckboxGroupChange();
             event.source = this;
             event.value = this._value;
@@ -360,7 +186,7 @@
             { type: core.Directive, args: [{
                         selector: 'ajf-checkbox-group,[ajf-checkbox-group]',
                         providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR]
-                    },] },
+                    },] }
         ];
         AjfCheckboxGroup.propDecorators = {
             value: [{ type: core.Input }],
@@ -370,97 +196,53 @@
         };
         return AjfCheckboxGroup;
     }());
-    /**
-     * @template T
-     */
-    var   /**
-     * @template T
-     */
-    AjfCheckboxGroupItem = /** @class */ (function () {
+    var AjfCheckboxGroupItem = /** @class */ (function () {
         function AjfCheckboxGroupItem(checkboxGroup) {
-            /**
-             * The unique ID for this button toggle.
-             */
+            /** The unique ID for this button toggle. */
             this._checkboxId = new rxjs.BehaviorSubject('');
             this.checkboxId = this._checkboxId.asObservable();
-            /**
-             * Whether or not this button toggle is checked.
-             */
+            /** Whether or not this button toggle is checked. */
             this._checkedState = new rxjs.BehaviorSubject(false);
             this.checkedState = this._checkedState.asObservable();
-            /**
-             * Whether or not this button toggle is disabled.
-             */
+            /** Whether or not this button toggle is disabled. */
             this._disabledState = new rxjs.BehaviorSubject(false);
             this.disabledState = this._disabledState.asObservable();
             this._checkedIconVal = new rxjs.BehaviorSubject('');
             this._notCheckedIconVal = new rxjs.BehaviorSubject('');
-            /**
-             * Event emitted when the group value changes.
-             */
+            /** Event emitted when the group value changes. */
             this._change = new core.EventEmitter();
             this.change = this._change.asObservable();
-            this.icon = rxjs.combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal).pipe(operators.map((/**
-             * @param {?} r
-             * @return {?}
-             */
-            function (r) { return r[0] ? r[1] : r[2]; })));
+            this.icon = rxjs.combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal).pipe(operators.map(function (r) { return r[0] ? r[1] : r[2]; }));
             if (checkboxGroup) {
                 this.checkboxGroup = checkboxGroup;
                 this.checkboxGroup.registerItem(this);
             }
         }
         Object.defineProperty(AjfCheckboxGroupItem.prototype, "id", {
-            set: /**
-             * @param {?} id
-             * @return {?}
-             */
-            function (id) { this._checkboxId.next(id); },
+            set: function (id) { this._checkboxId.next(id); },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfCheckboxGroupItem.prototype, "checked", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._checkedState.getValue(); },
-            set: /**
-             * @param {?} checked
-             * @return {?}
-             */
-            function (checked) { this._checkedState.next(checked); },
+            get: function () { return this._checkedState.getValue(); },
+            set: function (checked) { this._checkedState.next(checked); },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfCheckboxGroupItem.prototype, "disabled", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                /** @type {?} */
+            get: function () {
                 var disabled = this._disabledState.getValue();
                 return disabled || (this.checkboxGroup != null && this.checkboxGroup.disabled);
             },
-            set: /**
-             * @param {?} disabled
-             * @return {?}
-             */
-            function (disabled) {
+            set: function (disabled) {
                 this._disabledState.next(disabled != null && disabled !== false);
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfCheckboxGroupItem.prototype, "value", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._value; },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
+            get: function () { return this._value; },
+            set: function (value) {
                 if (this._value !== value) {
                     this._value = value;
                 }
@@ -469,53 +251,26 @@
             configurable: true
         });
         Object.defineProperty(AjfCheckboxGroupItem.prototype, "readonly", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._readonly; },
-            set: /**
-             * @param {?} readonly
-             * @return {?}
-             */
-            function (readonly) {
-                this._readonly = utils.coerceBooleanProperty(readonly);
+            get: function () { return this._readonly; },
+            set: function (readonly) {
+                this._readonly = coercion.coerceBooleanProperty(readonly);
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfCheckboxGroupItem.prototype, "checkedIcon", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._checkedIconVal.getValue(); },
-            set: /**
-             * @param {?} icon
-             * @return {?}
-             */
-            function (icon) { this._checkedIconVal.next(icon); },
+            get: function () { return this._checkedIconVal.getValue(); },
+            set: function (icon) { this._checkedIconVal.next(icon); },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfCheckboxGroupItem.prototype, "notCheckedIcon", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._notCheckedIconVal.getValue(); },
-            set: /**
-             * @param {?} icon
-             * @return {?}
-             */
-            function (icon) { this._notCheckedIconVal.next(icon); },
+            get: function () { return this._notCheckedIconVal.getValue(); },
+            set: function (icon) { this._notCheckedIconVal.next(icon); },
             enumerable: true,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
-        AjfCheckboxGroupItem.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
+        AjfCheckboxGroupItem.prototype.ngOnInit = function () {
             if (this.id == null) {
                 this.id = "ajf-checkbox-group-item-" + _uniqueIdCounter++;
             }
@@ -525,32 +280,12 @@
             }
         };
         /** Checks the button toggle due to an interaction with the underlying native input. */
-        /**
-         * Checks the button toggle due to an interaction with the underlying native input.
-         * @param {?} event
-         * @return {?}
-         */
-        AjfCheckboxGroupItem.prototype.onInputChange = /**
-         * Checks the button toggle due to an interaction with the underlying native input.
-         * @param {?} event
-         * @return {?}
-         */
-        function (event) {
+        AjfCheckboxGroupItem.prototype.onInputChange = function (event) {
             event.stopPropagation();
             this._toggle();
         };
         /** Toggle the state of the current button toggle. */
-        /**
-         * Toggle the state of the current button toggle.
-         * @private
-         * @return {?}
-         */
-        AjfCheckboxGroupItem.prototype._toggle = /**
-         * Toggle the state of the current button toggle.
-         * @private
-         * @return {?}
-         */
-        function () {
+        AjfCheckboxGroupItem.prototype._toggle = function () {
             this.checked = !this.checked;
             if (this.checkboxGroup != null) {
                 if (this.checked) {
@@ -561,12 +296,47 @@
                 }
             }
         };
+        AjfCheckboxGroupItem.decorators = [
+            { type: core.Directive }
+        ];
+        /** @nocollapse */
+        AjfCheckboxGroupItem.ctorParameters = function () { return [
+            { type: AjfCheckboxGroup }
+        ]; };
+        AjfCheckboxGroupItem.propDecorators = {
+            id: [{ type: core.Input }],
+            name: [{ type: core.Input }],
+            checked: [{ type: core.Input }],
+            disabled: [{ type: core.Input }],
+            value: [{ type: core.Input }],
+            readonly: [{ type: core.Input }],
+            checkedIcon: [{ type: core.Input }],
+            notCheckedIcon: [{ type: core.Input }],
+            change: [{ type: core.Output }]
+        };
         return AjfCheckboxGroupItem;
     }());
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
     var AjfCheckboxGroupModule = /** @class */ (function () {
         function AjfCheckboxGroupModule() {
@@ -582,10 +352,36 @@
                         exports: [
                             AjfCheckboxGroup
                         ]
-                    },] },
+                    },] }
         ];
         return AjfCheckboxGroupModule;
     }());
+
+    /**
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * Generated bundle index. Do not edit.
+     */
 
     exports.AJF_CHECKBOX_GROUP_VALUE_ACCESSOR = AJF_CHECKBOX_GROUP_VALUE_ACCESSOR;
     exports.AjfCheckboxGroup = AjfCheckboxGroup;
@@ -596,5 +392,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=core-checkbox-group.umd.js.map

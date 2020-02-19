@@ -1,8 +1,11 @@
 {
   "name": "@ajf/core/image",
-  "typings": "../image.d.ts",
   "main": "../bundles/core-image.umd.js",
-  "module": "../esm5/image.es5.js",
-  "es2015": "../esm2015/image.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/image.js",
+  "fesm2015": "../fesm2015/image.js",
+  "esm5": "../esm5/image/index.js",
+  "esm2015": "../esm2015/image/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/image.js",
+  "es2015": "../fesm2015/image.js"
 }

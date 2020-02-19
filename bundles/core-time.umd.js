@@ -1,33 +1,29 @@
-/**
- * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/time', ['exports', '@angular/core', 'rxjs'], factory) :
     (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.time = {}), global.ng.core, global.rxjs));
-}(this, function (exports, core, rxjs) { 'use strict';
+}(this, (function (exports, core, rxjs) { 'use strict';
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
     var AjfTimeModel = /** @class */ (function () {
         function AjfTimeModel() {
@@ -37,17 +33,10 @@
             this._minutes = 0;
         }
         Object.defineProperty(AjfTimeModel.prototype, "minutes", {
-            get: /**
-             * @return {?}
-             */
-            function () {
+            get: function () {
                 return this._minutes;
             },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
+            set: function (value) {
                 if (value > -1 && value < 61) {
                     this._minutes = value;
                     this._changed.emit(this.toString());
@@ -57,17 +46,10 @@
             configurable: true
         });
         Object.defineProperty(AjfTimeModel.prototype, "hours", {
-            get: /**
-             * @return {?}
-             */
-            function () {
+            get: function () {
                 return this._hours;
             },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
+            set: function (value) {
                 if (value > -1 && value < 24) {
                     this._hours = value;
                     this._changed.emit(this.toString());
@@ -76,30 +58,13 @@
             enumerable: true,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
-        AjfTimeModel.prototype.toString = /**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
+        AjfTimeModel.prototype.toString = function () {
             var minutes = this.minutes.toString().length > 1 && this.minutes || "0" + this.minutes;
-            /** @type {?} */
             var hours = this.hours.toString().length > 1 && this.hours || "0" + this.hours;
             return hours + ":" + minutes;
         };
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        AjfTimeModel.prototype.fromString = /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
+        AjfTimeModel.prototype.fromString = function (value) {
             try {
-                /** @type {?} */
                 var splitted = value.split(':');
                 if (splitted.length == 2) {
                     this.hours = parseInt(splitted[0]);
@@ -113,60 +78,50 @@
     }());
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
-    /**
-     * @abstract
-     */
-    var   /**
-     * @abstract
-     */
-    AjfTime = /** @class */ (function () {
+    var AjfTime = /** @class */ (function () {
         function AjfTime() {
             var _this = this;
             this._value = new AjfTimeModel();
-            this._onChangeCallback = (/**
-             * @param {?} _
-             * @return {?}
-             */
-            function (_) { });
-            this._onTouchedCallback = (/**
-             * @return {?}
-             */
-            function () { });
+            this._onChangeCallback = function (_) { };
+            this._onTouchedCallback = function () { };
             this._valueChangeSub = rxjs.Subscription.EMPTY;
             this._valueChangeSub = this._value.changed
-                .subscribe((/**
-             * @param {?} x
-             * @return {?}
-             */
-            function (x) {
+                .subscribe(function (x) {
                 _this._onChangeCallback(x);
-            }));
+            });
         }
         Object.defineProperty(AjfTime.prototype, "time", {
-            get: /**
-             * @return {?}
-             */
-            function () {
+            get: function () {
                 return this._value;
             },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfTime.prototype, "value", {
-            get: /**
-             * @return {?}
-             */
-            function () {
+            get: function () {
                 return this._value.toString();
             },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
+            set: function (value) {
                 if (value !== this._value.toString()) {
                     this._value.fromString(value);
                     this._onChangeCallback(value);
@@ -176,15 +131,8 @@
             configurable: true
         });
         Object.defineProperty(AjfTime.prototype, "hours", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._value.hours; },
-            set: /**
-             * @param {?} hours
-             * @return {?}
-             */
-            function (hours) {
+            get: function () { return this._value.hours; },
+            set: function (hours) {
                 this._value.hours = hours;
                 this._onChangeCallback(this._value.toString());
             },
@@ -192,79 +140,70 @@
             configurable: true
         });
         Object.defineProperty(AjfTime.prototype, "minutes", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._value.minutes; },
-            set: /**
-             * @param {?} minutes
-             * @return {?}
-             */
-            function (minutes) {
+            get: function () { return this._value.minutes; },
+            set: function (minutes) {
                 this._value.minutes = minutes;
                 this._onChangeCallback(this._value.toString());
             },
             enumerable: true,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
-        AjfTime.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-        function () {
+        AjfTime.prototype.ngOnDestroy = function () {
             this._valueChangeSub.unsubscribe();
         };
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        AjfTime.prototype.writeValue = /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
+        AjfTime.prototype.writeValue = function (value) {
             this._value.fromString(value);
         };
-        /**
-         * @param {?} fn
-         * @return {?}
-         */
-        AjfTime.prototype.registerOnChange = /**
-         * @param {?} fn
-         * @return {?}
-         */
-        function (fn) {
+        AjfTime.prototype.registerOnChange = function (fn) {
             this._onChangeCallback = fn;
         };
-        /**
-         * @param {?} fn
-         * @return {?}
-         */
-        AjfTime.prototype.registerOnTouched = /**
-         * @param {?} fn
-         * @return {?}
-         */
-        function (fn) {
+        AjfTime.prototype.registerOnTouched = function (fn) {
             this._onTouchedCallback = fn;
         };
-        /**
-         * @return {?}
-         */
-        AjfTime.prototype.focusHandler = /**
-         * @return {?}
-         */
-        function () {
+        AjfTime.prototype.focusHandler = function () {
             this._onTouchedCallback();
+        };
+        AjfTime.decorators = [
+            { type: core.Directive }
+        ];
+        /** @nocollapse */
+        AjfTime.ctorParameters = function () { return []; };
+        AjfTime.propDecorators = {
+            readonly: [{ type: core.Input }]
         };
         return AjfTime;
     }());
+
+    /**
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * Generated bundle index. Do not edit.
+     */
 
     exports.AjfTime = AjfTime;
     exports.AjfTimeModel = AjfTimeModel;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=core-time.umd.js.map

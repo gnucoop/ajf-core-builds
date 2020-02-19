@@ -1,11 +1,15 @@
 {
   "name": "@ajf/core",
-  "version": "8.4.0-2ee9e58",
+  "version": "9.0.0-sha-58f3f0f",
   "description": "",
   "main": "./bundles/core.umd.js",
-  "module": "./esm5/core.es5.js",
-  "es2015": "./esm2015/core.js",
-  "typings": "./core.d.ts",
+  "fesm5": "./fesm5/core.js",
+  "fesm2015": "./fesm2015/core.js",
+  "esm5": "./esm5/index.js",
+  "esm2015": "./esm2015/index.js",
+  "typings": "./index.d.ts",
+  "module": "./fesm5/core.js",
+  "es2015": "./fesm2015/core.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/gnucoop/ajf.git"
@@ -17,29 +21,24 @@
   },
   "homepage": "https://github.com/gnucoop/ajf#readme",
   "peerDependencies": {
-    "@angular/animations": "^8.0.0",
-    "@angular/cdk": "^8.0.0",
-    "@angular/core": "^8.0.0",
-    "@angular/common": "^8.0.0",
-    "@angular/forms": "^8.0.0",
-    "@angular/router": "^8.0.0",
-    "@ngx-translate/core": ">=11.0.0",
-    "@zxing/library": "^0.15.1",
-    "chart.js": "^2.8.0",
+    "@angular/animations": "^9.0.0-sha-58f3f0f-0 || ^10.0.0-0",
+    "@angular/cdk": "^9.0.0-sha-58f3f0f-0 || ^10.0.0-0",
+    "@angular/core": "^9.0.0-sha-58f3f0f-0 || ^10.0.0-0",
+    "@angular/common": "^9.0.0-sha-58f3f0f-0 || ^10.0.0-0",
+    "@angular/forms": "^9.0.0-sha-58f3f0f-0 || ^10.0.0-0",
+    "@angular/router": "^9.0.0-sha-58f3f0f-0 || ^10.0.0-0",
+    "@ngx-translate/core": "^12.0.0",
+    "@zxing/library": "^0.15.2",
+    "chart.js": "^2.9.3",
     "chart.piecelabel.js": "^0.15.0",
-    "css-element-queries": "^1.2.1",
-    "date-fns": "^1.30.1",
+    "css-element-queries": "^1.2.3",
+    "date-fns": "^2.9.0",
     "debug": "^4.1.1",
     "esprima": "^4.0.1",
-    "leaflet": "^1.5.1",
+    "leaflet": "^1.6.0",
     "numeral": "^2.0.6",
+    "tslib": "^1.9.0",
     "url-parse": "^1.4.7"
   },
-  "dependencies": {
-    "tslib": "^1.9.3"
-  },
-  "sideEffects": false,
-  "releaseGitCommitSha": "2ee9e58437e332487b5fd43129bab3eaafcbeddd",
-  "releaseGitBranch": "",
-  "releaseGitUser": " <>"
+  "sideEffects": false
 }

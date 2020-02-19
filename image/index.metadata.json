@@ -1,12 +1,1 @@
-{
-  "__symbolic": "module",
-  "version": 3,
-  "metadata": {},
-  "exports": [
-    {
-      "from": "./typings/index"
-    }
-  ],
-  "flatModuleIndexRedirect": true,
-  "importAs": "@ajf/core/image"
-}
+{"__symbolic":"module","version":4,"metadata":{"AjfImageIcon":{"__symbolic":"interface"},"AjfImageType":{"Image":0,"Flag":1,"Icon":2,"LENGTH":3},"AjfImage":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Directive","line":30,"character":1}}],"members":{"type":[{"__symbolic":"property","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Input","line":40,"character":3}}]}],"imageUrl":[{"__symbolic":"property","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Input","line":44,"character":3}}]}],"icon":[{"__symbolic":"property","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Input","line":53,"character":3}}]}],"flag":[{"__symbolic":"property","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Input","line":57,"character":3}}]}],"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","module":"@angular/core","name":"ElementRef","line":78,"character":19},{"__symbolic":"reference","module":"@angular/core","name":"Renderer2","line":78,"character":50},{"__symbolic":"reference","module":"@angular/platform-browser","name":"DomSanitizer","line":78,"character":84}]}],"ngOnDestroy":[{"__symbolic":"method"}],"ngOnInit":[{"__symbolic":"method"}],"_updateIconSize":[{"__symbolic":"method"}]}}},"origins":{"AjfImageIcon":"./image-icon","AjfImageType":"./image-type","AjfImage":"./image"},"importAs":"@ajf/core/image"}

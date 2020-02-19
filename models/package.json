@@ -1,8 +1,11 @@
 {
   "name": "@ajf/core/models",
-  "typings": "../models.d.ts",
   "main": "../bundles/core-models.umd.js",
-  "module": "../esm5/models.es5.js",
-  "es2015": "../esm2015/models.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/models.js",
+  "fesm2015": "../fesm2015/models.js",
+  "esm5": "../esm5/models/index.js",
+  "esm2015": "../esm2015/models/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/models.js",
+  "es2015": "../fesm2015/models.js"
 }

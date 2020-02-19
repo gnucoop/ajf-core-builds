@@ -1,12 +1,1 @@
-{
-  "__symbolic": "module",
-  "version": 3,
-  "metadata": {},
-  "exports": [
-    {
-      "from": "./typings/index"
-    }
-  ],
-  "flatModuleIndexRedirect": true,
-  "importAs": "@ajf/core/time"
-}
+{"__symbolic":"module","version":4,"metadata":{"AjfTimeModel":{"__symbolic":"class","members":{"toString":[{"__symbolic":"method"}],"fromString":[{"__symbolic":"method"}]}},"AjfTime":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Directive","line":28,"character":1}}],"members":{"readonly":[{"__symbolic":"property","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Input","line":30,"character":3}}]}],"__ctor__":[{"__symbolic":"constructor"}],"ngOnDestroy":[{"__symbolic":"method"}],"writeValue":[{"__symbolic":"method"}],"registerOnChange":[{"__symbolic":"method"}],"registerOnTouched":[{"__symbolic":"method"}],"focusHandler":[{"__symbolic":"method"}]}}},"origins":{"AjfTimeModel":"./time-model","AjfTime":"./time"},"importAs":"@ajf/core/time"}

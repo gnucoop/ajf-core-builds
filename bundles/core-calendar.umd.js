@@ -1,71 +1,46 @@
-/**
- * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('date-fns')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/calendar', ['exports', '@angular/core', 'date-fns'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.calendar = {}), global.ng.core, global.dateFns));
-}(this, function (exports, core, dateFns) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('date-fns'), require('tslib'), require('rxjs')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/calendar', ['exports', '@angular/core', 'date-fns', 'tslib', 'rxjs'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.calendar = {}), global.ng.core, global.dateFns, global.tslib, global.rxjs));
+}(this, (function (exports, i0, dateFns, tslib, rxjs) { 'use strict';
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /**
-     * @param {?} date
-     * @param {?} rangeLeft
-     * @param {?} rangeRight
-     * @return {?}
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
     function isBetween(date, rangeLeft, rangeRight) {
         return (dateFns.isAfter(date, rangeLeft) || dateFns.isSameDay(date, rangeLeft))
             && (dateFns.isBefore(date, rangeRight) || dateFns.isSameDay(date, rangeRight));
     }
-    /**
-     * @param {?} entryType
-     * @return {?}
-     */
     function periodOrder(entryType) {
         return ['day', 'week', 'month', 'year'].indexOf(entryType);
     }
     var AjfCalendarService = /** @class */ (function () {
         function AjfCalendarService() {
         }
-        /**
-         * @param {?} params
-         * @return {?}
-         */
-        AjfCalendarService.prototype.buildView = /**
-         * @param {?} params
-         * @return {?}
-         */
-        function (params) {
+        AjfCalendarService.prototype.buildView = function (params) {
             var viewMode = params.viewMode, viewDate = params.viewDate;
             switch (viewMode) {
                 case 'decade':
-                    /** @type {?} */
                     var curYear = viewDate.getFullYear();
-                    /** @type {?} */
                     var firstYear = curYear - (curYear % 10) + 1;
-                    /** @type {?} */
                     var lastYear = firstYear + 11;
                     return {
                         header: firstYear + " - " + lastYear,
@@ -80,7 +55,7 @@
                     };
                 case 'month':
                     return {
-                        header: dateFns.format(viewDate, 'MMM YYYY'),
+                        header: dateFns.format(viewDate, 'MMM yyyy'),
                         headerRow: this._monthHeaderRow(params),
                         rows: this._monthCalendarRows(params),
                     };
@@ -91,33 +66,18 @@
                 rows: [],
             };
         };
-        /**
-         * @param {?} date
-         * @param {?} isoMode
-         * @return {?}
-         */
-        AjfCalendarService.prototype.monthBounds = /**
-         * @param {?} date
-         * @param {?} isoMode
-         * @return {?}
-         */
-        function (date, isoMode) {
+        AjfCalendarService.prototype.monthBounds = function (date, isoMode) {
             if (!isoMode) {
                 return {
                     start: dateFns.startOfMonth(date),
                     end: dateFns.endOfMonth(date),
                 };
             }
-            /** @type {?} */
             var isoDay = dateFns.getISODay(date);
             date = isoDay < 4 ? dateFns.endOfISOWeek(date) : dateFns.startOfISOWeek(date);
-            /** @type {?} */
             var startDate = dateFns.startOfMonth(date);
-            /** @type {?} */
             var endDate = dateFns.endOfMonth(startDate);
-            /** @type {?} */
             var startWeekDay = startDate.getDay();
-            /** @type {?} */
             var endWeekDay = endDate.getDay();
             if (startWeekDay == 0 || startWeekDay > 4) {
                 startDate = dateFns.addWeeks(startDate, 1);
@@ -129,20 +89,11 @@
             endDate = dateFns.endOfISOWeek(endDate);
             return { start: startDate, end: endDate };
         };
-        /**
-         * @param {?} entry
-         * @return {?}
-         */
-        AjfCalendarService.prototype.getEntryRange = /**
-         * @param {?} entry
-         * @return {?}
-         */
-        function (entry) {
+        AjfCalendarService.prototype.getEntryRange = function (entry) {
             if (entry.type === 'day') {
                 return { start: new Date(entry.date), end: new Date(entry.date) };
             }
             else {
-                /** @type {?} */
                 var curDate = new Date(entry.date);
                 return {
                     start: entry.type === 'month' ? dateFns.startOfMonth(curDate) : dateFns.startOfYear(curDate),
@@ -150,27 +101,12 @@
                 };
             }
         };
-        /**
-         * @param {?} entry
-         * @param {?} selection
-         * @return {?}
-         */
-        AjfCalendarService.prototype.isEntrySelected = /**
-         * @param {?} entry
-         * @param {?} selection
-         * @return {?}
-         */
-        function (entry, selection) {
+        AjfCalendarService.prototype.isEntrySelected = function (entry, selection) {
             if (selection != null && selection.startDate != null && selection.endDate != null) {
-                /** @type {?} */
                 var selectionStart = dateFns.startOfDay(selection.startDate);
-                /** @type {?} */
                 var selectionEnd = dateFns.endOfDay(selection.endDate);
-                /** @type {?} */
                 var selectionPeriodOrder = periodOrder(selection.type);
-                /** @type {?} */
                 var entryPeriodOrder = periodOrder(entry.type);
-                /** @type {?} */
                 var entryRange = this.getEntryRange(entry);
                 if (entryPeriodOrder <= selectionPeriodOrder &&
                     isBetween(entryRange.start, selectionStart, selectionEnd) &&
@@ -185,15 +121,7 @@
             }
             return 'none';
         };
-        /**
-         * @param {?} entry
-         * @return {?}
-         */
-        AjfCalendarService.prototype.entryLabel = /**
-         * @param {?} entry
-         * @return {?}
-         */
-        function (entry) {
+        AjfCalendarService.prototype.entryLabel = function (entry) {
             if (entry.type === 'day') {
                 return "" + entry.date.getDate();
             }
@@ -202,17 +130,7 @@
             }
             return "" + entry.date.getFullYear();
         };
-        /**
-         * @param {?} viewDate
-         * @param {?} viewMode
-         * @return {?}
-         */
-        AjfCalendarService.prototype.nextView = /**
-         * @param {?} viewDate
-         * @param {?} viewMode
-         * @return {?}
-         */
-        function (viewDate, viewMode) {
+        AjfCalendarService.prototype.nextView = function (viewDate, viewMode) {
             if (viewMode == 'month') {
                 return dateFns.addMonths(viewDate, 1);
             }
@@ -224,17 +142,7 @@
             }
             return viewDate;
         };
-        /**
-         * @param {?} viewDate
-         * @param {?} viewMode
-         * @return {?}
-         */
-        AjfCalendarService.prototype.previousView = /**
-         * @param {?} viewDate
-         * @param {?} viewMode
-         * @return {?}
-         */
-        function (viewDate, viewMode) {
+        AjfCalendarService.prototype.previousView = function (viewDate, viewMode) {
             if (viewMode == 'month') {
                 return dateFns.subMonths(viewDate, 1);
             }
@@ -246,19 +154,8 @@
             }
             return viewDate;
         };
-        /**
-         * @private
-         * @param {?} params
-         * @return {?}
-         */
-        AjfCalendarService.prototype._monthHeaderRow = /**
-         * @private
-         * @param {?} params
-         * @return {?}
-         */
-        function (params) {
+        AjfCalendarService.prototype._monthHeaderRow = function (params) {
             var isoMode = params.isoMode, viewDate = params.viewDate;
-            /** @type {?} */
             var curDate;
             if (isoMode) {
                 curDate = dateFns.setISODay(dateFns.startOfWeek(viewDate), 1);
@@ -266,42 +163,24 @@
             else {
                 curDate = dateFns.startOfWeek(viewDate);
             }
-            /** @type {?} */
             var weekDayNames = [];
             for (var i = 0; i < 7; i++) {
-                weekDayNames.push(dateFns.format(curDate, 'dddd'));
+                weekDayNames.push(dateFns.format(curDate, 'EEE'));
                 curDate = dateFns.addDays(curDate, 1);
             }
             return weekDayNames;
         };
-        /**
-         * @private
-         * @param {?} params
-         * @return {?}
-         */
-        AjfCalendarService.prototype._decadeCalendarRows = /**
-         * @private
-         * @param {?} params
-         * @return {?}
-         */
-        function (params) {
+        AjfCalendarService.prototype._decadeCalendarRows = function (params) {
             var viewDate = params.viewDate, selection = params.selection;
-            /** @type {?} */
             var curYear = viewDate.getFullYear();
-            /** @type {?} */
             var firstYear = curYear - (curYear % 10) + 1;
-            /** @type {?} */
             var curDate = dateFns.startOfYear(viewDate);
             curDate.setFullYear(firstYear);
-            /** @type {?} */
             var rows = [];
             for (var i = 0; i < 4; i++) {
-                /** @type {?} */
                 var row = [];
                 for (var j = 0; j < 3; j++) {
-                    /** @type {?} */
                     var date = new Date(curDate);
-                    /** @type {?} */
                     var newEntry = {
                         type: 'year',
                         date: date,
@@ -315,29 +194,14 @@
             }
             return rows;
         };
-        /**
-         * @private
-         * @param {?} params
-         * @return {?}
-         */
-        AjfCalendarService.prototype._yearCalendarRows = /**
-         * @private
-         * @param {?} params
-         * @return {?}
-         */
-        function (params) {
+        AjfCalendarService.prototype._yearCalendarRows = function (params) {
             var viewDate = params.viewDate, selection = params.selection;
-            /** @type {?} */
             var curDate = dateFns.startOfYear(viewDate);
-            /** @type {?} */
             var rows = [];
             for (var i = 0; i < 4; i++) {
-                /** @type {?} */
                 var row = [];
                 for (var j = 0; j < 3; j++) {
-                    /** @type {?} */
                     var date = new Date(curDate);
-                    /** @type {?} */
                     var newEntry = {
                         type: 'month',
                         date: date,
@@ -351,49 +215,29 @@
             }
             return rows;
         };
-        /**
-         * @private
-         * @param {?} params
-         * @return {?}
-         */
-        AjfCalendarService.prototype._monthCalendarRows = /**
-         * @private
-         * @param {?} params
-         * @return {?}
-         */
-        function (params) {
+        AjfCalendarService.prototype._monthCalendarRows = function (params) {
             var viewDate = params.viewDate, selection = params.selection, isoMode = params.isoMode, minDate = params.minDate, maxDate = params.maxDate;
-            /** @type {?} */
             var monthBounds = this.monthBounds(viewDate, isoMode);
-            /** @type {?} */
             var viewStartDate = new Date(monthBounds.start);
-            /** @type {?} */
             var viewEndDate = new Date(monthBounds.end);
             if (!isoMode) {
                 viewStartDate = dateFns.startOfWeek(viewStartDate);
                 viewEndDate = dateFns.endOfWeek(viewEndDate);
             }
-            /** @type {?} */
             var rows = [];
-            /** @type {?} */
             var todayDate = new Date();
-            /** @type {?} */
             var curDate = new Date(viewStartDate);
             while (curDate < viewEndDate) {
-                /** @type {?} */
                 var row = [];
                 for (var i = 0; i < 7; i++) {
-                    /** @type {?} */
                     var disabled = (minDate != null && dateFns.isBefore(curDate, minDate)) ||
                         (maxDate != null && dateFns.isAfter(curDate, maxDate));
-                    /** @type {?} */
                     var date = new Date(curDate);
-                    /** @type {?} */
                     var newEntry = {
                         type: 'day',
                         date: date,
                         selected: 'none',
-                        highlight: dateFns.format(todayDate, 'YYYY-MM-DD') === dateFns.format(curDate, 'YYYY-MM-DD'),
+                        highlight: dateFns.format(todayDate, 'yyyy-MM-dd') === dateFns.format(curDate, 'yyyy-MM-dd'),
                         disabled: disabled
                     };
                     newEntry.selected = this.isEntrySelected(newEntry, selection);
@@ -405,34 +249,43 @@
             return rows;
         };
         AjfCalendarService.decorators = [
-            { type: core.Injectable, args: [{ providedIn: 'root' },] },
+            { type: i0.Injectable, args: [{ providedIn: 'root' },] }
         ];
-        /** @nocollapse */ AjfCalendarService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
+        AjfCalendarService.ɵprov = i0["ɵɵdefineInjectable"]({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
         return AjfCalendarService;
     }());
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
     var AjfCalendarEntryLabelPipe = /** @class */ (function () {
         function AjfCalendarEntryLabelPipe(_service) {
             this._service = _service;
         }
-        /**
-         * @param {?} entry
-         * @return {?}
-         */
-        AjfCalendarEntryLabelPipe.prototype.transform = /**
-         * @param {?} entry
-         * @return {?}
-         */
-        function (entry) {
+        AjfCalendarEntryLabelPipe.prototype.transform = function (entry) {
             return this._service.entryLabel(entry);
         };
         AjfCalendarEntryLabelPipe.decorators = [
-            { type: core.Injectable },
-            { type: core.Pipe, args: [{ name: 'ajfCalendarEntryLabel' },] },
+            { type: i0.Injectable },
+            { type: i0.Pipe, args: [{ name: 'ajfCalendarEntryLabel' },] }
         ];
         /** @nocollapse */
         AjfCalendarEntryLabelPipe.ctorParameters = function () { return [
@@ -442,21 +295,38 @@
     }());
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
     var AjfCalendarModule = /** @class */ (function () {
         function AjfCalendarModule() {
         }
         AjfCalendarModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         declarations: [
                             AjfCalendarEntryLabelPipe,
                         ],
                         exports: [
                             AjfCalendarEntryLabelPipe,
                         ],
-                    },] },
+                    },] }
         ];
         return AjfCalendarModule;
     }());
@@ -464,20 +334,36 @@
         function AjfGregorianCalendarModule() {
         }
         AjfGregorianCalendarModule.decorators = [
-            { type: core.NgModule, args: [{
+            { type: i0.NgModule, args: [{
                         providers: [
                             AjfCalendarService,
                         ],
-                    },] },
+                    },] }
         ];
         return AjfGregorianCalendarModule;
     }());
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
-
     var AjfCalendarPeriod = /** @class */ (function () {
         function AjfCalendarPeriod() {
         }
@@ -485,10 +371,26 @@
     }());
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
-    /** @type {?} */
     var weekDays = [
         '', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
     ];
@@ -497,13 +399,7 @@
         }
         return AjfCalendarChange;
     }());
-    /**
-     * @abstract
-     */
-    var   /**
-     * @abstract
-     */
-    AjfCalendar = /** @class */ (function () {
+    var AjfCalendar = /** @class */ (function () {
         function AjfCalendar(_cdr, _service) {
             this._cdr = _cdr;
             this._service = _service;
@@ -513,31 +409,18 @@
             this._selectionMode = 'day';
             this._startOfWeekDay = 1;
             this._isoMode = false;
-            this._change = new core.EventEmitter();
+            this._change = new i0.EventEmitter();
+            this.change = this._change.asObservable();
             this._viewDate = new Date();
             this._viewHeader = '';
             this._calendarRows = [];
             this._calendarHeaders = [];
-            this._onChangeCallback = (/**
-             * @param {?} _
-             * @return {?}
-             */
-            function (_) { });
-            this._onTouchedCallback = (/**
-             * @return {?}
-             */
-            function () { });
+            this._onChangeCallback = function (_) { };
+            this._onTouchedCallback = function () { };
         }
         Object.defineProperty(AjfCalendar.prototype, "viewDate", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._viewDate; },
-            set: /**
-             * @param {?} viewDate
-             * @return {?}
-             */
-            function (viewDate) {
+            get: function () { return this._viewDate; },
+            set: function (viewDate) {
                 this._setViewDate(viewDate);
                 this._cdr.markForCheck();
             },
@@ -545,16 +428,8 @@
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "disabled", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._disabled; },
-            set: /**
-             * @param {?} disabled
-             * @return {?}
-             */
-            function (disabled) {
-                /** @type {?} */
+            get: function () { return this._disabled; },
+            set: function (disabled) {
                 var newDisabled = disabled != null && "" + disabled !== 'false';
                 if (newDisabled !== this._disabled) {
                     this._disabled = newDisabled;
@@ -565,15 +440,8 @@
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "dateOnlyForDay", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._disabled; },
-            set: /**
-             * @param {?} dateOnlyForDay
-             * @return {?}
-             */
-            function (dateOnlyForDay) {
+            get: function () { return this._disabled; },
+            set: function (dateOnlyForDay) {
                 this._dateOnlyForDay = dateOnlyForDay != null && "" + dateOnlyForDay !== 'false';
                 this._cdr.markForCheck();
             },
@@ -581,15 +449,8 @@
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "viewMode", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._viewMode; },
-            set: /**
-             * @param {?} viewMode
-             * @return {?}
-             */
-            function (viewMode) {
+            get: function () { return this._viewMode; },
+            set: function (viewMode) {
                 this._viewMode = viewMode;
                 this._buildCalendar();
                 this._cdr.markForCheck();
@@ -598,15 +459,8 @@
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "selectionMode", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._selectionMode; },
-            set: /**
-             * @param {?} selectionMode
-             * @return {?}
-             */
-            function (selectionMode) {
+            get: function () { return this._selectionMode; },
+            set: function (selectionMode) {
                 this._selectionMode = selectionMode;
                 this._cdr.markForCheck();
             },
@@ -614,17 +468,10 @@
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "startOfWeekDay", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return (/** @type {?} */ (weekDays[this._startOfWeekDay]));
+            get: function () {
+                return weekDays[this._startOfWeekDay];
             },
-            set: /**
-             * @param {?} weekDay
-             * @return {?}
-             */
-            function (weekDay) {
+            set: function (weekDay) {
                 this._startOfWeekDay = weekDays.indexOf(weekDay);
                 if (this._viewMode === 'month') {
                     this._buildCalendar();
@@ -635,15 +482,8 @@
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "isoMode", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._isoMode; },
-            set: /**
-             * @param {?} isoMode
-             * @return {?}
-             */
-            function (isoMode) {
+            get: function () { return this._isoMode; },
+            set: function (isoMode) {
                 this._isoMode = isoMode;
                 this._buildCalendar();
             },
@@ -651,15 +491,8 @@
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "minDate", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._minDate; },
-            set: /**
-             * @param {?} minDate
-             * @return {?}
-             */
-            function (minDate) {
+            get: function () { return this._minDate; },
+            set: function (minDate) {
                 this._minDate = minDate != null ? new Date(minDate.valueOf()) : null;
                 this._cdr.markForCheck();
             },
@@ -667,38 +500,16 @@
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "maxDate", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._maxDate; },
-            set: /**
-             * @param {?} maxDate
-             * @return {?}
-             */
-            function (maxDate) {
+            get: function () { return this._maxDate; },
+            set: function (maxDate) {
                 this._maxDate = maxDate != null ? new Date(maxDate.valueOf()) : null;
                 this._cdr.markForCheck();
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(AjfCalendar.prototype, "change", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._change.asObservable();
-            },
-            enumerable: true,
-            configurable: true
-        });
         Object.defineProperty(AjfCalendar.prototype, "selectedPeriod", {
-            set: /**
-             * @private
-             * @param {?} period
-             * @return {?}
-             */
-            function (period) {
+            set: function (period) {
                 this._selectedPeriod = period;
                 this._change.emit({
                     source: this,
@@ -711,20 +522,13 @@
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "value", {
-            get: /**
-             * @return {?}
-             */
-            function () {
+            get: function () {
                 if (this._dateOnlyForDay && this.selectionMode === 'day') {
                     return this._selectedPeriod != null ? this._selectedPeriod.startDate : null;
                 }
                 return this._selectedPeriod;
             },
-            set: /**
-             * @param {?} period
-             * @return {?}
-             */
-            function (period) {
+            set: function (period) {
                 if (this._dateOnlyForDay && this.selectionMode === 'day' && period instanceof Date
                     && (this._selectedPeriod == null || period !== this._selectedPeriod.startDate)) {
                     this.selectedPeriod = {
@@ -734,7 +538,7 @@
                     };
                 }
                 else if (period instanceof Object && period !== this._selectedPeriod) {
-                    this.selectedPeriod = (/** @type {?} */ (period));
+                    this.selectedPeriod = period;
                     this._onChangeCallback(period);
                 }
                 this._cdr.markForCheck();
@@ -743,56 +547,29 @@
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "calendarHeaders", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._calendarHeaders; },
+            get: function () { return this._calendarHeaders; },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "calendarRows", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._calendarRows; },
+            get: function () { return this._calendarRows; },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfCalendar.prototype, "viewHeader", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._viewHeader; },
+            get: function () { return this._viewHeader; },
             enumerable: true,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
-        AjfCalendar.prototype.prevPage = /**
-         * @return {?}
-         */
-        function () {
+        AjfCalendar.prototype.prevPage = function () {
             this.viewDate = this._service.previousView(this._viewDate, this._viewMode);
             this._buildCalendar();
         };
-        /**
-         * @return {?}
-         */
-        AjfCalendar.prototype.nextPage = /**
-         * @return {?}
-         */
-        function () {
+        AjfCalendar.prototype.nextPage = function () {
             this.viewDate = this._service.nextView(this._viewDate, this._viewMode);
             this._buildCalendar();
         };
-        /**
-         * @return {?}
-         */
-        AjfCalendar.prototype.previousViewMode = /**
-         * @return {?}
-         */
-        function () {
+        AjfCalendar.prototype.previousViewMode = function () {
             if (this._viewMode == 'decade') {
                 return;
             }
@@ -804,19 +581,10 @@
             }
             this._buildCalendar();
         };
-        /**
-         * @param {?} entry
-         * @return {?}
-         */
-        AjfCalendar.prototype.selectEntry = /**
-         * @param {?} entry
-         * @return {?}
-         */
-        function (entry) {
+        AjfCalendar.prototype.selectEntry = function (entry) {
             if (!this._canSelectEntry(entry)) {
                 return this._nextViewMode(entry);
             }
-            /** @type {?} */
             var newPeriod = null;
             if (this._service.isEntrySelected(entry, this._selectedPeriod) == 'full') {
                 newPeriod = null;
@@ -840,7 +608,6 @@
                 };
             }
             else if (this._selectionMode == 'month') {
-                /** @type {?} */
                 var monthBounds = this._service.monthBounds(entry.date, this._isoMode);
                 newPeriod = {
                     type: 'month',
@@ -859,83 +626,28 @@
             this._onTouchedCallback();
             this._cdr.markForCheck();
         };
-        /**
-         * @param {?} fn
-         * @return {?}
-         */
-        AjfCalendar.prototype.registerOnChange = /**
-         * @param {?} fn
-         * @return {?}
-         */
-        function (fn) {
+        AjfCalendar.prototype.registerOnChange = function (fn) {
             this._onChangeCallback = fn;
         };
-        /**
-         * @param {?} fn
-         * @return {?}
-         */
-        AjfCalendar.prototype.registerOnTouched = /**
-         * @param {?} fn
-         * @return {?}
-         */
-        function (fn) {
+        AjfCalendar.prototype.registerOnTouched = function (fn) {
             this._onTouchedCallback = fn;
         };
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        AjfCalendar.prototype.writeValue = /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
+        AjfCalendar.prototype.writeValue = function (value) {
             if (typeof value === 'string') {
-                value = dateFns.parse(value);
+                value = dateFns.parseISO(value);
             }
             this.value = value;
         };
-        /**
-         * @return {?}
-         */
-        AjfCalendar.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
+        AjfCalendar.prototype.ngOnInit = function () {
             this._buildCalendar();
         };
-        /**
-         * @return {?}
-         */
-        AjfCalendar.prototype.ngAfterContentInit = /**
-         * @return {?}
-         */
-        function () {
+        AjfCalendar.prototype.ngAfterContentInit = function () {
             this._refreshSelection();
         };
-        /**
-         * @private
-         * @param {?} date
-         * @return {?}
-         */
-        AjfCalendar.prototype._setViewDate = /**
-         * @private
-         * @param {?} date
-         * @return {?}
-         */
-        function (date) {
+        AjfCalendar.prototype._setViewDate = function (date) {
             this._viewDate = date;
         };
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfCalendar.prototype._buildCalendar = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
+        AjfCalendar.prototype._buildCalendar = function () {
             var calendarView = this._service.buildView({
                 viewMode: this._viewMode,
                 viewDate: this._viewDate,
@@ -949,34 +661,35 @@
             this._calendarRows = calendarView.rows;
             this._cdr.markForCheck();
         };
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfCalendar.prototype._refreshSelection = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            for (var _i = 0, _a = this._calendarRows; _i < _a.length; _i++) {
-                var row = _a[_i];
-                for (var _b = 0, row_1 = row; _b < row_1.length; _b++) {
-                    var entry = row_1[_b];
-                    entry.selected = this._service.isEntrySelected(entry, this._selectedPeriod);
+        AjfCalendar.prototype._refreshSelection = function () {
+            var e_1, _a, e_2, _b;
+            try {
+                for (var _c = tslib.__values(this._calendarRows), _d = _c.next(); !_d.done; _d = _c.next()) {
+                    var row = _d.value;
+                    try {
+                        for (var row_1 = (e_2 = void 0, tslib.__values(row)), row_1_1 = row_1.next(); !row_1_1.done; row_1_1 = row_1.next()) {
+                            var entry = row_1_1.value;
+                            entry.selected = this._service.isEntrySelected(entry, this._selectedPeriod);
+                        }
+                    }
+                    catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                    finally {
+                        try {
+                            if (row_1_1 && !row_1_1.done && (_b = row_1.return)) _b.call(row_1);
+                        }
+                        finally { if (e_2) throw e_2.error; }
+                    }
                 }
             }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
         };
-        /**
-         * @private
-         * @param {?} entry
-         * @return {?}
-         */
-        AjfCalendar.prototype._canSelectEntry = /**
-         * @private
-         * @param {?} entry
-         * @return {?}
-         */
-        function (entry) {
+        AjfCalendar.prototype._canSelectEntry = function (entry) {
             if (['day', 'week'].indexOf(this._selectionMode) >= 0 && entry.type != 'day') {
                 return false;
             }
@@ -985,17 +698,7 @@
             }
             return true;
         };
-        /**
-         * @private
-         * @param {?} entry
-         * @return {?}
-         */
-        AjfCalendar.prototype._nextViewMode = /**
-         * @private
-         * @param {?} entry
-         * @return {?}
-         */
-        function (entry) {
+        AjfCalendar.prototype._nextViewMode = function (entry) {
             if (this._viewMode == 'decade') {
                 this._viewMode = 'year';
             }
@@ -1008,18 +711,66 @@
             this._viewDate = entry.date;
             this._buildCalendar();
         };
+        AjfCalendar.decorators = [
+            { type: i0.Directive }
+        ];
+        /** @nocollapse */
+        AjfCalendar.ctorParameters = function () { return [
+            { type: i0.ChangeDetectorRef },
+            { type: AjfCalendarService }
+        ]; };
+        AjfCalendar.propDecorators = {
+            viewDate: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            dateOnlyForDay: [{ type: i0.Input }],
+            viewMode: [{ type: i0.Input }],
+            selectionMode: [{ type: i0.Input }],
+            startOfWeekDay: [{ type: i0.Input }],
+            isoMode: [{ type: i0.Input }],
+            minDate: [{ type: i0.Input }],
+            maxDate: [{ type: i0.Input }],
+            change: [{ type: i0.Output }],
+            selectedPeriod: [{ type: i0.Input }],
+            value: [{ type: i0.Input }]
+        };
         return AjfCalendar;
     }());
 
+    /**
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * Generated bundle index. Do not edit.
+     */
+
     exports.AjfCalendar = AjfCalendar;
     exports.AjfCalendarChange = AjfCalendarChange;
+    exports.AjfCalendarEntryLabelPipe = AjfCalendarEntryLabelPipe;
     exports.AjfCalendarModule = AjfCalendarModule;
     exports.AjfCalendarPeriod = AjfCalendarPeriod;
     exports.AjfCalendarService = AjfCalendarService;
     exports.AjfGregorianCalendarModule = AjfGregorianCalendarModule;
-    exports.ɵa = AjfCalendarEntryLabelPipe;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=core-calendar.umd.js.map

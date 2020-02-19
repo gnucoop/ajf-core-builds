@@ -1,8 +1,11 @@
 {
   "name": "@ajf/core/page-break",
-  "typings": "../page-break.d.ts",
   "main": "../bundles/core-page-break.umd.js",
-  "module": "../esm5/page-break.es5.js",
-  "es2015": "../esm2015/page-break.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/page-break.js",
+  "fesm2015": "../fesm2015/page-break.js",
+  "esm5": "../esm5/page-break/index.js",
+  "esm2015": "../esm2015/page-break/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/page-break.js",
+  "es2015": "../fesm2015/page-break.js"
 }

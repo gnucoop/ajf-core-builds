@@ -1,52 +1,29 @@
-/**
- * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define('@ajf/core/utils', ['exports'], factory) :
     (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.utils = {})));
-}(this, function (exports) { 'use strict';
+}(this, (function (exports) { 'use strict';
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    function coerceBooleanProperty(value) {
-        return value != null && "" + value !== 'false';
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @param {?} _
-     * @param {?} v
-     * @return {?}
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
     function functionSerializer(_, v) {
         if (typeof v === 'function') {
@@ -54,28 +31,18 @@
         }
         return v;
     }
-    /**
-     * @param {?} _
-     * @param {?} v
-     * @return {?}
-     */
     function functionDeserializer(_, v) {
         if (typeof v === 'string' && /^function.*?\([^\0]*?\)\s*\{.*\}$/.test(v)) {
-            /** @type {?} */
             var argsMatch = v
                 .replace(/\/\/.*$|\/\*[\s\S]*?\*\//mg, '')
                 .match(/\(.*?\)/m);
             if (argsMatch != null && argsMatch.length > 0) {
-                /** @type {?} */
                 var args = argsMatch[0]
                     .replace(/^\(|\)$/, '')
                     .match(/[^\s(),]+/g) || [];
-                /** @type {?} */
                 var bodyMatch = v.match(/\{(.*)\}/);
                 if (bodyMatch != null && bodyMatch.length > 1) {
-                    /** @type {?} */
                     var body = bodyMatch[1];
-                    /** @type {?} */
                     var fx = args.concat(body);
                     return Function.apply(null, fx);
                 }
@@ -83,27 +50,33 @@
         }
         return v;
     }
-    /**
-     * @param {?} oldObj
-     * @return {?}
-     */
     function deepCopy(oldObj) {
         return JSON.parse(JSON.stringify(oldObj, functionSerializer), functionDeserializer);
     }
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    /**
-     * @param {?} x
-     * @return {?}
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
     function sizedEnumToStringArray(x) {
-        /** @type {?} */
         var options = [];
-        /** @type {?} */
         var optsNum = x.LENGTH;
         for (var i = 0; i < optsNum; i++) {
             options.push(x[i]);
@@ -111,11 +84,36 @@
         return options;
     }
 
-    exports.coerceBooleanProperty = coerceBooleanProperty;
+    /**
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * Generated bundle index. Do not edit.
+     */
+
     exports.deepCopy = deepCopy;
     exports.sizedEnumToStringArray = sizedEnumToStringArray;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=core-utils.umd.js.map

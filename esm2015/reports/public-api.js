@@ -1,0 +1,86 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/reports/public-api.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @license
+ * Copyright (C) 2018 Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+export { AjfBaseWidgetComponent } from './base-widget';
+export { chartToChartJsType } from './chart-utils';
+export { AjfGetColumnContentPipe } from './get-column-content';
+export {} from './interface/aggregation/aggregation';
+export { AjfAggregationType } from './interface/aggregation/aggregation-type';
+export { AjfChartType } from './interface/charts/chart-type';
+export {} from './interface/dataset/chart-dataset';
+export {} from './interface/dataset/chart-dataset-options';
+export {} from './interface/dataset/dataset';
+export {} from './interface/dataset/table-dataset';
+export {} from './interface/reports/report';
+export {} from './interface/reports/report-container';
+export {} from './interface/reports/report-variable';
+export {} from './interface/reports-instances/report-container-instance';
+export {} from './interface/reports-instances/report-instance';
+export {} from './interface/styles';
+export {} from './interface/widgets/chart-widget';
+export {} from './interface/widgets/column-widget';
+export {} from './interface/widgets/custom-widget';
+export {} from './interface/widgets/data-widget';
+export {} from './interface/widgets/formula-widget';
+export {} from './interface/widgets/image-container-widget';
+export {} from './interface/widgets/image-widget';
+export {} from './interface/widgets/layout-widget';
+export {} from './interface/widgets/map-widget';
+export {} from './interface/widgets/page-break-widget';
+export {} from './interface/widgets/table-widget';
+export {} from './interface/widgets/text-widget';
+export {} from './interface/widgets/widget';
+export { AjfWidgetType } from './interface/widgets/widget-type';
+export {} from './interface/widgets/widget-with-content';
+export {} from './interface/widgets-instances/chart-widget-instance';
+export {} from './interface/widgets-instances/column-widget-instance';
+export {} from './interface/widgets-instances/data-widget-instance';
+export {} from './interface/widgets-instances/formula-widget-instance';
+export {} from './interface/widgets-instances/image-container-widget-instance';
+export {} from './interface/widgets-instances/image-widget-instance';
+export {} from './interface/widgets-instances/layout-widget-instance';
+export {} from './interface/widgets-instances/map-widget-instance';
+export {} from './interface/widgets-instances/page-break-widget-instance';
+export {} from './interface/widgets-instances/table-widget-instance';
+export {} from './interface/widgets-instances/text-widget-instance';
+export {} from './interface/widgets-instances/widget-instance';
+export {} from './interface/widgets-instances/widget-with-content-instance';
+export { AjfReportRenderer } from './report';
+export { AjfReportsModule } from './reports-module';
+export { AjfAggregationSerializer } from './serializers/aggregation-serializer';
+export { AjfDatasetSerializer } from './serializers/dataset-serializer';
+export { AjfReportContainerSerializer } from './serializers/report-container-serializer';
+export { AjfReportSerializer } from './serializers/report-serializer';
+export { AjfWidgetSerializer } from './serializers/widget-serializer';
+export { AjfReportWidget } from './widget';
+export {} from './widget-components-map';
+export { AjfWidgetHost } from './widget-host';
+export { createAggregation } from './utils/aggregation/create-aggregation';
+export { createReportInstance } from './utils/reports-instances/create-report-instance';
+export { createWidget } from './utils/widgets/create-widget';
+export { createWidgetInstance } from './utils/widgets-instances/create-widget-instance';
+export { widgetToWidgetInstance } from './utils/widgets-instances/widget-to-widget-instance';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3NyYy9jb3JlL3JlcG9ydHMvcHVibGljLWFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQXNCQSx1Q0FBYyxlQUFlLENBQUM7QUFDOUIsbUNBQWMsZUFBZSxDQUFDO0FBQzlCLHdDQUFjLHNCQUFzQixDQUFDO0FBQ3JDLGVBQWMscUNBQXFDLENBQUM7QUFDcEQsbUNBQWMsMENBQTBDLENBQUM7QUFDekQsNkJBQWMsK0JBQStCLENBQUM7QUFDOUMsZUFBYyxtQ0FBbUMsQ0FBQztBQUNsRCxlQUFjLDJDQUEyQyxDQUFDO0FBQzFELGVBQWMsNkJBQTZCLENBQUM7QUFDNUMsZUFBYyxtQ0FBbUMsQ0FBQztBQUNsRCxlQUFjLDRCQUE0QixDQUFDO0FBQzNDLGVBQWMsc0NBQXNDLENBQUM7QUFDckQsZUFBYyxxQ0FBcUMsQ0FBQztBQUNwRCxlQUFjLHlEQUF5RCxDQUFDO0FBQ3hFLGVBQWMsK0NBQStDLENBQUM7QUFDOUQsZUFBYyxvQkFBb0IsQ0FBQztBQUNuQyxlQUFjLGtDQUFrQyxDQUFDO0FBQ2pELGVBQWMsbUNBQW1DLENBQUM7QUFDbEQsZUFBYyxtQ0FBbUMsQ0FBQztBQUNsRCxlQUFjLGlDQUFpQyxDQUFDO0FBQ2hELGVBQWMsb0NBQW9DLENBQUM7QUFDbkQsZUFBYyw0Q0FBNEMsQ0FBQztBQUMzRCxlQUFjLGtDQUFrQyxDQUFDO0FBQ2pELGVBQWMsbUNBQW1DLENBQUM7QUFDbEQsZUFBYyxnQ0FBZ0MsQ0FBQztBQUMvQyxlQUFjLHVDQUF1QyxDQUFDO0FBQ3RELGVBQWMsa0NBQWtDLENBQUM7QUFDakQsZUFBYyxpQ0FBaUMsQ0FBQztBQUNoRCxlQUFjLDRCQUE0QixDQUFDO0FBQzNDLDhCQUFjLGlDQUFpQyxDQUFDO0FBQ2hELGVBQWMseUNBQXlDLENBQUM7QUFDeEQsZUFBYyxxREFBcUQsQ0FBQztBQUNwRSxlQUFjLHNEQUFzRCxDQUFDO0FBQ3JFLGVBQWMsb0RBQW9ELENBQUM7QUFDbkUsZUFBYyx1REFBdUQsQ0FBQztBQUN0RSxlQUFjLCtEQUErRCxDQUFDO0FBQzlFLGVBQWMscURBQXFELENBQUM7QUFDcEUsZUFBYyxzREFBc0QsQ0FBQztBQUNyRSxlQUFjLG1EQUFtRCxDQUFDO0FBQ2xFLGVBQWMsMERBQTBELENBQUM7QUFDekUsZUFBYyxxREFBcUQsQ0FBQztBQUNwRSxlQUFjLG9EQUFvRCxDQUFDO0FBQ25FLGVBQWMsK0NBQStDLENBQUM7QUFDOUQsZUFBYyw0REFBNEQsQ0FBQztBQUMzRSxrQ0FBYyxVQUFVLENBQUM7QUFDekIsaUNBQWMsa0JBQWtCLENBQUM7QUFDakMseUNBQWMsc0NBQXNDLENBQUM7QUFDckQscUNBQWMsa0NBQWtDLENBQUM7QUFDakQsNkNBQWMsMkNBQTJDLENBQUM7QUFDMUQsb0NBQWMsaUNBQWlDLENBQUM7QUFDaEQsb0NBQWMsaUNBQWlDLENBQUM7QUFDaEQsZ0NBQWMsVUFBVSxDQUFDO0FBQ3pCLGVBQWMseUJBQXlCLENBQUM7QUFDeEMsOEJBQWMsZUFBZSxDQUFDO0FBRTlCLGtDQUFjLHdDQUF3QyxDQUFDO0FBQ3ZELHFDQUFjLGtEQUFrRCxDQUFDO0FBQ2pFLDZCQUFjLCtCQUErQixDQUFDO0FBQzlDLHFDQUFjLGtEQUFrRCxDQUFDO0FBQ2pFLHVDQUFjLHFEQUFxRCxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IChDKSAyMDE4IEdudWNvb3Agc29jLiBjb29wLlxuICpcbiAqIFRoaXMgZmlsZSBpcyBwYXJ0IG9mIHRoZSBBZHZhbmNlZCBKU09OIGZvcm1zIChhamYpLlxuICpcbiAqIEFkdmFuY2VkIEpTT04gZm9ybXMgKGFqZikgaXMgZnJlZSBzb2Z0d2FyZTogeW91IGNhbiByZWRpc3RyaWJ1dGUgaXQgYW5kL29yXG4gKiBtb2RpZnkgaXQgdW5kZXIgdGhlIHRlcm1zIG9mIHRoZSBHTlUgQWZmZXJvIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgYXNcbiAqIHB1Ymxpc2hlZCBieSB0aGUgRnJlZSBTb2Z0d2FyZSBGb3VuZGF0aW9uLCBlaXRoZXIgdmVyc2lvbiAzIG9mIHRoZSBMaWNlbnNlLFxuICogb3IgKGF0IHlvdXIgb3B0aW9uKSBhbnkgbGF0ZXIgdmVyc2lvbi5cbiAqXG4gKiBBZHZhbmNlZCBKU09OIGZvcm1zIChhamYpIGlzIGRpc3RyaWJ1dGVkIGluIHRoZSBob3BlIHRoYXQgaXQgd2lsbCBiZSB1c2VmdWwsXG4gKiBidXQgV0lUSE9VVCBBTlkgV0FSUkFOVFk7IHdpdGhvdXQgZXZlbiB0aGUgaW1wbGllZCB3YXJyYW50eSBvZlxuICogTUVSQ0hBTlRBQklMSVRZIG9yIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFLiBTZWUgdGhlIEdOVSBBZmZlcm9cbiAqIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgZm9yIG1vcmUgZGV0YWlscy5cbiAqXG4gKiBZb3Ugc2hvdWxkIGhhdmUgcmVjZWl2ZWQgYSBjb3B5IG9mIHRoZSBHTlUgQWZmZXJvIEdlbmVyYWwgUHVibGljIExpY2Vuc2VcbiAqIGFsb25nIHdpdGggQWR2YW5jZWQgSlNPTiBmb3JtcyAoYWpmKS5cbiAqIElmIG5vdCwgc2VlIGh0dHA6Ly93d3cuZ251Lm9yZy9saWNlbnNlcy8uXG4gKlxuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vYmFzZS13aWRnZXQnO1xuZXhwb3J0ICogZnJvbSAnLi9jaGFydC11dGlscyc7XG5leHBvcnQgKiBmcm9tICcuL2dldC1jb2x1bW4tY29udGVudCc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS9hZ2dyZWdhdGlvbi9hZ2dyZWdhdGlvbic7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS9hZ2dyZWdhdGlvbi9hZ2dyZWdhdGlvbi10eXBlJztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL2NoYXJ0cy9jaGFydC10eXBlJztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL2RhdGFzZXQvY2hhcnQtZGF0YXNldCc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS9kYXRhc2V0L2NoYXJ0LWRhdGFzZXQtb3B0aW9ucyc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS9kYXRhc2V0L2RhdGFzZXQnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnRlcmZhY2UvZGF0YXNldC90YWJsZS1kYXRhc2V0JztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3JlcG9ydHMvcmVwb3J0JztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3JlcG9ydHMvcmVwb3J0LWNvbnRhaW5lcic7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS9yZXBvcnRzL3JlcG9ydC12YXJpYWJsZSc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS9yZXBvcnRzLWluc3RhbmNlcy9yZXBvcnQtY29udGFpbmVyLWluc3RhbmNlJztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3JlcG9ydHMtaW5zdGFuY2VzL3JlcG9ydC1pbnN0YW5jZSc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS9zdHlsZXMnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnRlcmZhY2Uvd2lkZ2V0cy9jaGFydC13aWRnZXQnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnRlcmZhY2Uvd2lkZ2V0cy9jb2x1bW4td2lkZ2V0JztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMvY3VzdG9tLXdpZGdldCc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS93aWRnZXRzL2RhdGEtd2lkZ2V0JztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMvZm9ybXVsYS13aWRnZXQnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnRlcmZhY2Uvd2lkZ2V0cy9pbWFnZS1jb250YWluZXItd2lkZ2V0JztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMvaW1hZ2Utd2lkZ2V0JztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMvbGF5b3V0LXdpZGdldCc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS93aWRnZXRzL21hcC13aWRnZXQnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnRlcmZhY2Uvd2lkZ2V0cy9wYWdlLWJyZWFrLXdpZGdldCc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS93aWRnZXRzL3RhYmxlLXdpZGdldCc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS93aWRnZXRzL3RleHQtd2lkZ2V0JztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMvd2lkZ2V0JztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMvd2lkZ2V0LXR5cGUnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnRlcmZhY2Uvd2lkZ2V0cy93aWRnZXQtd2l0aC1jb250ZW50JztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMtaW5zdGFuY2VzL2NoYXJ0LXdpZGdldC1pbnN0YW5jZSc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS93aWRnZXRzLWluc3RhbmNlcy9jb2x1bW4td2lkZ2V0LWluc3RhbmNlJztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMtaW5zdGFuY2VzL2RhdGEtd2lkZ2V0LWluc3RhbmNlJztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMtaW5zdGFuY2VzL2Zvcm11bGEtd2lkZ2V0LWluc3RhbmNlJztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMtaW5zdGFuY2VzL2ltYWdlLWNvbnRhaW5lci13aWRnZXQtaW5zdGFuY2UnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnRlcmZhY2Uvd2lkZ2V0cy1pbnN0YW5jZXMvaW1hZ2Utd2lkZ2V0LWluc3RhbmNlJztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMtaW5zdGFuY2VzL2xheW91dC13aWRnZXQtaW5zdGFuY2UnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnRlcmZhY2Uvd2lkZ2V0cy1pbnN0YW5jZXMvbWFwLXdpZGdldC1pbnN0YW5jZSc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS93aWRnZXRzLWluc3RhbmNlcy9wYWdlLWJyZWFrLXdpZGdldC1pbnN0YW5jZSc7XG5leHBvcnQgKiBmcm9tICcuL2ludGVyZmFjZS93aWRnZXRzLWluc3RhbmNlcy90YWJsZS13aWRnZXQtaW5zdGFuY2UnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnRlcmZhY2Uvd2lkZ2V0cy1pbnN0YW5jZXMvdGV4dC13aWRnZXQtaW5zdGFuY2UnO1xuZXhwb3J0ICogZnJvbSAnLi9pbnRlcmZhY2Uvd2lkZ2V0cy1pbnN0YW5jZXMvd2lkZ2V0LWluc3RhbmNlJztcbmV4cG9ydCAqIGZyb20gJy4vaW50ZXJmYWNlL3dpZGdldHMtaW5zdGFuY2VzL3dpZGdldC13aXRoLWNvbnRlbnQtaW5zdGFuY2UnO1xuZXhwb3J0ICogZnJvbSAnLi9yZXBvcnQnO1xuZXhwb3J0ICogZnJvbSAnLi9yZXBvcnRzLW1vZHVsZSc7XG5leHBvcnQgKiBmcm9tICcuL3NlcmlhbGl6ZXJzL2FnZ3JlZ2F0aW9uLXNlcmlhbGl6ZXInO1xuZXhwb3J0ICogZnJvbSAnLi9zZXJpYWxpemVycy9kYXRhc2V0LXNlcmlhbGl6ZXInO1xuZXhwb3J0ICogZnJvbSAnLi9zZXJpYWxpemVycy9yZXBvcnQtY29udGFpbmVyLXNlcmlhbGl6ZXInO1xuZXhwb3J0ICogZnJvbSAnLi9zZXJpYWxpemVycy9yZXBvcnQtc2VyaWFsaXplcic7XG5leHBvcnQgKiBmcm9tICcuL3NlcmlhbGl6ZXJzL3dpZGdldC1zZXJpYWxpemVyJztcbmV4cG9ydCAqIGZyb20gJy4vd2lkZ2V0JztcbmV4cG9ydCAqIGZyb20gJy4vd2lkZ2V0LWNvbXBvbmVudHMtbWFwJztcbmV4cG9ydCAqIGZyb20gJy4vd2lkZ2V0LWhvc3QnO1xuXG5leHBvcnQgKiBmcm9tICcuL3V0aWxzL2FnZ3JlZ2F0aW9uL2NyZWF0ZS1hZ2dyZWdhdGlvbic7XG5leHBvcnQgKiBmcm9tICcuL3V0aWxzL3JlcG9ydHMtaW5zdGFuY2VzL2NyZWF0ZS1yZXBvcnQtaW5zdGFuY2UnO1xuZXhwb3J0ICogZnJvbSAnLi91dGlscy93aWRnZXRzL2NyZWF0ZS13aWRnZXQnO1xuZXhwb3J0ICogZnJvbSAnLi91dGlscy93aWRnZXRzLWluc3RhbmNlcy9jcmVhdGUtd2lkZ2V0LWluc3RhbmNlJztcbmV4cG9ydCAqIGZyb20gJy4vdXRpbHMvd2lkZ2V0cy1pbnN0YW5jZXMvd2lkZ2V0LXRvLXdpZGdldC1pbnN0YW5jZSc7XG4iXX0=

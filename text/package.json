@@ -1,8 +1,11 @@
 {
   "name": "@ajf/core/text",
-  "typings": "../text.d.ts",
   "main": "../bundles/core-text.umd.js",
-  "module": "../esm5/text.es5.js",
-  "es2015": "../esm2015/text.js",
-  "sideEffects": false
+  "fesm5": "../fesm5/text.js",
+  "fesm2015": "../fesm2015/text.js",
+  "esm5": "../esm5/text/index.js",
+  "esm2015": "../esm2015/text/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm5/text.js",
+  "es2015": "../fesm2015/text.js"
 }

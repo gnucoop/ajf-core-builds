@@ -1,52 +1,45 @@
-/**
- * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('leaflet')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/map', ['exports', '@angular/core', 'rxjs', 'leaflet'], factory) :
     (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.map = {}), global.ng.core, global.rxjs, global.leaflet));
-}(this, function (exports, core, rxjs, L__default) { 'use strict';
+}(this, (function (exports, core, rxjs, L) { 'use strict';
 
-    var L__default__default = 'default' in L__default ? L__default['default'] : L__default;
+    var L__default = 'default' in L ? L['default'] : L;
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
     var AjfMapContainerDirective = /** @class */ (function () {
         function AjfMapContainerDirective(_el) {
             this._el = _el;
         }
         Object.defineProperty(AjfMapContainerDirective.prototype, "htmlElement", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._el.nativeElement; },
+            get: function () { return this._el.nativeElement; },
             enumerable: true,
             configurable: true
         });
         AjfMapContainerDirective.decorators = [
             { type: core.Directive, args: [{
                         selector: '[mapContainer]'
-                    },] },
+                    },] }
         ];
         /** @nocollapse */
         AjfMapContainerDirective.ctorParameters = function () { return [
@@ -56,21 +49,33 @@
     }());
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
-    /** @type {?} */
-    var leafletLib = L__default__default || L__default;
+    var leafletLib = L__default || L;
     var AjfMapComponent = /** @class */ (function () {
         function AjfMapComponent() {
             this._columnWidthChanged = rxjs.Subscription.EMPTY;
         }
         Object.defineProperty(AjfMapComponent.prototype, "coordinate", {
-            set: /**
-             * @param {?} coordinate
-             * @return {?}
-             */
-            function (coordinate) {
+            set: function (coordinate) {
                 this._coordinate = coordinate.slice(0);
                 this._setMapView();
             },
@@ -78,11 +83,7 @@
             configurable: true
         });
         Object.defineProperty(AjfMapComponent.prototype, "tileLayer", {
-            set: /**
-             * @param {?} tileLayer
-             * @return {?}
-             */
-            function (tileLayer) {
+            set: function (tileLayer) {
                 this._tileLayer = tileLayer;
                 this._addTileLayerToMap();
             },
@@ -90,11 +91,7 @@
             configurable: true
         });
         Object.defineProperty(AjfMapComponent.prototype, "attribution", {
-            set: /**
-             * @param {?} attribution
-             * @return {?}
-             */
-            function (attribution) {
+            set: function (attribution) {
                 this._attribution = attribution;
                 this._addTileLayerToMap();
             },
@@ -102,11 +99,7 @@
             configurable: true
         });
         Object.defineProperty(AjfMapComponent.prototype, "disabled", {
-            set: /**
-             * @param {?} disabled
-             * @return {?}
-             */
-            function (disabled) {
+            set: function (disabled) {
                 this._disabled = disabled;
                 this._disableMap();
             },
@@ -114,20 +107,11 @@
             configurable: true
         });
         Object.defineProperty(AjfMapComponent.prototype, "map", {
-            get: /**
-             * @return {?}
-             */
-            function () { return this._map; },
+            get: function () { return this._map; },
             enumerable: true,
             configurable: true
         });
-        /**
-         * @return {?}
-         */
-        AjfMapComponent.prototype.ngAfterViewInit = /**
-         * @return {?}
-         */
-        function () {
+        AjfMapComponent.prototype.ngAfterViewInit = function () {
             if (this.mapContainer) {
                 this._initMap();
                 this._setMapView();
@@ -135,60 +119,26 @@
                 this._disableMap();
             }
         };
-        /**
-         * @return {?}
-         */
-        AjfMapComponent.prototype.redraw = /**
-         * @return {?}
-         */
-        function () {
+        AjfMapComponent.prototype.redraw = function () {
             if (this.mapContainer && this._map) {
                 this._map.invalidateSize();
             }
         };
-        /**
-         * @return {?}
-         */
-        AjfMapComponent.prototype.ngOnDestroy = /**
-         * @return {?}
-         */
-        function () {
+        AjfMapComponent.prototype.ngOnDestroy = function () {
             this._columnWidthChanged.unsubscribe();
         };
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfMapComponent.prototype._initMap = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
+        AjfMapComponent.prototype._initMap = function () {
             var options = {
                 zoomControl: false,
                 attributionControl: false
             };
             this._map = leafletLib.map(this.mapContainer.htmlElement, options);
         };
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfMapComponent.prototype._setMapView = /**
-         * @private
-         * @return {?}
-         */
-        function () {
+        AjfMapComponent.prototype._setMapView = function () {
             if (this._map == null) {
                 return;
             }
-            /** @type {?} */
-            var x;
-            /** @type {?} */
-            var y;
-            /** @type {?} */
-            var z;
+            var x, y, z;
             if (this._coordinate != null && this._coordinate.length === 3) {
                 x = this._coordinate[0];
                 y = this._coordinate[1];
@@ -201,37 +151,17 @@
             }
             this._map.setView([x, y], z);
         };
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfMapComponent.prototype._addTileLayerToMap = /**
-         * @private
-         * @return {?}
-         */
-        function () {
+        AjfMapComponent.prototype._addTileLayerToMap = function () {
             var _this = this;
             if (this._map == null || this._tileLayer == null) {
                 return;
             }
-            this._map.eachLayer((/**
-             * @param {?} l
-             * @return {?}
-             */
-            function (l) { return _this._map.removeLayer(l); }));
+            this._map.eachLayer(function (l) { return _this._map.removeLayer(l); });
             leafletLib.tileLayer(this._tileLayer, {
                 attribution: this._attribution
             }).addTo(this._map);
         };
-        /**
-         * @private
-         * @return {?}
-         */
-        AjfMapComponent.prototype._disableMap = /**
-         * @private
-         * @return {?}
-         */
-        function () {
+        AjfMapComponent.prototype._disableMap = function () {
             if (this._map == null) {
                 return;
             }
@@ -248,12 +178,13 @@
             }
         };
         AjfMapComponent.decorators = [
-            { type: core.Component, args: [{selector: 'ajf-map',
-                        template: "<div mapContainer></div>",
-                        styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}"],
+            { type: core.Component, args: [{
+                        selector: 'ajf-map',
+                        template: "<div mapContainer></div>\n",
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None
-                    },] },
+                        encapsulation: core.ViewEncapsulation.None,
+                        styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
+                    }] }
         ];
         AjfMapComponent.propDecorators = {
             mapContainer: [{ type: core.ViewChild, args: [AjfMapContainerDirective, { static: true },] }],
@@ -266,8 +197,25 @@
     }());
 
     /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
      */
     var AjfMapModule = /** @class */ (function () {
         function AjfMapModule() {
@@ -281,16 +229,42 @@
                         exports: [
                             AjfMapComponent
                         ]
-                    },] },
+                    },] }
         ];
         return AjfMapModule;
     }());
 
+    /**
+     * @license
+     * Copyright (C) 2018 Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * Generated bundle index. Do not edit.
+     */
+
     exports.AjfMapComponent = AjfMapComponent;
     exports.AjfMapModule = AjfMapModule;
-    exports.ɵa = AjfMapContainerDirective;
+    exports.ɵajf_src_core_map_map_a = AjfMapContainerDirective;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=core-map.umd.js.map
