@@ -6,7 +6,7 @@ import { debounceTime, switchMap, catchError } from 'rxjs/operators';
 
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -224,7 +224,7 @@ var AjfBarcode = /** @class */ (function () {
 
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *

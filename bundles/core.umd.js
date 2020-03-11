@@ -6,7 +6,7 @@
 
 	/**
 	 * @license
-	 * Copyright (C) 2018 Gnucoop soc. coop.
+	 * Copyright (C) Gnucoop soc. coop.
 	 *
 	 * This file is part of the Advanced JSON forms (ajf).
 	 *
@@ -26,11 +26,11 @@
 	 *
 	 */
 	/** Current version of Ajf. */
-	var VERSION = new core.Version('9.0.0-sha-f1979bc');
+	var VERSION = new core.Version('9.0.0-sha-798a093');
 
 	/**
 	 * @license
-	 * Copyright (C) 2018 Gnucoop soc. coop.
+	 * Copyright (C) Gnucoop soc. coop.
 	 *
 	 * This file is part of the Advanced JSON forms (ajf).
 	 *
@@ -52,7 +52,7 @@
 
 	/**
 	 * @license
-	 * Copyright (C) 2018 Gnucoop soc. coop.
+	 * Copyright (C) Gnucoop soc. coop.
 	 *
 	 * This file is part of the Advanced JSON forms (ajf).
 	 *

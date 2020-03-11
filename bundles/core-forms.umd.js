@@ -1,14 +1,14 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('date-fns'), require('tslib'), require('@ajf/core/models'), require('@ajf/core/utils'), require('esprima'), require('@ajf/core/page-slider')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/forms', 'rxjs', 'rxjs/operators', 'date-fns', 'tslib', '@ajf/core/models', '@ajf/core/utils', 'esprima', '@ajf/core/page-slider'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.cdk.coercion, global.ng.forms, global.rxjs, global.rxjs.operators, global.dateFns, global.tslib, global.ng.core.models, global.ng.core.utils, global.esprima, global.ng.core.pageSlider));
-}(this, (function (exports, core, coercion, forms, rxjs, operators, dateFns, tslib, models, utils, esprima, pageSlider) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('date-fns'), require('@ajf/core/models'), require('@ajf/core/utils'), require('esprima'), require('@ajf/core/page-slider')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/forms', 'rxjs', 'rxjs/operators', 'date-fns', '@ajf/core/models', '@ajf/core/utils', 'esprima', '@ajf/core/page-slider'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.cdk.coercion, global.ng.forms, global.rxjs, global.rxjs.operators, global.dateFns, global.ng.core.models, global.ng.core.utils, global.esprima, global.ng.core.pageSlider));
+}(this, (function (exports, core, coercion, forms, rxjs, operators, dateFns, models, utils, esprima, pageSlider) { 'use strict';
 
     var esprima__default = 'default' in esprima ? esprima['default'] : esprima;
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -41,7 +41,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -74,7 +74,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -175,7 +175,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -208,7 +208,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -244,7 +244,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -280,9 +280,196 @@
         return AjfDateValueStringPipe;
     }());
 
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+                t[p[i]] = s[p[i]];
+        return t;
+    }
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
+
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    }
+
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+    }
+
+    function __awaiter(thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+
+    function __exportStar(m, exports) {
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+
+    function __values(o) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        if (m) return m.call(o);
+        return {
+            next: function () {
+                if (o && i >= o.length) o = void 0;
+                return { value: o && o[i++], done: !o };
+            }
+        };
+    }
+
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
+        if (!m) return o;
+        var i = m.call(o), r, ar = [], e;
+        try {
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+        }
+        catch (error) { e = { error: error }; }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"])) m.call(i);
+            }
+            finally { if (e) throw e.error; }
+        }
+        return ar;
+    }
+
+    function __spread() {
+        for (var ar = [], i = 0; i < arguments.length; i++)
+            ar = ar.concat(__read(arguments[i]));
+        return ar;
+    }
+
+    function __await(v) {
+        return this instanceof __await ? (this.v = v, this) : new __await(v);
+    }
+
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
+        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+    }
+
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+    }
+
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+    }
+
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        return cooked;
+    };
+
+    function __importStar(mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+        result.default = mod;
+        return result;
+    }
+
+    function __importDefault(mod) {
+        return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -305,7 +492,7 @@
      * This class will define an Ajf invalid field definition error
      */
     var AjfInvalidFieldDefinitionError = /** @class */ (function (_super) {
-        tslib.__extends(AjfInvalidFieldDefinitionError, _super);
+        __extends(AjfInvalidFieldDefinitionError, _super);
         function AjfInvalidFieldDefinitionError(message) {
             return _super.call(this, message) || this;
         }
@@ -319,7 +506,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -353,7 +540,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -392,7 +579,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -419,7 +606,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -452,7 +639,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -486,7 +673,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -521,7 +708,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -626,7 +813,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -649,7 +836,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -687,7 +874,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -707,7 +894,7 @@
      *
      */
     var AjfFieldWithChoicesComponent = /** @class */ (function (_super) {
-        tslib.__extends(AjfFieldWithChoicesComponent, _super);
+        __extends(AjfFieldWithChoicesComponent, _super);
         function AjfFieldWithChoicesComponent(cdr, service, warningAlertService, searchThreshold) {
             var _this = _super.call(this, cdr, service, warningAlertService) || this;
             _this._searchThreshold = 6;
@@ -726,7 +913,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -756,7 +943,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -783,7 +970,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -809,7 +996,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -834,7 +1021,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -859,7 +1046,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -885,7 +1072,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -910,7 +1097,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -936,7 +1123,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -980,7 +1167,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1016,7 +1203,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1044,7 +1231,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1071,7 +1258,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1112,7 +1299,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1140,7 +1327,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1169,7 +1356,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1198,7 +1385,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1234,7 +1421,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1270,7 +1457,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1306,7 +1493,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1342,7 +1529,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1378,7 +1565,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1437,7 +1624,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1480,7 +1667,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1508,7 +1695,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1533,7 +1720,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1558,7 +1745,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1590,7 +1777,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1621,7 +1808,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1655,7 +1842,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1696,7 +1883,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1719,12 +1906,12 @@
         var conditionalBranches = node.conditionalBranches != null && node.conditionalBranches.length > 0 ?
             node.conditionalBranches :
             [models.alwaysCondition()];
-        return tslib.__assign(tslib.__assign({}, node), { parentNode: node.parentNode != null ? node.parentNode : 0, label: node.label || '', visibility: node.visibility || models.alwaysCondition(), conditionalBranches: conditionalBranches });
+        return __assign(__assign({}, node), { parentNode: node.parentNode != null ? node.parentNode : 0, label: node.label || '', visibility: node.visibility || models.alwaysCondition(), conditionalBranches: conditionalBranches });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1744,16 +1931,16 @@
      *
      */
     function createField(field) {
-        var node = createNode(tslib.__assign(tslib.__assign({}, field), { nodeType: exports.AjfNodeType.AjfField }));
+        var node = createNode(__assign(__assign({}, field), { nodeType: exports.AjfNodeType.AjfField }));
         var editable = field.editable != null ?
             field.editable :
             field.fieldType !== exports.AjfFieldType.Formula && field.fieldType !== exports.AjfFieldType.Table;
-        return tslib.__assign(tslib.__assign(tslib.__assign({}, node), field), { nodeType: exports.AjfNodeType.AjfField, editable: editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
+        return __assign(__assign(__assign({}, node), field), { nodeType: exports.AjfNodeType.AjfField, editable: editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1779,7 +1966,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1804,7 +1991,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1829,7 +2016,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1867,7 +2054,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1892,7 +2079,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1925,7 +2112,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1950,7 +2137,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -1975,7 +2162,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2000,7 +2187,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2025,7 +2212,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2047,7 +2234,7 @@
     function createNodeInstance(instance) {
         return {
             node: instance.node,
-            prefix: instance.prefix ? tslib.__spread(instance.prefix) : [],
+            prefix: instance.prefix ? __spread(instance.prefix) : [],
             visible: instance.visible != null ? instance.visible : true,
             conditionalBranches: [],
             updatedEvt: new core.EventEmitter()
@@ -2056,7 +2243,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2087,12 +2274,12 @@
                 value = context[completeName];
             }
         }
-        return tslib.__assign(tslib.__assign({}, nodeInstance), { node: instance.node, value: value, valid: false, defaultValue: instance.defaultValue != null ? instance.defaultValue : null, validationResults: instance.validationResults || [], warningResults: instance.warningResults || [], warningTrigger: new core.EventEmitter() });
+        return __assign(__assign({}, nodeInstance), { node: instance.node, value: value, valid: false, defaultValue: instance.defaultValue != null ? instance.defaultValue : null, validationResults: instance.validationResults || [], warningResults: instance.warningResults || [], warningTrigger: new core.EventEmitter() });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2113,12 +2300,12 @@
      */
     function createFieldWithChoicesInstance(instance, context) {
         var fieldInstance = createFieldInstance(instance, context);
-        return tslib.__assign(tslib.__assign({}, fieldInstance), { node: instance.node, filteredChoices: tslib.__spread(instance.node.choices), firstTriggerConditionDone: {}, selectionTrigger: new core.EventEmitter() });
+        return __assign(__assign({}, fieldInstance), { node: instance.node, filteredChoices: __spread(instance.node.choices), firstTriggerConditionDone: {}, selectionTrigger: new core.EventEmitter() });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2157,12 +2344,12 @@
     function createTableFieldInstance(instance, context) {
         normalizeRows(instance.node);
         var fieldInstance = createFieldInstance(instance, context);
-        return tslib.__assign(tslib.__assign({}, fieldInstance), { node: instance.node, context: context, hideEmptyRows: instance.hideEmptyRows || false, controls: [] });
+        return __assign(__assign({}, fieldInstance), { node: instance.node, context: context, hideEmptyRows: instance.hideEmptyRows || false, controls: [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2183,12 +2370,12 @@
      */
     function createNodeGroupInstance(instance) {
         var nodeInstance = createNodeInstance(instance);
-        return tslib.__assign(tslib.__assign({}, nodeInstance), { node: instance.node, formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
+        return __assign(__assign({}, nodeInstance), { node: instance.node, formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2209,12 +2396,12 @@
      */
     function createSlideInstance(instance) {
         var nodeInstance = createNodeInstance(instance);
-        return tslib.__assign(tslib.__assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0 });
+        return __assign(__assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0 });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2235,12 +2422,12 @@
      */
     function createRepeatingSlideInstance(instance) {
         var slideInstance = createSlideInstance(instance);
-        return tslib.__assign(tslib.__assign({}, slideInstance), { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
+        return __assign(__assign({}, slideInstance), { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2260,12 +2447,12 @@
      *
      */
     function createValidationGroup(group) {
-        return tslib.__assign(tslib.__assign({}, group), { conditions: group.conditions || [] });
+        return __assign(__assign({}, group), { conditions: group.conditions || [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2285,12 +2472,12 @@
      *
      */
     function createWarningGroup(group) {
-        return tslib.__assign(tslib.__assign({}, group), { conditions: group.conditions || [] });
+        return __assign(__assign({}, group), { conditions: group.conditions || [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2317,7 +2504,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2354,7 +2541,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2386,7 +2573,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2416,7 +2603,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2449,7 +2636,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2479,7 +2666,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2499,12 +2686,12 @@
      *
      */
     function createValidation(validation) {
-        return tslib.__assign(tslib.__assign({}, validation), { clientValidation: validation.clientValidation || false, errorMessage: validation.errorMessage || 'Undefined Error' });
+        return __assign(__assign({}, validation), { clientValidation: validation.clientValidation || false, errorMessage: validation.errorMessage || 'Undefined Error' });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2534,7 +2721,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2567,7 +2754,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2587,12 +2774,12 @@
      *
      */
     function createWarning(warning) {
-        return tslib.__assign(tslib.__assign({}, warning), { warningMessage: warning.warningMessage || 'Undefined Warning' });
+        return __assign(__assign({}, warning), { warningMessage: warning.warningMessage || 'Undefined Warning' });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2622,7 +2809,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2655,7 +2842,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2680,7 +2867,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2706,7 +2893,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2865,7 +3052,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2897,7 +3084,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2930,7 +3117,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -2974,7 +3161,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -3009,7 +3196,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -3086,7 +3273,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -3576,7 +3763,7 @@
             this._formInitEvent.emit(exports.AjfFormInitStatus.Initializing);
             this._formGroupSubscription =
                 formGroup.valueChanges
-                    .pipe(operators.startWith({}), operators.pairwise(), operators.debounceTime(200), operators.withLatestFrom.apply(void 0, tslib.__spread((this._nodesMaps), [this._flatNodes])))
+                    .pipe(operators.startWith({}), operators.pairwise(), operators.debounceTime(200), operators.withLatestFrom.apply(void 0, __spread((this._nodesMaps), [this._flatNodes])))
                     .subscribe(function (v) {
                     var oldFormValue = init && {} || v[0][0];
                     init = false;
@@ -4185,7 +4372,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4483,7 +4670,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4517,7 +4704,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4550,7 +4737,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4583,7 +4770,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4624,7 +4811,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4657,7 +4844,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4685,10 +4872,10 @@
                 return instance.hideEmptyRows
                     ? val.filter(function (col) { return col[1].reduce(function (prev, cur) {
                         return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
-                    }, false); }).map(function (v) { return tslib.__spread([v[0]], v[1]); })
-                    : val.map(function (v) { return tslib.__spread([v[0]], v[1]); });
+                    }, false); }).map(function (v) { return __spread([v[0]], v[1]); })
+                    : val.map(function (v) { return __spread([v[0]], v[1]); });
             }
-            return (instance.controls || []).map(function (v) { return tslib.__spread([v[0]], v[1]); });
+            return (instance.controls || []).map(function (v) { return __spread([v[0]], v[1]); });
         };
         AjfTableVisibleColumnsPipe.decorators = [
             { type: core.Pipe, args: [{ name: 'ajfTableVisibleColumns' },] }
@@ -4698,7 +4885,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4743,7 +4930,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4811,7 +4998,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4839,7 +5026,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4859,7 +5046,7 @@
      *
      */
     var AjfInputFieldComponent = /** @class */ (function (_super) {
-        tslib.__extends(AjfInputFieldComponent, _super);
+        __extends(AjfInputFieldComponent, _super);
         function AjfInputFieldComponent() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.type = 'text';
@@ -4870,7 +5057,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4893,7 +5080,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4913,12 +5100,12 @@
      *
      */
     function createAttachmentsOrigin(origin) {
-        return tslib.__assign(tslib.__assign({}, origin), { attachments: origin.attachments || [] });
+        return __assign(__assign({}, origin), { attachments: origin.attachments || [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4951,7 +5138,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4971,12 +5158,12 @@
      *
      */
     function createChoicesOrigin(origin) {
-        return tslib.__assign(tslib.__assign({}, origin), { type: origin.type, label: origin.label || '', choices: origin.choices || [] });
+        return __assign(__assign({}, origin), { type: origin.type, label: origin.label || '', choices: origin.choices || [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -4999,14 +5186,14 @@
         function AjfChoicesOriginSerializer() {
         }
         AjfChoicesOriginSerializer.fromJson = function (origin) {
-            return createChoicesOrigin(tslib.__assign(tslib.__assign({}, origin), { type: origin.type || 'fixed', name: origin.name || '' }));
+            return createChoicesOrigin(__assign(__assign({}, origin), { type: origin.type || 'fixed', name: origin.name || '' }));
         };
         return AjfChoicesOriginSerializer;
     }());
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5026,13 +5213,13 @@
      *
      */
     function createFieldWithChoices(field) {
-        var node = createField(tslib.__assign({}, field));
-        return tslib.__assign(tslib.__assign(tslib.__assign({}, node), field), { choices: field.choices || [], forceExpanded: field.forceExpanded || false, forceNarrow: field.forceNarrow || false });
+        var node = createField(__assign({}, field));
+        return __assign(__assign(__assign({}, node), field), { choices: field.choices || [], forceExpanded: field.forceExpanded || false, forceNarrow: field.forceNarrow || false });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5053,12 +5240,12 @@
      */
     function createContainerNode(containerNode) {
         var node = createNode(containerNode);
-        return tslib.__assign(tslib.__assign({}, node), { nodes: containerNode.nodes || [] });
+        return __assign(__assign({}, node), { nodes: containerNode.nodes || [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5079,12 +5266,12 @@
      */
     function createRepeatingNode(repeatingNode) {
         var node = createNode(repeatingNode);
-        return tslib.__assign(tslib.__assign(tslib.__assign({}, repeatingNode), node), { minReps: repeatingNode.minReps != null ? repeatingNode.minReps : 1, maxReps: repeatingNode.maxReps != null ? repeatingNode.maxReps : 0 });
+        return __assign(__assign(__assign({}, repeatingNode), node), { minReps: repeatingNode.minReps != null ? repeatingNode.minReps : 1, maxReps: repeatingNode.maxReps != null ? repeatingNode.maxReps : 0 });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5104,12 +5291,12 @@
      *
      */
     function createNodeGroup(nodeGroup) {
-        return tslib.__assign(tslib.__assign(tslib.__assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfNodeGroup });
+        return __assign(__assign(__assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfNodeGroup });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5129,12 +5316,12 @@
      *
      */
     function createRepeatingSlide(nodeGroup) {
-        return tslib.__assign(tslib.__assign(tslib.__assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfRepeatingSlide });
+        return __assign(__assign(__assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfRepeatingSlide });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5154,12 +5341,12 @@
      *
      */
     function createSlide(nodeGroup) {
-        return tslib.__assign(tslib.__assign({}, createContainerNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfSlide });
+        return __assign(__assign({}, createContainerNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfSlide });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5189,7 +5376,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5219,7 +5406,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5306,7 +5493,7 @@
             return createField(obj);
         };
         AjfNodeSerializer._fieldNodeLinkFromJson = function (json) {
-            return tslib.__assign(tslib.__assign({}, createNode(json)), { nodeType: exports.AjfNodeType.AjfFieldNodeLink });
+            return __assign(__assign({}, createNode(json)), { nodeType: exports.AjfNodeType.AjfFieldNodeLink });
         };
         AjfNodeSerializer._fieldWithChoicesFromJson = function (json, choicesOrigins) {
             var err = 'Malformed field with choices';
@@ -5323,16 +5510,16 @@
             if (json.triggerConditions) {
                 json.triggerConditions = json.triggerConditions.map(function (t) { return models.AjfConditionSerializer.fromJson(t); });
             }
-            return createFieldWithChoices(tslib.__assign(tslib.__assign({}, json), { choicesOrigin: choicesOrigin }));
+            return createFieldWithChoices(__assign(__assign({}, json), { choicesOrigin: choicesOrigin }));
         };
         AjfNodeSerializer._formulaFieldFromJson = function (json) {
             if (json.formula) {
                 json.formula = models.AjfFormulaSerializer.fromJson(json.formula);
             }
-            return tslib.__assign(tslib.__assign({}, createField(json)), { fieldType: exports.AjfFieldType.Formula });
+            return __assign(__assign({}, createField(json)), { fieldType: exports.AjfFieldType.Formula });
         };
         AjfNodeSerializer._nodeGroupFromJson = function (json, choicesOrigins, attachmentsOrigins) {
-            return createNodeGroup(tslib.__assign(tslib.__assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins)), AjfNodeSerializer._repeatingNodeFromJson(json)));
+            return createNodeGroup(__assign(__assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins)), AjfNodeSerializer._repeatingNodeFromJson(json)));
         };
         AjfNodeSerializer._repeatingNodeFromJson = function (json) {
             if (json.formulaReps) {
@@ -5341,7 +5528,7 @@
             return createRepeatingNode(json);
         };
         AjfNodeSerializer._repeatingSlideFromJson = function (json, choicesOrigins, attachmentsOrigins) {
-            return createRepeatingSlide(tslib.__assign(tslib.__assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins)), AjfNodeSerializer._repeatingNodeFromJson(json)));
+            return createRepeatingSlide(__assign(__assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins)), AjfNodeSerializer._repeatingNodeFromJson(json)));
         };
         AjfNodeSerializer._slideFromJson = function (json, choicesOrigins, attachmentsOrigins) {
             return createSlide(AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins));
@@ -5351,7 +5538,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5378,7 +5565,7 @@
             var attachmentsOrigins = (form.attachmentsOrigins || []).map(function (a) { return AjfAttachmentsOriginSerializer.fromJson(a); });
             var nodes = (form.nodes || [])
                 .map(function (n) { return AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins); });
-            return tslib.__assign(tslib.__assign({}, form), { choicesOrigins: choicesOrigins,
+            return __assign(__assign({}, form), { choicesOrigins: choicesOrigins,
                 attachmentsOrigins: attachmentsOrigins,
                 nodes: nodes, stringIdentifier: form.stringIdentifier || [], initContext: utils.deepCopy(context || {}) });
         };
@@ -5387,7 +5574,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5414,7 +5601,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5441,7 +5628,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5462,12 +5649,12 @@
      */
     function createChoicesFixedOrigin(origin) {
         var type = 'fixed';
-        return tslib.__assign(tslib.__assign({}, createChoicesOrigin(tslib.__assign(tslib.__assign({}, origin), { type: type }))), { type: type });
+        return __assign(__assign({}, createChoicesOrigin(__assign(__assign({}, origin), { type: type }))), { type: type });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5487,12 +5674,12 @@
      *
      */
     function createChoicesFunctionOrigin(origin) {
-        return tslib.__assign(tslib.__assign({}, origin), { type: 'function', label: origin.label || '', choices: origin.choices || [] });
+        return __assign(__assign({}, origin), { type: 'function', label: origin.label || '', choices: origin.choices || [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5512,12 +5699,12 @@
      *
      */
     function createChoicesObservableArrayOrigin(origin) {
-        return tslib.__assign(tslib.__assign({}, origin), { type: 'observableArray', label: origin.label || '', choices: origin.choices || [] });
+        return __assign(__assign({}, origin), { type: 'observableArray', label: origin.label || '', choices: origin.choices || [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5537,12 +5724,12 @@
      *
      */
     function createChoicesObservableOrigin(origin) {
-        return tslib.__assign(tslib.__assign({}, origin), { type: 'observable', label: origin.label || '', choices: origin.choices || [] });
+        return __assign(__assign({}, origin), { type: 'observable', label: origin.label || '', choices: origin.choices || [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5562,12 +5749,12 @@
      *
      */
     function createChoicesPromiseOrigin(origin) {
-        return tslib.__assign(tslib.__assign({}, origin), { type: 'promise', label: origin.label || '', choices: origin.choices || [] });
+        return __assign(__assign({}, origin), { type: 'promise', label: origin.label || '', choices: origin.choices || [] });
     }
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5625,7 +5812,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5657,7 +5844,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5682,7 +5869,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5707,7 +5894,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5740,7 +5927,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5768,7 +5955,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5796,7 +5983,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5824,7 +6011,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5852,7 +6039,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5877,7 +6064,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
@@ -5902,7 +6089,7 @@
 
     /**
      * @license
-     * Copyright (C) 2018 Gnucoop soc. coop.
+     * Copyright (C) Gnucoop soc. coop.
      *
      * This file is part of the Advanced JSON forms (ajf).
      *
