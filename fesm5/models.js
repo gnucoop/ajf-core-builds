@@ -582,8 +582,8 @@ function formatNumber(num, fmt) {
     return numeralConstructor(num).format(fmt);
 }
 function formatDate(date, fmt) {
-    fmt = fmt || 'mm-dd-yyyy';
-    return dateUtils.format(date, fmt);
+    fmt = fmt || 'mm-DD-yyyy';
+    return dateUtils.format(typeof date === 'string' ? dateUtils.parse(date) : date, fmt);
 }
 function isoMonth(date, fmt) {
     fmt = fmt || 'mm';

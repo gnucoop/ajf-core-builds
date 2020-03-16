@@ -53,6 +53,6 @@ export declare function calculateAvgProperty(source: any[], property: string, ra
 export declare function calculateAvgPropertyArray(source: any[], properties: string[], range: number, coefficient: number): number[];
 export declare function alert(source: any[], property: string, threshold: number): string;
 export declare function formatNumber(num: number, fmt?: string): string;
-export declare function formatDate(date: Date, fmt?: string): string;
+export declare function formatDate(date: Date | string, fmt?: string): string;
 export declare function isoMonth(date: Date, fmt?: string): string;
 export declare function getCoordinate(source: any, zoom?: number): [number, number, number];
