@@ -962,10 +962,41 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    function isCustomFieldWithChoices(field) {
-        return field.fieldType > 100
-            && componentsMap[field.fieldType] != null
-            && componentsMap[field.fieldType].isFieldWithChoice === true;
+    function initChoicesOrigin(origin) {
+        if (origin.type === 'fixed') {
+            return Promise.resolve();
+        }
+        if (origin.type === 'function') {
+            var fo = origin;
+            fo.choices = fo.generator();
+            return Promise.resolve();
+        }
+        if (origin.type === 'promise') {
+            var po_1 = origin;
+            return po_1.generator.then(function (choices) { return po_1.choices = choices; }).then();
+        }
+        if (origin.type === 'observable') {
+            var obso_1 = origin;
+            if (obso_1.generator != null) {
+                obso_1.choices = [];
+                return new Promise(function (res) {
+                    obso_1.generator.subscribe(function (c) { return obso_1.choices.push(c); }, function () { }, function () { return res(); });
+                });
+            }
+        }
+        if (origin.type === 'observableArray') {
+            var aoo_1 = origin;
+            if (aoo_1.generator != null) {
+                aoo_1.choices = [];
+                return new Promise(function (res) {
+                    aoo_1.generator.subscribe(function (choices) {
+                        aoo_1.choices = choices;
+                        res();
+                    });
+                });
+            }
+        }
+        return Promise.resolve();
     }
 
     /**
@@ -1936,6 +1967,33 @@
             field.editable :
             field.fieldType !== exports.AjfFieldType.Formula && field.fieldType !== exports.AjfFieldType.Table;
         return __assign(__assign(__assign({}, node), field), { nodeType: exports.AjfNodeType.AjfField, editable: editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
+    }
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    function isCustomFieldWithChoices(field) {
+        return field.fieldType > 100
+            && componentsMap[field.fieldType] != null
+            && componentsMap[field.fieldType].isFieldWithChoice === true;
     }
 
     /**
@@ -3538,7 +3596,16 @@
             }))
                 .subscribe(this._formGroup);
             formObs
-                .pipe(operators.map(function (form) {
+                .pipe(operators.switchMap(function (form) {
+                if (form == null || form.form == null) {
+                    return rxjs.of(form);
+                }
+                var choicesOrigins = form.form.choicesOrigins || [];
+                if (choicesOrigins.length === 0) {
+                    return rxjs.of(form);
+                }
+                return rxjs.from(Promise.all(choicesOrigins.map(function (co) { return initChoicesOrigin(co); }))).pipe(operators.map(function () { return form; }));
+            }), operators.map(function (form) {
                 return function (_nodesInstances) {
                     var nodes = form != null && form.form != null ?
                         _this._orderedNodesInstancesTree(flattenNodes(form.form.nodes), form.form.nodes, undefined, [], form.context || {}) :
@@ -5773,64 +5840,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    function initChoicesOrigin(origin) {
-        if (origin.type === 'fixed') {
-            return Promise.resolve();
-        }
-        if (origin.type === 'function') {
-            var fo = origin;
-            fo.choices = fo.generator();
-            return Promise.resolve();
-        }
-        if (origin.type === 'promise') {
-            var po_1 = origin;
-            return po_1.generator.then(function (choices) { return po_1.choices = choices; }).then();
-        }
-        if (origin.type === 'observable') {
-            var obso_1 = origin;
-            if (obso_1.generator != null) {
-                obso_1.choices = [];
-                return new Promise(function (res) {
-                    obso_1.generator.subscribe(function (c) { return obso_1.choices.push(c); }, function () { }, function () { return res(); });
-                });
-            }
-        }
-        if (origin.type === 'observableArray') {
-            var aoo_1 = origin;
-            if (aoo_1.generator != null) {
-                aoo_1.choices = [];
-                return new Promise(function (res) {
-                    aoo_1.generator.subscribe(function (choices) {
-                        aoo_1.choices = choices;
-                        res();
-                    });
-                });
-            }
-        }
-        return Promise.resolve();
-    }
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     function isChoicesOrigin(co) {
         return co != null
             && typeof co === 'object'
@@ -6183,10 +6192,10 @@
     exports.minValidation = minValidation;
     exports.notEmptyValidation = notEmptyValidation;
     exports.notEmptyWarning = notEmptyWarning;
-    exports.ɵajf_src_core_forms_forms_a = createNodeGroup;
-    exports.ɵajf_src_core_forms_forms_b = createRepeatingSlide;
-    exports.ɵajf_src_core_forms_forms_c = createSlide;
-    exports.ɵajf_src_core_forms_forms_d = componentsMap;
+    exports.ɵgc_ajf_src_core_forms_forms_a = createNodeGroup;
+    exports.ɵgc_ajf_src_core_forms_forms_b = createRepeatingSlide;
+    exports.ɵgc_ajf_src_core_forms_forms_c = createSlide;
+    exports.ɵgc_ajf_src_core_forms_forms_d = componentsMap;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

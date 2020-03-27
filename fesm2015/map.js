@@ -265,5 +265,5 @@ AjfMapModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { AjfMapComponent, AjfMapModule, AjfMapContainerDirective as ɵajf_src_core_map_map_a };
+export { AjfMapComponent, AjfMapModule, AjfMapContainerDirective as ɵgc_ajf_src_core_map_map_a };
 //# sourceMappingURL=map.js.map

@@ -262,7 +262,7 @@
 
     exports.AjfMapComponent = AjfMapComponent;
     exports.AjfMapModule = AjfMapModule;
-    exports.ɵajf_src_core_map_map_a = AjfMapContainerDirective;
+    exports.ɵgc_ajf_src_core_map_map_a = AjfMapContainerDirective;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

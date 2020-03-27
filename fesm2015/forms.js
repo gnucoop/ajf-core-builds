@@ -1,8 +1,8 @@
 import { Pipe, Injectable, Directive, ViewContainerRef, ChangeDetectorRef, ComponentFactoryResolver, ViewChild, Input, EventEmitter, Output, ViewChildren, NgModule, InjectionToken } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Subscription, defer, Subject, BehaviorSubject, Observable, timer } from 'rxjs';
-import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
+import { Subscription, defer, Subject, BehaviorSubject, Observable, of, from, timer } from 'rxjs';
+import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
 import { format } from 'date-fns';
 import { AjfError, evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
@@ -818,17 +818,99 @@ AjfNodeType[AjfNodeType.LENGTH] = 'LENGTH';
 
 /**
  * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields/is-custom-field-with-choices.ts
+ * Generated from: src/core/forms/utils/choices/init-choices-origin.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
- * @param {?} field
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+/**
+ * @param {?} origin
  * @return {?}
  */
-function isCustomFieldWithChoices(field) {
-    return field.fieldType > 100
-        && componentsMap[field.fieldType] != null
-        && componentsMap[field.fieldType].isFieldWithChoice === true;
+function initChoicesOrigin(origin) {
+    if (origin.type === 'fixed') {
+        return Promise.resolve();
+    }
+    if (origin.type === 'function') {
+        /** @type {?} */
+        const fo = (/** @type {?} */ (origin));
+        fo.choices = fo.generator();
+        return Promise.resolve();
+    }
+    if (origin.type === 'promise') {
+        /** @type {?} */
+        const po = (/** @type {?} */ (origin));
+        return po.generator.then((/**
+         * @param {?} choices
+         * @return {?}
+         */
+        choices => po.choices = choices)).then();
+    }
+    if (origin.type === 'observable') {
+        /** @type {?} */
+        const obso = (/** @type {?} */ (origin));
+        if (obso.generator != null) {
+            obso.choices = [];
+            return new Promise((/**
+             * @param {?} res
+             * @return {?}
+             */
+            res => {
+                obso.generator.subscribe((/**
+                 * @param {?} c
+                 * @return {?}
+                 */
+                c => obso.choices.push(c)), (/**
+                 * @return {?}
+                 */
+                () => { }), (/**
+                 * @return {?}
+                 */
+                () => res()));
+            }));
+        }
+    }
+    if (origin.type === 'observableArray') {
+        /** @type {?} */
+        const aoo = (/** @type {?} */ (origin));
+        if (aoo.generator != null) {
+            aoo.choices = [];
+            return new Promise((/**
+             * @param {?} res
+             * @return {?}
+             */
+            res => {
+                aoo.generator.subscribe((/**
+                 * @param {?} choices
+                 * @return {?}
+                 */
+                choices => {
+                    aoo.choices = choices;
+                    res();
+                }));
+            }));
+        }
+    }
+    return Promise.resolve();
 }
 
 /**
@@ -1538,6 +1620,21 @@ function createField(field) {
         field.editable :
         field.fieldType !== AjfFieldType.Formula && field.fieldType !== AjfFieldType.Table;
     return Object.assign(Object.assign(Object.assign({}, node), field), { nodeType: AjfNodeType.AjfField, editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/utils/fields/is-custom-field-with-choices.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} field
+ * @return {?}
+ */
+function isCustomFieldWithChoices(field) {
+    return field.fieldType > 100
+        && componentsMap[field.fieldType] != null
+        && componentsMap[field.fieldType].isFieldWithChoice === true;
 }
 
 /**
@@ -3423,7 +3520,28 @@ class AjfFormRendererService {
         })))
             .subscribe(this._formGroup);
         formObs
-            .pipe(map((/**
+            .pipe(switchMap((/**
+         * @param {?} form
+         * @return {?}
+         */
+        form => {
+            if (form == null || form.form == null) {
+                return of(form);
+            }
+            /** @type {?} */
+            const choicesOrigins = form.form.choicesOrigins || [];
+            if (choicesOrigins.length === 0) {
+                return of(form);
+            }
+            return from(Promise.all(choicesOrigins.map((/**
+             * @param {?} co
+             * @return {?}
+             */
+            co => initChoicesOrigin(co))))).pipe(map((/**
+             * @return {?}
+             */
+            () => form)));
+        })), map((/**
          * @param {?} form
          * @return {?}
          */
@@ -8960,103 +9078,6 @@ function createChoicesPromiseOrigin(origin) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/choices/init-choices-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
-/**
- * @param {?} origin
- * @return {?}
- */
-function initChoicesOrigin(origin) {
-    if (origin.type === 'fixed') {
-        return Promise.resolve();
-    }
-    if (origin.type === 'function') {
-        /** @type {?} */
-        const fo = (/** @type {?} */ (origin));
-        fo.choices = fo.generator();
-        return Promise.resolve();
-    }
-    if (origin.type === 'promise') {
-        /** @type {?} */
-        const po = (/** @type {?} */ (origin));
-        return po.generator.then((/**
-         * @param {?} choices
-         * @return {?}
-         */
-        choices => po.choices = choices)).then();
-    }
-    if (origin.type === 'observable') {
-        /** @type {?} */
-        const obso = (/** @type {?} */ (origin));
-        if (obso.generator != null) {
-            obso.choices = [];
-            return new Promise((/**
-             * @param {?} res
-             * @return {?}
-             */
-            res => {
-                obso.generator.subscribe((/**
-                 * @param {?} c
-                 * @return {?}
-                 */
-                c => obso.choices.push(c)), (/**
-                 * @return {?}
-                 */
-                () => { }), (/**
-                 * @return {?}
-                 */
-                () => res()));
-            }));
-        }
-    }
-    if (origin.type === 'observableArray') {
-        /** @type {?} */
-        const aoo = (/** @type {?} */ (origin));
-        if (aoo.generator != null) {
-            aoo.choices = [];
-            return new Promise((/**
-             * @param {?} res
-             * @return {?}
-             */
-            res => {
-                aoo.generator.subscribe((/**
-                 * @param {?} choices
-                 * @return {?}
-                 */
-                choices => {
-                    aoo.choices = choices;
-                    res();
-                }));
-            }));
-        }
-    }
-    return Promise.resolve();
-}
-
-/**
- * @fileoverview added by tsickle
  * Generated from: src/core/forms/utils/choices/is-choices-origin.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -9261,5 +9282,5 @@ function notEmptyWarning() {
  * Generated bundle index. Do not edit.
  */
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfAttachmentsType, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfChoicesType, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, createNodeGroup as ɵajf_src_core_forms_forms_a, createRepeatingSlide as ɵajf_src_core_forms_forms_b, createSlide as ɵajf_src_core_forms_forms_c, componentsMap as ɵajf_src_core_forms_forms_d };
+export { AJF_SEARCH_ALERT_THRESHOLD, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfAttachmentsType, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfChoicesType, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, createNodeGroup as ɵgc_ajf_src_core_forms_forms_a, createRepeatingSlide as ɵgc_ajf_src_core_forms_forms_b, createSlide as ɵgc_ajf_src_core_forms_forms_c, componentsMap as ɵgc_ajf_src_core_forms_forms_d };
 //# sourceMappingURL=forms.js.map
