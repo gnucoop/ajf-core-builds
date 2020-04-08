@@ -19,17 +19,14 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare enum AjfWidgetType {
-    Layout = 0,
-    PageBreak = 1,
-    Image = 2,
-    Text = 3,
-    Chart = 4,
-    Table = 5,
-    Map = 6,
-    Column = 7,
-    Formula = 8,
-    ImageContainer = 9,
-    DynamicTable = 10,
-    LENGTH = 11
+import { AjfFormula } from '@ajf/core/models';
+import { AjfTableDataset } from '../dataset/table-dataset';
+import { AjfDataWidget } from './data-widget';
+export interface AjfDynamicTableWidget extends AjfDataWidget {
+    /**
+     * it should return a AjfTableCell[][]
+     */
+    rowDefinition: AjfFormula;
+    cellStyles: any;
+    dataset: AjfTableDataset[];
 }

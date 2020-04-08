@@ -1202,7 +1202,8 @@ const AjfWidgetType = {
     Column: 7,
     Formula: 8,
     ImageContainer: 9,
-    LENGTH: 10,
+    DynamicTable: 10,
+    LENGTH: 11,
 };
 AjfWidgetType[AjfWidgetType.Layout] = 'Layout';
 AjfWidgetType[AjfWidgetType.PageBreak] = 'PageBreak';
@@ -1214,6 +1215,7 @@ AjfWidgetType[AjfWidgetType.Map] = 'Map';
 AjfWidgetType[AjfWidgetType.Column] = 'Column';
 AjfWidgetType[AjfWidgetType.Formula] = 'Formula';
 AjfWidgetType[AjfWidgetType.ImageContainer] = 'ImageContainer';
+AjfWidgetType[AjfWidgetType.DynamicTable] = 'DynamicTable';
 AjfWidgetType[AjfWidgetType.LENGTH] = 'LENGTH';
 
 /**
@@ -2353,6 +2355,37 @@ function createWidgetInstance(widget, context, _ts) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/core/reports/utils/widgets-instances/widget-instance-utils.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} f
+ * @param {?} context
+ * @param {?} ts
+ * @return {?}
+ */
+function trFormula(f, context, ts) {
+    /** @type {?} */
+    let formula = f.formula;
+    if (formula.substr(0, 1) === '"') {
+        /** @type {?} */
+        const ft = formula.slice(1, -1);
+        /** @type {?} */
+        const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0
+            ? ts.instant(ft) : ft;
+        if (ft.length > 0) {
+            formula = `"${transFt}"`;
+        }
+    }
+    else {
+        formula = formula != null && typeof formula === 'string' && formula.trim().length > 0
+            ? ts.instant(formula) : formula;
+    }
+    return evaluateExpression(formula, context);
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: src/core/reports/utils/widgets-instances/widget-to-widget-instance.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -2485,30 +2518,6 @@ function widgetToWidgetInstance(widget, context, ts) {
         const tw = (/** @type {?} */ (widget));
         /** @type {?} */
         const twi = (/** @type {?} */ (wi));
-        /** @type {?} */
-        const trFormula = (/**
-         * @param {?} f
-         * @return {?}
-         */
-        (f) => {
-            /** @type {?} */
-            let formula = f.formula;
-            if (formula.substr(0, 1) === '"') {
-                /** @type {?} */
-                const ft = formula.slice(1, -1);
-                /** @type {?} */
-                const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0
-                    ? ts.instant(ft) : ft;
-                if (ft.length > 0) {
-                    formula = `"${transFt}"`;
-                }
-            }
-            else {
-                formula = formula != null && typeof formula === 'string' && formula.trim().length > 0
-                    ? ts.instant(formula) : formula;
-            }
-            return evaluateExpression(formula, context);
-        });
         twi.dataset = tw.dataset.map((/**
          * @param {?} row
          * @return {?}
@@ -2518,15 +2527,16 @@ function widgetToWidgetInstance(widget, context, ts) {
          * @return {?}
          */
         cell => {
-            return cell.formula instanceof Array ? cell.formula.map((/**
-             * @param {?} f
-             * @return {?}
-             */
-            f => trFormula((/** @type {?} */ (f))))) :
-                trFormula((/** @type {?} */ (cell.formula)));
+            return cell.formula instanceof Array ?
+                cell.formula.map((/**
+                 * @param {?} f
+                 * @return {?}
+                 */
+                f => trFormula((/** @type {?} */ (f)), (/** @type {?} */ (context)), ts))) :
+                trFormula((/** @type {?} */ (cell.formula)), (/** @type {?} */ (context)), ts);
         }))));
-        twi.data = (tw.dataset ||
-            []).map((/**
+        twi.data = (tw.dataset || [])
+            .map((/**
          * @param {?} row
          * @return {?}
          */
@@ -2540,6 +2550,39 @@ function widgetToWidgetInstance(widget, context, ts) {
             rowspan: cell.rowspan,
             colspan: cell.colspan,
         })))));
+    }
+    else if (widget.widgetType === AjfWidgetType.DynamicTable) {
+        /** @type {?} */
+        const tdw = (/** @type {?} */ (widget));
+        /** @type {?} */
+        const tdwi = (/** @type {?} */ (wi));
+        tdwi.dataset = tdw.dataset.map((/**
+         * @param {?} cell
+         * @return {?}
+         */
+        (cell) => {
+            return cell.formula instanceof Array ?
+                cell.formula.map((/**
+                 * @param {?} f
+                 * @return {?}
+                 */
+                f => trFormula((/** @type {?} */ (f)), context, ts))) :
+                trFormula((/** @type {?} */ (cell.formula)), context, ts);
+        }));
+        /** @type {?} */
+        const dataset = evaluateExpression(tdw.rowDefinition.formula, context) || [];
+        /** @type {?} */
+        const header = (tdw.dataset || []).map((/**
+         * @param {?} cell
+         * @return {?}
+         */
+        cell => ({
+            value: evaluateExpression(cell.formula.formula, context),
+            style: Object.assign(Object.assign({}, tdw.cellStyles), cell.style),
+            rowspan: cell.rowspan,
+            colspan: cell.colspan,
+        })));
+        tdwi.data = [[...header], ...dataset];
     }
     else if (widget.widgetType === AjfWidgetType.Image) {
         /** @type {?} */

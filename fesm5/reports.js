@@ -1,5 +1,5 @@
 import { Pipe, Directive, ChangeDetectorRef, Input, ViewContainerRef, NgModule, ComponentFactoryResolver, Renderer2, ViewChild } from '@angular/core';
-import { __assign } from 'tslib';
+import { __assign, __spread } from 'tslib';
 import { AjfFormulaSerializer, alwaysCondition, AjfConditionSerializer, evaluateExpression, createFormula } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
 
@@ -220,7 +220,8 @@ var AjfWidgetType;
     AjfWidgetType[AjfWidgetType["Column"] = 7] = "Column";
     AjfWidgetType[AjfWidgetType["Formula"] = 8] = "Formula";
     AjfWidgetType[AjfWidgetType["ImageContainer"] = 9] = "ImageContainer";
-    AjfWidgetType[AjfWidgetType["LENGTH"] = 10] = "LENGTH";
+    AjfWidgetType[AjfWidgetType["DynamicTable"] = 10] = "DynamicTable";
+    AjfWidgetType[AjfWidgetType["LENGTH"] = 11] = "LENGTH";
 })(AjfWidgetType || (AjfWidgetType = {}));
 
 /**
@@ -846,6 +847,44 @@ function createWidgetInstance(widget, context, _ts) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+function trFormula(f, context, ts) {
+    var formula = f.formula;
+    if (formula.substr(0, 1) === '"') {
+        var ft = formula.slice(1, -1);
+        var transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0
+            ? ts.instant(ft) : ft;
+        if (ft.length > 0) {
+            formula = "\"" + transFt + "\"";
+        }
+    }
+    else {
+        formula = formula != null && typeof formula === 'string' && formula.trim().length > 0
+            ? ts.instant(formula) : formula;
+    }
+    return evaluateExpression(formula, context);
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 function widgetToWidgetInstance(widget, context, ts) {
     var wi = createWidgetInstance(widget, context, ts);
     if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
@@ -927,33 +966,35 @@ function widgetToWidgetInstance(widget, context, ts) {
     else if (widget.widgetType === AjfWidgetType.Table) {
         var tw_1 = widget;
         var twi = wi;
-        var trFormula_1 = function (f) {
-            var formula = f.formula;
-            if (formula.substr(0, 1) === '"') {
-                var ft = formula.slice(1, -1);
-                var transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0
-                    ? ts.instant(ft) : ft;
-                if (ft.length > 0) {
-                    formula = "\"" + transFt + "\"";
-                }
-            }
-            else {
-                formula = formula != null && typeof formula === 'string' && formula.trim().length > 0
-                    ? ts.instant(formula) : formula;
-            }
-            return evaluateExpression(formula, context);
-        };
         twi.dataset = tw_1.dataset.map(function (row) { return row.map(function (cell) {
-            return cell.formula instanceof Array ? cell.formula.map(function (f) { return trFormula_1(f); }) :
-                trFormula_1(cell.formula);
+            return cell.formula instanceof Array ?
+                cell.formula.map(function (f) { return trFormula(f, context, ts); }) :
+                trFormula(cell.formula, context, ts);
         }); });
-        twi.data = (tw_1.dataset ||
-            []).map(function (row) { return row.map(function (cell) { return ({
+        twi.data = (tw_1.dataset || [])
+            .map(function (row) { return row.map(function (cell) { return ({
             value: evaluateExpression(cell.formula.formula, context),
             style: __assign(__assign({}, tw_1.cellStyles), cell.style),
             rowspan: cell.rowspan,
             colspan: cell.colspan,
         }); }); });
+    }
+    else if (widget.widgetType === AjfWidgetType.DynamicTable) {
+        var tdw_1 = widget;
+        var tdwi = wi;
+        tdwi.dataset = tdw_1.dataset.map(function (cell) {
+            return cell.formula instanceof Array ?
+                cell.formula.map(function (f) { return trFormula(f, context, ts); }) :
+                trFormula(cell.formula, context, ts);
+        });
+        var dataset = evaluateExpression(tdw_1.rowDefinition.formula, context) || [];
+        var header = (tdw_1.dataset || []).map(function (cell) { return ({
+            value: evaluateExpression(cell.formula.formula, context),
+            style: __assign(__assign({}, tdw_1.cellStyles), cell.style),
+            rowspan: cell.rowspan,
+            colspan: cell.colspan,
+        }); });
+        tdwi.data = __spread([__spread(header)], dataset);
     }
     else if (widget.widgetType === AjfWidgetType.Image) {
         var iw = widget;

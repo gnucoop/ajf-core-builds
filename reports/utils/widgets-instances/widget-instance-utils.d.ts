@@ -19,17 +19,6 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare enum AjfWidgetType {
-    Layout = 0,
-    PageBreak = 1,
-    Image = 2,
-    Text = 3,
-    Chart = 4,
-    Table = 5,
-    Map = 6,
-    Column = 7,
-    Formula = 8,
-    ImageContainer = 9,
-    DynamicTable = 10,
-    LENGTH = 11
-}
+import { AjfContext, AjfFormula } from '@ajf/core/models';
+import { TranslateService } from '@ngx-translate/core';
+export declare function trFormula(f: AjfFormula, context: AjfContext, ts: TranslateService): any;
