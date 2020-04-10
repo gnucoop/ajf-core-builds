@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Input, NgModule } from '@angular/core';
-import { Subscription } from 'rxjs';
 import * as L from 'leaflet';
 import L__default from 'leaflet';
+import { Subscription } from 'rxjs';
 
 /**
  * @license
@@ -29,14 +29,14 @@ var AjfMapContainerDirective = /** @class */ (function () {
         this._el = _el;
     }
     Object.defineProperty(AjfMapContainerDirective.prototype, "htmlElement", {
-        get: function () { return this._el.nativeElement; },
+        get: function () {
+            return this._el.nativeElement;
+        },
         enumerable: true,
         configurable: true
     });
     AjfMapContainerDirective.decorators = [
-        { type: Directive, args: [{
-                    selector: '[mapContainer]'
-                },] }
+        { type: Directive, args: [{ selector: '[mapContainer]' },] }
     ];
     /** @nocollapse */
     AjfMapContainerDirective.ctorParameters = function () { return [
@@ -104,7 +104,9 @@ var AjfMapComponent = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfMapComponent.prototype, "map", {
-        get: function () { return this._map; },
+        get: function () {
+            return this._map;
+        },
         enumerable: true,
         configurable: true
     });
@@ -125,10 +127,7 @@ var AjfMapComponent = /** @class */ (function () {
         this._columnWidthChanged.unsubscribe();
     };
     AjfMapComponent.prototype._initMap = function () {
-        var options = {
-            zoomControl: false,
-            attributionControl: false
-        };
+        var options = { zoomControl: false, attributionControl: false };
         this._map = leafletLib.map(this.mapContainer.htmlElement, options);
     };
     AjfMapComponent.prototype._setMapView = function () {
@@ -154,9 +153,7 @@ var AjfMapComponent = /** @class */ (function () {
             return;
         }
         this._map.eachLayer(function (l) { return _this._map.removeLayer(l); });
-        leafletLib.tileLayer(this._tileLayer, {
-            attribution: this._attribution
-        }).addTo(this._map);
+        leafletLib.tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
     };
     AjfMapComponent.prototype._disableMap = function () {
         if (this._map == null) {
@@ -221,11 +218,11 @@ var AjfMapModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [
                         AjfMapComponent,
-                        AjfMapContainerDirective
+                        AjfMapContainerDirective,
                     ],
                     exports: [
-                        AjfMapComponent
-                    ]
+                        AjfMapComponent,
+                    ],
                 },] }
     ];
     return AjfMapModule;

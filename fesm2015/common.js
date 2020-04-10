@@ -42,7 +42,8 @@ class ApplyStylesDirective {
             try {
                 this._renderer.setStyle(this._el.nativeElement, style, `${this._cssStyles[style]}`);
             }
-            catch (e) { }
+            catch (e) {
+            }
         }));
     }
 }
@@ -245,7 +246,9 @@ class AjfVideoDirective {
     /**
      * @return {?}
      */
-    get source() { return this._source; }
+    get source() {
+        return this._source;
+    }
     /**
      * @param {?} source
      * @return {?}

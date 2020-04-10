@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare enum AjfAttachmentsType {
+export declare const enum AjfAttachmentsType {
     Link = 0,
     Pdf = 1,
     LENGTH = 2

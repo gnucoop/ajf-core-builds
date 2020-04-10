@@ -101,10 +101,13 @@
             this._warningAlertService = _warningAlertService;
             this._warningTriggerSub = rxjs.Subscription.EMPTY;
             this._instanceUpdateSub = rxjs.Subscription.EMPTY;
-            this._control = rxjs.defer(function () { return _this._service.getControl(_this.instance).pipe(operators.map(function (ctrl) { return ctrl || new forms.FormControl(); })); });
+            this._control = rxjs.defer(function () { return _this._service.getControl(_this.instance)
+                .pipe(operators.map(function (ctrl) { return ctrl || new forms.FormControl(); })); });
         }
         Object.defineProperty(AjfBaseFieldComponent.prototype, "instance", {
-            get: function () { return this._instance; },
+            get: function () {
+                return this._instance;
+            },
             set: function (instance) {
                 if (instance !== this._instance) {
                     this._instance = instance;
@@ -116,7 +119,9 @@
             configurable: true
         });
         Object.defineProperty(AjfBaseFieldComponent.prototype, "readonly", {
-            get: function () { return this._readonly; },
+            get: function () {
+                return this._readonly;
+            },
             set: function (readonly) {
                 this._readonly = coercion.coerceBooleanProperty(readonly);
                 this._changeDetectorRef.markForCheck();
@@ -125,27 +130,37 @@
             configurable: true
         });
         Object.defineProperty(AjfBaseFieldComponent.prototype, "control", {
-            get: function () { return this._control; },
+            get: function () {
+                return this._control;
+            },
             enumerable: true,
             configurable: true
         });
         AjfBaseFieldComponent.prototype.ngOnInit = function () {
             var _this = this;
-            this._warningTriggerSub = this.instance.warningTrigger.pipe(operators.withLatestFrom(this.control), operators.filter(function (v) { return v[1] != null; })).subscribe(function (v) {
-                if (_this.instance.warningResults == null) {
-                    return;
-                }
-                var control = v[1];
-                var s = _this._warningAlertService.showWarningAlertPrompt(_this.instance.warningResults.filter(function (w) { return w.result; }).map(function (w) { return w.warning; })).subscribe(function (r) {
-                    if (r.result) {
-                        control.setValue(null);
+            this._warningTriggerSub =
+                this.instance.warningTrigger.pipe(operators.withLatestFrom(this.control), operators.filter(function (v) { return v[1] != null; }))
+                    .subscribe(function (v) {
+                    if (_this.instance.warningResults == null) {
+                        return;
                     }
-                }, function (_e) { if (s) {
-                    s.unsubscribe();
-                } }, function () { if (s) {
-                    s.unsubscribe();
-                } });
-            });
+                    var control = v[1];
+                    var s = _this._warningAlertService
+                        .showWarningAlertPrompt(_this.instance.warningResults.filter(function (w) { return w.result; }).map(function (w) { return w.warning; }))
+                        .subscribe(function (r) {
+                        if (r.result) {
+                            control.setValue(null);
+                        }
+                    }, function (_e) {
+                        if (s) {
+                            s.unsubscribe();
+                        }
+                    }, function () {
+                        if (s) {
+                            s.unsubscribe();
+                        }
+                    });
+                });
         };
         AjfBaseFieldComponent.prototype.ngOnDestroy = function () {
             this._warningTriggerSub.unsubscribe();
@@ -161,7 +176,8 @@
                         try {
                             _this._changeDetectorRef.detectChanges();
                         }
-                        catch (e) { }
+                        catch (e) {
+                        }
                     }
                 });
             }
@@ -497,7 +513,9 @@
             return _super.call(this, message) || this;
         }
         Object.defineProperty(AjfInvalidFieldDefinitionError.prototype, "name", {
-            get: function () { return 'AjfInvalidFieldDefinitionError'; },
+            get: function () {
+                return 'AjfInvalidFieldDefinitionError';
+            },
             enumerable: true,
             configurable: true
         });
@@ -529,8 +547,9 @@
         function AjfExpandFieldWithChoicesPipe() {
         }
         AjfExpandFieldWithChoicesPipe.prototype.transform = function (instance, threshold) {
-            return !instance.node.forceNarrow && (instance.node.forceExpanded
-                || (instance.filteredChoices && instance.filteredChoices.length <= threshold));
+            return !instance.node.forceNarrow &&
+                (instance.node.forceExpanded ||
+                    (instance.filteredChoices && instance.filteredChoices.length <= threshold));
         };
         AjfExpandFieldWithChoicesPipe.decorators = [
             { type: core.Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
@@ -599,9 +618,7 @@
      *
      */
     function fieldIconName(type) {
-        return "ajf-icon-field-" + (typeof exports.AjfFieldType[type] === 'string'
-            ? exports.AjfFieldType[type].toLowerCase()
-            : type);
+        return "ajf-icon-field-" + (typeof exports.AjfFieldType[type] === 'string' ? exports.AjfFieldType[type].toLowerCase() : type);
     }
 
     /**
@@ -662,8 +679,7 @@
         function AjfFieldIsValidPipe() {
         }
         AjfFieldIsValidPipe.prototype.transform = function (validationResults) {
-            return validationResults != null
-                && validationResults.filter(function (f) { return !f.result; }).length === 0;
+            return validationResults != null && validationResults.filter(function (f) { return !f.result; }).length === 0;
         };
         AjfFieldIsValidPipe.decorators = [
             { type: core.Pipe, args: [{ name: 'ajfFieldIsValid' },] }
@@ -734,7 +750,9 @@
             this._updatedSub = rxjs.Subscription.EMPTY;
         }
         Object.defineProperty(AjfFormField.prototype, "instance", {
-            get: function () { return this._instance; },
+            get: function () {
+                return this._instance;
+            },
             set: function (instance) {
                 if (this._instance !== instance) {
                     this._instance = instance;
@@ -745,7 +763,9 @@
             configurable: true
         });
         Object.defineProperty(AjfFormField.prototype, "readonly", {
-            get: function () { return this._readonly; },
+            get: function () {
+                return this._readonly;
+            },
             set: function (readonly) {
                 this._readonly = coercion.coerceBooleanProperty(readonly);
                 if (this._componentInstance != null) {
@@ -904,7 +924,9 @@
             return _this;
         }
         Object.defineProperty(AjfFieldWithChoicesComponent.prototype, "searchThreshold", {
-            get: function () { return this._searchThreshold; },
+            get: function () {
+                return this._searchThreshold;
+            },
             enumerable: true,
             configurable: true
         });
@@ -1282,9 +1304,9 @@
      *
      */
     function nodeInstanceCompleteName(instance) {
-        return instance != null && instance.node != null
-            ? "" + instance.node.name + nodeInstanceSuffix(instance)
-            : '';
+        return instance != null && instance.node != null ?
+            "" + instance.node.name + nodeInstanceSuffix(instance) :
+            '';
     }
 
     /**
@@ -1691,8 +1713,7 @@
             context[completeName] = instance.value;
             context.$value = instance.value;
         }
-        instance.validationResults =
-            evaluateValidationGroup(validation, context[completeName], context);
+        instance.validationResults = evaluateValidationGroup(validation, context[completeName], context);
         instance.valid = instance.validationResults.reduce(function (prev, x) { return prev && x.result; }, true);
     }
 
@@ -1991,9 +2012,8 @@
      *
      */
     function isCustomFieldWithChoices(field) {
-        return field.fieldType > 100
-            && componentsMap[field.fieldType] != null
-            && componentsMap[field.fieldType].isFieldWithChoice === true;
+        return field.fieldType > 100 && componentsMap[field.fieldType] != null &&
+            componentsMap[field.fieldType].isFieldWithChoice === true;
     }
 
     /**
@@ -2391,10 +2411,7 @@
         node.rows.forEach(function (row, rowIdx) {
             row.forEach(function (elem, elemIdx) {
                 if (typeof elem === 'string') {
-                    node.rows[rowIdx][elemIdx] = {
-                        formula: elem,
-                        editable: node.editable
-                    };
+                    node.rows[rowIdx][elemIdx] = { formula: elem, editable: node.editable };
                 }
             });
         });
@@ -2977,8 +2994,8 @@
             case exports.AjfNodeType.AjfField:
                 var field = node;
                 if (field.fieldType > 100) {
-                    if (componentsMap[field.fieldType] != null
-                        && componentsMap[field.fieldType].createInstance != null) {
+                    if (componentsMap[field.fieldType] != null &&
+                        componentsMap[field.fieldType].createInstance != null) {
                         instance = componentsMap[field.fieldType].createInstance({ node: node, prefix: prefix }, context);
                     }
                     else {
@@ -3021,11 +3038,12 @@
                         models.createCondition({ condition: newVisibility }) :
                         node.visibility;
                 }
-                var conditionalBranches = instance.node.conditionalBranches != null
-                    && instance.node.conditionalBranches.length > 0
-                    ? instance.node.conditionalBranches
-                    : [models.alwaysCondition()];
-                instance.conditionalBranches = getInstanceConditions(conditionalBranches, ancestorsNames, prefix);
+                var conditionalBranches = instance.node.conditionalBranches != null &&
+                    instance.node.conditionalBranches.length > 0 ?
+                    instance.node.conditionalBranches :
+                    [models.alwaysCondition()];
+                instance.conditionalBranches =
+                    getInstanceConditions(conditionalBranches, ancestorsNames, prefix);
                 if (nodeType === exports.AjfNodeType.AjfNodeGroup || nodeType === exports.AjfNodeType.AjfRepeatingSlide) {
                     var ngInstance = instance;
                     var formulaReps = ngInstance.node.formulaReps;
@@ -3082,10 +3100,10 @@
             }
             else {
                 instance.visibility = instance.node.visibility;
-                var conditionalBranches = instance.node.conditionalBranches != null
-                    && instance.node.conditionalBranches.length > 0
-                    ? instance.node.conditionalBranches
-                    : [models.alwaysCondition()];
+                var conditionalBranches = instance.node.conditionalBranches != null &&
+                    instance.node.conditionalBranches.length > 0 ?
+                    instance.node.conditionalBranches :
+                    [models.alwaysCondition()];
                 instance.conditionalBranches = conditionalBranches;
                 if (isNodeGroupInstance(instance) || isRepeatingSlideInstance(instance)) {
                     var rgInstance = instance;
@@ -3315,9 +3333,7 @@
             }
         };
         AjfValidationService.prototype._initFunctions = function () {
-            var functionsStr = this._functions
-                .map(function (f) { return typeof f === 'string' ? f : f.toString(); })
-                .join('; ');
+            var functionsStr = this._functions.map(function (f) { return typeof f === 'string' ? f : f.toString(); }).join('; ');
             this._functionsStr = this._baseUtilFunctions.join('; ') + "; " + functionsStr;
             models.AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
         };
@@ -3352,10 +3368,6 @@
      */
     var esprimaMod = esprima__default || esprima;
     var tokenize = esprimaMod.tokenize;
-    (function (AjfFormInitStatus) {
-        AjfFormInitStatus[AjfFormInitStatus["Initializing"] = 0] = "Initializing";
-        AjfFormInitStatus[AjfFormInitStatus["Complete"] = 1] = "Complete";
-    })(exports.AjfFormInitStatus || (exports.AjfFormInitStatus = {}));
     var AjfFormRendererService = /** @class */ (function () {
         function AjfFormRendererService(_) {
             this._visibilityNodesMapUpdates = new rxjs.Subject();
@@ -3393,12 +3405,16 @@
             configurable: true
         });
         Object.defineProperty(AjfFormRendererService.prototype, "errorPositions", {
-            get: function () { return this._errorPositions; },
+            get: function () {
+                return this._errorPositions;
+            },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfFormRendererService.prototype, "errors", {
-            get: function () { return this._errors; },
+            get: function () {
+                return this._errors;
+            },
             enumerable: true,
             configurable: true
         });
@@ -3576,14 +3592,9 @@
                     return op(rmap);
                 }, {}), operators.startWith({}), operators.share());
             this._nodesMaps = [
-                this._visibilityNodesMap,
-                this._repetitionNodesMap,
-                this._conditionalBranchNodesMap,
-                this._formulaNodesMap,
-                this._validationNodesMap,
-                this._warningNodesMap,
-                this._nextSlideConditionsNodesMap,
-                this._filteredChoicesNodesMap,
+                this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
+                this._formulaNodesMap, this._validationNodesMap, this._warningNodesMap,
+                this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
                 this._triggerConditionsNodesMap
             ];
         };
@@ -3604,7 +3615,8 @@
                 if (choicesOrigins.length === 0) {
                     return rxjs.of(form);
                 }
-                return rxjs.from(Promise.all(choicesOrigins.map(function (co) { return initChoicesOrigin(co); }))).pipe(operators.map(function () { return form; }));
+                return rxjs.from(Promise.all(choicesOrigins.map(function (co) { return initChoicesOrigin(co); })))
+                    .pipe(operators.map(function () { return form; }));
             }), operators.map(function (form) {
                 return function (_nodesInstances) {
                     var nodes = form != null && form.form != null ?
@@ -3676,18 +3688,13 @@
                                         var name = tNode_1.name + "__" + rowIdx + "__" + idx;
                                         var control = new forms.FormControl();
                                         control.setValue(tfInstance_1.context[cell.formula]);
-                                        formGroup_1
-                                            .registerControl(name, control);
+                                        formGroup_1.registerControl(name, control);
                                         r.push(control);
                                         /* create a object that respect the instance interface
                                         with the minimum defined properties to allow to run addToNodeFormula map*/
                                         var fakeInstance = {
                                             formula: { formula: cell.formula },
-                                            node: {
-                                                name: name,
-                                                nodeType: 0,
-                                                editable: false
-                                            },
+                                            node: { name: name, nodeType: 0, editable: false },
                                             visible: true,
                                             prefix: [],
                                             conditionalBranches: [],
@@ -3713,10 +3720,7 @@
         AjfFormRendererService.prototype._adjustReps = function (allNodes, instance, oldReps, context) {
             var _this = this;
             var newReps = instance.reps;
-            var result = {
-                added: null,
-                removed: null
-            };
+            var result = { added: null, removed: null };
             if (oldReps < newReps) {
                 var newNodes_1 = [];
                 if (instance.nodes == null) {
@@ -3739,8 +3743,7 @@
                     var prefix = instance.prefix.slice(0);
                     var group = instance.node;
                     prefix.push(i);
-                    orderedNodes(group.nodes, instance.node.id)
-                        .forEach(function (n) {
+                    orderedNodes(group.nodes, instance.node.id).forEach(function (n) {
                         var newInstance = _this._initNodeInstance(allNodes, n, prefix, context);
                         if (newInstance != null) {
                             newNodes_1.push(newInstance);
@@ -3819,15 +3822,14 @@
             return nodesInstances;
         };
         AjfFormRendererService.prototype._formValueDelta = function (oldValue, newValue) {
-            return Object.keys(newValue)
-                .filter(function (k) { return oldValue[k] !== newValue[k]; });
+            return Object.keys(newValue).filter(function (k) { return oldValue[k] !== newValue[k]; });
         };
         AjfFormRendererService.prototype._initFormGroupStreams = function (formGroup) {
             var _this = this;
             this._formGroupSubscription.unsubscribe();
             var init = true;
             var initForm = true;
-            this._formInitEvent.emit(exports.AjfFormInitStatus.Initializing);
+            this._formInitEvent.emit(0 /* Initializing */);
             this._formGroupSubscription =
                 formGroup.valueChanges
                     .pipe(operators.startWith({}), operators.pairwise(), operators.debounceTime(200), operators.withLatestFrom.apply(void 0, __spread((this._nodesMaps), [this._flatNodes])))
@@ -4017,8 +4019,8 @@
                                 var valid = true;
                                 for (var i = 0; i < subNodesNum; i++) {
                                     var subNode = slide.flatNodes[i];
-                                    if (subNode.visible && isFieldInstance(subNode)
-                                        && !subNode.valid) {
+                                    if (subNode.visible && isFieldInstance(subNode) &&
+                                        !subNode.valid) {
                                         valid = false;
                                         break;
                                     }
@@ -4034,7 +4036,7 @@
                     });
                     if (initForm) {
                         initForm = false;
-                        _this._formInitEvent.emit(exports.AjfFormInitStatus.Complete);
+                        _this._formInitEvent.emit(1 /* Complete */);
                     }
                     _this._valueChanged.next();
                 });
@@ -4362,8 +4364,7 @@
             this._removeFromNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
         };
         AjfFormRendererService.prototype._removeFromNodesMap = function (nodesMap, nodeInstance, formula) {
-            var tokens = tokenize(formula)
-                .filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
+            var tokens = tokenize(formula).filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
             if (tokens.length > 0) {
                 nodesMap.next(function (vmap) {
                     tokens.forEach(function (token) {
@@ -4410,8 +4411,7 @@
             this._addToNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
         };
         AjfFormRendererService.prototype._addToNodesMap = function (nodesMap, nodeInstance, formula) {
-            var tokens = tokenize(formula)
-                .filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
+            var tokens = tokenize(formula).filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
             if (tokens.length > 0) {
                 nodesMap.next(function (vmap) {
                     tokens.forEach(function (token) {
@@ -4496,10 +4496,13 @@
             this._errorPositions = _rendererService.errorPositions;
             this.errors = _rendererService.errors;
             this.slidesNum = _rendererService.slidesNum;
-            this.formIsInit = _rendererService.formInitEvent.pipe(operators.map(function (e) { return e === exports.AjfFormInitStatus.Complete; }));
+            this.formIsInit =
+                _rendererService.formInitEvent.pipe(operators.map(function (e) { return e === 1 /* Complete */; }));
         }
         Object.defineProperty(AjfFormRenderer.prototype, "saveDisabled", {
-            get: function () { return this._saveDisabled; },
+            get: function () {
+                return this._saveDisabled;
+            },
             set: function (saveDisabled) {
                 this._saveDisabled = coercion.coerceBooleanProperty(saveDisabled);
                 this._changeDetectorRef.markForCheck();
@@ -4508,7 +4511,9 @@
             configurable: true
         });
         Object.defineProperty(AjfFormRenderer.prototype, "hasStartMessage", {
-            get: function () { return this._hasStartMessage; },
+            get: function () {
+                return this._hasStartMessage;
+            },
             set: function (hasStartMessage) {
                 this._hasStartMessage = coercion.coerceBooleanProperty(hasStartMessage);
                 this._changeDetectorRef.markForCheck();
@@ -4517,7 +4522,9 @@
             configurable: true
         });
         Object.defineProperty(AjfFormRenderer.prototype, "hasEndMessage", {
-            get: function () { return this._hasEndMessage; },
+            get: function () {
+                return this._hasEndMessage;
+            },
             set: function (hasEndMessage) {
                 this._hasEndMessage = coercion.coerceBooleanProperty(hasEndMessage);
                 this._changeDetectorRef.markForCheck();
@@ -4526,7 +4533,9 @@
             configurable: true
         });
         Object.defineProperty(AjfFormRenderer.prototype, "hideTopToolbar", {
-            get: function () { return this._hideTopToolbar; },
+            get: function () {
+                return this._hideTopToolbar;
+            },
             set: function (hideTopToolbar) {
                 this._hideTopToolbar = coercion.coerceBooleanProperty(hideTopToolbar);
                 this._changeDetectorRef.markForCheck();
@@ -4535,7 +4544,9 @@
             configurable: true
         });
         Object.defineProperty(AjfFormRenderer.prototype, "hideBottompToolbar", {
-            get: function () { return this._hideBottomToolbar; },
+            get: function () {
+                return this._hideBottomToolbar;
+            },
             enumerable: true,
             configurable: true
         });
@@ -4548,7 +4559,9 @@
             configurable: true
         });
         Object.defineProperty(AjfFormRenderer.prototype, "hideNavigationButtons", {
-            get: function () { return this._hideNavigationButtons; },
+            get: function () {
+                return this._hideNavigationButtons;
+            },
             set: function (hideNavigationButtons) {
                 this._hideNavigationButtons = coercion.coerceBooleanProperty(hideNavigationButtons);
                 this._changeDetectorRef.markForCheck();
@@ -4557,7 +4570,9 @@
             configurable: true
         });
         Object.defineProperty(AjfFormRenderer.prototype, "fixedOrientation", {
-            get: function () { return this._fixedOrientation; },
+            get: function () {
+                return this._fixedOrientation;
+            },
             set: function (fixedOrientation) {
                 this._fixedOrientation = coercion.coerceBooleanProperty(fixedOrientation);
                 this._changeDetectorRef.markForCheck();
@@ -4566,7 +4581,9 @@
             configurable: true
         });
         Object.defineProperty(AjfFormRenderer.prototype, "readonly", {
-            get: function () { return this._readonly; },
+            get: function () {
+                return this._readonly;
+            },
             set: function (readonly) {
                 this._readonly = coercion.coerceBooleanProperty(readonly);
                 this._changeDetectorRef.markForCheck();
@@ -4575,7 +4592,9 @@
             configurable: true
         });
         Object.defineProperty(AjfFormRenderer.prototype, "orientation", {
-            get: function () { return this._orientation; },
+            get: function () {
+                return this._orientation;
+            },
             set: function (orientation) {
                 if (orientation !== 'horizontal' && orientation !== 'vertical') {
                     return;
@@ -4602,50 +4621,62 @@
         /**
          * this method will scroll to next error received by subscribe
          */
-        AjfFormRenderer.prototype.goToNextError = function () { this._errorMoveEvent.emit(true); };
+        AjfFormRenderer.prototype.goToNextError = function () {
+            this._errorMoveEvent.emit(true);
+        };
         /**
          * this method will scroll to prev error received by subscribe
          */
-        AjfFormRenderer.prototype.goToPrevError = function () { this._errorMoveEvent.emit(false); };
+        AjfFormRenderer.prototype.goToPrevError = function () {
+            this._errorMoveEvent.emit(false);
+        };
         /**
          * this method will add group
          */
         AjfFormRenderer.prototype.addGroup = function (nodeGroup) {
             var _this = this;
-            var s = this._rendererService.addGroup(nodeGroup).pipe(operators.delayWhen(function () { return _this.formSlider.pageScrollFinish; })).subscribe(function (r) { if (r && _this.formSlider != null) {
-                _this.formSlider.slide({ dir: 'down' });
-            } }, function (_e) { if (s) {
-                s.unsubscribe();
-            } }, function () { if (s) {
-                s.unsubscribe();
-            } });
+            var s = this._rendererService.addGroup(nodeGroup)
+                .pipe(operators.delayWhen(function () { return _this.formSlider.pageScrollFinish; }))
+                .subscribe(function (r) {
+                if (r && _this.formSlider != null) {
+                    _this.formSlider.slide({ dir: 'down' });
+                }
+            }, function (_e) {
+                if (s) {
+                    s.unsubscribe();
+                }
+            }, function () {
+                if (s) {
+                    s.unsubscribe();
+                }
+            });
         };
         /**
          * this method will remove group
          */
         AjfFormRenderer.prototype.removeGroup = function (nodeGroup) {
             var _this = this;
-            var s = this._rendererService.removeGroup(nodeGroup).pipe(operators.delayWhen(function () { return _this.formSlider.pageScrollFinish; })).subscribe(function (r) { if (r && _this.formSlider != null) {
-                _this.formSlider.slide({ dir: 'up' });
-            } }, function (_e) { if (s) {
-                s.unsubscribe();
-            } }, function () { if (s) {
-                s.unsubscribe();
-            } });
+            var s = this._rendererService.removeGroup(nodeGroup)
+                .pipe(operators.delayWhen(function () { return _this.formSlider.pageScrollFinish; }))
+                .subscribe(function (r) {
+                if (r && _this.formSlider != null) {
+                    _this.formSlider.slide({ dir: 'up' });
+                }
+            }, function (_e) {
+                if (s) {
+                    s.unsubscribe();
+                }
+            }, function () {
+                if (s) {
+                    s.unsubscribe();
+                }
+            });
         };
         AjfFormRenderer.prototype.onSave = function (_evt) {
-            this._formAction.emit({
-                source: this,
-                action: 'save',
-                value: this._rendererService.getFormValue()
-            });
+            this._formAction.emit({ source: this, action: 'save', value: this._rendererService.getFormValue() });
         };
         AjfFormRenderer.prototype.onFormAction = function (_evt, action) {
-            this._formAction.emit({
-                source: this,
-                value: this._rendererService.getFormValue(),
-                action: action
-            });
+            this._formAction.emit({ source: this, value: this._rendererService.getFormValue(), action: action });
         };
         /**
          * this method will set current form in rederer service when init form
@@ -4660,38 +4691,41 @@
             var _this = this;
             if (!this._init && this.formSlider != null) {
                 this._init = true;
-                this._errorMoveSubscription = this._errorMoveEvent.pipe(operators.withLatestFrom(this._errorPositions)).subscribe(function (v) {
-                    var move = v[0];
-                    var currentPosition = _this.formSlider.currentPage - (+_this.hasStartMessage) + 1;
-                    var errors = v[1];
-                    if (errors == null) {
-                        return;
-                    }
-                    var found = false;
-                    var prevIdx = -1;
-                    var nextIdx = -1;
-                    var idx = 0;
-                    var errorsLen = errors.length;
-                    while (!found && idx < errorsLen) {
-                        if (errors[idx] == currentPosition) {
-                            found = true;
-                            prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
-                            nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
+                this._errorMoveSubscription =
+                    this._errorMoveEvent
+                        .pipe(operators.withLatestFrom(this._errorPositions))
+                        .subscribe(function (v) {
+                        var move = v[0];
+                        var currentPosition = _this.formSlider.currentPage - (+_this.hasStartMessage) + 1;
+                        var errors = v[1];
+                        if (errors == null) {
+                            return;
                         }
-                        else if (errors[idx] > currentPosition) {
-                            found = true;
-                            prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
-                            nextIdx = idx;
+                        var found = false;
+                        var prevIdx = -1;
+                        var nextIdx = -1;
+                        var idx = 0;
+                        var errorsLen = errors.length;
+                        while (!found && idx < errorsLen) {
+                            if (errors[idx] == currentPosition) {
+                                found = true;
+                                prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+                                nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
+                            }
+                            else if (errors[idx] > currentPosition) {
+                                found = true;
+                                prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+                                nextIdx = idx;
+                            }
+                            idx++;
                         }
-                        idx++;
-                    }
-                    if (!found) {
-                        prevIdx = errorsLen - 1;
-                        nextIdx = 0;
-                    }
-                    _this.formSlider.slide({ to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1 });
-                    _this._changeDetectorRef.detectChanges();
-                });
+                        if (!found) {
+                            prevIdx = errorsLen - 1;
+                            nextIdx = 0;
+                        }
+                        _this.formSlider.slide({ to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1 });
+                        _this._changeDetectorRef.detectChanges();
+                    });
             }
         };
         AjfFormRenderer.prototype.ngOnDestroy = function () {
@@ -4936,11 +4970,12 @@
         AjfTableVisibleColumnsPipe.prototype.transform = function (instance) {
             if (!instance.node.editable) {
                 var val = instance.value || [];
-                return instance.hideEmptyRows
-                    ? val.filter(function (col) { return col[1].reduce(function (prev, cur) {
+                return instance.hideEmptyRows ?
+                    val.filter(function (col) { return col[1].reduce(function (prev, cur) {
                         return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
-                    }, false); }).map(function (v) { return __spread([v[0]], v[1]); })
-                    : val.map(function (v) { return __spread([v[0]], v[1]); });
+                    }, false); })
+                        .map(function (v) { return __spread([v[0]], v[1]); }) :
+                    val.map(function (v) { return __spread([v[0]], v[1]); });
             }
             return (instance.controls || []).map(function (v) { return __spread([v[0]], v[1]); });
         };
@@ -4987,7 +5022,8 @@
                     return n.valid;
                 }
                 return true;
-            }).reduce(function (v1, v2) { return v1 && v2; }, true);
+            })
+                .reduce(function (v1, v2) { return v1 && v2; }, true);
         };
         AjfValidSlidePipe.decorators = [
             { type: core.Pipe, args: [{ name: 'ajfValidSlide', pure: false },] }
@@ -5057,7 +5093,11 @@
                             AjfTableVisibleColumnsPipe,
                             AjfValidSlidePipe,
                         ],
-                        providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService]
+                        providers: [
+                            AjfDateValueStringPipe,
+                            AjfFormRendererService,
+                            AjfValidationService,
+                        ],
                     },] }
         ];
         return AjfFormsModule;
@@ -5086,9 +5126,7 @@
      */
     function getTypeName(v) {
         var typeStr = typeof v;
-        return typeStr === 'object'
-            ? v.constructor.toString().match(/\w+/g)[1]
-            : typeStr;
+        return typeStr === 'object' ? v.constructor.toString().match(/\w+/g)[1] : typeStr;
     }
 
     /**
@@ -5544,9 +5582,8 @@
             if (obj.nextSlideCondition) {
                 obj.nextSlideCondition = models.AjfConditionSerializer.fromJson(obj.nextSlideCondition);
             }
-            var isCustomFieldWithChoice = obj.fieldType > 100
-                && componentsMap[obj.fieldType] != null
-                && componentsMap[obj.fieldType].isFieldWithChoice === true;
+            var isCustomFieldWithChoice = obj.fieldType > 100 && componentsMap[obj.fieldType] != null &&
+                componentsMap[obj.fieldType].isFieldWithChoice === true;
             if (isCustomFieldWithChoice) {
                 return AjfNodeSerializer._fieldWithChoicesFromJson(json, choicesOrigins);
             }
@@ -5660,11 +5697,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    (function (AjfAttachmentsType) {
-        AjfAttachmentsType[AjfAttachmentsType["Link"] = 0] = "Link";
-        AjfAttachmentsType[AjfAttachmentsType["Pdf"] = 1] = "Pdf";
-        AjfAttachmentsType[AjfAttachmentsType["LENGTH"] = 2] = "LENGTH";
-    })(exports.AjfAttachmentsType || (exports.AjfAttachmentsType = {}));
 
     /**
      * @license
@@ -5687,11 +5719,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    (function (AjfChoicesType) {
-        AjfChoicesType[AjfChoicesType["String"] = 0] = "String";
-        AjfChoicesType[AjfChoicesType["Number"] = 1] = "Number";
-        AjfChoicesType[AjfChoicesType["LENGTH"] = 2] = "LENGTH";
-    })(exports.AjfChoicesType || (exports.AjfChoicesType = {}));
 
     /**
      * @license
@@ -5841,14 +5868,10 @@
      *
      */
     function isChoicesOrigin(co) {
-        return co != null
-            && typeof co === 'object'
-            && co.name != null
-            && typeof co.name === 'string'
-            && co.label != null
-            && typeof co.label === 'string'
-            && ['fixed', 'promise', 'observable', 'observableArray', 'function'].indexOf(co.type) > -1
-            && co.choices instanceof Array;
+        return co != null && typeof co === 'object' && co.name != null && typeof co.name === 'string' &&
+            co.label != null && typeof co.label === 'string' &&
+            ['fixed', 'promise', 'observable', 'observableArray', 'function'].indexOf(co.type) > -1 &&
+            co.choices instanceof Array;
     }
 
     /**

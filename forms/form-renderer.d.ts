@@ -29,7 +29,7 @@ import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
 import { AjfRepeatingSlideInstance } from './interface/slides-instances/repeating-slide-instance';
 import { AjfSlideInstance } from './interface/slides-instances/slide-instance';
 import { AjfValidationService } from './validation-service';
-export declare enum AjfFormInitStatus {
+export declare const enum AjfFormInitStatus {
     Initializing = 0,
     Complete = 1
 }

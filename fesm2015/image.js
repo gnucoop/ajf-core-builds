@@ -127,9 +127,9 @@ class AjfImage {
      */
     set imageUrl(imageUrl) {
         imageUrl = typeof imageUrl === 'string' ? imageUrl : '';
-        this._url.next(imageUrl.startsWith('data:image/svg+xml;base64,')
-            ? this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl)
-            : imageUrl);
+        this._url.next(imageUrl.startsWith('data:image/svg+xml;base64,') ?
+            this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl) :
+            imageUrl);
     }
     /**
      * @param {?} icon

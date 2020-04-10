@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { Renderer2, ElementRef, AfterViewInit, EventEmitter } from '@angular/core';
+import { AfterViewInit, ElementRef, EventEmitter, Renderer2 } from '@angular/core';
 export declare class AjfVideoDirective implements AfterViewInit {
     private _el;
     private _renderer;

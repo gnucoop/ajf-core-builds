@@ -44,7 +44,9 @@ class AjfBaseWidgetComponent {
     /**
      * @return {?}
      */
-    get instance() { return this._instance; }
+    get instance() {
+        return this._instance;
+    }
     /**
      * @param {?} instance
      * @return {?}
@@ -1766,7 +1768,9 @@ class AjfReportRenderer {
     /**
      * @return {?}
      */
-    get instance() { return this._instance; }
+    get instance() {
+        return this._instance;
+    }
     /**
      * @param {?} instance
      * @return {?}
@@ -1994,9 +1998,13 @@ class AjfWidgetSerializer {
      */
     static _dataWidgetFromJson(json) {
         /** @type {?} */
-        const dataset = json.dataset ?
-            (json.widgetType === AjfWidgetType.Table ?
-                ((/** @type {?} */ (json.dataset)))
+        let dataset;
+        if (json.dataset == null) {
+            dataset = [];
+        }
+        else {
+            if (json.widgetType === AjfWidgetType.Table) {
+                dataset = ((/** @type {?} */ (json.dataset)))
                     .map((/**
                  * @param {?} row
                  * @return {?}
@@ -2005,13 +2013,16 @@ class AjfWidgetSerializer {
                  * @param {?} cell
                  * @return {?}
                  */
-                cell => AjfDatasetSerializer.fromJson(cell))))) :
-                ((/** @type {?} */ (json.dataset))).map((/**
+                cell => AjfDatasetSerializer.fromJson(cell)))));
+            }
+            else {
+                dataset = ((/** @type {?} */ (json.dataset))).map((/**
                  * @param {?} d
                  * @return {?}
                  */
-                d => AjfDatasetSerializer.fromJson(d)))) :
-            [];
+                d => AjfDatasetSerializer.fromJson(d)));
+            }
+        }
         return Object.assign(Object.assign({}, createWidget(json)), { dataset });
     }
     /**
@@ -2132,7 +2143,9 @@ class AjfReportWidget {
     /**
      * @return {?}
      */
-    get instance() { return this._instance; }
+    get instance() {
+        return this._instance;
+    }
     /**
      * @param {?} instance
      * @return {?}
@@ -2157,8 +2170,8 @@ class AjfReportWidget {
      * @return {?}
      */
     _loadComponent() {
-        if (!this._init || this._instance == null
-            || this.widgetHost == null || !this.instance.visible) {
+        if (!this._init || this._instance == null || this.widgetHost == null ||
+            !this.instance.visible) {
             return;
         }
         /** @type {?} */
@@ -2186,7 +2199,8 @@ class AjfReportWidget {
                 try {
                     this._renderer.setStyle(componentInstance.el.nativeElement, style, `${this._instance.widget.styles[style]}`);
                 }
-                catch (e) { }
+                catch (e) {
+                }
             }));
             componentInstance.instance = this._instance;
             if (componentDef.inputs) {
@@ -2201,7 +2215,8 @@ class AjfReportWidget {
                 }));
             }
         }
-        catch (e) { }
+        catch (e) {
+        }
     }
 }
 AjfReportWidget.decorators = [
@@ -2371,15 +2386,15 @@ function trFormula(f, context, ts) {
         /** @type {?} */
         const ft = formula.slice(1, -1);
         /** @type {?} */
-        const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0
-            ? ts.instant(ft) : ft;
+        const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.instant(ft) : ft;
         if (ft.length > 0) {
             formula = `"${transFt}"`;
         }
     }
     else {
-        formula = formula != null && typeof formula === 'string' && formula.trim().length > 0
-            ? ts.instant(formula) : formula;
+        formula = formula != null && typeof formula === 'string' && formula.trim().length > 0 ?
+            ts.instant(formula) :
+            formula;
     }
     return evaluateExpression(formula, context);
 }
@@ -2445,12 +2460,11 @@ function widgetToWidgetInstance(widget, context, ts) {
                      * @param {?} v
                      * @return {?}
                      */
-                    v => v != null && typeof v === 'string' && v.trim().length > 0
-                        ? ts.instant(v) : v));
+                    v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v));
                 }
                 else {
-                    evf = evf != null && typeof evf === 'string' && evf.trim().length > 0
-                        ? ts.instant(evf) : evf;
+                    evf = evf != null && typeof evf === 'string' && evf.trim().length > 0 ? ts.instant(evf) :
+                        evf;
                 }
             }
             catch (_e) {
@@ -2504,8 +2518,7 @@ function widgetToWidgetInstance(widget, context, ts) {
                 (pluginOptionName) => {
                     /** @type {?} */
                     const pluginOption = plugin[pluginOptionName];
-                    if (typeof pluginOption !== 'string' &&
-                        pluginOption != null &&
+                    if (typeof pluginOption !== 'string' && pluginOption != null &&
                         pluginOption.formula != null) {
                         plugin[pluginOptionName] = evaluateExpression(pluginOption.formula, context);
                     }
@@ -2535,8 +2548,8 @@ function widgetToWidgetInstance(widget, context, ts) {
                 f => trFormula((/** @type {?} */ (f)), (/** @type {?} */ (context)), ts))) :
                 trFormula((/** @type {?} */ (cell.formula)), (/** @type {?} */ (context)), ts);
         }))));
-        twi.data = (tw.dataset || [])
-            .map((/**
+        twi.data = (tw.dataset ||
+            []).map((/**
          * @param {?} row
          * @return {?}
          */
@@ -2605,31 +2618,31 @@ function widgetToWidgetInstance(widget, context, ts) {
         /** @type {?} */
         const icwi = (/** @type {?} */ (wi));
         if (icw.flags) {
-            icwi.flags = icw.flags instanceof Array
-                ? icw.flags.map((/**
+            icwi.flags = icw.flags instanceof Array ?
+                icw.flags.map((/**
                  * @param {?} f
                  * @return {?}
                  */
-                f => evaluateExpression(f.formula, context)))
-                : evaluateExpression(icw.flags.formula, context);
+                f => evaluateExpression(f.formula, context))) :
+                evaluateExpression(icw.flags.formula, context);
         }
         if (icw.icons) {
-            icwi.icons = icw.icons instanceof Array
-                ? icw.icons.map((/**
+            icwi.icons = icw.icons instanceof Array ?
+                icw.icons.map((/**
                  * @param {?} f
                  * @return {?}
                  */
-                f => evaluateExpression(f.formula, context)))
-                : evaluateExpression(icw.icons.formula, context);
+                f => evaluateExpression(f.formula, context))) :
+                evaluateExpression(icw.icons.formula, context);
         }
         if (icw.urls) {
-            icwi.urls = icw.urls instanceof Array
-                ? icw.urls.map((/**
+            icwi.urls = icw.urls instanceof Array ?
+                icw.urls.map((/**
                  * @param {?} f
                  * @return {?}
                  */
-                f => evaluateExpression(f.formula, context)))
-                : evaluateExpression(icw.urls.formula, context);
+                f => evaluateExpression(f.formula, context))) :
+                evaluateExpression(icw.urls.formula, context);
         }
     }
     else if (widget.widgetType === AjfWidgetType.Text) {

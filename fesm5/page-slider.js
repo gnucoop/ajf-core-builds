@@ -2,8 +2,8 @@ import { EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, El
 import { ResizeSensor } from 'css-element-queries';
 import { Subscription } from 'rxjs';
 import { debounceTime, map, filter, scan, throttleTime } from 'rxjs/operators';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { animate, style, AnimationBuilder } from '@angular/animations';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * @license
@@ -38,7 +38,9 @@ var AjfPageSliderItem = /** @class */ (function () {
         this._resizeEvent = new EventEmitter();
         this._resizeSub = Subscription.EMPTY;
         this._resizeSensor = new ResizeSensor(_el.nativeElement, function () { return _this._onResize(); });
-        this._resizeSub = this._resizeEvent.pipe(debounceTime(300)).subscribe(function () { return _this._fixScrollOnResize(); });
+        this._resizeSub = this._resizeEvent
+            .pipe(debounceTime(300))
+            .subscribe(function () { return _this._fixScrollOnResize(); });
     }
     AjfPageSliderItem.prototype.ngOnDestroy = function () {
         if (this._resizeSensor) {
@@ -65,9 +67,8 @@ var AjfPageSliderItem = /** @class */ (function () {
             currentScroll = this._scrollY;
         }
         var maxScroll = containerSize - wrapperSize;
-        if (wrapperSize <= containerSize
-            || (currentScroll === maxScroll && amount < 0)
-            || (currentScroll === 0 && amount > 0)) {
+        if (wrapperSize <= containerSize || (currentScroll === maxScroll && amount < 0) ||
+            (currentScroll === 0 && amount > 0)) {
             return false;
         }
         if (amount < 0) {
@@ -101,11 +102,11 @@ var AjfPageSliderItem = /** @class */ (function () {
         var wrapper = this.wrapper.nativeElement;
         var maxScrollX = Math.min(0, content.clientWidth - wrapper.clientWidth);
         var maxScrollY = Math.min(0, content.clientHeight - wrapper.clientHeight);
-        if (maxScrollX !== 0 || maxScrollY !== 0
-            || (maxScrollX === 0 && this._scrollX !== 0)
-            || (maxScrollY === 0 && this._scrollY !== 0)) {
+        if (maxScrollX !== 0 || maxScrollY !== 0 || (maxScrollX === 0 && this._scrollX !== 0) ||
+            (maxScrollY === 0 && this._scrollY !== 0)) {
             this._scrollX = Math.max(maxScrollX, this._scrollX - (content.scrollLeft != null ? content.scrollLeft : 0));
-            this._scrollY = Math.max(maxScrollY, this._scrollY - (content.scrollTop != null ? content.scrollTop : 0));
+            this._scrollY =
+                Math.max(maxScrollY, this._scrollY - (content.scrollTop != null ? content.scrollTop : 0));
             content.scrollTop = content.scrollLeft = 0;
             this._renderer.setStyle(wrapper, 'transform', "translate(" + this._scrollX + "px, " + this._scrollY + "px)");
             this._scrollEvt.emit({ x: this._scrollX, y: this._scrollY });
@@ -172,30 +173,34 @@ var AjfPageSlider = /** @class */ (function () {
         this._pagesSub = Subscription.EMPTY;
         this._mouseWheelEvt = new EventEmitter();
         this._mouseWheelSub = Subscription.EMPTY;
-        this._mouseWheelSub = this._mouseWheelEvt.pipe(map(function (evt) {
-            var page = _this._getCurrentPage();
-            if (page == null) {
-                return null;
-            }
-            return { evt: evt, res: page.setScroll(evt.dir, evt.amount, 0) };
-        }), filter(function (r) { return r != null
-            && r.res === false
-            && ((r.evt.dir === 'x' && _this.orientation === 'horizontal')
-                || (r.evt.dir === 'y' && _this.orientation === 'vertical')); }), map(function (r) { return r.evt.amount; }), scan(function (acc, val) {
-            if (acc === 0) {
-                return val;
-            }
-            if (acc / Math.abs(acc) !== val / Math.abs(val)) {
-                return 0;
-            }
-            return acc + val;
-        }, 0), filter(function (val) { return !_this._animating && Math.abs(val) > 150; }), throttleTime(1500)).subscribe(function (val) {
-            _this._mouseWheelEvt.emit({ dir: 'x', amount: val > 0 ? -1 : +1 });
-            _this.slide({ dir: val > 0 ? 'back' : 'forward' });
-        });
+        this._mouseWheelSub =
+            this._mouseWheelEvt
+                .pipe(map(function (evt) {
+                var page = _this._getCurrentPage();
+                if (page == null) {
+                    return null;
+                }
+                return { evt: evt, res: page.setScroll(evt.dir, evt.amount, 0) };
+            }), filter(function (r) { return r != null && r.res === false &&
+                ((r.evt.dir === 'x' && _this.orientation === 'horizontal') ||
+                    (r.evt.dir === 'y' && _this.orientation === 'vertical')); }), map(function (r) { return r.evt.amount; }), scan(function (acc, val) {
+                if (acc === 0) {
+                    return val;
+                }
+                if (acc / Math.abs(acc) !== val / Math.abs(val)) {
+                    return 0;
+                }
+                return acc + val;
+            }, 0), filter(function (val) { return !_this._animating && Math.abs(val) > 150; }), throttleTime(1500))
+                .subscribe(function (val) {
+                _this._mouseWheelEvt.emit({ dir: 'x', amount: val > 0 ? -1 : +1 });
+                _this.slide({ dir: val > 0 ? 'back' : 'forward' });
+            });
     }
     Object.defineProperty(AjfPageSlider.prototype, "orientation", {
-        get: function () { return this._orientation; },
+        get: function () {
+            return this._orientation;
+        },
         set: function (orientation) {
             if (this._orientation !== orientation) {
                 this._orientation = orientation;
@@ -209,7 +214,9 @@ var AjfPageSlider = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfPageSlider.prototype, "fixedOrientation", {
-        get: function () { return this._fixedOrientation; },
+        get: function () {
+            return this._fixedOrientation;
+        },
         set: function (fixedOrientation) {
             this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
             this._cdr.markForCheck();
@@ -218,7 +225,9 @@ var AjfPageSlider = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfPageSlider.prototype, "currentPage", {
-        get: function () { return this._currentPage; },
+        get: function () {
+            return this._currentPage;
+        },
         set: function (currentPage) {
             if (this.pages == null || currentPage < 0 || currentPage >= this.pages.length) {
                 return;
@@ -230,7 +239,9 @@ var AjfPageSlider = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfPageSlider.prototype, "hideNavigationButtons", {
-        get: function () { return this._hideNavigationButtons; },
+        get: function () {
+            return this._hideNavigationButtons;
+        },
         set: function (hnb) {
             this._hideNavigationButtons = coerceBooleanProperty(hnb);
             this._cdr.markForCheck();
@@ -294,22 +305,14 @@ var AjfPageSlider = /** @class */ (function () {
         if (evt.touches == null || evt.touches.length === 0 || this._animating) {
             return;
         }
-        this._currentOrigin = {
-            x: evt.touches[0].clientX,
-            y: evt.touches[0].clientY,
-            time: +new Date()
-        };
+        this._currentOrigin = { x: evt.touches[0].clientX, y: evt.touches[0].clientY, time: +new Date() };
     };
     AjfPageSlider.prototype.onTouchMove = function (evt) {
-        if (evt.touches == null || evt.touches.length === 0
-            || this._currentOrigin == null || this._animating) {
+        if (evt.touches == null || evt.touches.length === 0 || this._currentOrigin == null ||
+            this._animating) {
             return;
         }
-        var point = {
-            x: evt.touches[0].clientX,
-            y: evt.touches[0].clientY,
-            time: +new Date()
-        };
+        var point = { x: evt.touches[0].clientX, y: evt.touches[0].clientY, time: +new Date() };
         var movement = this._calculateMovement(point);
         this._currentOrigin = point;
         if (movement.velocityX === 0 && movement.velocityY === 0) {
@@ -318,7 +321,8 @@ var AjfPageSlider = /** @class */ (function () {
         var absVelocityX = Math.abs(movement.velocityX);
         var absVelocityY = Math.abs(movement.velocityY);
         if (absVelocityX > absVelocityY) {
-            if (this.orientation === 'horizontal' && absVelocityX > 1.5 && Math.abs(movement.deltaX) > 50) {
+            if (this.orientation === 'horizontal' && absVelocityX > 1.5 &&
+                Math.abs(movement.deltaX) > 50) {
                 this._resetCurrentOrigin();
                 this.slide({ dir: movement.velocityX < 0 ? 'forward' : 'back' });
             }

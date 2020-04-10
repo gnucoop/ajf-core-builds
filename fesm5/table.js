@@ -1,6 +1,6 @@
+import { AjfCommonModule } from '@ajf/core/common';
 import { CommonModule } from '@angular/common';
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Input, NgModule } from '@angular/core';
-import { AjfCommonModule } from '@ajf/core/common';
 import { DomSanitizer } from '@angular/platform-browser';
 
 /**
@@ -36,7 +36,9 @@ var AjfTable = /** @class */ (function () {
         this._domSanitizer = _domSanitizer;
     }
     Object.defineProperty(AjfTable.prototype, "data", {
-        get: function () { return this._data; },
+        get: function () {
+            return this._data;
+        },
         set: function (data) {
             this._data = this._fixData(data);
             this._cdr.markForCheck();
@@ -45,7 +47,9 @@ var AjfTable = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfTable.prototype, "cellpadding", {
-        get: function () { return this._cellpadding; },
+        get: function () {
+            return this._cellpadding;
+        },
         set: function (cellpadding) {
             this._cellpadding = cellpadding;
             this._cdr.markForCheck();

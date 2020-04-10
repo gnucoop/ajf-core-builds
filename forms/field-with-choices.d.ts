@@ -20,9 +20,9 @@
  *
  */
 import { ChangeDetectorRef } from '@angular/core';
-import { AjfFieldWithChoicesInstance } from './interface/fields-instances/field-with-choices-instance';
 import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
+import { AjfFieldWithChoicesInstance } from './interface/fields-instances/field-with-choices-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
 export declare abstract class AjfFieldWithChoicesComponent<T> extends AjfBaseFieldComponent<AjfFieldWithChoicesInstance<T>> {
     private _searchThreshold;

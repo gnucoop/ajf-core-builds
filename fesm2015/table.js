@@ -1,6 +1,6 @@
+import { AjfCommonModule } from '@ajf/core/common';
 import { CommonModule } from '@angular/common';
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Input, NgModule } from '@angular/core';
-import { AjfCommonModule } from '@ajf/core/common';
 import { DomSanitizer } from '@angular/platform-browser';
 
 /**
@@ -65,7 +65,9 @@ class AjfTable {
     /**
      * @return {?}
      */
-    get data() { return this._data; }
+    get data() {
+        return this._data;
+    }
     /**
      * @param {?} data
      * @return {?}
@@ -77,7 +79,9 @@ class AjfTable {
     /**
      * @return {?}
      */
-    get cellpadding() { return this._cellpadding; }
+    get cellpadding() {
+        return this._cellpadding;
+    }
     /**
      * @param {?} cellpadding
      * @return {?}

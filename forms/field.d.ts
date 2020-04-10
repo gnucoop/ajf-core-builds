@@ -20,9 +20,9 @@
  *
  */
 import { ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, OnInit } from '@angular/core';
-import { AjfFieldComponentsMap } from './interface/fields/field-components-map';
-import { AjfFieldInstance } from './interface/fields-instances/field-instance';
 import { AjfFieldHost } from './field-host';
+import { AjfFieldInstance } from './interface/fields-instances/field-instance';
+import { AjfFieldComponentsMap } from './interface/fields/field-components-map';
 export declare abstract class AjfFormField implements OnDestroy, OnInit {
     private _cdr;
     private _cfr;

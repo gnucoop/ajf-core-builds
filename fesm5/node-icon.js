@@ -26,17 +26,23 @@ var AjfNodeIcon = /** @class */ (function () {
     function AjfNodeIcon() {
     }
     Object.defineProperty(AjfNodeIcon.prototype, "fontSet", {
-        get: function () { return this._fontSet; },
+        get: function () {
+            return this._fontSet;
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(AjfNodeIcon.prototype, "fontIcon", {
-        get: function () { return this._fontIcon; },
+        get: function () {
+            return this._fontIcon;
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(AjfNodeIcon.prototype, "node", {
-        get: function () { return this._node; },
+        get: function () {
+            return this._node;
+        },
         set: function (node) {
             this._node = node;
             this._fontSet = 'ajf-icon';

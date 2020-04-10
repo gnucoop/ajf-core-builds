@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { ChangeDetectorRef, EventEmitter, Renderer2, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { BrowserBarcodeReader } from '@zxing/library';
 import { Subscription } from 'rxjs';

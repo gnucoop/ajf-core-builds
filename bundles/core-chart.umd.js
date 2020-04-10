@@ -397,11 +397,11 @@
         AjfChartModule.decorators = [
             { type: core.NgModule, args: [{
                         declarations: [
-                            AjfChartComponent
+                            AjfChartComponent,
                         ],
                         exports: [
-                            AjfChartComponent
-                        ]
+                            AjfChartComponent,
+                        ],
                     },] }
         ];
         return AjfChartModule;

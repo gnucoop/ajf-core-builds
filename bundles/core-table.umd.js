@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@ajf/core/common'), require('@angular/platform-browser')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/table', ['exports', '@angular/common', '@angular/core', '@ajf/core/common', '@angular/platform-browser'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.table = {}), global.ng.common, global.ng.core, global.ng.core.common, global.ng.platformBrowser));
-}(this, (function (exports, common, core, common$1, platformBrowser) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ajf/core/common'), require('@angular/common'), require('@angular/core'), require('@angular/platform-browser')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/table', ['exports', '@ajf/core/common', '@angular/common', '@angular/core', '@angular/platform-browser'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.table = {}), global.ng.core.common, global.ng.common, global.ng.core, global.ng.platformBrowser));
+}(this, (function (exports, common, common$1, core, platformBrowser) { 'use strict';
 
     /**
      * @license
@@ -37,7 +37,9 @@
             this._domSanitizer = _domSanitizer;
         }
         Object.defineProperty(AjfTable.prototype, "data", {
-            get: function () { return this._data; },
+            get: function () {
+                return this._data;
+            },
             set: function (data) {
                 this._data = this._fixData(data);
                 this._cdr.markForCheck();
@@ -46,7 +48,9 @@
             configurable: true
         });
         Object.defineProperty(AjfTable.prototype, "cellpadding", {
-            get: function () { return this._cellpadding; },
+            get: function () {
+                return this._cellpadding;
+            },
             set: function (cellpadding) {
                 this._cellpadding = cellpadding;
                 this._cdr.markForCheck();
@@ -111,8 +115,8 @@
         AjfTableModule.decorators = [
             { type: core.NgModule, args: [{
                         imports: [
-                            common$1.AjfCommonModule,
-                            common.CommonModule,
+                            common.AjfCommonModule,
+                            common$1.CommonModule,
                         ],
                         declarations: [
                             AjfTable,

@@ -84,7 +84,9 @@ class AjfCheckboxGroup {
     /**
      * @return {?}
      */
-    get value() { return this._value; }
+    get value() {
+        return this._value;
+    }
     /**
      * @param {?} newValue
      * @return {?}
@@ -99,7 +101,9 @@ class AjfCheckboxGroup {
     /**
      * @return {?}
      */
-    get name() { return this._name; }
+    get name() {
+        return this._name;
+    }
     /**
      * @param {?} value
      * @return {?}
@@ -111,7 +115,9 @@ class AjfCheckboxGroup {
     /**
      * @return {?}
      */
-    get disabled() { return this._disabled; }
+    get disabled() {
+        return this._disabled;
+    }
     /**
      * @param {?} value
      * @return {?}
@@ -122,7 +128,9 @@ class AjfCheckboxGroup {
     /**
      * @return {?}
      */
-    get selected() { return this._selected; }
+    get selected() {
+        return this._selected;
+    }
     /**
      * @param {?} selected
      * @return {?}
@@ -357,7 +365,8 @@ class AjfCheckboxGroupItem {
          */
         this._change = new EventEmitter();
         this.change = this._change.asObservable();
-        this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal).pipe(map((/**
+        this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal)
+            .pipe(map((/**
          * @param {?} r
          * @return {?}
          */
@@ -371,16 +380,22 @@ class AjfCheckboxGroupItem {
      * @param {?} id
      * @return {?}
      */
-    set id(id) { this._checkboxId.next(id); }
+    set id(id) {
+        this._checkboxId.next(id);
+    }
     /**
      * @return {?}
      */
-    get checked() { return this._checkedState.getValue(); }
+    get checked() {
+        return this._checkedState.getValue();
+    }
     /**
      * @param {?} checked
      * @return {?}
      */
-    set checked(checked) { this._checkedState.next(checked); }
+    set checked(checked) {
+        this._checkedState.next(checked);
+    }
     /**
      * @return {?}
      */
@@ -399,7 +414,9 @@ class AjfCheckboxGroupItem {
     /**
      * @return {?}
      */
-    get value() { return this._value; }
+    get value() {
+        return this._value;
+    }
     /**
      * @param {?} value
      * @return {?}
@@ -412,7 +429,9 @@ class AjfCheckboxGroupItem {
     /**
      * @return {?}
      */
-    get readonly() { return this._readonly; }
+    get readonly() {
+        return this._readonly;
+    }
     /**
      * @param {?} readonly
      * @return {?}
@@ -423,21 +442,29 @@ class AjfCheckboxGroupItem {
     /**
      * @return {?}
      */
-    get checkedIcon() { return this._checkedIconVal.getValue(); }
+    get checkedIcon() {
+        return this._checkedIconVal.getValue();
+    }
     /**
      * @param {?} icon
      * @return {?}
      */
-    set checkedIcon(icon) { this._checkedIconVal.next(icon); }
+    set checkedIcon(icon) {
+        this._checkedIconVal.next(icon);
+    }
     /**
      * @return {?}
      */
-    get notCheckedIcon() { return this._notCheckedIconVal.getValue(); }
+    get notCheckedIcon() {
+        return this._notCheckedIconVal.getValue();
+    }
     /**
      * @param {?} icon
      * @return {?}
      */
-    set notCheckedIcon(icon) { this._notCheckedIconVal.next(icon); }
+    set notCheckedIcon(icon) {
+        this._notCheckedIconVal.next(icon);
+    }
     /**
      * @return {?}
      */
@@ -569,13 +596,13 @@ class AjfCheckboxGroupModule {
 AjfCheckboxGroupModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
-                    FormsModule
+                    FormsModule,
                 ],
                 declarations: [
-                    AjfCheckboxGroup
+                    AjfCheckboxGroup,
                 ],
                 exports: [
-                    AjfCheckboxGroup
+                    AjfCheckboxGroup,
                 ]
             },] }
 ];

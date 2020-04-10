@@ -70,7 +70,8 @@ class AjfBaseFieldComponent {
         this._control = defer((/**
          * @return {?}
          */
-        () => this._service.getControl(this.instance).pipe(map((/**
+        () => this._service.getControl(this.instance)
+            .pipe(map((/**
          * @param {?} ctrl
          * @return {?}
          */
@@ -79,7 +80,9 @@ class AjfBaseFieldComponent {
     /**
      * @return {?}
      */
-    get instance() { return this._instance; }
+    get instance() {
+        return this._instance;
+    }
     /**
      * @param {?} instance
      * @return {?}
@@ -94,7 +97,9 @@ class AjfBaseFieldComponent {
     /**
      * @return {?}
      */
-    get readonly() { return this._readonly; }
+    get readonly() {
+        return this._readonly;
+    }
     /**
      * @param {?} readonly
      * @return {?}
@@ -106,55 +111,65 @@ class AjfBaseFieldComponent {
     /**
      * @return {?}
      */
-    get control() { return this._control; }
+    get control() {
+        return this._control;
+    }
     /**
      * @return {?}
      */
     ngOnInit() {
-        this._warningTriggerSub = this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter((/**
-         * @param {?} v
-         * @return {?}
-         */
-        v => v[1] != null))).subscribe((/**
-         * @param {?} v
-         * @return {?}
-         */
-        (v) => {
-            if (this.instance.warningResults == null) {
-                return;
-            }
-            /** @type {?} */
-            const control = v[1];
-            /** @type {?} */
-            const s = this._warningAlertService.showWarningAlertPrompt(this.instance.warningResults.filter((/**
-             * @param {?} w
+        this._warningTriggerSub =
+            this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter((/**
+             * @param {?} v
              * @return {?}
              */
-            w => w.result)).map((/**
-             * @param {?} w
+            v => v[1] != null)))
+                .subscribe((/**
+             * @param {?} v
              * @return {?}
              */
-            w => w.warning))).subscribe((/**
-             * @param {?} r
-             * @return {?}
-             */
-            (r) => {
-                if (r.result) {
-                    (/** @type {?} */ (control)).setValue(null);
+            (v) => {
+                if (this.instance.warningResults == null) {
+                    return;
                 }
-            }), (/**
-             * @param {?} _e
-             * @return {?}
-             */
-            (_e) => { if (s) {
-                s.unsubscribe();
-            } }), (/**
-             * @return {?}
-             */
-            () => { if (s) {
-                s.unsubscribe();
-            } }));
-        }));
+                /** @type {?} */
+                const control = v[1];
+                /** @type {?} */
+                const s = this._warningAlertService
+                    .showWarningAlertPrompt(this.instance.warningResults.filter((/**
+                 * @param {?} w
+                 * @return {?}
+                 */
+                w => w.result)).map((/**
+                 * @param {?} w
+                 * @return {?}
+                 */
+                w => w.warning)))
+                    .subscribe((/**
+                 * @param {?} r
+                 * @return {?}
+                 */
+                (r) => {
+                    if (r.result) {
+                        (/** @type {?} */ (control)).setValue(null);
+                    }
+                }), (/**
+                 * @param {?} _e
+                 * @return {?}
+                 */
+                (_e) => {
+                    if (s) {
+                        s.unsubscribe();
+                    }
+                }), (/**
+                 * @return {?}
+                 */
+                () => {
+                    if (s) {
+                        s.unsubscribe();
+                    }
+                }));
+            }));
     }
     /**
      * @return {?}
@@ -183,7 +198,8 @@ class AjfBaseFieldComponent {
                     try {
                         this._changeDetectorRef.detectChanges();
                     }
-                    catch (e) { }
+                    catch (e) {
+                    }
                 }
             }));
         }
@@ -311,7 +327,9 @@ class AjfInvalidFieldDefinitionError extends AjfError {
     /**
      * @return {?}
      */
-    get name() { return 'AjfInvalidFieldDefinitionError'; }
+    get name() {
+        return 'AjfInvalidFieldDefinitionError';
+    }
     /**
      * @param {?=} message
      */
@@ -332,8 +350,9 @@ class AjfExpandFieldWithChoicesPipe {
      * @return {?}
      */
     transform(instance, threshold) {
-        return !instance.node.forceNarrow && (instance.node.forceExpanded
-            || (instance.filteredChoices && instance.filteredChoices.length <= threshold));
+        return !instance.node.forceNarrow &&
+            (instance.node.forceExpanded ||
+                (instance.filteredChoices && instance.filteredChoices.length <= threshold));
     }
 }
 AjfExpandFieldWithChoicesPipe.decorators = [
@@ -410,9 +429,7 @@ AjfFieldType[AjfFieldType.LENGTH] = 'LENGTH';
  * @return {?}
  */
 function fieldIconName(type) {
-    return `ajf-icon-field-${typeof AjfFieldType[type] === 'string'
-        ? AjfFieldType[type].toLowerCase()
-        : type}`;
+    return `ajf-icon-field-${typeof AjfFieldType[type] === 'string' ? AjfFieldType[type].toLowerCase() : type}`;
 }
 
 /**
@@ -444,12 +461,11 @@ class AjfFieldIsValidPipe {
      * @return {?}
      */
     transform(validationResults) {
-        return validationResults != null
-            && validationResults.filter((/**
-             * @param {?} f
-             * @return {?}
-             */
-            (f) => !f.result)).length === 0;
+        return validationResults != null && validationResults.filter((/**
+         * @param {?} f
+         * @return {?}
+         */
+        (f) => !f.result)).length === 0;
     }
 }
 AjfFieldIsValidPipe.decorators = [
@@ -502,7 +518,9 @@ class AjfFormField {
     /**
      * @return {?}
      */
-    get instance() { return this._instance; }
+    get instance() {
+        return this._instance;
+    }
     /**
      * @param {?} instance
      * @return {?}
@@ -516,7 +534,9 @@ class AjfFormField {
     /**
      * @return {?}
      */
-    get readonly() { return this._readonly; }
+    get readonly() {
+        return this._readonly;
+    }
     /**
      * @param {?} readonly
      * @return {?}
@@ -729,7 +749,9 @@ class AjfFieldWithChoicesComponent extends AjfBaseFieldComponent {
     /**
      * @return {?}
      */
-    get searchThreshold() { return this._searchThreshold; }
+    get searchThreshold() {
+        return this._searchThreshold;
+    }
 }
 if (false) {
     /**
@@ -1107,9 +1129,9 @@ function nodeInstanceSuffix(instance) {
  * @return {?}
  */
 function nodeInstanceCompleteName(instance) {
-    return instance != null && instance.node != null
-        ? `${instance.node.name}${nodeInstanceSuffix(instance)}`
-        : '';
+    return instance != null && instance.node != null ?
+        `${instance.node.name}${nodeInstanceSuffix(instance)}` :
+        '';
 }
 
 /**
@@ -1423,8 +1445,7 @@ function updateValidation(instance, context, supplementaryInformations) {
         context[completeName] = instance.value;
         context.$value = instance.value;
     }
-    instance.validationResults =
-        evaluateValidationGroup(validation, context[completeName], context);
+    instance.validationResults = evaluateValidationGroup(validation, context[completeName], context);
     instance.valid = instance.validationResults.reduce((/**
      * @param {?} prev
      * @param {?} x
@@ -1632,9 +1653,8 @@ function createField(field) {
  * @return {?}
  */
 function isCustomFieldWithChoices(field) {
-    return field.fieldType > 100
-        && componentsMap[field.fieldType] != null
-        && componentsMap[field.fieldType].isFieldWithChoice === true;
+    return field.fieldType > 100 && componentsMap[field.fieldType] != null &&
+        componentsMap[field.fieldType].isFieldWithChoice === true;
 }
 
 /**
@@ -1890,10 +1910,7 @@ function normalizeRows(node) {
          */
         (elem, elemIdx) => {
             if (typeof elem === 'string') {
-                node.rows[rowIdx][elemIdx] = (/** @type {?} */ ({
-                    formula: elem,
-                    editable: node.editable
-                }));
+                node.rows[rowIdx][elemIdx] = (/** @type {?} */ ({ formula: elem, editable: node.editable }));
             }
         }));
     }));
@@ -2402,8 +2419,8 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
             /** @type {?} */
             const field = (/** @type {?} */ (node));
             if (field.fieldType > 100) {
-                if (componentsMap[field.fieldType] != null
-                    && componentsMap[field.fieldType].createInstance != null) {
+                if (componentsMap[field.fieldType] != null &&
+                    componentsMap[field.fieldType].createInstance != null) {
                     instance = (/** @type {?} */ (componentsMap[field.fieldType].createInstance))({ node: (/** @type {?} */ (node)), prefix }, context);
                 }
                 else {
@@ -2451,11 +2468,12 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
                     node.visibility;
             }
             /** @type {?} */
-            const conditionalBranches = instance.node.conditionalBranches != null
-                && instance.node.conditionalBranches.length > 0
-                ? instance.node.conditionalBranches
-                : [alwaysCondition()];
-            instance.conditionalBranches = getInstanceConditions(conditionalBranches, ancestorsNames, prefix);
+            const conditionalBranches = instance.node.conditionalBranches != null &&
+                instance.node.conditionalBranches.length > 0 ?
+                instance.node.conditionalBranches :
+                [alwaysCondition()];
+            instance.conditionalBranches =
+                getInstanceConditions(conditionalBranches, ancestorsNames, prefix);
             if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
                 /** @type {?} */
                 const ngInstance = (/** @type {?} */ (instance));
@@ -2523,10 +2541,10 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
         else {
             instance.visibility = instance.node.visibility;
             /** @type {?} */
-            const conditionalBranches = instance.node.conditionalBranches != null
-                && instance.node.conditionalBranches.length > 0
-                ? instance.node.conditionalBranches
-                : [alwaysCondition()];
+            const conditionalBranches = instance.node.conditionalBranches != null &&
+                instance.node.conditionalBranches.length > 0 ?
+                instance.node.conditionalBranches :
+                [alwaysCondition()];
             instance.conditionalBranches = conditionalBranches;
             if (isNodeGroupInstance(instance) || isRepeatingSlideInstance(instance)) {
                 /** @type {?} */
@@ -3103,13 +3121,11 @@ class AjfValidationService {
      */
     _initFunctions() {
         /** @type {?} */
-        const functionsStr = this._functions
-            .map((/**
+        const functionsStr = this._functions.map((/**
          * @param {?} f
          * @return {?}
          */
-        f => typeof f === 'string' ? f : f.toString()))
-            .join('; ');
+        f => typeof f === 'string' ? f : f.toString())).join('; ');
         this._functionsStr = `${this._baseUtilFunctions.join('; ')}; ${functionsStr}`;
         AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
     }
@@ -3150,8 +3166,6 @@ const AjfFormInitStatus = {
     Initializing: 0,
     Complete: 1,
 };
-AjfFormInitStatus[AjfFormInitStatus.Initializing] = 'Initializing';
-AjfFormInitStatus[AjfFormInitStatus.Complete] = 'Complete';
 class AjfFormRendererService {
     /**
      * @param {?} _
@@ -3193,11 +3207,15 @@ class AjfFormRendererService {
     /**
      * @return {?}
      */
-    get errorPositions() { return this._errorPositions; }
+    get errorPositions() {
+        return this._errorPositions;
+    }
     /**
      * @return {?}
      */
-    get errors() { return this._errors; }
+    get errors() {
+        return this._errors;
+    }
     /**
      * @return {?}
      */
@@ -3492,14 +3510,9 @@ class AjfFormRendererService {
                 return op(rmap);
             }), {}), startWith({}), share());
         this._nodesMaps = [
-            this._visibilityNodesMap,
-            this._repetitionNodesMap,
-            this._conditionalBranchNodesMap,
-            this._formulaNodesMap,
-            this._validationNodesMap,
-            this._warningNodesMap,
-            this._nextSlideConditionsNodesMap,
-            this._filteredChoicesNodesMap,
+            this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
+            this._formulaNodesMap, this._validationNodesMap, this._warningNodesMap,
+            this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
             this._triggerConditionsNodesMap
         ];
     }
@@ -3537,7 +3550,8 @@ class AjfFormRendererService {
              * @param {?} co
              * @return {?}
              */
-            co => initChoicesOrigin(co))))).pipe(map((/**
+            co => initChoicesOrigin(co)))))
+                .pipe(map((/**
              * @return {?}
              */
             () => form)));
@@ -3647,28 +3661,23 @@ class AjfFormRendererService {
                                  */
                                 (cell, idx) => {
                                     /*
-                                                        every control is registered with the cell position
-                                                        inside the form control matrix
-                                                        with this mask `${tNode.name}__${rowIdx}__${idx}`
-                                                        */
+                                                      every control is registered with the cell position
+                                                      inside the form control matrix
+                                                      with this mask `${tNode.name}__${rowIdx}__${idx}`
+                                                      */
                                     /** @type {?} */
                                     const name = `${tNode.name}__${rowIdx}__${idx}`;
                                     /** @type {?} */
                                     const control = new FormControl();
                                     control.setValue(tfInstance.context[cell.formula]);
-                                    formGroup
-                                        .registerControl(name, control);
+                                    formGroup.registerControl(name, control);
                                     r.push(control);
                                     /* create a object that respect the instance interface
-                                                        with the minimum defined properties to allow to run addToNodeFormula map*/
+                                                      with the minimum defined properties to allow to run addToNodeFormula map*/
                                     /** @type {?} */
                                     const fakeInstance = (/** @type {?} */ ((/** @type {?} */ ({
                                         formula: { formula: cell.formula },
-                                        node: {
-                                            name,
-                                            nodeType: 0,
-                                            editable: false
-                                        },
+                                        node: { name, nodeType: 0, editable: false },
                                         visible: true,
                                         prefix: [],
                                         conditionalBranches: [],
@@ -3703,10 +3712,7 @@ class AjfFormRendererService {
         /** @type {?} */
         const newReps = instance.reps;
         /** @type {?} */
-        const result = {
-            added: null,
-            removed: null
-        };
+        const result = { added: null, removed: null };
         if (oldReps < newReps) {
             /** @type {?} */
             const newNodes = [];
@@ -3734,8 +3740,7 @@ class AjfFormRendererService {
                 /** @type {?} */
                 const group = instance.node;
                 prefix.push(i);
-                orderedNodes(group.nodes, instance.node.id)
-                    .forEach((/**
+                orderedNodes(group.nodes, instance.node.id).forEach((/**
                  * @param {?} n
                  * @return {?}
                  */
@@ -3872,8 +3877,7 @@ class AjfFormRendererService {
      * @return {?}
      */
     _formValueDelta(oldValue, newValue) {
-        return Object.keys(newValue)
-            .filter((/**
+        return Object.keys(newValue).filter((/**
          * @param {?} k
          * @return {?}
          */
@@ -3890,7 +3894,7 @@ class AjfFormRendererService {
         let init = true;
         /** @type {?} */
         let initForm = true;
-        this._formInitEvent.emit(AjfFormInitStatus.Initializing);
+        this._formInitEvent.emit(0 /* Initializing */);
         this._formGroupSubscription =
             formGroup.valueChanges
                 .pipe(startWith({}), pairwise(), debounceTime(200), withLatestFrom(...(this._nodesMaps), this._flatNodes))
@@ -4185,8 +4189,8 @@ class AjfFormRendererService {
                             for (let i = 0; i < subNodesNum; i++) {
                                 /** @type {?} */
                                 const subNode = slide.flatNodes[i];
-                                if (subNode.visible && isFieldInstance(subNode)
-                                    && !((/** @type {?} */ (subNode))).valid) {
+                                if (subNode.visible && isFieldInstance(subNode) &&
+                                    !((/** @type {?} */ (subNode))).valid) {
                                     valid = false;
                                     break;
                                 }
@@ -4202,7 +4206,7 @@ class AjfFormRendererService {
                 }));
                 if (initForm) {
                     initForm = false;
-                    this._formInitEvent.emit(AjfFormInitStatus.Complete);
+                    this._formInitEvent.emit(1 /* Complete */);
                 }
                 this._valueChanged.next();
             }));
@@ -4818,8 +4822,7 @@ class AjfFormRendererService {
      */
     _removeFromNodesMap(nodesMap, nodeInstance, formula) {
         /** @type {?} */
-        let tokens = tokenize(formula)
-            .filter((/**
+        let tokens = tokenize(formula).filter((/**
          * @param {?} token
          * @return {?}
          */
@@ -4942,8 +4945,7 @@ class AjfFormRendererService {
      */
     _addToNodesMap(nodesMap, nodeInstance, formula) {
         /** @type {?} */
-        let tokens = tokenize(formula)
-            .filter((/**
+        let tokens = tokenize(formula).filter((/**
          * @param {?} token
          * @return {?}
          */
@@ -5204,16 +5206,19 @@ class AjfFormRenderer {
         this._errorPositions = _rendererService.errorPositions;
         this.errors = _rendererService.errors;
         this.slidesNum = _rendererService.slidesNum;
-        this.formIsInit = _rendererService.formInitEvent.pipe(map((/**
-         * @param {?} e
-         * @return {?}
-         */
-        e => e === AjfFormInitStatus.Complete)));
+        this.formIsInit =
+            _rendererService.formInitEvent.pipe(map((/**
+             * @param {?} e
+             * @return {?}
+             */
+            e => e === 1 /* Complete */)));
     }
     /**
      * @return {?}
      */
-    get saveDisabled() { return this._saveDisabled; }
+    get saveDisabled() {
+        return this._saveDisabled;
+    }
     /**
      * @param {?} saveDisabled
      * @return {?}
@@ -5225,7 +5230,9 @@ class AjfFormRenderer {
     /**
      * @return {?}
      */
-    get hasStartMessage() { return this._hasStartMessage; }
+    get hasStartMessage() {
+        return this._hasStartMessage;
+    }
     /**
      * @param {?} hasStartMessage
      * @return {?}
@@ -5237,7 +5244,9 @@ class AjfFormRenderer {
     /**
      * @return {?}
      */
-    get hasEndMessage() { return this._hasEndMessage; }
+    get hasEndMessage() {
+        return this._hasEndMessage;
+    }
     /**
      * @param {?} hasEndMessage
      * @return {?}
@@ -5249,7 +5258,9 @@ class AjfFormRenderer {
     /**
      * @return {?}
      */
-    get hideTopToolbar() { return this._hideTopToolbar; }
+    get hideTopToolbar() {
+        return this._hideTopToolbar;
+    }
     /**
      * @param {?} hideTopToolbar
      * @return {?}
@@ -5261,7 +5272,9 @@ class AjfFormRenderer {
     /**
      * @return {?}
      */
-    get hideBottompToolbar() { return this._hideBottomToolbar; }
+    get hideBottompToolbar() {
+        return this._hideBottomToolbar;
+    }
     /**
      * @param {?} hideBottomToolbar
      * @return {?}
@@ -5273,7 +5286,9 @@ class AjfFormRenderer {
     /**
      * @return {?}
      */
-    get hideNavigationButtons() { return this._hideNavigationButtons; }
+    get hideNavigationButtons() {
+        return this._hideNavigationButtons;
+    }
     /**
      * @param {?} hideNavigationButtons
      * @return {?}
@@ -5285,7 +5300,9 @@ class AjfFormRenderer {
     /**
      * @return {?}
      */
-    get fixedOrientation() { return this._fixedOrientation; }
+    get fixedOrientation() {
+        return this._fixedOrientation;
+    }
     /**
      * @param {?} fixedOrientation
      * @return {?}
@@ -5297,7 +5314,9 @@ class AjfFormRenderer {
     /**
      * @return {?}
      */
-    get readonly() { return this._readonly; }
+    get readonly() {
+        return this._readonly;
+    }
     /**
      * @param {?} readonly
      * @return {?}
@@ -5309,7 +5328,9 @@ class AjfFormRenderer {
     /**
      * @return {?}
      */
-    get orientation() { return this._orientation; }
+    get orientation() {
+        return this._orientation;
+    }
     /**
      * @param {?} orientation
      * @return {?}
@@ -5338,12 +5359,16 @@ class AjfFormRenderer {
      * this method will scroll to next error received by subscribe
      * @return {?}
      */
-    goToNextError() { this._errorMoveEvent.emit(true); }
+    goToNextError() {
+        this._errorMoveEvent.emit(true);
+    }
     /**
      * this method will scroll to prev error received by subscribe
      * @return {?}
      */
-    goToPrevError() { this._errorMoveEvent.emit(false); }
+    goToPrevError() {
+        this._errorMoveEvent.emit(false);
+    }
     /**
      * this method will add group
      * @param {?} nodeGroup
@@ -5351,27 +5376,35 @@ class AjfFormRenderer {
      */
     addGroup(nodeGroup) {
         /** @type {?} */
-        let s = this._rendererService.addGroup((/** @type {?} */ (nodeGroup))).pipe(delayWhen((/**
+        let s = this._rendererService.addGroup((/** @type {?} */ (nodeGroup)))
+            .pipe(delayWhen((/**
          * @return {?}
          */
-        () => this.formSlider.pageScrollFinish))).subscribe((/**
+        () => this.formSlider.pageScrollFinish)))
+            .subscribe((/**
          * @param {?} r
          * @return {?}
          */
-        (r) => { if (r && this.formSlider != null) {
-            this.formSlider.slide({ dir: 'down' });
-        } }), (/**
+        (r) => {
+            if (r && this.formSlider != null) {
+                this.formSlider.slide({ dir: 'down' });
+            }
+        }), (/**
          * @param {?} _e
          * @return {?}
          */
-        (_e) => { if (s) {
-            s.unsubscribe();
-        } }), (/**
+        (_e) => {
+            if (s) {
+                s.unsubscribe();
+            }
+        }), (/**
          * @return {?}
          */
-        () => { if (s) {
-            s.unsubscribe();
-        } }));
+        () => {
+            if (s) {
+                s.unsubscribe();
+            }
+        }));
     }
     /**
      * this method will remove group
@@ -5380,38 +5413,42 @@ class AjfFormRenderer {
      */
     removeGroup(nodeGroup) {
         /** @type {?} */
-        let s = this._rendererService.removeGroup((/** @type {?} */ (nodeGroup))).pipe(delayWhen((/**
+        let s = this._rendererService.removeGroup((/** @type {?} */ (nodeGroup)))
+            .pipe(delayWhen((/**
          * @return {?}
          */
-        () => this.formSlider.pageScrollFinish))).subscribe((/**
+        () => this.formSlider.pageScrollFinish)))
+            .subscribe((/**
          * @param {?} r
          * @return {?}
          */
-        (r) => { if (r && this.formSlider != null) {
-            this.formSlider.slide({ dir: 'up' });
-        } }), (/**
+        (r) => {
+            if (r && this.formSlider != null) {
+                this.formSlider.slide({ dir: 'up' });
+            }
+        }), (/**
          * @param {?} _e
          * @return {?}
          */
-        (_e) => { if (s) {
-            s.unsubscribe();
-        } }), (/**
+        (_e) => {
+            if (s) {
+                s.unsubscribe();
+            }
+        }), (/**
          * @return {?}
          */
-        () => { if (s) {
-            s.unsubscribe();
-        } }));
+        () => {
+            if (s) {
+                s.unsubscribe();
+            }
+        }));
     }
     /**
      * @param {?} _evt
      * @return {?}
      */
     onSave(_evt) {
-        this._formAction.emit({
-            source: this,
-            action: 'save',
-            value: this._rendererService.getFormValue()
-        });
+        this._formAction.emit({ source: this, action: 'save', value: this._rendererService.getFormValue() });
     }
     /**
      * @param {?} _evt
@@ -5419,11 +5456,7 @@ class AjfFormRenderer {
      * @return {?}
      */
     onFormAction(_evt, action) {
-        this._formAction.emit({
-            source: this,
-            value: this._rendererService.getFormValue(),
-            action: action
-        });
+        this._formAction.emit({ source: this, value: this._rendererService.getFormValue(), action: action });
     }
     /**
      * this method will set current form in rederer service when init form
@@ -5441,50 +5474,53 @@ class AjfFormRenderer {
     ngAfterViewChecked() {
         if (!this._init && this.formSlider != null) {
             this._init = true;
-            this._errorMoveSubscription = ((/** @type {?} */ (this._errorMoveEvent))).pipe(withLatestFrom(this._errorPositions)).subscribe((/**
-             * @param {?} v
-             * @return {?}
-             */
-            (v) => {
-                /** @type {?} */
-                const move = v[0];
-                /** @type {?} */
-                const currentPosition = this.formSlider.currentPage - (+this.hasStartMessage) + 1;
-                /** @type {?} */
-                const errors = v[1];
-                if (errors == null) {
-                    return;
-                }
-                /** @type {?} */
-                let found = false;
-                /** @type {?} */
-                let prevIdx = -1;
-                /** @type {?} */
-                let nextIdx = -1;
-                /** @type {?} */
-                let idx = 0;
-                /** @type {?} */
-                let errorsLen = errors.length;
-                while (!found && idx < errorsLen) {
-                    if (errors[idx] == currentPosition) {
-                        found = true;
-                        prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
-                        nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
+            this._errorMoveSubscription =
+                ((/** @type {?} */ (this._errorMoveEvent)))
+                    .pipe(withLatestFrom(this._errorPositions))
+                    .subscribe((/**
+                 * @param {?} v
+                 * @return {?}
+                 */
+                (v) => {
+                    /** @type {?} */
+                    const move = v[0];
+                    /** @type {?} */
+                    const currentPosition = this.formSlider.currentPage - (+this.hasStartMessage) + 1;
+                    /** @type {?} */
+                    const errors = v[1];
+                    if (errors == null) {
+                        return;
                     }
-                    else if (errors[idx] > currentPosition) {
-                        found = true;
-                        prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
-                        nextIdx = idx;
+                    /** @type {?} */
+                    let found = false;
+                    /** @type {?} */
+                    let prevIdx = -1;
+                    /** @type {?} */
+                    let nextIdx = -1;
+                    /** @type {?} */
+                    let idx = 0;
+                    /** @type {?} */
+                    let errorsLen = errors.length;
+                    while (!found && idx < errorsLen) {
+                        if (errors[idx] == currentPosition) {
+                            found = true;
+                            prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+                            nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
+                        }
+                        else if (errors[idx] > currentPosition) {
+                            found = true;
+                            prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+                            nextIdx = idx;
+                        }
+                        idx++;
                     }
-                    idx++;
-                }
-                if (!found) {
-                    prevIdx = errorsLen - 1;
-                    nextIdx = 0;
-                }
-                this.formSlider.slide({ to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1 });
-                this._changeDetectorRef.detectChanges();
-            }));
+                    if (!found) {
+                        prevIdx = errorsLen - 1;
+                        nextIdx = 0;
+                    }
+                    this.formSlider.slide({ to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1 });
+                    this._changeDetectorRef.detectChanges();
+                }));
         }
     }
     /**
@@ -5771,8 +5807,8 @@ class AjfTableVisibleColumnsPipe {
         if (!instance.node.editable) {
             /** @type {?} */
             const val = instance.value || [];
-            return instance.hideEmptyRows
-                ? val.filter((/**
+            return instance.hideEmptyRows ?
+                val.filter((/**
                  * @param {?} col
                  * @return {?}
                  */
@@ -5783,12 +5819,13 @@ class AjfTableVisibleColumnsPipe {
                  */
                 (prev, cur) => {
                     return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
-                }), false))).map((/**
+                }), false)))
+                    .map((/**
                  * @param {?} v
                  * @return {?}
                  */
-                v => [v[0], ...v[1]]))
-                : val.map((/**
+                v => [v[0], ...v[1]])) :
+                val.map((/**
                  * @param {?} v
                  * @return {?}
                  */
@@ -5833,7 +5870,8 @@ class AjfValidSlidePipe {
                 return ((/** @type {?} */ (n))).valid;
             }
             return true;
-        })).reduce((/**
+        }))
+            .reduce((/**
          * @param {?} v1
          * @param {?} v2
          * @return {?}
@@ -5890,7 +5928,11 @@ AjfFormsModule.decorators = [
                     AjfTableVisibleColumnsPipe,
                     AjfValidSlidePipe,
                 ],
-                providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService]
+                providers: [
+                    AjfDateValueStringPipe,
+                    AjfFormRendererService,
+                    AjfValidationService,
+                ],
             },] }
 ];
 
@@ -5927,9 +5969,7 @@ AjfFormsModule.decorators = [
 function getTypeName(v) {
     /** @type {?} */
     let typeStr = typeof v;
-    return typeStr === 'object'
-        ? v.constructor.toString().match(/\w+/g)[1]
-        : typeStr;
+    return typeStr === 'object' ? v.constructor.toString().match(/\w+/g)[1] : typeStr;
 }
 
 /**
@@ -6268,9 +6308,8 @@ class AjfNodeSerializer {
             obj.nextSlideCondition = AjfConditionSerializer.fromJson(obj.nextSlideCondition);
         }
         /** @type {?} */
-        const isCustomFieldWithChoice = obj.fieldType > 100
-            && componentsMap[obj.fieldType] != null
-            && componentsMap[obj.fieldType].isFieldWithChoice === true;
+        const isCustomFieldWithChoice = obj.fieldType > 100 && componentsMap[obj.fieldType] != null &&
+            componentsMap[obj.fieldType].isFieldWithChoice === true;
         if (isCustomFieldWithChoice) {
             return AjfNodeSerializer._fieldWithChoicesFromJson((/** @type {?} */ (json)), choicesOrigins);
         }
@@ -6590,9 +6629,6 @@ const AjfAttachmentsType = {
     Pdf: 1,
     LENGTH: 2,
 };
-AjfAttachmentsType[AjfAttachmentsType.Link] = 'Link';
-AjfAttachmentsType[AjfAttachmentsType.Pdf] = 'Pdf';
-AjfAttachmentsType[AjfAttachmentsType.LENGTH] = 'LENGTH';
 
 /**
  * @fileoverview added by tsickle
@@ -6948,9 +6984,6 @@ const AjfChoicesType = {
     Number: 1,
     LENGTH: 2,
 };
-AjfChoicesType[AjfChoicesType.String] = 'String';
-AjfChoicesType[AjfChoicesType.Number] = 'Number';
-AjfChoicesType[AjfChoicesType.LENGTH] = 'LENGTH';
 
 /**
  * @fileoverview added by tsickle
@@ -9107,14 +9140,10 @@ function createChoicesPromiseOrigin(origin) {
  * @return {?}
  */
 function isChoicesOrigin(co) {
-    return co != null
-        && typeof co === 'object'
-        && co.name != null
-        && typeof co.name === 'string'
-        && co.label != null
-        && typeof co.label === 'string'
-        && ['fixed', 'promise', 'observable', 'observableArray', 'function'].indexOf(co.type) > -1
-        && co.choices instanceof Array;
+    return co != null && typeof co === 'object' && co.name != null && typeof co.name === 'string' &&
+        co.label != null && typeof co.label === 'string' &&
+        ['fixed', 'promise', 'observable', 'observableArray', 'function'].indexOf(co.type) > -1 &&
+        co.choices instanceof Array;
 }
 
 /**
@@ -9282,5 +9311,5 @@ function notEmptyWarning() {
  * Generated bundle index. Do not edit.
  */
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfAttachmentsType, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfChoicesType, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, createNodeGroup as ɵgc_ajf_src_core_forms_forms_a, createRepeatingSlide as ɵgc_ajf_src_core_forms_forms_b, createSlide as ɵgc_ajf_src_core_forms_forms_c, componentsMap as ɵgc_ajf_src_core_forms_forms_d };
+export { AJF_SEARCH_ALERT_THRESHOLD, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, createNodeGroup as ɵgc_ajf_src_core_forms_forms_a, createRepeatingSlide as ɵgc_ajf_src_core_forms_forms_b, createSlide as ɵgc_ajf_src_core_forms_forms_c, componentsMap as ɵgc_ajf_src_core_forms_forms_d };
 //# sourceMappingURL=forms.js.map

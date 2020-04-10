@@ -102,8 +102,7 @@ var AjfTime = /** @class */ (function () {
         this._onChangeCallback = function (_) { };
         this._onTouchedCallback = function () { };
         this._valueChangeSub = Subscription.EMPTY;
-        this._valueChangeSub = this._value.changed
-            .subscribe(function (x) {
+        this._valueChangeSub = this._value.changed.subscribe(function (x) {
             _this._onChangeCallback(x);
         });
     }
@@ -128,7 +127,9 @@ var AjfTime = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfTime.prototype, "hours", {
-        get: function () { return this._value.hours; },
+        get: function () {
+            return this._value.hours;
+        },
         set: function (hours) {
             this._value.hours = hours;
             this._onChangeCallback(this._value.toString());
@@ -137,7 +138,9 @@ var AjfTime = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfTime.prototype, "minutes", {
-        get: function () { return this._value.minutes; },
+        get: function () {
+            return this._value.minutes;
+        },
         set: function (minutes) {
             this._value.minutes = minutes;
             this._onChangeCallback(this._value.toString());

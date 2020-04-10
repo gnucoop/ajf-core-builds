@@ -2,8 +2,8 @@ import { EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, El
 import { ResizeSensor } from 'css-element-queries';
 import { Subscription } from 'rxjs';
 import { debounceTime, map, filter, scan, throttleTime } from 'rxjs/operators';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { animate, style, AnimationBuilder } from '@angular/animations';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * @fileoverview added by tsickle
@@ -28,7 +28,9 @@ class AjfPageSliderItem {
          * @return {?}
          */
         () => this._onResize()));
-        this._resizeSub = this._resizeEvent.pipe(debounceTime(300)).subscribe((/**
+        this._resizeSub = this._resizeEvent
+            .pipe(debounceTime(300))
+            .subscribe((/**
          * @return {?}
          */
         () => this._fixScrollOnResize()));
@@ -75,9 +77,8 @@ class AjfPageSliderItem {
         }
         /** @type {?} */
         const maxScroll = containerSize - wrapperSize;
-        if (wrapperSize <= containerSize
-            || (currentScroll === maxScroll && amount < 0)
-            || (currentScroll === 0 && amount > 0)) {
+        if (wrapperSize <= containerSize || (currentScroll === maxScroll && amount < 0) ||
+            (currentScroll === 0 && amount > 0)) {
             return false;
         }
         if (amount < 0) {
@@ -123,11 +124,11 @@ class AjfPageSliderItem {
         const maxScrollX = Math.min(0, content.clientWidth - wrapper.clientWidth);
         /** @type {?} */
         const maxScrollY = Math.min(0, content.clientHeight - wrapper.clientHeight);
-        if (maxScrollX !== 0 || maxScrollY !== 0
-            || (maxScrollX === 0 && this._scrollX !== 0)
-            || (maxScrollY === 0 && this._scrollY !== 0)) {
+        if (maxScrollX !== 0 || maxScrollY !== 0 || (maxScrollX === 0 && this._scrollX !== 0) ||
+            (maxScrollY === 0 && this._scrollY !== 0)) {
             this._scrollX = Math.max(maxScrollX, this._scrollX - (content.scrollLeft != null ? content.scrollLeft : 0));
-            this._scrollY = Math.max(maxScrollY, this._scrollY - (content.scrollTop != null ? content.scrollTop : 0));
+            this._scrollY =
+                Math.max(maxScrollY, this._scrollY - (content.scrollTop != null ? content.scrollTop : 0));
             content.scrollTop = content.scrollLeft = 0;
             this._renderer.setStyle(wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`);
             this._scrollEvt.emit({ x: this._scrollX, y: this._scrollY });
@@ -331,58 +332,62 @@ class AjfPageSlider {
         this._pagesSub = Subscription.EMPTY;
         this._mouseWheelEvt = new EventEmitter();
         this._mouseWheelSub = Subscription.EMPTY;
-        this._mouseWheelSub = this._mouseWheelEvt.pipe(map((/**
-         * @param {?} evt
-         * @return {?}
-         */
-        evt => {
-            /** @type {?} */
-            const page = this._getCurrentPage();
-            if (page == null) {
-                return null;
-            }
-            return { evt, res: page.setScroll(evt.dir, evt.amount, 0) };
-        })), filter((/**
-         * @param {?} r
-         * @return {?}
-         */
-        r => r != null
-            && r.res === false
-            && ((r.evt.dir === 'x' && this.orientation === 'horizontal')
-                || (r.evt.dir === 'y' && this.orientation === 'vertical')))), map((/**
-         * @param {?} r
-         * @return {?}
-         */
-        r => (/** @type {?} */ (r)).evt.amount)), scan((/**
-         * @param {?} acc
-         * @param {?} val
-         * @return {?}
-         */
-        (acc, val) => {
-            if (acc === 0) {
-                return val;
-            }
-            if (acc / Math.abs(acc) !== val / Math.abs(val)) {
-                return 0;
-            }
-            return acc + val;
-        }), 0), filter((/**
-         * @param {?} val
-         * @return {?}
-         */
-        val => !this._animating && Math.abs(val) > 150)), throttleTime(1500)).subscribe((/**
-         * @param {?} val
-         * @return {?}
-         */
-        val => {
-            this._mouseWheelEvt.emit({ dir: 'x', amount: val > 0 ? -1 : +1 });
-            this.slide({ dir: val > 0 ? 'back' : 'forward' });
-        }));
+        this._mouseWheelSub =
+            this._mouseWheelEvt
+                .pipe(map((/**
+             * @param {?} evt
+             * @return {?}
+             */
+            evt => {
+                /** @type {?} */
+                const page = this._getCurrentPage();
+                if (page == null) {
+                    return null;
+                }
+                return { evt, res: page.setScroll(evt.dir, evt.amount, 0) };
+            })), filter((/**
+             * @param {?} r
+             * @return {?}
+             */
+            r => r != null && r.res === false &&
+                ((r.evt.dir === 'x' && this.orientation === 'horizontal') ||
+                    (r.evt.dir === 'y' && this.orientation === 'vertical')))), map((/**
+             * @param {?} r
+             * @return {?}
+             */
+            r => (/** @type {?} */ (r)).evt.amount)), scan((/**
+             * @param {?} acc
+             * @param {?} val
+             * @return {?}
+             */
+            (acc, val) => {
+                if (acc === 0) {
+                    return val;
+                }
+                if (acc / Math.abs(acc) !== val / Math.abs(val)) {
+                    return 0;
+                }
+                return acc + val;
+            }), 0), filter((/**
+             * @param {?} val
+             * @return {?}
+             */
+            val => !this._animating && Math.abs(val) > 150)), throttleTime(1500))
+                .subscribe((/**
+             * @param {?} val
+             * @return {?}
+             */
+            val => {
+                this._mouseWheelEvt.emit({ dir: 'x', amount: val > 0 ? -1 : +1 });
+                this.slide({ dir: val > 0 ? 'back' : 'forward' });
+            }));
     }
     /**
      * @return {?}
      */
-    get orientation() { return this._orientation; }
+    get orientation() {
+        return this._orientation;
+    }
     /**
      * @param {?} orientation
      * @return {?}
@@ -399,7 +404,9 @@ class AjfPageSlider {
     /**
      * @return {?}
      */
-    get fixedOrientation() { return this._fixedOrientation; }
+    get fixedOrientation() {
+        return this._fixedOrientation;
+    }
     /**
      * @param {?} fixedOrientation
      * @return {?}
@@ -411,7 +418,9 @@ class AjfPageSlider {
     /**
      * @return {?}
      */
-    get currentPage() { return this._currentPage; }
+    get currentPage() {
+        return this._currentPage;
+    }
     /**
      * @param {?} currentPage
      * @return {?}
@@ -426,7 +435,9 @@ class AjfPageSlider {
     /**
      * @return {?}
      */
-    get hideNavigationButtons() { return this._hideNavigationButtons; }
+    get hideNavigationButtons() {
+        return this._hideNavigationButtons;
+    }
     /**
      * @param {?} hnb
      * @return {?}
@@ -517,27 +528,19 @@ class AjfPageSlider {
         if (evt.touches == null || evt.touches.length === 0 || this._animating) {
             return;
         }
-        this._currentOrigin = {
-            x: evt.touches[0].clientX,
-            y: evt.touches[0].clientY,
-            time: +new Date()
-        };
+        this._currentOrigin = { x: evt.touches[0].clientX, y: evt.touches[0].clientY, time: +new Date() };
     }
     /**
      * @param {?} evt
      * @return {?}
      */
     onTouchMove(evt) {
-        if (evt.touches == null || evt.touches.length === 0
-            || this._currentOrigin == null || this._animating) {
+        if (evt.touches == null || evt.touches.length === 0 || this._currentOrigin == null ||
+            this._animating) {
             return;
         }
         /** @type {?} */
-        const point = {
-            x: evt.touches[0].clientX,
-            y: evt.touches[0].clientY,
-            time: +new Date()
-        };
+        const point = { x: evt.touches[0].clientX, y: evt.touches[0].clientY, time: +new Date() };
         /** @type {?} */
         const movement = this._calculateMovement(point);
         this._currentOrigin = point;
@@ -549,7 +552,8 @@ class AjfPageSlider {
         /** @type {?} */
         const absVelocityY = Math.abs(movement.velocityY);
         if (absVelocityX > absVelocityY) {
-            if (this.orientation === 'horizontal' && absVelocityX > 1.5 && Math.abs(movement.deltaX) > 50) {
+            if (this.orientation === 'horizontal' && absVelocityX > 1.5 &&
+                Math.abs(movement.deltaX) > 50) {
                 this._resetCurrentOrigin();
                 this.slide({ dir: movement.velocityX < 0 ? 'forward' : 'back' });
             }

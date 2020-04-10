@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare enum AjfChoicesType {
+export declare const enum AjfChoicesType {
     String = 0,
     Number = 1,
     LENGTH = 2

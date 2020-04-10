@@ -59,7 +59,9 @@ var AjfCheckboxGroup = /** @class */ (function () {
         this._controlValueAccessorChangeFn = function (_) { };
     }
     Object.defineProperty(AjfCheckboxGroup.prototype, "value", {
-        get: function () { return this._value; },
+        get: function () {
+            return this._value;
+        },
         set: function (newValue) {
             if (this._value !== newValue) {
                 this._value = newValue;
@@ -71,7 +73,9 @@ var AjfCheckboxGroup = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCheckboxGroup.prototype, "name", {
-        get: function () { return this._name; },
+        get: function () {
+            return this._name;
+        },
         set: function (value) {
             this._name = value;
             this._updateCheckboxesNames();
@@ -80,7 +84,9 @@ var AjfCheckboxGroup = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCheckboxGroup.prototype, "disabled", {
-        get: function () { return this._disabled; },
+        get: function () {
+            return this._disabled;
+        },
         set: function (value) {
             this._disabled = coerceBooleanProperty(value);
         },
@@ -88,7 +94,9 @@ var AjfCheckboxGroup = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCheckboxGroup.prototype, "selected", {
-        get: function () { return this._selected; },
+        get: function () {
+            return this._selected;
+        },
         set: function (selected) {
             this._selected = selected;
             var values = [];
@@ -212,20 +220,27 @@ var AjfCheckboxGroupItem = /** @class */ (function () {
         /** Event emitted when the group value changes. */
         this._change = new EventEmitter();
         this.change = this._change.asObservable();
-        this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal).pipe(map(function (r) { return r[0] ? r[1] : r[2]; }));
+        this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal)
+            .pipe(map(function (r) { return r[0] ? r[1] : r[2]; }));
         if (checkboxGroup) {
             this.checkboxGroup = checkboxGroup;
             this.checkboxGroup.registerItem(this);
         }
     }
     Object.defineProperty(AjfCheckboxGroupItem.prototype, "id", {
-        set: function (id) { this._checkboxId.next(id); },
+        set: function (id) {
+            this._checkboxId.next(id);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(AjfCheckboxGroupItem.prototype, "checked", {
-        get: function () { return this._checkedState.getValue(); },
-        set: function (checked) { this._checkedState.next(checked); },
+        get: function () {
+            return this._checkedState.getValue();
+        },
+        set: function (checked) {
+            this._checkedState.next(checked);
+        },
         enumerable: true,
         configurable: true
     });
@@ -241,7 +256,9 @@ var AjfCheckboxGroupItem = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCheckboxGroupItem.prototype, "value", {
-        get: function () { return this._value; },
+        get: function () {
+            return this._value;
+        },
         set: function (value) {
             if (this._value !== value) {
                 this._value = value;
@@ -251,7 +268,9 @@ var AjfCheckboxGroupItem = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCheckboxGroupItem.prototype, "readonly", {
-        get: function () { return this._readonly; },
+        get: function () {
+            return this._readonly;
+        },
         set: function (readonly) {
             this._readonly = coerceBooleanProperty(readonly);
         },
@@ -259,14 +278,22 @@ var AjfCheckboxGroupItem = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCheckboxGroupItem.prototype, "checkedIcon", {
-        get: function () { return this._checkedIconVal.getValue(); },
-        set: function (icon) { this._checkedIconVal.next(icon); },
+        get: function () {
+            return this._checkedIconVal.getValue();
+        },
+        set: function (icon) {
+            this._checkedIconVal.next(icon);
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(AjfCheckboxGroupItem.prototype, "notCheckedIcon", {
-        get: function () { return this._notCheckedIconVal.getValue(); },
-        set: function (icon) { this._notCheckedIconVal.next(icon); },
+        get: function () {
+            return this._notCheckedIconVal.getValue();
+        },
+        set: function (icon) {
+            this._notCheckedIconVal.next(icon);
+        },
         enumerable: true,
         configurable: true
     });
@@ -344,13 +371,13 @@ var AjfCheckboxGroupModule = /** @class */ (function () {
     AjfCheckboxGroupModule.decorators = [
         { type: NgModule, args: [{
                     imports: [
-                        FormsModule
+                        FormsModule,
                     ],
                     declarations: [
-                        AjfCheckboxGroup
+                        AjfCheckboxGroup,
                     ],
                     exports: [
-                        AjfCheckboxGroup
+                        AjfCheckboxGroup,
                     ]
                 },] }
     ];

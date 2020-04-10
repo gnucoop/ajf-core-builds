@@ -49,7 +49,8 @@
                 try {
                     _this._renderer.setStyle(_this._el.nativeElement, style, "" + _this._cssStyles[style]);
                 }
-                catch (e) { }
+                catch (e) {
+                }
             });
         };
         ApplyStylesDirective.decorators = [
@@ -468,7 +469,9 @@
             this.isInit = new core.EventEmitter();
         }
         Object.defineProperty(AjfVideoDirective.prototype, "source", {
-            get: function () { return this._source; },
+            get: function () {
+                return this._source;
+            },
             set: function (source) {
                 this._source = source;
                 this._initCam();

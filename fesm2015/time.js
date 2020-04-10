@@ -113,8 +113,7 @@ class AjfTime {
          */
         () => { });
         this._valueChangeSub = Subscription.EMPTY;
-        this._valueChangeSub = this._value.changed
-            .subscribe((/**
+        this._valueChangeSub = this._value.changed.subscribe((/**
          * @param {?} x
          * @return {?}
          */
@@ -147,7 +146,9 @@ class AjfTime {
     /**
      * @return {?}
      */
-    get hours() { return this._value.hours; }
+    get hours() {
+        return this._value.hours;
+    }
     /**
      * @param {?} hours
      * @return {?}
@@ -159,7 +160,9 @@ class AjfTime {
     /**
      * @return {?}
      */
-    get minutes() { return this._value.minutes; }
+    get minutes() {
+        return this._value.minutes;
+    }
     /**
      * @param {?} minutes
      * @return {?}

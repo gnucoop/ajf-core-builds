@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Input, NgModule } from '@angular/core';
-import { Subscription } from 'rxjs';
 import * as L from 'leaflet';
 import L__default from 'leaflet';
+import { Subscription } from 'rxjs';
 
 /**
  * @fileoverview added by tsickle
@@ -18,12 +18,12 @@ class AjfMapContainerDirective {
     /**
      * @return {?}
      */
-    get htmlElement() { return this._el.nativeElement; }
+    get htmlElement() {
+        return this._el.nativeElement;
+    }
 }
 AjfMapContainerDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[mapContainer]'
-            },] }
+    { type: Directive, args: [{ selector: '[mapContainer]' },] }
 ];
 /** @nocollapse */
 AjfMapContainerDirective.ctorParameters = () => [
@@ -83,7 +83,9 @@ class AjfMapComponent {
     /**
      * @return {?}
      */
-    get map() { return this._map; }
+    get map() {
+        return this._map;
+    }
     /**
      * @return {?}
      */
@@ -115,10 +117,7 @@ class AjfMapComponent {
      */
     _initMap() {
         /** @type {?} */
-        const options = {
-            zoomControl: false,
-            attributionControl: false
-        };
+        const options = { zoomControl: false, attributionControl: false };
         this._map = leafletLib.map(this.mapContainer.htmlElement, options);
     }
     /**
@@ -160,9 +159,7 @@ class AjfMapComponent {
          * @return {?}
          */
         (l) => this._map.removeLayer(l)));
-        leafletLib.tileLayer(this._tileLayer, {
-            attribution: this._attribution
-        }).addTo(this._map);
+        leafletLib.tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
     }
     /**
      * @private
@@ -247,11 +244,11 @@ AjfMapModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
                     AjfMapComponent,
-                    AjfMapContainerDirective
+                    AjfMapContainerDirective,
                 ],
                 exports: [
-                    AjfMapComponent
-                ]
+                    AjfMapComponent,
+                ],
             },] }
 ];
 

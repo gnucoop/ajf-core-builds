@@ -209,11 +209,11 @@ var AjfChartModule = /** @class */ (function () {
     AjfChartModule.decorators = [
         { type: NgModule, args: [{
                     declarations: [
-                        AjfChartComponent
+                        AjfChartComponent,
                     ],
                     exports: [
-                        AjfChartComponent
-                    ]
+                        AjfChartComponent,
+                    ],
                 },] }
     ];
     return AjfChartModule;

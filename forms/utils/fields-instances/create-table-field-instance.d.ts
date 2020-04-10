@@ -20,7 +20,7 @@
  *
  */
 import { AjfContext } from '@ajf/core/models';
-import { AjfFieldInstanceCreate } from './create-field-instance';
 import { AjfTableFieldInstance } from '../../interface/fields-instances/table-field-instance';
+import { AjfFieldInstanceCreate } from './create-field-instance';
 export declare type AjfTableFieldInstanceCreate = AjfFieldInstanceCreate & Partial<AjfTableFieldInstance>;
 export declare function createTableFieldInstance(instance: AjfTableFieldInstanceCreate, context: AjfContext): AjfTableFieldInstance;

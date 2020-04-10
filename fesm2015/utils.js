@@ -43,14 +43,10 @@ function functionSerializer(_, v) {
 function functionDeserializer(_, v) {
     if (typeof v === 'string' && /^function.*?\([^\0]*?\)\s*\{.*\}$/.test(v)) {
         /** @type {?} */
-        const argsMatch = v
-            .replace(/\/\/.*$|\/\*[\s\S]*?\*\//mg, '')
-            .match(/\(.*?\)/m);
+        const argsMatch = v.replace(/\/\/.*$|\/\*[\s\S]*?\*\//mg, '').match(/\(.*?\)/m);
         if (argsMatch != null && argsMatch.length > 0) {
             /** @type {?} */
-            const args = argsMatch[0]
-                .replace(/^\(|\)$/, '')
-                .match(/[^\s(),]+/g) || [];
+            const args = argsMatch[0].replace(/^\(|\)$/, '').match(/[^\s(),]+/g) || [];
             /** @type {?} */
             const bodyMatch = v.match(/\{(.*)\}/);
             if (bodyMatch != null && bodyMatch.length > 1) {

@@ -31,7 +31,9 @@
             this.el = el;
         }
         Object.defineProperty(AjfBaseWidgetComponent.prototype, "instance", {
-            get: function () { return this._instance; },
+            get: function () {
+                return this._instance;
+            },
             set: function (instance) {
                 if (this._instance !== instance) {
                     this._instance = instance;
@@ -248,7 +250,9 @@
             this._cdr = _cdr;
         }
         Object.defineProperty(AjfReportRenderer.prototype, "instance", {
-            get: function () { return this._instance; },
+            get: function () {
+                return this._instance;
+            },
             set: function (instance) {
                 this._instance = instance;
                 this._report = instance != null ? instance.report : null;
@@ -738,12 +742,19 @@
             return obj;
         };
         AjfWidgetSerializer._dataWidgetFromJson = function (json) {
-            var dataset = json.dataset ?
-                (json.widgetType === exports.AjfWidgetType.Table ?
-                    json.dataset
-                        .map(function (row) { return row.map(function (cell) { return AjfDatasetSerializer.fromJson(cell); }); }) :
-                    json.dataset.map(function (d) { return AjfDatasetSerializer.fromJson(d); })) :
-                [];
+            var dataset;
+            if (json.dataset == null) {
+                dataset = [];
+            }
+            else {
+                if (json.widgetType === exports.AjfWidgetType.Table) {
+                    dataset = json.dataset
+                        .map(function (row) { return row.map(function (cell) { return AjfDatasetSerializer.fromJson(cell); }); });
+                }
+                else {
+                    dataset = json.dataset.map(function (d) { return AjfDatasetSerializer.fromJson(d); });
+                }
+            }
             return __assign(__assign({}, createWidget(json)), { dataset: dataset });
         };
         AjfWidgetSerializer._widgetWithContentFromJson = function (json) {
@@ -874,7 +885,9 @@
             this._init = false;
         }
         Object.defineProperty(AjfReportWidget.prototype, "instance", {
-            get: function () { return this._instance; },
+            get: function () {
+                return this._instance;
+            },
             set: function (instance) {
                 if (this._instance !== instance) {
                     this._instance = instance;
@@ -892,8 +905,8 @@
         };
         AjfReportWidget.prototype._loadComponent = function () {
             var _this = this;
-            if (!this._init || this._instance == null
-                || this.widgetHost == null || !this.instance.visible) {
+            if (!this._init || this._instance == null || this.widgetHost == null ||
+                !this.instance.visible) {
                 return;
             }
             var vcr = this.widgetHost.viewContainerRef;
@@ -911,7 +924,8 @@
                     try {
                         _this._renderer.setStyle(componentInstance_1.el.nativeElement, style, "" + _this._instance.widget.styles[style]);
                     }
-                    catch (e) { }
+                    catch (e) {
+                    }
                 });
                 componentInstance_1.instance = this._instance;
                 if (componentDef.inputs) {
@@ -922,7 +936,8 @@
                     });
                 }
             }
-            catch (e) { }
+            catch (e) {
+            }
         };
         AjfReportWidget.decorators = [
             { type: core.Directive }
@@ -1036,15 +1051,15 @@
         var formula = f.formula;
         if (formula.substr(0, 1) === '"') {
             var ft = formula.slice(1, -1);
-            var transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0
-                ? ts.instant(ft) : ft;
+            var transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.instant(ft) : ft;
             if (ft.length > 0) {
                 formula = "\"" + transFt + "\"";
             }
         }
         else {
-            formula = formula != null && typeof formula === 'string' && formula.trim().length > 0
-                ? ts.instant(formula) : formula;
+            formula = formula != null && typeof formula === 'string' && formula.trim().length > 0 ?
+                ts.instant(formula) :
+                formula;
         }
         return models.evaluateExpression(formula, context);
     }
@@ -1099,12 +1114,11 @@
                 var evf = models.evaluateExpression(l.formula, context);
                 try {
                     if (evf instanceof Array) {
-                        evf = evf.map(function (v) { return v != null && typeof v === 'string' && v.trim().length > 0
-                            ? ts.instant(v) : v; });
+                        evf = evf.map(function (v) { return v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v; });
                     }
                     else {
-                        evf = evf != null && typeof evf === 'string' && evf.trim().length > 0
-                            ? ts.instant(evf) : evf;
+                        evf = evf != null && typeof evf === 'string' && evf.trim().length > 0 ? ts.instant(evf) :
+                            evf;
                     }
                 }
                 catch (_e) {
@@ -1139,8 +1153,7 @@
                     var pluginOptions = Object.keys(plugin);
                     pluginOptions.forEach(function (pluginOptionName) {
                         var pluginOption = plugin[pluginOptionName];
-                        if (typeof pluginOption !== 'string' &&
-                            pluginOption != null &&
+                        if (typeof pluginOption !== 'string' && pluginOption != null &&
                             pluginOption.formula != null) {
                             plugin[pluginOptionName] = models.evaluateExpression(pluginOption.formula, context);
                         }
@@ -1156,8 +1169,8 @@
                     cell.formula.map(function (f) { return trFormula(f, context, ts); }) :
                     trFormula(cell.formula, context, ts);
             }); });
-            twi.data = (tw_1.dataset || [])
-                .map(function (row) { return row.map(function (cell) { return ({
+            twi.data = (tw_1.dataset ||
+                []).map(function (row) { return row.map(function (cell) { return ({
                 value: models.evaluateExpression(cell.formula.formula, context),
                 style: __assign(__assign({}, tw_1.cellStyles), cell.style),
                 rowspan: cell.rowspan,
@@ -1198,19 +1211,19 @@
             var icw = widget;
             var icwi = wi;
             if (icw.flags) {
-                icwi.flags = icw.flags instanceof Array
-                    ? icw.flags.map(function (f) { return models.evaluateExpression(f.formula, context); })
-                    : models.evaluateExpression(icw.flags.formula, context);
+                icwi.flags = icw.flags instanceof Array ?
+                    icw.flags.map(function (f) { return models.evaluateExpression(f.formula, context); }) :
+                    models.evaluateExpression(icw.flags.formula, context);
             }
             if (icw.icons) {
-                icwi.icons = icw.icons instanceof Array
-                    ? icw.icons.map(function (f) { return models.evaluateExpression(f.formula, context); })
-                    : models.evaluateExpression(icw.icons.formula, context);
+                icwi.icons = icw.icons instanceof Array ?
+                    icw.icons.map(function (f) { return models.evaluateExpression(f.formula, context); }) :
+                    models.evaluateExpression(icw.icons.formula, context);
             }
             if (icw.urls) {
-                icwi.urls = icw.urls instanceof Array
-                    ? icw.urls.map(function (f) { return models.evaluateExpression(f.formula, context); })
-                    : models.evaluateExpression(icw.urls.formula, context);
+                icwi.urls = icw.urls instanceof Array ?
+                    icw.urls.map(function (f) { return models.evaluateExpression(f.formula, context); }) :
+                    models.evaluateExpression(icw.urls.formula, context);
             }
         }
         else if (widget.widgetType === exports.AjfWidgetType.Text) {

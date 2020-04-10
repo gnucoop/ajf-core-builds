@@ -38,8 +38,9 @@ var AjfTextComponent = /** @class */ (function () {
     Object.defineProperty(AjfTextComponent.prototype, "htmlText", {
         set: function (htmlText) {
             // type checking and length checking for instant method
-            var htmlTextToBeTranslate = htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0
-                ? this._ts.instant(htmlText) : htmlText;
+            var htmlTextToBeTranslate = htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0 ?
+                this._ts.instant(htmlText) :
+                htmlText;
             this._htmlText = this._domSanitizer.bypassSecurityTrustHtml(htmlTextToBeTranslate);
             this._cdr.markForCheck();
         },
@@ -47,7 +48,9 @@ var AjfTextComponent = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfTextComponent.prototype, "innerHTML", {
-        get: function () { return this._htmlText; },
+        get: function () {
+            return this._htmlText;
+        },
         enumerable: true,
         configurable: true
     });

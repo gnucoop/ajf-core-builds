@@ -13,15 +13,21 @@ class AjfNodeIcon {
     /**
      * @return {?}
      */
-    get fontSet() { return this._fontSet; }
+    get fontSet() {
+        return this._fontSet;
+    }
     /**
      * @return {?}
      */
-    get fontIcon() { return this._fontIcon; }
+    get fontIcon() {
+        return this._fontIcon;
+    }
     /**
      * @return {?}
      */
-    get node() { return this._node; }
+    get node() {
+        return this._node;
+    }
     /**
      * @param {?} node
      * @return {?}

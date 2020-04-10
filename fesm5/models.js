@@ -42,12 +42,16 @@ var AjfError = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(AjfError.prototype, "name", {
-        get: function () { return 'AjfError'; },
+        get: function () {
+            return 'AjfError';
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(AjfError.prototype, "message", {
-        get: function () { return this._message; },
+        get: function () {
+            return this._message;
+        },
         enumerable: true,
         configurable: true
     });

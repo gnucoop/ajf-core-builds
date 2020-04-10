@@ -25,8 +25,8 @@ import 'rxjs';
  *
  */
 function isBetween(date, rangeLeft, rangeRight) {
-    return (isAfter(date, rangeLeft) || isSameDay(date, rangeLeft))
-        && (isBefore(date, rangeRight) || isSameDay(date, rangeRight));
+    return (isAfter(date, rangeLeft) || isSameDay(date, rangeLeft)) &&
+        (isBefore(date, rangeRight) || isSameDay(date, rangeRight));
 }
 function periodOrder(entryType) {
     return ['day', 'week', 'month', 'year'].indexOf(entryType);
@@ -180,11 +180,7 @@ var AjfCalendarService = /** @class */ (function () {
             var row = [];
             for (var j = 0; j < 3; j++) {
                 var date = new Date(curDate);
-                var newEntry = {
-                    type: 'year',
-                    date: date,
-                    selected: 'none'
-                };
+                var newEntry = { type: 'year', date: date, selected: 'none' };
                 newEntry.selected = this.isEntrySelected(newEntry, selection);
                 row.push(newEntry);
                 curDate = addYears(curDate, 1);
@@ -201,11 +197,7 @@ var AjfCalendarService = /** @class */ (function () {
             var row = [];
             for (var j = 0; j < 3; j++) {
                 var date = new Date(curDate);
-                var newEntry = {
-                    type: 'month',
-                    date: date,
-                    selected: 'none'
-                };
+                var newEntry = { type: 'month', date: date, selected: 'none' };
                 newEntry.selected = this.isEntrySelected(newEntry, selection);
                 row.push(newEntry);
                 curDate = addMonths(curDate, 1);
@@ -390,9 +382,7 @@ var AjfCalendarPeriod = /** @class */ (function () {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-var weekDays = [
-    '', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
-];
+var weekDays = ['', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 var AjfCalendarChange = /** @class */ (function () {
     function AjfCalendarChange() {
     }
@@ -418,7 +408,9 @@ var AjfCalendar = /** @class */ (function () {
         this._onTouchedCallback = function () { };
     }
     Object.defineProperty(AjfCalendar.prototype, "viewDate", {
-        get: function () { return this._viewDate; },
+        get: function () {
+            return this._viewDate;
+        },
         set: function (viewDate) {
             this._setViewDate(viewDate);
             this._cdr.markForCheck();
@@ -427,7 +419,9 @@ var AjfCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCalendar.prototype, "disabled", {
-        get: function () { return this._disabled; },
+        get: function () {
+            return this._disabled;
+        },
         set: function (disabled) {
             var newDisabled = disabled != null && "" + disabled !== 'false';
             if (newDisabled !== this._disabled) {
@@ -439,7 +433,9 @@ var AjfCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCalendar.prototype, "dateOnlyForDay", {
-        get: function () { return this._disabled; },
+        get: function () {
+            return this._disabled;
+        },
         set: function (dateOnlyForDay) {
             this._dateOnlyForDay = dateOnlyForDay != null && "" + dateOnlyForDay !== 'false';
             this._cdr.markForCheck();
@@ -448,7 +444,9 @@ var AjfCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCalendar.prototype, "viewMode", {
-        get: function () { return this._viewMode; },
+        get: function () {
+            return this._viewMode;
+        },
         set: function (viewMode) {
             this._viewMode = viewMode;
             this._buildCalendar();
@@ -458,7 +456,9 @@ var AjfCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCalendar.prototype, "selectionMode", {
-        get: function () { return this._selectionMode; },
+        get: function () {
+            return this._selectionMode;
+        },
         set: function (selectionMode) {
             this._selectionMode = selectionMode;
             this._cdr.markForCheck();
@@ -481,7 +481,9 @@ var AjfCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCalendar.prototype, "isoMode", {
-        get: function () { return this._isoMode; },
+        get: function () {
+            return this._isoMode;
+        },
         set: function (isoMode) {
             this._isoMode = isoMode;
             this._buildCalendar();
@@ -490,7 +492,9 @@ var AjfCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCalendar.prototype, "minDate", {
-        get: function () { return this._minDate; },
+        get: function () {
+            return this._minDate;
+        },
         set: function (minDate) {
             this._minDate = minDate != null ? new Date(minDate.valueOf()) : null;
             this._cdr.markForCheck();
@@ -499,7 +503,9 @@ var AjfCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCalendar.prototype, "maxDate", {
-        get: function () { return this._maxDate; },
+        get: function () {
+            return this._maxDate;
+        },
         set: function (maxDate) {
             this._maxDate = maxDate != null ? new Date(maxDate.valueOf()) : null;
             this._cdr.markForCheck();
@@ -510,10 +516,7 @@ var AjfCalendar = /** @class */ (function () {
     Object.defineProperty(AjfCalendar.prototype, "selectedPeriod", {
         set: function (period) {
             this._selectedPeriod = period;
-            this._change.emit({
-                source: this,
-                period: period
-            });
+            this._change.emit({ source: this, period: period });
             this._refreshSelection();
             this._cdr.markForCheck();
         },
@@ -528,13 +531,9 @@ var AjfCalendar = /** @class */ (function () {
             return this._selectedPeriod;
         },
         set: function (period) {
-            if (this._dateOnlyForDay && this.selectionMode === 'day' && period instanceof Date
-                && (this._selectedPeriod == null || period !== this._selectedPeriod.startDate)) {
-                this.selectedPeriod = {
-                    type: 'day',
-                    startDate: period,
-                    endDate: period
-                };
+            if (this._dateOnlyForDay && this.selectionMode === 'day' && period instanceof Date &&
+                (this._selectedPeriod == null || period !== this._selectedPeriod.startDate)) {
+                this.selectedPeriod = { type: 'day', startDate: period, endDate: period };
             }
             else if (period instanceof Object && period !== this._selectedPeriod) {
                 this.selectedPeriod = period;
@@ -546,17 +545,23 @@ var AjfCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfCalendar.prototype, "calendarHeaders", {
-        get: function () { return this._calendarHeaders; },
+        get: function () {
+            return this._calendarHeaders;
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(AjfCalendar.prototype, "calendarRows", {
-        get: function () { return this._calendarRows; },
+        get: function () {
+            return this._calendarRows;
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(AjfCalendar.prototype, "viewHeader", {
-        get: function () { return this._viewHeader; },
+        get: function () {
+            return this._viewHeader;
+        },
         enumerable: true,
         configurable: true
     });
@@ -589,18 +594,14 @@ var AjfCalendar = /** @class */ (function () {
             newPeriod = null;
         }
         else if (this._selectionMode == 'day') {
-            newPeriod = {
-                type: 'day',
-                startDate: entry.date,
-                endDate: entry.date
-            };
+            newPeriod = { type: 'day', startDate: entry.date, endDate: entry.date };
         }
         else if (this._selectionMode == 'week') {
             newPeriod = {
                 type: 'week',
-                startDate: this._isoMode ?
-                    startOfISOWeek(entry.date) :
-                    startOfWeek(entry.date, { weekStartsOn: this._startOfWeekDay }),
+                startDate: this._isoMode ? startOfISOWeek(entry.date) : startOfWeek(entry.date, {
+                    weekStartsOn: this._startOfWeekDay
+                }),
                 endDate: this._isoMode ?
                     endOfISOWeek(entry.date) :
                     endOfWeek(entry.date, { weekStartsOn: this._startOfWeekDay })

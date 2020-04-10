@@ -22,8 +22,8 @@
 import { AjfContext } from '@ajf/core/models';
 import { Type } from '@angular/core';
 import { AjfBaseFieldComponent } from './base-field';
-import { AjfFieldComponentsMap } from './interface/fields/field-components-map';
 import { AjfFieldInstance } from './interface/fields-instances/field-instance';
+import { AjfFieldComponentsMap } from './interface/fields/field-components-map';
 import { AjfFieldInstanceCreate } from './utils/fields-instances/create-field-instance';
 export declare abstract class AjfFieldService {
     readonly componentsMap: AjfFieldComponentsMap;

@@ -276,11 +276,11 @@ class AjfChartModule {
 AjfChartModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
-                    AjfChartComponent
+                    AjfChartComponent,
                 ],
                 exports: [
-                    AjfChartComponent
-                ]
+                    AjfChartComponent,
+                ],
             },] }
 ];
 

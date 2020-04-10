@@ -77,7 +77,8 @@ class AjfBarcode {
          */
         (data) => {
             return this._readBarcodeFromData(data);
-        }))).subscribe((/**
+        })))
+            .subscribe((/**
          * @param {?} result
          * @return {?}
          */
@@ -91,7 +92,9 @@ class AjfBarcode {
     /**
      * @return {?}
      */
-    get readonly() { return this._readonly; }
+    get readonly() {
+        return this._readonly;
+    }
     /**
      * @param {?} readonly
      * @return {?}
@@ -103,15 +106,21 @@ class AjfBarcode {
     /**
      * @return {?}
      */
-    get canvasCtx() { return (/** @type {?} */ (this._canvas.getContext('2d'))); }
+    get canvasCtx() {
+        return (/** @type {?} */ (this._canvas.getContext('2d')));
+    }
     /**
      * @return {?}
      */
-    get videoSource() { return this._video; }
+    get videoSource() {
+        return this._video;
+    }
     /**
      * @return {?}
      */
-    get value() { return this._barcodeValue; }
+    get value() {
+        return this._barcodeValue;
+    }
     /**
      * @param {?} value
      * @return {?}
@@ -126,7 +135,9 @@ class AjfBarcode {
     /**
      * @return {?}
      */
-    get toggle() { return this._toggle; }
+    get toggle() {
+        return this._toggle;
+    }
     /**
      * @param {?} val
      * @return {?}
@@ -253,8 +264,7 @@ class AjfBarcode {
      * @return {?}
      */
     _readBarcodeFromImage(img) {
-        return from(this.codeReader.decodeFromImage(img))
-            .pipe(catchError((/**
+        return from(this.codeReader.decodeFromImage(img)).pipe(catchError((/**
          * @param {?} e
          * @return {?}
          */

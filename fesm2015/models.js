@@ -47,11 +47,15 @@ class AjfError extends Error {
     /**
      * @return {?}
      */
-    get name() { return 'AjfError'; }
+    get name() {
+        return 'AjfError';
+    }
     /**
      * @return {?}
      */
-    get message() { return this._message; }
+    get message() {
+        return this._message;
+    }
 }
 if (false) {
     /** @type {?} */

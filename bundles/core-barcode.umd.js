@@ -65,7 +65,8 @@
             this._startCalculationSub = this.startCalculation.asObservable()
                 .pipe(operators.switchMap(function (data) {
                 return _this._readBarcodeFromData(data);
-            })).subscribe(function (result) {
+            }))
+                .subscribe(function (result) {
                 if (result.text) {
                     _this.toggle = 'drop';
                     _this.value = result.text;
@@ -73,7 +74,9 @@
             });
         }
         Object.defineProperty(AjfBarcode.prototype, "readonly", {
-            get: function () { return this._readonly; },
+            get: function () {
+                return this._readonly;
+            },
             set: function (readonly) {
                 this._readonly = coercion.coerceBooleanProperty(readonly);
                 this._cdr.markForCheck();
@@ -82,17 +85,23 @@
             configurable: true
         });
         Object.defineProperty(AjfBarcode.prototype, "canvasCtx", {
-            get: function () { return this._canvas.getContext('2d'); },
+            get: function () {
+                return this._canvas.getContext('2d');
+            },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfBarcode.prototype, "videoSource", {
-            get: function () { return this._video; },
+            get: function () {
+                return this._video;
+            },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AjfBarcode.prototype, "value", {
-            get: function () { return this._barcodeValue; },
+            get: function () {
+                return this._barcodeValue;
+            },
             set: function (value) {
                 if (this._barcodeValue !== value) {
                     this._barcodeValue = value;
@@ -104,7 +113,9 @@
             configurable: true
         });
         Object.defineProperty(AjfBarcode.prototype, "toggle", {
-            get: function () { return this._toggle; },
+            get: function () {
+                return this._toggle;
+            },
             set: function (val) {
                 this._toggle = val;
                 this._cdr.markForCheck();
@@ -182,8 +193,7 @@
          * @memberof AjfBarcode
          */
         AjfBarcode.prototype._readBarcodeFromImage = function (img) {
-            return rxjs.from(this.codeReader.decodeFromImage(img))
-                .pipe(operators.catchError(function (e) { return rxjs.of(e); }));
+            return rxjs.from(this.codeReader.decodeFromImage(img)).pipe(operators.catchError(function (e) { return rxjs.of(e); }));
         };
         /**
          * build an image by data and call _readBarcodeFromImage

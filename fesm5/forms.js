@@ -106,10 +106,13 @@ var AjfBaseFieldComponent = /** @class */ (function () {
         this._warningAlertService = _warningAlertService;
         this._warningTriggerSub = Subscription.EMPTY;
         this._instanceUpdateSub = Subscription.EMPTY;
-        this._control = defer(function () { return _this._service.getControl(_this.instance).pipe(map(function (ctrl) { return ctrl || new FormControl(); })); });
+        this._control = defer(function () { return _this._service.getControl(_this.instance)
+            .pipe(map(function (ctrl) { return ctrl || new FormControl(); })); });
     }
     Object.defineProperty(AjfBaseFieldComponent.prototype, "instance", {
-        get: function () { return this._instance; },
+        get: function () {
+            return this._instance;
+        },
         set: function (instance) {
             if (instance !== this._instance) {
                 this._instance = instance;
@@ -121,7 +124,9 @@ var AjfBaseFieldComponent = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfBaseFieldComponent.prototype, "readonly", {
-        get: function () { return this._readonly; },
+        get: function () {
+            return this._readonly;
+        },
         set: function (readonly) {
             this._readonly = coerceBooleanProperty(readonly);
             this._changeDetectorRef.markForCheck();
@@ -130,27 +135,37 @@ var AjfBaseFieldComponent = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfBaseFieldComponent.prototype, "control", {
-        get: function () { return this._control; },
+        get: function () {
+            return this._control;
+        },
         enumerable: true,
         configurable: true
     });
     AjfBaseFieldComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._warningTriggerSub = this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter(function (v) { return v[1] != null; })).subscribe(function (v) {
-            if (_this.instance.warningResults == null) {
-                return;
-            }
-            var control = v[1];
-            var s = _this._warningAlertService.showWarningAlertPrompt(_this.instance.warningResults.filter(function (w) { return w.result; }).map(function (w) { return w.warning; })).subscribe(function (r) {
-                if (r.result) {
-                    control.setValue(null);
+        this._warningTriggerSub =
+            this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter(function (v) { return v[1] != null; }))
+                .subscribe(function (v) {
+                if (_this.instance.warningResults == null) {
+                    return;
                 }
-            }, function (_e) { if (s) {
-                s.unsubscribe();
-            } }, function () { if (s) {
-                s.unsubscribe();
-            } });
-        });
+                var control = v[1];
+                var s = _this._warningAlertService
+                    .showWarningAlertPrompt(_this.instance.warningResults.filter(function (w) { return w.result; }).map(function (w) { return w.warning; }))
+                    .subscribe(function (r) {
+                    if (r.result) {
+                        control.setValue(null);
+                    }
+                }, function (_e) {
+                    if (s) {
+                        s.unsubscribe();
+                    }
+                }, function () {
+                    if (s) {
+                        s.unsubscribe();
+                    }
+                });
+            });
     };
     AjfBaseFieldComponent.prototype.ngOnDestroy = function () {
         this._warningTriggerSub.unsubscribe();
@@ -166,7 +181,8 @@ var AjfBaseFieldComponent = /** @class */ (function () {
                     try {
                         _this._changeDetectorRef.detectChanges();
                     }
-                    catch (e) { }
+                    catch (e) {
+                    }
                 }
             });
         }
@@ -315,7 +331,9 @@ var AjfInvalidFieldDefinitionError = /** @class */ (function (_super) {
         return _super.call(this, message) || this;
     }
     Object.defineProperty(AjfInvalidFieldDefinitionError.prototype, "name", {
-        get: function () { return 'AjfInvalidFieldDefinitionError'; },
+        get: function () {
+            return 'AjfInvalidFieldDefinitionError';
+        },
         enumerable: true,
         configurable: true
     });
@@ -347,8 +365,9 @@ var AjfExpandFieldWithChoicesPipe = /** @class */ (function () {
     function AjfExpandFieldWithChoicesPipe() {
     }
     AjfExpandFieldWithChoicesPipe.prototype.transform = function (instance, threshold) {
-        return !instance.node.forceNarrow && (instance.node.forceExpanded
-            || (instance.filteredChoices && instance.filteredChoices.length <= threshold));
+        return !instance.node.forceNarrow &&
+            (instance.node.forceExpanded ||
+                (instance.filteredChoices && instance.filteredChoices.length <= threshold));
     };
     AjfExpandFieldWithChoicesPipe.decorators = [
         { type: Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
@@ -377,6 +396,7 @@ var AjfExpandFieldWithChoicesPipe = /** @class */ (function () {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+// tslint:disable-next-line:prefer-const-enum
 var AjfFieldType;
 (function (AjfFieldType) {
     AjfFieldType[AjfFieldType["String"] = 0] = "String";
@@ -418,9 +438,7 @@ var AjfFieldType;
  *
  */
 function fieldIconName(type) {
-    return "ajf-icon-field-" + (typeof AjfFieldType[type] === 'string'
-        ? AjfFieldType[type].toLowerCase()
-        : type);
+    return "ajf-icon-field-" + (typeof AjfFieldType[type] === 'string' ? AjfFieldType[type].toLowerCase() : type);
 }
 
 /**
@@ -481,8 +499,7 @@ var AjfFieldIsValidPipe = /** @class */ (function () {
     function AjfFieldIsValidPipe() {
     }
     AjfFieldIsValidPipe.prototype.transform = function (validationResults) {
-        return validationResults != null
-            && validationResults.filter(function (f) { return !f.result; }).length === 0;
+        return validationResults != null && validationResults.filter(function (f) { return !f.result; }).length === 0;
     };
     AjfFieldIsValidPipe.decorators = [
         { type: Pipe, args: [{ name: 'ajfFieldIsValid' },] }
@@ -553,7 +570,9 @@ var AjfFormField = /** @class */ (function () {
         this._updatedSub = Subscription.EMPTY;
     }
     Object.defineProperty(AjfFormField.prototype, "instance", {
-        get: function () { return this._instance; },
+        get: function () {
+            return this._instance;
+        },
         set: function (instance) {
             if (this._instance !== instance) {
                 this._instance = instance;
@@ -564,7 +583,9 @@ var AjfFormField = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfFormField.prototype, "readonly", {
-        get: function () { return this._readonly; },
+        get: function () {
+            return this._readonly;
+        },
         set: function (readonly) {
             this._readonly = coerceBooleanProperty(readonly);
             if (this._componentInstance != null) {
@@ -723,7 +744,9 @@ var AjfFieldWithChoicesComponent = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(AjfFieldWithChoicesComponent.prototype, "searchThreshold", {
-        get: function () { return this._searchThreshold; },
+        get: function () {
+            return this._searchThreshold;
+        },
         enumerable: true,
         configurable: true
     });
@@ -751,6 +774,7 @@ var AjfFieldWithChoicesComponent = /** @class */ (function (_super) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+// tslint:disable-next-line:prefer-const-enum
 var AjfNodeType;
 (function (AjfNodeType) {
     AjfNodeType[AjfNodeType["AjfField"] = 0] = "AjfField";
@@ -1102,9 +1126,9 @@ function nodeInstanceSuffix(instance) {
  *
  */
 function nodeInstanceCompleteName(instance) {
-    return instance != null && instance.node != null
-        ? "" + instance.node.name + nodeInstanceSuffix(instance)
-        : '';
+    return instance != null && instance.node != null ?
+        "" + instance.node.name + nodeInstanceSuffix(instance) :
+        '';
 }
 
 /**
@@ -1511,8 +1535,7 @@ function updateValidation(instance, context, supplementaryInformations) {
         context[completeName] = instance.value;
         context.$value = instance.value;
     }
-    instance.validationResults =
-        evaluateValidationGroup(validation, context[completeName], context);
+    instance.validationResults = evaluateValidationGroup(validation, context[completeName], context);
     instance.valid = instance.validationResults.reduce(function (prev, x) { return prev && x.result; }, true);
 }
 
@@ -1811,9 +1834,8 @@ function createField(field) {
  *
  */
 function isCustomFieldWithChoices(field) {
-    return field.fieldType > 100
-        && componentsMap[field.fieldType] != null
-        && componentsMap[field.fieldType].isFieldWithChoice === true;
+    return field.fieldType > 100 && componentsMap[field.fieldType] != null &&
+        componentsMap[field.fieldType].isFieldWithChoice === true;
 }
 
 /**
@@ -2211,10 +2233,7 @@ function normalizeRows(node) {
     node.rows.forEach(function (row, rowIdx) {
         row.forEach(function (elem, elemIdx) {
             if (typeof elem === 'string') {
-                node.rows[rowIdx][elemIdx] = {
-                    formula: elem,
-                    editable: node.editable
-                };
+                node.rows[rowIdx][elemIdx] = { formula: elem, editable: node.editable };
             }
         });
     });
@@ -2797,8 +2816,8 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
         case AjfNodeType.AjfField:
             var field = node;
             if (field.fieldType > 100) {
-                if (componentsMap[field.fieldType] != null
-                    && componentsMap[field.fieldType].createInstance != null) {
+                if (componentsMap[field.fieldType] != null &&
+                    componentsMap[field.fieldType].createInstance != null) {
                     instance = componentsMap[field.fieldType].createInstance({ node: node, prefix: prefix }, context);
                 }
                 else {
@@ -2841,11 +2860,12 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
                     createCondition({ condition: newVisibility }) :
                     node.visibility;
             }
-            var conditionalBranches = instance.node.conditionalBranches != null
-                && instance.node.conditionalBranches.length > 0
-                ? instance.node.conditionalBranches
-                : [alwaysCondition()];
-            instance.conditionalBranches = getInstanceConditions(conditionalBranches, ancestorsNames, prefix);
+            var conditionalBranches = instance.node.conditionalBranches != null &&
+                instance.node.conditionalBranches.length > 0 ?
+                instance.node.conditionalBranches :
+                [alwaysCondition()];
+            instance.conditionalBranches =
+                getInstanceConditions(conditionalBranches, ancestorsNames, prefix);
             if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
                 var ngInstance = instance;
                 var formulaReps = ngInstance.node.formulaReps;
@@ -2902,10 +2922,10 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
         }
         else {
             instance.visibility = instance.node.visibility;
-            var conditionalBranches = instance.node.conditionalBranches != null
-                && instance.node.conditionalBranches.length > 0
-                ? instance.node.conditionalBranches
-                : [alwaysCondition()];
+            var conditionalBranches = instance.node.conditionalBranches != null &&
+                instance.node.conditionalBranches.length > 0 ?
+                instance.node.conditionalBranches :
+                [alwaysCondition()];
             instance.conditionalBranches = conditionalBranches;
             if (isNodeGroupInstance(instance) || isRepeatingSlideInstance(instance)) {
                 var rgInstance = instance;
@@ -3135,9 +3155,7 @@ var AjfValidationService = /** @class */ (function () {
         }
     };
     AjfValidationService.prototype._initFunctions = function () {
-        var functionsStr = this._functions
-            .map(function (f) { return typeof f === 'string' ? f : f.toString(); })
-            .join('; ');
+        var functionsStr = this._functions.map(function (f) { return typeof f === 'string' ? f : f.toString(); }).join('; ');
         this._functionsStr = this._baseUtilFunctions.join('; ') + "; " + functionsStr;
         AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
     };
@@ -3172,11 +3190,6 @@ var AjfValidationService = /** @class */ (function () {
  */
 var esprimaMod = esprima__default || esprima;
 var tokenize = esprimaMod.tokenize;
-var AjfFormInitStatus;
-(function (AjfFormInitStatus) {
-    AjfFormInitStatus[AjfFormInitStatus["Initializing"] = 0] = "Initializing";
-    AjfFormInitStatus[AjfFormInitStatus["Complete"] = 1] = "Complete";
-})(AjfFormInitStatus || (AjfFormInitStatus = {}));
 var AjfFormRendererService = /** @class */ (function () {
     function AjfFormRendererService(_) {
         this._visibilityNodesMapUpdates = new Subject();
@@ -3214,12 +3227,16 @@ var AjfFormRendererService = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfFormRendererService.prototype, "errorPositions", {
-        get: function () { return this._errorPositions; },
+        get: function () {
+            return this._errorPositions;
+        },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(AjfFormRendererService.prototype, "errors", {
-        get: function () { return this._errors; },
+        get: function () {
+            return this._errors;
+        },
         enumerable: true,
         configurable: true
     });
@@ -3397,14 +3414,9 @@ var AjfFormRendererService = /** @class */ (function () {
                 return op(rmap);
             }, {}), startWith({}), share());
         this._nodesMaps = [
-            this._visibilityNodesMap,
-            this._repetitionNodesMap,
-            this._conditionalBranchNodesMap,
-            this._formulaNodesMap,
-            this._validationNodesMap,
-            this._warningNodesMap,
-            this._nextSlideConditionsNodesMap,
-            this._filteredChoicesNodesMap,
+            this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
+            this._formulaNodesMap, this._validationNodesMap, this._warningNodesMap,
+            this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
             this._triggerConditionsNodesMap
         ];
     };
@@ -3425,7 +3437,8 @@ var AjfFormRendererService = /** @class */ (function () {
             if (choicesOrigins.length === 0) {
                 return of(form);
             }
-            return from(Promise.all(choicesOrigins.map(function (co) { return initChoicesOrigin(co); }))).pipe(map(function () { return form; }));
+            return from(Promise.all(choicesOrigins.map(function (co) { return initChoicesOrigin(co); })))
+                .pipe(map(function () { return form; }));
         }), map(function (form) {
             return function (_nodesInstances) {
                 var nodes = form != null && form.form != null ?
@@ -3497,18 +3510,13 @@ var AjfFormRendererService = /** @class */ (function () {
                                     var name = tNode_1.name + "__" + rowIdx + "__" + idx;
                                     var control = new FormControl();
                                     control.setValue(tfInstance_1.context[cell.formula]);
-                                    formGroup_1
-                                        .registerControl(name, control);
+                                    formGroup_1.registerControl(name, control);
                                     r.push(control);
                                     /* create a object that respect the instance interface
                                     with the minimum defined properties to allow to run addToNodeFormula map*/
                                     var fakeInstance = {
                                         formula: { formula: cell.formula },
-                                        node: {
-                                            name: name,
-                                            nodeType: 0,
-                                            editable: false
-                                        },
+                                        node: { name: name, nodeType: 0, editable: false },
                                         visible: true,
                                         prefix: [],
                                         conditionalBranches: [],
@@ -3534,10 +3542,7 @@ var AjfFormRendererService = /** @class */ (function () {
     AjfFormRendererService.prototype._adjustReps = function (allNodes, instance, oldReps, context) {
         var _this = this;
         var newReps = instance.reps;
-        var result = {
-            added: null,
-            removed: null
-        };
+        var result = { added: null, removed: null };
         if (oldReps < newReps) {
             var newNodes_1 = [];
             if (instance.nodes == null) {
@@ -3560,8 +3565,7 @@ var AjfFormRendererService = /** @class */ (function () {
                 var prefix = instance.prefix.slice(0);
                 var group = instance.node;
                 prefix.push(i);
-                orderedNodes(group.nodes, instance.node.id)
-                    .forEach(function (n) {
+                orderedNodes(group.nodes, instance.node.id).forEach(function (n) {
                     var newInstance = _this._initNodeInstance(allNodes, n, prefix, context);
                     if (newInstance != null) {
                         newNodes_1.push(newInstance);
@@ -3640,15 +3644,14 @@ var AjfFormRendererService = /** @class */ (function () {
         return nodesInstances;
     };
     AjfFormRendererService.prototype._formValueDelta = function (oldValue, newValue) {
-        return Object.keys(newValue)
-            .filter(function (k) { return oldValue[k] !== newValue[k]; });
+        return Object.keys(newValue).filter(function (k) { return oldValue[k] !== newValue[k]; });
     };
     AjfFormRendererService.prototype._initFormGroupStreams = function (formGroup) {
         var _this = this;
         this._formGroupSubscription.unsubscribe();
         var init = true;
         var initForm = true;
-        this._formInitEvent.emit(AjfFormInitStatus.Initializing);
+        this._formInitEvent.emit(0 /* Initializing */);
         this._formGroupSubscription =
             formGroup.valueChanges
                 .pipe(startWith({}), pairwise(), debounceTime(200), withLatestFrom.apply(void 0, __spread((this._nodesMaps), [this._flatNodes])))
@@ -3838,8 +3841,8 @@ var AjfFormRendererService = /** @class */ (function () {
                             var valid = true;
                             for (var i = 0; i < subNodesNum; i++) {
                                 var subNode = slide.flatNodes[i];
-                                if (subNode.visible && isFieldInstance(subNode)
-                                    && !subNode.valid) {
+                                if (subNode.visible && isFieldInstance(subNode) &&
+                                    !subNode.valid) {
                                     valid = false;
                                     break;
                                 }
@@ -3855,7 +3858,7 @@ var AjfFormRendererService = /** @class */ (function () {
                 });
                 if (initForm) {
                     initForm = false;
-                    _this._formInitEvent.emit(AjfFormInitStatus.Complete);
+                    _this._formInitEvent.emit(1 /* Complete */);
                 }
                 _this._valueChanged.next();
             });
@@ -4183,8 +4186,7 @@ var AjfFormRendererService = /** @class */ (function () {
         this._removeFromNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
     };
     AjfFormRendererService.prototype._removeFromNodesMap = function (nodesMap, nodeInstance, formula) {
-        var tokens = tokenize(formula)
-            .filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
+        var tokens = tokenize(formula).filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
         if (tokens.length > 0) {
             nodesMap.next(function (vmap) {
                 tokens.forEach(function (token) {
@@ -4231,8 +4233,7 @@ var AjfFormRendererService = /** @class */ (function () {
         this._addToNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
     };
     AjfFormRendererService.prototype._addToNodesMap = function (nodesMap, nodeInstance, formula) {
-        var tokens = tokenize(formula)
-            .filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
+        var tokens = tokenize(formula).filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
         if (tokens.length > 0) {
             nodesMap.next(function (vmap) {
                 tokens.forEach(function (token) {
@@ -4317,10 +4318,13 @@ var AjfFormRenderer = /** @class */ (function () {
         this._errorPositions = _rendererService.errorPositions;
         this.errors = _rendererService.errors;
         this.slidesNum = _rendererService.slidesNum;
-        this.formIsInit = _rendererService.formInitEvent.pipe(map(function (e) { return e === AjfFormInitStatus.Complete; }));
+        this.formIsInit =
+            _rendererService.formInitEvent.pipe(map(function (e) { return e === 1 /* Complete */; }));
     }
     Object.defineProperty(AjfFormRenderer.prototype, "saveDisabled", {
-        get: function () { return this._saveDisabled; },
+        get: function () {
+            return this._saveDisabled;
+        },
         set: function (saveDisabled) {
             this._saveDisabled = coerceBooleanProperty(saveDisabled);
             this._changeDetectorRef.markForCheck();
@@ -4329,7 +4333,9 @@ var AjfFormRenderer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfFormRenderer.prototype, "hasStartMessage", {
-        get: function () { return this._hasStartMessage; },
+        get: function () {
+            return this._hasStartMessage;
+        },
         set: function (hasStartMessage) {
             this._hasStartMessage = coerceBooleanProperty(hasStartMessage);
             this._changeDetectorRef.markForCheck();
@@ -4338,7 +4344,9 @@ var AjfFormRenderer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfFormRenderer.prototype, "hasEndMessage", {
-        get: function () { return this._hasEndMessage; },
+        get: function () {
+            return this._hasEndMessage;
+        },
         set: function (hasEndMessage) {
             this._hasEndMessage = coerceBooleanProperty(hasEndMessage);
             this._changeDetectorRef.markForCheck();
@@ -4347,7 +4355,9 @@ var AjfFormRenderer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfFormRenderer.prototype, "hideTopToolbar", {
-        get: function () { return this._hideTopToolbar; },
+        get: function () {
+            return this._hideTopToolbar;
+        },
         set: function (hideTopToolbar) {
             this._hideTopToolbar = coerceBooleanProperty(hideTopToolbar);
             this._changeDetectorRef.markForCheck();
@@ -4356,7 +4366,9 @@ var AjfFormRenderer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfFormRenderer.prototype, "hideBottompToolbar", {
-        get: function () { return this._hideBottomToolbar; },
+        get: function () {
+            return this._hideBottomToolbar;
+        },
         enumerable: true,
         configurable: true
     });
@@ -4369,7 +4381,9 @@ var AjfFormRenderer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfFormRenderer.prototype, "hideNavigationButtons", {
-        get: function () { return this._hideNavigationButtons; },
+        get: function () {
+            return this._hideNavigationButtons;
+        },
         set: function (hideNavigationButtons) {
             this._hideNavigationButtons = coerceBooleanProperty(hideNavigationButtons);
             this._changeDetectorRef.markForCheck();
@@ -4378,7 +4392,9 @@ var AjfFormRenderer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfFormRenderer.prototype, "fixedOrientation", {
-        get: function () { return this._fixedOrientation; },
+        get: function () {
+            return this._fixedOrientation;
+        },
         set: function (fixedOrientation) {
             this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
             this._changeDetectorRef.markForCheck();
@@ -4387,7 +4403,9 @@ var AjfFormRenderer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfFormRenderer.prototype, "readonly", {
-        get: function () { return this._readonly; },
+        get: function () {
+            return this._readonly;
+        },
         set: function (readonly) {
             this._readonly = coerceBooleanProperty(readonly);
             this._changeDetectorRef.markForCheck();
@@ -4396,7 +4414,9 @@ var AjfFormRenderer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(AjfFormRenderer.prototype, "orientation", {
-        get: function () { return this._orientation; },
+        get: function () {
+            return this._orientation;
+        },
         set: function (orientation) {
             if (orientation !== 'horizontal' && orientation !== 'vertical') {
                 return;
@@ -4423,50 +4443,62 @@ var AjfFormRenderer = /** @class */ (function () {
     /**
      * this method will scroll to next error received by subscribe
      */
-    AjfFormRenderer.prototype.goToNextError = function () { this._errorMoveEvent.emit(true); };
+    AjfFormRenderer.prototype.goToNextError = function () {
+        this._errorMoveEvent.emit(true);
+    };
     /**
      * this method will scroll to prev error received by subscribe
      */
-    AjfFormRenderer.prototype.goToPrevError = function () { this._errorMoveEvent.emit(false); };
+    AjfFormRenderer.prototype.goToPrevError = function () {
+        this._errorMoveEvent.emit(false);
+    };
     /**
      * this method will add group
      */
     AjfFormRenderer.prototype.addGroup = function (nodeGroup) {
         var _this = this;
-        var s = this._rendererService.addGroup(nodeGroup).pipe(delayWhen(function () { return _this.formSlider.pageScrollFinish; })).subscribe(function (r) { if (r && _this.formSlider != null) {
-            _this.formSlider.slide({ dir: 'down' });
-        } }, function (_e) { if (s) {
-            s.unsubscribe();
-        } }, function () { if (s) {
-            s.unsubscribe();
-        } });
+        var s = this._rendererService.addGroup(nodeGroup)
+            .pipe(delayWhen(function () { return _this.formSlider.pageScrollFinish; }))
+            .subscribe(function (r) {
+            if (r && _this.formSlider != null) {
+                _this.formSlider.slide({ dir: 'down' });
+            }
+        }, function (_e) {
+            if (s) {
+                s.unsubscribe();
+            }
+        }, function () {
+            if (s) {
+                s.unsubscribe();
+            }
+        });
     };
     /**
      * this method will remove group
      */
     AjfFormRenderer.prototype.removeGroup = function (nodeGroup) {
         var _this = this;
-        var s = this._rendererService.removeGroup(nodeGroup).pipe(delayWhen(function () { return _this.formSlider.pageScrollFinish; })).subscribe(function (r) { if (r && _this.formSlider != null) {
-            _this.formSlider.slide({ dir: 'up' });
-        } }, function (_e) { if (s) {
-            s.unsubscribe();
-        } }, function () { if (s) {
-            s.unsubscribe();
-        } });
+        var s = this._rendererService.removeGroup(nodeGroup)
+            .pipe(delayWhen(function () { return _this.formSlider.pageScrollFinish; }))
+            .subscribe(function (r) {
+            if (r && _this.formSlider != null) {
+                _this.formSlider.slide({ dir: 'up' });
+            }
+        }, function (_e) {
+            if (s) {
+                s.unsubscribe();
+            }
+        }, function () {
+            if (s) {
+                s.unsubscribe();
+            }
+        });
     };
     AjfFormRenderer.prototype.onSave = function (_evt) {
-        this._formAction.emit({
-            source: this,
-            action: 'save',
-            value: this._rendererService.getFormValue()
-        });
+        this._formAction.emit({ source: this, action: 'save', value: this._rendererService.getFormValue() });
     };
     AjfFormRenderer.prototype.onFormAction = function (_evt, action) {
-        this._formAction.emit({
-            source: this,
-            value: this._rendererService.getFormValue(),
-            action: action
-        });
+        this._formAction.emit({ source: this, value: this._rendererService.getFormValue(), action: action });
     };
     /**
      * this method will set current form in rederer service when init form
@@ -4481,38 +4513,41 @@ var AjfFormRenderer = /** @class */ (function () {
         var _this = this;
         if (!this._init && this.formSlider != null) {
             this._init = true;
-            this._errorMoveSubscription = this._errorMoveEvent.pipe(withLatestFrom(this._errorPositions)).subscribe(function (v) {
-                var move = v[0];
-                var currentPosition = _this.formSlider.currentPage - (+_this.hasStartMessage) + 1;
-                var errors = v[1];
-                if (errors == null) {
-                    return;
-                }
-                var found = false;
-                var prevIdx = -1;
-                var nextIdx = -1;
-                var idx = 0;
-                var errorsLen = errors.length;
-                while (!found && idx < errorsLen) {
-                    if (errors[idx] == currentPosition) {
-                        found = true;
-                        prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
-                        nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
+            this._errorMoveSubscription =
+                this._errorMoveEvent
+                    .pipe(withLatestFrom(this._errorPositions))
+                    .subscribe(function (v) {
+                    var move = v[0];
+                    var currentPosition = _this.formSlider.currentPage - (+_this.hasStartMessage) + 1;
+                    var errors = v[1];
+                    if (errors == null) {
+                        return;
                     }
-                    else if (errors[idx] > currentPosition) {
-                        found = true;
-                        prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
-                        nextIdx = idx;
+                    var found = false;
+                    var prevIdx = -1;
+                    var nextIdx = -1;
+                    var idx = 0;
+                    var errorsLen = errors.length;
+                    while (!found && idx < errorsLen) {
+                        if (errors[idx] == currentPosition) {
+                            found = true;
+                            prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+                            nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
+                        }
+                        else if (errors[idx] > currentPosition) {
+                            found = true;
+                            prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+                            nextIdx = idx;
+                        }
+                        idx++;
                     }
-                    idx++;
-                }
-                if (!found) {
-                    prevIdx = errorsLen - 1;
-                    nextIdx = 0;
-                }
-                _this.formSlider.slide({ to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1 });
-                _this._changeDetectorRef.detectChanges();
-            });
+                    if (!found) {
+                        prevIdx = errorsLen - 1;
+                        nextIdx = 0;
+                    }
+                    _this.formSlider.slide({ to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1 });
+                    _this._changeDetectorRef.detectChanges();
+                });
         }
     };
     AjfFormRenderer.prototype.ngOnDestroy = function () {
@@ -4757,11 +4792,12 @@ var AjfTableVisibleColumnsPipe = /** @class */ (function () {
     AjfTableVisibleColumnsPipe.prototype.transform = function (instance) {
         if (!instance.node.editable) {
             var val = instance.value || [];
-            return instance.hideEmptyRows
-                ? val.filter(function (col) { return col[1].reduce(function (prev, cur) {
+            return instance.hideEmptyRows ?
+                val.filter(function (col) { return col[1].reduce(function (prev, cur) {
                     return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
-                }, false); }).map(function (v) { return __spread([v[0]], v[1]); })
-                : val.map(function (v) { return __spread([v[0]], v[1]); });
+                }, false); })
+                    .map(function (v) { return __spread([v[0]], v[1]); }) :
+                val.map(function (v) { return __spread([v[0]], v[1]); });
         }
         return (instance.controls || []).map(function (v) { return __spread([v[0]], v[1]); });
     };
@@ -4808,7 +4844,8 @@ var AjfValidSlidePipe = /** @class */ (function () {
                 return n.valid;
             }
             return true;
-        }).reduce(function (v1, v2) { return v1 && v2; }, true);
+        })
+            .reduce(function (v1, v2) { return v1 && v2; }, true);
     };
     AjfValidSlidePipe.decorators = [
         { type: Pipe, args: [{ name: 'ajfValidSlide', pure: false },] }
@@ -4878,7 +4915,11 @@ var AjfFormsModule = /** @class */ (function () {
                         AjfTableVisibleColumnsPipe,
                         AjfValidSlidePipe,
                     ],
-                    providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService]
+                    providers: [
+                        AjfDateValueStringPipe,
+                        AjfFormRendererService,
+                        AjfValidationService,
+                    ],
                 },] }
     ];
     return AjfFormsModule;
@@ -4907,9 +4948,7 @@ var AjfFormsModule = /** @class */ (function () {
  */
 function getTypeName(v) {
     var typeStr = typeof v;
-    return typeStr === 'object'
-        ? v.constructor.toString().match(/\w+/g)[1]
-        : typeStr;
+    return typeStr === 'object' ? v.constructor.toString().match(/\w+/g)[1] : typeStr;
 }
 
 /**
@@ -5365,9 +5404,8 @@ var AjfNodeSerializer = /** @class */ (function () {
         if (obj.nextSlideCondition) {
             obj.nextSlideCondition = AjfConditionSerializer.fromJson(obj.nextSlideCondition);
         }
-        var isCustomFieldWithChoice = obj.fieldType > 100
-            && componentsMap[obj.fieldType] != null
-            && componentsMap[obj.fieldType].isFieldWithChoice === true;
+        var isCustomFieldWithChoice = obj.fieldType > 100 && componentsMap[obj.fieldType] != null &&
+            componentsMap[obj.fieldType].isFieldWithChoice === true;
         if (isCustomFieldWithChoice) {
             return AjfNodeSerializer._fieldWithChoicesFromJson(json, choicesOrigins);
         }
@@ -5481,12 +5519,6 @@ var AjfFormSerializer = /** @class */ (function () {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-var AjfAttachmentsType;
-(function (AjfAttachmentsType) {
-    AjfAttachmentsType[AjfAttachmentsType["Link"] = 0] = "Link";
-    AjfAttachmentsType[AjfAttachmentsType["Pdf"] = 1] = "Pdf";
-    AjfAttachmentsType[AjfAttachmentsType["LENGTH"] = 2] = "LENGTH";
-})(AjfAttachmentsType || (AjfAttachmentsType = {}));
 
 /**
  * @license
@@ -5509,12 +5541,6 @@ var AjfAttachmentsType;
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-var AjfChoicesType;
-(function (AjfChoicesType) {
-    AjfChoicesType[AjfChoicesType["String"] = 0] = "String";
-    AjfChoicesType[AjfChoicesType["Number"] = 1] = "Number";
-    AjfChoicesType[AjfChoicesType["LENGTH"] = 2] = "LENGTH";
-})(AjfChoicesType || (AjfChoicesType = {}));
 
 /**
  * @license
@@ -5664,14 +5690,10 @@ function createChoicesPromiseOrigin(origin) {
  *
  */
 function isChoicesOrigin(co) {
-    return co != null
-        && typeof co === 'object'
-        && co.name != null
-        && typeof co.name === 'string'
-        && co.label != null
-        && typeof co.label === 'string'
-        && ['fixed', 'promise', 'observable', 'observableArray', 'function'].indexOf(co.type) > -1
-        && co.choices instanceof Array;
+    return co != null && typeof co === 'object' && co.name != null && typeof co.name === 'string' &&
+        co.label != null && typeof co.label === 'string' &&
+        ['fixed', 'promise', 'observable', 'observableArray', 'function'].indexOf(co.type) > -1 &&
+        co.choices instanceof Array;
 }
 
 /**
@@ -5945,5 +5967,5 @@ function notEmptyWarning() {
  * Generated bundle index. Do not edit.
  */
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfAttachmentsType, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfChoicesType, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormInitStatus, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, createNodeGroup as ɵgc_ajf_src_core_forms_forms_a, createRepeatingSlide as ɵgc_ajf_src_core_forms_forms_b, createSlide as ɵgc_ajf_src_core_forms_forms_c, componentsMap as ɵgc_ajf_src_core_forms_forms_d };
+export { AJF_SEARCH_ALERT_THRESHOLD, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, createNodeGroup as ɵgc_ajf_src_core_forms_forms_a, createRepeatingSlide as ɵgc_ajf_src_core_forms_forms_b, createSlide as ɵgc_ajf_src_core_forms_forms_c, componentsMap as ɵgc_ajf_src_core_forms_forms_d };
 //# sourceMappingURL=forms.js.map

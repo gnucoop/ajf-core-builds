@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('leaflet')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/map', ['exports', '@angular/core', 'rxjs', 'leaflet'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.map = {}), global.ng.core, global.rxjs, global.leaflet));
-}(this, (function (exports, core, rxjs, L) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('leaflet'), require('rxjs')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/map', ['exports', '@angular/core', 'leaflet', 'rxjs'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.map = {}), global.ng.core, global.leaflet, global.rxjs));
+}(this, (function (exports, core, L, rxjs) { 'use strict';
 
     var L__default = 'default' in L ? L['default'] : L;
 
@@ -32,14 +32,14 @@
             this._el = _el;
         }
         Object.defineProperty(AjfMapContainerDirective.prototype, "htmlElement", {
-            get: function () { return this._el.nativeElement; },
+            get: function () {
+                return this._el.nativeElement;
+            },
             enumerable: true,
             configurable: true
         });
         AjfMapContainerDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[mapContainer]'
-                    },] }
+            { type: core.Directive, args: [{ selector: '[mapContainer]' },] }
         ];
         /** @nocollapse */
         AjfMapContainerDirective.ctorParameters = function () { return [
@@ -107,7 +107,9 @@
             configurable: true
         });
         Object.defineProperty(AjfMapComponent.prototype, "map", {
-            get: function () { return this._map; },
+            get: function () {
+                return this._map;
+            },
             enumerable: true,
             configurable: true
         });
@@ -128,10 +130,7 @@
             this._columnWidthChanged.unsubscribe();
         };
         AjfMapComponent.prototype._initMap = function () {
-            var options = {
-                zoomControl: false,
-                attributionControl: false
-            };
+            var options = { zoomControl: false, attributionControl: false };
             this._map = leafletLib.map(this.mapContainer.htmlElement, options);
         };
         AjfMapComponent.prototype._setMapView = function () {
@@ -157,9 +156,7 @@
                 return;
             }
             this._map.eachLayer(function (l) { return _this._map.removeLayer(l); });
-            leafletLib.tileLayer(this._tileLayer, {
-                attribution: this._attribution
-            }).addTo(this._map);
+            leafletLib.tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
         };
         AjfMapComponent.prototype._disableMap = function () {
             if (this._map == null) {
@@ -224,11 +221,11 @@
             { type: core.NgModule, args: [{
                         declarations: [
                             AjfMapComponent,
-                            AjfMapContainerDirective
+                            AjfMapContainerDirective,
                         ],
                         exports: [
-                            AjfMapComponent
-                        ]
+                            AjfMapComponent,
+                        ],
                     },] }
         ];
         return AjfMapModule;
