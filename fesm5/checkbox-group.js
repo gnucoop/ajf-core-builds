@@ -267,16 +267,6 @@ var AjfCheckboxGroupItem = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(AjfCheckboxGroupItem.prototype, "readonly", {
-        get: function () {
-            return this._readonly;
-        },
-        set: function (readonly) {
-            this._readonly = coerceBooleanProperty(readonly);
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(AjfCheckboxGroupItem.prototype, "checkedIcon", {
         get: function () {
             return this._checkedIconVal.getValue();
@@ -336,7 +326,6 @@ var AjfCheckboxGroupItem = /** @class */ (function () {
         checked: [{ type: Input }],
         disabled: [{ type: Input }],
         value: [{ type: Input }],
-        readonly: [{ type: Input }],
         checkedIcon: [{ type: Input }],
         notCheckedIcon: [{ type: Input }],
         change: [{ type: Output }]

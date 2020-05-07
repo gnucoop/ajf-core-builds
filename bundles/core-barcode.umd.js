@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/core'), require('@zxing/library'), require('rxjs'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/barcode', ['exports', '@angular/cdk/coercion', '@angular/core', '@zxing/library', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.barcode = {}), global.ng.cdk.coercion, global.ng.core, global.zxing, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, coercion, core, library, rxjs, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@zxing/library'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/barcode', ['exports', '@angular/core', '@zxing/library', 'rxjs', 'rxjs/operators'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.barcode = {}), global.ng.core, global.zxing, global.rxjs, global.rxjs.operators));
+}(this, (function (exports, core, library, rxjs, operators) { 'use strict';
 
     /**
      * @license
@@ -73,17 +73,6 @@
                 }
             });
         }
-        Object.defineProperty(AjfBarcode.prototype, "readonly", {
-            get: function () {
-                return this._readonly;
-            },
-            set: function (readonly) {
-                this._readonly = coercion.coerceBooleanProperty(readonly);
-                this._cdr.markForCheck();
-            },
-            enumerable: true,
-            configurable: true
-        });
         Object.defineProperty(AjfBarcode.prototype, "canvasCtx", {
             get: function () {
                 return this._canvas.getContext('2d');
@@ -131,21 +120,18 @@
             this.startDetection.emit();
         };
         AjfBarcode.prototype.onSelectFile = function (evt) {
-            var _this = this;
             if (evt == null || evt.target == null) {
                 return;
             }
             var target = evt.target;
             var files = target.files;
-            if (files != null && files[0]) {
-                var reader = new FileReader();
-                reader.readAsDataURL(files[0]);
-                reader.onload = function (ev) {
-                    var data = ev.target.result;
-                    _this.startCalculation.emit(data);
-                    _this._cdr.detectChanges();
-                };
+            this._onSelect(files);
+        };
+        AjfBarcode.prototype.onSelectDrop = function (files) {
+            if (files == null) {
+                return;
             }
+            this._onSelect(files);
         };
         /** ControlValueAccessor implements */
         AjfBarcode.prototype.writeValue = function (value) {
@@ -174,6 +160,18 @@
             this._video = this._renderer.createElement('video');
             this._video.height = 480;
             this._video.width = 640;
+        };
+        AjfBarcode.prototype._onSelect = function (files) {
+            var _this = this;
+            if (files != null && files.length > 0 && files[0]) {
+                var reader = new FileReader();
+                reader.readAsDataURL(files[0]);
+                reader.onload = function (ev) {
+                    var data = ev.target.result;
+                    _this.startCalculation.emit(data);
+                    _this._cdr.detectChanges();
+                };
+            }
         };
         /**
          * write a frame of HTMLVideoElement into HTMLCanvasElement and
@@ -226,9 +224,6 @@
             { type: core.ChangeDetectorRef },
             { type: core.Renderer2 }
         ]; };
-        AjfBarcode.propDecorators = {
-            readonly: [{ type: core.Input }]
-        };
         return AjfBarcode;
     }());
 

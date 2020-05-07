@@ -1,5 +1,4 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { EventEmitter, Directive, ChangeDetectorRef, Renderer2, Input } from '@angular/core';
+import { EventEmitter, Directive, ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { BrowserBarcodeReader } from '@zxing/library';
 import { Subscription, of, from } from 'rxjs';
 import { debounceTime, switchMap, catchError } from 'rxjs/operators';
@@ -73,17 +72,6 @@ var AjfBarcode = /** @class */ (function () {
             }
         });
     }
-    Object.defineProperty(AjfBarcode.prototype, "readonly", {
-        get: function () {
-            return this._readonly;
-        },
-        set: function (readonly) {
-            this._readonly = coerceBooleanProperty(readonly);
-            this._cdr.markForCheck();
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(AjfBarcode.prototype, "canvasCtx", {
         get: function () {
             return this._canvas.getContext('2d');
@@ -131,21 +119,18 @@ var AjfBarcode = /** @class */ (function () {
         this.startDetection.emit();
     };
     AjfBarcode.prototype.onSelectFile = function (evt) {
-        var _this = this;
         if (evt == null || evt.target == null) {
             return;
         }
         var target = evt.target;
         var files = target.files;
-        if (files != null && files[0]) {
-            var reader = new FileReader();
-            reader.readAsDataURL(files[0]);
-            reader.onload = function (ev) {
-                var data = ev.target.result;
-                _this.startCalculation.emit(data);
-                _this._cdr.detectChanges();
-            };
+        this._onSelect(files);
+    };
+    AjfBarcode.prototype.onSelectDrop = function (files) {
+        if (files == null) {
+            return;
         }
+        this._onSelect(files);
     };
     /** ControlValueAccessor implements */
     AjfBarcode.prototype.writeValue = function (value) {
@@ -174,6 +159,18 @@ var AjfBarcode = /** @class */ (function () {
         this._video = this._renderer.createElement('video');
         this._video.height = 480;
         this._video.width = 640;
+    };
+    AjfBarcode.prototype._onSelect = function (files) {
+        var _this = this;
+        if (files != null && files.length > 0 && files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+            reader.onload = function (ev) {
+                var data = ev.target.result;
+                _this.startCalculation.emit(data);
+                _this._cdr.detectChanges();
+            };
+        }
     };
     /**
      * write a frame of HTMLVideoElement into HTMLCanvasElement and
@@ -226,9 +223,6 @@ var AjfBarcode = /** @class */ (function () {
         { type: ChangeDetectorRef },
         { type: Renderer2 }
     ]; };
-    AjfBarcode.propDecorators = {
-        readonly: [{ type: Input }]
-    };
     return AjfBarcode;
 }());
 

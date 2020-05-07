@@ -1,14 +1,16 @@
-import { Pipe, Injectable, Directive, ViewContainerRef, ChangeDetectorRef, ComponentFactoryResolver, ViewChild, Input, EventEmitter, Output, ViewChildren, NgModule, InjectionToken } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Pipe, Injectable, Directive, ViewContainerRef, ChangeDetectorRef, ComponentFactoryResolver, ViewChild, Input, EventEmitter, Output, ViewChildren, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, NgModule } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription, defer, Subject, BehaviorSubject, Observable, of, from, timer } from 'rxjs';
 import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
 import { format } from 'date-fns';
 import { AjfError, evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import '@ajf/core/page-slider';
 import { deepCopy } from '@ajf/core/utils';
 import * as esprima from 'esprima';
 import esprima__default from 'esprima';
-import '@ajf/core/page-slider';
+import { AjfCommonModule } from '@ajf/core/common';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -93,20 +95,6 @@ class AjfBaseFieldComponent {
             this._setUpInstanceUpdate();
             this._onInstanceChange();
         }
-    }
-    /**
-     * @return {?}
-     */
-    get readonly() {
-        return this._readonly;
-    }
-    /**
-     * @param {?} readonly
-     * @return {?}
-     */
-    set readonly(readonly) {
-        this._readonly = coerceBooleanProperty(readonly);
-        this._changeDetectorRef.markForCheck();
     }
     /**
      * @return {?}
@@ -215,11 +203,6 @@ if (false) {
      * @private
      */
     AjfBaseFieldComponent.prototype._instance;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AjfBaseFieldComponent.prototype._readonly;
     /**
      * @type {?}
      * @private
@@ -361,6 +344,205 @@ AjfExpandFieldWithChoicesPipe.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field-host.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfFieldHost {
+    /**
+     * @param {?} viewContainerRef
+     */
+    constructor(viewContainerRef) {
+        this.viewContainerRef = viewContainerRef;
+    }
+}
+AjfFieldHost.decorators = [
+    { type: Directive, args: [{ selector: '[ajf-field-host]' },] }
+];
+/** @nocollapse */
+AjfFieldHost.ctorParameters = () => [
+    { type: ViewContainerRef }
+];
+if (false) {
+    /** @type {?} */
+    AjfFieldHost.prototype.viewContainerRef;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ */
+class AjfFormField {
+    /**
+     * @param {?} _cdr
+     * @param {?} _cfr
+     */
+    constructor(_cdr, _cfr) {
+        this._cdr = _cdr;
+        this._cfr = _cfr;
+        this._init = false;
+        this._updatedSub = Subscription.EMPTY;
+    }
+    /**
+     * @return {?}
+     */
+    get instance() {
+        return this._instance;
+    }
+    /**
+     * @param {?} instance
+     * @return {?}
+     */
+    set instance(instance) {
+        if (this._instance !== instance) {
+            this._instance = instance;
+            if (this._init) {
+                this._loadComponent();
+            }
+        }
+    }
+    /**
+     * @return {?}
+     */
+    get readonly() {
+        return this._readonly;
+    }
+    /**
+     * @param {?} readonly
+     * @return {?}
+     */
+    set readonly(readonly) {
+        this._readonly = coerceBooleanProperty(readonly);
+        if (this._init) {
+            this._loadComponent();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._updatedSub.unsubscribe();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this._init = true;
+        this._loadComponent();
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    _loadComponent() {
+        this._updatedSub.unsubscribe();
+        this._updatedSub = Subscription.EMPTY;
+        if (this._instance == null || this.fieldHost == null) {
+            return;
+        }
+        /** @type {?} */
+        const vcr = this.fieldHost.viewContainerRef;
+        vcr.clear();
+        /** @type {?} */
+        const componentDef = this.componentsMap[this._instance.node.fieldType];
+        if (componentDef == null) {
+            return;
+        }
+        /** @type {?} */
+        const component = this._readonly && componentDef.readOnlyComponent ?
+            componentDef.readOnlyComponent :
+            componentDef.component;
+        try {
+            /** @type {?} */
+            const componentFactory = this._cfr.resolveComponentFactory(component);
+            /** @type {?} */
+            const componentRef = vcr.createComponent(componentFactory);
+            this._componentInstance = componentRef.instance;
+            this._componentInstance.instance = this._instance;
+            if (componentDef.inputs) {
+                Object.keys(componentDef.inputs).forEach((/**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                key => {
+                    if (key in this._componentInstance) {
+                        ((/** @type {?} */ (this._componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
+                    }
+                }));
+            }
+            this._updatedSub = this._instance.updatedEvt.subscribe((/**
+             * @return {?}
+             */
+            () => this._cdr.markForCheck()));
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+}
+AjfFormField.decorators = [
+    { type: Directive }
+];
+/** @nocollapse */
+AjfFormField.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: ComponentFactoryResolver }
+];
+AjfFormField.propDecorators = {
+    fieldHost: [{ type: ViewChild, args: [AjfFieldHost, { static: true },] }],
+    instance: [{ type: Input }],
+    readonly: [{ type: Input }]
+};
+if (false) {
+    /** @type {?} */
+    AjfFormField.prototype.fieldHost;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._instance;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._readonly;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._componentInstance;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._init;
+    /**
+     * @type {?}
+     * @protected
+     */
+    AjfFormField.prototype.componentsMap;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._updatedSub;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._cdr;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._cfr;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: src/core/forms/interface/fields/field-type.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -474,196 +656,6 @@ AjfFieldIsValidPipe.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-host.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfFieldHost {
-    /**
-     * @param {?} viewContainerRef
-     */
-    constructor(viewContainerRef) {
-        this.viewContainerRef = viewContainerRef;
-    }
-}
-AjfFieldHost.decorators = [
-    { type: Directive, args: [{ selector: '[ajf-field-host]' },] }
-];
-/** @nocollapse */
-AjfFieldHost.ctorParameters = () => [
-    { type: ViewContainerRef }
-];
-if (false) {
-    /** @type {?} */
-    AjfFieldHost.prototype.viewContainerRef;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @abstract
- */
-class AjfFormField {
-    /**
-     * @param {?} _cdr
-     * @param {?} _cfr
-     */
-    constructor(_cdr, _cfr) {
-        this._cdr = _cdr;
-        this._cfr = _cfr;
-        this._updatedSub = Subscription.EMPTY;
-    }
-    /**
-     * @return {?}
-     */
-    get instance() {
-        return this._instance;
-    }
-    /**
-     * @param {?} instance
-     * @return {?}
-     */
-    set instance(instance) {
-        if (this._instance !== instance) {
-            this._instance = instance;
-            this._loadComponent();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    get readonly() {
-        return this._readonly;
-    }
-    /**
-     * @param {?} readonly
-     * @return {?}
-     */
-    set readonly(readonly) {
-        this._readonly = coerceBooleanProperty(readonly);
-        if (this._componentInstance != null) {
-            this._componentInstance.readonly = this._readonly;
-        }
-        this._cdr.markForCheck();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._updatedSub.unsubscribe();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._loadComponent();
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _loadComponent() {
-        this._updatedSub.unsubscribe();
-        this._updatedSub = Subscription.EMPTY;
-        if (this._instance == null || this.fieldHost == null) {
-            return;
-        }
-        /** @type {?} */
-        const vcr = this.fieldHost.viewContainerRef;
-        vcr.clear();
-        /** @type {?} */
-        const componentDef = this.componentsMap[this._instance.node.fieldType];
-        if (componentDef == null) {
-            return;
-        }
-        /** @type {?} */
-        const component = componentDef.component;
-        try {
-            /** @type {?} */
-            const componentFactory = this._cfr.resolveComponentFactory(component);
-            /** @type {?} */
-            const componentRef = vcr.createComponent(componentFactory);
-            this._componentInstance = componentRef.instance;
-            this._componentInstance.instance = this._instance;
-            this._componentInstance.readonly = this._readonly;
-            if (componentDef.inputs) {
-                Object.keys(componentDef.inputs).forEach((/**
-                 * @param {?} key
-                 * @return {?}
-                 */
-                key => {
-                    if (key in this._componentInstance) {
-                        ((/** @type {?} */ (this._componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
-                    }
-                }));
-            }
-            this._updatedSub = this._instance.updatedEvt.subscribe((/**
-             * @return {?}
-             */
-            () => this._cdr.markForCheck()));
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
-}
-AjfFormField.decorators = [
-    { type: Directive }
-];
-/** @nocollapse */
-AjfFormField.ctorParameters = () => [
-    { type: ChangeDetectorRef },
-    { type: ComponentFactoryResolver }
-];
-AjfFormField.propDecorators = {
-    fieldHost: [{ type: ViewChild, args: [AjfFieldHost, { static: true },] }],
-    instance: [{ type: Input }],
-    readonly: [{ type: Input }]
-};
-if (false) {
-    /** @type {?} */
-    AjfFormField.prototype.fieldHost;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._instance;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._readonly;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._componentInstance;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AjfFormField.prototype.componentsMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._updatedSub;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._cdr;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._cfr;
-}
-
-/**
- * @fileoverview added by tsickle
  * Generated from: src/core/forms/utils/fields/fields-map.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -725,6 +717,41 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field-warning-alert-result.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+/**
+ * @record
+ */
+function AjfFieldWarningAlertResult() { }
+if (false) {
+    /** @type {?} */
+    AjfFieldWarningAlertResult.prototype.result;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: src/core/forms/field-with-choices.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -759,41 +786,6 @@ if (false) {
      * @private
      */
     AjfFieldWithChoicesComponent.prototype._searchThreshold;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-warning-alert-result.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
-/**
- * @record
- */
-function AjfFieldWarningAlertResult() { }
-if (false) {
-    /** @type {?} */
-    AjfFieldWarningAlertResult.prototype.result;
 }
 
 /**
@@ -3668,10 +3660,10 @@ class AjfFormRendererService {
                                     /** @type {?} */
                                     const name = `${tNode.name}__${rowIdx}__${idx}`;
                                     /** @type {?} */
-                                    const control = new FormControl();
-                                    control.setValue(tfInstance.context[cell.formula]);
-                                    formGroup.registerControl(name, control);
-                                    r.push(control);
+                                    const tableFormControl = { control: new FormControl(), show: false };
+                                    tableFormControl.control.setValue(tfInstance.context[cell.formula]);
+                                    formGroup.registerControl(name, tableFormControl.control);
+                                    r.push(tableFormControl);
                                     /* create a object that respect the instance interface
                                                       with the minimum defined properties to allow to run addToNodeFormula map*/
                                     /** @type {?} */
@@ -5696,6 +5688,27 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/core/forms/get-table-cell-control.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfGetTableCellControlPipe {
+    /**
+     * @param {?} ctrl
+     * @return {?}
+     */
+    transform(ctrl) {
+        if (ctrl == null || typeof ctrl === 'string') {
+            return null;
+        }
+        return (/** @type {?} */ (ctrl));
+    }
+}
+AjfGetTableCellControlPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfGetTableCellControl' },] }
+];
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: src/core/forms/increment.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -5711,6 +5724,27 @@ class AjfIncrementPipe {
 }
 AjfIncrementPipe.decorators = [
     { type: Pipe, args: [{ name: 'ajfIncrement' },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/is-cell-editable.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfIsCellEditablePipe {
+    /**
+     * @param {?} cell
+     * @return {?}
+     */
+    transform(cell) {
+        if (cell == null || typeof cell === 'string') {
+            return false;
+        }
+        return cell.editable === true;
+    }
+}
+AjfIsCellEditablePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfIsCellEditable' },] }
 ];
 
 /**
@@ -5777,6 +5811,105 @@ AjfRangePipe.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: src/core/forms/input-field.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ */
+class AjfInputFieldComponent extends AjfBaseFieldComponent {
+    constructor() {
+        super(...arguments);
+        this.type = 'text';
+    }
+}
+if (false) {
+    /** @type {?} */
+    AjfInputFieldComponent.prototype.type;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/warning-alert-service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function AjfWarningAlertService() { }
+if (false) {
+    /**
+     * @param {?} warnings
+     * @return {?}
+     */
+    AjfWarningAlertService.prototype.showWarningAlertPrompt = function (warnings) { };
+}
+/** @type {?} */
+const AJF_WARNING_ALERT_SERVICE = new InjectionToken('ajf-warning-alert-service');
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/read-only-field.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfReadOnlyFieldComponent extends AjfInputFieldComponent {
+    /**
+     * @param {?} cdr
+     * @param {?} service
+     * @param {?} was
+     */
+    constructor(cdr, service, was) {
+        super(cdr, service, was);
+    }
+}
+AjfReadOnlyFieldComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-read-only-field',
+                template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
+            }] }
+];
+/** @nocollapse */
+AjfReadOnlyFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/read-only-table-field.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent {
+    /**
+     * @param {?} cdr
+     * @param {?} service
+     * @param {?} was
+     */
+    constructor(cdr, service, was) {
+        super(cdr, service, was);
+    }
+}
+AjfReadOnlyTableFieldComponent.decorators = [
+    { type: Component, args: [{
+                template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["\n"]
+            }] }
+];
+/** @nocollapse */
+AjfReadOnlyTableFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+];
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: src/core/forms/table-row-class.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -5831,7 +5964,8 @@ class AjfTableVisibleColumnsPipe {
                  */
                 v => [v[0], ...v[1]]));
         }
-        return (instance.controls || []).map((/**
+        return (((/** @type {?} */ (instance.controls))) || [])
+            .map((/**
          * @param {?} v
          * @return {?}
          */
@@ -5902,14 +6036,19 @@ AjfFormsModule.decorators = [
                     AjfFieldHost,
                     AjfFieldIconPipe,
                     AjfFieldIsValidPipe,
+                    AjfGetTableCellControlPipe,
                     AjfIncrementPipe,
+                    AjfIsCellEditablePipe,
                     AjfIsRepeatingSlideInstancePipe,
                     AjfNodeCompleteNamePipe,
                     AjfRangePipe,
+                    AjfReadOnlyFieldComponent,
+                    AjfReadOnlyTableFieldComponent,
                     AjfTableRowClass,
                     AjfTableVisibleColumnsPipe,
                     AjfValidSlidePipe,
                 ],
+                imports: [AjfCommonModule, CommonModule],
                 exports: [
                     AjfAsFieldInstancePipe,
                     AjfAsRepeatingSlideInstancePipe,
@@ -5920,10 +6059,14 @@ AjfFormsModule.decorators = [
                     AjfFieldHost,
                     AjfFieldIconPipe,
                     AjfFieldIsValidPipe,
+                    AjfGetTableCellControlPipe,
                     AjfIncrementPipe,
+                    AjfIsCellEditablePipe,
                     AjfIsRepeatingSlideInstancePipe,
                     AjfNodeCompleteNamePipe,
                     AjfRangePipe,
+                    AjfReadOnlyFieldComponent,
+                    AjfReadOnlyTableFieldComponent,
                     AjfTableRowClass,
                     AjfTableVisibleColumnsPipe,
                     AjfValidSlidePipe,
@@ -5970,25 +6113,6 @@ function getTypeName(v) {
     /** @type {?} */
     let typeStr = typeof v;
     return typeStr === 'object' ? v.constructor.toString().match(/\w+/g)[1] : typeStr;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/input-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @abstract
- */
-class AjfInputFieldComponent extends AjfBaseFieldComponent {
-    constructor() {
-        super(...arguments);
-        this.type = 'text';
-    }
-}
-if (false) {
-    /** @type {?} */
-    AjfInputFieldComponent.prototype.type;
 }
 
 /**
@@ -6456,41 +6580,107 @@ class AjfFormSerializer {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: src/core/forms/warning-alert-service.ts
+ * Generated from: src/core/forms/table-field.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
+ * @abstract
  */
-/**
- * @record
- */
-function AjfWarningAlertService() { }
-if (false) {
+class AjfTableFieldComponent extends AjfBaseFieldComponent {
     /**
-     * @param {?} warnings
+     * @param {?} cdr
+     * @param {?} service
+     * @param {?} was
+     */
+    constructor(cdr, service, was) {
+        super(cdr, service, was);
+    }
+    /**
+     * @param {?} ev
+     * @param {?} row
+     * @param {?} column
      * @return {?}
      */
-    AjfWarningAlertService.prototype.showWarningAlertPrompt = function (warnings) { };
+    goToNextCell(ev, row, column) {
+        if (this.instance.controls.length < row ||
+            (this.instance.controls.length >= row && this.instance.controls[row].length < 1) ||
+            this.instance.controls[row][1].length < column) {
+            return;
+        }
+        /** @type {?} */
+        const rowLength = this.instance.controls[row][1].length;
+        /** @type {?} */
+        const currentCell = (/** @type {?} */ (this.instance.controls[row][1][column]));
+        if (column + 1 >= rowLength) {
+            column = 0;
+            if (row + 1 >= this.instance.controls.length) {
+                row = 1;
+            }
+            else {
+                row += 1;
+            }
+        }
+        else {
+            column += 1;
+        }
+        if (typeof currentCell !== 'string') {
+            currentCell.show = false;
+        }
+        this._showCell(row, column);
+        ev.preventDefault();
+        ev.stopPropagation();
+    }
+    /**
+     * @param {?} row
+     * @param {?} column
+     * @return {?}
+     */
+    goToCell(row, column) {
+        this._resetControls();
+        this._showCell(row, column);
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    _resetControls() {
+        this.instance.controls.forEach((/**
+         * @param {?} row
+         * @return {?}
+         */
+        row => row[1].forEach((/**
+         * @param {?} cell
+         * @return {?}
+         */
+        cell => {
+            if (typeof cell !== 'string') {
+                ((/** @type {?} */ (cell))).show = false;
+            }
+        }))));
+    }
+    /**
+     * @private
+     * @param {?} row
+     * @param {?} column
+     * @return {?}
+     */
+    _showCell(row, column) {
+        if (row >= this.instance.controls.length || column >= this.instance.controls[row][1].length) {
+            return;
+        }
+        /** @type {?} */
+        const nextCell = (/** @type {?} */ (this.instance.controls[row][1][column]));
+        if (typeof nextCell !== 'string') {
+            nextCell.show = true;
+        }
+    }
 }
+/** @nocollapse */
+AjfTableFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+];
 
 /**
  * @fileoverview added by tsickle
@@ -9311,5 +9501,5 @@ function notEmptyWarning() {
  * Generated bundle index. Do not edit.
  */
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, createNodeGroup as ɵgc_ajf_src_core_forms_forms_a, createRepeatingSlide as ɵgc_ajf_src_core_forms_forms_b, createSlide as ɵgc_ajf_src_core_forms_forms_c, componentsMap as ɵgc_ajf_src_core_forms_forms_d };
+export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfGetTableCellControlPipe, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyFieldComponent, AjfReadOnlyTableFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, createNodeGroup as ɵgc_ajf_src_core_forms_forms_a, createRepeatingSlide as ɵgc_ajf_src_core_forms_forms_b, createSlide as ɵgc_ajf_src_core_forms_forms_c, componentsMap as ɵgc_ajf_src_core_forms_forms_d };
 //# sourceMappingURL=forms.js.map

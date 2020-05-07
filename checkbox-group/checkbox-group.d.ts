@@ -101,9 +101,6 @@ export declare class AjfCheckboxGroupItem<T> implements OnInit {
     private _value;
     get value(): T;
     set value(value: T);
-    protected _readonly: boolean;
-    get readonly(): boolean;
-    set readonly(readonly: boolean);
     private _checkedIconVal;
     get checkedIcon(): string;
     set checkedIcon(icon: string);

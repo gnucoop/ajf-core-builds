@@ -32,9 +32,6 @@ export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance =
     private _instance;
     get instance(): T;
     set instance(instance: T);
-    protected _readonly: boolean;
-    get readonly(): boolean;
-    set readonly(readonly: boolean);
     private _control;
     get control(): Observable<FormControl | null>;
     private _warningTriggerSub;

@@ -26,9 +26,6 @@ import { Subscription } from 'rxjs';
 export declare abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     private _cdr;
     private _renderer;
-    protected _readonly: boolean;
-    get readonly(): boolean;
-    set readonly(readonly: boolean);
     readonly codeReader: BrowserBarcodeReader;
     readonly startDetection: EventEmitter<void>;
     readonly startCalculation: EventEmitter<string>;
@@ -61,6 +58,7 @@ export declare abstract class AjfBarcode implements ControlValueAccessor, OnDest
     reset(): void;
     takeSnapshot(): void;
     onSelectFile(evt: Event): void;
+    onSelectDrop(files: FileList): void;
     /** ControlValueAccessor implements */
     writeValue(value: string): void;
     registerOnChange(fn: (value: any) => void): void;
@@ -69,6 +67,7 @@ export declare abstract class AjfBarcode implements ControlValueAccessor, OnDest
     private _init;
     private _initCanvas;
     private _initVideo;
+    private _onSelect;
     /**
      * write a frame of HTMLVideoElement into HTMLCanvasElement and
      * return the result of toDataURL('image/png')

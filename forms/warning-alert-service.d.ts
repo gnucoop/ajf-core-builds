@@ -19,8 +19,10 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AjfFieldWarningAlertResult } from './field-warning-alert-result';
 export interface AjfWarningAlertService {
     showWarningAlertPrompt(warnings: string[]): Observable<AjfFieldWarningAlertResult>;
 }
+export declare const AJF_WARNING_ALERT_SERVICE: InjectionToken<AjfWarningAlertService>;

@@ -34,6 +34,7 @@ export declare abstract class AjfFormField implements OnDestroy, OnInit {
     get readonly(): boolean;
     set readonly(readonly: boolean);
     private _componentInstance;
+    private _init;
     protected abstract componentsMap: AjfFieldComponentsMap;
     private _updatedSub;
     constructor(_cdr: ChangeDetectorRef, _cfr: ComponentFactoryResolver);

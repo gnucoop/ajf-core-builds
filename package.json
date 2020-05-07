@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "9.0.1-sha-bd57780",
+  "version": "9.0.1-sha-f3f80bf",
   "description": "",
   "main": "./bundles/core.umd.js",
   "fesm5": "./fesm5/core.js",

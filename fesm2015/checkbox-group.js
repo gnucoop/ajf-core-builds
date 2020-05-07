@@ -429,19 +429,6 @@ class AjfCheckboxGroupItem {
     /**
      * @return {?}
      */
-    get readonly() {
-        return this._readonly;
-    }
-    /**
-     * @param {?} readonly
-     * @return {?}
-     */
-    set readonly(readonly) {
-        this._readonly = coerceBooleanProperty(readonly);
-    }
-    /**
-     * @return {?}
-     */
     get checkedIcon() {
         return this._checkedIconVal.getValue();
     }
@@ -516,7 +503,6 @@ AjfCheckboxGroupItem.propDecorators = {
     checked: [{ type: Input }],
     disabled: [{ type: Input }],
     value: [{ type: Input }],
-    readonly: [{ type: Input }],
     checkedIcon: [{ type: Input }],
     notCheckedIcon: [{ type: Input }],
     change: [{ type: Output }]
@@ -559,11 +545,6 @@ if (false) {
      * @private
      */
     AjfCheckboxGroupItem.prototype._value;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AjfCheckboxGroupItem.prototype._readonly;
     /**
      * @type {?}
      * @private

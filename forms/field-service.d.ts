@@ -30,6 +30,7 @@ export declare abstract class AjfFieldService {
     registerCustomField(field: {
         fieldType: number;
         component: Type<AjfBaseFieldComponent>;
+        readOnlyComponent?: Type<AjfBaseFieldComponent>;
         createInstance?: (instance: AjfFieldInstanceCreate, context: AjfContext) => AjfFieldInstance;
         isFieldWithChoice?: boolean;
     }): void;

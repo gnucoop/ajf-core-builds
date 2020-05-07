@@ -1,5 +1,4 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { EventEmitter, Directive, ChangeDetectorRef, Renderer2, Input } from '@angular/core';
+import { EventEmitter, Directive, ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { BrowserBarcodeReader } from '@zxing/library';
 import { Subscription, of, from } from 'rxjs';
 import { debounceTime, switchMap, catchError } from 'rxjs/operators';
@@ -92,20 +91,6 @@ class AjfBarcode {
     /**
      * @return {?}
      */
-    get readonly() {
-        return this._readonly;
-    }
-    /**
-     * @param {?} readonly
-     * @return {?}
-     */
-    set readonly(readonly) {
-        this._readonly = coerceBooleanProperty(readonly);
-        this._cdr.markForCheck();
-    }
-    /**
-     * @return {?}
-     */
     get canvasCtx() {
         return (/** @type {?} */ (this._canvas.getContext('2d')));
     }
@@ -170,22 +155,18 @@ class AjfBarcode {
         /** @type {?} */
         const target = (/** @type {?} */ (evt.target));
         /** @type {?} */
-        const files = target.files;
-        if (files != null && files[0]) {
-            /** @type {?} */
-            let reader = new FileReader();
-            reader.readAsDataURL(files[0]);
-            reader.onload = (/**
-             * @param {?} ev
-             * @return {?}
-             */
-            (ev) => {
-                /** @type {?} */
-                const data = (/** @type {?} */ (((/** @type {?} */ (ev.target))).result));
-                this.startCalculation.emit(data);
-                this._cdr.detectChanges();
-            });
+        const files = (/** @type {?} */ (target.files));
+        this._onSelect(files);
+    }
+    /**
+     * @param {?} files
+     * @return {?}
+     */
+    onSelectDrop(files) {
+        if (files == null) {
+            return;
         }
+        this._onSelect(files);
     }
     /**
      * ControlValueAccessor implements
@@ -241,6 +222,28 @@ class AjfBarcode {
         this._video = this._renderer.createElement('video');
         this._video.height = 480;
         this._video.width = 640;
+    }
+    /**
+     * @private
+     * @param {?} files
+     * @return {?}
+     */
+    _onSelect(files) {
+        if (files != null && files.length > 0 && files[0]) {
+            /** @type {?} */
+            let reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+            reader.onload = (/**
+             * @param {?} ev
+             * @return {?}
+             */
+            (ev) => {
+                /** @type {?} */
+                const data = (/** @type {?} */ (((/** @type {?} */ (ev.target))).result));
+                this.startCalculation.emit(data);
+                this._cdr.detectChanges();
+            });
+        }
     }
     /**
      * write a frame of HTMLVideoElement into HTMLCanvasElement and
@@ -308,15 +311,7 @@ AjfBarcode.ctorParameters = () => [
     { type: ChangeDetectorRef },
     { type: Renderer2 }
 ];
-AjfBarcode.propDecorators = {
-    readonly: [{ type: Input }]
-};
 if (false) {
-    /**
-     * @type {?}
-     * @protected
-     */
-    AjfBarcode.prototype._readonly;
     /** @type {?} */
     AjfBarcode.prototype.codeReader;
     /** @type {?} */
