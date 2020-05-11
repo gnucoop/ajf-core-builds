@@ -1,11 +1,9 @@
 {
   "name": "@ajf/core/chart",
   "main": "../bundles/core-chart.umd.js",
-  "fesm5": "../fesm5/chart.js",
   "fesm2015": "../fesm2015/chart.js",
-  "esm5": "../esm5/chart/index.js",
   "esm2015": "../esm2015/chart/index.js",
   "typings": "./index.d.ts",
-  "module": "../fesm5/chart.js",
+  "module": "../fesm2015/chart.js",
   "es2015": "../fesm2015/chart.js"
 }

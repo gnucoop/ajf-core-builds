@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('date-fns'), require('@ajf/core/models'), require('@angular/cdk/coercion'), require('@ajf/core/page-slider'), require('@ajf/core/utils'), require('esprima'), require('@ajf/core/common'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/core', '@angular/forms', 'rxjs', 'rxjs/operators', 'date-fns', '@ajf/core/models', '@angular/cdk/coercion', '@ajf/core/page-slider', '@ajf/core/utils', 'esprima', '@ajf/core/common', '@angular/common'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators, global.dateFns, global.ng.core.models, global.ng.cdk.coercion, global.ng.core.pageSlider, global.ng.core.utils, global.esprima, global.ng.core.common, global.ng.common));
-}(this, (function (exports, core, forms, rxjs, operators, dateFns, models, coercion, pageSlider, utils, esprima, common, common$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@ajf/core/utils'), require('esprima'), require('@ajf/core/models'), require('date-fns'), require('@angular/cdk/coercion'), require('@ajf/core/page-slider'), require('@ajf/core/common'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/core', '@angular/forms', 'rxjs', 'rxjs/operators', '@ajf/core/utils', 'esprima', '@ajf/core/models', 'date-fns', '@angular/cdk/coercion', '@ajf/core/page-slider', '@ajf/core/common', '@angular/common'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.core.utils, global.esprima, global.ng.core.models, global.dateFns, global.ng.cdk.coercion, global.ng.core.pageSlider, global.ng.core.common, global.ng.common));
+}(this, (function (exports, core, forms, rxjs, operators, utils, esprima, models, dateFns, coercion, pageSlider, common, common$1) { 'use strict';
 
     var esprima__default = 'default' in esprima ? esprima['default'] : esprima;
 
@@ -72,219 +72,6 @@
         return AjfAsRepeatingSlideInstancePipe;
     }());
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfBaseFieldComponent = /** @class */ (function () {
-        function AjfBaseFieldComponent(_changeDetectorRef, _service, _warningAlertService) {
-            var _this = this;
-            this._changeDetectorRef = _changeDetectorRef;
-            this._service = _service;
-            this._warningAlertService = _warningAlertService;
-            this._warningTriggerSub = rxjs.Subscription.EMPTY;
-            this._instanceUpdateSub = rxjs.Subscription.EMPTY;
-            this._control = rxjs.defer(function () { return _this._service.getControl(_this.instance)
-                .pipe(operators.map(function (ctrl) { return ctrl || new forms.FormControl(); })); });
-        }
-        Object.defineProperty(AjfBaseFieldComponent.prototype, "instance", {
-            get: function () {
-                return this._instance;
-            },
-            set: function (instance) {
-                if (instance !== this._instance) {
-                    this._instance = instance;
-                    this._setUpInstanceUpdate();
-                    this._onInstanceChange();
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfBaseFieldComponent.prototype, "control", {
-            get: function () {
-                return this._control;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        AjfBaseFieldComponent.prototype.ngOnInit = function () {
-            var _this = this;
-            this._warningTriggerSub =
-                this.instance.warningTrigger.pipe(operators.withLatestFrom(this.control), operators.filter(function (v) { return v[1] != null; }))
-                    .subscribe(function (v) {
-                    if (_this.instance.warningResults == null) {
-                        return;
-                    }
-                    var control = v[1];
-                    var s = _this._warningAlertService
-                        .showWarningAlertPrompt(_this.instance.warningResults.filter(function (w) { return w.result; }).map(function (w) { return w.warning; }))
-                        .subscribe(function (r) {
-                        if (r.result) {
-                            control.setValue(null);
-                        }
-                    }, function (_e) {
-                        if (s) {
-                            s.unsubscribe();
-                        }
-                    }, function () {
-                        if (s) {
-                            s.unsubscribe();
-                        }
-                    });
-                });
-        };
-        AjfBaseFieldComponent.prototype.ngOnDestroy = function () {
-            this._warningTriggerSub.unsubscribe();
-            this._instanceUpdateSub.unsubscribe();
-        };
-        AjfBaseFieldComponent.prototype._onInstanceChange = function () { };
-        AjfBaseFieldComponent.prototype._setUpInstanceUpdate = function () {
-            var _this = this;
-            this._instanceUpdateSub.unsubscribe();
-            if (this._instance != null) {
-                this._instanceUpdateSub = this._instance.updatedEvt.subscribe(function () {
-                    if (_this._changeDetectorRef) {
-                        try {
-                            _this._changeDetectorRef.detectChanges();
-                        }
-                        catch (e) {
-                        }
-                    }
-                });
-            }
-            else {
-                this._instanceUpdateSub = rxjs.Subscription.EMPTY;
-            }
-            this._changeDetectorRef.detectChanges();
-        };
-        return AjfBaseFieldComponent;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfBoolToIntPipe = /** @class */ (function () {
-        function AjfBoolToIntPipe() {
-        }
-        AjfBoolToIntPipe.prototype.transform = function (value) {
-            return value ? 1 : 0;
-        };
-        AjfBoolToIntPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfBoolToInt' },] }
-        ];
-        return AjfBoolToIntPipe;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfDateValuePipe = /** @class */ (function () {
-        function AjfDateValuePipe() {
-        }
-        AjfDateValuePipe.prototype.transform = function (date) {
-            if (date == null) {
-                return null;
-            }
-            return date === 'today' ? new Date() : date;
-        };
-        AjfDateValuePipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfDateValue' },] }
-        ];
-        return AjfDateValuePipe;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfDateValueStringPipe = /** @class */ (function () {
-        function AjfDateValueStringPipe() {
-        }
-        AjfDateValueStringPipe.prototype.transform = function (date) {
-            if (date == null) {
-                return undefined;
-            }
-            var dateObj = date === 'today' ? new Date() : date;
-            return dateFns.format(dateObj, 'yyyy-MM-dd');
-        };
-        AjfDateValueStringPipe.decorators = [
-            { type: core.Injectable },
-            { type: core.Pipe, args: [{ name: 'ajfDateValueString' },] }
-        ];
-        return AjfDateValueStringPipe;
-    }());
-
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
     Licensed under the Apache License, Version 2.0 (the "License"); you may not use
@@ -330,8 +117,10 @@
         for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
             t[p] = s[p];
         if (s != null && typeof Object.getOwnPropertySymbols === "function")
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-                t[p[i]] = s[p[i]];
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                    t[p[i]] = s[p[i]];
+            }
         return t;
     }
 
@@ -425,6 +214,14 @@
         return ar;
     }
 
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    };
+
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
@@ -493,228 +290,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    /**
-     * This class will define an Ajf invalid field definition error
-     */
-    var AjfInvalidFieldDefinitionError = /** @class */ (function (_super) {
-        __extends(AjfInvalidFieldDefinitionError, _super);
-        function AjfInvalidFieldDefinitionError(message) {
-            return _super.call(this, message) || this;
-        }
-        Object.defineProperty(AjfInvalidFieldDefinitionError.prototype, "name", {
-            get: function () {
-                return 'AjfInvalidFieldDefinitionError';
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfInvalidFieldDefinitionError;
-    }(models.AjfError));
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfExpandFieldWithChoicesPipe = /** @class */ (function () {
-        function AjfExpandFieldWithChoicesPipe() {
-        }
-        AjfExpandFieldWithChoicesPipe.prototype.transform = function (instance, threshold) {
-            return !instance.node.forceNarrow &&
-                (instance.node.forceExpanded ||
-                    (instance.filteredChoices && instance.filteredChoices.length <= threshold));
-        };
-        AjfExpandFieldWithChoicesPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
-        ];
-        return AjfExpandFieldWithChoicesPipe;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfFieldHost = /** @class */ (function () {
-        function AjfFieldHost(viewContainerRef) {
-            this.viewContainerRef = viewContainerRef;
-        }
-        AjfFieldHost.decorators = [
-            { type: core.Directive, args: [{ selector: '[ajf-field-host]' },] }
-        ];
-        /** @nocollapse */
-        AjfFieldHost.ctorParameters = function () { return [
-            { type: core.ViewContainerRef }
-        ]; };
-        return AjfFieldHost;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfFormField = /** @class */ (function () {
-        function AjfFormField(_cdr, _cfr) {
-            this._cdr = _cdr;
-            this._cfr = _cfr;
-            this._init = false;
-            this._updatedSub = rxjs.Subscription.EMPTY;
-        }
-        Object.defineProperty(AjfFormField.prototype, "instance", {
-            get: function () {
-                return this._instance;
-            },
-            set: function (instance) {
-                if (this._instance !== instance) {
-                    this._instance = instance;
-                    if (this._init) {
-                        this._loadComponent();
-                    }
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AjfFormField.prototype, "readonly", {
-            get: function () {
-                return this._readonly;
-            },
-            set: function (readonly) {
-                this._readonly = coercion.coerceBooleanProperty(readonly);
-                if (this._init) {
-                    this._loadComponent();
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        AjfFormField.prototype.ngOnDestroy = function () {
-            this._updatedSub.unsubscribe();
-        };
-        AjfFormField.prototype.ngOnInit = function () {
-            this._init = true;
-            this._loadComponent();
-        };
-        AjfFormField.prototype._loadComponent = function () {
-            var _this = this;
-            this._updatedSub.unsubscribe();
-            this._updatedSub = rxjs.Subscription.EMPTY;
-            if (this._instance == null || this.fieldHost == null) {
-                return;
-            }
-            var vcr = this.fieldHost.viewContainerRef;
-            vcr.clear();
-            var componentDef = this.componentsMap[this._instance.node.fieldType];
-            if (componentDef == null) {
-                return;
-            }
-            var component = this._readonly && componentDef.readOnlyComponent ?
-                componentDef.readOnlyComponent :
-                componentDef.component;
-            try {
-                var componentFactory = this._cfr.resolveComponentFactory(component);
-                var componentRef = vcr.createComponent(componentFactory);
-                this._componentInstance = componentRef.instance;
-                this._componentInstance.instance = this._instance;
-                if (componentDef.inputs) {
-                    Object.keys(componentDef.inputs).forEach(function (key) {
-                        if (key in _this._componentInstance) {
-                            _this._componentInstance[key] = componentDef.inputs[key];
-                        }
-                    });
-                }
-                this._updatedSub = this._instance.updatedEvt.subscribe(function () { return _this._cdr.markForCheck(); });
-            }
-            catch (e) {
-                console.log(e);
-            }
-        };
-        AjfFormField.decorators = [
-            { type: core.Directive }
-        ];
-        /** @nocollapse */
-        AjfFormField.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: core.ComponentFactoryResolver }
-        ]; };
-        AjfFormField.propDecorators = {
-            fieldHost: [{ type: core.ViewChild, args: [AjfFieldHost, { static: true },] }],
-            instance: [{ type: core.Input }],
-            readonly: [{ type: core.Input }]
-        };
-        return AjfFormField;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     (function (AjfFieldType) {
         AjfFieldType[AjfFieldType["String"] = 0] = "String";
         AjfFieldType[AjfFieldType["Text"] = 1] = "Text";
@@ -732,199 +307,6 @@
         AjfFieldType[AjfFieldType["Barcode"] = 13] = "Barcode";
         AjfFieldType[AjfFieldType["LENGTH"] = 14] = "LENGTH";
     })(exports.AjfFieldType || (exports.AjfFieldType = {}));
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    function fieldIconName(type) {
-        return "ajf-icon-field-" + (typeof exports.AjfFieldType[type] === 'string' ? exports.AjfFieldType[type].toLowerCase() : type);
-    }
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfFieldIconPipe = /** @class */ (function () {
-        function AjfFieldIconPipe() {
-        }
-        AjfFieldIconPipe.prototype.transform = function (field) {
-            return fieldIconName(field.fieldType ? field.fieldType : field);
-        };
-        AjfFieldIconPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfFieldIcon' },] }
-        ];
-        return AjfFieldIconPipe;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfFieldIsValidPipe = /** @class */ (function () {
-        function AjfFieldIsValidPipe() {
-        }
-        AjfFieldIsValidPipe.prototype.transform = function (validationResults) {
-            return validationResults != null && validationResults.filter(function (f) { return !f.result; }).length === 0;
-        };
-        AjfFieldIsValidPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfFieldIsValid' },] }
-        ];
-        return AjfFieldIsValidPipe;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var componentsMap = {};
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfFieldService = /** @class */ (function () {
-        function AjfFieldService() {
-            this.componentsMap = componentsMap;
-        }
-        AjfFieldService.prototype.registerCustomField = function (field) {
-            var fieldType = field.fieldType, component = field.component;
-            if (fieldType < 100) {
-                throw new Error('Invalid custom field type, it must be greater than 100');
-            }
-            if (component == null) {
-                throw new Error('Invalid custom field component');
-            }
-            this.componentsMap[fieldType] = field;
-        };
-        return AjfFieldService;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfFieldWithChoicesComponent = /** @class */ (function (_super) {
-        __extends(AjfFieldWithChoicesComponent, _super);
-        function AjfFieldWithChoicesComponent(cdr, service, warningAlertService, searchThreshold) {
-            var _this = _super.call(this, cdr, service, warningAlertService) || this;
-            _this._searchThreshold = 6;
-            if (searchThreshold != null) {
-                _this._searchThreshold = searchThreshold;
-            }
-            return _this;
-        }
-        Object.defineProperty(AjfFieldWithChoicesComponent.prototype, "searchThreshold", {
-            get: function () {
-                return this._searchThreshold;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return AjfFieldWithChoicesComponent;
-    }(AjfBaseFieldComponent));
 
     /**
      * @license
@@ -1982,6 +1364,29 @@
             field.fieldType !== exports.AjfFieldType.Formula && field.fieldType !== exports.AjfFieldType.Table;
         return __assign(__assign(__assign({}, node), field), { nodeType: exports.AjfNodeType.AjfField, editable: editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
     }
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var componentsMap = {};
 
     /**
      * @license
@@ -4429,6 +3834,620 @@
         ]; };
         return AjfFormRendererService;
     }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfBaseFieldComponent = /** @class */ (function () {
+        function AjfBaseFieldComponent(_changeDetectorRef, _service, _warningAlertService) {
+            var _this = this;
+            this._changeDetectorRef = _changeDetectorRef;
+            this._service = _service;
+            this._warningAlertService = _warningAlertService;
+            this._warningTriggerSub = rxjs.Subscription.EMPTY;
+            this._instanceUpdateSub = rxjs.Subscription.EMPTY;
+            this._control = rxjs.defer(function () { return _this._service.getControl(_this.instance)
+                .pipe(operators.map(function (ctrl) { return ctrl || new forms.FormControl(); })); });
+        }
+        Object.defineProperty(AjfBaseFieldComponent.prototype, "instance", {
+            get: function () {
+                return this._instance;
+            },
+            set: function (instance) {
+                if (instance !== this._instance) {
+                    this._instance = instance;
+                    this._setUpInstanceUpdate();
+                    this._onInstanceChange();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfBaseFieldComponent.prototype, "control", {
+            get: function () {
+                return this._control;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        AjfBaseFieldComponent.prototype.ngOnInit = function () {
+            var _this = this;
+            this._warningTriggerSub =
+                this.instance.warningTrigger.pipe(operators.withLatestFrom(this.control), operators.filter(function (v) { return v[1] != null; }))
+                    .subscribe(function (v) {
+                    if (_this.instance.warningResults == null) {
+                        return;
+                    }
+                    var control = v[1];
+                    var s = _this._warningAlertService
+                        .showWarningAlertPrompt(_this.instance.warningResults.filter(function (w) { return w.result; }).map(function (w) { return w.warning; }))
+                        .subscribe(function (r) {
+                        if (r.result) {
+                            control.setValue(null);
+                        }
+                    }, function (_e) {
+                        if (s) {
+                            s.unsubscribe();
+                        }
+                    }, function () {
+                        if (s) {
+                            s.unsubscribe();
+                        }
+                    });
+                });
+        };
+        AjfBaseFieldComponent.prototype.ngOnDestroy = function () {
+            this._warningTriggerSub.unsubscribe();
+            this._instanceUpdateSub.unsubscribe();
+        };
+        AjfBaseFieldComponent.prototype._onInstanceChange = function () { };
+        AjfBaseFieldComponent.prototype._setUpInstanceUpdate = function () {
+            var _this = this;
+            this._instanceUpdateSub.unsubscribe();
+            if (this._instance != null) {
+                this._instanceUpdateSub = this._instance.updatedEvt.subscribe(function () {
+                    if (_this._changeDetectorRef) {
+                        try {
+                            _this._changeDetectorRef.detectChanges();
+                        }
+                        catch (e) {
+                        }
+                    }
+                });
+            }
+            else {
+                this._instanceUpdateSub = rxjs.Subscription.EMPTY;
+            }
+            this._changeDetectorRef.detectChanges();
+        };
+        AjfBaseFieldComponent.decorators = [
+            { type: core.Directive }
+        ];
+        /** @nocollapse */
+        AjfBaseFieldComponent.ctorParameters = function () { return [
+            { type: core.ChangeDetectorRef },
+            { type: AjfFormRendererService },
+            { type: undefined }
+        ]; };
+        return AjfBaseFieldComponent;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfBoolToIntPipe = /** @class */ (function () {
+        function AjfBoolToIntPipe() {
+        }
+        AjfBoolToIntPipe.prototype.transform = function (value) {
+            return value ? 1 : 0;
+        };
+        AjfBoolToIntPipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'ajfBoolToInt' },] }
+        ];
+        return AjfBoolToIntPipe;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfDateValuePipe = /** @class */ (function () {
+        function AjfDateValuePipe() {
+        }
+        AjfDateValuePipe.prototype.transform = function (date) {
+            if (date == null) {
+                return null;
+            }
+            return date === 'today' ? new Date() : date;
+        };
+        AjfDateValuePipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'ajfDateValue' },] }
+        ];
+        return AjfDateValuePipe;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfDateValueStringPipe = /** @class */ (function () {
+        function AjfDateValueStringPipe() {
+        }
+        AjfDateValueStringPipe.prototype.transform = function (date) {
+            if (date == null) {
+                return undefined;
+            }
+            var dateObj = date === 'today' ? new Date() : date;
+            return dateFns.format(dateObj, 'yyyy-MM-dd');
+        };
+        AjfDateValueStringPipe.decorators = [
+            { type: core.Injectable },
+            { type: core.Pipe, args: [{ name: 'ajfDateValueString' },] }
+        ];
+        return AjfDateValueStringPipe;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    /**
+     * This class will define an Ajf invalid field definition error
+     */
+    var AjfInvalidFieldDefinitionError = /** @class */ (function (_super) {
+        __extends(AjfInvalidFieldDefinitionError, _super);
+        function AjfInvalidFieldDefinitionError(message) {
+            return _super.call(this, message) || this;
+        }
+        Object.defineProperty(AjfInvalidFieldDefinitionError.prototype, "name", {
+            get: function () {
+                return 'AjfInvalidFieldDefinitionError';
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return AjfInvalidFieldDefinitionError;
+    }(models.AjfError));
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfExpandFieldWithChoicesPipe = /** @class */ (function () {
+        function AjfExpandFieldWithChoicesPipe() {
+        }
+        AjfExpandFieldWithChoicesPipe.prototype.transform = function (instance, threshold) {
+            return !instance.node.forceNarrow &&
+                (instance.node.forceExpanded ||
+                    (instance.filteredChoices && instance.filteredChoices.length <= threshold));
+        };
+        AjfExpandFieldWithChoicesPipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
+        ];
+        return AjfExpandFieldWithChoicesPipe;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfFieldHost = /** @class */ (function () {
+        function AjfFieldHost(viewContainerRef) {
+            this.viewContainerRef = viewContainerRef;
+        }
+        AjfFieldHost.decorators = [
+            { type: core.Directive, args: [{ selector: '[ajf-field-host]' },] }
+        ];
+        /** @nocollapse */
+        AjfFieldHost.ctorParameters = function () { return [
+            { type: core.ViewContainerRef }
+        ]; };
+        return AjfFieldHost;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfFormField = /** @class */ (function () {
+        function AjfFormField(_cdr, _cfr) {
+            this._cdr = _cdr;
+            this._cfr = _cfr;
+            this._init = false;
+            this._updatedSub = rxjs.Subscription.EMPTY;
+        }
+        Object.defineProperty(AjfFormField.prototype, "instance", {
+            get: function () {
+                return this._instance;
+            },
+            set: function (instance) {
+                if (this._instance !== instance) {
+                    this._instance = instance;
+                    if (this._init) {
+                        this._loadComponent();
+                    }
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AjfFormField.prototype, "readonly", {
+            get: function () {
+                return this._readonly;
+            },
+            set: function (readonly) {
+                this._readonly = coercion.coerceBooleanProperty(readonly);
+                if (this._init) {
+                    this._loadComponent();
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        AjfFormField.prototype.ngOnDestroy = function () {
+            this._updatedSub.unsubscribe();
+        };
+        AjfFormField.prototype.ngOnInit = function () {
+            this._init = true;
+            this._loadComponent();
+        };
+        AjfFormField.prototype._loadComponent = function () {
+            var _this = this;
+            this._updatedSub.unsubscribe();
+            this._updatedSub = rxjs.Subscription.EMPTY;
+            if (this._instance == null || this.fieldHost == null) {
+                return;
+            }
+            var vcr = this.fieldHost.viewContainerRef;
+            vcr.clear();
+            var componentDef = this.componentsMap[this._instance.node.fieldType];
+            if (componentDef == null) {
+                return;
+            }
+            var component = this._readonly && componentDef.readOnlyComponent ?
+                componentDef.readOnlyComponent :
+                componentDef.component;
+            try {
+                var componentFactory = this._cfr.resolveComponentFactory(component);
+                var componentRef = vcr.createComponent(componentFactory);
+                this._componentInstance = componentRef.instance;
+                this._componentInstance.instance = this._instance;
+                if (componentDef.inputs) {
+                    Object.keys(componentDef.inputs).forEach(function (key) {
+                        if (key in _this._componentInstance) {
+                            _this._componentInstance[key] = componentDef.inputs[key];
+                        }
+                    });
+                }
+                this._updatedSub = this._instance.updatedEvt.subscribe(function () { return _this._cdr.markForCheck(); });
+            }
+            catch (e) {
+                console.log(e);
+            }
+        };
+        AjfFormField.decorators = [
+            { type: core.Directive }
+        ];
+        /** @nocollapse */
+        AjfFormField.ctorParameters = function () { return [
+            { type: core.ChangeDetectorRef },
+            { type: core.ComponentFactoryResolver }
+        ]; };
+        AjfFormField.propDecorators = {
+            fieldHost: [{ type: core.ViewChild, args: [AjfFieldHost, { static: true },] }],
+            instance: [{ type: core.Input }],
+            readonly: [{ type: core.Input }]
+        };
+        return AjfFormField;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    function fieldIconName(type) {
+        return "ajf-icon-field-" + (typeof exports.AjfFieldType[type] === 'string' ? exports.AjfFieldType[type].toLowerCase() : type);
+    }
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfFieldIconPipe = /** @class */ (function () {
+        function AjfFieldIconPipe() {
+        }
+        AjfFieldIconPipe.prototype.transform = function (field) {
+            return fieldIconName(field.fieldType ? field.fieldType : field);
+        };
+        AjfFieldIconPipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'ajfFieldIcon' },] }
+        ];
+        return AjfFieldIconPipe;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfFieldIsValidPipe = /** @class */ (function () {
+        function AjfFieldIsValidPipe() {
+        }
+        AjfFieldIsValidPipe.prototype.transform = function (validationResults) {
+            return validationResults != null && validationResults.filter(function (f) { return !f.result; }).length === 0;
+        };
+        AjfFieldIsValidPipe.decorators = [
+            { type: core.Pipe, args: [{ name: 'ajfFieldIsValid' },] }
+        ];
+        return AjfFieldIsValidPipe;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfFieldService = /** @class */ (function () {
+        function AjfFieldService() {
+            this.componentsMap = componentsMap;
+        }
+        AjfFieldService.prototype.registerCustomField = function (field) {
+            var fieldType = field.fieldType, component = field.component;
+            if (fieldType < 100) {
+                throw new Error('Invalid custom field type, it must be greater than 100');
+            }
+            if (component == null) {
+                throw new Error('Invalid custom field component');
+            }
+            this.componentsMap[fieldType] = field;
+        };
+        return AjfFieldService;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfFieldWithChoicesComponent = /** @class */ (function (_super) {
+        __extends(AjfFieldWithChoicesComponent, _super);
+        function AjfFieldWithChoicesComponent(cdr, service, warningAlertService, searchThreshold) {
+            var _this = _super.call(this, cdr, service, warningAlertService) || this;
+            _this._searchThreshold = 6;
+            if (searchThreshold != null) {
+                _this._searchThreshold = searchThreshold;
+            }
+            return _this;
+        }
+        Object.defineProperty(AjfFieldWithChoicesComponent.prototype, "searchThreshold", {
+            get: function () {
+                return this._searchThreshold;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return AjfFieldWithChoicesComponent;
+    }(AjfBaseFieldComponent));
 
     /**
      * @license

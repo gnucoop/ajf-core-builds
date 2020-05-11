@@ -1,11 +1,9 @@
 {
   "name": "@ajf/core/barcode",
   "main": "../bundles/core-barcode.umd.js",
-  "fesm5": "../fesm5/barcode.js",
   "fesm2015": "../fesm2015/barcode.js",
-  "esm5": "../esm5/barcode/index.js",
   "esm2015": "../esm2015/barcode/index.js",
   "typings": "./index.d.ts",
-  "module": "../fesm5/barcode.js",
+  "module": "../fesm2015/barcode.js",
   "es2015": "../fesm2015/barcode.js"
 }

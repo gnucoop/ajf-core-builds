@@ -1,14 +1,14 @@
-import { Pipe, Injectable, Directive, ViewContainerRef, ChangeDetectorRef, ComponentFactoryResolver, ViewChild, Input, EventEmitter, Output, ViewChildren, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, NgModule } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Subscription, defer, Subject, BehaviorSubject, Observable, of, from, timer } from 'rxjs';
+import { Pipe, EventEmitter, Injectable, Directive, ChangeDetectorRef, ViewContainerRef, ComponentFactoryResolver, ViewChild, Input, Output, ViewChildren, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, NgModule } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Subject, BehaviorSubject, Subscription, Observable, of, from, timer, defer } from 'rxjs';
 import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
-import { format } from 'date-fns';
-import { AjfError, evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import '@ajf/core/page-slider';
 import { deepCopy } from '@ajf/core/utils';
 import * as esprima from 'esprima';
 import esprima__default from 'esprima';
+import { evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
+import { format } from 'date-fns';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import '@ajf/core/page-slider';
 import { AjfCommonModule } from '@ajf/core/common';
 import { CommonModule } from '@angular/common';
 
@@ -47,499 +47,6 @@ class AjfAsRepeatingSlideInstancePipe {
 AjfAsRepeatingSlideInstancePipe.decorators = [
     { type: Pipe, args: [{ name: 'ajfAsRepeatingSlideInstance' },] }
 ];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/base-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @abstract
- * @template T
- */
-class AjfBaseFieldComponent {
-    /**
-     * @param {?} _changeDetectorRef
-     * @param {?} _service
-     * @param {?} _warningAlertService
-     */
-    constructor(_changeDetectorRef, _service, _warningAlertService) {
-        this._changeDetectorRef = _changeDetectorRef;
-        this._service = _service;
-        this._warningAlertService = _warningAlertService;
-        this._warningTriggerSub = Subscription.EMPTY;
-        this._instanceUpdateSub = Subscription.EMPTY;
-        this._control = defer((/**
-         * @return {?}
-         */
-        () => this._service.getControl(this.instance)
-            .pipe(map((/**
-         * @param {?} ctrl
-         * @return {?}
-         */
-        ctrl => (/** @type {?} */ (ctrl)) || new FormControl())))));
-    }
-    /**
-     * @return {?}
-     */
-    get instance() {
-        return this._instance;
-    }
-    /**
-     * @param {?} instance
-     * @return {?}
-     */
-    set instance(instance) {
-        if (instance !== this._instance) {
-            this._instance = instance;
-            this._setUpInstanceUpdate();
-            this._onInstanceChange();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    get control() {
-        return this._control;
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._warningTriggerSub =
-            this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter((/**
-             * @param {?} v
-             * @return {?}
-             */
-            v => v[1] != null)))
-                .subscribe((/**
-             * @param {?} v
-             * @return {?}
-             */
-            (v) => {
-                if (this.instance.warningResults == null) {
-                    return;
-                }
-                /** @type {?} */
-                const control = v[1];
-                /** @type {?} */
-                const s = this._warningAlertService
-                    .showWarningAlertPrompt(this.instance.warningResults.filter((/**
-                 * @param {?} w
-                 * @return {?}
-                 */
-                w => w.result)).map((/**
-                 * @param {?} w
-                 * @return {?}
-                 */
-                w => w.warning)))
-                    .subscribe((/**
-                 * @param {?} r
-                 * @return {?}
-                 */
-                (r) => {
-                    if (r.result) {
-                        (/** @type {?} */ (control)).setValue(null);
-                    }
-                }), (/**
-                 * @param {?} _e
-                 * @return {?}
-                 */
-                (_e) => {
-                    if (s) {
-                        s.unsubscribe();
-                    }
-                }), (/**
-                 * @return {?}
-                 */
-                () => {
-                    if (s) {
-                        s.unsubscribe();
-                    }
-                }));
-            }));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._warningTriggerSub.unsubscribe();
-        this._instanceUpdateSub.unsubscribe();
-    }
-    /**
-     * @protected
-     * @return {?}
-     */
-    _onInstanceChange() { }
-    /**
-     * @private
-     * @return {?}
-     */
-    _setUpInstanceUpdate() {
-        this._instanceUpdateSub.unsubscribe();
-        if (this._instance != null) {
-            this._instanceUpdateSub = this._instance.updatedEvt.subscribe((/**
-             * @return {?}
-             */
-            () => {
-                if (this._changeDetectorRef) {
-                    try {
-                        this._changeDetectorRef.detectChanges();
-                    }
-                    catch (e) {
-                    }
-                }
-            }));
-        }
-        else {
-            this._instanceUpdateSub = Subscription.EMPTY;
-        }
-        this._changeDetectorRef.detectChanges();
-    }
-}
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._instance;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._control;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._warningTriggerSub;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._instanceUpdateSub;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AjfBaseFieldComponent.prototype._changeDetectorRef;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._service;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._warningAlertService;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/bool-to-int.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfBoolToIntPipe {
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    transform(value) {
-        return value ? 1 : 0;
-    }
-}
-AjfBoolToIntPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfBoolToInt' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/date-value.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfDateValuePipe {
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    transform(date) {
-        if (date == null) {
-            return null;
-        }
-        return date === 'today' ? new Date() : (/** @type {?} */ (date));
-    }
-}
-AjfDateValuePipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfDateValue' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/date-value-string.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfDateValueStringPipe {
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    transform(date) {
-        if (date == null) {
-            return undefined;
-        }
-        /** @type {?} */
-        const dateObj = date === 'today' ? new Date() : date;
-        return format(dateObj, 'yyyy-MM-dd');
-    }
-}
-AjfDateValueStringPipe.decorators = [
-    { type: Injectable },
-    { type: Pipe, args: [{ name: 'ajfDateValueString' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/errors.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * This class will define an Ajf invalid field definition error
- */
-class AjfInvalidFieldDefinitionError extends AjfError {
-    /**
-     * @return {?}
-     */
-    get name() {
-        return 'AjfInvalidFieldDefinitionError';
-    }
-    /**
-     * @param {?=} message
-     */
-    constructor(message) {
-        super(message);
-    }
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/expand-input-with-choices.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfExpandFieldWithChoicesPipe {
-    /**
-     * @param {?} instance
-     * @param {?} threshold
-     * @return {?}
-     */
-    transform(instance, threshold) {
-        return !instance.node.forceNarrow &&
-            (instance.node.forceExpanded ||
-                (instance.filteredChoices && instance.filteredChoices.length <= threshold));
-    }
-}
-AjfExpandFieldWithChoicesPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-host.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfFieldHost {
-    /**
-     * @param {?} viewContainerRef
-     */
-    constructor(viewContainerRef) {
-        this.viewContainerRef = viewContainerRef;
-    }
-}
-AjfFieldHost.decorators = [
-    { type: Directive, args: [{ selector: '[ajf-field-host]' },] }
-];
-/** @nocollapse */
-AjfFieldHost.ctorParameters = () => [
-    { type: ViewContainerRef }
-];
-if (false) {
-    /** @type {?} */
-    AjfFieldHost.prototype.viewContainerRef;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @abstract
- */
-class AjfFormField {
-    /**
-     * @param {?} _cdr
-     * @param {?} _cfr
-     */
-    constructor(_cdr, _cfr) {
-        this._cdr = _cdr;
-        this._cfr = _cfr;
-        this._init = false;
-        this._updatedSub = Subscription.EMPTY;
-    }
-    /**
-     * @return {?}
-     */
-    get instance() {
-        return this._instance;
-    }
-    /**
-     * @param {?} instance
-     * @return {?}
-     */
-    set instance(instance) {
-        if (this._instance !== instance) {
-            this._instance = instance;
-            if (this._init) {
-                this._loadComponent();
-            }
-        }
-    }
-    /**
-     * @return {?}
-     */
-    get readonly() {
-        return this._readonly;
-    }
-    /**
-     * @param {?} readonly
-     * @return {?}
-     */
-    set readonly(readonly) {
-        this._readonly = coerceBooleanProperty(readonly);
-        if (this._init) {
-            this._loadComponent();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._updatedSub.unsubscribe();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._init = true;
-        this._loadComponent();
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _loadComponent() {
-        this._updatedSub.unsubscribe();
-        this._updatedSub = Subscription.EMPTY;
-        if (this._instance == null || this.fieldHost == null) {
-            return;
-        }
-        /** @type {?} */
-        const vcr = this.fieldHost.viewContainerRef;
-        vcr.clear();
-        /** @type {?} */
-        const componentDef = this.componentsMap[this._instance.node.fieldType];
-        if (componentDef == null) {
-            return;
-        }
-        /** @type {?} */
-        const component = this._readonly && componentDef.readOnlyComponent ?
-            componentDef.readOnlyComponent :
-            componentDef.component;
-        try {
-            /** @type {?} */
-            const componentFactory = this._cfr.resolveComponentFactory(component);
-            /** @type {?} */
-            const componentRef = vcr.createComponent(componentFactory);
-            this._componentInstance = componentRef.instance;
-            this._componentInstance.instance = this._instance;
-            if (componentDef.inputs) {
-                Object.keys(componentDef.inputs).forEach((/**
-                 * @param {?} key
-                 * @return {?}
-                 */
-                key => {
-                    if (key in this._componentInstance) {
-                        ((/** @type {?} */ (this._componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
-                    }
-                }));
-            }
-            this._updatedSub = this._instance.updatedEvt.subscribe((/**
-             * @return {?}
-             */
-            () => this._cdr.markForCheck()));
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
-}
-AjfFormField.decorators = [
-    { type: Directive }
-];
-/** @nocollapse */
-AjfFormField.ctorParameters = () => [
-    { type: ChangeDetectorRef },
-    { type: ComponentFactoryResolver }
-];
-AjfFormField.propDecorators = {
-    fieldHost: [{ type: ViewChild, args: [AjfFieldHost, { static: true },] }],
-    instance: [{ type: Input }],
-    readonly: [{ type: Input }]
-};
-if (false) {
-    /** @type {?} */
-    AjfFormField.prototype.fieldHost;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._instance;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._readonly;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._componentInstance;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._init;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AjfFormField.prototype.componentsMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._updatedSub;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._cdr;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._cfr;
-}
 
 /**
  * @fileoverview added by tsickle
@@ -600,193 +107,6 @@ AjfFieldType[AjfFieldType.Table] = 'Table';
 AjfFieldType[AjfFieldType.Geolocation] = 'Geolocation';
 AjfFieldType[AjfFieldType.Barcode] = 'Barcode';
 AjfFieldType[AjfFieldType.LENGTH] = 'LENGTH';
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-utils.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} type
- * @return {?}
- */
-function fieldIconName(type) {
-    return `ajf-icon-field-${typeof AjfFieldType[type] === 'string' ? AjfFieldType[type].toLowerCase() : type}`;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-icon.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfFieldIconPipe {
-    /**
-     * @param {?} field
-     * @return {?}
-     */
-    transform(field) {
-        return fieldIconName(((/** @type {?} */ (field))).fieldType ? ((/** @type {?} */ (field))).fieldType : (/** @type {?} */ (field)));
-    }
-}
-AjfFieldIconPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfFieldIcon' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-is-valid.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfFieldIsValidPipe {
-    /**
-     * @param {?=} validationResults
-     * @return {?}
-     */
-    transform(validationResults) {
-        return validationResults != null && validationResults.filter((/**
-         * @param {?} f
-         * @return {?}
-         */
-        (f) => !f.result)).length === 0;
-    }
-}
-AjfFieldIsValidPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfFieldIsValid' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields/fields-map.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
-/** @type {?} */
-const componentsMap = {};
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-service.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @abstract
- */
-class AjfFieldService {
-    constructor() {
-        this.componentsMap = componentsMap;
-    }
-    /**
-     * @param {?} field
-     * @return {?}
-     */
-    registerCustomField(field) {
-        const { fieldType, component } = field;
-        if (fieldType < 100) {
-            throw new Error('Invalid custom field type, it must be greater than 100');
-        }
-        if (component == null) {
-            throw new Error('Invalid custom field component');
-        }
-        this.componentsMap[fieldType] = field;
-    }
-}
-if (false) {
-    /** @type {?} */
-    AjfFieldService.prototype.componentsMap;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-warning-alert-result.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
-/**
- * @record
- */
-function AjfFieldWarningAlertResult() { }
-if (false) {
-    /** @type {?} */
-    AjfFieldWarningAlertResult.prototype.result;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-with-choices.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @abstract
- * @template T
- */
-class AjfFieldWithChoicesComponent extends AjfBaseFieldComponent {
-    /**
-     * @param {?} cdr
-     * @param {?} service
-     * @param {?} warningAlertService
-     * @param {?} searchThreshold
-     */
-    constructor(cdr, service, warningAlertService, searchThreshold) {
-        super(cdr, service, warningAlertService);
-        this._searchThreshold = 6;
-        if (searchThreshold != null) {
-            this._searchThreshold = searchThreshold;
-        }
-    }
-    /**
-     * @return {?}
-     */
-    get searchThreshold() {
-        return this._searchThreshold;
-    }
-}
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFieldWithChoicesComponent.prototype._searchThreshold;
-}
 
 /**
  * @fileoverview added by tsickle
@@ -1634,6 +954,35 @@ function createField(field) {
         field.fieldType !== AjfFieldType.Formula && field.fieldType !== AjfFieldType.Table;
     return Object.assign(Object.assign(Object.assign({}, node), field), { nodeType: AjfNodeType.AjfField, editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
 }
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/utils/fields/fields-map.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+/** @type {?} */
+const componentsMap = {};
 
 /**
  * @fileoverview added by tsickle
@@ -5143,6 +4492,666 @@ if (false) {
     AjfFormRendererService.prototype._slidesNum;
     /** @type {?} */
     AjfFormRendererService.prototype.slidesNum;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/base-field.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ * @template T
+ */
+class AjfBaseFieldComponent {
+    /**
+     * @param {?} _changeDetectorRef
+     * @param {?} _service
+     * @param {?} _warningAlertService
+     */
+    constructor(_changeDetectorRef, _service, _warningAlertService) {
+        this._changeDetectorRef = _changeDetectorRef;
+        this._service = _service;
+        this._warningAlertService = _warningAlertService;
+        this._warningTriggerSub = Subscription.EMPTY;
+        this._instanceUpdateSub = Subscription.EMPTY;
+        this._control = defer((/**
+         * @return {?}
+         */
+        () => this._service.getControl(this.instance)
+            .pipe(map((/**
+         * @param {?} ctrl
+         * @return {?}
+         */
+        ctrl => (/** @type {?} */ (ctrl)) || new FormControl())))));
+    }
+    /**
+     * @return {?}
+     */
+    get instance() {
+        return this._instance;
+    }
+    /**
+     * @param {?} instance
+     * @return {?}
+     */
+    set instance(instance) {
+        if (instance !== this._instance) {
+            this._instance = instance;
+            this._setUpInstanceUpdate();
+            this._onInstanceChange();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    get control() {
+        return this._control;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this._warningTriggerSub =
+            this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter((/**
+             * @param {?} v
+             * @return {?}
+             */
+            v => v[1] != null)))
+                .subscribe((/**
+             * @param {?} v
+             * @return {?}
+             */
+            (v) => {
+                if (this.instance.warningResults == null) {
+                    return;
+                }
+                /** @type {?} */
+                const control = v[1];
+                /** @type {?} */
+                const s = this._warningAlertService
+                    .showWarningAlertPrompt(this.instance.warningResults.filter((/**
+                 * @param {?} w
+                 * @return {?}
+                 */
+                w => w.result)).map((/**
+                 * @param {?} w
+                 * @return {?}
+                 */
+                w => w.warning)))
+                    .subscribe((/**
+                 * @param {?} r
+                 * @return {?}
+                 */
+                (r) => {
+                    if (r.result) {
+                        (/** @type {?} */ (control)).setValue(null);
+                    }
+                }), (/**
+                 * @param {?} _e
+                 * @return {?}
+                 */
+                (_e) => {
+                    if (s) {
+                        s.unsubscribe();
+                    }
+                }), (/**
+                 * @return {?}
+                 */
+                () => {
+                    if (s) {
+                        s.unsubscribe();
+                    }
+                }));
+            }));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._warningTriggerSub.unsubscribe();
+        this._instanceUpdateSub.unsubscribe();
+    }
+    /**
+     * @protected
+     * @return {?}
+     */
+    _onInstanceChange() { }
+    /**
+     * @private
+     * @return {?}
+     */
+    _setUpInstanceUpdate() {
+        this._instanceUpdateSub.unsubscribe();
+        if (this._instance != null) {
+            this._instanceUpdateSub = this._instance.updatedEvt.subscribe((/**
+             * @return {?}
+             */
+            () => {
+                if (this._changeDetectorRef) {
+                    try {
+                        this._changeDetectorRef.detectChanges();
+                    }
+                    catch (e) {
+                    }
+                }
+            }));
+        }
+        else {
+            this._instanceUpdateSub = Subscription.EMPTY;
+        }
+        this._changeDetectorRef.detectChanges();
+    }
+}
+AjfBaseFieldComponent.decorators = [
+    { type: Directive }
+];
+/** @nocollapse */
+AjfBaseFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined }
+];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfBaseFieldComponent.prototype._instance;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfBaseFieldComponent.prototype._control;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfBaseFieldComponent.prototype._warningTriggerSub;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfBaseFieldComponent.prototype._instanceUpdateSub;
+    /**
+     * @type {?}
+     * @protected
+     */
+    AjfBaseFieldComponent.prototype._changeDetectorRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfBaseFieldComponent.prototype._service;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfBaseFieldComponent.prototype._warningAlertService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/bool-to-int.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfBoolToIntPipe {
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    transform(value) {
+        return value ? 1 : 0;
+    }
+}
+AjfBoolToIntPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfBoolToInt' },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/date-value.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfDateValuePipe {
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    transform(date) {
+        if (date == null) {
+            return null;
+        }
+        return date === 'today' ? new Date() : (/** @type {?} */ (date));
+    }
+}
+AjfDateValuePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfDateValue' },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/date-value-string.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfDateValueStringPipe {
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    transform(date) {
+        if (date == null) {
+            return undefined;
+        }
+        /** @type {?} */
+        const dateObj = date === 'today' ? new Date() : date;
+        return format(dateObj, 'yyyy-MM-dd');
+    }
+}
+AjfDateValueStringPipe.decorators = [
+    { type: Injectable },
+    { type: Pipe, args: [{ name: 'ajfDateValueString' },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/errors.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * This class will define an Ajf invalid field definition error
+ */
+class AjfInvalidFieldDefinitionError extends AjfError {
+    /**
+     * @return {?}
+     */
+    get name() {
+        return 'AjfInvalidFieldDefinitionError';
+    }
+    /**
+     * @param {?=} message
+     */
+    constructor(message) {
+        super(message);
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/expand-input-with-choices.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfExpandFieldWithChoicesPipe {
+    /**
+     * @param {?} instance
+     * @param {?} threshold
+     * @return {?}
+     */
+    transform(instance, threshold) {
+        return !instance.node.forceNarrow &&
+            (instance.node.forceExpanded ||
+                (instance.filteredChoices && instance.filteredChoices.length <= threshold));
+    }
+}
+AjfExpandFieldWithChoicesPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field-host.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfFieldHost {
+    /**
+     * @param {?} viewContainerRef
+     */
+    constructor(viewContainerRef) {
+        this.viewContainerRef = viewContainerRef;
+    }
+}
+AjfFieldHost.decorators = [
+    { type: Directive, args: [{ selector: '[ajf-field-host]' },] }
+];
+/** @nocollapse */
+AjfFieldHost.ctorParameters = () => [
+    { type: ViewContainerRef }
+];
+if (false) {
+    /** @type {?} */
+    AjfFieldHost.prototype.viewContainerRef;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ */
+class AjfFormField {
+    /**
+     * @param {?} _cdr
+     * @param {?} _cfr
+     */
+    constructor(_cdr, _cfr) {
+        this._cdr = _cdr;
+        this._cfr = _cfr;
+        this._init = false;
+        this._updatedSub = Subscription.EMPTY;
+    }
+    /**
+     * @return {?}
+     */
+    get instance() {
+        return this._instance;
+    }
+    /**
+     * @param {?} instance
+     * @return {?}
+     */
+    set instance(instance) {
+        if (this._instance !== instance) {
+            this._instance = instance;
+            if (this._init) {
+                this._loadComponent();
+            }
+        }
+    }
+    /**
+     * @return {?}
+     */
+    get readonly() {
+        return this._readonly;
+    }
+    /**
+     * @param {?} readonly
+     * @return {?}
+     */
+    set readonly(readonly) {
+        this._readonly = coerceBooleanProperty(readonly);
+        if (this._init) {
+            this._loadComponent();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._updatedSub.unsubscribe();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this._init = true;
+        this._loadComponent();
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    _loadComponent() {
+        this._updatedSub.unsubscribe();
+        this._updatedSub = Subscription.EMPTY;
+        if (this._instance == null || this.fieldHost == null) {
+            return;
+        }
+        /** @type {?} */
+        const vcr = this.fieldHost.viewContainerRef;
+        vcr.clear();
+        /** @type {?} */
+        const componentDef = this.componentsMap[this._instance.node.fieldType];
+        if (componentDef == null) {
+            return;
+        }
+        /** @type {?} */
+        const component = this._readonly && componentDef.readOnlyComponent ?
+            componentDef.readOnlyComponent :
+            componentDef.component;
+        try {
+            /** @type {?} */
+            const componentFactory = this._cfr.resolveComponentFactory(component);
+            /** @type {?} */
+            const componentRef = vcr.createComponent(componentFactory);
+            this._componentInstance = componentRef.instance;
+            this._componentInstance.instance = this._instance;
+            if (componentDef.inputs) {
+                Object.keys(componentDef.inputs).forEach((/**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                key => {
+                    if (key in this._componentInstance) {
+                        ((/** @type {?} */ (this._componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
+                    }
+                }));
+            }
+            this._updatedSub = this._instance.updatedEvt.subscribe((/**
+             * @return {?}
+             */
+            () => this._cdr.markForCheck()));
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+}
+AjfFormField.decorators = [
+    { type: Directive }
+];
+/** @nocollapse */
+AjfFormField.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: ComponentFactoryResolver }
+];
+AjfFormField.propDecorators = {
+    fieldHost: [{ type: ViewChild, args: [AjfFieldHost, { static: true },] }],
+    instance: [{ type: Input }],
+    readonly: [{ type: Input }]
+};
+if (false) {
+    /** @type {?} */
+    AjfFormField.prototype.fieldHost;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._instance;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._readonly;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._componentInstance;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._init;
+    /**
+     * @type {?}
+     * @protected
+     */
+    AjfFormField.prototype.componentsMap;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._updatedSub;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._cdr;
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFormField.prototype._cfr;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field-utils.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} type
+ * @return {?}
+ */
+function fieldIconName(type) {
+    return `ajf-icon-field-${typeof AjfFieldType[type] === 'string' ? AjfFieldType[type].toLowerCase() : type}`;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field-icon.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfFieldIconPipe {
+    /**
+     * @param {?} field
+     * @return {?}
+     */
+    transform(field) {
+        return fieldIconName(((/** @type {?} */ (field))).fieldType ? ((/** @type {?} */ (field))).fieldType : (/** @type {?} */ (field)));
+    }
+}
+AjfFieldIconPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfFieldIcon' },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field-is-valid.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AjfFieldIsValidPipe {
+    /**
+     * @param {?=} validationResults
+     * @return {?}
+     */
+    transform(validationResults) {
+        return validationResults != null && validationResults.filter((/**
+         * @param {?} f
+         * @return {?}
+         */
+        (f) => !f.result)).length === 0;
+    }
+}
+AjfFieldIsValidPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfFieldIsValid' },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field-service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ */
+class AjfFieldService {
+    constructor() {
+        this.componentsMap = componentsMap;
+    }
+    /**
+     * @param {?} field
+     * @return {?}
+     */
+    registerCustomField(field) {
+        const { fieldType, component } = field;
+        if (fieldType < 100) {
+            throw new Error('Invalid custom field type, it must be greater than 100');
+        }
+        if (component == null) {
+            throw new Error('Invalid custom field component');
+        }
+        this.componentsMap[fieldType] = field;
+    }
+}
+if (false) {
+    /** @type {?} */
+    AjfFieldService.prototype.componentsMap;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field-warning-alert-result.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+/**
+ * @record
+ */
+function AjfFieldWarningAlertResult() { }
+if (false) {
+    /** @type {?} */
+    AjfFieldWarningAlertResult.prototype.result;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: src/core/forms/field-with-choices.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ * @template T
+ */
+class AjfFieldWithChoicesComponent extends AjfBaseFieldComponent {
+    /**
+     * @param {?} cdr
+     * @param {?} service
+     * @param {?} warningAlertService
+     * @param {?} searchThreshold
+     */
+    constructor(cdr, service, warningAlertService, searchThreshold) {
+        super(cdr, service, warningAlertService);
+        this._searchThreshold = 6;
+        if (searchThreshold != null) {
+            this._searchThreshold = searchThreshold;
+        }
+    }
+    /**
+     * @return {?}
+     */
+    get searchThreshold() {
+        return this._searchThreshold;
+    }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    AjfFieldWithChoicesComponent.prototype._searchThreshold;
 }
 
 /**

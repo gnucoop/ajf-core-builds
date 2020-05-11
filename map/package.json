@@ -1,11 +1,9 @@
 {
   "name": "@ajf/core/map",
   "main": "../bundles/core-map.umd.js",
-  "fesm5": "../fesm5/map.js",
   "fesm2015": "../fesm2015/map.js",
-  "esm5": "../esm5/map/index.js",
   "esm2015": "../esm2015/map/index.js",
   "typings": "./index.d.ts",
-  "module": "../fesm5/map.js",
+  "module": "../fesm2015/map.js",
   "es2015": "../fesm2015/map.js"
 }
