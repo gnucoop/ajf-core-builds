@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "10.0.0-next.0-sha-bfc59fd",
+  "version": "10.0.0-next.0-sha-bd37237",
   "description": "",
   "repository": {
     "type": "git",
@@ -29,8 +29,10 @@
     "esprima": "^4.0.1",
     "leaflet": "^1.6.0",
     "numeral": "^2.0.6",
-    "tslib": "^1.10.0",
     "url-parse": "^1.4.7"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   },
   "sideEffects": false,
   "main": "./bundles/core.umd.js",

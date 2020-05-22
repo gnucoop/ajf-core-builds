@@ -1,261 +1,247 @@
-import { Directive, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Input, NgModule } from '@angular/core';
+import { __decorate, __metadata } from 'tslib';
+import { Directive, ElementRef, ViewChild, Input, Component, ChangeDetectionStrategy, ViewEncapsulation, NgModule } from '@angular/core';
 import * as L from 'leaflet';
 import L__default from 'leaflet';
 import { Subscription } from 'rxjs';
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/map/map-container-directive.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-class AjfMapContainerDirective {
-    /**
-     * @param {?} _el
-     */
-    constructor(_el) {
-        this._el = _el;
-    }
-    /**
-     * @return {?}
-     */
-    get htmlElement() {
-        return this._el.nativeElement;
-    }
-}
-AjfMapContainerDirective.decorators = [
-    { type: Directive, args: [{ selector: '[mapContainer]' },] }
-];
-/** @nocollapse */
-AjfMapContainerDirective.ctorParameters = () => [
-    { type: ElementRef }
-];
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfMapContainerDirective.prototype._el;
-}
+let AjfMapContainerDirective = /** @class */ (() => {
+    let AjfMapContainerDirective = class AjfMapContainerDirective {
+        constructor(_el) {
+            this._el = _el;
+        }
+        get htmlElement() {
+            return this._el.nativeElement;
+        }
+    };
+    AjfMapContainerDirective = __decorate([
+        Directive({ selector: '[mapContainer]' }),
+        __metadata("design:paramtypes", [ElementRef])
+    ], AjfMapContainerDirective);
+    return AjfMapContainerDirective;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/map/map.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-/** @type {?} */
 const leafletLib = L__default || L;
-class AjfMapComponent {
-    constructor() {
-        this._columnWidthChanged = Subscription.EMPTY;
-    }
-    /**
-     * @param {?} coordinate
-     * @return {?}
-     */
-    set coordinate(coordinate) {
-        this._coordinate = coordinate.slice(0);
-        this._setMapView();
-    }
-    /**
-     * @param {?} tileLayer
-     * @return {?}
-     */
-    set tileLayer(tileLayer) {
-        this._tileLayer = tileLayer;
-        this._addTileLayerToMap();
-    }
-    /**
-     * @param {?} attribution
-     * @return {?}
-     */
-    set attribution(attribution) {
-        this._attribution = attribution;
-        this._addTileLayerToMap();
-    }
-    /**
-     * @param {?} disabled
-     * @return {?}
-     */
-    set disabled(disabled) {
-        this._disabled = disabled;
-        this._disableMap();
-    }
-    /**
-     * @return {?}
-     */
-    get map() {
-        return this._map;
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        if (this.mapContainer) {
-            this._initMap();
+let AjfMapComponent = /** @class */ (() => {
+    let AjfMapComponent = class AjfMapComponent {
+        constructor() {
+            this._columnWidthChanged = Subscription.EMPTY;
+        }
+        set coordinate(coordinate) {
+            this._coordinate = coordinate.slice(0);
             this._setMapView();
+        }
+        set tileLayer(tileLayer) {
+            this._tileLayer = tileLayer;
             this._addTileLayerToMap();
+        }
+        set attribution(attribution) {
+            this._attribution = attribution;
+            this._addTileLayerToMap();
+        }
+        set disabled(disabled) {
+            this._disabled = disabled;
             this._disableMap();
         }
-    }
-    /**
-     * @return {?}
-     */
-    redraw() {
-        if (this.mapContainer && this._map) {
-            this._map.invalidateSize();
+        get map() {
+            return this._map;
         }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._columnWidthChanged.unsubscribe();
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _initMap() {
-        /** @type {?} */
-        const options = { zoomControl: false, attributionControl: false };
-        this._map = leafletLib.map(this.mapContainer.htmlElement, options);
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _setMapView() {
-        if (this._map == null) {
-            return;
-        }
-        /** @type {?} */
-        let x;
-        /** @type {?} */
-        let y;
-        /** @type {?} */
-        let z;
-        if (this._coordinate != null && this._coordinate.length === 3) {
-            x = this._coordinate[0];
-            y = this._coordinate[1];
-            z = this._coordinate[2];
-        }
-        else {
-            x = 0;
-            y = 0;
-            z = 14;
-        }
-        this._map.setView([x, y], z);
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _addTileLayerToMap() {
-        if (this._map == null || this._tileLayer == null) {
-            return;
-        }
-        this._map.eachLayer((/**
-         * @param {?} l
-         * @return {?}
-         */
-        (l) => this._map.removeLayer(l)));
-        leafletLib.tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _disableMap() {
-        if (this._map == null) {
-            return;
-        }
-        if (this._disabled) {
-            this._map.dragging.disable();
-            this._map.touchZoom.disable();
-            this._map.doubleClickZoom.disable();
-            this._map.scrollWheelZoom.disable();
-            this._map.boxZoom.disable();
-            this._map.keyboard.disable();
-            if (this._map.tap) {
-                this._map.tap.disable();
+        ngAfterViewInit() {
+            if (this.mapContainer) {
+                this._initMap();
+                this._setMapView();
+                this._addTileLayerToMap();
+                this._disableMap();
             }
         }
-    }
-}
-AjfMapComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'ajf-map',
-                template: "<div mapContainer></div>\n",
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
-            }] }
-];
-AjfMapComponent.propDecorators = {
-    mapContainer: [{ type: ViewChild, args: [AjfMapContainerDirective, { static: true },] }],
-    coordinate: [{ type: Input }],
-    tileLayer: [{ type: Input }],
-    attribution: [{ type: Input }],
-    disabled: [{ type: Input }]
-};
-if (false) {
-    /** @type {?} */
-    AjfMapComponent.prototype.mapContainer;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfMapComponent.prototype._coordinate;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfMapComponent.prototype._tileLayer;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfMapComponent.prototype._attribution;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfMapComponent.prototype._disabled;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfMapComponent.prototype._map;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfMapComponent.prototype._columnWidthChanged;
-}
+        redraw() {
+            if (this.mapContainer && this._map) {
+                this._map.invalidateSize();
+            }
+        }
+        ngOnDestroy() {
+            this._columnWidthChanged.unsubscribe();
+        }
+        _initMap() {
+            const options = { zoomControl: false, attributionControl: false };
+            this._map = leafletLib.map(this.mapContainer.htmlElement, options);
+        }
+        _setMapView() {
+            if (this._map == null) {
+                return;
+            }
+            let x, y, z;
+            if (this._coordinate != null && this._coordinate.length === 3) {
+                x = this._coordinate[0];
+                y = this._coordinate[1];
+                z = this._coordinate[2];
+            }
+            else {
+                x = 0;
+                y = 0;
+                z = 14;
+            }
+            this._map.setView([x, y], z);
+        }
+        _addTileLayerToMap() {
+            if (this._map == null || this._tileLayer == null) {
+                return;
+            }
+            this._map.eachLayer((l) => this._map.removeLayer(l));
+            leafletLib.tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
+        }
+        _disableMap() {
+            if (this._map == null) {
+                return;
+            }
+            if (this._disabled) {
+                this._map.dragging.disable();
+                this._map.touchZoom.disable();
+                this._map.doubleClickZoom.disable();
+                this._map.scrollWheelZoom.disable();
+                this._map.boxZoom.disable();
+                this._map.keyboard.disable();
+                if (this._map.tap) {
+                    this._map.tap.disable();
+                }
+            }
+        }
+    };
+    __decorate([
+        ViewChild(AjfMapContainerDirective, { static: true }),
+        __metadata("design:type", AjfMapContainerDirective)
+    ], AjfMapComponent.prototype, "mapContainer", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Array),
+        __metadata("design:paramtypes", [Array])
+    ], AjfMapComponent.prototype, "coordinate", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], AjfMapComponent.prototype, "tileLayer", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], AjfMapComponent.prototype, "attribution", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], AjfMapComponent.prototype, "disabled", null);
+    AjfMapComponent = __decorate([
+        Component({
+            selector: 'ajf-map',
+            template: "<div mapContainer></div>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            encapsulation: ViewEncapsulation.None,
+            styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
+        })
+    ], AjfMapComponent);
+    return AjfMapComponent;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/map/map-module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-class AjfMapModule {
-}
-AjfMapModule.decorators = [
-    { type: NgModule, args: [{
-                declarations: [
-                    AjfMapComponent,
-                    AjfMapContainerDirective,
-                ],
-                exports: [
-                    AjfMapComponent,
-                ],
-            },] }
-];
+let AjfMapModule = /** @class */ (() => {
+    let AjfMapModule = class AjfMapModule {
+    };
+    AjfMapModule = __decorate([
+        NgModule({
+            declarations: [
+                AjfMapComponent,
+                AjfMapContainerDirective,
+            ],
+            exports: [
+                AjfMapComponent,
+            ],
+        })
+    ], AjfMapModule);
+    return AjfMapModule;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/map/public-api.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 
 /**

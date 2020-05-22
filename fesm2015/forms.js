@@ -1,4 +1,5 @@
-import { Pipe, EventEmitter, Injectable, Directive, ChangeDetectorRef, ViewContainerRef, ComponentFactoryResolver, ViewChild, Input, Output, ViewChildren, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, NgModule } from '@angular/core';
+import { __decorate, __rest, __metadata, __param } from 'tslib';
+import { Pipe, EventEmitter, Injectable, Directive, ChangeDetectorRef, ViewContainerRef, ViewChild, Input, ComponentFactoryResolver, Output, ViewChildren, QueryList, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, NgModule } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Subject, BehaviorSubject, Subscription, Observable, of, from, timer, defer } from 'rxjs';
 import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
@@ -8,51 +9,43 @@ import esprima__default from 'esprima';
 import { evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { format } from 'date-fns';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import '@ajf/core/page-slider';
+import { AjfPageSlider } from '@ajf/core/page-slider';
 import { AjfCommonModule } from '@ajf/core/common';
 import { CommonModule } from '@angular/common';
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/as-field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-class AjfAsFieldInstancePipe {
-    /**
-     * @param {?} instance
-     * @return {?}
-     */
-    transform(instance) {
-        return (/** @type {?} */ (instance));
-    }
-}
-AjfAsFieldInstancePipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfAsFieldInstance' },] }
-];
+let AjfAsFieldInstancePipe = /** @class */ (() => {
+    let AjfAsFieldInstancePipe = class AjfAsFieldInstancePipe {
+        transform(instance) {
+            return instance;
+        }
+    };
+    AjfAsFieldInstancePipe = __decorate([
+        Pipe({ name: 'ajfAsFieldInstance' })
+    ], AjfAsFieldInstancePipe);
+    return AjfAsFieldInstancePipe;
+})();
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/as-repeating-slide-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfAsRepeatingSlideInstancePipe {
-    /**
-     * @param {?} instance
-     * @return {?}
-     */
-    transform(instance) {
-        return (/** @type {?} */ ((/** @type {?} */ (instance))));
-    }
-}
-AjfAsRepeatingSlideInstancePipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfAsRepeatingSlideInstance' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/field-type.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -74,45 +67,18 @@ AjfAsRepeatingSlideInstancePipe.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/** @enum {number} */
-const AjfFieldType = {
-    String: 0,
-    Text: 1,
-    Number: 2,
-    Boolean: 3,
-    SingleChoice: 4,
-    MultipleChoice: 5,
-    Formula: 6,
-    Empty: 7,
-    Date: 8,
-    DateInput: 9,
-    Time: 10,
-    Table: 11,
-    Geolocation: 12,
-    Barcode: 13,
-    LENGTH: 14,
-};
-AjfFieldType[AjfFieldType.String] = 'String';
-AjfFieldType[AjfFieldType.Text] = 'Text';
-AjfFieldType[AjfFieldType.Number] = 'Number';
-AjfFieldType[AjfFieldType.Boolean] = 'Boolean';
-AjfFieldType[AjfFieldType.SingleChoice] = 'SingleChoice';
-AjfFieldType[AjfFieldType.MultipleChoice] = 'MultipleChoice';
-AjfFieldType[AjfFieldType.Formula] = 'Formula';
-AjfFieldType[AjfFieldType.Empty] = 'Empty';
-AjfFieldType[AjfFieldType.Date] = 'Date';
-AjfFieldType[AjfFieldType.DateInput] = 'DateInput';
-AjfFieldType[AjfFieldType.Time] = 'Time';
-AjfFieldType[AjfFieldType.Table] = 'Table';
-AjfFieldType[AjfFieldType.Geolocation] = 'Geolocation';
-AjfFieldType[AjfFieldType.Barcode] = 'Barcode';
-AjfFieldType[AjfFieldType.LENGTH] = 'LENGTH';
+let AjfAsRepeatingSlideInstancePipe = /** @class */ (() => {
+    let AjfAsRepeatingSlideInstancePipe = class AjfAsRepeatingSlideInstancePipe {
+        transform(instance) {
+            return instance;
+        }
+    };
+    AjfAsRepeatingSlideInstancePipe = __decorate([
+        Pipe({ name: 'ajfAsRepeatingSlideInstance' })
+    ], AjfAsRepeatingSlideInstancePipe);
+    return AjfAsRepeatingSlideInstancePipe;
+})();
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes/node-type.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -134,27 +100,26 @@ AjfFieldType[AjfFieldType.LENGTH] = 'LENGTH';
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/** @enum {number} */
-const AjfNodeType = {
-    AjfField: 0,
-    AjfFieldNodeLink: 1,
-    AjfNodeGroup: 2,
-    AjfSlide: 3,
-    AjfRepeatingSlide: 4,
-    LENGTH: 5,
-};
-AjfNodeType[AjfNodeType.AjfField] = 'AjfField';
-AjfNodeType[AjfNodeType.AjfFieldNodeLink] = 'AjfFieldNodeLink';
-AjfNodeType[AjfNodeType.AjfNodeGroup] = 'AjfNodeGroup';
-AjfNodeType[AjfNodeType.AjfSlide] = 'AjfSlide';
-AjfNodeType[AjfNodeType.AjfRepeatingSlide] = 'AjfRepeatingSlide';
-AjfNodeType[AjfNodeType.LENGTH] = 'LENGTH';
+// tslint:disable-next-line:prefer-const-enum
+var AjfFieldType;
+(function (AjfFieldType) {
+    AjfFieldType[AjfFieldType["String"] = 0] = "String";
+    AjfFieldType[AjfFieldType["Text"] = 1] = "Text";
+    AjfFieldType[AjfFieldType["Number"] = 2] = "Number";
+    AjfFieldType[AjfFieldType["Boolean"] = 3] = "Boolean";
+    AjfFieldType[AjfFieldType["SingleChoice"] = 4] = "SingleChoice";
+    AjfFieldType[AjfFieldType["MultipleChoice"] = 5] = "MultipleChoice";
+    AjfFieldType[AjfFieldType["Formula"] = 6] = "Formula";
+    AjfFieldType[AjfFieldType["Empty"] = 7] = "Empty";
+    AjfFieldType[AjfFieldType["Date"] = 8] = "Date";
+    AjfFieldType[AjfFieldType["DateInput"] = 9] = "DateInput";
+    AjfFieldType[AjfFieldType["Time"] = 10] = "Time";
+    AjfFieldType[AjfFieldType["Table"] = 11] = "Table";
+    AjfFieldType[AjfFieldType["Geolocation"] = 12] = "Geolocation";
+    AjfFieldType[AjfFieldType["Barcode"] = 13] = "Barcode";
+    AjfFieldType[AjfFieldType["LENGTH"] = 14] = "LENGTH";
+})(AjfFieldType || (AjfFieldType = {}));
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/choices/init-choices-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -176,85 +141,95 @@ AjfNodeType[AjfNodeType.LENGTH] = 'LENGTH';
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+// tslint:disable-next-line:prefer-const-enum
+var AjfNodeType;
+(function (AjfNodeType) {
+    AjfNodeType[AjfNodeType["AjfField"] = 0] = "AjfField";
+    AjfNodeType[AjfNodeType["AjfFieldNodeLink"] = 1] = "AjfFieldNodeLink";
+    AjfNodeType[AjfNodeType["AjfNodeGroup"] = 2] = "AjfNodeGroup";
+    AjfNodeType[AjfNodeType["AjfSlide"] = 3] = "AjfSlide";
+    AjfNodeType[AjfNodeType["AjfRepeatingSlide"] = 4] = "AjfRepeatingSlide";
+    AjfNodeType[AjfNodeType["LENGTH"] = 5] = "LENGTH";
+})(AjfNodeType || (AjfNodeType = {}));
+
 /**
- * @param {?} origin
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function initChoicesOrigin(origin) {
     if (origin.type === 'fixed') {
         return Promise.resolve();
     }
     if (origin.type === 'function') {
-        /** @type {?} */
-        const fo = (/** @type {?} */ (origin));
+        const fo = origin;
         fo.choices = fo.generator();
         return Promise.resolve();
     }
     if (origin.type === 'promise') {
-        /** @type {?} */
-        const po = (/** @type {?} */ (origin));
-        return po.generator.then((/**
-         * @param {?} choices
-         * @return {?}
-         */
-        choices => po.choices = choices)).then();
+        const po = origin;
+        return po.generator.then(choices => po.choices = choices).then();
     }
     if (origin.type === 'observable') {
-        /** @type {?} */
-        const obso = (/** @type {?} */ (origin));
+        const obso = origin;
         if (obso.generator != null) {
             obso.choices = [];
-            return new Promise((/**
-             * @param {?} res
-             * @return {?}
-             */
-            res => {
-                obso.generator.subscribe((/**
-                 * @param {?} c
-                 * @return {?}
-                 */
-                c => obso.choices.push(c)), (/**
-                 * @return {?}
-                 */
-                () => { }), (/**
-                 * @return {?}
-                 */
-                () => res()));
-            }));
+            return new Promise(res => {
+                obso.generator.subscribe(c => obso.choices.push(c), () => { }, () => res());
+            });
         }
     }
     if (origin.type === 'observableArray') {
-        /** @type {?} */
-        const aoo = (/** @type {?} */ (origin));
+        const aoo = origin;
         if (aoo.generator != null) {
             aoo.choices = [];
-            return new Promise((/**
-             * @param {?} res
-             * @return {?}
-             */
-            res => {
-                aoo.generator.subscribe((/**
-                 * @param {?} choices
-                 * @return {?}
-                 */
-                choices => {
+            return new Promise(res => {
+                aoo.generator.subscribe(choices => {
                     aoo.choices = choices;
                     res();
-                }));
-            }));
+                });
+            });
         }
     }
     return Promise.resolve();
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields/is-field-with-choices.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} field
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isFieldWithChoices(field) {
     return field.fieldType === AjfFieldType.SingleChoice ||
@@ -262,94 +237,160 @@ function isFieldWithChoices(field) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/is-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} node
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isField(node) {
     return node != null && node.nodeType === AjfNodeType.AjfField;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/is-field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeInstance
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isFieldInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isField(nodeInstance.node);
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/is-field-with-choices-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeInstance
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isFieldWithChoicesInstance(nodeInstance) {
     return nodeInstance != null && isFieldInstance(nodeInstance) &&
-        isFieldWithChoices(((/** @type {?} */ (nodeInstance))).node);
+        isFieldWithChoices(nodeInstance.node);
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields/is-table-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} field
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isTableField(field) {
     return field.fieldType === AjfFieldType.Table;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/is-table-field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeInstance
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isTableFieldInstance(nodeInstance) {
     return nodeInstance != null && isFieldInstance(nodeInstance) &&
-        isTableField(((/** @type {?} */ (nodeInstance))).node);
+        isTableField(nodeInstance.node);
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/update-conditional-branches.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @param {?} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function updateConditionalBranches(instance, context) {
-    /** @type {?} */
     const conditionalBranches = instance.conditionalBranches;
     if (conditionalBranches != null) {
-        /** @type {?} */
         const oldBranch = instance.verifiedBranch;
-        /** @type {?} */
         let idx = 0;
-        /** @type {?} */
         let found = false;
         while (idx < conditionalBranches.length && !found) {
-            /** @type {?} */
             let verified = evaluateExpression(conditionalBranches[idx].condition, context);
             if (verified) {
                 found = true;
@@ -367,26 +408,33 @@ function updateConditionalBranches(instance, context) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/update-visibility.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @param {?} context
- * @param {?=} branchVisibility
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function updateVisibility(instance, context, branchVisibility = true) {
     if (instance.visibility == null) {
         instance.visible = false;
         return false;
     }
-    /** @type {?} */
     const visibility = instance.visibility;
-    /** @type {?} */
     const oldVisibility = instance.visible;
-    /** @type {?} */
     let newVisibility = branchVisibility && evaluateExpression(visibility.condition, context);
     if (newVisibility !== instance.visible) {
         instance.visible = newVisibility;
@@ -395,10 +443,60 @@ function updateVisibility(instance, context, branchVisibility = true) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/node-instance-suffix.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
+function nodeInstanceSuffix(instance) {
+    if (instance.prefix == null || instance.prefix.length == 0) {
+        return '';
+    }
+    return `__${instance.prefix.join('__')}`;
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+function nodeInstanceCompleteName(instance) {
+    return instance != null && instance.node != null ?
+        `${instance.node.name}${nodeInstanceSuffix(instance)}` :
+        '';
+}
+
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -421,52 +519,14 @@ function updateVisibility(instance, context, branchVisibility = true) {
  *
  */
 /**
- * @param {?} instance
- * @return {?}
- */
-function nodeInstanceSuffix(instance) {
-    if (instance.prefix == null || instance.prefix.length == 0) {
-        return '';
-    }
-    return `__${instance.prefix.join('__')}`;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/node-instance-complete-name.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @return {?}
- */
-function nodeInstanceCompleteName(instance) {
-    return instance != null && instance.node != null ?
-        `${instance.node.name}${nodeInstanceSuffix(instance)}` :
-        '';
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/update-formula.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * update the relative instance value and the context
  * if !editable evaluate expression once one time and flag changed is false
- * @param {?} instance
- * @param {?} context
- * @return {?}
  */
 function updateFormula(instance, context) {
-    /** @type {?} */
     const formula = instance.formula;
-    /** @type {?} */
     const editable = instance.node.editable;
     if (formula != null && instance.visible && (!editable || (editable && instance.value == null))) {
-        /** @type {?} */
         let newValue = evaluateExpression(formula.formula, context);
-        /** @type {?} */
         const oldValue = instance.value;
         if (newValue !== instance.value) {
             instance.value = newValue;
@@ -479,14 +539,25 @@ function updateFormula(instance, context) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/update-next-slide-condition.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @param {?} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function updateNextSlideCondition(instance, context) {
     if (instance.nextSlideCondition != null) {
@@ -496,15 +567,25 @@ function updateNextSlideCondition(instance, context) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/evaluate-validation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} validation
- * @param {?=} context
- * @param {?=} forceFormula
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateValidation(validation, context, forceFormula) {
     return {
@@ -515,43 +596,59 @@ function evaluateValidation(validation, context, forceFormula) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/evaluate-validation-conditions.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} validation
- * @param {?=} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateValidationConditions(validation, context) {
-    /** @type {?} */
     let res = [];
-    validation.conditions.forEach((/**
-     * @param {?} cond
-     * @return {?}
-     */
-    (cond) => {
+    validation.conditions.forEach((cond) => {
         res.push(evaluateValidation(cond, context));
-    }));
+    });
     return res;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/evaluate-validation-max-digits.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} validation
- * @param {?} value
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateValidationMaxDigits(validation, value) {
     if (validation.maxDigits == null) {
         return null;
     }
-    /** @type {?} */
     const ctx = { '$value': value };
     if (typeof validation.maxDigits === 'number') {
         return {
@@ -564,20 +661,30 @@ function evaluateValidationMaxDigits(validation, value) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/evaluate-validation-max-value.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} validation
- * @param {?} value
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateValidationMaxValue(validation, value) {
     if (validation.maxValue == null) {
         return null;
     }
-    /** @type {?} */
     const ctx = { '$value': value };
     if (typeof validation.maxValue === 'number') {
         return {
@@ -590,20 +697,30 @@ function evaluateValidationMaxValue(validation, value) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/evaluate-validation-min-digits.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} validation
- * @param {?} value
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateValidationMinDigits(validation, value) {
     if (validation.minDigits == null) {
         return null;
     }
-    /** @type {?} */
     const ctx = { '$value': value };
     if (typeof validation.minDigits === 'number') {
         return {
@@ -616,20 +733,30 @@ function evaluateValidationMinDigits(validation, value) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/evaluate-validation-min-value.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} validation
- * @param {?} value
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateValidationMinValue(validation, value) {
     if (validation.minValue == null) {
         return null;
     }
-    /** @type {?} */
     const ctx = { '$value': value };
     if (typeof validation.minValue === 'number') {
         return {
@@ -642,20 +769,30 @@ function evaluateValidationMinValue(validation, value) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/evaluate-validation-not-empty.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} validation
- * @param {?} value
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateValidationNotEmpty(validation, value) {
     if (validation.notEmpty == null) {
         return null;
     }
-    /** @type {?} */
     const ctx = { '$value': value };
     if (typeof validation.notEmpty === 'boolean') {
         return {
@@ -668,53 +805,56 @@ function evaluateValidationNotEmpty(validation, value) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/evaluate-validation-group.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} validation
- * @param {?} value
- * @param {?=} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateValidationGroup(validation, value, context) {
-    /** @type {?} */
     let res = [];
-    /** @type {?} */
     let ctx = deepCopy(context);
     ctx['$value'] = value;
     res = evaluateValidationConditions(validation, ctx);
     if (validation.maxValue) {
-        /** @type {?} */
         const maxValue = evaluateValidationMaxValue(validation, value);
         if (maxValue != null) {
             res.push(maxValue);
         }
     }
     if (validation.minValue) {
-        /** @type {?} */
         const minValue = evaluateValidationMinValue(validation, value);
         if (minValue != null) {
             res.push(minValue);
         }
     }
     if (validation.notEmpty) {
-        /** @type {?} */
         const notEmpty = evaluateValidationNotEmpty(validation, value);
         if (notEmpty != null) {
             res.push(notEmpty);
         }
     }
     if (validation.maxDigits) {
-        /** @type {?} */
         const maxDigits = evaluateValidationMaxDigits(validation, value);
         if (maxDigits != null) {
             res.push(maxDigits);
         }
     }
     if (validation.minDigits) {
-        /** @type {?} */
         const minDigits = evaluateValidationMinDigits(validation, value);
         if (minDigits != null) {
             res.push(minDigits);
@@ -724,33 +864,37 @@ function evaluateValidationGroup(validation, value, context) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/update-validation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @param {?} context
- * @param {?=} supplementaryInformations
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function updateValidation(instance, context, supplementaryInformations) {
-    /** @type {?} */
     const validation = instance.validation;
     if (validation == null) {
         instance.valid = true;
         return;
     }
     if (supplementaryInformations) {
-        Object.keys(supplementaryInformations).forEach((/**
-         * @param {?} key
-         * @return {?}
-         */
-        (key) => {
+        Object.keys(supplementaryInformations).forEach((key) => {
             context[`__supplementary__${key}__`] = supplementaryInformations[key];
-        }));
+        });
     }
-    /** @type {?} */
     const completeName = nodeInstanceCompleteName(instance);
     if (context[completeName] != null && validation && validation.forceValue) {
         instance.value = evaluateExpression(validation.forceValue.condition, context);
@@ -758,24 +902,29 @@ function updateValidation(instance, context, supplementaryInformations) {
         context.$value = instance.value;
     }
     instance.validationResults = evaluateValidationGroup(validation, context[completeName], context);
-    instance.valid = instance.validationResults.reduce((/**
-     * @param {?} prev
-     * @param {?} x
-     * @return {?}
-     */
-    (prev, x) => prev && x.result), true);
+    instance.valid = instance.validationResults.reduce((prev, x) => prev && x.result, true);
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/warning/evaluate-warning.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} warning
- * @param {?=} context
- * @param {?=} forceFormula
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateWarning(warning, context, forceFormula) {
     return {
@@ -785,54 +934,81 @@ function evaluateWarning(warning, context, forceFormula) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/warning/evaluate-warning-conditions.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} warning
- * @param {?=} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateWarningConditions(warning, context) {
-    return warning.conditions.map((/**
-     * @param {?} cond
-     * @return {?}
-     */
-    cond => evaluateWarning(cond, context)));
+    return warning.conditions.map(cond => evaluateWarning(cond, context));
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/warning/evaluate-warning-group.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} warning
- * @param {?=} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function evaluateWarningGroup(warning, context) {
     return evaluateWarningConditions(warning, context);
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/update-warning.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @param {?} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function updateWarning(instance, context) {
-    /** @type {?} */
     const warning = instance.warning;
     if (warning == null) {
         return;
     }
-    /** @type {?} */
     const completeName = nodeInstanceCompleteName(instance);
     if (context[completeName] != null && warning) {
         instance.warningResults = evaluateWarningGroup(warning, context);
@@ -840,46 +1016,63 @@ function updateWarning(instance, context) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/update-field-instance-state.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @param {?} context
- * @param {?=} branchVisibility
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function updateFieldInstanceState(instance, context, branchVisibility = true) {
     updateVisibility(instance, context, branchVisibility);
     updateConditionalBranches(instance, context);
-    updateFormula((/** @type {?} */ (instance)), context);
+    updateFormula(instance, context);
     updateValidation(instance, context);
     updateWarning(instance, context);
     updateNextSlideCondition(instance, context);
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/update-filtered-choices.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @param {?} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function updateFilteredChoices(instance, context) {
     if (instance.choicesFilter != null) {
-        instance.filteredChoices = instance.node.choicesOrigin.choices.filter((/**
-         * @param {?} c
-         * @return {?}
-         */
-        c => {
+        instance.filteredChoices = instance.node.choicesOrigin.choices.filter(c => {
             context.$choice = c;
             context.$choiceValue = c.value;
-            return evaluateExpression((/** @type {?} */ (instance.choicesFilter)).formula, context);
-        }));
+            return evaluateExpression(instance.choicesFilter.formula, context);
+        });
     }
     else {
         instance.filteredChoices = instance.node.choicesOrigin.choices;
@@ -887,27 +1080,35 @@ function updateFilteredChoices(instance, context) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/update-trigger-conditions.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @param {?} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function updateTriggerConditions(instance, context) {
     if (instance.triggerConditions == null) {
         return false;
     }
-    /** @type {?} */
     const completeName = nodeInstanceCompleteName(instance);
     if (instance.firstTriggerConditionDone[completeName]) {
         return false;
     }
-    /** @type {?} */
     let found = false;
-    /** @type {?} */
     const conditionsNum = instance.triggerConditions.length;
     for (let i = 0; i < conditionsNum; i++) {
         if (evaluateExpression(instance.triggerConditions[i].condition, context)) {
@@ -920,46 +1121,33 @@ function updateTriggerConditions(instance, context) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/create-node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} node
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createNode(node) {
-    /** @type {?} */
     const conditionalBranches = node.conditionalBranches != null && node.conditionalBranches.length > 0 ?
         node.conditionalBranches :
         [alwaysCondition()];
     return Object.assign(Object.assign({}, node), { parentNode: node.parentNode != null ? node.parentNode : 0, label: node.label || '', visibility: node.visibility || alwaysCondition(), conditionalBranches });
 }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields/create-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} field
- * @return {?}
- */
-function createField(field) {
-    /** @type {?} */
-    const node = createNode(Object.assign(Object.assign({}, field), { nodeType: AjfNodeType.AjfField }));
-    /** @type {?} */
-    const editable = field.editable != null ?
-        field.editable :
-        field.fieldType !== AjfFieldType.Formula && field.fieldType !== AjfFieldType.Table;
-    return Object.assign(Object.assign(Object.assign({}, node), field), { nodeType: AjfNodeType.AjfField, editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields/fields-map.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -981,17 +1169,57 @@ function createField(field) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/** @type {?} */
+function createField(field) {
+    const node = createNode(Object.assign(Object.assign({}, field), { nodeType: AjfNodeType.AjfField }));
+    const editable = field.editable != null ?
+        field.editable :
+        field.fieldType !== AjfFieldType.Formula && field.fieldType !== AjfFieldType.Table;
+    return Object.assign(Object.assign(Object.assign({}, node), field), { nodeType: AjfNodeType.AjfField, editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 const componentsMap = {};
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields/is-custom-field-with-choices.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} field
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isCustomFieldWithChoices(field) {
     return field.fieldType > 100 && componentsMap[field.fieldType] != null &&
@@ -999,13 +1227,25 @@ function isCustomFieldWithChoices(field) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/is-slides-node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} node
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isSlidesNode(node) {
     return node != null &&
@@ -1013,49 +1253,79 @@ function isSlidesNode(node) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/is-container-node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} node
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isContainerNode(node) {
     return node != null && (node.nodeType === AjfNodeType.AjfNodeGroup || isSlidesNode(node));
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/is-container-node-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeInstance
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isContainerNodeInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isContainerNode(nodeInstance.node);
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/flatten-nodes-instances.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodes
- * @param {?=} includeGroups
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function flattenNodesInstances(nodes, includeGroups = false) {
-    /** @type {?} */
     let flatNodes = [];
-    nodes.forEach((/**
-     * @param {?} nodeInstance
-     * @return {?}
-     */
-    (nodeInstance) => {
+    nodes.forEach((nodeInstance) => {
         if (isFieldInstance(nodeInstance)) {
             flatNodes.push(nodeInstance);
         }
@@ -1063,112 +1333,190 @@ function flattenNodesInstances(nodes, includeGroups = false) {
             if (includeGroups) {
                 flatNodes.push(nodeInstance);
             }
-            flatNodes = flatNodes.concat(flattenNodesInstances(((/** @type {?} */ (nodeInstance))).nodes, includeGroups));
+            flatNodes = flatNodes.concat(flattenNodesInstances(nodeInstance.nodes, includeGroups));
         }
-    }));
+    });
     return flatNodes;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/is-slides-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeInstance
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isSlidesInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isSlidesNode(nodeInstance.node);
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/flatten-nodes-instances-tree.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodes
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function flattenNodesInstancesTree(nodes) {
-    /** @type {?} */
     let flatTree = [];
-    nodes.forEach((/**
-     * @param {?} nodeInstance
-     * @return {?}
-     */
-    (nodeInstance) => {
+    nodes.forEach((nodeInstance) => {
         if (isSlidesInstance(nodeInstance)) {
-            /** @type {?} */
-            const ni = (/** @type {?} */ (nodeInstance));
+            const ni = nodeInstance;
             flatTree.push(ni);
             ni.flatNodes = flattenNodesInstances(ni.nodes);
         }
-    }));
+    });
     return flatTree;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/is-node-group.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} node
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isNodeGroup(node) {
     return node != null && node.nodeType === AjfNodeType.AjfNodeGroup;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/is-node-group-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeInstance
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isNodeGroupInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isNodeGroup(nodeInstance.node);
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/is-slide-node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} node
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isSlideNode(node) {
     return node != null && node.nodeType === AjfNodeType.AjfSlide;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/is-slide-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeInstance
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isSlideInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isSlideNode(nodeInstance.node);
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/create-node-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createNodeInstance(instance) {
     return {
@@ -1181,22 +1529,30 @@ function createNodeInstance(instance) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/create-field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @param {?} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createFieldInstance(instance, context) {
-    /** @type {?} */
     const nodeInstance = createNodeInstance(instance);
-    /** @type {?} */
     let value = null;
     if (nodeInstance.node != null && context != null) {
-        /** @type {?} */
         const completeName = nodeInstanceCompleteName(nodeInstance);
         if (context[nodeInstance.node.name] != null) {
             value = context[nodeInstance.node.name];
@@ -1209,115 +1565,31 @@ function createFieldInstance(instance, context) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/create-field-with-choices-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @template T
- * @param {?} instance
- * @param {?} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createFieldWithChoicesInstance(instance, context) {
-    /** @type {?} */
     const fieldInstance = createFieldInstance(instance, context);
     return Object.assign(Object.assign({}, fieldInstance), { node: instance.node, filteredChoices: [...instance.node.choices], firstTriggerConditionDone: {}, selectionTrigger: new EventEmitter() });
 }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields-instances/create-table-field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * to mantain retrocompatibility with old string type convert string to AjfTableCell
- * check  node.rows: (string|AjfTableCell)[][];
- * if elem of map is string convert in to AjfTableCell object
- * @param {?} node
- * @return {?}
- */
-function normalizeRows(node) {
-    node.rows.forEach((/**
-     * @param {?} row
-     * @param {?} rowIdx
-     * @return {?}
-     */
-    (row, rowIdx) => {
-        row.forEach((/**
-         * @param {?} elem
-         * @param {?} elemIdx
-         * @return {?}
-         */
-        (elem, elemIdx) => {
-            if (typeof elem === 'string') {
-                node.rows[rowIdx][elemIdx] = (/** @type {?} */ ({ formula: elem, editable: node.editable }));
-            }
-        }));
-    }));
-}
-/**
- * @param {?} instance
- * @param {?} context
- * @return {?}
- */
-function createTableFieldInstance(instance, context) {
-    normalizeRows((/** @type {?} */ (instance.node)));
-    /** @type {?} */
-    const fieldInstance = createFieldInstance(instance, context);
-    return Object.assign(Object.assign({}, fieldInstance), { node: instance.node, context, hideEmptyRows: instance.hideEmptyRows || false, controls: [] });
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/create-node-group-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @return {?}
- */
-function createNodeGroupInstance(instance) {
-    /** @type {?} */
-    const nodeInstance = createNodeInstance(instance);
-    return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/slides-instances/create-slide-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @return {?}
- */
-function createSlideInstance(instance) {
-    /** @type {?} */
-    const nodeInstance = createNodeInstance(instance);
-    return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0 });
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/slides-instances/create-repeating-slide-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @return {?}
- */
-function createRepeatingSlideInstance(instance) {
-    /** @type {?} */
-    const slideInstance = createSlideInstance(instance);
-    return Object.assign(Object.assign({}, slideInstance), { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/create-validation-group.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -1340,19 +1612,131 @@ function createRepeatingSlideInstance(instance) {
  *
  */
 /**
- * @param {?} group
- * @return {?}
+ * to mantain retrocompatibility with old string type convert string to AjfTableCell
+ * check  node.rows: (string|AjfTableCell)[][];
+ * if elem of map is string convert in to AjfTableCell object
+ */
+function normalizeRows(node) {
+    node.rows.forEach((row, rowIdx) => {
+        row.forEach((elem, elemIdx) => {
+            if (typeof elem === 'string') {
+                node.rows[rowIdx][elemIdx] = { formula: elem, editable: node.editable };
+            }
+        });
+    });
+}
+function createTableFieldInstance(instance, context) {
+    normalizeRows(instance.node);
+    const fieldInstance = createFieldInstance(instance, context);
+    return Object.assign(Object.assign({}, fieldInstance), { node: instance.node, context, hideEmptyRows: instance.hideEmptyRows || false, controls: [] });
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+function createNodeGroupInstance(instance) {
+    const nodeInstance = createNodeInstance(instance);
+    return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+function createSlideInstance(instance) {
+    const nodeInstance = createNodeInstance(instance);
+    return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0 });
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+function createRepeatingSlideInstance(instance) {
+    const { node } = instance, slideInstanceCreate = __rest(instance, ["node"]);
+    const { nodeType } = node, slideNode = __rest(node, ["nodeType"]);
+    const slideInstance = createSlideInstance(Object.assign(Object.assign({}, slideInstanceCreate), { node: Object.assign({ nodeType: AjfNodeType.AjfSlide }, slideNode) }));
+    return Object.assign(Object.assign({}, slideInstance), { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createValidationGroup(group) {
     return Object.assign(Object.assign({}, group), { conditions: group.conditions || [] });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/warning/create-warning-group.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -1373,22 +1757,30 @@ function createValidationGroup(group) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @param {?} group
- * @return {?}
- */
 function createWarningGroup(group) {
     return Object.assign(Object.assign({}, group), { conditions: group.conditions || [] });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/is-repeating-container-node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} node
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isRepeatingContainerNode(node) {
     return node != null &&
@@ -1397,32 +1789,32 @@ function isRepeatingContainerNode(node) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/get-ancestor-repeating-nodes.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} allNodes
- * @param {?} node
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function getAncestorRepeatingNodes(allNodes, node) {
-    /** @type {?} */
     let nodeGroups = [];
-    /** @type {?} */
     let curParent = node.parent;
     while (curParent != null) {
-        /** @type {?} */
-        const curNode = allNodes.map((/**
-         * @param {?} n
-         * @return {?}
-         */
-        (n) => ((/** @type {?} */ (n))).node || (/** @type {?} */ (n))))
-            .find((/**
-         * @param {?} n
-         * @return {?}
-         */
-        n => n.id == curParent));
+        const curNode = allNodes.map((n) => n.node || n)
+            .find(n => n.id == curParent);
         if (curNode) {
             if (isRepeatingContainerNode(curNode)) {
                 nodeGroups.push(curNode);
@@ -1434,52 +1826,60 @@ function getAncestorRepeatingNodes(allNodes, node) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/get-ancestor-repeating-nodes-names.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} allNodes
- * @param {?} node
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function getAncestorRepeatingNodesNames(allNodes, node) {
-    /** @type {?} */
     let names = {};
-    /** @type {?} */
-    const nodeGroups = (/** @type {?} */ (getAncestorRepeatingNodes(allNodes, node)));
-    nodeGroups.forEach((/**
-     * @param {?} n
-     * @param {?} idx
-     * @return {?}
-     */
-    (n, idx) => (n.nodes || []).forEach((/**
-     * @param {?} sn
-     * @return {?}
-     */
-    (sn) => {
+    const nodeGroups = getAncestorRepeatingNodes(allNodes, node);
+    nodeGroups.forEach((n, idx) => (n.nodes || []).forEach((sn) => {
         if (isField(sn)) {
             names[sn.name] = idx;
         }
-    }))));
+    }));
     return names;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/get-instance-condition.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} condition
- * @param {?} ancestorsNames
- * @param {?} prefix
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function getInstanceCondition(condition, ancestorsNames, prefix) {
-    /** @type {?} */
     const oldCondition = condition.condition;
-    /** @type {?} */
     let newCondition = normalizeExpression(oldCondition, ancestorsNames, prefix);
     if (newCondition === oldCondition) {
         return condition;
@@ -1488,50 +1888,61 @@ function getInstanceCondition(condition, ancestorsNames, prefix) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/get-instance-conditions.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} conditions
- * @param {?} ancestorsNames
- * @param {?} prefix
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function getInstanceConditions(conditions, ancestorsNames, prefix) {
-    /** @type {?} */
     let changed = false;
-    /** @type {?} */
-    const newConditions = conditions.map((/**
-     * @param {?} condition
-     * @return {?}
-     */
-    (condition) => {
-        /** @type {?} */
+    const newConditions = conditions.map((condition) => {
         const newCondition = getInstanceCondition(condition, ancestorsNames, prefix);
         if (newCondition !== condition) {
             changed = true;
         }
         return newCondition;
-    }));
+    });
     return changed ? newConditions : conditions;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/get-instance-formula.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} formula
- * @param {?} ancestorsNames
- * @param {?} prefix
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function getInstanceFormula(formula, ancestorsNames, prefix) {
-    /** @type {?} */
     const oldFormula = formula.formula;
-    /** @type {?} */
     let newFormula = normalizeExpression(oldFormula, ancestorsNames, prefix);
     if (newFormula === oldFormula) {
         return formula;
@@ -1540,10 +1951,30 @@ function getInstanceFormula(formula, ancestorsNames, prefix) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/create-validation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
+function createValidation(validation) {
+    return Object.assign(Object.assign({}, validation), { clientValidation: validation.clientValidation || false, errorMessage: validation.errorMessage || 'Undefined Error' });
+}
+
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -1565,29 +1996,8 @@ function getInstanceFormula(formula, ancestorsNames, prefix) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @param {?} validation
- * @return {?}
- */
-function createValidation(validation) {
-    return Object.assign(Object.assign({}, validation), { clientValidation: validation.clientValidation || false, errorMessage: validation.errorMessage || 'Undefined Error' });
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/get-instance-validation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} validation
- * @param {?} ancestorsNames
- * @param {?} prefix
- * @return {?}
- */
 function getInstanceValidation(validation, ancestorsNames, prefix) {
-    /** @type {?} */
     const oldValidation = validation.condition;
-    /** @type {?} */
     let newValidation = normalizeExpression(oldValidation, ancestorsNames, prefix);
     if (newValidation === oldValidation) {
         return validation;
@@ -1596,40 +2006,38 @@ function getInstanceValidation(validation, ancestorsNames, prefix) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/get-instance-validations.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} validations
- * @param {?} ancestorsNames
- * @param {?} prefix
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function getInstanceValidations(validations, ancestorsNames, prefix) {
-    /** @type {?} */
     let changed = false;
-    /** @type {?} */
-    const newValidations = validations.map((/**
-     * @param {?} validation
-     * @return {?}
-     */
-    (validation) => {
-        /** @type {?} */
+    const newValidations = validations.map((validation) => {
         const newValidation = getInstanceValidation(validation, ancestorsNames, prefix);
         if (newValidation !== validation) {
             changed = true;
         }
         return newValidation;
-    }));
+    });
     return changed ? newValidations : validations;
 }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/warning/create-warning.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -1651,29 +2059,33 @@ function getInstanceValidations(validations, ancestorsNames, prefix) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @param {?} warning
- * @return {?}
- */
 function createWarning(warning) {
     return Object.assign(Object.assign({}, warning), { warningMessage: warning.warningMessage || 'Undefined Warning' });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/get-instance-warning.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} warning
- * @param {?} ancestorsNames
- * @param {?} prefix
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function getInstanceWarning(warning, ancestorsNames, prefix) {
-    /** @type {?} */
     const oldWarning = warning.condition;
-    /** @type {?} */
     let newWarning = normalizeExpression(oldWarning, ancestorsNames, prefix);
     if (newWarning === oldWarning) {
         return warning;
@@ -1682,56 +2094,83 @@ function getInstanceWarning(warning, ancestorsNames, prefix) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/get-instance-warnings.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} warnings
- * @param {?} ancestorsNames
- * @param {?} prefix
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function getInstanceWarnings(warnings, ancestorsNames, prefix) {
-    /** @type {?} */
     let changed = false;
-    /** @type {?} */
-    const newWarnings = warnings.map((/**
-     * @param {?} warning
-     * @return {?}
-     */
-    (warning) => {
-        /** @type {?} */
+    const newWarnings = warnings.map((warning) => {
         const newWarning = getInstanceWarning(warning, ancestorsNames, prefix);
         if (newWarning !== warning) {
             changed = true;
         }
         return newWarning;
-    }));
+    });
     return changed ? newWarnings : warnings;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/is-repeating-slide.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} node
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isRepeatingSlide(node) {
     return node != null && node.nodeType === AjfNodeType.AjfRepeatingSlide;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/is-repeating-slide-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeInstance
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isRepeatingSlideInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isSlidesInstance(nodeInstance) &&
@@ -1739,76 +2178,77 @@ function isRepeatingSlideInstance(nodeInstance) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes-instances/node-to-node-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} allNodes
- * @param {?} node
- * @param {?} prefix
- * @param {?} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function nodeToNodeInstance(allNodes, node, prefix, context) {
-    /** @type {?} */
     let instance = null;
-    /** @type {?} */
     const nodeType = node.nodeType;
     switch (nodeType) {
         case AjfNodeType.AjfField:
-            /** @type {?} */
-            const field = (/** @type {?} */ (node));
+            const field = node;
             if (field.fieldType > 100) {
                 if (componentsMap[field.fieldType] != null &&
                     componentsMap[field.fieldType].createInstance != null) {
-                    instance = (/** @type {?} */ (componentsMap[field.fieldType].createInstance))({ node: (/** @type {?} */ (node)), prefix }, context);
+                    instance = componentsMap[field.fieldType].createInstance({ node: node, prefix }, context);
                 }
                 else {
-                    instance = createFieldInstance({ node: (/** @type {?} */ (node)), prefix }, context);
+                    instance = createFieldInstance({ node: node, prefix }, context);
                 }
             }
             else {
                 switch (field.fieldType) {
                     case AjfFieldType.SingleChoice:
                     case AjfFieldType.MultipleChoice:
-                        instance = createFieldWithChoicesInstance({ node: (/** @type {?} */ (node)), prefix }, context);
+                        instance = createFieldWithChoicesInstance({ node: node, prefix }, context);
                         break;
                     case AjfFieldType.Table:
-                        instance = createTableFieldInstance({ node: (/** @type {?} */ (node)), prefix }, context);
+                        instance = createTableFieldInstance({ node: node, prefix }, context);
                         break;
                     default:
-                        instance = createFieldInstance({ node: (/** @type {?} */ (node)), prefix }, context);
+                        instance = createFieldInstance({ node: node, prefix }, context);
                         break;
                 }
             }
             break;
         case AjfNodeType.AjfNodeGroup:
-            instance = createNodeGroupInstance({ node: (/** @type {?} */ (node)), prefix });
+            instance = createNodeGroupInstance({ node: node, prefix });
             break;
         case AjfNodeType.AjfRepeatingSlide:
-            instance = createRepeatingSlideInstance({ node: (/** @type {?} */ (node)), prefix });
+            instance = createRepeatingSlideInstance({ node: node, prefix });
             break;
         case AjfNodeType.AjfSlide:
-            instance = createSlideInstance({ node: (/** @type {?} */ (node)), prefix });
+            instance = createSlideInstance({ node: node, prefix });
             break;
     }
     if (instance != null) {
-        /** @type {?} */
         const hasPrefix = prefix != null && prefix.length > 0;
         if (hasPrefix) {
-            /** @type {?} */
             const ancestorsNames = getAncestorRepeatingNodesNames(allNodes, node);
             if (node.visibility != null) {
-                /** @type {?} */
                 const oldVisibility = node.visibility.condition;
-                /** @type {?} */
                 const newVisibility = normalizeExpression(oldVisibility, ancestorsNames, prefix);
                 instance.visibility = newVisibility !== oldVisibility ?
                     createCondition({ condition: newVisibility }) :
                     node.visibility;
             }
-            /** @type {?} */
             const conditionalBranches = instance.node.conditionalBranches != null &&
                 instance.node.conditionalBranches.length > 0 ?
                 instance.node.conditionalBranches :
@@ -1816,29 +2256,22 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
             instance.conditionalBranches =
                 getInstanceConditions(conditionalBranches, ancestorsNames, prefix);
             if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
-                /** @type {?} */
-                const ngInstance = (/** @type {?} */ (instance));
-                /** @type {?} */
+                const ngInstance = instance;
                 const formulaReps = ngInstance.node.formulaReps;
                 if (formulaReps != null) {
-                    /** @type {?} */
                     const oldFormula = formulaReps.formula;
-                    /** @type {?} */
                     let newFormula = normalizeExpression(oldFormula, ancestorsNames, prefix);
                     ngInstance.formulaReps =
                         newFormula !== oldFormula ? createFormula({ formula: newFormula }) : formulaReps;
                 }
             }
             else if (nodeType === AjfNodeType.AjfField) {
-                /** @type {?} */
-                const fInstance = (/** @type {?} */ (instance));
-                /** @type {?} */
+                const fInstance = instance;
                 const fNode = fInstance.node;
                 if (fNode.formula) {
                     fInstance.formula = getInstanceFormula(fNode.formula, ancestorsNames, prefix);
                 }
                 if (fNode.validation != null) {
-                    /** @type {?} */
                     const newConditions = getInstanceValidations(fNode.validation.conditions, ancestorsNames, prefix);
                     if (newConditions !== fNode.validation.conditions) {
                         fInstance.validation = createValidationGroup(fNode.validation);
@@ -1849,7 +2282,6 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
                     }
                 }
                 if (fNode.warning != null) {
-                    /** @type {?} */
                     const newWarnings = getInstanceWarnings(fNode.warning.conditions, ancestorsNames, prefix);
                     if (newWarnings !== fNode.warning.conditions) {
                         fInstance.warning = createWarningGroup(fNode.warning);
@@ -1864,9 +2296,7 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
                         getInstanceCondition(fNode.nextSlideCondition, ancestorsNames, prefix);
                 }
                 if (isFieldWithChoices(fNode)) {
-                    /** @type {?} */
-                    const fwcInstance = (/** @type {?} */ (instance));
-                    /** @type {?} */
+                    const fwcInstance = instance;
                     const fwcNode = fwcInstance.node;
                     if (fwcNode.choicesFilter != null) {
                         fwcInstance.choicesFilter =
@@ -1881,26 +2311,22 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
         }
         else {
             instance.visibility = instance.node.visibility;
-            /** @type {?} */
             const conditionalBranches = instance.node.conditionalBranches != null &&
                 instance.node.conditionalBranches.length > 0 ?
                 instance.node.conditionalBranches :
                 [alwaysCondition()];
             instance.conditionalBranches = conditionalBranches;
             if (isNodeGroupInstance(instance) || isRepeatingSlideInstance(instance)) {
-                /** @type {?} */
-                const rgInstance = (/** @type {?} */ (instance));
+                const rgInstance = instance;
                 rgInstance.formulaReps = rgInstance.node.formulaReps;
             }
             else if (isFieldInstance(instance)) {
-                /** @type {?} */
-                const fInstance = (/** @type {?} */ (instance));
+                const fInstance = instance;
                 fInstance.validation = fInstance.node.validation;
                 fInstance.warning = fInstance.node.warning;
                 fInstance.nextSlideCondition = fInstance.node.nextSlideCondition;
                 if (isFieldWithChoicesInstance(instance)) {
-                    /** @type {?} */
-                    const fwcInstance = (/** @type {?} */ (instance));
+                    const fwcInstance = instance;
                     fwcInstance.choicesFilter = fwcInstance.node.choicesFilter;
                     fwcInstance.triggerConditions = fwcInstance.node.triggerConditions;
                 }
@@ -1912,35 +2338,37 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/flatten-nodes.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodes
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function flattenNodes(nodes) {
-    /** @type {?} */
     let flatNodes = [];
-    nodes.forEach((/**
-     * @param {?} node
-     * @return {?}
-     */
-    (node) => {
+    nodes.forEach((node) => {
         flatNodes.push(node);
         if (isContainerNode(node)) {
-            flatNodes = flatNodes.concat(flattenNodes(((/** @type {?} */ (node))).nodes));
+            flatNodes = flatNodes.concat(flattenNodes(node.nodes));
         }
-    }));
+    });
     return flatNodes;
 }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/ordered-nodes.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -1962,53 +2390,43 @@ function flattenNodes(nodes) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @param {?} nodes
- * @param {?} parent
- * @return {?}
- */
 function orderedNodes(nodes, parent) {
-    /** @type {?} */
     let newNodes = [];
     nodes
-        .filter((/**
-     * @param {?} n
-     * @return {?}
-     */
-    (n) => parent != null ? n.parent == parent : n.parent == null || n.parent === 0))
-        .sort((/**
-     * @param {?} n1
-     * @param {?} n2
-     * @return {?}
-     */
-    (n1, n2) => n1.parentNode - n2.parentNode))
-        .forEach((/**
-     * @param {?} n
-     * @return {?}
-     */
-    (n) => {
+        .filter((n) => parent != null ? n.parent == parent : n.parent == null || n.parent === 0)
+        .sort((n1, n2) => n1.parentNode - n2.parentNode)
+        .forEach((n) => {
         newNodes.push(n);
         newNodes = newNodes.concat(orderedNodes(nodes, n.id));
-    }));
+    });
     return newNodes;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/slides-instances/update-reps-num.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} instance
- * @param {?=} context
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function updateRepsNum(instance, context) {
-    /** @type {?} */
     const oldReps = instance.reps || 0;
     context = context || {};
     if (instance.node.formulaReps == null) {
-        /** @type {?} */
         const ctxReps = context[nodeInstanceCompleteName(instance)];
         if (ctxReps != null) {
             instance.reps = ctxReps;
@@ -2018,7 +2436,6 @@ function updateRepsNum(instance, context) {
         }
     }
     else {
-        /** @type {?} */
         let newReps = evaluateExpression(instance.node.formulaReps.formula, context);
         if (newReps !== oldReps) {
             instance.reps = newReps;
@@ -2030,10 +2447,40 @@ function updateRepsNum(instance, context) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/slides-instances/valid-slide.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
+function validSlide(slide, idx) {
+    if (idx >= slide.slideNodes.length) {
+        return true;
+    }
+    return slide.slideNodes[idx]
+        .map(n => {
+        if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+            return n.valid;
+        }
+        return true;
+    })
+        .reduce((v1, v2) => v1 && v2, true);
+}
+
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -2055,49 +2502,17 @@ function updateRepsNum(instance, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @param {?} slide
- * @param {?} idx
- * @return {?}
- */
-function validSlide(slide, idx) {
-    if (idx >= slide.slideNodes.length) {
-        return true;
-    }
-    return slide.slideNodes[idx]
-        .map((/**
-     * @param {?} n
-     * @return {?}
-     */
-    n => {
-        if (n.visible && Object.keys(n).indexOf('valid') > -1) {
-            return ((/** @type {?} */ (n))).valid;
-        }
-        return true;
-    }))
-        .reduce((/**
-     * @param {?} v1
-     * @param {?} v2
-     * @return {?}
-     */
-    (v1, v2) => v1 && v2), true);
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/validation-service.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfValidationService {
-    constructor() {
-        this._baseUtilFunctions = [
-            `/**
+let AjfValidationService = /** @class */ (() => {
+    let AjfValidationService = class AjfValidationService {
+        constructor() {
+            this._baseUtilFunctions = [
+                `/**
         * count the number of digit contained on x.
         * @param  x the value used for digit count
         * @return the count of the digit
       */
     var digitCount = function(x) { return x.toString().length; }`,
-            `/**
+                `/**
         * count the number of decimal contained on x.
         * @param  x the value used for decimal count
         * @return the count of the decimal
@@ -2105,13 +2520,13 @@ class AjfValidationService {
     var decimalCount = function(x) {
       return (parseFloat(x).toString().split('.')[1] || []).length;
     }`,
-            `/**
+                `/**
         * check if x is integer
         * @param  x the value used for check
         * @return true if x is a number
       */
     var isInt = function(x) { return !/[,.]/.test(x); }`,
-            `/**
+                `/**
         * check if x is not empity
         * @param  x the value used for check
         * @return true if x defined and not null and the number of digit is > 0
@@ -2119,25 +2534,25 @@ class AjfValidationService {
     var notEmpty = function (x) {
       return (typeof x !== 'undefined' && x !== null ? x.toString().length > 0 : false);
     }`,
-            `/**
+                `/**
         * check if x is contained on array
         * @param  x the value used for check
         * @return the position of x on array or if array === x
       */
     var valueInChoice = function(array, x) { return array.indexOf(x) > -1 || array === x; }`,
-            `var scanGroupField = function(reps, acc, callback) {
+                `var scanGroupField = function(reps, acc, callback) {
         for (var i = 0; i < reps; i++) {
             acc = callback(acc, i);
         }
         return acc;
     }`,
-            `/**
+                `/**
         * sum the value contained on array
         * @param  x the array
         * @return the sum
       */
     var sum = function(array) {return array.reduce(function(a, b){ return a + b; }, 0); }`,
-            `var dateOperations = function(dString, period, operation, v) {
+                `var dateOperations = function(dString, period, operation, v) {
         fmt = 'mm/dd/yyyy';
         var d = (typeof dString !== 'undefined') ? dateUtils.parse(dString) : new Date();
         if (operation == 'remove') {
@@ -2159,7 +2574,7 @@ class AjfValidationService {
         }
         return dateUtils.format(dateOp(d, v), fmt);
       }`,
-            `/**
+                `/**
         * round the num
         * @param  num the value to round
         * @param  digits how many digit
@@ -2172,7 +2587,7 @@ class AjfValidationService {
         var m = Math.pow(10, digits);
         return Math.round(f * m) / m;
       }`,
-            `/**
+                `/**
         * extract the property of the source object with property != null
         * @param  source array of object wich contains property
         * @param  property the property on wich we want filter
@@ -2192,7 +2607,7 @@ class AjfValidationService {
         }
         return res;
       }`,
-            `/**
+                `/**
         * extract the property of the source object with property != null
         * @param  source array of object wich contains property
         * @param  propertues string array the properties to sum
@@ -2212,7 +2627,7 @@ class AjfValidationService {
         }
         return sum;
       }`,
-            `/**
+                `/**
         * extract the array of sum for each week != null
         * @param  source array of object wich contains property
         * @param  propertues string array the properties to sum
@@ -2237,7 +2652,7 @@ class AjfValidationService {
         }
         return res;
       }`,
-            `/**
+                `/**
         * draw a threshold line on chart related to the property
         * @param  source array of object wich contains property
         * @param  property the property on wich we want filter
@@ -2254,7 +2669,7 @@ class AjfValidationService {
         }
         return res;
       }`,
-            `/**
+                `/**
         * extract the dates of the source object with property != null
         * @param  source array of object wich contains property and date_start
         * @param  property the property on wich we want to calculate dates
@@ -2283,7 +2698,7 @@ class AjfValidationService {
         }
         return res;
       }`,
-            `/**
+                `/**
         * extract the last property contains in source != null
         * @param  source array of object wich contains property and date_start
         * @param  property the property to find
@@ -2299,7 +2714,7 @@ class AjfValidationService {
         }
         return l >= 0 ? source[l][property] : 0;
       }`,
-            `var sumLastProperties = function(source, properties) {
+                `var sumLastProperties = function(source, properties) {
         source = (source || []).slice(0);
         var sum = 0;
         for (var i = 0; i < properties.length; i++) {
@@ -2308,7 +2723,7 @@ class AjfValidationService {
 
         return sum;
       }`,
-            `/**
+                `/**
         * compute the trend of the property contained on the source.
         * @param  source array of object wich contains property
         * @param  property the property on wich we want to calculate the trend
@@ -2347,7 +2762,7 @@ class AjfValidationService {
           return '<p><i class="material-icons" style="color:red">trending_down</i></p>';
         }
       }`,
-            `/**
+                `/**
         * compute the average value of the property contained on the source.
         * @param  source array of object wich contains property
         * @param  property the property on wich we want to calculate the average
@@ -2393,7 +2808,7 @@ class AjfValidationService {
           return threshold;
         }
       }`,
-            `var alert = function(source, property, threshold, fmt) {
+                `var alert = function(source, property, threshold, fmt) {
         source = (source || []).slice(0);
         var l = source.length;
 
@@ -2403,20 +2818,20 @@ class AjfValidationService {
             return '<p></p>';
           }
       }`,
-            `var formatNumber = function(num, fmt) {
+                `var formatNumber = function(num, fmt) {
         fmt = fmt || '0,0[.]0';
         return numeral(num).format(fmt);
       }`,
-            `var formatDate = function(date, fmt) {
+                `var formatDate = function(date, fmt) {
         fmt = fmt || 'mm-dd-yyyy';
         return dateUtils.format(date, fmt);
       }`,
-            `var isoMonth = function(date, fmt) {
+                `var isoMonth = function(date, fmt) {
         fmt = fmt || 'mm';
         var du = dateUtils;
         return du.format(du.addDays(du.startOfMonth(date), 4),fmt)
       }`,
-            `var nextCounterValue = function(counterName, firstValue) {
+                `var nextCounterValue = function(counterName, firstValue) {
         firstValue = firstValue != null ? firstValue : 0;
         if (execContext['$$'+counterName] == null) {
           execContext['$$'+counterName] = firstValue;
@@ -2425,7 +2840,7 @@ class AjfValidationService {
         }
         return execContext['$$'+counterName];
       }`,
-            `var getCoordinate = function(source, zoom) {
+                `var getCoordinate = function(source, zoom) {
         zoom = zoom || 6;
         if(source == null) {
           return [51.505,-0.09, zoom];
@@ -2433,2638 +2848,1624 @@ class AjfValidationService {
           return [source[0], source[1], zoom];
         }
       }`
-        ];
-        this._functions = [];
-        this._functionsStr = '';
-        this._initFunctions();
-    }
-    /**
-     * @param {?} f
-     * @return {?}
-     */
-    addFunction(f) {
-        this._functions.push(f);
-        this._initFunctions();
-    }
-    /**
-     * @param {?} name
-     * @param {?} fn
-     * @return {?}
-     */
-    addFunctionHandler(name, fn) {
-        if (AjfExpressionUtils.utils[name] === undefined) {
-            AjfExpressionUtils.utils[name] = { fn };
+            ];
+            this._functions = [];
+            this._functionsStr = '';
+            this._initFunctions();
         }
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _initFunctions() {
-        /** @type {?} */
-        const functionsStr = this._functions.map((/**
-         * @param {?} f
-         * @return {?}
-         */
-        f => typeof f === 'string' ? f : f.toString())).join('; ');
-        this._functionsStr = `${this._baseUtilFunctions.join('; ')}; ${functionsStr}`;
-        AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
-    }
-}
-AjfValidationService.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-AjfValidationService.ctorParameters = () => [];
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfValidationService.prototype._baseUtilFunctions;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfValidationService.prototype._functions;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfValidationService.prototype._functionsStr;
-}
+        addFunction(f) {
+            this._functions.push(f);
+            this._initFunctions();
+        }
+        addFunctionHandler(name, fn) {
+            if (AjfExpressionUtils.utils[name] === undefined) {
+                AjfExpressionUtils.utils[name] = { fn };
+            }
+        }
+        _initFunctions() {
+            const functionsStr = this._functions.map(f => typeof f === 'string' ? f : f.toString()).join('; ');
+            this._functionsStr = `${this._baseUtilFunctions.join('; ')}; ${functionsStr}`;
+            AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
+        }
+    };
+    AjfValidationService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [])
+    ], AjfValidationService);
+    return AjfValidationService;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/form-renderer.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-/** @type {?} */
 const esprimaMod = esprima__default || esprima;
 const { tokenize } = esprimaMod;
-/** @enum {number} */
-const AjfFormInitStatus = {
-    Initializing: 0,
-    Complete: 1,
-};
-class AjfFormRendererService {
-    /**
-     * @param {?} _
-     */
-    constructor(_) {
-        this._visibilityNodesMapUpdates = new Subject();
-        this._repetitionNodesMapUpdates = new Subject();
-        this._conditionalBranchNodesMapUpdates = new Subject();
-        this._formulaNodesMapUpdates = new Subject();
-        this._validationNodesMapUpdates = new Subject();
-        this._warningNodesMapUpdates = new Subject();
-        this._filteredChoicesNodesMapUpdates = new Subject();
-        this._triggerConditionsNodesMapUpdates = new Subject();
-        this._nextSlideConditionsNodesMapUpdates = new Subject();
-        this._formInitEvent = new EventEmitter();
-        this.formInitEvent = this._formInitEvent.asObservable();
-        this._formGroup = new BehaviorSubject(null);
-        this.formGroup = this._formGroup.asObservable();
-        this._form = new BehaviorSubject(null);
-        this._nodesUpdates = new Subject();
-        this._formGroupSubscription = Subscription.EMPTY;
-        this._valueChanged = new Subject();
-        this._nextSlideTrigger = new EventEmitter();
-        this.nextSlideTrigger = this._nextSlideTrigger.asObservable();
-        this._slidesNum = new BehaviorSubject(0);
-        this.slidesNum = this._slidesNum.asObservable();
-        this._initUpdateMapStreams();
-        this._initNodesStreams();
-        this._initErrorsStreams();
-        this._initFormStreams();
-        this._updateFormValueAndValidity();
-    }
-    /**
-     * @return {?}
-     */
-    get nodesTree() {
-        return this._flatNodesTree;
-    }
-    /**
-     * @return {?}
-     */
-    get errorPositions() {
-        return this._errorPositions;
-    }
-    /**
-     * @return {?}
-     */
-    get errors() {
-        return this._errors;
-    }
-    /**
-     * @return {?}
-     */
-    get currentSupplementaryInformations() {
-        /** @type {?} */
-        const form = this._form.getValue();
-        return form != null && form.form != null ? form.form.supplementaryInformations : null;
-    }
-    /**
-     * @param {?} form
-     * @param {?=} context
-     * @return {?}
-     */
-    setForm(form, context = {}) {
-        this._initUpdateMapStreams();
-        if (form != null && Object.keys(context).length === 0 &&
-            Object.keys(form.initContext || {}).length > 0) {
-            context = form.initContext || {};
+let AjfFormRendererService = /** @class */ (() => {
+    let AjfFormRendererService = class AjfFormRendererService {
+        constructor(_) {
+            this._visibilityNodesMapUpdates = new Subject();
+            this._repetitionNodesMapUpdates = new Subject();
+            this._conditionalBranchNodesMapUpdates = new Subject();
+            this._formulaNodesMapUpdates = new Subject();
+            this._validationNodesMapUpdates = new Subject();
+            this._warningNodesMapUpdates = new Subject();
+            this._filteredChoicesNodesMapUpdates = new Subject();
+            this._triggerConditionsNodesMapUpdates = new Subject();
+            this._nextSlideConditionsNodesMapUpdates = new Subject();
+            this._formInitEvent = new EventEmitter();
+            this.formInitEvent = this._formInitEvent.asObservable();
+            this._formGroup = new BehaviorSubject(null);
+            this.formGroup = this._formGroup.asObservable();
+            this._form = new BehaviorSubject(null);
+            this._nodesUpdates = new Subject();
+            this._formGroupSubscription = Subscription.EMPTY;
+            this._valueChanged = new Subject();
+            this._nextSlideTrigger = new EventEmitter();
+            this.nextSlideTrigger = this._nextSlideTrigger.asObservable();
+            this._slidesNum = new BehaviorSubject(0);
+            this.slidesNum = this._slidesNum.asObservable();
+            this._initUpdateMapStreams();
+            this._initNodesStreams();
+            this._initErrorsStreams();
+            this._initFormStreams();
+            this._updateFormValueAndValidity();
         }
-        /** @type {?} */
-        const currentForm = this._form.getValue();
-        if ((currentForm == null && form != null) ||
-            (currentForm != null && form !== currentForm.form)) {
-            this._form.next({ form: form, context: context });
+        get nodesTree() {
+            return this._flatNodesTree;
         }
-    }
-    /**
-     * @return {?}
-     */
-    getFormValue() {
-        /** @type {?} */
-        const formGroup = this._formGroup.getValue();
-        if (formGroup == null) {
-            return {};
+        get errorPositions() {
+            return this._errorPositions;
         }
-        /** @type {?} */
-        let res = deepCopy(formGroup.value);
-        return res;
-    }
-    /**
-     * @param {?} group
-     * @return {?}
-     */
-    addGroup(group) {
-        return new Observable((/**
-         * @param {?} subscriber
-         * @return {?}
-         */
-        (subscriber) => {
-            if (group.formulaReps != null) {
-                subscriber.next(false);
-                subscriber.complete();
-                return;
+        get errors() {
+            return this._errors;
+        }
+        get currentSupplementaryInformations() {
+            const form = this._form.getValue();
+            return form != null && form.form != null ? form.form.supplementaryInformations : null;
+        }
+        setForm(form, context = {}) {
+            this._initUpdateMapStreams();
+            if (form != null && Object.keys(context).length === 0 &&
+                Object.keys(form.initContext || {}).length > 0) {
+                context = form.initContext || {};
             }
-            /** @type {?} */
-            const maxReps = group.node.maxReps;
-            if (maxReps > 0 && group.reps + 1 > maxReps) {
-                subscriber.next(false);
-                subscriber.complete();
-                return;
+            const currentForm = this._form.getValue();
+            if ((currentForm == null && form != null) ||
+                (currentForm != null && form !== currentForm.form)) {
+                this._form.next({ form: form, context: context });
             }
-            /** @type {?} */
-            const oldReps = group.reps;
-            group.reps = group.reps + 1;
-            group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
-            group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
-            this._nodesUpdates.next((/**
-             * @param {?} nodes
-             * @return {?}
-             */
-            (nodes) => {
-                /** @type {?} */
-                const flatNodes = flattenNodesInstances(nodes, true);
-                this._adjustReps(flatNodes, group, oldReps, this.getFormValue());
-                subscriber.next(true);
-                subscriber.complete();
-                return nodes;
-            }));
-        }));
-    }
-    /**
-     * @param {?} group
-     * @return {?}
-     */
-    removeGroup(group) {
-        return new Observable((/**
-         * @param {?} subscriber
-         * @return {?}
-         */
-        (subscriber) => {
-            if (group.formulaReps != null) {
-                subscriber.next(false);
-                subscriber.complete();
-                return;
+        }
+        getFormValue() {
+            const formGroup = this._formGroup.getValue();
+            if (formGroup == null) {
+                return {};
             }
-            /** @type {?} */
-            const minReps = group.node.minReps;
-            if (group.reps - 1 < minReps) {
-                subscriber.next(false);
-                subscriber.complete();
-                return;
-            }
-            /** @type {?} */
-            const oldReps = group.reps;
-            group.reps = group.reps - 1;
-            group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
-            group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
-            this._nodesUpdates.next((/**
-             * @param {?} nodes
-             * @return {?}
-             */
-            (nodes) => {
-                this._adjustReps(nodes, group, oldReps, this.getFormValue());
-                subscriber.next(true);
-                subscriber.complete();
-                return nodes;
-            }));
-        }));
-    }
-    /**
-     * @param {?} field
-     * @return {?}
-     */
-    getControl(field) {
-        return this.formGroup.pipe(map((/**
-         * @param {?} f
-         * @return {?}
-         */
-        (f) => {
-            /** @type {?} */
-            const fieldName = nodeInstanceCompleteName(field);
-            return f != null && f.contains(fieldName) ? f.controls[fieldName] : null;
-        })));
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _initErrorsStreams() {
-        this._errorPositions = this._valueChanged.pipe(withLatestFrom(this._nodes, this._form), filter((/**
-         * @param {?} v
-         * @return {?}
-         */
-        v => v[2] != null && v[2].form != null)), map((/**
-         * @param {?} v
-         * @return {?}
-         */
-        (v) => {
-            /** @type {?} */
-            const nodes = v[1];
-            /** @type {?} */
-            const form = (/** @type {?} */ ((/** @type {?} */ (v[2])).form));
-            /** @type {?} */
-            let currentPosition = 0;
-            /** @type {?} */
-            const errors = [];
-            nodes.forEach((/**
-             * @param {?} node
-             * @return {?}
-             */
-            (node) => {
-                if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
-                    /** @type {?} */
-                    const rsNode = (/** @type {?} */ (node));
-                    for (let i = 0; i < rsNode.reps; i++) {
-                        if (node.visible) {
-                            currentPosition++;
-                            if (i == 0) {
-                                rsNode.position = currentPosition;
-                            }
-                            if (!validSlide(rsNode, i)) {
-                                errors.push(currentPosition);
-                            }
-                        }
-                    }
+            let res = deepCopy(formGroup.value);
+            return res;
+        }
+        addGroup(group) {
+            return new Observable((subscriber) => {
+                if (group.formulaReps != null) {
+                    subscriber.next(false);
+                    subscriber.complete();
+                    return;
                 }
-                else if (node.node.nodeType === AjfNodeType.AjfSlide) {
-                    /** @type {?} */
-                    const sNode = (/** @type {?} */ (node));
-                    if (sNode.visible) {
-                        currentPosition++;
-                        sNode.position = currentPosition;
-                        if (!sNode.valid) {
-                            errors.push(currentPosition);
-                        }
-                    }
+                const maxReps = group.node.maxReps;
+                if (maxReps > 0 && group.reps + 1 > maxReps) {
+                    subscriber.next(false);
+                    subscriber.complete();
+                    return;
                 }
+                const oldReps = group.reps;
+                group.reps = group.reps + 1;
+                group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
+                group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
+                this._nodesUpdates.next((nodes) => {
+                    const flatNodes = flattenNodesInstances(nodes, true);
+                    this._adjustReps(flatNodes, group, oldReps, this.getFormValue());
+                    subscriber.next(true);
+                    subscriber.complete();
+                    return nodes;
+                });
+            });
+        }
+        removeGroup(group) {
+            return new Observable((subscriber) => {
+                if (group.formulaReps != null) {
+                    subscriber.next(false);
+                    subscriber.complete();
+                    return;
+                }
+                const minReps = group.node.minReps;
+                if (group.reps - 1 < minReps) {
+                    subscriber.next(false);
+                    subscriber.complete();
+                    return;
+                }
+                const oldReps = group.reps;
+                group.reps = group.reps - 1;
+                group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
+                group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
+                this._nodesUpdates.next((nodes) => {
+                    this._adjustReps(nodes, group, oldReps, this.getFormValue());
+                    subscriber.next(true);
+                    subscriber.complete();
+                    return nodes;
+                });
+            });
+        }
+        getControl(field) {
+            return this.formGroup.pipe(map((f) => {
+                const fieldName = nodeInstanceCompleteName(field);
+                return f != null && f.contains(fieldName) ? f.controls[fieldName] : null;
             }));
-            form.valid = errors.length == 0;
-            this._slidesNum.next(currentPosition);
-            return errors;
-        })), publishReplay(), refCount());
-        this._errors = this._errorPositions.pipe(map((/**
-         * @param {?} e
-         * @return {?}
-         */
-        e => e != null ? e.length : 0)), startWith(0), publishReplay(), refCount());
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _initUpdateMapStreams() {
-        this._visibilityNodesMap =
-            ((/** @type {?} */ (this._visibilityNodesMapUpdates)))
-                .pipe(scan((/**
-             * @param {?} rmap
-             * @param {?} op
-             * @return {?}
-             */
-            (rmap, op) => {
-                return op(rmap);
-            }), {}), startWith({}), share());
-        this._repetitionNodesMap =
-            ((/** @type {?} */ (this._repetitionNodesMapUpdates)))
-                .pipe(scan((/**
-             * @param {?} rmap
-             * @param {?} op
-             * @return {?}
-             */
-            (rmap, op) => {
-                return op(rmap);
-            }), {}), startWith({}), share());
-        this._conditionalBranchNodesMap =
-            ((/** @type {?} */ (this._conditionalBranchNodesMapUpdates)))
-                .pipe(scan((/**
-             * @param {?} rmap
-             * @param {?} op
-             * @return {?}
-             */
-            (rmap, op) => {
-                return op(rmap);
-            }), {}), startWith({}), share());
-        this._formulaNodesMap =
-            ((/** @type {?} */ (this._formulaNodesMapUpdates)))
-                .pipe(scan((/**
-             * @param {?} rmap
-             * @param {?} op
-             * @return {?}
-             */
-            (rmap, op) => {
-                return op(rmap);
-            }), {}), startWith({}), share());
-        this._validationNodesMap =
-            ((/** @type {?} */ (this._validationNodesMapUpdates)))
-                .pipe(scan((/**
-             * @param {?} rmap
-             * @param {?} op
-             * @return {?}
-             */
-            (rmap, op) => {
-                return op(rmap);
-            }), {}), startWith({}), share());
-        this._warningNodesMap =
-            ((/** @type {?} */ (this._warningNodesMapUpdates)))
-                .pipe(scan((/**
-             * @param {?} rmap
-             * @param {?} op
-             * @return {?}
-             */
-            (rmap, op) => {
-                return op(rmap);
-            }), {}), startWith({}), share());
-        this._filteredChoicesNodesMap =
-            ((/** @type {?} */ (this._filteredChoicesNodesMapUpdates)))
-                .pipe(scan((/**
-             * @param {?} rmap
-             * @param {?} op
-             * @return {?}
-             */
-            (rmap, op) => {
-                return op(rmap);
-            }), {}), startWith({}), share());
-        this._triggerConditionsNodesMap =
-            ((/** @type {?} */ (this._triggerConditionsNodesMapUpdates)))
-                .pipe(scan((/**
-             * @param {?} rmap
-             * @param {?} op
-             * @return {?}
-             */
-            (rmap, op) => {
-                return op(rmap);
-            }), {}), startWith({}), share());
-        this._nextSlideConditionsNodesMap =
-            ((/** @type {?} */ (this._nextSlideConditionsNodesMapUpdates)))
-                .pipe(scan((/**
-             * @param {?} rmap
-             * @param {?} op
-             * @return {?}
-             */
-            (rmap, op) => {
-                return op(rmap);
-            }), {}), startWith({}), share());
-        this._nodesMaps = [
-            this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
-            this._formulaNodesMap, this._validationNodesMap, this._warningNodesMap,
-            this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
-            this._triggerConditionsNodesMap
-        ];
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _initFormStreams() {
-        /** @type {?} */
-        const formObs = (/** @type {?} */ (this._form));
-        formObs
-            .pipe(map((/**
-         * @param {?} _form
-         * @return {?}
-         */
-        (_form) => {
-            return this._initFormGroupStreams(new FormGroup({}));
-        })))
-            .subscribe(this._formGroup);
-        formObs
-            .pipe(switchMap((/**
-         * @param {?} form
-         * @return {?}
-         */
-        form => {
-            if (form == null || form.form == null) {
-                return of(form);
-            }
-            /** @type {?} */
-            const choicesOrigins = form.form.choicesOrigins || [];
-            if (choicesOrigins.length === 0) {
-                return of(form);
-            }
-            return from(Promise.all(choicesOrigins.map((/**
-             * @param {?} co
-             * @return {?}
-             */
-            co => initChoicesOrigin(co)))))
-                .pipe(map((/**
-             * @return {?}
-             */
-            () => form)));
-        })), map((/**
-         * @param {?} form
-         * @return {?}
-         */
-        (form) => {
-            return (/**
-             * @param {?} _nodesInstances
-             * @return {?}
-             */
-            (_nodesInstances) => {
-                /** @type {?} */
-                const nodes = form != null && form.form != null ?
-                    this._orderedNodesInstancesTree(flattenNodes(form.form.nodes), form.form.nodes, undefined, [], form.context || {}) :
-                    [];
-                /** @type {?} */
+        }
+        _initErrorsStreams() {
+            this._errorPositions = this._valueChanged.pipe(withLatestFrom(this._nodes, this._form), filter(v => v[2] != null && v[2].form != null), map((v) => {
+                const nodes = v[1];
+                const form = v[2].form;
                 let currentPosition = 0;
-                nodes.forEach((/**
-                 * @param {?} node
-                 * @return {?}
-                 */
-                (node) => {
+                const errors = [];
+                nodes.forEach((node) => {
                     if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
-                        /** @type {?} */
-                        const rsNode = (/** @type {?} */ (node));
+                        const rsNode = node;
                         for (let i = 0; i < rsNode.reps; i++) {
                             if (node.visible) {
                                 currentPosition++;
                                 if (i == 0) {
                                     rsNode.position = currentPosition;
                                 }
+                                if (!validSlide(rsNode, i)) {
+                                    errors.push(currentPosition);
+                                }
                             }
                         }
                     }
                     else if (node.node.nodeType === AjfNodeType.AjfSlide) {
-                        /** @type {?} */
-                        const sNode = (/** @type {?} */ (node));
+                        const sNode = node;
                         if (sNode.visible) {
                             currentPosition++;
                             sNode.position = currentPosition;
+                            if (!sNode.valid) {
+                                errors.push(currentPosition);
+                            }
                         }
                     }
-                }));
-                return nodes;
-            });
-        })))
-            .subscribe(this._nodesUpdates);
-    }
-    /**
-     * @private
-     * @param {?} allNodes
-     * @param {?} node
-     * @param {?} prefix
-     * @param {?} context
-     * @param {?=} branchVisibility
-     * @return {?}
-     */
-    _initNodeInstance(allNodes, node, prefix, context, branchVisibility = true) {
-        /** @type {?} */
-        let instance = nodeToNodeInstance(allNodes, node, prefix, context);
-        if (instance != null) {
-            /** @type {?} */
-            const nodeType = instance.node.nodeType;
-            if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
-                this._explodeRepeatingNode(allNodes, (/** @type {?} */ (instance)), context);
-            }
-            else if (nodeType === AjfNodeType.AjfSlide) {
-                /** @type {?} */
-                const sInstance = (/** @type {?} */ (instance));
-                sInstance.nodes = this._orderedNodesInstancesTree(allNodes, sInstance.node.nodes, sInstance.node.id, prefix, context);
-            }
-            updateVisibility(instance, context, branchVisibility);
-            updateConditionalBranches(instance, context);
-            if (nodeType === AjfNodeType.AjfField) {
-                /** @type {?} */
-                const fInstance = (/** @type {?} */ (instance));
-                if (isCustomFieldWithChoices(fInstance.node) || isFieldWithChoices(fInstance.node)) {
-                    updateFilteredChoices((/** @type {?} */ (fInstance)), context);
+                });
+                form.valid = errors.length == 0;
+                this._slidesNum.next(currentPosition);
+                return errors;
+            }), publishReplay(), refCount());
+            this._errors = this._errorPositions.pipe(map(e => e != null ? e.length : 0), startWith(0), publishReplay(), refCount());
+        }
+        _initUpdateMapStreams() {
+            this._visibilityNodesMap =
+                this._visibilityNodesMapUpdates
+                    .pipe(scan((rmap, op) => {
+                    return op(rmap);
+                }, {}), startWith({}), share());
+            this._repetitionNodesMap =
+                this._repetitionNodesMapUpdates
+                    .pipe(scan((rmap, op) => {
+                    return op(rmap);
+                }, {}), startWith({}), share());
+            this._conditionalBranchNodesMap =
+                this._conditionalBranchNodesMapUpdates
+                    .pipe(scan((rmap, op) => {
+                    return op(rmap);
+                }, {}), startWith({}), share());
+            this._formulaNodesMap =
+                this._formulaNodesMapUpdates
+                    .pipe(scan((rmap, op) => {
+                    return op(rmap);
+                }, {}), startWith({}), share());
+            this._validationNodesMap =
+                this._validationNodesMapUpdates
+                    .pipe(scan((rmap, op) => {
+                    return op(rmap);
+                }, {}), startWith({}), share());
+            this._warningNodesMap =
+                this._warningNodesMapUpdates
+                    .pipe(scan((rmap, op) => {
+                    return op(rmap);
+                }, {}), startWith({}), share());
+            this._filteredChoicesNodesMap =
+                this._filteredChoicesNodesMapUpdates
+                    .pipe(scan((rmap, op) => {
+                    return op(rmap);
+                }, {}), startWith({}), share());
+            this._triggerConditionsNodesMap =
+                this._triggerConditionsNodesMapUpdates
+                    .pipe(scan((rmap, op) => {
+                    return op(rmap);
+                }, {}), startWith({}), share());
+            this._nextSlideConditionsNodesMap =
+                this._nextSlideConditionsNodesMapUpdates
+                    .pipe(scan((rmap, op) => {
+                    return op(rmap);
+                }, {}), startWith({}), share());
+            this._nodesMaps = [
+                this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
+                this._formulaNodesMap, this._validationNodesMap, this._warningNodesMap,
+                this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
+                this._triggerConditionsNodesMap
+            ];
+        }
+        _initFormStreams() {
+            const formObs = this._form;
+            formObs
+                .pipe(map((_form) => {
+                return this._initFormGroupStreams(new FormGroup({}));
+            }))
+                .subscribe(this._formGroup);
+            formObs
+                .pipe(switchMap(form => {
+                if (form == null || form.form == null) {
+                    return of(form);
                 }
-                else {
-                    if (isTableFieldInstance(fInstance)) {
-                        /** @type {?} */
-                        const tfInstance = (/** @type {?} */ (fInstance));
-                        /** @type {?} */
-                        const tNode = tfInstance.node;
-                        tfInstance.context = context[nodeInstanceCompleteName(tfInstance)] || context;
-                        /** @type {?} */
-                        const formGroup = this._formGroup.getValue();
-                        /** @type {?} */
-                        let controlsWithLabels = [];
-                        controlsWithLabels.push([node.label, tNode.columnLabels]);
-                        if (formGroup != null) {
-                            tNode.rows.forEach((/**
-                             * @param {?} row
-                             * @param {?} rowIdx
-                             * @return {?}
-                             */
-                            (row, rowIdx) => {
-                                /** @type {?} */
-                                let r = [];
-                                ((/** @type {?} */ (row))).forEach((/**
-                                 * @param {?} cell
-                                 * @param {?} idx
-                                 * @return {?}
-                                 */
-                                (cell, idx) => {
-                                    /*
-                                                      every control is registered with the cell position
-                                                      inside the form control matrix
-                                                      with this mask `${tNode.name}__${rowIdx}__${idx}`
-                                                      */
-                                    /** @type {?} */
-                                    const name = `${tNode.name}__${rowIdx}__${idx}`;
-                                    /** @type {?} */
-                                    const tableFormControl = { control: new FormControl(), show: false };
-                                    tableFormControl.control.setValue(tfInstance.context[cell.formula]);
-                                    formGroup.registerControl(name, tableFormControl.control);
-                                    r.push(tableFormControl);
-                                    /* create a object that respect the instance interface
-                                                      with the minimum defined properties to allow to run addToNodeFormula map*/
-                                    /** @type {?} */
-                                    const fakeInstance = (/** @type {?} */ ((/** @type {?} */ ({
-                                        formula: { formula: cell.formula },
-                                        node: { name, nodeType: 0, editable: false },
-                                        visible: true,
-                                        prefix: [],
-                                        conditionalBranches: [],
-                                        updatedEvt: new EventEmitter()
-                                    }))));
-                                    this._addToNodesFormulaMap(fakeInstance, cell.formula);
-                                }));
-                                controlsWithLabels.push([tNode.rowLabels[rowIdx], r]);
-                            }));
-                            tfInstance.controls = controlsWithLabels;
+                const choicesOrigins = form.form.choicesOrigins || [];
+                if (choicesOrigins.length === 0) {
+                    return of(form);
+                }
+                return from(Promise.all(choicesOrigins.map(co => initChoicesOrigin(co))))
+                    .pipe(map(() => form));
+            }), map((form) => {
+                return (_nodesInstances) => {
+                    const nodes = form != null && form.form != null ?
+                        this._orderedNodesInstancesTree(flattenNodes(form.form.nodes), form.form.nodes, undefined, [], form.context || {}) :
+                        [];
+                    let currentPosition = 0;
+                    nodes.forEach((node) => {
+                        if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+                            const rsNode = node;
+                            for (let i = 0; i < rsNode.reps; i++) {
+                                if (node.visible) {
+                                    currentPosition++;
+                                    if (i == 0) {
+                                        rsNode.position = currentPosition;
+                                    }
+                                }
+                            }
                         }
+                        else if (node.node.nodeType === AjfNodeType.AjfSlide) {
+                            const sNode = node;
+                            if (sNode.visible) {
+                                currentPosition++;
+                                sNode.position = currentPosition;
+                            }
+                        }
+                    });
+                    return nodes;
+                };
+            }))
+                .subscribe(this._nodesUpdates);
+        }
+        _initNodeInstance(allNodes, node, prefix, context, branchVisibility = true) {
+            let instance = nodeToNodeInstance(allNodes, node, prefix, context);
+            if (instance != null) {
+                const nodeType = instance.node.nodeType;
+                if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
+                    this._explodeRepeatingNode(allNodes, instance, context);
+                }
+                else if (nodeType === AjfNodeType.AjfSlide) {
+                    const sInstance = instance;
+                    sInstance.nodes = this._orderedNodesInstancesTree(allNodes, sInstance.node.nodes, sInstance.node.id, prefix, context);
+                }
+                updateVisibility(instance, context, branchVisibility);
+                updateConditionalBranches(instance, context);
+                if (nodeType === AjfNodeType.AjfField) {
+                    const fInstance = instance;
+                    if (isCustomFieldWithChoices(fInstance.node) || isFieldWithChoices(fInstance.node)) {
+                        updateFilteredChoices(fInstance, context);
                     }
                     else {
-                        fInstance.value = context[nodeInstanceCompleteName(instance)];
+                        if (isTableFieldInstance(fInstance)) {
+                            const tfInstance = fInstance;
+                            const tNode = tfInstance.node;
+                            tfInstance.context = context[nodeInstanceCompleteName(tfInstance)] || context;
+                            const formGroup = this._formGroup.getValue();
+                            let controlsWithLabels = [];
+                            controlsWithLabels.push([node.label, tNode.columnLabels]);
+                            if (formGroup != null) {
+                                tNode.rows.forEach((row, rowIdx) => {
+                                    let r = [];
+                                    row.forEach((cell, idx) => {
+                                        /*
+                                        every control is registered with the cell position
+                                        inside the form control matrix
+                                        with this mask `${tNode.name}__${rowIdx}__${idx}`
+                                        */
+                                        const name = `${tNode.name}__${rowIdx}__${idx}`;
+                                        const tableFormControl = { control: new FormControl(), show: false };
+                                        tableFormControl.control.setValue(tfInstance.context[cell.formula]);
+                                        formGroup.registerControl(name, tableFormControl.control);
+                                        r.push(tableFormControl);
+                                        /* create a object that respect the instance interface
+                                        with the minimum defined properties to allow to run addToNodeFormula map*/
+                                        const fakeInstance = {
+                                            formula: { formula: cell.formula },
+                                            node: { name, nodeType: 0, editable: false },
+                                            visible: true,
+                                            prefix: [],
+                                            conditionalBranches: [],
+                                            updatedEvt: new EventEmitter()
+                                        };
+                                        this._addToNodesFormulaMap(fakeInstance, cell.formula);
+                                    });
+                                    controlsWithLabels.push([tNode.rowLabels[rowIdx], r]);
+                                });
+                                tfInstance.controls = controlsWithLabels;
+                            }
+                        }
+                        else {
+                            fInstance.value = context[nodeInstanceCompleteName(instance)];
+                        }
+                        updateFieldInstanceState(fInstance, context);
                     }
-                    updateFieldInstanceState(fInstance, context);
                 }
-            }
-            this._addNodeInstance(instance);
-        }
-        return instance;
-    }
-    /**
-     * @private
-     * @param {?} allNodes
-     * @param {?} instance
-     * @param {?} oldReps
-     * @param {?} context
-     * @return {?}
-     */
-    _adjustReps(allNodes, instance, oldReps, context) {
-        /** @type {?} */
-        const newReps = instance.reps;
-        /** @type {?} */
-        const result = { added: null, removed: null };
-        if (oldReps < newReps) {
-            /** @type {?} */
-            const newNodes = [];
-            if (instance.nodes == null) {
-                instance.nodes = [];
-            }
-            if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
-                /** @type {?} */
-                const node = (/** @type {?} */ (createField({
-                    id: 999,
-                    name: '',
-                    parent: -1,
-                    fieldType: AjfFieldType.Empty,
-                    label: instance.node.label
-                })));
-                /** @type {?} */
-                const newInstance = this._initNodeInstance(allNodes, node, instance.prefix.slice(0), context);
-                if (newInstance != null) {
-                    instance.nodes.push(newInstance);
-                }
-            }
-            for (let i = oldReps; i < newReps; i++) {
-                /** @type {?} */
-                const prefix = instance.prefix.slice(0);
-                /** @type {?} */
-                const group = instance.node;
-                prefix.push(i);
-                orderedNodes(group.nodes, instance.node.id).forEach((/**
-                 * @param {?} n
-                 * @return {?}
-                 */
-                (n) => {
-                    /** @type {?} */
-                    const newInstance = this._initNodeInstance(allNodes, n, prefix, context);
-                    if (newInstance != null) {
-                        newNodes.push(newInstance);
-                        instance.nodes.push(newInstance);
-                    }
-                }));
                 this._addNodeInstance(instance);
             }
-            result.added = newNodes;
+            return instance;
         }
-        else if (oldReps > newReps) {
-            /** @type {?} */
-            let nodesNum = instance.nodes.length / oldReps;
-            if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
-                nodesNum++;
-            }
-            result.removed = instance.nodes.splice(newReps * nodesNum, nodesNum);
-            result.removed.forEach(((/**
-             * @param {?} n
-             * @return {?}
-             */
-            n => {
-                this._removeNodeInstance(n);
-            })));
-        }
-        if (oldReps != newReps && instance.formulaReps == null) {
-            /** @type {?} */
-            const fg = this._formGroup.getValue();
-            /** @type {?} */
-            const completeName = nodeInstanceCompleteName(instance);
-            if (fg != null && fg.contains(completeName)) {
-                fg.controls[completeName].setValue(instance.reps);
-            }
-        }
-        instance.flatNodes = flattenNodesInstances(instance.nodes);
-        if (instance.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
-            /** @type {?} */
-            const rsInstance = (/** @type {?} */ (instance));
-            /** @type {?} */
-            const slideNodes = [];
-            /** @type {?} */
-            const nodesPerSlide = rsInstance.nodes != null ? rsInstance.nodes.length / rsInstance.reps : 0;
-            for (let i = 0; i < instance.reps; i++) {
-                /** @type {?} */
-                const startNode = i * nodesPerSlide;
-                slideNodes.push(instance.nodes.slice(startNode, startNode + nodesPerSlide));
-            }
-            rsInstance.slideNodes = slideNodes;
-        }
-        return result;
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _updateFormValueAndValidity() {
-        this._nodesUpdates.asObservable()
-            .pipe(withLatestFrom(this._formGroup), filter((/**
-         * @param {?} values
-         * @return {?}
-         */
-        (values) => values[1] !== null)))
-            .subscribe((/**
-         * @param {?} values
-         * @return {?}
-         */
-        (values) => {
-            /** @type {?} */
-            const form = (/** @type {?} */ (values[1]));
-            form.updateValueAndValidity();
-        }));
-    }
-    /**
-     * @private
-     * @param {?} allNodes
-     * @param {?} instance
-     * @param {?} context
-     * @return {?}
-     */
-    _explodeRepeatingNode(allNodes, instance, context) {
-        /** @type {?} */
-        const oldReps = updateRepsNum(instance, context);
-        if (oldReps !== instance.reps) {
-            this._adjustReps(allNodes, instance, oldReps, context);
-        }
-    }
-    /**
-     * @private
-     * @param {?} allNodes
-     * @param {?} nodes
-     * @param {?=} parent
-     * @param {?=} prefix
-     * @param {?=} context
-     * @return {?}
-     */
-    _orderedNodesInstancesTree(allNodes, nodes, parent = null, prefix = [], context) {
-        /** @type {?} */
-        let nodesInstances = [];
-        /** @type {?} */
-        const curSuffix = prefix.length > 0 ? '__' + prefix.join('__') : '';
-        orderedNodes(nodes, parent).forEach((/**
-         * @param {?} node
-         * @return {?}
-         */
-        (node) => {
-            /** @type {?} */
-            const parentNodeInstance = nodesInstances.find((/**
-             * @param {?} ni
-             * @return {?}
-             */
-            ni => ni.node.id == node.parent && nodeInstanceSuffix(ni) == curSuffix));
-            /** @type {?} */
-            const branchVisibility = parentNodeInstance != null ?
-                parentNodeInstance.verifiedBranch != null &&
-                    parentNodeInstance.verifiedBranch == node.parentNode :
-                true;
-            /** @type {?} */
-            const nni = this._initNodeInstance(allNodes, node, prefix, context, branchVisibility);
-            if (nni != null) {
-                nodesInstances.push(nni);
-            }
-        }));
-        return nodesInstances;
-    }
-    /**
-     * @private
-     * @param {?} oldValue
-     * @param {?} newValue
-     * @return {?}
-     */
-    _formValueDelta(oldValue, newValue) {
-        return Object.keys(newValue).filter((/**
-         * @param {?} k
-         * @return {?}
-         */
-        (k) => oldValue[k] !== newValue[k]));
-    }
-    /**
-     * @private
-     * @param {?} formGroup
-     * @return {?}
-     */
-    _initFormGroupStreams(formGroup) {
-        this._formGroupSubscription.unsubscribe();
-        /** @type {?} */
-        let init = true;
-        /** @type {?} */
-        let initForm = true;
-        this._formInitEvent.emit(0 /* Initializing */);
-        this._formGroupSubscription =
-            formGroup.valueChanges
-                .pipe(startWith({}), pairwise(), debounceTime(200), withLatestFrom(...(this._nodesMaps), this._flatNodes))
-                .subscribe((/**
-             * @param {?} v
-             * @return {?}
-             */
-            (v) => {
-                /** @type {?} */
-                const oldFormValue = init && {} || v[0][0];
-                init = false;
-                /** @type {?} */
-                const newFormValue = v[0][1];
-                /** @type {?} */
-                const visibilityMap = v[1];
-                /** @type {?} */
-                const repetitionMap = v[2];
-                /** @type {?} */
-                const conditionalBranchesMap = v[3];
-                /** @type {?} */
-                const formulaMap = v[4];
-                /** @type {?} */
-                const validationMap = v[5];
-                /** @type {?} */
-                const warningMap = v[6];
-                /** @type {?} */
-                const nextSlideConditionsMap = v[7];
-                /** @type {?} */
-                const filteredChoicesMap = v[8];
-                /** @type {?} */
-                const triggerConditionsMap = v[9];
-                /** @type {?} */
-                const nodes = v[10];
-                // takes the names of the fields that have changed
-                /** @type {?} */
-                const delta = this._formValueDelta(oldFormValue, newFormValue);
-                /** @type {?} */
-                const deltaLen = delta.length;
-                /** @type {?} */
-                let updatedNodes = [];
-                /*
-                  for each field update all properties map
-                  with the following rule  "if fieldname is in map update it" and
-                  push on updateNodes the node instance that wrap field
-                */
-                delta.forEach((/**
-                 * @param {?} fieldName
-                 * @return {?}
-                 */
-                (fieldName) => {
-                    updatedNodes = updatedNodes.concat(nodes.filter((/**
-                     * @param {?} n
-                     * @return {?}
-                     */
-                    n => nodeInstanceCompleteName(n) === fieldName)));
-                    if (visibilityMap[fieldName] != null) {
-                        visibilityMap[fieldName].forEach((/**
-                         * @param {?} nodeInstance
-                         * @return {?}
-                         */
-                        nodeInstance => {
-                            /** @type {?} */
-                            const completeName = nodeInstanceCompleteName(nodeInstance);
-                            /** @type {?} */
-                            const visibilityChanged = updateVisibility(nodeInstance, newFormValue);
-                            /** @type {?} */
-                            const isField = isFieldInstance(nodeInstance);
-                            if (visibilityChanged && !nodeInstance.visible) {
-                                /** @type {?} */
-                                const fg = this._formGroup.getValue();
-                                if (fg != null) {
-                                    /** @type {?} */
-                                    const s = timer(200).subscribe((/**
-                                     * @return {?}
-                                     */
-                                    () => {
-                                        if (s && !s.closed) {
-                                            s.unsubscribe();
-                                        }
-                                        fg.controls[completeName].setValue(null);
-                                    }));
-                                }
-                                if (isField) {
-                                    ((/** @type {?} */ (nodeInstance))).value = null;
-                                }
-                            }
-                            else if (visibilityChanged && nodeInstance.visible && isField) {
-                                /** @type {?} */
-                                const fg = this._formGroup.getValue();
-                                /** @type {?} */
-                                const res = updateFormula((/** @type {?} */ (nodeInstance)), newFormValue);
-                                if (fg != null && res.changed) {
-                                    fg.controls[completeName].setValue(res.value);
-                                }
-                            }
-                            if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                updatedNodes.push(nodeInstance);
-                            }
-                        }));
+        _adjustReps(allNodes, instance, oldReps, context) {
+            const newReps = instance.reps;
+            const result = { added: null, removed: null };
+            if (oldReps < newReps) {
+                const newNodes = [];
+                if (instance.nodes == null) {
+                    instance.nodes = [];
+                }
+                if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
+                    const node = createField({
+                        id: 999,
+                        name: '',
+                        parent: -1,
+                        fieldType: AjfFieldType.Empty,
+                        label: instance.node.label
+                    });
+                    const newInstance = this._initNodeInstance(allNodes, node, instance.prefix.slice(0), context);
+                    if (newInstance != null) {
+                        instance.nodes.push(newInstance);
                     }
-                    if (repetitionMap[fieldName] != null) {
-                        repetitionMap[fieldName].forEach((/**
-                         * @param {?} nodeInstance
-                         * @return {?}
-                         */
-                        nodeInstance => {
-                            if (isRepeatingContainerNode(nodeInstance.node)) {
-                                /** @type {?} */
-                                const rnInstance = (/** @type {?} */ (nodeInstance));
-                                /** @type {?} */
-                                const oldReps = updateRepsNum(rnInstance, newFormValue);
-                                if (oldReps !== rnInstance.reps) {
-                                    this._adjustReps(nodes, rnInstance, oldReps, newFormValue);
-                                }
-                            }
-                            if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                updatedNodes.push(nodeInstance);
-                            }
-                        }));
-                    }
-                    if (conditionalBranchesMap[fieldName] != null) {
-                        conditionalBranchesMap[fieldName].forEach((/**
-                         * @param {?} nodeInstance
-                         * @return {?}
-                         */
-                        (nodeInstance) => {
-                            // const branchChanged = nodeInstance.updateConditionalBranches(newFormValue);
-                            updateConditionalBranches(nodeInstance, newFormValue);
-                            // if (branchChanged) {
-                            /** @type {?} */
-                            const verifiedBranch = nodeInstance.verifiedBranch;
-                            nodeInstance.conditionalBranches.forEach((/**
-                             * @param {?} _condition
-                             * @param {?} idx
-                             * @return {?}
-                             */
-                            (_condition, idx) => {
-                                if (idx == verifiedBranch) {
-                                    this._showSubtree(newFormValue, nodes, nodeInstance, idx);
-                                }
-                                else {
-                                    this._hideSubtree(newFormValue, nodes, nodeInstance, idx);
-                                }
-                            }));
-                            // }
-                            if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                updatedNodes.push(nodeInstance);
-                            }
-                        }));
-                    }
-                    if (formulaMap[fieldName] != null) {
-                        formulaMap[fieldName].forEach((/**
-                         * @param {?} nodeInstance
-                         * @return {?}
-                         */
-                        (nodeInstance) => {
-                            if (isFieldInstance(nodeInstance)) {
-                                /** @type {?} */
-                                const fInstance = (/** @type {?} */ (nodeInstance));
-                                /** @type {?} */
-                                const res = updateFormula(fInstance, newFormValue);
-                                /** @type {?} */
-                                const fg = this._formGroup.getValue();
-                                if (fg != null && res.changed) {
-                                    updateValidation(fInstance, newFormValue);
-                                    fg.controls[nodeInstanceCompleteName(nodeInstance)].setValue(res.value);
-                                }
-                            }
-                            if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                updatedNodes.push(nodeInstance);
-                            }
-                        }));
-                    }
-                    if (validationMap[fieldName] != null) {
-                        validationMap[fieldName].forEach((/**
-                         * @param {?} nodeInstance
-                         * @return {?}
-                         */
-                        (nodeInstance) => {
-                            if (isFieldInstance(nodeInstance)) {
-                                /** @type {?} */
-                                const fInstance = (/** @type {?} */ (nodeInstance));
-                                newFormValue.$value = newFormValue[nodeInstanceCompleteName(nodeInstance)];
-                                updateValidation(fInstance, newFormValue, this.currentSupplementaryInformations);
-                            }
-                            if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                updatedNodes.push(nodeInstance);
-                            }
-                        }));
-                    }
-                    if (warningMap[fieldName] != null) {
-                        warningMap[fieldName].forEach((/**
-                         * @param {?} nodeInstance
-                         * @return {?}
-                         */
-                        (nodeInstance) => {
-                            if (isFieldInstance(nodeInstance)) {
-                                /** @type {?} */
-                                const fInstance = (/** @type {?} */ (nodeInstance));
-                                updateWarning(fInstance, newFormValue);
-                                if (fInstance.warningResults != null &&
-                                    fInstance.warningResults.filter((/**
-                                     * @param {?} warning
-                                     * @return {?}
-                                     */
-                                    warning => warning.result)).length > 0) {
-                                    fInstance.warningTrigger.emit();
-                                }
-                            }
-                            if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                updatedNodes.push(nodeInstance);
-                            }
-                        }));
-                    }
-                    if (deltaLen == 1 && nextSlideConditionsMap[fieldName] != null) {
-                        if (nextSlideConditionsMap[fieldName]
-                            .filter((/**
-                         * @param {?} nodeInstance
-                         * @return {?}
-                         */
-                        (nodeInstance) => {
-                            if (isFieldInstance(nodeInstance)) {
-                                /** @type {?} */
-                                const fInstance = (/** @type {?} */ (nodeInstance));
-                                return updateNextSlideCondition(fInstance, newFormValue);
-                            }
-                            return false;
-                        }))
-                            .length == 1) {
-                            this._nextSlideTrigger.emit();
+                }
+                for (let i = oldReps; i < newReps; i++) {
+                    const prefix = instance.prefix.slice(0);
+                    const group = instance.node;
+                    prefix.push(i);
+                    orderedNodes(group.nodes, instance.node.id).forEach((n) => {
+                        const newInstance = this._initNodeInstance(allNodes, n, prefix, context);
+                        if (newInstance != null) {
+                            newNodes.push(newInstance);
+                            instance.nodes.push(newInstance);
                         }
-                    }
-                    if (filteredChoicesMap[fieldName] != null) {
-                        filteredChoicesMap[fieldName].forEach((/**
-                         * @param {?} nodeInstance
-                         * @return {?}
-                         */
-                        (nodeInstance) => {
-                            if (isFieldInstance(nodeInstance)) {
-                                /** @type {?} */
-                                const fInstance = (/** @type {?} */ (nodeInstance));
-                                if (isFieldWithChoices(fInstance.node)) {
-                                    updateFilteredChoices((/** @type {?} */ (fInstance)), newFormValue);
+                    });
+                    this._addNodeInstance(instance);
+                }
+                result.added = newNodes;
+            }
+            else if (oldReps > newReps) {
+                let nodesNum = instance.nodes.length / oldReps;
+                if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
+                    nodesNum++;
+                }
+                result.removed = instance.nodes.splice(newReps * nodesNum, nodesNum);
+                result.removed.forEach((n => {
+                    this._removeNodeInstance(n);
+                }));
+            }
+            if (oldReps != newReps && instance.formulaReps == null) {
+                const fg = this._formGroup.getValue();
+                const completeName = nodeInstanceCompleteName(instance);
+                if (fg != null && fg.contains(completeName)) {
+                    fg.controls[completeName].setValue(instance.reps);
+                }
+            }
+            instance.flatNodes = flattenNodesInstances(instance.nodes);
+            if (instance.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+                const rsInstance = instance;
+                const slideNodes = [];
+                const nodesPerSlide = rsInstance.nodes != null ? rsInstance.nodes.length / rsInstance.reps : 0;
+                for (let i = 0; i < instance.reps; i++) {
+                    const startNode = i * nodesPerSlide;
+                    slideNodes.push(instance.nodes.slice(startNode, startNode + nodesPerSlide));
+                }
+                rsInstance.slideNodes = slideNodes;
+            }
+            return result;
+        }
+        _updateFormValueAndValidity() {
+            this._nodesUpdates.asObservable()
+                .pipe(withLatestFrom(this._formGroup), filter((values) => values[1] !== null))
+                .subscribe((values) => {
+                const form = values[1];
+                form.updateValueAndValidity();
+            });
+        }
+        _explodeRepeatingNode(allNodes, instance, context) {
+            const oldReps = updateRepsNum(instance, context);
+            if (oldReps !== instance.reps) {
+                this._adjustReps(allNodes, instance, oldReps, context);
+            }
+        }
+        _orderedNodesInstancesTree(allNodes, nodes, parent = null, prefix = [], context) {
+            let nodesInstances = [];
+            const curSuffix = prefix.length > 0 ? '__' + prefix.join('__') : '';
+            orderedNodes(nodes, parent).forEach((node) => {
+                const parentNodeInstance = nodesInstances.find(ni => ni.node.id == node.parent && nodeInstanceSuffix(ni) == curSuffix);
+                const branchVisibility = parentNodeInstance != null ?
+                    parentNodeInstance.verifiedBranch != null &&
+                        parentNodeInstance.verifiedBranch == node.parentNode :
+                    true;
+                const nni = this._initNodeInstance(allNodes, node, prefix, context, branchVisibility);
+                if (nni != null) {
+                    nodesInstances.push(nni);
+                }
+            });
+            return nodesInstances;
+        }
+        _formValueDelta(oldValue, newValue) {
+            return Object.keys(newValue).filter((k) => oldValue[k] !== newValue[k]);
+        }
+        _initFormGroupStreams(formGroup) {
+            this._formGroupSubscription.unsubscribe();
+            let init = true;
+            let initForm = true;
+            this._formInitEvent.emit(0 /* Initializing */);
+            this._formGroupSubscription =
+                formGroup.valueChanges
+                    .pipe(startWith({}), pairwise(), debounceTime(200), withLatestFrom(...(this._nodesMaps), this._flatNodes))
+                    .subscribe((v) => {
+                    const oldFormValue = init && {} || v[0][0];
+                    init = false;
+                    const newFormValue = v[0][1];
+                    const visibilityMap = v[1];
+                    const repetitionMap = v[2];
+                    const conditionalBranchesMap = v[3];
+                    const formulaMap = v[4];
+                    const validationMap = v[5];
+                    const warningMap = v[6];
+                    const nextSlideConditionsMap = v[7];
+                    const filteredChoicesMap = v[8];
+                    const triggerConditionsMap = v[9];
+                    const nodes = v[10];
+                    // takes the names of the fields that have changed
+                    const delta = this._formValueDelta(oldFormValue, newFormValue);
+                    const deltaLen = delta.length;
+                    let updatedNodes = [];
+                    /*
+                      for each field update all properties map
+                      with the following rule  "if fieldname is in map update it" and
+                      push on updateNodes the node instance that wrap field
+                    */
+                    delta.forEach((fieldName) => {
+                        updatedNodes = updatedNodes.concat(nodes.filter(n => nodeInstanceCompleteName(n) === fieldName));
+                        if (visibilityMap[fieldName] != null) {
+                            visibilityMap[fieldName].forEach(nodeInstance => {
+                                const completeName = nodeInstanceCompleteName(nodeInstance);
+                                const visibilityChanged = updateVisibility(nodeInstance, newFormValue);
+                                const isField = isFieldInstance(nodeInstance);
+                                if (visibilityChanged && !nodeInstance.visible) {
+                                    const fg = this._formGroup.getValue();
+                                    if (fg != null) {
+                                        const s = timer(200).subscribe(() => {
+                                            if (s && !s.closed) {
+                                                s.unsubscribe();
+                                            }
+                                            fg.controls[completeName].setValue(null);
+                                        });
+                                    }
+                                    if (isField) {
+                                        nodeInstance.value = null;
+                                    }
                                 }
-                            }
-                            if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                updatedNodes.push(nodeInstance);
-                            }
-                        }));
-                    }
-                    if (deltaLen == 1 && triggerConditionsMap[fieldName] != null) {
-                        /** @type {?} */
-                        const res = triggerConditionsMap[fieldName].filter((/**
-                         * @param {?} nodeInstance
-                         * @return {?}
-                         */
-                        (nodeInstance) => {
-                            if (!isFieldInstance(nodeInstance)) {
+                                else if (visibilityChanged && nodeInstance.visible && isField) {
+                                    const fg = this._formGroup.getValue();
+                                    const res = updateFormula(nodeInstance, newFormValue);
+                                    if (fg != null && res.changed) {
+                                        fg.controls[completeName].setValue(res.value);
+                                    }
+                                }
+                                if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                    updatedNodes.push(nodeInstance);
+                                }
+                            });
+                        }
+                        if (repetitionMap[fieldName] != null) {
+                            repetitionMap[fieldName].forEach(nodeInstance => {
+                                if (isRepeatingContainerNode(nodeInstance.node)) {
+                                    const rnInstance = nodeInstance;
+                                    const oldReps = updateRepsNum(rnInstance, newFormValue);
+                                    if (oldReps !== rnInstance.reps) {
+                                        this._adjustReps(nodes, rnInstance, oldReps, newFormValue);
+                                    }
+                                }
+                                if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                    updatedNodes.push(nodeInstance);
+                                }
+                            });
+                        }
+                        if (conditionalBranchesMap[fieldName] != null) {
+                            conditionalBranchesMap[fieldName].forEach((nodeInstance) => {
+                                // const branchChanged = nodeInstance.updateConditionalBranches(newFormValue);
+                                updateConditionalBranches(nodeInstance, newFormValue);
+                                // if (branchChanged) {
+                                const verifiedBranch = nodeInstance.verifiedBranch;
+                                nodeInstance.conditionalBranches.forEach((_condition, idx) => {
+                                    if (idx == verifiedBranch) {
+                                        this._showSubtree(newFormValue, nodes, nodeInstance, idx);
+                                    }
+                                    else {
+                                        this._hideSubtree(newFormValue, nodes, nodeInstance, idx);
+                                    }
+                                });
+                                // }
+                                if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                    updatedNodes.push(nodeInstance);
+                                }
+                            });
+                        }
+                        if (formulaMap[fieldName] != null) {
+                            formulaMap[fieldName].forEach((nodeInstance) => {
+                                if (isFieldInstance(nodeInstance)) {
+                                    const fInstance = nodeInstance;
+                                    const res = updateFormula(fInstance, newFormValue);
+                                    const fg = this._formGroup.getValue();
+                                    if (fg != null && res.changed) {
+                                        updateValidation(fInstance, newFormValue);
+                                        fg.controls[nodeInstanceCompleteName(nodeInstance)].setValue(res.value);
+                                    }
+                                }
+                                if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                    updatedNodes.push(nodeInstance);
+                                }
+                            });
+                        }
+                        if (validationMap[fieldName] != null) {
+                            validationMap[fieldName].forEach((nodeInstance) => {
+                                if (isFieldInstance(nodeInstance)) {
+                                    const fInstance = nodeInstance;
+                                    newFormValue.$value = newFormValue[nodeInstanceCompleteName(nodeInstance)];
+                                    updateValidation(fInstance, newFormValue, this.currentSupplementaryInformations);
+                                }
+                                if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                    updatedNodes.push(nodeInstance);
+                                }
+                            });
+                        }
+                        if (warningMap[fieldName] != null) {
+                            warningMap[fieldName].forEach((nodeInstance) => {
+                                if (isFieldInstance(nodeInstance)) {
+                                    const fInstance = nodeInstance;
+                                    updateWarning(fInstance, newFormValue);
+                                    if (fInstance.warningResults != null &&
+                                        fInstance.warningResults.filter(warning => warning.result).length > 0) {
+                                        fInstance.warningTrigger.emit();
+                                    }
+                                }
+                                if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                    updatedNodes.push(nodeInstance);
+                                }
+                            });
+                        }
+                        if (deltaLen == 1 && nextSlideConditionsMap[fieldName] != null) {
+                            if (nextSlideConditionsMap[fieldName]
+                                .filter((nodeInstance) => {
+                                if (isFieldInstance(nodeInstance)) {
+                                    const fInstance = nodeInstance;
+                                    return updateNextSlideCondition(fInstance, newFormValue);
+                                }
                                 return false;
+                            })
+                                .length == 1) {
+                                this._nextSlideTrigger.emit();
                             }
-                            /** @type {?} */
-                            const fInstance = (/** @type {?} */ (nodeInstance));
-                            if (!isFieldWithChoices(fInstance.node)) {
-                                return false;
-                            }
-                            return updateTriggerConditions((/** @type {?} */ (fInstance)), newFormValue);
-                        }));
-                        if (res.length == 1) {
-                            ((/** @type {?} */ (res[0]))).selectionTrigger.emit();
                         }
-                    }
-                }));
-                updatedNodes.forEach((/**
-                 * @param {?} n
-                 * @return {?}
-                 */
-                n => {
-                    /** @type {?} */
-                    const nodeIdx = nodes.indexOf(n);
-                    /** @type {?} */
-                    let idx = nodeIdx - 1;
-                    while (idx >= 0) {
-                        /** @type {?} */
-                        const curNode = nodes[idx];
-                        if (isSlidesInstance(curNode)) {
-                            /** @type {?} */
-                            const slide = (/** @type {?} */ (curNode));
-                            /** @type {?} */
-                            const subNodesNum = slide.flatNodes.length;
-                            /** @type {?} */
-                            let valid = true;
-                            for (let i = 0; i < subNodesNum; i++) {
-                                /** @type {?} */
-                                const subNode = slide.flatNodes[i];
-                                if (subNode.visible && isFieldInstance(subNode) &&
-                                    !((/** @type {?} */ (subNode))).valid) {
-                                    valid = false;
-                                    break;
+                        if (filteredChoicesMap[fieldName] != null) {
+                            filteredChoicesMap[fieldName].forEach((nodeInstance) => {
+                                if (isFieldInstance(nodeInstance)) {
+                                    const fInstance = nodeInstance;
+                                    if (isFieldWithChoices(fInstance.node)) {
+                                        updateFilteredChoices(fInstance, newFormValue);
+                                    }
                                 }
-                            }
-                            if (slide.valid !== valid) {
-                                slide.valid = valid;
-                            }
-                            slide.updatedEvt.emit();
+                                if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                    updatedNodes.push(nodeInstance);
+                                }
+                            });
                         }
-                        idx--;
+                        if (deltaLen == 1 && triggerConditionsMap[fieldName] != null) {
+                            const res = triggerConditionsMap[fieldName].filter((nodeInstance) => {
+                                if (!isFieldInstance(nodeInstance)) {
+                                    return false;
+                                }
+                                const fInstance = nodeInstance;
+                                if (!isFieldWithChoices(fInstance.node)) {
+                                    return false;
+                                }
+                                return updateTriggerConditions(fInstance, newFormValue);
+                            });
+                            if (res.length == 1) {
+                                res[0].selectionTrigger.emit();
+                            }
+                        }
+                    });
+                    updatedNodes.forEach(n => {
+                        const nodeIdx = nodes.indexOf(n);
+                        let idx = nodeIdx - 1;
+                        while (idx >= 0) {
+                            const curNode = nodes[idx];
+                            if (isSlidesInstance(curNode)) {
+                                const slide = curNode;
+                                const subNodesNum = slide.flatNodes.length;
+                                let valid = true;
+                                for (let i = 0; i < subNodesNum; i++) {
+                                    const subNode = slide.flatNodes[i];
+                                    if (subNode.visible && isFieldInstance(subNode) &&
+                                        !subNode.valid) {
+                                        valid = false;
+                                        break;
+                                    }
+                                }
+                                if (slide.valid !== valid) {
+                                    slide.valid = valid;
+                                }
+                                slide.updatedEvt.emit();
+                            }
+                            idx--;
+                        }
+                        n.updatedEvt.emit();
+                    });
+                    if (initForm) {
+                        initForm = false;
+                        this._formInitEvent.emit(1 /* Complete */);
                     }
-                    n.updatedEvt.emit();
-                }));
-                if (initForm) {
-                    initForm = false;
-                    this._formInitEvent.emit(1 /* Complete */);
-                }
-                this._valueChanged.next();
-            }));
-        return formGroup;
-    }
-    /**
-     * @private
-     * @param {?} context
-     * @param {?} nodes
-     * @param {?} node
-     * @param {?=} branch
-     * @return {?}
-     */
-    _showSubtree(context, nodes, node, branch) {
-        this._updateSubtreeVisibility(context, nodes, node, true, branch);
-    }
-    /**
-     * @private
-     * @param {?} context
-     * @param {?} nodes
-     * @param {?} node
-     * @param {?=} branch
-     * @return {?}
-     */
-    _hideSubtree(context, nodes, node, branch) {
-        this._updateSubtreeVisibility(context, nodes, node, false, branch);
-    }
-    /**
-     * @private
-     * @param {?} context
-     * @param {?} nodes
-     * @param {?} node
-     * @param {?} visible
-     * @param {?=} branch
-     * @return {?}
-     */
-    _updateSubtreeVisibility(context, nodes, node, visible, branch) {
-        /** @type {?} */
-        let subNodes;
-        /** @type {?} */
-        const nodeSuffix = nodeInstanceSuffix(node);
-        if (branch != null) {
-            subNodes = nodes.filter((/**
-             * @param {?} n
-             * @return {?}
-             */
-            n => {
-                /** @type {?} */
-                const suffix = nodeInstanceSuffix(n);
-                return suffix == nodeSuffix && n.node.parent == node.node.id && n.node.parentNode == branch;
-            }));
+                    this._valueChanged.next();
+                });
+            return formGroup;
         }
-        else {
-            subNodes = nodes.filter((/**
-             * @param {?} n
-             * @return {?}
-             */
-            n => {
-                /** @type {?} */
-                const suffix = nodeInstanceSuffix(n);
-                return suffix == nodeSuffix && n.node.parent == node.node.id;
-            }));
+        _showSubtree(context, nodes, node, branch) {
+            this._updateSubtreeVisibility(context, nodes, node, true, branch);
         }
-        /** @type {?} */
-        const isContainer = isContainerNode(node.node);
-        subNodes.forEach((/**
-         * @param {?} n
-         * @return {?}
-         */
-        (n) => {
-            if (!isContainer ||
-                (isContainer && ((/** @type {?} */ (node.node))).nodes.find((/**
-                 * @param {?} cn
-                 * @return {?}
-                 */
-                cn => cn.id == n.node.id)) == null)) {
-                updateVisibility(n, context, visible);
-                updateFormula((/** @type {?} */ (n)), context);
-                this._updateSubtreeVisibility(context, nodes, n, visible);
+        _hideSubtree(context, nodes, node, branch) {
+            this._updateSubtreeVisibility(context, nodes, node, false, branch);
+        }
+        _updateSubtreeVisibility(context, nodes, node, visible, branch) {
+            let subNodes;
+            const nodeSuffix = nodeInstanceSuffix(node);
+            if (branch != null) {
+                subNodes = nodes.filter(n => {
+                    const suffix = nodeInstanceSuffix(n);
+                    return suffix == nodeSuffix && n.node.parent == node.node.id && n.node.parentNode == branch;
+                });
             }
-        }));
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _initNodesStreams() {
-        this._nodes =
-            this._nodesUpdates.pipe(scan((/**
-             * @param {?} nodes
-             * @param {?} op
-             * @return {?}
-             */
-            (nodes, op) => {
-                return op(nodes);
-            }), []), share());
-        this._flatNodesTree = this._nodes.pipe(map((/**
-         * @param {?} nodes
-         * @return {?}
-         */
-        nodes => flattenNodesInstancesTree(nodes))), share());
-        this._flatNodes = this._flatNodesTree.pipe(map((/**
-         * @param {?} slides
-         * @return {?}
-         */
-        slides => {
-            /** @type {?} */
-            let nodes = [];
-            slides.forEach((/**
-             * @param {?} s
-             * @return {?}
-             */
-            s => {
-                nodes.push(s);
-                nodes = nodes.concat(s.flatNodes);
-            }));
-            return nodes;
-        })), share());
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @return {?}
-     */
-    _removeNodeInstance(nodeInstance) {
-        /** @type {?} */
-        const nodeName = nodeInstanceCompleteName(nodeInstance);
-        this._removeNodesVisibilityMapIndex(nodeName);
-        this._removeNodesRepetitionMapIndex(nodeName);
-        this._removeNodesConditionalBranchMapIndex(nodeName);
-        this._removeNodesFormulaMapIndex(nodeName);
-        this._removeNodesValidationMapIndex(nodeName);
-        this._removeNodesWarningMapIndex(nodeName);
-        this._removeNodesNextSlideConditionsMapIndex(nodeName);
-        this._removeNodesFilteredChoicesMapIndex(nodeName);
-        this._removeNodesTriggerConditionsMapIndex(nodeName);
-        if (isSlidesInstance(nodeInstance)) {
-            return this._removeSlideInstance((/** @type {?} */ (nodeInstance)));
-        }
-        else if (isRepeatingContainerNode(nodeInstance.node)) {
-            this._removeNodeGroupInstance((/** @type {?} */ (nodeInstance)));
-        }
-        else if (isFieldInstance(nodeInstance)) {
-            this._removeFieldInstance((/** @type {?} */ (nodeInstance)));
-        }
-        return nodeInstance;
-    }
-    /**
-     * @private
-     * @param {?} slideInstance
-     * @return {?}
-     */
-    _removeSlideInstance(slideInstance) {
-        /** @type {?} */
-        const slide = slideInstance.node;
-        if (slide.visibility != null) {
-            this._removeFromNodesVisibilityMap(slideInstance, slide.visibility.condition);
-        }
-        slideInstance.conditionalBranches.forEach((/**
-         * @param {?} conditionalBranch
-         * @return {?}
-         */
-        (conditionalBranch) => {
-            this._removeFromNodesConditionalBranchMap(slideInstance, conditionalBranch.condition);
-        }));
-        return slideInstance;
-    }
-    /**
-     * @private
-     * @param {?} nodeGroupInstance
-     * @return {?}
-     */
-    _removeNodeGroupInstance(nodeGroupInstance) {
-        /** @type {?} */
-        const nodeGroup = nodeGroupInstance.node;
-        if (nodeGroup.visibility != null) {
-            this._removeFromNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
-        }
-        if (nodeGroupInstance.formulaReps != null && nodeGroup.formulaReps != null) {
-            this._removeFromNodesRepetitionMap(nodeGroupInstance, nodeGroup.formulaReps.formula);
-        }
-        return nodeGroupInstance;
-    }
-    /**
-     * @private
-     * @param {?} fieldInstance
-     * @return {?}
-     */
-    _removeFieldInstance(fieldInstance) {
-        /** @type {?} */
-        const formGroup = this._formGroup.getValue();
-        /** @type {?} */
-        const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
-        if (formGroup != null && formGroup.contains(fieldInstanceName)) {
-            formGroup.removeControl(fieldInstanceName);
-        }
-        if (fieldInstance.validation != null) {
-            this._validationNodesMapUpdates.next((/**
-             * @param {?} vmap
-             * @return {?}
-             */
-            (vmap) => {
-                if (vmap[fieldInstanceName] == null) {
-                    delete vmap[fieldInstanceName];
-                }
-                return vmap;
-            }));
-        }
-        if (fieldInstance.visibility != null) {
-            this._removeFromNodesVisibilityMap(fieldInstance, fieldInstance.visibility.condition);
-        }
-        fieldInstance.conditionalBranches.forEach((/**
-         * @param {?} conditionalBranch
-         * @return {?}
-         */
-        (conditionalBranch) => {
-            this._removeFromNodesConditionalBranchMap(fieldInstance, conditionalBranch.condition);
-        }));
-        if (fieldInstance.formula) {
-            this._removeFromNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
-        }
-        // TODO: check this, probably is never verified
-        if (isRepeatingContainerNode(fieldInstance.node)) {
-            /** @type {?} */
-            const rcInstance = ((/** @type {?} */ ((/** @type {?} */ (fieldInstance)))));
-            if (rcInstance.formulaReps != null) {
-                this._removeFromNodesRepetitionMap(fieldInstance, rcInstance.formulaReps.formula);
+            else {
+                subNodes = nodes.filter(n => {
+                    const suffix = nodeInstanceSuffix(n);
+                    return suffix == nodeSuffix && n.node.parent == node.node.id;
+                });
             }
+            const isContainer = isContainerNode(node.node);
+            subNodes.forEach((n) => {
+                if (!isContainer ||
+                    (isContainer && node.node.nodes.find(cn => cn.id == n.node.id) == null)) {
+                    updateVisibility(n, context, visible);
+                    updateFormula(n, context);
+                    this._updateSubtreeVisibility(context, nodes, n, visible);
+                }
+            });
         }
-        if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
-            fieldInstance.validation.conditions.forEach((/**
-             * @param {?} condition
-             * @return {?}
-             */
-            (condition) => {
-                this._removeFromNodesValidationMap(fieldInstance, condition.condition);
-            }));
+        _initNodesStreams() {
+            this._nodes =
+                this._nodesUpdates.pipe(scan((nodes, op) => {
+                    return op(nodes);
+                }, []), share());
+            this._flatNodesTree = this._nodes.pipe(map(nodes => flattenNodesInstancesTree(nodes)), share());
+            this._flatNodes = this._flatNodesTree.pipe(map(slides => {
+                let nodes = [];
+                slides.forEach(s => {
+                    nodes.push(s);
+                    nodes = nodes.concat(s.flatNodes);
+                });
+                return nodes;
+            }), share());
         }
-        if (fieldInstance.warning != null) {
-            fieldInstance.warning.conditions.forEach((/**
-             * @param {?} condition
-             * @return {?}
-             */
-            (condition) => {
-                this._removeFromNodesWarningMap(fieldInstance, condition.condition);
-            }));
+        _removeNodeInstance(nodeInstance) {
+            const nodeName = nodeInstanceCompleteName(nodeInstance);
+            this._removeNodesVisibilityMapIndex(nodeName);
+            this._removeNodesRepetitionMapIndex(nodeName);
+            this._removeNodesConditionalBranchMapIndex(nodeName);
+            this._removeNodesFormulaMapIndex(nodeName);
+            this._removeNodesValidationMapIndex(nodeName);
+            this._removeNodesWarningMapIndex(nodeName);
+            this._removeNodesNextSlideConditionsMapIndex(nodeName);
+            this._removeNodesFilteredChoicesMapIndex(nodeName);
+            this._removeNodesTriggerConditionsMapIndex(nodeName);
+            if (isSlidesInstance(nodeInstance)) {
+                return this._removeSlideInstance(nodeInstance);
+            }
+            else if (isRepeatingContainerNode(nodeInstance.node)) {
+                this._removeNodeGroupInstance(nodeInstance);
+            }
+            else if (isFieldInstance(nodeInstance)) {
+                this._removeFieldInstance(nodeInstance);
+            }
+            return nodeInstance;
         }
-        if (fieldInstance.nextSlideCondition != null) {
-            this._removeFromNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
+        _removeSlideInstance(slideInstance) {
+            const slide = slideInstance.node;
+            if (slide.visibility != null) {
+                this._removeFromNodesVisibilityMap(slideInstance, slide.visibility.condition);
+            }
+            slideInstance.conditionalBranches.forEach((conditionalBranch) => {
+                this._removeFromNodesConditionalBranchMap(slideInstance, conditionalBranch.condition);
+            });
+            return slideInstance;
         }
-        if (isFieldWithChoices(fieldInstance.node)) {
-            /** @type {?} */
-            const fwcInstance = (/** @type {?} */ (fieldInstance));
-            if (fwcInstance.choicesFilter != null) {
-                this._removeFromNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
-                if (fwcInstance.triggerConditions != null) {
-                    fwcInstance.triggerConditions.forEach((/**
-                     * @param {?} condition
-                     * @return {?}
-                     */
-                    (condition) => {
-                        this._removeFromNodesTriggerConditionsMap(fieldInstance, condition.condition);
-                    }));
+        _removeNodeGroupInstance(nodeGroupInstance) {
+            const nodeGroup = nodeGroupInstance.node;
+            if (nodeGroup.visibility != null) {
+                this._removeFromNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
+            }
+            if (nodeGroupInstance.formulaReps != null && nodeGroup.formulaReps != null) {
+                this._removeFromNodesRepetitionMap(nodeGroupInstance, nodeGroup.formulaReps.formula);
+            }
+            return nodeGroupInstance;
+        }
+        _removeFieldInstance(fieldInstance) {
+            const formGroup = this._formGroup.getValue();
+            const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
+            if (formGroup != null && formGroup.contains(fieldInstanceName)) {
+                formGroup.removeControl(fieldInstanceName);
+            }
+            if (fieldInstance.validation != null) {
+                this._validationNodesMapUpdates.next((vmap) => {
+                    if (vmap[fieldInstanceName] == null) {
+                        delete vmap[fieldInstanceName];
+                    }
+                    return vmap;
+                });
+            }
+            if (fieldInstance.visibility != null) {
+                this._removeFromNodesVisibilityMap(fieldInstance, fieldInstance.visibility.condition);
+            }
+            fieldInstance.conditionalBranches.forEach((conditionalBranch) => {
+                this._removeFromNodesConditionalBranchMap(fieldInstance, conditionalBranch.condition);
+            });
+            if (fieldInstance.formula) {
+                this._removeFromNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
+            }
+            // TODO: check this, probably is never verified
+            if (isRepeatingContainerNode(fieldInstance.node)) {
+                const rcInstance = fieldInstance;
+                if (rcInstance.formulaReps != null) {
+                    this._removeFromNodesRepetitionMap(fieldInstance, rcInstance.formulaReps.formula);
                 }
             }
-        }
-        return fieldInstance;
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @return {?}
-     */
-    _addNodeInstance(nodeInstance) {
-        if (isRepeatingContainerNode(nodeInstance.node)) {
-            return this._addNodeGroupInstance((/** @type {?} */ (nodeInstance)));
-        }
-        else if (isSlideInstance(nodeInstance)) {
-            return this._addSlideInstance((/** @type {?} */ (nodeInstance)));
-        }
-        else if (isFieldInstance(nodeInstance)) {
-            return this._addFieldInstance((/** @type {?} */ (nodeInstance)));
-        }
-        return nodeInstance;
-    }
-    /**
-     * @private
-     * @param {?} fieldInstance
-     * @return {?}
-     */
-    _addFieldInstance(fieldInstance) {
-        /** @type {?} */
-        const formGroup = this._formGroup.getValue();
-        /** @type {?} */
-        const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
-        if (formGroup != null && !formGroup.contains(fieldInstanceName)) {
-            /** @type {?} */
-            const control = new FormControl();
-            control.setValue(fieldInstance.value);
-            formGroup.registerControl(fieldInstanceName, control);
-        }
-        if (fieldInstance.validation != null) {
-            this._validationNodesMapUpdates.next((/**
-             * @param {?} vmap
-             * @return {?}
-             */
-            (vmap) => {
-                if (vmap[fieldInstanceName] == null) {
-                    vmap[fieldInstanceName] = [];
+            if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
+                fieldInstance.validation.conditions.forEach((condition) => {
+                    this._removeFromNodesValidationMap(fieldInstance, condition.condition);
+                });
+            }
+            if (fieldInstance.warning != null) {
+                fieldInstance.warning.conditions.forEach((condition) => {
+                    this._removeFromNodesWarningMap(fieldInstance, condition.condition);
+                });
+            }
+            if (fieldInstance.nextSlideCondition != null) {
+                this._removeFromNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
+            }
+            if (isFieldWithChoices(fieldInstance.node)) {
+                const fwcInstance = fieldInstance;
+                if (fwcInstance.choicesFilter != null) {
+                    this._removeFromNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
+                    if (fwcInstance.triggerConditions != null) {
+                        fwcInstance.triggerConditions.forEach((condition) => {
+                            this._removeFromNodesTriggerConditionsMap(fieldInstance, condition.condition);
+                        });
+                    }
                 }
-                if (vmap[fieldInstanceName].indexOf(fieldInstance) == -1) {
-                    vmap[fieldInstanceName].push(fieldInstance);
-                }
-                return vmap;
-            }));
-        }
-        else {
-            fieldInstance.valid = true;
-        }
-        if (fieldInstance.visibility != null) {
-            this._addToNodesVisibilityMap(fieldInstance, fieldInstance.visibility.condition);
-        }
-        fieldInstance.conditionalBranches.forEach((/**
-         * @param {?} conditionalBranch
-         * @return {?}
-         */
-        (conditionalBranch) => {
-            this._addToNodesConditionalBranchMap(fieldInstance, conditionalBranch.condition);
-        }));
-        if (fieldInstance.formula) {
-            this._addToNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
-        }
-        if (isNodeGroupInstance(fieldInstance)) {
-            /** @type {?} */
-            const ngInstance = (/** @type {?} */ ((/** @type {?} */ (fieldInstance))));
-            if (ngInstance.formulaReps != null) {
-                this._addToNodesRepetitionMap(fieldInstance, ngInstance.formulaReps.formula);
             }
+            return fieldInstance;
         }
-        if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
-            fieldInstance.validation.conditions.forEach((/**
-             * @param {?} condition
-             * @return {?}
-             */
-            (condition) => {
-                this._addToNodesValidationMap(fieldInstance, condition.condition);
-            }));
-        }
-        if (fieldInstance.warning != null) {
-            fieldInstance.warning.conditions.forEach((/**
-             * @param {?} condition
-             * @return {?}
-             */
-            (condition) => {
-                this._addToNodesWarningMap(fieldInstance, condition.condition);
-            }));
-        }
-        if (fieldInstance.nextSlideCondition != null) {
-            this._addToNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
-        }
-        if (isCustomFieldWithChoices(fieldInstance.node) || isFieldWithChoicesInstance(fieldInstance)) {
-            /** @type {?} */
-            const fwcInstance = (/** @type {?} */ (fieldInstance));
-            if (fwcInstance.choicesFilter != null) {
-                this._addToNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
+        _addNodeInstance(nodeInstance) {
+            if (isRepeatingContainerNode(nodeInstance.node)) {
+                return this._addNodeGroupInstance(nodeInstance);
             }
-            if (fwcInstance.triggerConditions != null) {
-                fwcInstance.triggerConditions.forEach((/**
-                 * @param {?} condition
-                 * @return {?}
-                 */
-                (condition) => {
-                    this._addToNodesTriggerConditionsMap(fieldInstance, condition.condition);
-                }));
+            else if (isSlideInstance(nodeInstance)) {
+                return this._addSlideInstance(nodeInstance);
             }
-        }
-        return fieldInstance;
-    }
-    /**
-     * @private
-     * @param {?} slideInstance
-     * @return {?}
-     */
-    _addSlideInstance(slideInstance) {
-        /** @type {?} */
-        const slide = slideInstance.node;
-        if (slide.visibility != null) {
-            this._addToNodesVisibilityMap(slideInstance, slide.visibility.condition);
-        }
-        slideInstance.conditionalBranches.forEach((/**
-         * @param {?} conditionalBranch
-         * @return {?}
-         */
-        (conditionalBranch) => {
-            this._addToNodesConditionalBranchMap(slideInstance, conditionalBranch.condition);
-        }));
-        return slideInstance;
-    }
-    /**
-     * @private
-     * @param {?} nodeGroupInstance
-     * @return {?}
-     */
-    _addNodeGroupInstance(nodeGroupInstance) {
-        /** @type {?} */
-        const nodeGroup = nodeGroupInstance.node;
-        if (nodeGroup.visibility != null) {
-            this._addToNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
-        }
-        nodeGroupInstance.conditionalBranches.forEach((/**
-         * @param {?} conditionalBranch
-         * @return {?}
-         */
-        (conditionalBranch) => {
-            this._addToNodesConditionalBranchMap(nodeGroupInstance, conditionalBranch.condition);
-        }));
-        if (nodeGroupInstance.formulaReps != null) {
-            if (nodeGroup.formulaReps != null) {
-                this._addToNodesRepetitionMap(nodeGroupInstance, nodeGroup.formulaReps.formula);
+            else if (isFieldInstance(nodeInstance)) {
+                return this._addFieldInstance(nodeInstance);
             }
+            return nodeInstance;
         }
-        else {
-            /** @type {?} */
-            let formGroup = this._formGroup.getValue();
-            /** @type {?} */
-            let nodeGroupInstanceName = nodeInstanceCompleteName(nodeGroupInstance);
-            if (formGroup != null && !formGroup.contains(nodeGroupInstanceName)) {
-                /** @type {?} */
+        _addFieldInstance(fieldInstance) {
+            const formGroup = this._formGroup.getValue();
+            const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
+            if (formGroup != null && !formGroup.contains(fieldInstanceName)) {
                 const control = new FormControl();
-                control.setValue(nodeGroupInstance.reps);
-                formGroup.registerControl(nodeGroupInstanceName, control);
+                control.setValue(fieldInstance.value);
+                formGroup.registerControl(fieldInstanceName, control);
             }
+            if (fieldInstance.validation != null) {
+                this._validationNodesMapUpdates.next((vmap) => {
+                    if (vmap[fieldInstanceName] == null) {
+                        vmap[fieldInstanceName] = [];
+                    }
+                    if (vmap[fieldInstanceName].indexOf(fieldInstance) == -1) {
+                        vmap[fieldInstanceName].push(fieldInstance);
+                    }
+                    return vmap;
+                });
+            }
+            else {
+                fieldInstance.valid = true;
+            }
+            if (fieldInstance.visibility != null) {
+                this._addToNodesVisibilityMap(fieldInstance, fieldInstance.visibility.condition);
+            }
+            fieldInstance.conditionalBranches.forEach((conditionalBranch) => {
+                this._addToNodesConditionalBranchMap(fieldInstance, conditionalBranch.condition);
+            });
+            if (fieldInstance.formula) {
+                this._addToNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
+            }
+            if (isNodeGroupInstance(fieldInstance)) {
+                const ngInstance = fieldInstance;
+                if (ngInstance.formulaReps != null) {
+                    this._addToNodesRepetitionMap(fieldInstance, ngInstance.formulaReps.formula);
+                }
+            }
+            if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
+                fieldInstance.validation.conditions.forEach((condition) => {
+                    this._addToNodesValidationMap(fieldInstance, condition.condition);
+                });
+            }
+            if (fieldInstance.warning != null) {
+                fieldInstance.warning.conditions.forEach((condition) => {
+                    this._addToNodesWarningMap(fieldInstance, condition.condition);
+                });
+            }
+            if (fieldInstance.nextSlideCondition != null) {
+                this._addToNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
+            }
+            if (isCustomFieldWithChoices(fieldInstance.node) || isFieldWithChoicesInstance(fieldInstance)) {
+                const fwcInstance = fieldInstance;
+                if (fwcInstance.choicesFilter != null) {
+                    this._addToNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
+                }
+                if (fwcInstance.triggerConditions != null) {
+                    fwcInstance.triggerConditions.forEach((condition) => {
+                        this._addToNodesTriggerConditionsMap(fieldInstance, condition.condition);
+                    });
+                }
+            }
+            return fieldInstance;
         }
-        return nodeGroupInstance;
-    }
-    /**
-     * @private
-     * @param {?} index
-     * @return {?}
-     */
-    _removeNodesVisibilityMapIndex(index) {
-        this._removeNodesMapIndex(this._visibilityNodesMapUpdates, index);
-    }
-    /**
-     * @private
-     * @param {?} index
-     * @return {?}
-     */
-    _removeNodesRepetitionMapIndex(index) {
-        this._removeNodesMapIndex(this._repetitionNodesMapUpdates, index);
-    }
-    /**
-     * @private
-     * @param {?} index
-     * @return {?}
-     */
-    _removeNodesConditionalBranchMapIndex(index) {
-        this._removeNodesMapIndex(this._conditionalBranchNodesMapUpdates, index);
-    }
-    /**
-     * @private
-     * @param {?} index
-     * @return {?}
-     */
-    _removeNodesFormulaMapIndex(index) {
-        this._removeNodesMapIndex(this._formulaNodesMapUpdates, index);
-    }
-    /**
-     * @private
-     * @param {?} index
-     * @return {?}
-     */
-    _removeNodesValidationMapIndex(index) {
-        this._removeNodesMapIndex(this._validationNodesMapUpdates, index);
-    }
-    /**
-     * @private
-     * @param {?} index
-     * @return {?}
-     */
-    _removeNodesWarningMapIndex(index) {
-        this._removeNodesMapIndex(this._warningNodesMapUpdates, index);
-    }
-    /**
-     * @private
-     * @param {?} index
-     * @return {?}
-     */
-    _removeNodesFilteredChoicesMapIndex(index) {
-        this._removeNodesMapIndex(this._filteredChoicesNodesMapUpdates, index);
-    }
-    /**
-     * @private
-     * @param {?} index
-     * @return {?}
-     */
-    _removeNodesTriggerConditionsMapIndex(index) {
-        this._removeNodesMapIndex(this._triggerConditionsNodesMapUpdates, index);
-    }
-    /**
-     * @private
-     * @param {?} index
-     * @return {?}
-     */
-    _removeNodesNextSlideConditionsMapIndex(index) {
-        this._removeNodesMapIndex(this._nextSlideConditionsNodesMapUpdates, index);
-    }
-    /**
-     * @private
-     * @param {?} nodesMap
-     * @param {?} index
-     * @return {?}
-     */
-    _removeNodesMapIndex(nodesMap, index) {
-        nodesMap.next((/**
-         * @param {?} vmap
-         * @return {?}
-         */
-        (vmap) => {
-            if (Object.keys(vmap).indexOf(index) > -1) {
-                delete vmap[index];
+        _addSlideInstance(slideInstance) {
+            const slide = slideInstance.node;
+            if (slide.visibility != null) {
+                this._addToNodesVisibilityMap(slideInstance, slide.visibility.condition);
             }
-            return vmap;
-        }));
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _removeFromNodesVisibilityMap(nodeInstance, formula) {
-        this._removeFromNodesMap(this._visibilityNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _removeFromNodesRepetitionMap(nodeInstance, formula) {
-        this._removeFromNodesMap(this._repetitionNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _removeFromNodesConditionalBranchMap(nodeInstance, formula) {
-        this._removeFromNodesMap(this._conditionalBranchNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _removeFromNodesFormulaMap(nodeInstance, formula) {
-        this._removeFromNodesMap(this._formulaNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _removeFromNodesValidationMap(nodeInstance, formula) {
-        this._removeFromNodesMap(this._validationNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _removeFromNodesWarningMap(nodeInstance, formula) {
-        this._removeFromNodesMap(this._warningNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _removeFromNodesFilteredChoicesMap(nodeInstance, formula) {
-        this._removeFromNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _removeFromNodesTriggerConditionsMap(nodeInstance, formula) {
-        this._removeFromNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _removeFromNodesNextSlideConditionsMap(nodeInstance, formula) {
-        this._removeFromNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodesMap
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _removeFromNodesMap(nodesMap, nodeInstance, formula) {
-        /** @type {?} */
-        let tokens = tokenize(formula).filter((/**
-         * @param {?} token
-         * @return {?}
-         */
-        (token) => token.type == 'Identifier' && token.value != '$value'));
-        if (tokens.length > 0) {
-            nodesMap.next((/**
-             * @param {?} vmap
-             * @return {?}
-             */
-            (vmap) => {
-                tokens.forEach((/**
-                 * @param {?} token
-                 * @return {?}
-                 */
-                (token) => {
-                    /** @type {?} */
-                    let tokenName = token.value;
-                    if (vmap[tokenName] != null) {
-                        /** @type {?} */
-                        const idx = vmap[tokenName].indexOf(nodeInstance);
-                        if (idx > -1) {
-                            vmap[tokenName].splice(idx, 1);
-                            if (vmap[tokenName].length == 0) {
-                                delete vmap[tokenName];
+            slideInstance.conditionalBranches.forEach((conditionalBranch) => {
+                this._addToNodesConditionalBranchMap(slideInstance, conditionalBranch.condition);
+            });
+            return slideInstance;
+        }
+        _addNodeGroupInstance(nodeGroupInstance) {
+            const nodeGroup = nodeGroupInstance.node;
+            if (nodeGroup.visibility != null) {
+                this._addToNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
+            }
+            nodeGroupInstance.conditionalBranches.forEach((conditionalBranch) => {
+                this._addToNodesConditionalBranchMap(nodeGroupInstance, conditionalBranch.condition);
+            });
+            if (nodeGroupInstance.formulaReps != null) {
+                if (nodeGroup.formulaReps != null) {
+                    this._addToNodesRepetitionMap(nodeGroupInstance, nodeGroup.formulaReps.formula);
+                }
+            }
+            else {
+                let formGroup = this._formGroup.getValue();
+                let nodeGroupInstanceName = nodeInstanceCompleteName(nodeGroupInstance);
+                if (formGroup != null && !formGroup.contains(nodeGroupInstanceName)) {
+                    const control = new FormControl();
+                    control.setValue(nodeGroupInstance.reps);
+                    formGroup.registerControl(nodeGroupInstanceName, control);
+                }
+            }
+            return nodeGroupInstance;
+        }
+        _removeNodesVisibilityMapIndex(index) {
+            this._removeNodesMapIndex(this._visibilityNodesMapUpdates, index);
+        }
+        _removeNodesRepetitionMapIndex(index) {
+            this._removeNodesMapIndex(this._repetitionNodesMapUpdates, index);
+        }
+        _removeNodesConditionalBranchMapIndex(index) {
+            this._removeNodesMapIndex(this._conditionalBranchNodesMapUpdates, index);
+        }
+        _removeNodesFormulaMapIndex(index) {
+            this._removeNodesMapIndex(this._formulaNodesMapUpdates, index);
+        }
+        _removeNodesValidationMapIndex(index) {
+            this._removeNodesMapIndex(this._validationNodesMapUpdates, index);
+        }
+        _removeNodesWarningMapIndex(index) {
+            this._removeNodesMapIndex(this._warningNodesMapUpdates, index);
+        }
+        _removeNodesFilteredChoicesMapIndex(index) {
+            this._removeNodesMapIndex(this._filteredChoicesNodesMapUpdates, index);
+        }
+        _removeNodesTriggerConditionsMapIndex(index) {
+            this._removeNodesMapIndex(this._triggerConditionsNodesMapUpdates, index);
+        }
+        _removeNodesNextSlideConditionsMapIndex(index) {
+            this._removeNodesMapIndex(this._nextSlideConditionsNodesMapUpdates, index);
+        }
+        _removeNodesMapIndex(nodesMap, index) {
+            nodesMap.next((vmap) => {
+                if (Object.keys(vmap).indexOf(index) > -1) {
+                    delete vmap[index];
+                }
+                return vmap;
+            });
+        }
+        _removeFromNodesVisibilityMap(nodeInstance, formula) {
+            this._removeFromNodesMap(this._visibilityNodesMapUpdates, nodeInstance, formula);
+        }
+        _removeFromNodesRepetitionMap(nodeInstance, formula) {
+            this._removeFromNodesMap(this._repetitionNodesMapUpdates, nodeInstance, formula);
+        }
+        _removeFromNodesConditionalBranchMap(nodeInstance, formula) {
+            this._removeFromNodesMap(this._conditionalBranchNodesMapUpdates, nodeInstance, formula);
+        }
+        _removeFromNodesFormulaMap(nodeInstance, formula) {
+            this._removeFromNodesMap(this._formulaNodesMapUpdates, nodeInstance, formula);
+        }
+        _removeFromNodesValidationMap(nodeInstance, formula) {
+            this._removeFromNodesMap(this._validationNodesMapUpdates, nodeInstance, formula);
+        }
+        _removeFromNodesWarningMap(nodeInstance, formula) {
+            this._removeFromNodesMap(this._warningNodesMapUpdates, nodeInstance, formula);
+        }
+        _removeFromNodesFilteredChoicesMap(nodeInstance, formula) {
+            this._removeFromNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
+        }
+        _removeFromNodesTriggerConditionsMap(nodeInstance, formula) {
+            this._removeFromNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
+        }
+        _removeFromNodesNextSlideConditionsMap(nodeInstance, formula) {
+            this._removeFromNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
+        }
+        _removeFromNodesMap(nodesMap, nodeInstance, formula) {
+            let tokens = tokenize(formula).filter((token) => token.type == 'Identifier' && token.value != '$value');
+            if (tokens.length > 0) {
+                nodesMap.next((vmap) => {
+                    tokens.forEach((token) => {
+                        let tokenName = token.value;
+                        if (vmap[tokenName] != null) {
+                            const idx = vmap[tokenName].indexOf(nodeInstance);
+                            if (idx > -1) {
+                                vmap[tokenName].splice(idx, 1);
+                                if (vmap[tokenName].length == 0) {
+                                    delete vmap[tokenName];
+                                }
                             }
                         }
-                    }
-                }));
-                return vmap;
-            }));
+                    });
+                    return vmap;
+                });
+            }
         }
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _addToNodesVisibilityMap(nodeInstance, formula) {
-        this._addToNodesMap(this._visibilityNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _addToNodesRepetitionMap(nodeInstance, formula) {
-        this._addToNodesMap(this._repetitionNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _addToNodesConditionalBranchMap(nodeInstance, formula) {
-        this._addToNodesMap(this._conditionalBranchNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _addToNodesFormulaMap(nodeInstance, formula) {
-        this._addToNodesMap(this._formulaNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _addToNodesValidationMap(nodeInstance, formula) {
-        this._addToNodesMap(this._validationNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _addToNodesWarningMap(nodeInstance, formula) {
-        this._addToNodesMap(this._warningNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _addToNodesFilteredChoicesMap(nodeInstance, formula) {
-        this._addToNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _addToNodesTriggerConditionsMap(nodeInstance, formula) {
-        this._addToNodesMap(this._triggerConditionsNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _addToNodesNextSlideConditionsMap(nodeInstance, formula) {
-        this._addToNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
-    }
-    /**
-     * @private
-     * @param {?} nodesMap
-     * @param {?} nodeInstance
-     * @param {?} formula
-     * @return {?}
-     */
-    _addToNodesMap(nodesMap, nodeInstance, formula) {
-        /** @type {?} */
-        let tokens = tokenize(formula).filter((/**
-         * @param {?} token
-         * @return {?}
-         */
-        (token) => token.type == 'Identifier' && token.value != '$value'));
-        if (tokens.length > 0) {
-            nodesMap.next((/**
-             * @param {?} vmap
-             * @return {?}
-             */
-            (vmap) => {
-                tokens.forEach((/**
-                 * @param {?} token
-                 * @return {?}
-                 */
-                (token) => {
-                    /** @type {?} */
-                    let tokenName = token.value;
-                    if (vmap[tokenName] == null) {
-                        vmap[tokenName] = [];
-                    }
-                    if (vmap[tokenName].indexOf(nodeInstance) === -1) {
-                        vmap[tokenName].push(nodeInstance);
-                    }
-                }));
-                return vmap;
-            }));
+        _addToNodesVisibilityMap(nodeInstance, formula) {
+            this._addToNodesMap(this._visibilityNodesMapUpdates, nodeInstance, formula);
         }
-    }
-}
-AjfFormRendererService.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-AjfFormRendererService.ctorParameters = () => [
-    { type: AjfValidationService }
-];
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._visibilityNodesMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._visibilityNodesMapUpdates;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._repetitionNodesMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._repetitionNodesMapUpdates;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._conditionalBranchNodesMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._conditionalBranchNodesMapUpdates;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._formulaNodesMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._formulaNodesMapUpdates;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._validationNodesMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._validationNodesMapUpdates;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._warningNodesMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._warningNodesMapUpdates;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._filteredChoicesNodesMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._filteredChoicesNodesMapUpdates;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._triggerConditionsNodesMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._triggerConditionsNodesMapUpdates;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._nextSlideConditionsNodesMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._nextSlideConditionsNodesMapUpdates;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._formInitEvent;
-    /** @type {?} */
-    AjfFormRendererService.prototype.formInitEvent;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._formGroup;
-    /** @type {?} */
-    AjfFormRendererService.prototype.formGroup;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._form;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._nodes;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._flatNodes;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._flatNodesTree;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._nodesUpdates;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._errorPositions;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._errors;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._formGroupSubscription;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._valueChanged;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._nodesMaps;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._nextSlideTrigger;
-    /** @type {?} */
-    AjfFormRendererService.prototype.nextSlideTrigger;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRendererService.prototype._slidesNum;
-    /** @type {?} */
-    AjfFormRendererService.prototype.slidesNum;
-}
+        _addToNodesRepetitionMap(nodeInstance, formula) {
+            this._addToNodesMap(this._repetitionNodesMapUpdates, nodeInstance, formula);
+        }
+        _addToNodesConditionalBranchMap(nodeInstance, formula) {
+            this._addToNodesMap(this._conditionalBranchNodesMapUpdates, nodeInstance, formula);
+        }
+        _addToNodesFormulaMap(nodeInstance, formula) {
+            this._addToNodesMap(this._formulaNodesMapUpdates, nodeInstance, formula);
+        }
+        _addToNodesValidationMap(nodeInstance, formula) {
+            this._addToNodesMap(this._validationNodesMapUpdates, nodeInstance, formula);
+        }
+        _addToNodesWarningMap(nodeInstance, formula) {
+            this._addToNodesMap(this._warningNodesMapUpdates, nodeInstance, formula);
+        }
+        _addToNodesFilteredChoicesMap(nodeInstance, formula) {
+            this._addToNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
+        }
+        _addToNodesTriggerConditionsMap(nodeInstance, formula) {
+            this._addToNodesMap(this._triggerConditionsNodesMapUpdates, nodeInstance, formula);
+        }
+        _addToNodesNextSlideConditionsMap(nodeInstance, formula) {
+            this._addToNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
+        }
+        _addToNodesMap(nodesMap, nodeInstance, formula) {
+            let tokens = tokenize(formula).filter((token) => token.type == 'Identifier' && token.value != '$value');
+            if (tokens.length > 0) {
+                nodesMap.next((vmap) => {
+                    tokens.forEach((token) => {
+                        let tokenName = token.value;
+                        if (vmap[tokenName] == null) {
+                            vmap[tokenName] = [];
+                        }
+                        if (vmap[tokenName].indexOf(nodeInstance) === -1) {
+                            vmap[tokenName].push(nodeInstance);
+                        }
+                    });
+                    return vmap;
+                });
+            }
+        }
+    };
+    AjfFormRendererService = __decorate([
+        Injectable(),
+        __metadata("design:paramtypes", [AjfValidationService])
+    ], AjfFormRendererService);
+    return AjfFormRendererService;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/base-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-/**
- * @abstract
- * @template T
- */
-class AjfBaseFieldComponent {
-    /**
-     * @param {?} _changeDetectorRef
-     * @param {?} _service
-     * @param {?} _warningAlertService
-     */
-    constructor(_changeDetectorRef, _service, _warningAlertService) {
-        this._changeDetectorRef = _changeDetectorRef;
-        this._service = _service;
-        this._warningAlertService = _warningAlertService;
-        this._warningTriggerSub = Subscription.EMPTY;
-        this._instanceUpdateSub = Subscription.EMPTY;
-        this._control = defer((/**
-         * @return {?}
-         */
-        () => this._service.getControl(this.instance)
-            .pipe(map((/**
-         * @param {?} ctrl
-         * @return {?}
-         */
-        ctrl => (/** @type {?} */ (ctrl)) || new FormControl())))));
-    }
-    /**
-     * @return {?}
-     */
-    get instance() {
-        return this._instance;
-    }
-    /**
-     * @param {?} instance
-     * @return {?}
-     */
-    set instance(instance) {
-        if (instance !== this._instance) {
-            this._instance = instance;
-            this._setUpInstanceUpdate();
-            this._onInstanceChange();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    get control() {
-        return this._control;
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._warningTriggerSub =
-            this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter((/**
-             * @param {?} v
-             * @return {?}
-             */
-            v => v[1] != null)))
-                .subscribe((/**
-             * @param {?} v
-             * @return {?}
-             */
-            (v) => {
-                if (this.instance.warningResults == null) {
-                    return;
-                }
-                /** @type {?} */
-                const control = v[1];
-                /** @type {?} */
-                const s = this._warningAlertService
-                    .showWarningAlertPrompt(this.instance.warningResults.filter((/**
-                 * @param {?} w
-                 * @return {?}
-                 */
-                w => w.result)).map((/**
-                 * @param {?} w
-                 * @return {?}
-                 */
-                w => w.warning)))
-                    .subscribe((/**
-                 * @param {?} r
-                 * @return {?}
-                 */
-                (r) => {
-                    if (r.result) {
-                        (/** @type {?} */ (control)).setValue(null);
-                    }
-                }), (/**
-                 * @param {?} _e
-                 * @return {?}
-                 */
-                (_e) => {
-                    if (s) {
-                        s.unsubscribe();
-                    }
-                }), (/**
-                 * @return {?}
-                 */
-                () => {
-                    if (s) {
-                        s.unsubscribe();
-                    }
-                }));
-            }));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._warningTriggerSub.unsubscribe();
-        this._instanceUpdateSub.unsubscribe();
-    }
-    /**
-     * @protected
-     * @return {?}
-     */
-    _onInstanceChange() { }
-    /**
-     * @private
-     * @return {?}
-     */
-    _setUpInstanceUpdate() {
-        this._instanceUpdateSub.unsubscribe();
-        if (this._instance != null) {
-            this._instanceUpdateSub = this._instance.updatedEvt.subscribe((/**
-             * @return {?}
-             */
-            () => {
-                if (this._changeDetectorRef) {
-                    try {
-                        this._changeDetectorRef.detectChanges();
-                    }
-                    catch (e) {
-                    }
-                }
-            }));
-        }
-        else {
+let AjfBaseFieldComponent = /** @class */ (() => {
+    let AjfBaseFieldComponent = class AjfBaseFieldComponent {
+        constructor(_changeDetectorRef, _service, _warningAlertService) {
+            this._changeDetectorRef = _changeDetectorRef;
+            this._service = _service;
+            this._warningAlertService = _warningAlertService;
+            this._warningTriggerSub = Subscription.EMPTY;
             this._instanceUpdateSub = Subscription.EMPTY;
+            this._control = defer(() => this._service.getControl(this.instance)
+                .pipe(map(ctrl => ctrl || new FormControl())));
         }
-        this._changeDetectorRef.detectChanges();
-    }
-}
-AjfBaseFieldComponent.decorators = [
-    { type: Directive }
-];
-/** @nocollapse */
-AjfBaseFieldComponent.ctorParameters = () => [
-    { type: ChangeDetectorRef },
-    { type: AjfFormRendererService },
-    { type: undefined }
-];
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._instance;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._control;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._warningTriggerSub;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._instanceUpdateSub;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AjfBaseFieldComponent.prototype._changeDetectorRef;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._service;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfBaseFieldComponent.prototype._warningAlertService;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/bool-to-int.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfBoolToIntPipe {
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    transform(value) {
-        return value ? 1 : 0;
-    }
-}
-AjfBoolToIntPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfBoolToInt' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/date-value.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfDateValuePipe {
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    transform(date) {
-        if (date == null) {
-            return null;
+        get instance() {
+            return this._instance;
         }
-        return date === 'today' ? new Date() : (/** @type {?} */ (date));
-    }
-}
-AjfDateValuePipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfDateValue' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/date-value-string.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfDateValueStringPipe {
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    transform(date) {
-        if (date == null) {
-            return undefined;
+        set instance(instance) {
+            if (instance !== this._instance) {
+                this._instance = instance;
+                this._setUpInstanceUpdate();
+                this._onInstanceChange();
+            }
         }
-        /** @type {?} */
-        const dateObj = date === 'today' ? new Date() : date;
-        return format(dateObj, 'yyyy-MM-dd');
-    }
-}
-AjfDateValueStringPipe.decorators = [
-    { type: Injectable },
-    { type: Pipe, args: [{ name: 'ajfDateValueString' },] }
-];
+        get control() {
+            return this._control;
+        }
+        ngOnInit() {
+            this._warningTriggerSub =
+                this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter(v => v[1] != null))
+                    .subscribe((v) => {
+                    if (this.instance.warningResults == null) {
+                        return;
+                    }
+                    const control = v[1];
+                    const s = this._warningAlertService
+                        .showWarningAlertPrompt(this.instance.warningResults.filter(w => w.result).map(w => w.warning))
+                        .subscribe((r) => {
+                        if (r.result) {
+                            control.setValue(null);
+                        }
+                    }, (_e) => {
+                        if (s) {
+                            s.unsubscribe();
+                        }
+                    }, () => {
+                        if (s) {
+                            s.unsubscribe();
+                        }
+                    });
+                });
+        }
+        ngOnDestroy() {
+            this._warningTriggerSub.unsubscribe();
+            this._instanceUpdateSub.unsubscribe();
+        }
+        _onInstanceChange() { }
+        _setUpInstanceUpdate() {
+            this._instanceUpdateSub.unsubscribe();
+            if (this._instance != null) {
+                this._instanceUpdateSub = this._instance.updatedEvt.subscribe(() => {
+                    if (this._changeDetectorRef) {
+                        try {
+                            this._changeDetectorRef.detectChanges();
+                        }
+                        catch (e) {
+                        }
+                    }
+                });
+            }
+            else {
+                this._instanceUpdateSub = Subscription.EMPTY;
+            }
+            this._changeDetectorRef.detectChanges();
+        }
+    };
+    AjfBaseFieldComponent = __decorate([
+        Directive(),
+        __metadata("design:paramtypes", [ChangeDetectorRef,
+            AjfFormRendererService, Object])
+    ], AjfBaseFieldComponent);
+    return AjfBaseFieldComponent;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/errors.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfBoolToIntPipe = /** @class */ (() => {
+    let AjfBoolToIntPipe = class AjfBoolToIntPipe {
+        transform(value) {
+            return value ? 1 : 0;
+        }
+    };
+    AjfBoolToIntPipe = __decorate([
+        Pipe({ name: 'ajfBoolToInt' })
+    ], AjfBoolToIntPipe);
+    return AjfBoolToIntPipe;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfDateValuePipe = /** @class */ (() => {
+    let AjfDateValuePipe = class AjfDateValuePipe {
+        transform(date) {
+            if (date == null) {
+                return null;
+            }
+            return date === 'today' ? new Date() : date;
+        }
+    };
+    AjfDateValuePipe = __decorate([
+        Pipe({ name: 'ajfDateValue' })
+    ], AjfDateValuePipe);
+    return AjfDateValuePipe;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfDateValueStringPipe = /** @class */ (() => {
+    let AjfDateValueStringPipe = class AjfDateValueStringPipe {
+        transform(date) {
+            if (date == null) {
+                return undefined;
+            }
+            const dateObj = date === 'today' ? new Date() : date;
+            return format(dateObj, 'yyyy-MM-dd');
+        }
+    };
+    AjfDateValueStringPipe = __decorate([
+        Injectable(),
+        Pipe({ name: 'ajfDateValueString' })
+    ], AjfDateValueStringPipe);
+    return AjfDateValueStringPipe;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 /**
  * This class will define an Ajf invalid field definition error
  */
 class AjfInvalidFieldDefinitionError extends AjfError {
-    /**
-     * @return {?}
-     */
     get name() {
         return 'AjfInvalidFieldDefinitionError';
     }
-    /**
-     * @param {?=} message
-     */
     constructor(message) {
         super(message);
     }
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/expand-input-with-choices.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-class AjfExpandFieldWithChoicesPipe {
-    /**
-     * @param {?} instance
-     * @param {?} threshold
-     * @return {?}
-     */
-    transform(instance, threshold) {
-        return !instance.node.forceNarrow &&
-            (instance.node.forceExpanded ||
-                (instance.filteredChoices && instance.filteredChoices.length <= threshold));
-    }
-}
-AjfExpandFieldWithChoicesPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
-];
+let AjfExpandFieldWithChoicesPipe = /** @class */ (() => {
+    let AjfExpandFieldWithChoicesPipe = class AjfExpandFieldWithChoicesPipe {
+        transform(instance, threshold) {
+            return !instance.node.forceNarrow &&
+                (instance.node.forceExpanded ||
+                    (instance.filteredChoices && instance.filteredChoices.length <= threshold));
+        }
+    };
+    AjfExpandFieldWithChoicesPipe = __decorate([
+        Pipe({ name: 'ajfExpandFieldWithChoices' })
+    ], AjfExpandFieldWithChoicesPipe);
+    return AjfExpandFieldWithChoicesPipe;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-host.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-class AjfFieldHost {
-    /**
-     * @param {?} viewContainerRef
-     */
-    constructor(viewContainerRef) {
-        this.viewContainerRef = viewContainerRef;
-    }
-}
-AjfFieldHost.decorators = [
-    { type: Directive, args: [{ selector: '[ajf-field-host]' },] }
-];
-/** @nocollapse */
-AjfFieldHost.ctorParameters = () => [
-    { type: ViewContainerRef }
-];
-if (false) {
-    /** @type {?} */
-    AjfFieldHost.prototype.viewContainerRef;
-}
+let AjfFieldHost = /** @class */ (() => {
+    let AjfFieldHost = class AjfFieldHost {
+        constructor(viewContainerRef) {
+            this.viewContainerRef = viewContainerRef;
+        }
+    };
+    AjfFieldHost = __decorate([
+        Directive({ selector: '[ajf-field-host]' }),
+        __metadata("design:paramtypes", [ViewContainerRef])
+    ], AjfFieldHost);
+    return AjfFieldHost;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-/**
- * @abstract
- */
-class AjfFormField {
-    /**
-     * @param {?} _cdr
-     * @param {?} _cfr
-     */
-    constructor(_cdr, _cfr) {
-        this._cdr = _cdr;
-        this._cfr = _cfr;
-        this._init = false;
-        this._updatedSub = Subscription.EMPTY;
-    }
-    /**
-     * @return {?}
-     */
-    get instance() {
-        return this._instance;
-    }
-    /**
-     * @param {?} instance
-     * @return {?}
-     */
-    set instance(instance) {
-        if (this._instance !== instance) {
-            this._instance = instance;
+let AjfFormField = /** @class */ (() => {
+    let AjfFormField = class AjfFormField {
+        constructor(_cdr, _cfr) {
+            this._cdr = _cdr;
+            this._cfr = _cfr;
+            this._init = false;
+            this._updatedSub = Subscription.EMPTY;
+        }
+        get instance() {
+            return this._instance;
+        }
+        set instance(instance) {
+            if (this._instance !== instance) {
+                this._instance = instance;
+                if (this._init) {
+                    this._loadComponent();
+                }
+            }
+        }
+        get readonly() {
+            return this._readonly;
+        }
+        set readonly(readonly) {
+            this._readonly = coerceBooleanProperty(readonly);
             if (this._init) {
                 this._loadComponent();
             }
         }
-    }
-    /**
-     * @return {?}
-     */
-    get readonly() {
-        return this._readonly;
-    }
-    /**
-     * @param {?} readonly
-     * @return {?}
-     */
-    set readonly(readonly) {
-        this._readonly = coerceBooleanProperty(readonly);
-        if (this._init) {
+        ngOnDestroy() {
+            this._updatedSub.unsubscribe();
+        }
+        ngOnInit() {
+            this._init = true;
             this._loadComponent();
         }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._updatedSub.unsubscribe();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._init = true;
-        this._loadComponent();
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _loadComponent() {
-        this._updatedSub.unsubscribe();
-        this._updatedSub = Subscription.EMPTY;
-        if (this._instance == null || this.fieldHost == null) {
-            return;
-        }
-        /** @type {?} */
-        const vcr = this.fieldHost.viewContainerRef;
-        vcr.clear();
-        /** @type {?} */
-        const componentDef = this.componentsMap[this._instance.node.fieldType];
-        if (componentDef == null) {
-            return;
-        }
-        /** @type {?} */
-        const component = this._readonly && componentDef.readOnlyComponent ?
-            componentDef.readOnlyComponent :
-            componentDef.component;
-        try {
-            /** @type {?} */
-            const componentFactory = this._cfr.resolveComponentFactory(component);
-            /** @type {?} */
-            const componentRef = vcr.createComponent(componentFactory);
-            this._componentInstance = componentRef.instance;
-            this._componentInstance.instance = this._instance;
-            if (componentDef.inputs) {
-                Object.keys(componentDef.inputs).forEach((/**
-                 * @param {?} key
-                 * @return {?}
-                 */
-                key => {
-                    if (key in this._componentInstance) {
-                        ((/** @type {?} */ (this._componentInstance)))[key] = (/** @type {?} */ (componentDef.inputs))[key];
-                    }
-                }));
+        _loadComponent() {
+            this._updatedSub.unsubscribe();
+            this._updatedSub = Subscription.EMPTY;
+            if (this._instance == null || this.fieldHost == null) {
+                return;
             }
-            this._updatedSub = this._instance.updatedEvt.subscribe((/**
-             * @return {?}
-             */
-            () => this._cdr.markForCheck()));
+            const vcr = this.fieldHost.viewContainerRef;
+            vcr.clear();
+            const componentDef = this.componentsMap[this._instance.node.fieldType];
+            if (componentDef == null) {
+                return;
+            }
+            const component = this._readonly && componentDef.readOnlyComponent ?
+                componentDef.readOnlyComponent :
+                componentDef.component;
+            try {
+                const componentFactory = this._cfr.resolveComponentFactory(component);
+                const componentRef = vcr.createComponent(componentFactory);
+                this._componentInstance = componentRef.instance;
+                this._componentInstance.instance = this._instance;
+                if (componentDef.inputs) {
+                    Object.keys(componentDef.inputs).forEach(key => {
+                        if (key in this._componentInstance) {
+                            this._componentInstance[key] = componentDef.inputs[key];
+                        }
+                    });
+                }
+                this._updatedSub = this._instance.updatedEvt.subscribe(() => this._cdr.markForCheck());
+            }
+            catch (e) {
+                console.log(e);
+            }
         }
-        catch (e) {
-            console.log(e);
-        }
-    }
-}
-AjfFormField.decorators = [
-    { type: Directive }
-];
-/** @nocollapse */
-AjfFormField.ctorParameters = () => [
-    { type: ChangeDetectorRef },
-    { type: ComponentFactoryResolver }
-];
-AjfFormField.propDecorators = {
-    fieldHost: [{ type: ViewChild, args: [AjfFieldHost, { static: true },] }],
-    instance: [{ type: Input }],
-    readonly: [{ type: Input }]
-};
-if (false) {
-    /** @type {?} */
-    AjfFormField.prototype.fieldHost;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._instance;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._readonly;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._componentInstance;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._init;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AjfFormField.prototype.componentsMap;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._updatedSub;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._cdr;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormField.prototype._cfr;
-}
+    };
+    __decorate([
+        ViewChild(AjfFieldHost, { static: true }),
+        __metadata("design:type", AjfFieldHost)
+    ], AjfFormField.prototype, "fieldHost", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [Object])
+    ], AjfFormField.prototype, "instance", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], AjfFormField.prototype, "readonly", null);
+    AjfFormField = __decorate([
+        Directive(),
+        __metadata("design:paramtypes", [ChangeDetectorRef, ComponentFactoryResolver])
+    ], AjfFormField);
+    return AjfFormField;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-utils.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} type
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function fieldIconName(type) {
     return `ajf-icon-field-${typeof AjfFieldType[type] === 'string' ? AjfFieldType[type].toLowerCase() : type}`;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-icon.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-class AjfFieldIconPipe {
-    /**
-     * @param {?} field
-     * @return {?}
-     */
-    transform(field) {
-        return fieldIconName(((/** @type {?} */ (field))).fieldType ? ((/** @type {?} */ (field))).fieldType : (/** @type {?} */ (field)));
-    }
-}
-AjfFieldIconPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfFieldIcon' },] }
-];
+let AjfFieldIconPipe = /** @class */ (() => {
+    let AjfFieldIconPipe = class AjfFieldIconPipe {
+        transform(field) {
+            return fieldIconName(field.fieldType ? field.fieldType : field);
+        }
+    };
+    AjfFieldIconPipe = __decorate([
+        Pipe({ name: 'ajfFieldIcon' })
+    ], AjfFieldIconPipe);
+    return AjfFieldIconPipe;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-is-valid.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-class AjfFieldIsValidPipe {
-    /**
-     * @param {?=} validationResults
-     * @return {?}
-     */
-    transform(validationResults) {
-        return validationResults != null && validationResults.filter((/**
-         * @param {?} f
-         * @return {?}
-         */
-        (f) => !f.result)).length === 0;
-    }
-}
-AjfFieldIsValidPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfFieldIsValid' },] }
-];
+let AjfFieldIsValidPipe = /** @class */ (() => {
+    let AjfFieldIsValidPipe = class AjfFieldIsValidPipe {
+        transform(validationResults) {
+            return validationResults != null && validationResults.filter((f) => !f.result).length === 0;
+        }
+    };
+    AjfFieldIsValidPipe = __decorate([
+        Pipe({ name: 'ajfFieldIsValid' })
+    ], AjfFieldIsValidPipe);
+    return AjfFieldIsValidPipe;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-service.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @abstract
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 class AjfFieldService {
     constructor() {
         this.componentsMap = componentsMap;
     }
-    /**
-     * @param {?} field
-     * @return {?}
-     */
     registerCustomField(field) {
         const { fieldType, component } = field;
         if (fieldType < 100) {
@@ -5076,16 +4477,7 @@ class AjfFieldService {
         this.componentsMap[fieldType] = field;
     }
 }
-if (false) {
-    /** @type {?} */
-    AjfFieldService.prototype.componentsMap;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-warning-alert-result.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -5107,31 +4499,29 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfFieldWarningAlertResult() { }
-if (false) {
-    /** @type {?} */
-    AjfFieldWarningAlertResult.prototype.result;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/field-with-choices.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @abstract
- * @template T
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 class AjfFieldWithChoicesComponent extends AjfBaseFieldComponent {
-    /**
-     * @param {?} cdr
-     * @param {?} service
-     * @param {?} warningAlertService
-     * @param {?} searchThreshold
-     */
     constructor(cdr, service, warningAlertService, searchThreshold) {
         super(cdr, service, warningAlertService);
         this._searchThreshold = 6;
@@ -5139,692 +4529,574 @@ class AjfFieldWithChoicesComponent extends AjfBaseFieldComponent {
             this._searchThreshold = searchThreshold;
         }
     }
-    /**
-     * @return {?}
-     */
     get searchThreshold() {
         return this._searchThreshold;
     }
 }
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFieldWithChoicesComponent.prototype._searchThreshold;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/form.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 class AjfFormActionEvent {
 }
-if (false) {
-    /** @type {?} */
-    AjfFormActionEvent.prototype.source;
-    /** @type {?} */
-    AjfFormActionEvent.prototype.value;
-    /** @type {?} */
-    AjfFormActionEvent.prototype.action;
-}
-/**
- * @abstract
- */
-class AjfFormRenderer {
-    /**
-     * this constructor will init current formula by ajfBuilderService
-     * @param {?} _rendererService
-     * @param {?} _changeDetectorRef
-     */
-    constructor(_rendererService, _changeDetectorRef) {
-        this._rendererService = _rendererService;
-        this._changeDetectorRef = _changeDetectorRef;
-        // ajfFieldTypes [ Text, Number, Boolean, SingleChoice, MultipleChoice,
-        // Formula, Empty, Composed, LENGTH ]
-        this.ajfFieldTypes = AjfFieldType;
-        this._orientationChange = new EventEmitter();
-        this.orientationChange = this._orientationChange.asObservable();
-        this._saveDisabled = false;
-        this._hasStartMessage = false;
-        this._hasEndMessage = false;
-        this._hideTopToolbar = false;
-        this._hideBottomToolbar = false;
-        this._hideNavigationButtons = false;
-        this._fixedOrientation = false;
-        this._readonly = false;
-        this._orientation = 'horizontal';
-        this._errorMoveEvent = new EventEmitter();
-        // _init is a private boolean
-        this._init = false;
-        this._nextSlideSubscription = Subscription.EMPTY;
-        this._errorMoveSubscription = Subscription.EMPTY;
-        this._formAction = new EventEmitter();
-        this.formAction = this._formAction.asObservable();
-        this.formGroup = _rendererService.formGroup;
-        this.slides = _rendererService.nodesTree;
-        this._errorPositions = _rendererService.errorPositions;
-        this.errors = _rendererService.errors;
-        this.slidesNum = _rendererService.slidesNum;
-        this.formIsInit =
-            _rendererService.formInitEvent.pipe(map((/**
-             * @param {?} e
-             * @return {?}
-             */
-            e => e === 1 /* Complete */)));
-    }
-    /**
-     * @return {?}
-     */
-    get saveDisabled() {
-        return this._saveDisabled;
-    }
-    /**
-     * @param {?} saveDisabled
-     * @return {?}
-     */
-    set saveDisabled(saveDisabled) {
-        this._saveDisabled = coerceBooleanProperty(saveDisabled);
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * @return {?}
-     */
-    get hasStartMessage() {
-        return this._hasStartMessage;
-    }
-    /**
-     * @param {?} hasStartMessage
-     * @return {?}
-     */
-    set hasStartMessage(hasStartMessage) {
-        this._hasStartMessage = coerceBooleanProperty(hasStartMessage);
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * @return {?}
-     */
-    get hasEndMessage() {
-        return this._hasEndMessage;
-    }
-    /**
-     * @param {?} hasEndMessage
-     * @return {?}
-     */
-    set hasEndMessage(hasEndMessage) {
-        this._hasEndMessage = coerceBooleanProperty(hasEndMessage);
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * @return {?}
-     */
-    get hideTopToolbar() {
-        return this._hideTopToolbar;
-    }
-    /**
-     * @param {?} hideTopToolbar
-     * @return {?}
-     */
-    set hideTopToolbar(hideTopToolbar) {
-        this._hideTopToolbar = coerceBooleanProperty(hideTopToolbar);
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * @return {?}
-     */
-    get hideBottompToolbar() {
-        return this._hideBottomToolbar;
-    }
-    /**
-     * @param {?} hideBottomToolbar
-     * @return {?}
-     */
-    set hideBottomToolbar(hideBottomToolbar) {
-        this._hideBottomToolbar = coerceBooleanProperty(hideBottomToolbar);
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * @return {?}
-     */
-    get hideNavigationButtons() {
-        return this._hideNavigationButtons;
-    }
-    /**
-     * @param {?} hideNavigationButtons
-     * @return {?}
-     */
-    set hideNavigationButtons(hideNavigationButtons) {
-        this._hideNavigationButtons = coerceBooleanProperty(hideNavigationButtons);
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * @return {?}
-     */
-    get fixedOrientation() {
-        return this._fixedOrientation;
-    }
-    /**
-     * @param {?} fixedOrientation
-     * @return {?}
-     */
-    set fixedOrientation(fixedOrientation) {
-        this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * @return {?}
-     */
-    get readonly() {
-        return this._readonly;
-    }
-    /**
-     * @param {?} readonly
-     * @return {?}
-     */
-    set readonly(readonly) {
-        this._readonly = coerceBooleanProperty(readonly);
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * @return {?}
-     */
-    get orientation() {
-        return this._orientation;
-    }
-    /**
-     * @param {?} orientation
-     * @return {?}
-     */
-    set orientation(orientation) {
-        if (orientation !== 'horizontal' && orientation !== 'vertical') {
-            return;
+let AjfFormRenderer = /** @class */ (() => {
+    let AjfFormRenderer = class AjfFormRenderer {
+        /**
+         * this constructor will init current formula by ajfBuilderService
+         */
+        constructor(_rendererService, _changeDetectorRef) {
+            this._rendererService = _rendererService;
+            this._changeDetectorRef = _changeDetectorRef;
+            // ajfFieldTypes [ Text, Number, Boolean, SingleChoice, MultipleChoice,
+            // Formula, Empty, Composed, LENGTH ]
+            this.ajfFieldTypes = AjfFieldType;
+            this._orientationChange = new EventEmitter();
+            this.orientationChange = this._orientationChange.asObservable();
+            this._saveDisabled = false;
+            this._hasStartMessage = false;
+            this._hasEndMessage = false;
+            this._hideTopToolbar = false;
+            this._hideBottomToolbar = false;
+            this._hideNavigationButtons = false;
+            this._fixedOrientation = false;
+            this._readonly = false;
+            this._orientation = 'horizontal';
+            this._errorMoveEvent = new EventEmitter();
+            // _init is a private boolean
+            this._init = false;
+            this._nextSlideSubscription = Subscription.EMPTY;
+            this._errorMoveSubscription = Subscription.EMPTY;
+            this._formAction = new EventEmitter();
+            this.formAction = this._formAction.asObservable();
+            this.formGroup = _rendererService.formGroup;
+            this.slides = _rendererService.nodesTree;
+            this._errorPositions = _rendererService.errorPositions;
+            this.errors = _rendererService.errors;
+            this.slidesNum = _rendererService.slidesNum;
+            this.formIsInit =
+                _rendererService.formInitEvent.pipe(map(e => e === 1 /* Complete */));
         }
-        if (orientation !== this._orientation) {
-            this._orientation = orientation;
+        get saveDisabled() {
+            return this._saveDisabled;
+        }
+        set saveDisabled(saveDisabled) {
+            this._saveDisabled = coerceBooleanProperty(saveDisabled);
             this._changeDetectorRef.markForCheck();
-            this._orientationChange.emit(this._orientation);
         }
-    }
-    /**
-     * @param {?} form
-     * @return {?}
-     */
-    set form(form) {
-        this._form = form;
-        if (this._init) {
-            this._rendererService.setForm(this._form);
+        get hasStartMessage() {
+            return this._hasStartMessage;
         }
-    }
-    /**
-     * this method will scroll to next error received by subscribe
-     * @return {?}
-     */
-    goToNextError() {
-        this._errorMoveEvent.emit(true);
-    }
-    /**
-     * this method will scroll to prev error received by subscribe
-     * @return {?}
-     */
-    goToPrevError() {
-        this._errorMoveEvent.emit(false);
-    }
-    /**
-     * this method will add group
-     * @param {?} nodeGroup
-     * @return {?}
-     */
-    addGroup(nodeGroup) {
-        /** @type {?} */
-        let s = this._rendererService.addGroup((/** @type {?} */ (nodeGroup)))
-            .pipe(delayWhen((/**
-         * @return {?}
-         */
-        () => this.formSlider.pageScrollFinish)))
-            .subscribe((/**
-         * @param {?} r
-         * @return {?}
-         */
-        (r) => {
-            if (r && this.formSlider != null) {
-                this.formSlider.slide({ dir: 'down' });
-            }
-        }), (/**
-         * @param {?} _e
-         * @return {?}
-         */
-        (_e) => {
-            if (s) {
-                s.unsubscribe();
-            }
-        }), (/**
-         * @return {?}
-         */
-        () => {
-            if (s) {
-                s.unsubscribe();
-            }
-        }));
-    }
-    /**
-     * this method will remove group
-     * @param {?} nodeGroup
-     * @return {?}
-     */
-    removeGroup(nodeGroup) {
-        /** @type {?} */
-        let s = this._rendererService.removeGroup((/** @type {?} */ (nodeGroup)))
-            .pipe(delayWhen((/**
-         * @return {?}
-         */
-        () => this.formSlider.pageScrollFinish)))
-            .subscribe((/**
-         * @param {?} r
-         * @return {?}
-         */
-        (r) => {
-            if (r && this.formSlider != null) {
-                this.formSlider.slide({ dir: 'up' });
-            }
-        }), (/**
-         * @param {?} _e
-         * @return {?}
-         */
-        (_e) => {
-            if (s) {
-                s.unsubscribe();
-            }
-        }), (/**
-         * @return {?}
-         */
-        () => {
-            if (s) {
-                s.unsubscribe();
-            }
-        }));
-    }
-    /**
-     * @param {?} _evt
-     * @return {?}
-     */
-    onSave(_evt) {
-        this._formAction.emit({ source: this, action: 'save', value: this._rendererService.getFormValue() });
-    }
-    /**
-     * @param {?} _evt
-     * @param {?} action
-     * @return {?}
-     */
-    onFormAction(_evt, action) {
-        this._formAction.emit({ source: this, value: this._rendererService.getFormValue(), action: action });
-    }
-    /**
-     * this method will set current form in rederer service when init form
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        if (this._form != null) {
-            this._rendererService.setForm(this._form);
-            this._changeDetectorRef.detectChanges();
+        set hasStartMessage(hasStartMessage) {
+            this._hasStartMessage = coerceBooleanProperty(hasStartMessage);
+            this._changeDetectorRef.markForCheck();
         }
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewChecked() {
-        if (!this._init && this.formSlider != null) {
-            this._init = true;
-            this._errorMoveSubscription =
-                ((/** @type {?} */ (this._errorMoveEvent)))
-                    .pipe(withLatestFrom(this._errorPositions))
-                    .subscribe((/**
-                 * @param {?} v
-                 * @return {?}
-                 */
-                (v) => {
-                    /** @type {?} */
-                    const move = v[0];
-                    /** @type {?} */
-                    const currentPosition = this.formSlider.currentPage - (+this.hasStartMessage) + 1;
-                    /** @type {?} */
-                    const errors = v[1];
-                    if (errors == null) {
-                        return;
-                    }
-                    /** @type {?} */
-                    let found = false;
-                    /** @type {?} */
-                    let prevIdx = -1;
-                    /** @type {?} */
-                    let nextIdx = -1;
-                    /** @type {?} */
-                    let idx = 0;
-                    /** @type {?} */
-                    let errorsLen = errors.length;
-                    while (!found && idx < errorsLen) {
-                        if (errors[idx] == currentPosition) {
-                            found = true;
-                            prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
-                            nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
+        get hasEndMessage() {
+            return this._hasEndMessage;
+        }
+        set hasEndMessage(hasEndMessage) {
+            this._hasEndMessage = coerceBooleanProperty(hasEndMessage);
+            this._changeDetectorRef.markForCheck();
+        }
+        get hideTopToolbar() {
+            return this._hideTopToolbar;
+        }
+        set hideTopToolbar(hideTopToolbar) {
+            this._hideTopToolbar = coerceBooleanProperty(hideTopToolbar);
+            this._changeDetectorRef.markForCheck();
+        }
+        get hideBottompToolbar() {
+            return this._hideBottomToolbar;
+        }
+        set hideBottomToolbar(hideBottomToolbar) {
+            this._hideBottomToolbar = coerceBooleanProperty(hideBottomToolbar);
+            this._changeDetectorRef.markForCheck();
+        }
+        get hideNavigationButtons() {
+            return this._hideNavigationButtons;
+        }
+        set hideNavigationButtons(hideNavigationButtons) {
+            this._hideNavigationButtons = coerceBooleanProperty(hideNavigationButtons);
+            this._changeDetectorRef.markForCheck();
+        }
+        get fixedOrientation() {
+            return this._fixedOrientation;
+        }
+        set fixedOrientation(fixedOrientation) {
+            this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
+            this._changeDetectorRef.markForCheck();
+        }
+        get readonly() {
+            return this._readonly;
+        }
+        set readonly(readonly) {
+            this._readonly = coerceBooleanProperty(readonly);
+            this._changeDetectorRef.markForCheck();
+        }
+        get orientation() {
+            return this._orientation;
+        }
+        set orientation(orientation) {
+            if (orientation !== 'horizontal' && orientation !== 'vertical') {
+                return;
+            }
+            if (orientation !== this._orientation) {
+                this._orientation = orientation;
+                this._changeDetectorRef.markForCheck();
+                this._orientationChange.emit(this._orientation);
+            }
+        }
+        set form(form) {
+            this._form = form;
+            if (this._init) {
+                this._rendererService.setForm(this._form);
+            }
+        }
+        /**
+         * this method will scroll to next error received by subscribe
+         */
+        goToNextError() {
+            this._errorMoveEvent.emit(true);
+        }
+        /**
+         * this method will scroll to prev error received by subscribe
+         */
+        goToPrevError() {
+            this._errorMoveEvent.emit(false);
+        }
+        /**
+         * this method will add group
+         */
+        addGroup(nodeGroup) {
+            let s = this._rendererService.addGroup(nodeGroup)
+                .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
+                .subscribe((r) => {
+                if (r && this.formSlider != null) {
+                    this.formSlider.slide({ dir: 'down' });
+                }
+            }, (_e) => {
+                if (s) {
+                    s.unsubscribe();
+                }
+            }, () => {
+                if (s) {
+                    s.unsubscribe();
+                }
+            });
+        }
+        /**
+         * this method will remove group
+         */
+        removeGroup(nodeGroup) {
+            let s = this._rendererService.removeGroup(nodeGroup)
+                .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
+                .subscribe((r) => {
+                if (r && this.formSlider != null) {
+                    this.formSlider.slide({ dir: 'up' });
+                }
+            }, (_e) => {
+                if (s) {
+                    s.unsubscribe();
+                }
+            }, () => {
+                if (s) {
+                    s.unsubscribe();
+                }
+            });
+        }
+        onSave(_evt) {
+            this._formAction.emit({ source: this, action: 'save', value: this._rendererService.getFormValue() });
+        }
+        onFormAction(_evt, action) {
+            this._formAction.emit({ source: this, value: this._rendererService.getFormValue(), action: action });
+        }
+        /**
+         * this method will set current form in rederer service when init form
+         */
+        ngAfterViewInit() {
+            if (this._form != null) {
+                this._rendererService.setForm(this._form);
+                this._changeDetectorRef.detectChanges();
+            }
+        }
+        ngAfterViewChecked() {
+            if (!this._init && this.formSlider != null) {
+                this._init = true;
+                this._errorMoveSubscription =
+                    this._errorMoveEvent
+                        .pipe(withLatestFrom(this._errorPositions))
+                        .subscribe((v) => {
+                        const move = v[0];
+                        const currentPosition = this.formSlider.currentPage - (+this.hasStartMessage) + 1;
+                        const errors = v[1];
+                        if (errors == null) {
+                            return;
                         }
-                        else if (errors[idx] > currentPosition) {
-                            found = true;
-                            prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
-                            nextIdx = idx;
+                        let found = false;
+                        let prevIdx = -1;
+                        let nextIdx = -1;
+                        let idx = 0;
+                        let errorsLen = errors.length;
+                        while (!found && idx < errorsLen) {
+                            if (errors[idx] == currentPosition) {
+                                found = true;
+                                prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+                                nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
+                            }
+                            else if (errors[idx] > currentPosition) {
+                                found = true;
+                                prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+                                nextIdx = idx;
+                            }
+                            idx++;
                         }
-                        idx++;
-                    }
-                    if (!found) {
-                        prevIdx = errorsLen - 1;
-                        nextIdx = 0;
-                    }
-                    this.formSlider.slide({ to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1 });
-                    this._changeDetectorRef.detectChanges();
-                }));
+                        if (!found) {
+                            prevIdx = errorsLen - 1;
+                            nextIdx = 0;
+                        }
+                        this.formSlider.slide({ to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1 });
+                        this._changeDetectorRef.detectChanges();
+                    });
+            }
         }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._nextSlideSubscription.unsubscribe();
-        this._errorMoveSubscription.unsubscribe();
-        this._orientationChange.complete();
-        this._errorMoveEvent.complete();
-        this._formAction.complete();
-    }
-    /**
-     * @param {?} orientation
-     * @return {?}
-     */
-    orientationChangeHandler(orientation) {
-        this.orientation = orientation;
-    }
-    /**
-     * @param {?} _
-     * @param {?} node
-     * @return {?}
-     */
-    trackNodeById(_, node) {
-        return nodeInstanceCompleteName(node);
-    }
-}
-AjfFormRenderer.decorators = [
-    { type: Directive }
-];
-/** @nocollapse */
-AjfFormRenderer.ctorParameters = () => [
-    { type: AjfFormRendererService },
-    { type: ChangeDetectorRef }
-];
-AjfFormRenderer.propDecorators = {
-    title: [{ type: Input }],
-    orientationChange: [{ type: Output }],
-    saveDisabled: [{ type: Input }],
-    hasStartMessage: [{ type: Input }],
-    hasEndMessage: [{ type: Input }],
-    hideTopToolbar: [{ type: Input }],
-    hideBottomToolbar: [{ type: Input }],
-    hideNavigationButtons: [{ type: Input }],
-    fixedOrientation: [{ type: Input }],
-    readonly: [{ type: Input }],
-    orientation: [{ type: Input }],
-    formSlider: [{ type: ViewChild, args: ['formSlider', { static: false },] }],
-    fields: [{ type: ViewChildren, args: [AjfFormField,] }],
-    formAction: [{ type: Output }],
-    form: [{ type: Input }]
-};
-if (false) {
-    /** @type {?} */
-    AjfFormRenderer.prototype.formGroup;
-    /** @type {?} */
-    AjfFormRenderer.prototype.slides;
-    /** @type {?} */
-    AjfFormRenderer.prototype.slidesNum;
-    /** @type {?} */
-    AjfFormRenderer.prototype.errors;
-    /** @type {?} */
-    AjfFormRenderer.prototype.formIsInit;
-    /** @type {?} */
-    AjfFormRenderer.prototype.ajfFieldTypes;
-    /** @type {?} */
-    AjfFormRenderer.prototype.title;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._orientationChange;
-    /** @type {?} */
-    AjfFormRenderer.prototype.orientationChange;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._saveDisabled;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._hasStartMessage;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._hasEndMessage;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._hideTopToolbar;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._hideBottomToolbar;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._hideNavigationButtons;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._fixedOrientation;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._readonly;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._orientation;
-    /** @type {?} */
-    AjfFormRenderer.prototype.formSlider;
-    /** @type {?} */
-    AjfFormRenderer.prototype.fields;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._errorMoveEvent;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._errorPositions;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._form;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._init;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._nextSlideSubscription;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._errorMoveSubscription;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._formAction;
-    /** @type {?} */
-    AjfFormRenderer.prototype.formAction;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfFormRenderer.prototype._rendererService;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AjfFormRenderer.prototype._changeDetectorRef;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/get-table-cell-control.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfGetTableCellControlPipe {
-    /**
-     * @param {?} ctrl
-     * @return {?}
-     */
-    transform(ctrl) {
-        if (ctrl == null || typeof ctrl === 'string') {
-            return null;
+        ngOnDestroy() {
+            this._nextSlideSubscription.unsubscribe();
+            this._errorMoveSubscription.unsubscribe();
+            this._orientationChange.complete();
+            this._errorMoveEvent.complete();
+            this._formAction.complete();
         }
-        return (/** @type {?} */ (ctrl));
-    }
-}
-AjfGetTableCellControlPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfGetTableCellControl' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/increment.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfIncrementPipe {
-    /**
-     * @param {?} value
-     * @param {?=} increment
-     * @return {?}
-     */
-    transform(value, increment = 1) {
-        return value + increment;
-    }
-}
-AjfIncrementPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfIncrement' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/is-cell-editable.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfIsCellEditablePipe {
-    /**
-     * @param {?} cell
-     * @return {?}
-     */
-    transform(cell) {
-        if (cell == null || typeof cell === 'string') {
-            return false;
+        orientationChangeHandler(orientation) {
+            this.orientation = orientation;
         }
-        return cell.editable === true;
-    }
-}
-AjfIsCellEditablePipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfIsCellEditable' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/is-repeating-slide.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfIsRepeatingSlideInstancePipe {
-    /**
-     * @param {?} instance
-     * @return {?}
-     */
-    transform(instance) {
-        return isRepeatingSlideInstance(instance);
-    }
-}
-AjfIsRepeatingSlideInstancePipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfIsRepeatingSlideInstance' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/node-complete-name.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfNodeCompleteNamePipe {
-    /**
-     * @param {?} instance
-     * @return {?}
-     */
-    transform(instance) {
-        return instance ? nodeInstanceCompleteName(instance) : '';
-    }
-}
-AjfNodeCompleteNamePipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfNodeCompleteName' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/range.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfRangePipe {
-    /**
-     * @param {?=} size
-     * @param {?=} start
-     * @param {?=} step
-     * @return {?}
-     */
-    transform(size = 0, start = 1, step = 1) {
-        /** @type {?} */
-        const range = [];
-        for (let length = 0; length < size; ++length) {
-            range.push(start);
-            start += step;
+        trackNodeById(_, node) {
+            return nodeInstanceCompleteName(node);
         }
-        return range;
-    }
-}
-AjfRangePipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfRange' },] }
-];
+    };
+    __decorate([
+        Input(),
+        __metadata("design:type", String)
+    ], AjfFormRenderer.prototype, "title", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", Observable)
+    ], AjfFormRenderer.prototype, "orientationChange", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], AjfFormRenderer.prototype, "saveDisabled", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], AjfFormRenderer.prototype, "hasStartMessage", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], AjfFormRenderer.prototype, "hasEndMessage", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], AjfFormRenderer.prototype, "hideTopToolbar", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], AjfFormRenderer.prototype, "hideBottomToolbar", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], AjfFormRenderer.prototype, "hideNavigationButtons", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], AjfFormRenderer.prototype, "fixedOrientation", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], AjfFormRenderer.prototype, "readonly", null);
+    __decorate([
+        Input(),
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], AjfFormRenderer.prototype, "orientation", null);
+    __decorate([
+        ViewChild('formSlider', { static: false }),
+        __metadata("design:type", AjfPageSlider)
+    ], AjfFormRenderer.prototype, "formSlider", void 0);
+    __decorate([
+        ViewChildren(AjfFormField),
+        __metadata("design:type", QueryList)
+    ], AjfFormRenderer.prototype, "fields", void 0);
+    __decorate([
+        Output(),
+        __metadata("design:type", Observable)
+    ], AjfFormRenderer.prototype, "formAction", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [Object])
+    ], AjfFormRenderer.prototype, "form", null);
+    AjfFormRenderer = __decorate([
+        Directive(),
+        __metadata("design:paramtypes", [AjfFormRendererService,
+            ChangeDetectorRef])
+    ], AjfFormRenderer);
+    return AjfFormRenderer;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/input-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
+let AjfGetTableCellControlPipe = /** @class */ (() => {
+    let AjfGetTableCellControlPipe = class AjfGetTableCellControlPipe {
+        transform(ctrl) {
+            if (ctrl == null || typeof ctrl === 'string') {
+                return null;
+            }
+            return ctrl;
+        }
+    };
+    AjfGetTableCellControlPipe = __decorate([
+        Pipe({ name: 'ajfGetTableCellControl' })
+    ], AjfGetTableCellControlPipe);
+    return AjfGetTableCellControlPipe;
+})();
+
 /**
- * @abstract
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfIncrementPipe = /** @class */ (() => {
+    let AjfIncrementPipe = class AjfIncrementPipe {
+        transform(value, increment = 1) {
+            return value + increment;
+        }
+    };
+    AjfIncrementPipe = __decorate([
+        Pipe({ name: 'ajfIncrement' })
+    ], AjfIncrementPipe);
+    return AjfIncrementPipe;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfIsCellEditablePipe = /** @class */ (() => {
+    let AjfIsCellEditablePipe = class AjfIsCellEditablePipe {
+        transform(cell) {
+            if (cell == null || typeof cell === 'string') {
+                return false;
+            }
+            return cell.editable === true;
+        }
+    };
+    AjfIsCellEditablePipe = __decorate([
+        Pipe({ name: 'ajfIsCellEditable' })
+    ], AjfIsCellEditablePipe);
+    return AjfIsCellEditablePipe;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfIsRepeatingSlideInstancePipe = /** @class */ (() => {
+    let AjfIsRepeatingSlideInstancePipe = class AjfIsRepeatingSlideInstancePipe {
+        transform(instance) {
+            return isRepeatingSlideInstance(instance);
+        }
+    };
+    AjfIsRepeatingSlideInstancePipe = __decorate([
+        Pipe({ name: 'ajfIsRepeatingSlideInstance' })
+    ], AjfIsRepeatingSlideInstancePipe);
+    return AjfIsRepeatingSlideInstancePipe;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfNodeCompleteNamePipe = /** @class */ (() => {
+    let AjfNodeCompleteNamePipe = class AjfNodeCompleteNamePipe {
+        transform(instance) {
+            return instance ? nodeInstanceCompleteName(instance) : '';
+        }
+    };
+    AjfNodeCompleteNamePipe = __decorate([
+        Pipe({ name: 'ajfNodeCompleteName' })
+    ], AjfNodeCompleteNamePipe);
+    return AjfNodeCompleteNamePipe;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfRangePipe = /** @class */ (() => {
+    let AjfRangePipe = class AjfRangePipe {
+        transform(size = 0, start = 1, step = 1) {
+            const range = [];
+            for (let length = 0; length < size; ++length) {
+                range.push(start);
+                start += step;
+            }
+            return range;
+        }
+    };
+    AjfRangePipe = __decorate([
+        Pipe({ name: 'ajfRange' })
+    ], AjfRangePipe);
+    return AjfRangePipe;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 class AjfInputFieldComponent extends AjfBaseFieldComponent {
     constructor() {
@@ -5832,267 +5104,7 @@ class AjfInputFieldComponent extends AjfBaseFieldComponent {
         this.type = 'text';
     }
 }
-if (false) {
-    /** @type {?} */
-    AjfInputFieldComponent.prototype.type;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/warning-alert-service.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @record
- */
-function AjfWarningAlertService() { }
-if (false) {
-    /**
-     * @param {?} warnings
-     * @return {?}
-     */
-    AjfWarningAlertService.prototype.showWarningAlertPrompt = function (warnings) { };
-}
-/** @type {?} */
-const AJF_WARNING_ALERT_SERVICE = new InjectionToken('ajf-warning-alert-service');
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/read-only-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfReadOnlyFieldComponent extends AjfInputFieldComponent {
-    /**
-     * @param {?} cdr
-     * @param {?} service
-     * @param {?} was
-     */
-    constructor(cdr, service, was) {
-        super(cdr, service, was);
-    }
-}
-AjfReadOnlyFieldComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'ajf-read-only-field',
-                template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n",
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
-            }] }
-];
-/** @nocollapse */
-AjfReadOnlyFieldComponent.ctorParameters = () => [
-    { type: ChangeDetectorRef },
-    { type: AjfFormRendererService },
-    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/read-only-table-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent {
-    /**
-     * @param {?} cdr
-     * @param {?} service
-     * @param {?} was
-     */
-    constructor(cdr, service, was) {
-        super(cdr, service, was);
-    }
-}
-AjfReadOnlyTableFieldComponent.decorators = [
-    { type: Component, args: [{
-                template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n",
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                styles: ["\n"]
-            }] }
-];
-/** @nocollapse */
-AjfReadOnlyTableFieldComponent.ctorParameters = () => [
-    { type: ChangeDetectorRef },
-    { type: AjfFormRendererService },
-    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/table-row-class.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfTableRowClass {
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    transform(value) {
-        return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
-    }
-}
-AjfTableRowClass.decorators = [
-    { type: Pipe, args: [{ name: 'ajfTableRowClass' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/table-visible-columns.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfTableVisibleColumnsPipe {
-    /**
-     * @param {?} instance
-     * @return {?}
-     */
-    transform(instance) {
-        if (!instance.node.editable) {
-            /** @type {?} */
-            const val = instance.value || [];
-            return instance.hideEmptyRows ?
-                val.filter((/**
-                 * @param {?} col
-                 * @return {?}
-                 */
-                col => col[1].reduce((/**
-                 * @param {?} prev
-                 * @param {?} cur
-                 * @return {?}
-                 */
-                (prev, cur) => {
-                    return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
-                }), false)))
-                    .map((/**
-                 * @param {?} v
-                 * @return {?}
-                 */
-                v => [v[0], ...v[1]])) :
-                val.map((/**
-                 * @param {?} v
-                 * @return {?}
-                 */
-                v => [v[0], ...v[1]]));
-        }
-        return (((/** @type {?} */ (instance.controls))) || [])
-            .map((/**
-         * @param {?} v
-         * @return {?}
-         */
-        v => [v[0], ...v[1]]));
-    }
-}
-AjfTableVisibleColumnsPipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfTableVisibleColumns' },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/valid-slide.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfValidSlidePipe {
-    /**
-     * @param {?} slide
-     * @param {?} idx
-     * @return {?}
-     */
-    transform(slide, idx) {
-        if (idx == null || typeof idx !== 'number') {
-            return false;
-        }
-        if (idx >= slide.slideNodes.length) {
-            return true;
-        }
-        return slide.slideNodes[idx]
-            .map((/**
-         * @param {?} n
-         * @return {?}
-         */
-        n => {
-            if (n.visible && Object.keys(n).indexOf('valid') > -1) {
-                return ((/** @type {?} */ (n))).valid;
-            }
-            return true;
-        }))
-            .reduce((/**
-         * @param {?} v1
-         * @param {?} v2
-         * @return {?}
-         */
-        (v1, v2) => v1 && v2), true);
-    }
-}
-AjfValidSlidePipe.decorators = [
-    { type: Pipe, args: [{ name: 'ajfValidSlide', pure: false },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/forms-module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class AjfFormsModule {
-}
-AjfFormsModule.decorators = [
-    { type: NgModule, args: [{
-                declarations: [
-                    AjfAsFieldInstancePipe,
-                    AjfAsRepeatingSlideInstancePipe,
-                    AjfBoolToIntPipe,
-                    AjfDateValuePipe,
-                    AjfDateValueStringPipe,
-                    AjfExpandFieldWithChoicesPipe,
-                    AjfFieldHost,
-                    AjfFieldIconPipe,
-                    AjfFieldIsValidPipe,
-                    AjfGetTableCellControlPipe,
-                    AjfIncrementPipe,
-                    AjfIsCellEditablePipe,
-                    AjfIsRepeatingSlideInstancePipe,
-                    AjfNodeCompleteNamePipe,
-                    AjfRangePipe,
-                    AjfReadOnlyFieldComponent,
-                    AjfReadOnlyTableFieldComponent,
-                    AjfTableRowClass,
-                    AjfTableVisibleColumnsPipe,
-                    AjfValidSlidePipe,
-                ],
-                imports: [AjfCommonModule, CommonModule],
-                exports: [
-                    AjfAsFieldInstancePipe,
-                    AjfAsRepeatingSlideInstancePipe,
-                    AjfBoolToIntPipe,
-                    AjfDateValuePipe,
-                    AjfDateValueStringPipe,
-                    AjfExpandFieldWithChoicesPipe,
-                    AjfFieldHost,
-                    AjfFieldIconPipe,
-                    AjfFieldIsValidPipe,
-                    AjfGetTableCellControlPipe,
-                    AjfIncrementPipe,
-                    AjfIsCellEditablePipe,
-                    AjfIsRepeatingSlideInstancePipe,
-                    AjfNodeCompleteNamePipe,
-                    AjfRangePipe,
-                    AjfReadOnlyFieldComponent,
-                    AjfReadOnlyTableFieldComponent,
-                    AjfTableRowClass,
-                    AjfTableVisibleColumnsPipe,
-                    AjfValidSlidePipe,
-                ],
-                providers: [
-                    AjfDateValueStringPipe,
-                    AjfFormRendererService,
-                    AjfValidationService,
-                ],
-            },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/get-type-name.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -6114,30 +5126,319 @@ AjfFormsModule.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const AJF_WARNING_ALERT_SERVICE = new InjectionToken('ajf-warning-alert-service');
+
 /**
- * @param {?} v
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfReadOnlyFieldComponent = /** @class */ (() => {
+    let AjfReadOnlyFieldComponent = class AjfReadOnlyFieldComponent extends AjfInputFieldComponent {
+        constructor(cdr, service, was) {
+            super(cdr, service, was);
+        }
+    };
+    AjfReadOnlyFieldComponent = __decorate([
+        Component({
+            selector: 'ajf-read-only-field',
+            template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            encapsulation: ViewEncapsulation.None,
+            styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
+        }),
+        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
+        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object])
+    ], AjfReadOnlyFieldComponent);
+    return AjfReadOnlyFieldComponent;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfReadOnlyTableFieldComponent = /** @class */ (() => {
+    let AjfReadOnlyTableFieldComponent = class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent {
+        constructor(cdr, service, was) {
+            super(cdr, service, was);
+        }
+    };
+    AjfReadOnlyTableFieldComponent = __decorate([
+        Component({
+            template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            encapsulation: ViewEncapsulation.None,
+            styles: ["\n"]
+        }),
+        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
+        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object])
+    ], AjfReadOnlyTableFieldComponent);
+    return AjfReadOnlyTableFieldComponent;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfTableRowClass = /** @class */ (() => {
+    let AjfTableRowClass = class AjfTableRowClass {
+        transform(value) {
+            return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
+        }
+    };
+    AjfTableRowClass = __decorate([
+        Pipe({ name: 'ajfTableRowClass' })
+    ], AjfTableRowClass);
+    return AjfTableRowClass;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfTableVisibleColumnsPipe = /** @class */ (() => {
+    let AjfTableVisibleColumnsPipe = class AjfTableVisibleColumnsPipe {
+        transform(instance) {
+            if (!instance.node.editable) {
+                const val = instance.value || [];
+                return instance.hideEmptyRows ?
+                    val.filter(col => col[1].reduce((prev, cur) => {
+                        return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
+                    }, false))
+                        .map(v => [v[0], ...v[1]]) :
+                    val.map(v => [v[0], ...v[1]]);
+            }
+            return (instance.controls || [])
+                .map(v => [v[0], ...v[1]]);
+        }
+    };
+    AjfTableVisibleColumnsPipe = __decorate([
+        Pipe({ name: 'ajfTableVisibleColumns' })
+    ], AjfTableVisibleColumnsPipe);
+    return AjfTableVisibleColumnsPipe;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfValidSlidePipe = /** @class */ (() => {
+    let AjfValidSlidePipe = class AjfValidSlidePipe {
+        transform(slide, idx) {
+            if (idx == null || typeof idx !== 'number') {
+                return false;
+            }
+            if (idx >= slide.slideNodes.length) {
+                return true;
+            }
+            return slide.slideNodes[idx]
+                .map(n => {
+                if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+                    return n.valid;
+                }
+                return true;
+            })
+                .reduce((v1, v2) => v1 && v2, true);
+        }
+    };
+    AjfValidSlidePipe = __decorate([
+        Pipe({ name: 'ajfValidSlide', pure: false })
+    ], AjfValidSlidePipe);
+    return AjfValidSlidePipe;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfFormsModule = /** @class */ (() => {
+    let AjfFormsModule = class AjfFormsModule {
+    };
+    AjfFormsModule = __decorate([
+        NgModule({
+            declarations: [
+                AjfAsFieldInstancePipe,
+                AjfAsRepeatingSlideInstancePipe,
+                AjfBoolToIntPipe,
+                AjfDateValuePipe,
+                AjfDateValueStringPipe,
+                AjfExpandFieldWithChoicesPipe,
+                AjfFieldHost,
+                AjfFieldIconPipe,
+                AjfFieldIsValidPipe,
+                AjfGetTableCellControlPipe,
+                AjfIncrementPipe,
+                AjfIsCellEditablePipe,
+                AjfIsRepeatingSlideInstancePipe,
+                AjfNodeCompleteNamePipe,
+                AjfRangePipe,
+                AjfReadOnlyFieldComponent,
+                AjfReadOnlyTableFieldComponent,
+                AjfTableRowClass,
+                AjfTableVisibleColumnsPipe,
+                AjfValidSlidePipe,
+            ],
+            imports: [AjfCommonModule, CommonModule],
+            exports: [
+                AjfAsFieldInstancePipe,
+                AjfAsRepeatingSlideInstancePipe,
+                AjfBoolToIntPipe,
+                AjfDateValuePipe,
+                AjfDateValueStringPipe,
+                AjfExpandFieldWithChoicesPipe,
+                AjfFieldHost,
+                AjfFieldIconPipe,
+                AjfFieldIsValidPipe,
+                AjfGetTableCellControlPipe,
+                AjfIncrementPipe,
+                AjfIsCellEditablePipe,
+                AjfIsRepeatingSlideInstancePipe,
+                AjfNodeCompleteNamePipe,
+                AjfRangePipe,
+                AjfReadOnlyFieldComponent,
+                AjfReadOnlyTableFieldComponent,
+                AjfTableRowClass,
+                AjfTableVisibleColumnsPipe,
+                AjfValidSlidePipe,
+            ],
+            providers: [
+                AjfDateValueStringPipe,
+                AjfFormRendererService,
+                AjfValidationService,
+            ],
+        })
+    ], AjfFormsModule);
+    return AjfFormsModule;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function getTypeName(v) {
-    /** @type {?} */
     let typeStr = typeof v;
     return typeStr === 'object' ? v.constructor.toString().match(/\w+/g)[1] : typeStr;
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/search-alert-threshold.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-const AJF_SEARCH_ALERT_THRESHOLD = new InjectionToken('AJF_SEARCH_ALERT_THRESHOLD');
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/attachments/create-attachments-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -6158,38 +5459,63 @@ const AJF_SEARCH_ALERT_THRESHOLD = new InjectionToken('AJF_SEARCH_ALERT_THRESHOL
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const AJF_SEARCH_ALERT_THRESHOLD = new InjectionToken('AJF_SEARCH_ALERT_THRESHOLD');
+
 /**
- * @template T
- * @param {?} origin
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createAttachmentsOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { attachments: origin.attachments || [] });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/serializers/attachments-origin-serializer.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 class AjfAttachmentsOriginSerializer {
-    /**
-     * @param {?} origin
-     * @return {?}
-     */
     static fromJson(origin) {
         if (origin.name == null) {
             throw new Error('Malformed attachments origin');
         }
-        return createAttachmentsOrigin((/** @type {?} */ (origin)));
+        return createAttachmentsOrigin(origin);
     }
 }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/choices/create-choices-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -6211,218 +5537,302 @@ class AjfAttachmentsOriginSerializer {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @template T
- * @param {?} origin
- * @return {?}
- */
 function createChoicesOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { type: origin.type, label: origin.label || '', choices: origin.choices || [] });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/serializers/choices-origin-serializer.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 class AjfChoicesOriginSerializer {
-    /**
-     * @param {?} origin
-     * @return {?}
-     */
     static fromJson(origin) {
-        return createChoicesOrigin((/** @type {?} */ (Object.assign(Object.assign({}, origin), { type: origin.type || 'fixed', name: origin.name || '' }))));
+        return createChoicesOrigin(Object.assign(Object.assign({}, origin), { type: origin.type || 'fixed', name: origin.name || '' }));
     }
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields/create-field-with-choices.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @template T
- * @param {?} field
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createFieldWithChoices(field) {
-    /** @type {?} */
     const node = createField(Object.assign({}, field));
     return Object.assign(Object.assign(Object.assign({}, node), field), { choices: field.choices || [], forceExpanded: field.forceExpanded || false, forceNarrow: field.forceNarrow || false });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/create-container-node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} containerNode
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createContainerNode(containerNode) {
-    /** @type {?} */
     const node = createNode(containerNode);
     return Object.assign(Object.assign({}, node), { nodes: containerNode.nodes || [] });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/create-repeating-node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} repeatingNode
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createRepeatingNode(repeatingNode) {
-    /** @type {?} */
     const node = createNode(repeatingNode);
     return Object.assign(Object.assign(Object.assign({}, repeatingNode), node), { minReps: repeatingNode.minReps != null ? repeatingNode.minReps : 1, maxReps: repeatingNode.maxReps != null ? repeatingNode.maxReps : 0 });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/nodes/create-node-group.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeGroup
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createNodeGroup(nodeGroup) {
     return Object.assign(Object.assign(Object.assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: AjfNodeType.AjfNodeGroup });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/slides/create-repeating-slide.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeGroup
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createRepeatingSlide(nodeGroup) {
     return Object.assign(Object.assign(Object.assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: AjfNodeType.AjfRepeatingSlide });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/slides/create-slide.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} nodeGroup
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createSlide(nodeGroup) {
     return Object.assign(Object.assign({}, createContainerNode(nodeGroup)), { nodeType: AjfNodeType.AjfSlide });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/serializers/validation-group-serializer.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 class AjfValidationGroupSerializer {
-    /**
-     * @param {?} group
-     * @return {?}
-     */
     static fromJson(group) {
         return createValidationGroup(group);
     }
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/serializers/warning-group-serializer.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 class AjfWarningGroupSerializer {
-    /**
-     * @param {?} group
-     * @return {?}
-     */
     static fromJson(group) {
         return createWarningGroup(group);
     }
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/serializers/node-serializer.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 class AjfNodeSerializer {
-    /**
-     * @param {?} json
-     * @param {?=} choicesOrigins
-     * @param {?=} attachmentsOrigins
-     * @return {?}
-     */
     static fromJson(json, choicesOrigins, attachmentsOrigins) {
-        /** @type {?} */
         const err = 'Malformed node';
         json.name = json.name || '';
         if (json.id == null || json.parent == null || json.nodeType == null) {
             throw new Error(err);
         }
-        /** @type {?} */
-        const obj = (/** @type {?} */ (json));
+        const obj = json;
         if (obj.visibility) {
             obj.visibility = AjfConditionSerializer.fromJson(obj.visibility);
         }
         obj.conditionalBranches =
-            (obj.conditionalBranches || []).map((/**
-             * @param {?} c
-             * @return {?}
-             */
-            c => AjfConditionSerializer.fromJson(c)));
+            (obj.conditionalBranches || []).map(c => AjfConditionSerializer.fromJson(c));
         switch (obj.nodeType) {
             case AjfNodeType.AjfField:
-                return AjfNodeSerializer._fieldFromJson((/** @type {?} */ (obj)), choicesOrigins, attachmentsOrigins);
+                return AjfNodeSerializer._fieldFromJson(obj, choicesOrigins, attachmentsOrigins);
             case AjfNodeType.AjfFieldNodeLink:
-                return AjfNodeSerializer._fieldNodeLinkFromJson((/** @type {?} */ (obj)));
+                return AjfNodeSerializer._fieldNodeLinkFromJson(obj);
             case AjfNodeType.AjfNodeGroup:
-                return AjfNodeSerializer._nodeGroupFromJson((/** @type {?} */ (obj)), choicesOrigins, attachmentsOrigins);
+                return AjfNodeSerializer._nodeGroupFromJson(obj, choicesOrigins, attachmentsOrigins);
             case AjfNodeType.AjfRepeatingSlide:
-                return AjfNodeSerializer._repeatingSlideFromJson((/** @type {?} */ (obj)), choicesOrigins, attachmentsOrigins);
+                return AjfNodeSerializer._repeatingSlideFromJson(obj, choicesOrigins, attachmentsOrigins);
             case AjfNodeType.AjfSlide:
-                return AjfNodeSerializer._slideFromJson((/** @type {?} */ (obj)), choicesOrigins, attachmentsOrigins);
+                return AjfNodeSerializer._slideFromJson(obj, choicesOrigins, attachmentsOrigins);
         }
         throw new Error(err);
     }
-    /**
-     * @private
-     * @param {?} json
-     * @param {?=} choicesOrigins
-     * @param {?=} attachmentsOrigins
-     * @return {?}
-     */
     static _containerNodeFromJson(json, choicesOrigins, attachmentsOrigins) {
         json.nodes = (json.nodes ||
-            []).map((/**
-         * @param {?} n
-         * @return {?}
-         */
-        n => AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins)));
+            []).map(n => AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins));
         return createContainerNode(json);
     }
-    /**
-     * @private
-     * @param {?} json
-     * @param {?=} choicesOrigins
-     * @param {?=} attachmentsOrigins
-     * @return {?}
-     */
     static _fieldFromJson(json, choicesOrigins, attachmentsOrigins) {
         if (json.fieldType == null) {
             throw new Error('Malformed field');
         }
-        /** @type {?} */
-        const obj = (/** @type {?} */ (json));
+        const obj = json;
         if (obj.validation) {
             obj.validation = AjfValidationGroupSerializer.fromJson(obj.validation);
         }
@@ -6431,56 +5841,34 @@ class AjfNodeSerializer {
         }
         if (json.attachmentsOriginRef) {
             obj.attachmentOrigin =
-                (attachmentsOrigins || []).find((/**
-                 * @param {?} a
-                 * @return {?}
-                 */
-                a => a.name === json.attachmentsOriginRef));
+                (attachmentsOrigins || []).find(a => a.name === json.attachmentsOriginRef);
         }
         if (obj.nextSlideCondition) {
             obj.nextSlideCondition = AjfConditionSerializer.fromJson(obj.nextSlideCondition);
         }
-        /** @type {?} */
         const isCustomFieldWithChoice = obj.fieldType > 100 && componentsMap[obj.fieldType] != null &&
             componentsMap[obj.fieldType].isFieldWithChoice === true;
         if (isCustomFieldWithChoice) {
-            return AjfNodeSerializer._fieldWithChoicesFromJson((/** @type {?} */ (json)), choicesOrigins);
+            return AjfNodeSerializer._fieldWithChoicesFromJson(json, choicesOrigins);
         }
         switch (obj.fieldType) {
             case AjfFieldType.Formula:
-                return AjfNodeSerializer._formulaFieldFromJson((/** @type {?} */ (json)));
+                return AjfNodeSerializer._formulaFieldFromJson(json);
             case AjfFieldType.MultipleChoice:
             case AjfFieldType.SingleChoice:
-                return AjfNodeSerializer._fieldWithChoicesFromJson((/** @type {?} */ (json)), choicesOrigins);
+                return AjfNodeSerializer._fieldWithChoicesFromJson(json, choicesOrigins);
         }
         return createField(obj);
     }
-    /**
-     * @private
-     * @param {?} json
-     * @return {?}
-     */
     static _fieldNodeLinkFromJson(json) {
         return Object.assign(Object.assign({}, createNode(json)), { nodeType: AjfNodeType.AjfFieldNodeLink });
     }
-    /**
-     * @private
-     * @param {?} json
-     * @param {?=} choicesOrigins
-     * @return {?}
-     */
     static _fieldWithChoicesFromJson(json, choicesOrigins) {
-        /** @type {?} */
         const err = 'Malformed field with choices';
         if (json.choicesOriginRef == null) {
             throw new Error(err);
         }
-        /** @type {?} */
-        const choicesOrigin = (choicesOrigins || []).find((/**
-         * @param {?} c
-         * @return {?}
-         */
-        c => c.name === json.choicesOriginRef));
+        const choicesOrigin = (choicesOrigins || []).find(c => c.name === json.choicesOriginRef);
         if (choicesOrigin == null) {
             throw new Error(err);
         }
@@ -6488,99 +5876,60 @@ class AjfNodeSerializer {
             json.choicesFilter = AjfFormulaSerializer.fromJson(json.choicesFilter);
         }
         if (json.triggerConditions) {
-            json.triggerConditions = json.triggerConditions.map((/**
-             * @param {?} t
-             * @return {?}
-             */
-            t => AjfConditionSerializer.fromJson(t)));
+            json.triggerConditions = json.triggerConditions.map(t => AjfConditionSerializer.fromJson(t));
         }
         return createFieldWithChoices(Object.assign(Object.assign({}, json), { choicesOrigin }));
     }
-    /**
-     * @private
-     * @param {?} json
-     * @return {?}
-     */
     static _formulaFieldFromJson(json) {
         if (json.formula) {
             json.formula = AjfFormulaSerializer.fromJson(json.formula);
         }
         return Object.assign(Object.assign({}, createField(json)), { fieldType: AjfFieldType.Formula });
     }
-    /**
-     * @private
-     * @param {?} json
-     * @param {?=} choicesOrigins
-     * @param {?=} attachmentsOrigins
-     * @return {?}
-     */
     static _nodeGroupFromJson(json, choicesOrigins, attachmentsOrigins) {
         return createNodeGroup(Object.assign(Object.assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins)), AjfNodeSerializer._repeatingNodeFromJson(json)));
     }
-    /**
-     * @private
-     * @param {?} json
-     * @return {?}
-     */
     static _repeatingNodeFromJson(json) {
         if (json.formulaReps) {
             json.formulaReps = AjfFormulaSerializer.fromJson(json.formulaReps);
         }
         return createRepeatingNode(json);
     }
-    /**
-     * @private
-     * @param {?} json
-     * @param {?=} choicesOrigins
-     * @param {?=} attachmentsOrigins
-     * @return {?}
-     */
     static _repeatingSlideFromJson(json, choicesOrigins, attachmentsOrigins) {
         return createRepeatingSlide(Object.assign(Object.assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins)), AjfNodeSerializer._repeatingNodeFromJson(json)));
     }
-    /**
-     * @private
-     * @param {?} json
-     * @param {?=} choicesOrigins
-     * @param {?=} attachmentsOrigins
-     * @return {?}
-     */
     static _slideFromJson(json, choicesOrigins, attachmentsOrigins) {
         return createSlide(AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins));
     }
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/serializers/form-serializer.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 class AjfFormSerializer {
-    /**
-     * @param {?} form
-     * @param {?=} context
-     * @return {?}
-     */
     static fromJson(form, context) {
-        /** @type {?} */
-        const choicesOrigins = (form.choicesOrigins || []).map((/**
-         * @param {?} c
-         * @return {?}
-         */
-        c => AjfChoicesOriginSerializer.fromJson(c)));
-        /** @type {?} */
-        const attachmentsOrigins = (form.attachmentsOrigins || []).map((/**
-         * @param {?} a
-         * @return {?}
-         */
-        a => AjfAttachmentsOriginSerializer.fromJson(a)));
-        /** @type {?} */
-        const nodes = (/** @type {?} */ ((form.nodes || [])
-            .map((/**
-         * @param {?} n
-         * @return {?}
-         */
-        n => AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins)))));
+        const choicesOrigins = (form.choicesOrigins || []).map(c => AjfChoicesOriginSerializer.fromJson(c));
+        const attachmentsOrigins = (form.attachmentsOrigins || []).map(a => AjfAttachmentsOriginSerializer.fromJson(a));
+        const nodes = (form.nodes || [])
+            .map(n => AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins));
         return Object.assign(Object.assign({}, form), { choicesOrigins,
             attachmentsOrigins,
             nodes, stringIdentifier: form.stringIdentifier || [], initContext: deepCopy(context || {}) });
@@ -6588,115 +5937,87 @@ class AjfFormSerializer {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/table-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-/**
- * @abstract
- */
-class AjfTableFieldComponent extends AjfBaseFieldComponent {
-    /**
-     * @param {?} cdr
-     * @param {?} service
-     * @param {?} was
-     */
-    constructor(cdr, service, was) {
-        super(cdr, service, was);
-    }
-    /**
-     * @param {?} ev
-     * @param {?} row
-     * @param {?} column
-     * @return {?}
-     */
-    goToNextCell(ev, row, column) {
-        if (this.instance.controls.length < row ||
-            (this.instance.controls.length >= row && this.instance.controls[row].length < 1) ||
-            this.instance.controls[row][1].length < column) {
-            return;
+let AjfTableFieldComponent = /** @class */ (() => {
+    let AjfTableFieldComponent = class AjfTableFieldComponent extends AjfBaseFieldComponent {
+        constructor(cdr, service, was) {
+            super(cdr, service, was);
         }
-        /** @type {?} */
-        const rowLength = this.instance.controls[row][1].length;
-        /** @type {?} */
-        const currentCell = (/** @type {?} */ (this.instance.controls[row][1][column]));
-        if (column + 1 >= rowLength) {
-            column = 0;
-            if (row + 1 >= this.instance.controls.length) {
-                row = 1;
+        goToNextCell(ev, row, column) {
+            if (this.instance.controls.length < row ||
+                (this.instance.controls.length >= row && this.instance.controls[row].length < 1) ||
+                this.instance.controls[row][1].length < column) {
+                return;
+            }
+            const rowLength = this.instance.controls[row][1].length;
+            const currentCell = this.instance.controls[row][1][column];
+            if (column + 1 >= rowLength) {
+                column = 0;
+                if (row + 1 >= this.instance.controls.length) {
+                    row = 1;
+                }
+                else {
+                    row += 1;
+                }
             }
             else {
-                row += 1;
+                column += 1;
+            }
+            if (typeof currentCell !== 'string') {
+                currentCell.show = false;
+            }
+            this._showCell(row, column);
+            ev.preventDefault();
+            ev.stopPropagation();
+        }
+        goToCell(row, column) {
+            this._resetControls();
+            this._showCell(row, column);
+        }
+        _resetControls() {
+            this.instance.controls.forEach(row => row[1].forEach(cell => {
+                if (typeof cell !== 'string') {
+                    cell.show = false;
+                }
+            }));
+        }
+        _showCell(row, column) {
+            if (row >= this.instance.controls.length || column >= this.instance.controls[row][1].length) {
+                return;
+            }
+            const nextCell = this.instance.controls[row][1][column];
+            if (typeof nextCell !== 'string') {
+                nextCell.show = true;
             }
         }
-        else {
-            column += 1;
-        }
-        if (typeof currentCell !== 'string') {
-            currentCell.show = false;
-        }
-        this._showCell(row, column);
-        ev.preventDefault();
-        ev.stopPropagation();
-    }
-    /**
-     * @param {?} row
-     * @param {?} column
-     * @return {?}
-     */
-    goToCell(row, column) {
-        this._resetControls();
-        this._showCell(row, column);
-    }
-    /**
-     * @private
-     * @return {?}
-     */
-    _resetControls() {
-        this.instance.controls.forEach((/**
-         * @param {?} row
-         * @return {?}
-         */
-        row => row[1].forEach((/**
-         * @param {?} cell
-         * @return {?}
-         */
-        cell => {
-            if (typeof cell !== 'string') {
-                ((/** @type {?} */ (cell))).show = false;
-            }
-        }))));
-    }
-    /**
-     * @private
-     * @param {?} row
-     * @param {?} column
-     * @return {?}
-     */
-    _showCell(row, column) {
-        if (row >= this.instance.controls.length || column >= this.instance.controls[row][1].length) {
-            return;
-        }
-        /** @type {?} */
-        const nextCell = (/** @type {?} */ (this.instance.controls[row][1][column]));
-        if (typeof nextCell !== 'string') {
-            nextCell.show = true;
-        }
-    }
-}
-/** @nocollapse */
-AjfTableFieldComponent.ctorParameters = () => [
-    { type: ChangeDetectorRef },
-    { type: AjfFormRendererService },
-    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-];
+    };
+    AjfTableFieldComponent = __decorate([
+        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
+        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object])
+    ], AjfTableFieldComponent);
+    return AjfTableFieldComponent;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/attachments/attachment.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -6716,27 +6037,9 @@ AjfTableFieldComponent.ctorParameters = () => [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
- * @template T
  */
-function AjfAttachment() { }
-if (false) {
-    /** @type {?} */
-    AjfAttachment.prototype.label;
-    /** @type {?} */
-    AjfAttachment.prototype.value;
-    /** @type {?} */
-    AjfAttachment.prototype.type;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/attachments/attachments-fixed-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -6758,11 +6061,6 @@ if (false) {
  *
  */
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/attachments/attachments-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -6784,23 +6082,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- * @template T
- */
-function AjfAttachmentsOrigin() { }
-if (false) {
-    /** @type {?} */
-    AjfAttachmentsOrigin.prototype.name;
-    /** @type {?} */
-    AjfAttachmentsOrigin.prototype.attachments;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/attachments/attachments-type.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -6822,19 +6104,8 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/** @enum {number} */
-const AjfAttachmentsType = {
-    Link: 0,
-    Pdf: 1,
-    LENGTH: 2,
-};
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/choices/choice.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -6855,23 +6126,7 @@ const AjfAttachmentsType = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- * @template T
- */
-function AjfChoice() { }
-if (false) {
-    /** @type {?} */
-    AjfChoice.prototype.label;
-    /** @type {?} */
-    AjfChoice.prototype.value;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/choices/choices-fixed-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -6892,22 +6147,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
- * @template T
  */
-function AjfChoicesFixedOrigin() { }
-if (false) {
-    /** @type {?} */
-    AjfChoicesFixedOrigin.prototype.type;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/choices/choices-function.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -6930,11 +6171,6 @@ if (false) {
  *
  */
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/choices/choices-function-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -6955,24 +6191,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
- * @template T
  */
-function AjfChoicesFunctionOrigin() { }
-if (false) {
-    /** @type {?} */
-    AjfChoicesFunctionOrigin.prototype.type;
-    /** @type {?} */
-    AjfChoicesFunctionOrigin.prototype.generator;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/choices/choices-observable-array-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -6993,24 +6213,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
- * @template T
  */
-function AjfChoicesObservableArrayOrigin() { }
-if (false) {
-    /** @type {?} */
-    AjfChoicesObservableArrayOrigin.prototype.type;
-    /** @type {?} */
-    AjfChoicesObservableArrayOrigin.prototype.generator;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/choices/choices-observable-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7031,25 +6235,9 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
- * @template T
  */
-function AjfChoicesObservableOrigin() { }
-if (false) {
-    /** @type {?} */
-    AjfChoicesObservableOrigin.prototype.type;
-    /** @type {?} */
-    AjfChoicesObservableOrigin.prototype.generator;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/choices/choices-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -7069,29 +6257,9 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
- * @template T
  */
-function AjfChoicesOrigin() { }
-if (false) {
-    /** @type {?} */
-    AjfChoicesOrigin.prototype.type;
-    /** @type {?} */
-    AjfChoicesOrigin.prototype.name;
-    /** @type {?} */
-    AjfChoicesOrigin.prototype.label;
-    /** @type {?} */
-    AjfChoicesOrigin.prototype.choices;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/choices/choices-origin-type.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -7113,11 +6281,6 @@ if (false) {
  *
  */
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/choices/choices-promise-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7139,23 +6302,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- * @template T
- */
-function AjfChoicesPromiseOrigin() { }
-if (false) {
-    /** @type {?} */
-    AjfChoicesPromiseOrigin.prototype.type;
-    /** @type {?} */
-    AjfChoicesPromiseOrigin.prototype.generator;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/choices/choices-type.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7177,19 +6324,8 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/** @enum {number} */
-const AjfChoicesType = {
-    String: 0,
-    Number: 1,
-    LENGTH: 2,
-};
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/boolean-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -7210,20 +6346,7 @@ const AjfChoicesType = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfBooleanField() { }
-if (false) {
-    /** @type {?} */
-    AjfBooleanField.prototype.fieldType;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/date-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7244,25 +6367,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfDateField() { }
-if (false) {
-    /** @type {?} */
-    AjfDateField.prototype.fieldType;
-    /** @type {?|undefined} */
-    AjfDateField.prototype.minDate;
-    /** @type {?|undefined} */
-    AjfDateField.prototype.maxDate;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/date-input-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7283,25 +6389,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfDateInputField() { }
-if (false) {
-    /** @type {?} */
-    AjfDateInputField.prototype.fieldType;
-    /** @type {?} */
-    AjfDateInputField.prototype.minDate;
-    /** @type {?} */
-    AjfDateInputField.prototype.maxDate;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/empty-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7322,21 +6411,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfEmptyField() { }
-if (false) {
-    /** @type {?} */
-    AjfEmptyField.prototype.HTML;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7357,43 +6433,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfField() { }
-if (false) {
-    /** @type {?} */
-    AjfField.prototype.nodeType;
-    /** @type {?} */
-    AjfField.prototype.fieldType;
-    /** @type {?|undefined} */
-    AjfField.prototype.description;
-    /** @type {?} */
-    AjfField.prototype.editable;
-    /** @type {?|undefined} */
-    AjfField.prototype.formula;
-    /** @type {?} */
-    AjfField.prototype.defaultValue;
-    /** @type {?} */
-    AjfField.prototype.size;
-    /** @type {?|undefined} */
-    AjfField.prototype.validation;
-    /** @type {?|undefined} */
-    AjfField.prototype.warning;
-    /** @type {?|undefined} */
-    AjfField.prototype.nextSlideCondition;
-    /** @type {?|undefined} */
-    AjfField.prototype.attachmentOrigin;
-    /** @type {?|undefined} */
-    AjfField.prototype.attachments;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/field-components-map.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7415,16 +6456,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfFieldComponentsMap() { }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/field-size.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7448,11 +6480,6 @@ function AjfFieldComponentsMap() { }
  */
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/field-with-choices.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -7472,33 +6499,9 @@ function AjfFieldComponentsMap() { }
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
- * @template T
  */
-function AjfFieldWithChoices() { }
-if (false) {
-    /** @type {?} */
-    AjfFieldWithChoices.prototype.choices;
-    /** @type {?} */
-    AjfFieldWithChoices.prototype.choicesOrigin;
-    /** @type {?|undefined} */
-    AjfFieldWithChoices.prototype.choicesFilter;
-    /** @type {?} */
-    AjfFieldWithChoices.prototype.forceExpanded;
-    /** @type {?} */
-    AjfFieldWithChoices.prototype.forceNarrow;
-    /** @type {?|undefined} */
-    AjfFieldWithChoices.prototype.triggerConditions;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/formula-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -7518,22 +6521,9 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfFormulaField() { }
-if (false) {
-    /** @type {?} */
-    AjfFormulaField.prototype.fieldType;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/multiple-choice-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -7554,21 +6544,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- * @template T
- */
-function AjfMultipleChoiceField() { }
-if (false) {
-    /** @type {?} */
-    AjfMultipleChoiceField.prototype.fieldType;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/number-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7589,21 +6565,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfNumberField() { }
-if (false) {
-    /** @type {?} */
-    AjfNumberField.prototype.fieldType;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/single-choice-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7624,22 +6587,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
- * @template T
  */
-function AjfSingleChoiceField() { }
-if (false) {
-    /** @type {?} */
-    AjfSingleChoiceField.prototype.fieldType;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/string-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7660,21 +6609,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfStringField() { }
-if (false) {
-    /** @type {?} */
-    AjfStringField.prototype.fieldType;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/table-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7695,40 +6631,9 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
- */
-function AjfTableCell() { }
-if (false) {
-    /** @type {?} */
-    AjfTableCell.prototype.formula;
-    /** @type {?|undefined} */
-    AjfTableCell.prototype.editable;
-}
-/**
- * @record
  */
-function AjfTableField() { }
-if (false) {
-    /** @type {?} */
-    AjfTableField.prototype.fieldType;
-    /** @type {?} */
-    AjfTableField.prototype.rows;
-    /** @type {?} */
-    AjfTableField.prototype.columnLabels;
-    /** @type {?} */
-    AjfTableField.prototype.rowLabels;
-    /** @type {?} */
-    AjfTableField.prototype.hideEmptyRows;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/text-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -7748,22 +6653,9 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfTextField() { }
-if (false) {
-    /** @type {?} */
-    AjfTextField.prototype.fieldType;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields/time-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -7783,22 +6675,9 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfTimeField() { }
-if (false) {
-    /** @type {?} */
-    AjfTimeField.prototype.fieldType;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields-instances/date-field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -7818,22 +6697,9 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfDateFieldInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfDateFieldInstance.prototype.node;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields-instances/date-input-field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -7854,20 +6720,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfDateInputFieldInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfDateInputFieldInstance.prototype.node;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields-instances/empty-field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7888,21 +6741,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfEmptyFieldInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfEmptyFieldInstance.prototype.node;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields-instances/field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7923,41 +6763,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfFieldInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfFieldInstance.prototype.valid;
-    /** @type {?} */
-    AjfFieldInstance.prototype.defaultValue;
-    /** @type {?} */
-    AjfFieldInstance.prototype.node;
-    /** @type {?} */
-    AjfFieldInstance.prototype.value;
-    /** @type {?|undefined} */
-    AjfFieldInstance.prototype.formula;
-    /** @type {?|undefined} */
-    AjfFieldInstance.prototype.validation;
-    /** @type {?|undefined} */
-    AjfFieldInstance.prototype.warning;
-    /** @type {?|undefined} */
-    AjfFieldInstance.prototype.nextSlideCondition;
-    /** @type {?|undefined} */
-    AjfFieldInstance.prototype.validationResults;
-    /** @type {?|undefined} */
-    AjfFieldInstance.prototype.warningResults;
-    /** @type {?} */
-    AjfFieldInstance.prototype.warningTrigger;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields-instances/field-state.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -7978,23 +6785,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfFieldState() { }
-if (false) {
-    /** @type {?} */
-    AjfFieldState.prototype.visibility;
-    /** @type {?} */
-    AjfFieldState.prototype.value;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields-instances/field-with-choices-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8015,32 +6807,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
- * @template T
  */
-function AjfFieldWithChoicesInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfFieldWithChoicesInstance.prototype.node;
-    /** @type {?} */
-    AjfFieldWithChoicesInstance.prototype.filteredChoices;
-    /** @type {?|undefined} */
-    AjfFieldWithChoicesInstance.prototype.choicesFilter;
-    /** @type {?|undefined} */
-    AjfFieldWithChoicesInstance.prototype.triggerConditions;
-    /** @type {?} */
-    AjfFieldWithChoicesInstance.prototype.firstTriggerConditionDone;
-    /** @type {?} */
-    AjfFieldWithChoicesInstance.prototype.selectionTrigger;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields-instances/formula-field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8062,22 +6830,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfFormulaFieldInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfFormulaFieldInstance.prototype.node;
-    /** @type {?|undefined} */
-    AjfFormulaFieldInstance.prototype.formula;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/fields-instances/table-field-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8099,28 +6852,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfTableFieldInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfTableFieldInstance.prototype.node;
-    /** @type {?} */
-    AjfTableFieldInstance.prototype.hideEmptyRows;
-    /** @type {?} */
-    AjfTableFieldInstance.prototype.value;
-    /** @type {?} */
-    AjfTableFieldInstance.prototype.controls;
-    /** @type {?} */
-    AjfTableFieldInstance.prototype.context;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/forms/form.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8142,32 +6874,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfForm() { }
-if (false) {
-    /** @type {?} */
-    AjfForm.prototype.nodes;
-    /** @type {?} */
-    AjfForm.prototype.choicesOrigins;
-    /** @type {?} */
-    AjfForm.prototype.attachmentsOrigins;
-    /** @type {?} */
-    AjfForm.prototype.stringIdentifier;
-    /** @type {?|undefined} */
-    AjfForm.prototype.initContext;
-    /** @type {?|undefined} */
-    AjfForm.prototype.supplementaryInformations;
-    /** @type {?|undefined} */
-    AjfForm.prototype.valid;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/forms/form-string-identifier.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8189,23 +6896,8 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfFormStringIdentifier() { }
-if (false) {
-    /** @type {?} */
-    AjfFormStringIdentifier.prototype.label;
-    /** @type {?} */
-    AjfFormStringIdentifier.prototype.value;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes/container-node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -8225,21 +6917,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfContainerNode() { }
-if (false) {
-    /** @type {?} */
-    AjfContainerNode.prototype.nodes;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes/node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8260,35 +6939,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfNode() { }
-if (false) {
-    /** @type {?} */
-    AjfNode.prototype.nodeType;
-    /** @type {?} */
-    AjfNode.prototype.id;
-    /** @type {?} */
-    AjfNode.prototype.parent;
-    /** @type {?} */
-    AjfNode.prototype.parentNode;
-    /** @type {?} */
-    AjfNode.prototype.conditionalBranches;
-    /** @type {?} */
-    AjfNode.prototype.name;
-    /** @type {?} */
-    AjfNode.prototype.label;
-    /** @type {?|undefined} */
-    AjfNode.prototype.visibility;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes/node-group.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8309,21 +6961,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfNodeGroup() { }
-if (false) {
-    /** @type {?} */
-    AjfNodeGroup.prototype.nodeType;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes/node-link.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8344,21 +6983,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfFieldNodeLink() { }
-if (false) {
-    /** @type {?} */
-    AjfFieldNodeLink.prototype.nodeType;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes/repeating-container-node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8381,11 +7007,6 @@ if (false) {
  *
  */
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes/repeating-node.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8407,24 +7028,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfRepeatingNode() { }
-if (false) {
-    /** @type {?|undefined} */
-    AjfRepeatingNode.prototype.formulaReps;
-    /** @type {?} */
-    AjfRepeatingNode.prototype.maxReps;
-    /** @type {?} */
-    AjfRepeatingNode.prototype.minReps;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes-instances/container-node-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8446,22 +7050,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfContainerNodeInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfContainerNodeInstance.prototype.nodes;
-    /** @type {?} */
-    AjfContainerNodeInstance.prototype.flatNodes;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes-instances/node-group-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8483,20 +7072,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfNodeGroupInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfNodeGroupInstance.prototype.node;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes-instances/node-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8518,33 +7094,8 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfNodeInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfNodeInstance.prototype.node;
-    /** @type {?} */
-    AjfNodeInstance.prototype.prefix;
-    /** @type {?} */
-    AjfNodeInstance.prototype.visible;
-    /** @type {?} */
-    AjfNodeInstance.prototype.conditionalBranches;
-    /** @type {?|undefined} */
-    AjfNodeInstance.prototype.visibility;
-    /** @type {?|undefined} */
-    AjfNodeInstance.prototype.verifiedBranch;
-    /** @type {?} */
-    AjfNodeInstance.prototype.updatedEvt;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes-instances/repeating-container-node-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -8564,21 +7115,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfRepeatingContainerNodeInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfRepeatingContainerNodeInstance.prototype.node;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/nodes-instances/repeating-node-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8599,29 +7137,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfRepeatingNodeInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfRepeatingNodeInstance.prototype.node;
-    /** @type {?|undefined} */
-    AjfRepeatingNodeInstance.prototype.formulaReps;
-    /** @type {?} */
-    AjfRepeatingNodeInstance.prototype.reps;
-    /** @type {?|undefined} */
-    AjfRepeatingNodeInstance.prototype.canAdd;
-    /** @type {?|undefined} */
-    AjfRepeatingNodeInstance.prototype.canRemove;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/operations/nodes-instances-operation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8642,17 +7159,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfNodesInstancesOperation() { }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/operations/nodes-operation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8673,17 +7181,8 @@ function AjfNodesInstancesOperation() { }
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfNodesOperation() { }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/operations/renderer-update-map-operation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8704,18 +7203,9 @@ function AjfNodesOperation() { }
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfRendererUpdateMapOperation() { }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/renderer-maps/update-map.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -8735,18 +7225,9 @@ function AjfRendererUpdateMapOperation() { }
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfRendererUpdateMap() { }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/slides/repeating-slide.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -8766,22 +7247,9 @@ function AjfRendererUpdateMap() { }
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfRepeatingSlide() { }
-if (false) {
-    /** @type {?} */
-    AjfRepeatingSlide.prototype.nodeType;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/slides/slide.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -8801,22 +7269,9 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfSlide() { }
-if (false) {
-    /** @type {?} */
-    AjfSlide.prototype.nodeType;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/slides-instances/base-slide-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -8837,24 +7292,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfBaseSlideInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfBaseSlideInstance.prototype.slideNodes;
-    /** @type {?} */
-    AjfBaseSlideInstance.prototype.valid;
-    /** @type {?} */
-    AjfBaseSlideInstance.prototype.position;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/slides-instances/repeating-slide-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8875,21 +7313,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfRepeatingSlideInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfRepeatingSlideInstance.prototype.node;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/slides-instances/slide-instance.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8910,21 +7335,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfSlideInstance() { }
-if (false) {
-    /** @type {?} */
-    AjfSlideInstance.prototype.node;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/validation/validation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8945,23 +7357,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfValidation() { }
-if (false) {
-    /** @type {?} */
-    AjfValidation.prototype.clientValidation;
-    /** @type {?} */
-    AjfValidation.prototype.errorMessage;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/validation/validation-group.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -8982,33 +7379,8 @@ if (false) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @record
  */
-function AjfValidationGroup() { }
-if (false) {
-    /** @type {?|undefined} */
-    AjfValidationGroup.prototype.forceValue;
-    /** @type {?|undefined} */
-    AjfValidationGroup.prototype.maxValue;
-    /** @type {?|undefined} */
-    AjfValidationGroup.prototype.minValue;
-    /** @type {?|undefined} */
-    AjfValidationGroup.prototype.notEmpty;
-    /** @type {?|undefined} */
-    AjfValidationGroup.prototype.maxDigits;
-    /** @type {?|undefined} */
-    AjfValidationGroup.prototype.minDigits;
-    /** @type {?} */
-    AjfValidationGroup.prototype.conditions;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/validation/validation-results.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -9030,24 +7402,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfValidationResult() { }
-if (false) {
-    /** @type {?} */
-    AjfValidationResult.prototype.result;
-    /** @type {?} */
-    AjfValidationResult.prototype.error;
-    /** @type {?} */
-    AjfValidationResult.prototype.clientValidation;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/warning/warning.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -9069,20 +7424,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfWarning() { }
-if (false) {
-    /** @type {?} */
-    AjfWarning.prototype.warningMessage;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/warning/warning-group.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -9104,22 +7446,7 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfWarningGroup() { }
-if (false) {
-    /** @type {?|undefined} */
-    AjfWarningGroup.prototype.notEmpty;
-    /** @type {?} */
-    AjfWarningGroup.prototype.conditions;
-}
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/interface/warning/warning-result.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -9141,39 +7468,34 @@ if (false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-/**
- * @record
- */
-function AjfWarningResult() { }
-if (false) {
-    /** @type {?} */
-    AjfWarningResult.prototype.result;
-    /** @type {?} */
-    AjfWarningResult.prototype.warning;
-}
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/choices/create-choices-fixed-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @template T
- * @param {?} origin
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createChoicesFixedOrigin(origin) {
-    /** @type {?} */
     const type = 'fixed';
     return Object.assign(Object.assign({}, createChoicesOrigin(Object.assign(Object.assign({}, origin), { type }))), { type });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/choices/create-choices-function-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -9193,22 +7515,12 @@ function createChoicesFixedOrigin(origin) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @template T
- * @param {?} origin
- * @return {?}
  */
 function createChoicesFunctionOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { type: 'function', label: origin.label || '', choices: origin.choices || [] });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/choices/create-choices-observable-array-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -9228,22 +7540,12 @@ function createChoicesFunctionOrigin(origin) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @template T
- * @param {?} origin
- * @return {?}
  */
 function createChoicesObservableArrayOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { type: 'observableArray', label: origin.label || '', choices: origin.choices || [] });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/choices/create-choices-observable-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -9263,22 +7565,12 @@ function createChoicesObservableArrayOrigin(origin) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @template T
- * @param {?} origin
- * @return {?}
  */
 function createChoicesObservableOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { type: 'observable', label: origin.label || '', choices: origin.choices || [] });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/choices/create-choices-promise-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -9298,22 +7590,12 @@ function createChoicesObservableOrigin(origin) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @template T
- * @param {?} origin
- * @return {?}
  */
 function createChoicesPromiseOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { type: 'promise', label: origin.label || '', choices: origin.choices || [] });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/choices/is-choices-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
  * @license
  * Copyright (C) Gnucoop soc. coop.
  *
@@ -9333,10 +7615,6 @@ function createChoicesPromiseOrigin(origin) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
- */
-/**
- * @param {?} co
- * @return {?}
  */
 function isChoicesOrigin(co) {
     return co != null && typeof co === 'object' && co.name != null && typeof co.name === 'string' &&
@@ -9346,36 +7624,30 @@ function isChoicesOrigin(co) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/choices/is-choices-fixed-origin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} origin
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function isChoicesFixedOrigin(origin) {
     return isChoicesOrigin(origin) && origin.type === 'fixed';
 }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/fields/is-number-field.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} field
- * @return {?}
- */
-function isNumberField(field) {
-    return field.fieldType === AjfFieldType.Number;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/forms/create-form.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /**
  * @license
  * Copyright (C) Gnucoop soc. coop.
@@ -9397,9 +7669,30 @@ function isNumberField(field) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+function isNumberField(field) {
+    return field.fieldType === AjfFieldType.Number;
+}
+
 /**
- * @param {?=} form
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function createForm(form = {}) {
     return {
@@ -9407,19 +7700,31 @@ function createForm(form = {}) {
         choicesOrigins: form.choicesOrigins || [],
         attachmentsOrigins: form.attachmentsOrigins || [],
         initContext: form.initContext || {},
-        stringIdentifier: form.stringIdentifier || (/** @type {?} */ ([])),
+        stringIdentifier: form.stringIdentifier || [],
         supplementaryInformations: form.supplementaryInformations,
     };
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/max-digits-validation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} maxValue
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function maxDigitsValidation(maxValue) {
     return createValidation({
@@ -9429,13 +7734,25 @@ function maxDigitsValidation(maxValue) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/max-validation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} maxValue
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function maxValidation(maxValue) {
     return createValidation({
@@ -9445,13 +7762,25 @@ function maxValidation(maxValue) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/min-digits-validation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} minValue
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function minDigitsValidation(minValue) {
     return createValidation({
@@ -9461,13 +7790,25 @@ function minDigitsValidation(minValue) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/min-validation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} minValue
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function minValidation(minValue) {
     return createValidation({
@@ -9477,33 +7818,75 @@ function minValidation(minValue) {
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/validation/not-empty-validation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function notEmptyValidation() {
     return createValidation({ condition: `notEmpty($value)`, errorMessage: `Value must not be empty` });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/utils/warning/not-empty-warning.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @return {?}
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 function notEmptyWarning() {
     return createWarning({ condition: 'notEmpty($value)', warningMessage: 'Value must not be empty' });
 }
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/forms/public-api.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 
 /**

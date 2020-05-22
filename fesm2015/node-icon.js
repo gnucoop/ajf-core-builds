@@ -1,88 +1,86 @@
+import { __decorate, __metadata } from 'tslib';
 import { AjfNodeType, AjfFieldType } from '@ajf/core/forms';
-import { Directive, Input } from '@angular/core';
+import { Input, Directive } from '@angular/core';
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/node-icon/node-icon.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
-/**
- * @abstract
- */
-class AjfNodeIcon {
-    /**
-     * @return {?}
-     */
-    get fontSet() {
-        return this._fontSet;
-    }
-    /**
-     * @return {?}
-     */
-    get fontIcon() {
-        return this._fontIcon;
-    }
-    /**
-     * @return {?}
-     */
-    get node() {
-        return this._node;
-    }
-    /**
-     * @param {?} node
-     * @return {?}
-     */
-    set node(node) {
-        this._node = node;
-        this._fontSet = 'ajf-icon';
-        this._fontIcon = this._getFontIcon(node);
-    }
-    /**
-     * @private
-     * @param {?} node
-     * @return {?}
-     */
-    _getFontIcon(node) {
-        switch (node.nodeType) {
-            case AjfNodeType.AjfField:
-                /** @type {?} */
-                const fieldType = AjfFieldType[((/** @type {?} */ (node))).fieldType];
-                return fieldType != null ? `field-${fieldType.toLowerCase()}` : '';
-            default:
-                /** @type {?} */
-                const nodeType = AjfNodeType[node.nodeType];
-                return nodeType != null ? `node-${nodeType.toLowerCase().replace('ajf', '')}` : '';
+let AjfNodeIcon = /** @class */ (() => {
+    let AjfNodeIcon = class AjfNodeIcon {
+        get fontSet() {
+            return this._fontSet;
         }
-    }
-}
-AjfNodeIcon.decorators = [
-    { type: Directive }
-];
-AjfNodeIcon.propDecorators = {
-    node: [{ type: Input }]
-};
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfNodeIcon.prototype._fontSet;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfNodeIcon.prototype._fontIcon;
-    /**
-     * @type {?}
-     * @private
-     */
-    AjfNodeIcon.prototype._node;
-}
+        get fontIcon() {
+            return this._fontIcon;
+        }
+        get node() {
+            return this._node;
+        }
+        set node(node) {
+            this._node = node;
+            this._fontSet = 'ajf-icon';
+            this._fontIcon = this._getFontIcon(node);
+        }
+        _getFontIcon(node) {
+            switch (node.nodeType) {
+                case AjfNodeType.AjfField:
+                    const fieldType = AjfFieldType[node.fieldType];
+                    return fieldType != null ? `field-${fieldType.toLowerCase()}` : '';
+                default:
+                    const nodeType = AjfNodeType[node.nodeType];
+                    return nodeType != null ? `node-${nodeType.toLowerCase().replace('ajf', '')}` : '';
+            }
+        }
+    };
+    __decorate([
+        Input(),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [Object])
+    ], AjfNodeIcon.prototype, "node", null);
+    AjfNodeIcon = __decorate([
+        Directive()
+    ], AjfNodeIcon);
+    return AjfNodeIcon;
+})();
 
 /**
- * @fileoverview added by tsickle
- * Generated from: src/core/node-icon/public-api.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 
 /**

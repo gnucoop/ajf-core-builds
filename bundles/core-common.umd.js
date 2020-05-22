@@ -1,188 +1,22 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@ngx-translate/core')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/common', ['exports', '@angular/core', '@angular/common', '@ngx-translate/core'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.common = {}), global.ng.core, global.ng.common, global.ngxTranslate.core));
-}(this, (function (exports, core, common, core$1) { 'use strict';
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var ApplyStylesDirective = /** @class */ (function () {
-        function ApplyStylesDirective(_el, _renderer) {
-            this._el = _el;
-            this._renderer = _renderer;
-        }
-        Object.defineProperty(ApplyStylesDirective.prototype, "applyStyles", {
-            set: function (cssStyles) {
-                if (cssStyles != null && this._cssStyles !== cssStyles) {
-                    this._cssStyles = cssStyles;
-                    this._updateStyles();
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        ApplyStylesDirective.prototype._updateStyles = function () {
-            var _this = this;
-            if (this._cssStyles == null) {
-                return;
-            }
-            Object.keys(this._cssStyles).forEach(function (style) {
-                try {
-                    _this._renderer.setStyle(_this._el.nativeElement, style, "" + _this._cssStyles[style]);
-                }
-                catch (e) {
-                }
-            });
-        };
-        ApplyStylesDirective.decorators = [
-            { type: core.Directive, args: [{ selector: '[applyStyles]' },] }
-        ];
-        /** @nocollapse */
-        ApplyStylesDirective.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.Renderer2 }
-        ]; };
-        ApplyStylesDirective.propDecorators = {
-            applyStyles: [{ type: core.Input }]
-        };
-        return ApplyStylesDirective;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AutofocusDirective = /** @class */ (function () {
-        function AutofocusDirective(_el) {
-            this._el = _el;
-        }
-        AutofocusDirective.prototype.ngAfterContentInit = function () {
-            this._el.nativeElement.focus();
-        };
-        AutofocusDirective.decorators = [
-            { type: core.Directive, args: [{ selector: '[autoFocus]' },] }
-        ];
-        /** @nocollapse */
-        AutofocusDirective.ctorParameters = function () { return [
-            { type: core.ElementRef }
-        ]; };
-        AutofocusDirective.propDecorators = {
-            appAutoFocus: [{ type: core.Input }]
-        };
-        return AutofocusDirective;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfDndDirective = /** @class */ (function () {
-        function AjfDndDirective() {
-            this.file = new core.EventEmitter();
-            this.background = '#eee';
-        }
-        AjfDndDirective.prototype.onDragOver = function (evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            this.background = '#999';
-        };
-        AjfDndDirective.prototype.onDragLeave = function (evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            this.background = '#eee';
-        };
-        AjfDndDirective.prototype.onDrop = function (evt) {
-            evt.preventDefault();
-            evt.stopPropagation();
-            var files = evt.dataTransfer.files;
-            if (files.length > 0) {
-                this.background = '#eee';
-                this.file.emit(files);
-            }
-        };
-        AjfDndDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[ajfDnd]',
-                        host: {
-                            '[style.background]': 'background',
-                            '(dragover)': 'onDragOver($event)',
-                            '(dragleave)': 'onDragLeave($event)',
-                            '(drop)': 'onDrop($event)',
-                        }
-                    },] }
-        ];
-        AjfDndDirective.propDecorators = {
-            file: [{ type: core.Output }]
-        };
-        return AjfDndDirective;
-    }());
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/common'), require('@ngx-translate/core')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/common', ['exports', '@angular/core', 'rxjs', '@angular/common', '@ngx-translate/core'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.common = {}), global.ng.core, global.rxjs, global.ng.common, global.ngxTranslate.core));
+}(this, (function (exports, core, rxjs, common, core$1) { 'use strict';
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -238,10 +72,11 @@
     }
 
     function __awaiter(thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
             function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
             function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
@@ -274,19 +109,28 @@
         }
     }
 
+    var __createBinding = Object.create ? (function(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    }) : (function(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+    });
+
     function __exportStar(m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
     }
 
     function __values(o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
         if (m) return m.call(o);
-        return {
+        if (o && typeof o.length === "number") return {
             next: function () {
                 if (o && i >= o.length) o = void 0;
                 return { value: o && o[i++], done: !o };
             }
         };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
 
     function __read(o, n) {
@@ -355,17 +199,191 @@
         return cooked;
     };
 
+    var __setModuleDefault = Object.create ? (function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+    }) : function(o, v) {
+        o["default"] = v;
+    };
+
     function __importStar(mod) {
         if (mod && mod.__esModule) return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-        result.default = mod;
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+        __setModuleDefault(result, mod);
         return result;
     }
 
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
+
+    function __classPrivateFieldGet(receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to get private field on non-instance");
+        }
+        return privateMap.get(receiver);
+    }
+
+    function __classPrivateFieldSet(receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to set private field on non-instance");
+        }
+        privateMap.set(receiver, value);
+        return value;
+    }
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var ApplyStylesDirective = /** @class */ (function () {
+        function ApplyStylesDirective(_el, _renderer) {
+            this._el = _el;
+            this._renderer = _renderer;
+        }
+        Object.defineProperty(ApplyStylesDirective.prototype, "applyStyles", {
+            set: function (cssStyles) {
+                if (cssStyles != null && this._cssStyles !== cssStyles) {
+                    this._cssStyles = cssStyles;
+                    this._updateStyles();
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        ApplyStylesDirective.prototype._updateStyles = function () {
+            var _this = this;
+            if (this._cssStyles == null) {
+                return;
+            }
+            Object.keys(this._cssStyles).forEach(function (style) {
+                try {
+                    _this._renderer.setStyle(_this._el.nativeElement, style, "" + _this._cssStyles[style]);
+                }
+                catch (e) {
+                }
+            });
+        };
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Object),
+            __metadata("design:paramtypes", [Object])
+        ], ApplyStylesDirective.prototype, "applyStyles", null);
+        ApplyStylesDirective = __decorate([
+            core.Directive({ selector: '[applyStyles]' }),
+            __metadata("design:paramtypes", [core.ElementRef, core.Renderer2])
+        ], ApplyStylesDirective);
+        return ApplyStylesDirective;
+    }());
+
+    var AutofocusDirective = /** @class */ (function () {
+        function AutofocusDirective(_el) {
+            this._el = _el;
+        }
+        AutofocusDirective.prototype.ngAfterContentInit = function () {
+            this._el.nativeElement.focus();
+        };
+        __decorate([
+            core.Input(),
+            __metadata("design:type", Boolean)
+        ], AutofocusDirective.prototype, "appAutoFocus", void 0);
+        AutofocusDirective = __decorate([
+            core.Directive({ selector: '[autoFocus]' }),
+            __metadata("design:paramtypes", [core.ElementRef])
+        ], AutofocusDirective);
+        return AutofocusDirective;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfDndDirective = /** @class */ (function () {
+        function AjfDndDirective() {
+            this._file = new core.EventEmitter();
+            this.file = this._file.asObservable();
+            this._over = false;
+        }
+        Object.defineProperty(AjfDndDirective.prototype, "over", {
+            get: function () {
+                return this._over;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        AjfDndDirective.prototype.onDragOver = function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            this._over = true;
+        };
+        AjfDndDirective.prototype.onDragLeave = function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            this._over = false;
+        };
+        AjfDndDirective.prototype.onDrop = function (evt) {
+            evt.preventDefault();
+            evt.stopPropagation();
+            if (evt.dataTransfer == null || evt.dataTransfer.files.length === 0) {
+                return;
+            }
+            var files = evt.dataTransfer.files;
+            if (files.length > 0) {
+                this._over = false;
+                this._file.emit(files);
+            }
+        };
+        __decorate([
+            core.Output(),
+            __metadata("design:type", rxjs.Observable)
+        ], AjfDndDirective.prototype, "file", void 0);
+        AjfDndDirective = __decorate([
+            core.Directive({
+                selector: '[ajfDnd]',
+                host: {
+                    '[class.ajf-dnd-over]': 'over',
+                    '(dragover)': 'onDragOver($event)',
+                    '(dragleave)': 'onDragLeave($event)',
+                    '(drop)': 'onDrop($event)',
+                }
+            })
+        ], AjfDndDirective);
+        return AjfDndDirective;
+    }());
 
     /**
      * @license
@@ -401,9 +419,9 @@
                 return value;
             }
         };
-        FormatIfNumber.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfFormatIfNumber' },] }
-        ];
+        FormatIfNumber = __decorate([
+            core.Pipe({ name: 'ajfFormatIfNumber' })
+        ], FormatIfNumber);
         return FormatIfNumber;
     }(common.DecimalPipe));
 
@@ -445,9 +463,9 @@
                 return query;
             }
         };
-        TranslateIfString.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfTranslateIfString' },] }
-        ];
+        TranslateIfString = __decorate([
+            core.Pipe({ name: 'ajfTranslateIfString' })
+        ], TranslateIfString);
         return TranslateIfString;
     }(core$1.TranslatePipe));
 
@@ -486,7 +504,7 @@
                 this._source = source;
                 this._initCam();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         AjfVideoDirective.prototype._initCam = function () {
@@ -506,18 +524,19 @@
             this._renderer.appendChild(this._el.nativeElement, this._source);
             this.isInit.emit();
         };
-        AjfVideoDirective.decorators = [
-            { type: core.Directive, args: [{ selector: '[ajfVideoDirective]' },] }
-        ];
-        /** @nocollapse */
-        AjfVideoDirective.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.Renderer2 }
-        ]; };
-        AjfVideoDirective.propDecorators = {
-            source: [{ type: core.Input }],
-            isInit: [{ type: core.Output }]
-        };
+        __decorate([
+            core.Input(),
+            __metadata("design:type", HTMLVideoElement),
+            __metadata("design:paramtypes", [HTMLVideoElement])
+        ], AjfVideoDirective.prototype, "source", null);
+        __decorate([
+            core.Output(),
+            __metadata("design:type", core.EventEmitter)
+        ], AjfVideoDirective.prototype, "isInit", void 0);
+        AjfVideoDirective = __decorate([
+            core.Directive({ selector: '[ajfVideoDirective]' }),
+            __metadata("design:paramtypes", [core.ElementRef, core.Renderer2])
+        ], AjfVideoDirective);
         return AjfVideoDirective;
     }());
 
@@ -545,26 +564,26 @@
     var AjfCommonModule = /** @class */ (function () {
         function AjfCommonModule() {
         }
-        AjfCommonModule.decorators = [
-            { type: core.NgModule, args: [{
-                        declarations: [
-                            AjfDndDirective,
-                            AjfVideoDirective,
-                            ApplyStylesDirective,
-                            AutofocusDirective,
-                            FormatIfNumber,
-                            TranslateIfString,
-                        ],
-                        exports: [
-                            AjfDndDirective,
-                            AjfVideoDirective,
-                            ApplyStylesDirective,
-                            AutofocusDirective,
-                            FormatIfNumber,
-                            TranslateIfString,
-                        ],
-                    },] }
-        ];
+        AjfCommonModule = __decorate([
+            core.NgModule({
+                declarations: [
+                    AjfDndDirective,
+                    AjfVideoDirective,
+                    ApplyStylesDirective,
+                    AutofocusDirective,
+                    FormatIfNumber,
+                    TranslateIfString,
+                ],
+                exports: [
+                    AjfDndDirective,
+                    AjfVideoDirective,
+                    ApplyStylesDirective,
+                    AutofocusDirective,
+                    FormatIfNumber,
+                    TranslateIfString,
+                ],
+            })
+        ], AjfCommonModule);
         return AjfCommonModule;
     }());
 

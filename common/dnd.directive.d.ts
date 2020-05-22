@@ -19,11 +19,13 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
 export declare class AjfDndDirective {
-    file: EventEmitter<any>;
-    background: string;
-    onDragOver(evt: Event): void;
-    onDragLeave(evt: Event): void;
-    onDrop(evt: any): void;
+    private _file;
+    file: Observable<FileList>;
+    private _over;
+    get over(): boolean;
+    onDragOver(evt: DragEvent): void;
+    onDragLeave(evt: DragEvent): void;
+    onDrop(evt: DragEvent): void;
 }
