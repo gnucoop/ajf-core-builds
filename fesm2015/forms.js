@@ -1,8 +1,8 @@
 import { __decorate, __rest, __metadata, __param } from 'tslib';
-import { Pipe, EventEmitter, Injectable, Directive, ChangeDetectorRef, ViewContainerRef, ViewChild, Input, ComponentFactoryResolver, Output, ViewChildren, QueryList, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, NgModule } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Pipe, EventEmitter, Injectable, Directive, ChangeDetectorRef, ViewContainerRef, ViewChild, Input, ComponentFactoryResolver, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Output, ViewChildren, QueryList, NgModule } from '@angular/core';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subject, BehaviorSubject, Subscription, Observable, of, from, timer, defer } from 'rxjs';
-import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen } from 'rxjs/operators';
+import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen, shareReplay, catchError } from 'rxjs/operators';
 import { deepCopy } from '@ajf/core/utils';
 import * as esprima from 'esprima';
 import esprima__default from 'esprima';
@@ -11,7 +11,10 @@ import { format } from 'date-fns';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { AjfPageSlider } from '@ajf/core/page-slider';
 import { AjfCommonModule } from '@ajf/core/common';
+import { fileIcon, AjfFileInputModule } from '@ajf/core/file-input';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * @license
@@ -117,7 +120,10 @@ var AjfFieldType;
     AjfFieldType[AjfFieldType["Table"] = 11] = "Table";
     AjfFieldType[AjfFieldType["Geolocation"] = 12] = "Geolocation";
     AjfFieldType[AjfFieldType["Barcode"] = 13] = "Barcode";
-    AjfFieldType[AjfFieldType["LENGTH"] = 14] = "LENGTH";
+    AjfFieldType[AjfFieldType["File"] = 14] = "File";
+    AjfFieldType[AjfFieldType["Image"] = 15] = "Image";
+    AjfFieldType[AjfFieldType["VideoUrl"] = 16] = "VideoUrl";
+    AjfFieldType[AjfFieldType["LENGTH"] = 17] = "LENGTH";
 })(AjfFieldType || (AjfFieldType = {}));
 
 /**
@@ -4555,6 +4561,70 @@ class AjfFieldWithChoicesComponent extends AjfBaseFieldComponent {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const AJF_WARNING_ALERT_SERVICE = new InjectionToken('ajf-warning-alert-service');
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfFileFieldComponent = /** @class */ (() => {
+    let AjfFileFieldComponent = class AjfFileFieldComponent extends AjfBaseFieldComponent {
+        constructor(cdr, service, was) {
+            super(cdr, service, was);
+        }
+    };
+    AjfFileFieldComponent = __decorate([
+        Component({
+            selector: 'ajf-file-field',
+            template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            encapsulation: ViewEncapsulation.None,
+            styles: ["\n"]
+        }),
+        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
+        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object])
+    ], AjfFileFieldComponent);
+    return AjfFileFieldComponent;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 class AjfFormActionEvent {
 }
 let AjfFormRenderer = /** @class */ (() => {
@@ -4925,6 +4995,52 @@ let AjfGetTableCellControlPipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+let AjfImageFieldComponent = /** @class */ (() => {
+    let AjfImageFieldComponent = class AjfImageFieldComponent extends AjfBaseFieldComponent {
+        constructor(cdr, service, was, domSanitizer) {
+            super(cdr, service, was);
+            const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
+                control = control;
+                return control.valueChanges.pipe(startWith(control.value));
+            }), filter(value => value != null), shareReplay(1));
+            this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
+        }
+    };
+    AjfImageFieldComponent = __decorate([
+        Component({
+            selector: 'ajf-image-field',
+            template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            encapsulation: ViewEncapsulation.None,
+            styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"]
+        }),
+        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
+        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer])
+    ], AjfImageFieldComponent);
+    return AjfImageFieldComponent;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 let AjfIncrementPipe = /** @class */ (() => {
     let AjfIncrementPipe = class AjfIncrementPipe {
         transform(value, increment = 1) {
@@ -5126,29 +5242,6 @@ class AjfInputFieldComponent extends AjfBaseFieldComponent {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const AJF_WARNING_ALERT_SERVICE = new InjectionToken('ajf-warning-alert-service');
-
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
 let AjfReadOnlyFieldComponent = /** @class */ (() => {
     let AjfReadOnlyFieldComponent = class AjfReadOnlyFieldComponent extends AjfInputFieldComponent {
         constructor(cdr, service, was) {
@@ -5190,6 +5283,100 @@ let AjfReadOnlyFieldComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+let AjfReadOnlyFileFieldComponent = /** @class */ (() => {
+    let AjfReadOnlyFileFieldComponent = class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
+        constructor(cdr, service, was, domSanitizer) {
+            super(cdr, service, was);
+            this.fileIcon = domSanitizer.bypassSecurityTrustResourceUrl(fileIcon);
+            const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
+                control = control;
+                return control.valueChanges.pipe(startWith(control.value));
+            }), filter(value => value != null), shareReplay(1));
+            this.fileUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
+            this.fileName = fileStream.pipe(map(file => file.name));
+        }
+    };
+    AjfReadOnlyFileFieldComponent = __decorate([
+        Component({
+            selector: 'ajf-read-only-file-field',
+            template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            encapsulation: ViewEncapsulation.None,
+            styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"]
+        }),
+        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
+        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer])
+    ], AjfReadOnlyFileFieldComponent);
+    return AjfReadOnlyFileFieldComponent;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfReadOnlyImageFieldComponent = /** @class */ (() => {
+    let AjfReadOnlyImageFieldComponent = class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
+        constructor(cdr, service, was, domSanitizer) {
+            super(cdr, service, was);
+            const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
+                control = control;
+                return control.valueChanges.pipe(startWith(control.value));
+            }), filter(value => value != null), shareReplay(1));
+            this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
+        }
+    };
+    AjfReadOnlyImageFieldComponent = __decorate([
+        Component({
+            selector: 'ajf-read-only-image-field',
+            template: "<img *ngIf=\"imageUrl|async as iu ; else noImage\" [src]=\"imageUrl|async\">\n<ng-template #noImage>\n  <div class=\"ajf-no-image-placeholder\"></div>\n</ng-template>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            encapsulation: ViewEncapsulation.None,
+            styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"]
+        }),
+        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
+        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer])
+    ], AjfReadOnlyImageFieldComponent);
+    return AjfReadOnlyImageFieldComponent;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 let AjfReadOnlyTableFieldComponent = /** @class */ (() => {
     let AjfReadOnlyTableFieldComponent = class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent {
         constructor(cdr, service, was) {
@@ -5207,6 +5394,202 @@ let AjfReadOnlyTableFieldComponent = /** @class */ (() => {
         __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object])
     ], AjfReadOnlyTableFieldComponent);
     return AjfReadOnlyTableFieldComponent;
+})();
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfVideoUrlFieldComponent = /** @class */ (() => {
+    let AjfVideoUrlFieldComponent = class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
+        constructor(cdr, service, was, domSanitizer, httpClient) {
+            super(cdr, service, was);
+            const video = this.control.pipe(filter(control => control != null), switchMap(control => {
+                control = control;
+                return control.valueChanges.pipe(startWith(control.value));
+            }), filter(value => value != null), map(value => getVideoProviderAndId(value)));
+            this.validUrl = video.pipe(map(v => v != null));
+            this.videoThumbnail = video.pipe(filter(info => info != null), switchMap(info => videoPreviewUrl(httpClient, info)), filter(url => url != null), map(url => domSanitizer.bypassSecurityTrustResourceUrl(url)));
+        }
+    };
+    AjfVideoUrlFieldComponent = __decorate([
+        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
+        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer,
+            HttpClient])
+    ], AjfVideoUrlFieldComponent);
+    return AjfVideoUrlFieldComponent;
+})();
+function videoPreviewUrl(httpClient, video) {
+    if (video.provider === 'youtube') {
+        return of(`https://img.youtube.com/vi/${video.id}/default.jpg`);
+    }
+    if (video.provider === 'vimeo') {
+        return httpClient
+            .get(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${video.id}`)
+            .pipe(map(response => response.thumbnail_url), catchError(() => of(null)));
+    }
+    return of('');
+}
+function getVideoProviderAndId(url) {
+    let provider = null;
+    let id = null;
+    if (/youtube|youtu\.be|y2u\.be|i.ytimg\./.test(url)) {
+        provider = 'youtube';
+        id = getYouTubeVideoId(url);
+    }
+    else if (/vimeo/.test(url)) {
+        provider = 'vimeo';
+        id = getVimeoVideoId(url);
+    }
+    if (provider == null || id == null) {
+        return null;
+    }
+    return { provider, id };
+}
+function getVimeoVideoId(url) {
+    if (url.indexOf('#') > -1) {
+        url = url.split('#')[0];
+    }
+    if (url.indexOf('?') > -1 && url.indexOf('clip_id=') === -1) {
+        url = url.split('?')[0];
+    }
+    let id = null;
+    let arr;
+    const vimeoPipe = [
+        'https?:\/\/vimeo\.com\/[0-9]+$', 'https?:\/\/player\.vimeo\.com\/video\/[0-9]+$',
+        'https?:\/\/vimeo\.com\/channels', 'groups', 'album'
+    ].join('|');
+    const vimeoRegex = new RegExp(vimeoPipe, 'gim');
+    if (vimeoRegex.test(url)) {
+        arr = url.split('/');
+        if (arr && arr.length) {
+            id = arr.pop();
+        }
+    }
+    else if (/clip_id=/gim.test(url)) {
+        arr = url.split('clip_id=');
+        if (arr && arr.length) {
+            id = arr[1].split('&')[0];
+        }
+    }
+    return id;
+}
+function getYouTubeVideoId(url) {
+    const shortcode = /youtube:\/\/|https?:\/\/youtu\.be\/|http:\/\/y2u\.be\//g;
+    if (shortcode.test(url)) {
+        const shortcodeId = url.split(shortcode)[1];
+        return stripParameters(shortcodeId);
+    }
+    // /v/ or /vi/
+    const inlinev = /\/v\/|\/vi\//g;
+    if (inlinev.test(url)) {
+        const inlineId = url.split(inlinev)[1];
+        return stripParameters(inlineId);
+    }
+    // v= or vi=
+    const parameterV = /v=|vi=/g;
+    if (parameterV.test(url)) {
+        const arr = url.split(parameterV);
+        return arr[1].split('&')[0];
+    }
+    // v= or vi=
+    const parameterWebp = /\/an_webp\//g;
+    if (parameterWebp.test(url)) {
+        const webp = url.split(parameterWebp)[1];
+        return stripParameters(webp);
+    }
+    // embed
+    const embedReg = /\/embed\//g;
+    if (embedReg.test(url)) {
+        const embedId = url.split(embedReg)[1];
+        return stripParameters(embedId);
+    }
+    // ignore /user/username pattern
+    const usernameReg = /\/user\/([a-zA-Z0-9]*)$/g;
+    if (usernameReg.test(url)) {
+        return null;
+    }
+    // user
+    const userReg = /\/user\/(?!.*videos)/g;
+    if (userReg.test(url)) {
+        const elements = url.split('/');
+        return stripParameters(elements.pop());
+    }
+    // attribution_link
+    const attrReg = /\/attribution_link\?.*v%3D([^%&]*)(%26|&|$)/;
+    if (attrReg.test(url)) {
+        return url.match(attrReg)[1];
+    }
+    return null;
+}
+function stripParameters(url) {
+    // Split parameters or split folder separator
+    if (url.indexOf('?') > -1) {
+        return url.split('?')[0];
+    }
+    else if (url.indexOf('/') > -1) {
+        return url.split('/')[0];
+    }
+    return url;
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+let AjfReadOnlyVideoUrlFieldComponent = /** @class */ (() => {
+    let AjfReadOnlyVideoUrlFieldComponent = class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
+        constructor(cdr, service, was, domSanitizer, httpClient) {
+            super(cdr, service, was, domSanitizer, httpClient);
+        }
+    };
+    AjfReadOnlyVideoUrlFieldComponent = __decorate([
+        Component({
+            selector: 'ajf-read-only-video-url-field',
+            template: "<div *ngIf=\"control|async as ctrl\" class=\"ajf-video-thumbnail\">\n  <ng-container *ngIf=\"validUrl|async\">\n    <a target=\"_blank\" [href]=\"ctrl.value\">\n      <img *ngIf=\"videoThumbnail|async as thumb\" [src]=\"thumb\" class=\"\" alt=\"\">\n    </a>\n  </ng-container>\n</div>\n",
+            changeDetection: ChangeDetectionStrategy.OnPush,
+            encapsulation: ViewEncapsulation.None,
+            styles: ["\n"]
+        }),
+        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
+        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer,
+            HttpClient])
+    ], AjfReadOnlyVideoUrlFieldComponent);
+    return AjfReadOnlyVideoUrlFieldComponent;
 })();
 
 /**
@@ -5367,19 +5750,30 @@ let AjfFormsModule = /** @class */ (() => {
                 AjfFieldHost,
                 AjfFieldIconPipe,
                 AjfFieldIsValidPipe,
+                AjfFileFieldComponent,
                 AjfGetTableCellControlPipe,
+                AjfImageFieldComponent,
                 AjfIncrementPipe,
                 AjfIsCellEditablePipe,
                 AjfIsRepeatingSlideInstancePipe,
                 AjfNodeCompleteNamePipe,
                 AjfRangePipe,
                 AjfReadOnlyFieldComponent,
+                AjfReadOnlyFileFieldComponent,
+                AjfReadOnlyImageFieldComponent,
                 AjfReadOnlyTableFieldComponent,
+                AjfReadOnlyVideoUrlFieldComponent,
                 AjfTableRowClass,
                 AjfTableVisibleColumnsPipe,
                 AjfValidSlidePipe,
             ],
-            imports: [AjfCommonModule, CommonModule],
+            imports: [
+                AjfCommonModule,
+                AjfFileInputModule,
+                CommonModule,
+                HttpClientModule,
+                ReactiveFormsModule,
+            ],
             exports: [
                 AjfAsFieldInstancePipe,
                 AjfAsRepeatingSlideInstancePipe,
@@ -5390,14 +5784,19 @@ let AjfFormsModule = /** @class */ (() => {
                 AjfFieldHost,
                 AjfFieldIconPipe,
                 AjfFieldIsValidPipe,
+                AjfFileFieldComponent,
                 AjfGetTableCellControlPipe,
+                AjfImageFieldComponent,
                 AjfIncrementPipe,
                 AjfIsCellEditablePipe,
                 AjfIsRepeatingSlideInstancePipe,
                 AjfNodeCompleteNamePipe,
                 AjfRangePipe,
                 AjfReadOnlyFieldComponent,
+                AjfReadOnlyFileFieldComponent,
+                AjfReadOnlyImageFieldComponent,
                 AjfReadOnlyTableFieldComponent,
+                AjfReadOnlyVideoUrlFieldComponent,
                 AjfTableRowClass,
                 AjfTableVisibleColumnsPipe,
                 AjfValidSlidePipe,
@@ -7490,6 +7889,28 @@ let AjfTableFieldComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 function createChoicesFixedOrigin(origin) {
     const type = 'fixed';
     return Object.assign(Object.assign({}, createChoicesOrigin(Object.assign(Object.assign({}, origin), { type }))), { type });
@@ -7893,5 +8314,5 @@ function notEmptyWarning() {
  * Generated bundle index. Do not edit.
  */
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFormActionEvent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfGetTableCellControlPipe, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyFieldComponent, AjfReadOnlyTableFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, createNodeGroup as ɵgc_ajf_src_core_forms_forms_a, createRepeatingSlide as ɵgc_ajf_src_core_forms_forms_b, createSlide as ɵgc_ajf_src_core_forms_forms_c, componentsMap as ɵgc_ajf_src_core_forms_forms_d };
+export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFileFieldComponent, AjfFormActionEvent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormsModule, AjfGetTableCellControlPipe, AjfImageFieldComponent, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyFieldComponent, AjfReadOnlyFileFieldComponent, AjfReadOnlyImageFieldComponent, AjfReadOnlyTableFieldComponent, AjfReadOnlyVideoUrlFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfVideoUrlFieldComponent, AjfWarningGroupSerializer, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, getTypeName, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning, createNodeGroup as ɵgc_ajf_src_core_forms_forms_a, createRepeatingSlide as ɵgc_ajf_src_core_forms_forms_b, createSlide as ɵgc_ajf_src_core_forms_forms_c, componentsMap as ɵgc_ajf_src_core_forms_forms_d };
 //# sourceMappingURL=forms.js.map
