@@ -1,5 +1,4 @@
-import { EventEmitter, Input, Directive } from '@angular/core';
-import { __decorate, __metadata } from 'tslib';
+import { EventEmitter, Directive, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 /**
@@ -88,7 +87,7 @@ class AjfTimeModel {
  *
  */
 let AjfTime = /** @class */ (() => {
-    let AjfTime = class AjfTime {
+    class AjfTime {
         constructor() {
             this._value = new AjfTimeModel();
             this._onChangeCallback = (_) => { };
@@ -139,15 +138,15 @@ let AjfTime = /** @class */ (() => {
         focusHandler() {
             this._onTouchedCallback();
         }
+    }
+    AjfTime.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfTime.ctorParameters = () => [];
+    AjfTime.propDecorators = {
+        readonly: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean)
-    ], AjfTime.prototype, "readonly", void 0);
-    AjfTime = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [])
-    ], AjfTime);
     return AjfTime;
 })();
 

@@ -1,6 +1,5 @@
-import { __decorate, __metadata } from 'tslib';
 import { AjfNodeType, AjfFieldType } from '@ajf/core/forms';
-import { Input, Directive } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 
 /**
  * @license
@@ -24,7 +23,7 @@ import { Input, Directive } from '@angular/core';
  *
  */
 let AjfNodeIcon = /** @class */ (() => {
-    let AjfNodeIcon = class AjfNodeIcon {
+    class AjfNodeIcon {
         get fontSet() {
             return this._fontSet;
         }
@@ -49,15 +48,13 @@ let AjfNodeIcon = /** @class */ (() => {
                     return nodeType != null ? `node-${nodeType.toLowerCase().replace('ajf', '')}` : '';
             }
         }
+    }
+    AjfNodeIcon.decorators = [
+        { type: Directive }
+    ];
+    AjfNodeIcon.propDecorators = {
+        node: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfNodeIcon.prototype, "node", null);
-    AjfNodeIcon = __decorate([
-        Directive()
-    ], AjfNodeIcon);
     return AjfNodeIcon;
 })();
 

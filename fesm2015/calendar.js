@@ -1,8 +1,28 @@
-import { __decorate, __metadata } from 'tslib';
-import { ɵɵdefineInjectable, Injectable, Pipe, NgModule, EventEmitter, Input, Output, Directive, ChangeDetectorRef } from '@angular/core';
+import { Injectable, ɵɵdefineInjectable, Pipe, NgModule, EventEmitter, Directive, ChangeDetectorRef, Input, Output } from '@angular/core';
 import { isAfter, isSameDay, isBefore, format, startOfMonth, endOfMonth, getISODay, endOfISOWeek, startOfISOWeek, addWeeks, subWeeks, startOfYear, endOfYear, startOfDay, endOfDay, addMonths, addYears, subMonths, subYears, setISODay, startOfWeek, addDays, endOfWeek, parseISO } from 'date-fns';
-import { Observable } from 'rxjs';
+import 'rxjs';
 
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 function isBetween(date, rangeLeft, rangeRight) {
     return (isAfter(date, rangeLeft) || isSameDay(date, rangeLeft)) &&
         (isBefore(date, rangeRight) || isSameDay(date, rangeRight));
@@ -11,7 +31,7 @@ function periodOrder(entryType) {
     return ['day', 'week', 'month', 'year'].indexOf(entryType);
 }
 let AjfCalendarService = /** @class */ (() => {
-    let AjfCalendarService = class AjfCalendarService {
+    class AjfCalendarService {
         buildView(params) {
             const { viewMode, viewDate } = params;
             switch (viewMode) {
@@ -217,11 +237,11 @@ let AjfCalendarService = /** @class */ (() => {
             }
             return rows;
         }
-    };
+    }
+    AjfCalendarService.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root' },] }
+    ];
     AjfCalendarService.ɵprov = ɵɵdefineInjectable({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
-    AjfCalendarService = __decorate([
-        Injectable({ providedIn: 'root' })
-    ], AjfCalendarService);
     return AjfCalendarService;
 })();
 
@@ -247,19 +267,22 @@ let AjfCalendarService = /** @class */ (() => {
  *
  */
 let AjfCalendarEntryLabelPipe = /** @class */ (() => {
-    let AjfCalendarEntryLabelPipe = class AjfCalendarEntryLabelPipe {
+    class AjfCalendarEntryLabelPipe {
         constructor(_service) {
             this._service = _service;
         }
         transform(entry) {
             return this._service.entryLabel(entry);
         }
-    };
-    AjfCalendarEntryLabelPipe = __decorate([
-        Injectable(),
-        Pipe({ name: 'ajfCalendarEntryLabel' }),
-        __metadata("design:paramtypes", [AjfCalendarService])
-    ], AjfCalendarEntryLabelPipe);
+    }
+    AjfCalendarEntryLabelPipe.decorators = [
+        { type: Injectable },
+        { type: Pipe, args: [{ name: 'ajfCalendarEntryLabel' },] }
+    ];
+    /** @nocollapse */
+    AjfCalendarEntryLabelPipe.ctorParameters = () => [
+        { type: AjfCalendarService }
+    ];
     return AjfCalendarEntryLabelPipe;
 })();
 
@@ -351,30 +374,30 @@ let AjfCalendarEntryLabelPipe = /** @class */ (() => {
  *
  */
 let AjfCalendarModule = /** @class */ (() => {
-    let AjfCalendarModule = class AjfCalendarModule {
-    };
-    AjfCalendarModule = __decorate([
-        NgModule({
-            declarations: [
-                AjfCalendarEntryLabelPipe,
-            ],
-            exports: [
-                AjfCalendarEntryLabelPipe,
-            ],
-        })
-    ], AjfCalendarModule);
+    class AjfCalendarModule {
+    }
+    AjfCalendarModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        AjfCalendarEntryLabelPipe,
+                    ],
+                    exports: [
+                        AjfCalendarEntryLabelPipe,
+                    ],
+                },] }
+    ];
     return AjfCalendarModule;
 })();
 let AjfGregorianCalendarModule = /** @class */ (() => {
-    let AjfGregorianCalendarModule = class AjfGregorianCalendarModule {
-    };
-    AjfGregorianCalendarModule = __decorate([
-        NgModule({
-            providers: [
-                AjfCalendarService,
-            ],
-        })
-    ], AjfGregorianCalendarModule);
+    class AjfGregorianCalendarModule {
+    }
+    AjfGregorianCalendarModule.decorators = [
+        { type: NgModule, args: [{
+                    providers: [
+                        AjfCalendarService,
+                    ],
+                },] }
+    ];
     return AjfGregorianCalendarModule;
 })();
 
@@ -515,7 +538,7 @@ const weekDays = ['', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 's
 class AjfCalendarChange {
 }
 let AjfCalendar = /** @class */ (() => {
-    let AjfCalendar = class AjfCalendar {
+    class AjfCalendar {
         constructor(_cdr, _service) {
             this._cdr = _cdr;
             this._service = _service;
@@ -761,70 +784,29 @@ let AjfCalendar = /** @class */ (() => {
             this._viewDate = entry.date;
             this._buildCalendar();
         }
+    }
+    AjfCalendar.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfCalendar.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfCalendarService }
+    ];
+    AjfCalendar.propDecorators = {
+        viewDate: [{ type: Input }],
+        disabled: [{ type: Input }],
+        dateOnlyForDay: [{ type: Input }],
+        viewMode: [{ type: Input }],
+        selectionMode: [{ type: Input }],
+        startOfWeekDay: [{ type: Input }],
+        isoMode: [{ type: Input }],
+        minDate: [{ type: Input }],
+        maxDate: [{ type: Input }],
+        change: [{ type: Output }],
+        selectedPeriod: [{ type: Input }],
+        value: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Date),
-        __metadata("design:paramtypes", [Date])
-    ], AjfCalendar.prototype, "viewDate", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfCalendar.prototype, "disabled", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfCalendar.prototype, "dateOnlyForDay", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfCalendar.prototype, "viewMode", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfCalendar.prototype, "selectionMode", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfCalendar.prototype, "startOfWeekDay", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfCalendar.prototype, "isoMode", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfCalendar.prototype, "minDate", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfCalendar.prototype, "maxDate", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable)
-    ], AjfCalendar.prototype, "change", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfCalendar.prototype, "selectedPeriod", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfCalendar.prototype, "value", null);
-    AjfCalendar = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [ChangeDetectorRef, AjfCalendarService])
-    ], AjfCalendar);
     return AjfCalendar;
 })();
 

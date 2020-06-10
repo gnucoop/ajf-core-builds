@@ -1,6 +1,5 @@
-import { __decorate, __metadata } from 'tslib';
-import { Input, Directive, ElementRef, Renderer2, EventEmitter, Output, Pipe, NgModule } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Directive, ElementRef, Renderer2, Input, EventEmitter, Output, Pipe, NgModule } from '@angular/core';
+import 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -26,7 +25,7 @@ import { TranslatePipe } from '@ngx-translate/core';
  *
  */
 let ApplyStylesDirective = /** @class */ (() => {
-    let ApplyStylesDirective = class ApplyStylesDirective {
+    class ApplyStylesDirective {
         constructor(_el, _renderer) {
             this._el = _el;
             this._renderer = _renderer;
@@ -49,36 +48,61 @@ let ApplyStylesDirective = /** @class */ (() => {
                 }
             });
         }
+    }
+    ApplyStylesDirective.decorators = [
+        { type: Directive, args: [{ selector: '[applyStyles]' },] }
+    ];
+    /** @nocollapse */
+    ApplyStylesDirective.ctorParameters = () => [
+        { type: ElementRef },
+        { type: Renderer2 }
+    ];
+    ApplyStylesDirective.propDecorators = {
+        applyStyles: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], ApplyStylesDirective.prototype, "applyStyles", null);
-    ApplyStylesDirective = __decorate([
-        Directive({ selector: '[applyStyles]' }),
-        __metadata("design:paramtypes", [ElementRef, Renderer2])
-    ], ApplyStylesDirective);
     return ApplyStylesDirective;
 })();
 
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 let AutofocusDirective = /** @class */ (() => {
-    let AutofocusDirective = class AutofocusDirective {
+    class AutofocusDirective {
         constructor(_el) {
             this._el = _el;
         }
         ngAfterContentInit() {
             this._el.nativeElement.focus();
         }
+    }
+    AutofocusDirective.decorators = [
+        { type: Directive, args: [{ selector: '[autoFocus]' },] }
+    ];
+    /** @nocollapse */
+    AutofocusDirective.ctorParameters = () => [
+        { type: ElementRef }
+    ];
+    AutofocusDirective.propDecorators = {
+        appAutoFocus: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean)
-    ], AutofocusDirective.prototype, "appAutoFocus", void 0);
-    AutofocusDirective = __decorate([
-        Directive({ selector: '[autoFocus]' }),
-        __metadata("design:paramtypes", [ElementRef])
-    ], AutofocusDirective);
     return AutofocusDirective;
 })();
 
@@ -104,7 +128,7 @@ let AutofocusDirective = /** @class */ (() => {
  *
  */
 let AjfDndDirective = /** @class */ (() => {
-    let AjfDndDirective = class AjfDndDirective {
+    class AjfDndDirective {
         constructor() {
             this._file = new EventEmitter();
             this.file = this._file.asObservable();
@@ -135,22 +159,21 @@ let AjfDndDirective = /** @class */ (() => {
                 this._file.emit(files);
             }
         }
+    }
+    AjfDndDirective.decorators = [
+        { type: Directive, args: [{
+                    selector: '[ajfDnd]',
+                    host: {
+                        '[class.ajf-dnd-over]': 'over',
+                        '(dragover)': 'onDragOver($event)',
+                        '(dragleave)': 'onDragLeave($event)',
+                        '(drop)': 'onDrop($event)',
+                    }
+                },] }
+    ];
+    AjfDndDirective.propDecorators = {
+        file: [{ type: Output }]
     };
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable)
-    ], AjfDndDirective.prototype, "file", void 0);
-    AjfDndDirective = __decorate([
-        Directive({
-            selector: '[ajfDnd]',
-            host: {
-                '[class.ajf-dnd-over]': 'over',
-                '(dragover)': 'onDragOver($event)',
-                '(dragleave)': 'onDragLeave($event)',
-                '(drop)': 'onDrop($event)',
-            }
-        })
-    ], AjfDndDirective);
     return AjfDndDirective;
 })();
 
@@ -176,7 +199,7 @@ let AjfDndDirective = /** @class */ (() => {
  *
  */
 let FormatIfNumber = /** @class */ (() => {
-    let FormatIfNumber = class FormatIfNumber extends DecimalPipe {
+    class FormatIfNumber extends DecimalPipe {
         transform(value, digitsInfo, locale) {
             if (typeof value === 'number') {
                 return super.transform(value, digitsInfo, locale);
@@ -185,10 +208,10 @@ let FormatIfNumber = /** @class */ (() => {
                 return value;
             }
         }
-    };
-    FormatIfNumber = __decorate([
-        Pipe({ name: 'ajfFormatIfNumber' })
-    ], FormatIfNumber);
+    }
+    FormatIfNumber.decorators = [
+        { type: Pipe, args: [{ name: 'ajfFormatIfNumber' },] }
+    ];
     return FormatIfNumber;
 })();
 
@@ -214,7 +237,7 @@ let FormatIfNumber = /** @class */ (() => {
  *
  */
 let TranslateIfString = /** @class */ (() => {
-    let TranslateIfString = class TranslateIfString extends TranslatePipe {
+    class TranslateIfString extends TranslatePipe {
         transform(query, ...args) {
             if (typeof query === 'string') {
                 return super.transform(query, ...args);
@@ -223,10 +246,10 @@ let TranslateIfString = /** @class */ (() => {
                 return query;
             }
         }
-    };
-    TranslateIfString = __decorate([
-        Pipe({ name: 'ajfTranslateIfString' })
-    ], TranslateIfString);
+    }
+    TranslateIfString.decorators = [
+        { type: Pipe, args: [{ name: 'ajfTranslateIfString' },] }
+    ];
     return TranslateIfString;
 })();
 
@@ -252,7 +275,7 @@ let TranslateIfString = /** @class */ (() => {
  *
  */
 let AjfVideoDirective = /** @class */ (() => {
-    let AjfVideoDirective = class AjfVideoDirective {
+    class AjfVideoDirective {
         constructor(_el, _renderer) {
             this._el = _el;
             this._renderer = _renderer;
@@ -281,20 +304,19 @@ let AjfVideoDirective = /** @class */ (() => {
             this._renderer.appendChild(this._el.nativeElement, this._source);
             this.isInit.emit();
         }
+    }
+    AjfVideoDirective.decorators = [
+        { type: Directive, args: [{ selector: '[ajfVideoDirective]' },] }
+    ];
+    /** @nocollapse */
+    AjfVideoDirective.ctorParameters = () => [
+        { type: ElementRef },
+        { type: Renderer2 }
+    ];
+    AjfVideoDirective.propDecorators = {
+        source: [{ type: Input }],
+        isInit: [{ type: Output }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", HTMLVideoElement),
-        __metadata("design:paramtypes", [HTMLVideoElement])
-    ], AjfVideoDirective.prototype, "source", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], AjfVideoDirective.prototype, "isInit", void 0);
-    AjfVideoDirective = __decorate([
-        Directive({ selector: '[ajfVideoDirective]' }),
-        __metadata("design:paramtypes", [ElementRef, Renderer2])
-    ], AjfVideoDirective);
     return AjfVideoDirective;
 })();
 
@@ -320,28 +342,28 @@ let AjfVideoDirective = /** @class */ (() => {
  *
  */
 let AjfCommonModule = /** @class */ (() => {
-    let AjfCommonModule = class AjfCommonModule {
-    };
-    AjfCommonModule = __decorate([
-        NgModule({
-            declarations: [
-                AjfDndDirective,
-                AjfVideoDirective,
-                ApplyStylesDirective,
-                AutofocusDirective,
-                FormatIfNumber,
-                TranslateIfString,
-            ],
-            exports: [
-                AjfDndDirective,
-                AjfVideoDirective,
-                ApplyStylesDirective,
-                AutofocusDirective,
-                FormatIfNumber,
-                TranslateIfString,
-            ],
-        })
-    ], AjfCommonModule);
+    class AjfCommonModule {
+    }
+    AjfCommonModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        AjfDndDirective,
+                        AjfVideoDirective,
+                        ApplyStylesDirective,
+                        AutofocusDirective,
+                        FormatIfNumber,
+                        TranslateIfString,
+                    ],
+                    exports: [
+                        AjfDndDirective,
+                        AjfVideoDirective,
+                        ApplyStylesDirective,
+                        AutofocusDirective,
+                        FormatIfNumber,
+                        TranslateIfString,
+                    ],
+                },] }
+    ];
     return AjfCommonModule;
 })();
 

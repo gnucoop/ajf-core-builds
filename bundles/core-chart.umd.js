@@ -411,28 +411,25 @@
             }
             return options;
         };
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], AjfChartComponent.prototype, "data", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", Object)
-        ], AjfChartComponent.prototype, "options", void 0);
-        __decorate([
-            core.Input(),
-            __metadata("design:type", String)
-        ], AjfChartComponent.prototype, "chartType", void 0);
-        AjfChartComponent = __decorate([
-            core.Component({
-                selector: 'ajf-chart',
-                template: "",
-                changeDetection: core.ChangeDetectionStrategy.OnPush,
-                encapsulation: core.ViewEncapsulation.None,
-                styles: ["ajf-chart{display:block;width:inherit;height:inherit;position:relative}\n"]
-            }),
-            __metadata("design:paramtypes", [core.ElementRef, core.Renderer2])
-        ], AjfChartComponent);
+        AjfChartComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ajf-chart',
+                        template: "",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        encapsulation: core.ViewEncapsulation.None,
+                        styles: ["ajf-chart{display:block;width:inherit;height:inherit;position:relative}\n"]
+                    }] }
+        ];
+        /** @nocollapse */
+        AjfChartComponent.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: core.Renderer2 }
+        ]; };
+        AjfChartComponent.propDecorators = {
+            data: [{ type: core.Input }],
+            options: [{ type: core.Input }],
+            chartType: [{ type: core.Input }]
+        };
         return AjfChartComponent;
     }());
 
@@ -460,16 +457,16 @@
     var AjfChartModule = /** @class */ (function () {
         function AjfChartModule() {
         }
-        AjfChartModule = __decorate([
-            core.NgModule({
-                declarations: [
-                    AjfChartComponent,
-                ],
-                exports: [
-                    AjfChartComponent,
-                ],
-            })
-        ], AjfChartModule);
+        AjfChartModule.decorators = [
+            { type: core.NgModule, args: [{
+                        declarations: [
+                            AjfChartComponent,
+                        ],
+                        exports: [
+                            AjfChartComponent,
+                        ],
+                    },] }
+        ];
         return AjfChartModule;
     }());
 

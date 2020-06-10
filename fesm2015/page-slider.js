@@ -1,7 +1,6 @@
-import { __decorate, __metadata } from 'tslib';
-import { EventEmitter, ViewChild, ElementRef, Output, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, ContentChildren, QueryList, Input, Directive, ChangeDetectorRef, NgModule } from '@angular/core';
+import { EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, ViewChild, Output, Directive, ChangeDetectorRef, ContentChildren, Input, NgModule } from '@angular/core';
 import { ResizeSensor } from 'css-element-queries';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { debounceTime, map, filter, scan, throttleTime } from 'rxjs/operators';
 import { animate, style, AnimationBuilder } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -28,7 +27,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
  *
  */
 let AjfPageSliderItem = /** @class */ (() => {
-    let AjfPageSliderItem = class AjfPageSliderItem {
+    class AjfPageSliderItem {
         constructor(_el, _renderer) {
             this._el = _el;
             this._renderer = _renderer;
@@ -113,30 +112,26 @@ let AjfPageSliderItem = /** @class */ (() => {
                 this._scrollEvt.emit({ x: this._scrollX, y: this._scrollY });
             }
         }
+    }
+    AjfPageSliderItem.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-page-slider-item',
+                    template: "<div #content class=\"ajf-page-slider-item-content\">\n  <div #wrapper class=\"ajf-page-slider-item-content-wrapper\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["ajf-page-slider-item{display:block;position:relative}ajf-page-slider-item .ajf-page-slider-item-content{position:absolute;top:0;right:0;bottom:0;left:0;padding:0;margin:0;display:flex;align-items:flex-start;justify-content:flex-start;overflow:hidden;box-sizing:border-box}ajf-page-slider-item .ajf-page-slider-item-content .ajf-page-slider-item-content-wrapper{flex:1 1 auto;display:flex;align-items:center;justify-content:center;min-width:100%;min-height:100%}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfPageSliderItem.ctorParameters = () => [
+        { type: ElementRef },
+        { type: Renderer2 }
+    ];
+    AjfPageSliderItem.propDecorators = {
+        wrapper: [{ type: ViewChild, args: ['wrapper', { static: true },] }],
+        content: [{ type: ViewChild, args: ['content', { static: true },] }],
+        scroll: [{ type: Output }]
     };
-    __decorate([
-        ViewChild('wrapper', { static: true }),
-        __metadata("design:type", ElementRef)
-    ], AjfPageSliderItem.prototype, "wrapper", void 0);
-    __decorate([
-        ViewChild('content', { static: true }),
-        __metadata("design:type", ElementRef)
-    ], AjfPageSliderItem.prototype, "content", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable)
-    ], AjfPageSliderItem.prototype, "scroll", void 0);
-    AjfPageSliderItem = __decorate([
-        Component({
-            selector: 'ajf-page-slider-item',
-            template: "<div #content class=\"ajf-page-slider-item-content\">\n  <div #wrapper class=\"ajf-page-slider-item-content-wrapper\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["ajf-page-slider-item{display:block;position:relative}ajf-page-slider-item .ajf-page-slider-item-content{position:absolute;top:0;right:0;bottom:0;left:0;padding:0;margin:0;display:flex;align-items:flex-start;justify-content:flex-start;overflow:hidden;box-sizing:border-box}ajf-page-slider-item .ajf-page-slider-item-content .ajf-page-slider-item-content-wrapper{flex:1 1 auto;display:flex;align-items:center;justify-content:center;min-width:100%;min-height:100%}\n"]
-        }),
-        __metadata("design:paramtypes", [ElementRef,
-            Renderer2])
-    ], AjfPageSliderItem);
     return AjfPageSliderItem;
 })();
 
@@ -206,7 +201,7 @@ let AjfPageSliderItem = /** @class */ (() => {
  *
  */
 let AjfPageSlider = /** @class */ (() => {
-    let AjfPageSlider = class AjfPageSlider {
+    class AjfPageSlider {
         constructor(_animationBuilder, _cdr, _renderer) {
             this._animationBuilder = _animationBuilder;
             this._cdr = _cdr;
@@ -481,52 +476,27 @@ let AjfPageSlider = /** @class */ (() => {
         _restoreCurrentPage() {
             this._doSlide(true);
         }
+    }
+    AjfPageSlider.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfPageSlider.ctorParameters = () => [
+        { type: AnimationBuilder },
+        { type: ChangeDetectorRef },
+        { type: Renderer2 }
+    ];
+    AjfPageSlider.propDecorators = {
+        body: [{ type: ViewChild, args: ['body', { static: true },] }],
+        pages: [{ type: ContentChildren, args: [AjfPageSliderItem, { descendants: true },] }],
+        pageScrollFinish: [{ type: Output }],
+        orientationChange: [{ type: Output }],
+        duration: [{ type: Input }],
+        orientation: [{ type: Input }],
+        fixedOrientation: [{ type: Input }],
+        currentPage: [{ type: Input }],
+        hideNavigationButtons: [{ type: Input }]
     };
-    __decorate([
-        ViewChild('body', { static: true }),
-        __metadata("design:type", ElementRef)
-    ], AjfPageSlider.prototype, "body", void 0);
-    __decorate([
-        ContentChildren(AjfPageSliderItem, { descendants: true }),
-        __metadata("design:type", QueryList)
-    ], AjfPageSlider.prototype, "pages", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable)
-    ], AjfPageSlider.prototype, "pageScrollFinish", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable)
-    ], AjfPageSlider.prototype, "orientationChange", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], AjfPageSlider.prototype, "duration", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfPageSlider.prototype, "orientation", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfPageSlider.prototype, "fixedOrientation", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Number),
-        __metadata("design:paramtypes", [Number])
-    ], AjfPageSlider.prototype, "currentPage", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfPageSlider.prototype, "hideNavigationButtons", null);
-    AjfPageSlider = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [AnimationBuilder, ChangeDetectorRef,
-            Renderer2])
-    ], AjfPageSlider);
     return AjfPageSlider;
 })();
 
@@ -552,18 +522,18 @@ let AjfPageSlider = /** @class */ (() => {
  *
  */
 let AjfPageSliderModule = /** @class */ (() => {
-    let AjfPageSliderModule = class AjfPageSliderModule {
-    };
-    AjfPageSliderModule = __decorate([
-        NgModule({
-            declarations: [
-                AjfPageSliderItem,
-            ],
-            exports: [
-                AjfPageSliderItem,
-            ]
-        })
-    ], AjfPageSliderModule);
+    class AjfPageSliderModule {
+    }
+    AjfPageSliderModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        AjfPageSliderItem,
+                    ],
+                    exports: [
+                        AjfPageSliderItem,
+                    ]
+                },] }
+    ];
     return AjfPageSliderModule;
 })();
 

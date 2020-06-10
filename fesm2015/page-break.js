@@ -1,4 +1,3 @@
-import { __decorate } from 'tslib';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
 
 /**
@@ -28,17 +27,17 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from 
  * @export
  */
 let AjfPageBreakComponent = /** @class */ (() => {
-    let AjfPageBreakComponent = class AjfPageBreakComponent {
-    };
-    AjfPageBreakComponent = __decorate([
-        Component({
-            selector: 'ajf-page-break',
-            template: "&nbsp;",
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            styles: ["@media print{ajf-page-break{display:block;page-break-after:always}}ajf-page-break{display:none}\n"]
-        })
-    ], AjfPageBreakComponent);
+    class AjfPageBreakComponent {
+    }
+    AjfPageBreakComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-page-break',
+                    template: "&nbsp;",
+                    encapsulation: ViewEncapsulation.None,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    styles: ["@media print{ajf-page-break{display:block;page-break-after:always}}ajf-page-break{display:none}\n"]
+                }] }
+    ];
     return AjfPageBreakComponent;
 })();
 
@@ -64,18 +63,18 @@ let AjfPageBreakComponent = /** @class */ (() => {
  *
  */
 let AjfPageBreakModule = /** @class */ (() => {
-    let AjfPageBreakModule = class AjfPageBreakModule {
-    };
-    AjfPageBreakModule = __decorate([
-        NgModule({
-            declarations: [
-                AjfPageBreakComponent,
-            ],
-            exports: [
-                AjfPageBreakComponent,
-            ]
-        })
-    ], AjfPageBreakModule);
+    class AjfPageBreakModule {
+    }
+    AjfPageBreakModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        AjfPageBreakComponent,
+                    ],
+                    exports: [
+                        AjfPageBreakComponent,
+                    ]
+                },] }
+    ];
     return AjfPageBreakModule;
 })();
 

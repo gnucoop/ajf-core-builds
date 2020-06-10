@@ -1,8 +1,7 @@
-import { __decorate, __metadata } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { forwardRef, EventEmitter, Input, Output, Directive, NgModule } from '@angular/core';
+import { forwardRef, EventEmitter, Directive, Input, Output, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**
@@ -37,7 +36,7 @@ class AjfCheckboxGroupChange {
 }
 let _uniqueIdCounter = 0;
 let AjfCheckboxGroup = /** @class */ (() => {
-    let AjfCheckboxGroup = class AjfCheckboxGroup {
+    class AjfCheckboxGroup {
         constructor() {
             this.checkboxes = [];
             /** The value for the button toggle group. Should match currently selected button toggle. */
@@ -168,36 +167,23 @@ let AjfCheckboxGroup = /** @class */ (() => {
             this._controlValueAccessorChangeFn(event.value);
             this._change.emit(event);
         }
+    }
+    AjfCheckboxGroup.decorators = [
+        { type: Directive, args: [{
+                    selector: 'ajf-checkbox-group,[ajf-checkbox-group]',
+                    providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR]
+                },] }
+    ];
+    AjfCheckboxGroup.propDecorators = {
+        value: [{ type: Input }],
+        name: [{ type: Input }],
+        disabled: [{ type: Input }],
+        change: [{ type: Output }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Array),
-        __metadata("design:paramtypes", [Array])
-    ], AjfCheckboxGroup.prototype, "value", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfCheckboxGroup.prototype, "name", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Object])
-    ], AjfCheckboxGroup.prototype, "disabled", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable)
-    ], AjfCheckboxGroup.prototype, "change", void 0);
-    AjfCheckboxGroup = __decorate([
-        Directive({
-            selector: 'ajf-checkbox-group,[ajf-checkbox-group]',
-            providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR]
-        })
-    ], AjfCheckboxGroup);
     return AjfCheckboxGroup;
 })();
 let AjfCheckboxGroupItem = /** @class */ (() => {
-    let AjfCheckboxGroupItem = class AjfCheckboxGroupItem {
+    class AjfCheckboxGroupItem {
         constructor(checkboxGroup) {
             /** The unique ID for this button toggle. */
             this._checkboxId = new BehaviorSubject('');
@@ -282,49 +268,24 @@ let AjfCheckboxGroupItem = /** @class */ (() => {
                 }
             }
         }
+    }
+    AjfCheckboxGroupItem.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfCheckboxGroupItem.ctorParameters = () => [
+        { type: AjfCheckboxGroup }
+    ];
+    AjfCheckboxGroupItem.propDecorators = {
+        id: [{ type: Input }],
+        name: [{ type: Input }],
+        checked: [{ type: Input }],
+        disabled: [{ type: Input }],
+        value: [{ type: Input }],
+        checkedIcon: [{ type: Input }],
+        notCheckedIcon: [{ type: Input }],
+        change: [{ type: Output }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfCheckboxGroupItem.prototype, "id", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], AjfCheckboxGroupItem.prototype, "name", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfCheckboxGroupItem.prototype, "checked", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfCheckboxGroupItem.prototype, "disabled", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfCheckboxGroupItem.prototype, "value", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfCheckboxGroupItem.prototype, "checkedIcon", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfCheckboxGroupItem.prototype, "notCheckedIcon", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable)
-    ], AjfCheckboxGroupItem.prototype, "change", void 0);
-    AjfCheckboxGroupItem = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [AjfCheckboxGroup])
-    ], AjfCheckboxGroupItem);
     return AjfCheckboxGroupItem;
 })();
 
@@ -350,21 +311,21 @@ let AjfCheckboxGroupItem = /** @class */ (() => {
  *
  */
 let AjfCheckboxGroupModule = /** @class */ (() => {
-    let AjfCheckboxGroupModule = class AjfCheckboxGroupModule {
-    };
-    AjfCheckboxGroupModule = __decorate([
-        NgModule({
-            imports: [
-                FormsModule,
-            ],
-            declarations: [
-                AjfCheckboxGroup,
-            ],
-            exports: [
-                AjfCheckboxGroup,
-            ]
-        })
-    ], AjfCheckboxGroupModule);
+    class AjfCheckboxGroupModule {
+    }
+    AjfCheckboxGroupModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        FormsModule,
+                    ],
+                    declarations: [
+                        AjfCheckboxGroup,
+                    ],
+                    exports: [
+                        AjfCheckboxGroup,
+                    ]
+                },] }
+    ];
     return AjfCheckboxGroupModule;
 })();
 

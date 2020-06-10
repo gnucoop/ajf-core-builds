@@ -4,6 +4,518 @@
     (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.calendar = {}), global.ng.core, global.dateFns, global.rxjs));
 }(this, (function (exports, i0, dateFns, rxjs) { 'use strict';
 
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    function isBetween(date, rangeLeft, rangeRight) {
+        return (dateFns.isAfter(date, rangeLeft) || dateFns.isSameDay(date, rangeLeft)) &&
+            (dateFns.isBefore(date, rangeRight) || dateFns.isSameDay(date, rangeRight));
+    }
+    function periodOrder(entryType) {
+        return ['day', 'week', 'month', 'year'].indexOf(entryType);
+    }
+    var AjfCalendarService = /** @class */ (function () {
+        function AjfCalendarService() {
+        }
+        AjfCalendarService.prototype.buildView = function (params) {
+            var viewMode = params.viewMode, viewDate = params.viewDate;
+            switch (viewMode) {
+                case 'decade':
+                    var curYear = viewDate.getFullYear();
+                    var firstYear = curYear - (curYear % 10) + 1;
+                    var lastYear = firstYear + 11;
+                    return {
+                        header: firstYear + " - " + lastYear,
+                        headerRow: [],
+                        rows: this._decadeCalendarRows(params),
+                    };
+                case 'year':
+                    return {
+                        header: "" + viewDate.getFullYear(),
+                        headerRow: [],
+                        rows: this._yearCalendarRows(params),
+                    };
+                case 'month':
+                    return {
+                        header: dateFns.format(viewDate, 'MMM yyyy'),
+                        headerRow: this._monthHeaderRow(params),
+                        rows: this._monthCalendarRows(params),
+                    };
+            }
+            return {
+                header: '',
+                headerRow: [],
+                rows: [],
+            };
+        };
+        AjfCalendarService.prototype.monthBounds = function (date, isoMode) {
+            if (!isoMode) {
+                return {
+                    start: dateFns.startOfMonth(date),
+                    end: dateFns.endOfMonth(date),
+                };
+            }
+            var isoDay = dateFns.getISODay(date);
+            date = isoDay < 4 ? dateFns.endOfISOWeek(date) : dateFns.startOfISOWeek(date);
+            var startDate = dateFns.startOfMonth(date);
+            var endDate = dateFns.endOfMonth(startDate);
+            var startWeekDay = startDate.getDay();
+            var endWeekDay = endDate.getDay();
+            if (startWeekDay == 0 || startWeekDay > 4) {
+                startDate = dateFns.addWeeks(startDate, 1);
+            }
+            if (endWeekDay > 0 && endWeekDay < 4) {
+                endDate = dateFns.subWeeks(endDate, 1);
+            }
+            startDate = dateFns.startOfISOWeek(startDate);
+            endDate = dateFns.endOfISOWeek(endDate);
+            return { start: startDate, end: endDate };
+        };
+        AjfCalendarService.prototype.getEntryRange = function (entry) {
+            if (entry.type === 'day') {
+                return { start: new Date(entry.date), end: new Date(entry.date) };
+            }
+            else {
+                var curDate = new Date(entry.date);
+                return {
+                    start: entry.type === 'month' ? dateFns.startOfMonth(curDate) : dateFns.startOfYear(curDate),
+                    end: entry.type === 'month' ? dateFns.endOfMonth(curDate) : dateFns.endOfYear(curDate)
+                };
+            }
+        };
+        AjfCalendarService.prototype.isEntrySelected = function (entry, selection) {
+            if (selection != null && selection.startDate != null && selection.endDate != null) {
+                var selectionStart = dateFns.startOfDay(selection.startDate);
+                var selectionEnd = dateFns.endOfDay(selection.endDate);
+                var selectionPeriodOrder = periodOrder(selection.type);
+                var entryPeriodOrder = periodOrder(entry.type);
+                var entryRange = this.getEntryRange(entry);
+                if (entryPeriodOrder <= selectionPeriodOrder &&
+                    isBetween(entryRange.start, selectionStart, selectionEnd) &&
+                    isBetween(entryRange.end, selectionStart, selectionEnd)) {
+                    return 'full';
+                }
+                else if (entryPeriodOrder > selectionPeriodOrder &&
+                    isBetween(selectionStart, entryRange.start, entryRange.end) &&
+                    isBetween(selectionEnd, entryRange.start, entryRange.end)) {
+                    return 'partial';
+                }
+            }
+            return 'none';
+        };
+        AjfCalendarService.prototype.entryLabel = function (entry) {
+            if (entry.type === 'day') {
+                return "" + entry.date.getDate();
+            }
+            if (entry.type === 'month') {
+                return dateFns.format(entry.date, 'MMM');
+            }
+            return "" + entry.date.getFullYear();
+        };
+        AjfCalendarService.prototype.nextView = function (viewDate, viewMode) {
+            if (viewMode == 'month') {
+                return dateFns.addMonths(viewDate, 1);
+            }
+            else if (viewMode == 'year') {
+                return dateFns.addYears(viewDate, 1);
+            }
+            else if (viewMode == 'decade') {
+                return dateFns.addYears(viewDate, 10);
+            }
+            return viewDate;
+        };
+        AjfCalendarService.prototype.previousView = function (viewDate, viewMode) {
+            if (viewMode == 'month') {
+                return dateFns.subMonths(viewDate, 1);
+            }
+            else if (viewMode == 'year') {
+                return dateFns.subYears(viewDate, 1);
+            }
+            else if (viewMode == 'decade') {
+                return dateFns.subYears(viewDate, 10);
+            }
+            return viewDate;
+        };
+        AjfCalendarService.prototype._monthHeaderRow = function (params) {
+            var isoMode = params.isoMode, viewDate = params.viewDate;
+            var curDate;
+            if (isoMode) {
+                curDate = dateFns.setISODay(dateFns.startOfWeek(viewDate), 1);
+            }
+            else {
+                curDate = dateFns.startOfWeek(viewDate);
+            }
+            var weekDayNames = [];
+            for (var i = 0; i < 7; i++) {
+                weekDayNames.push(dateFns.format(curDate, 'EEE'));
+                curDate = dateFns.addDays(curDate, 1);
+            }
+            return weekDayNames;
+        };
+        AjfCalendarService.prototype._decadeCalendarRows = function (params) {
+            var viewDate = params.viewDate, selection = params.selection;
+            var curYear = viewDate.getFullYear();
+            var firstYear = curYear - (curYear % 10) + 1;
+            var curDate = dateFns.startOfYear(viewDate);
+            curDate.setFullYear(firstYear);
+            var rows = [];
+            for (var i = 0; i < 4; i++) {
+                var row = [];
+                for (var j = 0; j < 3; j++) {
+                    var date = new Date(curDate);
+                    var newEntry = { type: 'year', date: date, selected: 'none' };
+                    newEntry.selected = this.isEntrySelected(newEntry, selection);
+                    row.push(newEntry);
+                    curDate = dateFns.addYears(curDate, 1);
+                }
+                rows.push(row);
+            }
+            return rows;
+        };
+        AjfCalendarService.prototype._yearCalendarRows = function (params) {
+            var viewDate = params.viewDate, selection = params.selection;
+            var curDate = dateFns.startOfYear(viewDate);
+            var rows = [];
+            for (var i = 0; i < 4; i++) {
+                var row = [];
+                for (var j = 0; j < 3; j++) {
+                    var date = new Date(curDate);
+                    var newEntry = { type: 'month', date: date, selected: 'none' };
+                    newEntry.selected = this.isEntrySelected(newEntry, selection);
+                    row.push(newEntry);
+                    curDate = dateFns.addMonths(curDate, 1);
+                }
+                rows.push(row);
+            }
+            return rows;
+        };
+        AjfCalendarService.prototype._monthCalendarRows = function (params) {
+            var viewDate = params.viewDate, selection = params.selection, isoMode = params.isoMode, minDate = params.minDate, maxDate = params.maxDate;
+            var monthBounds = this.monthBounds(viewDate, isoMode);
+            var viewStartDate = new Date(monthBounds.start);
+            var viewEndDate = new Date(monthBounds.end);
+            if (!isoMode) {
+                viewStartDate = dateFns.startOfWeek(viewStartDate);
+                viewEndDate = dateFns.endOfWeek(viewEndDate);
+            }
+            var rows = [];
+            var todayDate = new Date();
+            var curDate = new Date(viewStartDate);
+            while (curDate < viewEndDate) {
+                var row = [];
+                for (var i = 0; i < 7; i++) {
+                    var disabled = (minDate != null && dateFns.isBefore(curDate, minDate)) ||
+                        (maxDate != null && dateFns.isAfter(curDate, maxDate));
+                    var date = new Date(curDate);
+                    var newEntry = {
+                        type: 'day',
+                        date: date,
+                        selected: 'none',
+                        highlight: dateFns.format(todayDate, 'yyyy-MM-dd') === dateFns.format(curDate, 'yyyy-MM-dd'),
+                        disabled: disabled
+                    };
+                    newEntry.selected = this.isEntrySelected(newEntry, selection);
+                    row.push(newEntry);
+                    curDate = dateFns.addDays(curDate, 1);
+                }
+                rows.push(row);
+            }
+            return rows;
+        };
+        AjfCalendarService.decorators = [
+            { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+        ];
+        AjfCalendarService.ɵprov = i0["ɵɵdefineInjectable"]({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
+        return AjfCalendarService;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfCalendarEntryLabelPipe = /** @class */ (function () {
+        function AjfCalendarEntryLabelPipe(_service) {
+            this._service = _service;
+        }
+        AjfCalendarEntryLabelPipe.prototype.transform = function (entry) {
+            return this._service.entryLabel(entry);
+        };
+        AjfCalendarEntryLabelPipe.decorators = [
+            { type: i0.Injectable },
+            { type: i0.Pipe, args: [{ name: 'ajfCalendarEntryLabel' },] }
+        ];
+        /** @nocollapse */
+        AjfCalendarEntryLabelPipe.ctorParameters = function () { return [
+            { type: AjfCalendarService }
+        ]; };
+        return AjfCalendarEntryLabelPipe;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfCalendarModule = /** @class */ (function () {
+        function AjfCalendarModule() {
+        }
+        AjfCalendarModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        declarations: [
+                            AjfCalendarEntryLabelPipe,
+                        ],
+                        exports: [
+                            AjfCalendarEntryLabelPipe,
+                        ],
+                    },] }
+        ];
+        return AjfCalendarModule;
+    }());
+    var AjfGregorianCalendarModule = /** @class */ (function () {
+        function AjfGregorianCalendarModule() {
+        }
+        AjfGregorianCalendarModule.decorators = [
+            { type: i0.NgModule, args: [{
+                        providers: [
+                            AjfCalendarService,
+                        ],
+                    },] }
+        ];
+        return AjfGregorianCalendarModule;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfCalendarPeriod = /** @class */ (function () {
+        function AjfCalendarPeriod() {
+        }
+        return AjfCalendarPeriod;
+    }());
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
 
@@ -231,494 +743,6 @@
         privateMap.set(receiver, value);
         return value;
     }
-
-    function isBetween(date, rangeLeft, rangeRight) {
-        return (dateFns.isAfter(date, rangeLeft) || dateFns.isSameDay(date, rangeLeft)) &&
-            (dateFns.isBefore(date, rangeRight) || dateFns.isSameDay(date, rangeRight));
-    }
-    function periodOrder(entryType) {
-        return ['day', 'week', 'month', 'year'].indexOf(entryType);
-    }
-    var AjfCalendarService = /** @class */ (function () {
-        function AjfCalendarService() {
-        }
-        AjfCalendarService.prototype.buildView = function (params) {
-            var viewMode = params.viewMode, viewDate = params.viewDate;
-            switch (viewMode) {
-                case 'decade':
-                    var curYear = viewDate.getFullYear();
-                    var firstYear = curYear - (curYear % 10) + 1;
-                    var lastYear = firstYear + 11;
-                    return {
-                        header: firstYear + " - " + lastYear,
-                        headerRow: [],
-                        rows: this._decadeCalendarRows(params),
-                    };
-                case 'year':
-                    return {
-                        header: "" + viewDate.getFullYear(),
-                        headerRow: [],
-                        rows: this._yearCalendarRows(params),
-                    };
-                case 'month':
-                    return {
-                        header: dateFns.format(viewDate, 'MMM yyyy'),
-                        headerRow: this._monthHeaderRow(params),
-                        rows: this._monthCalendarRows(params),
-                    };
-            }
-            return {
-                header: '',
-                headerRow: [],
-                rows: [],
-            };
-        };
-        AjfCalendarService.prototype.monthBounds = function (date, isoMode) {
-            if (!isoMode) {
-                return {
-                    start: dateFns.startOfMonth(date),
-                    end: dateFns.endOfMonth(date),
-                };
-            }
-            var isoDay = dateFns.getISODay(date);
-            date = isoDay < 4 ? dateFns.endOfISOWeek(date) : dateFns.startOfISOWeek(date);
-            var startDate = dateFns.startOfMonth(date);
-            var endDate = dateFns.endOfMonth(startDate);
-            var startWeekDay = startDate.getDay();
-            var endWeekDay = endDate.getDay();
-            if (startWeekDay == 0 || startWeekDay > 4) {
-                startDate = dateFns.addWeeks(startDate, 1);
-            }
-            if (endWeekDay > 0 && endWeekDay < 4) {
-                endDate = dateFns.subWeeks(endDate, 1);
-            }
-            startDate = dateFns.startOfISOWeek(startDate);
-            endDate = dateFns.endOfISOWeek(endDate);
-            return { start: startDate, end: endDate };
-        };
-        AjfCalendarService.prototype.getEntryRange = function (entry) {
-            if (entry.type === 'day') {
-                return { start: new Date(entry.date), end: new Date(entry.date) };
-            }
-            else {
-                var curDate = new Date(entry.date);
-                return {
-                    start: entry.type === 'month' ? dateFns.startOfMonth(curDate) : dateFns.startOfYear(curDate),
-                    end: entry.type === 'month' ? dateFns.endOfMonth(curDate) : dateFns.endOfYear(curDate)
-                };
-            }
-        };
-        AjfCalendarService.prototype.isEntrySelected = function (entry, selection) {
-            if (selection != null && selection.startDate != null && selection.endDate != null) {
-                var selectionStart = dateFns.startOfDay(selection.startDate);
-                var selectionEnd = dateFns.endOfDay(selection.endDate);
-                var selectionPeriodOrder = periodOrder(selection.type);
-                var entryPeriodOrder = periodOrder(entry.type);
-                var entryRange = this.getEntryRange(entry);
-                if (entryPeriodOrder <= selectionPeriodOrder &&
-                    isBetween(entryRange.start, selectionStart, selectionEnd) &&
-                    isBetween(entryRange.end, selectionStart, selectionEnd)) {
-                    return 'full';
-                }
-                else if (entryPeriodOrder > selectionPeriodOrder &&
-                    isBetween(selectionStart, entryRange.start, entryRange.end) &&
-                    isBetween(selectionEnd, entryRange.start, entryRange.end)) {
-                    return 'partial';
-                }
-            }
-            return 'none';
-        };
-        AjfCalendarService.prototype.entryLabel = function (entry) {
-            if (entry.type === 'day') {
-                return "" + entry.date.getDate();
-            }
-            if (entry.type === 'month') {
-                return dateFns.format(entry.date, 'MMM');
-            }
-            return "" + entry.date.getFullYear();
-        };
-        AjfCalendarService.prototype.nextView = function (viewDate, viewMode) {
-            if (viewMode == 'month') {
-                return dateFns.addMonths(viewDate, 1);
-            }
-            else if (viewMode == 'year') {
-                return dateFns.addYears(viewDate, 1);
-            }
-            else if (viewMode == 'decade') {
-                return dateFns.addYears(viewDate, 10);
-            }
-            return viewDate;
-        };
-        AjfCalendarService.prototype.previousView = function (viewDate, viewMode) {
-            if (viewMode == 'month') {
-                return dateFns.subMonths(viewDate, 1);
-            }
-            else if (viewMode == 'year') {
-                return dateFns.subYears(viewDate, 1);
-            }
-            else if (viewMode == 'decade') {
-                return dateFns.subYears(viewDate, 10);
-            }
-            return viewDate;
-        };
-        AjfCalendarService.prototype._monthHeaderRow = function (params) {
-            var isoMode = params.isoMode, viewDate = params.viewDate;
-            var curDate;
-            if (isoMode) {
-                curDate = dateFns.setISODay(dateFns.startOfWeek(viewDate), 1);
-            }
-            else {
-                curDate = dateFns.startOfWeek(viewDate);
-            }
-            var weekDayNames = [];
-            for (var i = 0; i < 7; i++) {
-                weekDayNames.push(dateFns.format(curDate, 'EEE'));
-                curDate = dateFns.addDays(curDate, 1);
-            }
-            return weekDayNames;
-        };
-        AjfCalendarService.prototype._decadeCalendarRows = function (params) {
-            var viewDate = params.viewDate, selection = params.selection;
-            var curYear = viewDate.getFullYear();
-            var firstYear = curYear - (curYear % 10) + 1;
-            var curDate = dateFns.startOfYear(viewDate);
-            curDate.setFullYear(firstYear);
-            var rows = [];
-            for (var i = 0; i < 4; i++) {
-                var row = [];
-                for (var j = 0; j < 3; j++) {
-                    var date = new Date(curDate);
-                    var newEntry = { type: 'year', date: date, selected: 'none' };
-                    newEntry.selected = this.isEntrySelected(newEntry, selection);
-                    row.push(newEntry);
-                    curDate = dateFns.addYears(curDate, 1);
-                }
-                rows.push(row);
-            }
-            return rows;
-        };
-        AjfCalendarService.prototype._yearCalendarRows = function (params) {
-            var viewDate = params.viewDate, selection = params.selection;
-            var curDate = dateFns.startOfYear(viewDate);
-            var rows = [];
-            for (var i = 0; i < 4; i++) {
-                var row = [];
-                for (var j = 0; j < 3; j++) {
-                    var date = new Date(curDate);
-                    var newEntry = { type: 'month', date: date, selected: 'none' };
-                    newEntry.selected = this.isEntrySelected(newEntry, selection);
-                    row.push(newEntry);
-                    curDate = dateFns.addMonths(curDate, 1);
-                }
-                rows.push(row);
-            }
-            return rows;
-        };
-        AjfCalendarService.prototype._monthCalendarRows = function (params) {
-            var viewDate = params.viewDate, selection = params.selection, isoMode = params.isoMode, minDate = params.minDate, maxDate = params.maxDate;
-            var monthBounds = this.monthBounds(viewDate, isoMode);
-            var viewStartDate = new Date(monthBounds.start);
-            var viewEndDate = new Date(monthBounds.end);
-            if (!isoMode) {
-                viewStartDate = dateFns.startOfWeek(viewStartDate);
-                viewEndDate = dateFns.endOfWeek(viewEndDate);
-            }
-            var rows = [];
-            var todayDate = new Date();
-            var curDate = new Date(viewStartDate);
-            while (curDate < viewEndDate) {
-                var row = [];
-                for (var i = 0; i < 7; i++) {
-                    var disabled = (minDate != null && dateFns.isBefore(curDate, minDate)) ||
-                        (maxDate != null && dateFns.isAfter(curDate, maxDate));
-                    var date = new Date(curDate);
-                    var newEntry = {
-                        type: 'day',
-                        date: date,
-                        selected: 'none',
-                        highlight: dateFns.format(todayDate, 'yyyy-MM-dd') === dateFns.format(curDate, 'yyyy-MM-dd'),
-                        disabled: disabled
-                    };
-                    newEntry.selected = this.isEntrySelected(newEntry, selection);
-                    row.push(newEntry);
-                    curDate = dateFns.addDays(curDate, 1);
-                }
-                rows.push(row);
-            }
-            return rows;
-        };
-        AjfCalendarService.ɵprov = i0["ɵɵdefineInjectable"]({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
-        AjfCalendarService = __decorate([
-            i0.Injectable({ providedIn: 'root' })
-        ], AjfCalendarService);
-        return AjfCalendarService;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfCalendarEntryLabelPipe = /** @class */ (function () {
-        function AjfCalendarEntryLabelPipe(_service) {
-            this._service = _service;
-        }
-        AjfCalendarEntryLabelPipe.prototype.transform = function (entry) {
-            return this._service.entryLabel(entry);
-        };
-        AjfCalendarEntryLabelPipe = __decorate([
-            i0.Injectable(),
-            i0.Pipe({ name: 'ajfCalendarEntryLabel' }),
-            __metadata("design:paramtypes", [AjfCalendarService])
-        ], AjfCalendarEntryLabelPipe);
-        return AjfCalendarEntryLabelPipe;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfCalendarModule = /** @class */ (function () {
-        function AjfCalendarModule() {
-        }
-        AjfCalendarModule = __decorate([
-            i0.NgModule({
-                declarations: [
-                    AjfCalendarEntryLabelPipe,
-                ],
-                exports: [
-                    AjfCalendarEntryLabelPipe,
-                ],
-            })
-        ], AjfCalendarModule);
-        return AjfCalendarModule;
-    }());
-    var AjfGregorianCalendarModule = /** @class */ (function () {
-        function AjfGregorianCalendarModule() {
-        }
-        AjfGregorianCalendarModule = __decorate([
-            i0.NgModule({
-                providers: [
-                    AjfCalendarService,
-                ],
-            })
-        ], AjfGregorianCalendarModule);
-        return AjfGregorianCalendarModule;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var AjfCalendarPeriod = /** @class */ (function () {
-        function AjfCalendarPeriod() {
-        }
-        return AjfCalendarPeriod;
-    }());
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
 
     /**
      * @license
@@ -1070,69 +1094,28 @@
             this._viewDate = entry.date;
             this._buildCalendar();
         };
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Date),
-            __metadata("design:paramtypes", [Date])
-        ], AjfCalendar.prototype, "viewDate", null);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], AjfCalendar.prototype, "disabled", null);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], AjfCalendar.prototype, "dateOnlyForDay", null);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [String])
-        ], AjfCalendar.prototype, "viewMode", null);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [String])
-        ], AjfCalendar.prototype, "selectionMode", null);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", String),
-            __metadata("design:paramtypes", [String])
-        ], AjfCalendar.prototype, "startOfWeekDay", null);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Boolean),
-            __metadata("design:paramtypes", [Boolean])
-        ], AjfCalendar.prototype, "isoMode", null);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], AjfCalendar.prototype, "minDate", null);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], AjfCalendar.prototype, "maxDate", null);
-        __decorate([
-            i0.Output(),
-            __metadata("design:type", rxjs.Observable)
-        ], AjfCalendar.prototype, "change", void 0);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], AjfCalendar.prototype, "selectedPeriod", null);
-        __decorate([
-            i0.Input(),
-            __metadata("design:type", Object),
-            __metadata("design:paramtypes", [Object])
-        ], AjfCalendar.prototype, "value", null);
-        AjfCalendar = __decorate([
-            i0.Directive(),
-            __metadata("design:paramtypes", [i0.ChangeDetectorRef, AjfCalendarService])
-        ], AjfCalendar);
+        AjfCalendar.decorators = [
+            { type: i0.Directive }
+        ];
+        /** @nocollapse */
+        AjfCalendar.ctorParameters = function () { return [
+            { type: i0.ChangeDetectorRef },
+            { type: AjfCalendarService }
+        ]; };
+        AjfCalendar.propDecorators = {
+            viewDate: [{ type: i0.Input }],
+            disabled: [{ type: i0.Input }],
+            dateOnlyForDay: [{ type: i0.Input }],
+            viewMode: [{ type: i0.Input }],
+            selectionMode: [{ type: i0.Input }],
+            startOfWeekDay: [{ type: i0.Input }],
+            isoMode: [{ type: i0.Input }],
+            minDate: [{ type: i0.Input }],
+            maxDate: [{ type: i0.Input }],
+            change: [{ type: i0.Output }],
+            selectedPeriod: [{ type: i0.Input }],
+            value: [{ type: i0.Input }]
+        };
         return AjfCalendar;
     }());
 

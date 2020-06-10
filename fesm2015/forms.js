@@ -1,5 +1,4 @@
-import { __decorate, __rest, __metadata, __param } from 'tslib';
-import { Pipe, EventEmitter, Injectable, Directive, ChangeDetectorRef, ViewContainerRef, ViewChild, Input, ComponentFactoryResolver, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Output, ViewChildren, QueryList, NgModule } from '@angular/core';
+import { Pipe, EventEmitter, Injectable, Directive, ChangeDetectorRef, ViewContainerRef, ComponentFactoryResolver, ViewChild, Input, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Output, ViewChildren, NgModule } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subject, BehaviorSubject, Subscription, Observable, of, from, timer, defer } from 'rxjs';
 import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen, shareReplay, catchError } from 'rxjs/operators';
@@ -7,9 +6,10 @@ import { deepCopy } from '@ajf/core/utils';
 import * as esprima from 'esprima';
 import esprima__default from 'esprima';
 import { evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
+import { __rest } from 'tslib';
 import { format } from 'date-fns';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { AjfPageSlider } from '@ajf/core/page-slider';
+import '@ajf/core/page-slider';
 import { AjfCommonModule } from '@ajf/core/common';
 import { fileIcon, AjfFileInputModule } from '@ajf/core/file-input';
 import { CommonModule } from '@angular/common';
@@ -38,14 +38,14 @@ import { DomSanitizer } from '@angular/platform-browser';
  *
  */
 let AjfAsFieldInstancePipe = /** @class */ (() => {
-    let AjfAsFieldInstancePipe = class AjfAsFieldInstancePipe {
+    class AjfAsFieldInstancePipe {
         transform(instance) {
             return instance;
         }
-    };
-    AjfAsFieldInstancePipe = __decorate([
-        Pipe({ name: 'ajfAsFieldInstance' })
-    ], AjfAsFieldInstancePipe);
+    }
+    AjfAsFieldInstancePipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfAsFieldInstance' },] }
+    ];
     return AjfAsFieldInstancePipe;
 })();
 
@@ -71,14 +71,14 @@ let AjfAsFieldInstancePipe = /** @class */ (() => {
  *
  */
 let AjfAsRepeatingSlideInstancePipe = /** @class */ (() => {
-    let AjfAsRepeatingSlideInstancePipe = class AjfAsRepeatingSlideInstancePipe {
+    class AjfAsRepeatingSlideInstancePipe {
         transform(instance) {
             return instance;
         }
-    };
-    AjfAsRepeatingSlideInstancePipe = __decorate([
-        Pipe({ name: 'ajfAsRepeatingSlideInstance' })
-    ], AjfAsRepeatingSlideInstancePipe);
+    }
+    AjfAsRepeatingSlideInstancePipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfAsRepeatingSlideInstance' },] }
+    ];
     return AjfAsRepeatingSlideInstancePipe;
 })();
 
@@ -2509,7 +2509,7 @@ function validSlide(slide, idx) {
  *
  */
 let AjfValidationService = /** @class */ (() => {
-    let AjfValidationService = class AjfValidationService {
+    class AjfValidationService {
         constructor() {
             this._baseUtilFunctions = [
                 `/**
@@ -2873,11 +2873,12 @@ let AjfValidationService = /** @class */ (() => {
             this._functionsStr = `${this._baseUtilFunctions.join('; ')}; ${functionsStr}`;
             AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
         }
-    };
-    AjfValidationService = __decorate([
-        Injectable(),
-        __metadata("design:paramtypes", [])
-    ], AjfValidationService);
+    }
+    AjfValidationService.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    AjfValidationService.ctorParameters = () => [];
     return AjfValidationService;
 })();
 
@@ -2905,7 +2906,7 @@ let AjfValidationService = /** @class */ (() => {
 const esprimaMod = esprima__default || esprima;
 const { tokenize } = esprimaMod;
 let AjfFormRendererService = /** @class */ (() => {
-    let AjfFormRendererService = class AjfFormRendererService {
+    class AjfFormRendererService {
         constructor(_) {
             this._visibilityNodesMapUpdates = new Subject();
             this._repetitionNodesMapUpdates = new Subject();
@@ -3926,11 +3927,14 @@ let AjfFormRendererService = /** @class */ (() => {
                 });
             }
         }
-    };
-    AjfFormRendererService = __decorate([
-        Injectable(),
-        __metadata("design:paramtypes", [AjfValidationService])
-    ], AjfFormRendererService);
+    }
+    AjfFormRendererService.decorators = [
+        { type: Injectable }
+    ];
+    /** @nocollapse */
+    AjfFormRendererService.ctorParameters = () => [
+        { type: AjfValidationService }
+    ];
     return AjfFormRendererService;
 })();
 
@@ -3956,7 +3960,7 @@ let AjfFormRendererService = /** @class */ (() => {
  *
  */
 let AjfBaseFieldComponent = /** @class */ (() => {
-    let AjfBaseFieldComponent = class AjfBaseFieldComponent {
+    class AjfBaseFieldComponent {
         constructor(_changeDetectorRef, _service, _warningAlertService) {
             this._changeDetectorRef = _changeDetectorRef;
             this._service = _service;
@@ -4027,12 +4031,16 @@ let AjfBaseFieldComponent = /** @class */ (() => {
             }
             this._changeDetectorRef.detectChanges();
         }
-    };
-    AjfBaseFieldComponent = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [ChangeDetectorRef,
-            AjfFormRendererService, Object])
-    ], AjfBaseFieldComponent);
+    }
+    AjfBaseFieldComponent.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfBaseFieldComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined }
+    ];
     return AjfBaseFieldComponent;
 })();
 
@@ -4058,14 +4066,14 @@ let AjfBaseFieldComponent = /** @class */ (() => {
  *
  */
 let AjfBoolToIntPipe = /** @class */ (() => {
-    let AjfBoolToIntPipe = class AjfBoolToIntPipe {
+    class AjfBoolToIntPipe {
         transform(value) {
             return value ? 1 : 0;
         }
-    };
-    AjfBoolToIntPipe = __decorate([
-        Pipe({ name: 'ajfBoolToInt' })
-    ], AjfBoolToIntPipe);
+    }
+    AjfBoolToIntPipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfBoolToInt' },] }
+    ];
     return AjfBoolToIntPipe;
 })();
 
@@ -4091,17 +4099,17 @@ let AjfBoolToIntPipe = /** @class */ (() => {
  *
  */
 let AjfDateValuePipe = /** @class */ (() => {
-    let AjfDateValuePipe = class AjfDateValuePipe {
+    class AjfDateValuePipe {
         transform(date) {
             if (date == null) {
                 return null;
             }
             return date === 'today' ? new Date() : date;
         }
-    };
-    AjfDateValuePipe = __decorate([
-        Pipe({ name: 'ajfDateValue' })
-    ], AjfDateValuePipe);
+    }
+    AjfDateValuePipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfDateValue' },] }
+    ];
     return AjfDateValuePipe;
 })();
 
@@ -4127,7 +4135,7 @@ let AjfDateValuePipe = /** @class */ (() => {
  *
  */
 let AjfDateValueStringPipe = /** @class */ (() => {
-    let AjfDateValueStringPipe = class AjfDateValueStringPipe {
+    class AjfDateValueStringPipe {
         transform(date) {
             if (date == null) {
                 return undefined;
@@ -4135,11 +4143,11 @@ let AjfDateValueStringPipe = /** @class */ (() => {
             const dateObj = date === 'today' ? new Date() : date;
             return format(dateObj, 'yyyy-MM-dd');
         }
-    };
-    AjfDateValueStringPipe = __decorate([
-        Injectable(),
-        Pipe({ name: 'ajfDateValueString' })
-    ], AjfDateValueStringPipe);
+    }
+    AjfDateValueStringPipe.decorators = [
+        { type: Injectable },
+        { type: Pipe, args: [{ name: 'ajfDateValueString' },] }
+    ];
     return AjfDateValueStringPipe;
 })();
 
@@ -4198,16 +4206,16 @@ class AjfInvalidFieldDefinitionError extends AjfError {
  *
  */
 let AjfExpandFieldWithChoicesPipe = /** @class */ (() => {
-    let AjfExpandFieldWithChoicesPipe = class AjfExpandFieldWithChoicesPipe {
+    class AjfExpandFieldWithChoicesPipe {
         transform(instance, threshold) {
             return !instance.node.forceNarrow &&
                 (instance.node.forceExpanded ||
                     (instance.filteredChoices && instance.filteredChoices.length <= threshold));
         }
-    };
-    AjfExpandFieldWithChoicesPipe = __decorate([
-        Pipe({ name: 'ajfExpandFieldWithChoices' })
-    ], AjfExpandFieldWithChoicesPipe);
+    }
+    AjfExpandFieldWithChoicesPipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
+    ];
     return AjfExpandFieldWithChoicesPipe;
 })();
 
@@ -4233,15 +4241,18 @@ let AjfExpandFieldWithChoicesPipe = /** @class */ (() => {
  *
  */
 let AjfFieldHost = /** @class */ (() => {
-    let AjfFieldHost = class AjfFieldHost {
+    class AjfFieldHost {
         constructor(viewContainerRef) {
             this.viewContainerRef = viewContainerRef;
         }
-    };
-    AjfFieldHost = __decorate([
-        Directive({ selector: '[ajf-field-host]' }),
-        __metadata("design:paramtypes", [ViewContainerRef])
-    ], AjfFieldHost);
+    }
+    AjfFieldHost.decorators = [
+        { type: Directive, args: [{ selector: '[ajf-field-host]' },] }
+    ];
+    /** @nocollapse */
+    AjfFieldHost.ctorParameters = () => [
+        { type: ViewContainerRef }
+    ];
     return AjfFieldHost;
 })();
 
@@ -4267,7 +4278,7 @@ let AjfFieldHost = /** @class */ (() => {
  *
  */
 let AjfFormField = /** @class */ (() => {
-    let AjfFormField = class AjfFormField {
+    class AjfFormField {
         constructor(_cdr, _cfr) {
             this._cdr = _cdr;
             this._cfr = _cfr;
@@ -4334,25 +4345,20 @@ let AjfFormField = /** @class */ (() => {
                 console.log(e);
             }
         }
+    }
+    AjfFormField.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfFormField.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: ComponentFactoryResolver }
+    ];
+    AjfFormField.propDecorators = {
+        fieldHost: [{ type: ViewChild, args: [AjfFieldHost, { static: true },] }],
+        instance: [{ type: Input }],
+        readonly: [{ type: Input }]
     };
-    __decorate([
-        ViewChild(AjfFieldHost, { static: true }),
-        __metadata("design:type", AjfFieldHost)
-    ], AjfFormField.prototype, "fieldHost", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfFormField.prototype, "instance", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfFormField.prototype, "readonly", null);
-    AjfFormField = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [ChangeDetectorRef, ComponentFactoryResolver])
-    ], AjfFormField);
     return AjfFormField;
 })();
 
@@ -4403,14 +4409,14 @@ function fieldIconName(type) {
  *
  */
 let AjfFieldIconPipe = /** @class */ (() => {
-    let AjfFieldIconPipe = class AjfFieldIconPipe {
+    class AjfFieldIconPipe {
         transform(field) {
             return fieldIconName(field.fieldType ? field.fieldType : field);
         }
-    };
-    AjfFieldIconPipe = __decorate([
-        Pipe({ name: 'ajfFieldIcon' })
-    ], AjfFieldIconPipe);
+    }
+    AjfFieldIconPipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfFieldIcon' },] }
+    ];
     return AjfFieldIconPipe;
 })();
 
@@ -4436,14 +4442,14 @@ let AjfFieldIconPipe = /** @class */ (() => {
  *
  */
 let AjfFieldIsValidPipe = /** @class */ (() => {
-    let AjfFieldIsValidPipe = class AjfFieldIsValidPipe {
+    class AjfFieldIsValidPipe {
         transform(validationResults) {
             return validationResults != null && validationResults.filter((f) => !f.result).length === 0;
         }
-    };
-    AjfFieldIsValidPipe = __decorate([
-        Pipe({ name: 'ajfFieldIsValid' })
-    ], AjfFieldIsValidPipe);
+    }
+    AjfFieldIsValidPipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfFieldIsValid' },] }
+    ];
     return AjfFieldIsValidPipe;
 })();
 
@@ -4585,22 +4591,26 @@ const AJF_WARNING_ALERT_SERVICE = new InjectionToken('ajf-warning-alert-service'
  *
  */
 let AjfFileFieldComponent = /** @class */ (() => {
-    let AjfFileFieldComponent = class AjfFileFieldComponent extends AjfBaseFieldComponent {
+    class AjfFileFieldComponent extends AjfBaseFieldComponent {
         constructor(cdr, service, was) {
             super(cdr, service, was);
         }
-    };
-    AjfFileFieldComponent = __decorate([
-        Component({
-            selector: 'ajf-file-field',
-            template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["\n"]
-        }),
-        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object])
-    ], AjfFileFieldComponent);
+    }
+    AjfFileFieldComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-file-field',
+                    template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfFileFieldComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+    ];
     return AjfFileFieldComponent;
 })();
 
@@ -4628,7 +4638,7 @@ let AjfFileFieldComponent = /** @class */ (() => {
 class AjfFormActionEvent {
 }
 let AjfFormRenderer = /** @class */ (() => {
-    let AjfFormRenderer = class AjfFormRenderer {
+    class AjfFormRenderer {
         /**
          * this constructor will init current formula by ajfBuilderService
          */
@@ -4859,82 +4869,32 @@ let AjfFormRenderer = /** @class */ (() => {
         trackNodeById(_, node) {
             return nodeInstanceCompleteName(node);
         }
+    }
+    AjfFormRenderer.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfFormRenderer.ctorParameters = () => [
+        { type: AjfFormRendererService },
+        { type: ChangeDetectorRef }
+    ];
+    AjfFormRenderer.propDecorators = {
+        title: [{ type: Input }],
+        orientationChange: [{ type: Output }],
+        saveDisabled: [{ type: Input }],
+        hasStartMessage: [{ type: Input }],
+        hasEndMessage: [{ type: Input }],
+        hideTopToolbar: [{ type: Input }],
+        hideBottomToolbar: [{ type: Input }],
+        hideNavigationButtons: [{ type: Input }],
+        fixedOrientation: [{ type: Input }],
+        readonly: [{ type: Input }],
+        orientation: [{ type: Input }],
+        formSlider: [{ type: ViewChild, args: ['formSlider', { static: false },] }],
+        fields: [{ type: ViewChildren, args: [AjfFormField,] }],
+        formAction: [{ type: Output }],
+        form: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], AjfFormRenderer.prototype, "title", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable)
-    ], AjfFormRenderer.prototype, "orientationChange", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfFormRenderer.prototype, "saveDisabled", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfFormRenderer.prototype, "hasStartMessage", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfFormRenderer.prototype, "hasEndMessage", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfFormRenderer.prototype, "hideTopToolbar", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfFormRenderer.prototype, "hideBottomToolbar", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfFormRenderer.prototype, "hideNavigationButtons", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfFormRenderer.prototype, "fixedOrientation", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfFormRenderer.prototype, "readonly", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfFormRenderer.prototype, "orientation", null);
-    __decorate([
-        ViewChild('formSlider', { static: false }),
-        __metadata("design:type", AjfPageSlider)
-    ], AjfFormRenderer.prototype, "formSlider", void 0);
-    __decorate([
-        ViewChildren(AjfFormField),
-        __metadata("design:type", QueryList)
-    ], AjfFormRenderer.prototype, "fields", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable)
-    ], AjfFormRenderer.prototype, "formAction", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfFormRenderer.prototype, "form", null);
-    AjfFormRenderer = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [AjfFormRendererService,
-            ChangeDetectorRef])
-    ], AjfFormRenderer);
     return AjfFormRenderer;
 })();
 
@@ -4960,17 +4920,17 @@ let AjfFormRenderer = /** @class */ (() => {
  *
  */
 let AjfGetTableCellControlPipe = /** @class */ (() => {
-    let AjfGetTableCellControlPipe = class AjfGetTableCellControlPipe {
+    class AjfGetTableCellControlPipe {
         transform(ctrl) {
             if (ctrl == null || typeof ctrl === 'string') {
                 return null;
             }
             return ctrl;
         }
-    };
-    AjfGetTableCellControlPipe = __decorate([
-        Pipe({ name: 'ajfGetTableCellControl' })
-    ], AjfGetTableCellControlPipe);
+    }
+    AjfGetTableCellControlPipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfGetTableCellControl' },] }
+    ];
     return AjfGetTableCellControlPipe;
 })();
 
@@ -4996,7 +4956,7 @@ let AjfGetTableCellControlPipe = /** @class */ (() => {
  *
  */
 let AjfImageFieldComponent = /** @class */ (() => {
-    let AjfImageFieldComponent = class AjfImageFieldComponent extends AjfBaseFieldComponent {
+    class AjfImageFieldComponent extends AjfBaseFieldComponent {
         constructor(cdr, service, was, domSanitizer) {
             super(cdr, service, was);
             const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
@@ -5005,18 +4965,23 @@ let AjfImageFieldComponent = /** @class */ (() => {
             }), filter(value => value != null), shareReplay(1));
             this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
         }
-    };
-    AjfImageFieldComponent = __decorate([
-        Component({
-            selector: 'ajf-image-field',
-            template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"]
-        }),
-        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer])
-    ], AjfImageFieldComponent);
+    }
+    AjfImageFieldComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-image-field',
+                    template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfImageFieldComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+        { type: DomSanitizer }
+    ];
     return AjfImageFieldComponent;
 })();
 
@@ -5042,14 +5007,14 @@ let AjfImageFieldComponent = /** @class */ (() => {
  *
  */
 let AjfIncrementPipe = /** @class */ (() => {
-    let AjfIncrementPipe = class AjfIncrementPipe {
+    class AjfIncrementPipe {
         transform(value, increment = 1) {
             return value + increment;
         }
-    };
-    AjfIncrementPipe = __decorate([
-        Pipe({ name: 'ajfIncrement' })
-    ], AjfIncrementPipe);
+    }
+    AjfIncrementPipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfIncrement' },] }
+    ];
     return AjfIncrementPipe;
 })();
 
@@ -5075,17 +5040,17 @@ let AjfIncrementPipe = /** @class */ (() => {
  *
  */
 let AjfIsCellEditablePipe = /** @class */ (() => {
-    let AjfIsCellEditablePipe = class AjfIsCellEditablePipe {
+    class AjfIsCellEditablePipe {
         transform(cell) {
             if (cell == null || typeof cell === 'string') {
                 return false;
             }
             return cell.editable === true;
         }
-    };
-    AjfIsCellEditablePipe = __decorate([
-        Pipe({ name: 'ajfIsCellEditable' })
-    ], AjfIsCellEditablePipe);
+    }
+    AjfIsCellEditablePipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfIsCellEditable' },] }
+    ];
     return AjfIsCellEditablePipe;
 })();
 
@@ -5111,14 +5076,14 @@ let AjfIsCellEditablePipe = /** @class */ (() => {
  *
  */
 let AjfIsRepeatingSlideInstancePipe = /** @class */ (() => {
-    let AjfIsRepeatingSlideInstancePipe = class AjfIsRepeatingSlideInstancePipe {
+    class AjfIsRepeatingSlideInstancePipe {
         transform(instance) {
             return isRepeatingSlideInstance(instance);
         }
-    };
-    AjfIsRepeatingSlideInstancePipe = __decorate([
-        Pipe({ name: 'ajfIsRepeatingSlideInstance' })
-    ], AjfIsRepeatingSlideInstancePipe);
+    }
+    AjfIsRepeatingSlideInstancePipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfIsRepeatingSlideInstance' },] }
+    ];
     return AjfIsRepeatingSlideInstancePipe;
 })();
 
@@ -5144,14 +5109,14 @@ let AjfIsRepeatingSlideInstancePipe = /** @class */ (() => {
  *
  */
 let AjfNodeCompleteNamePipe = /** @class */ (() => {
-    let AjfNodeCompleteNamePipe = class AjfNodeCompleteNamePipe {
+    class AjfNodeCompleteNamePipe {
         transform(instance) {
             return instance ? nodeInstanceCompleteName(instance) : '';
         }
-    };
-    AjfNodeCompleteNamePipe = __decorate([
-        Pipe({ name: 'ajfNodeCompleteName' })
-    ], AjfNodeCompleteNamePipe);
+    }
+    AjfNodeCompleteNamePipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfNodeCompleteName' },] }
+    ];
     return AjfNodeCompleteNamePipe;
 })();
 
@@ -5177,7 +5142,7 @@ let AjfNodeCompleteNamePipe = /** @class */ (() => {
  *
  */
 let AjfRangePipe = /** @class */ (() => {
-    let AjfRangePipe = class AjfRangePipe {
+    class AjfRangePipe {
         transform(size = 0, start = 1, step = 1) {
             const range = [];
             for (let length = 0; length < size; ++length) {
@@ -5186,10 +5151,10 @@ let AjfRangePipe = /** @class */ (() => {
             }
             return range;
         }
-    };
-    AjfRangePipe = __decorate([
-        Pipe({ name: 'ajfRange' })
-    ], AjfRangePipe);
+    }
+    AjfRangePipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfRange' },] }
+    ];
     return AjfRangePipe;
 })();
 
@@ -5243,22 +5208,26 @@ class AjfInputFieldComponent extends AjfBaseFieldComponent {
  *
  */
 let AjfReadOnlyFieldComponent = /** @class */ (() => {
-    let AjfReadOnlyFieldComponent = class AjfReadOnlyFieldComponent extends AjfInputFieldComponent {
+    class AjfReadOnlyFieldComponent extends AjfInputFieldComponent {
         constructor(cdr, service, was) {
             super(cdr, service, was);
         }
-    };
-    AjfReadOnlyFieldComponent = __decorate([
-        Component({
-            selector: 'ajf-read-only-field',
-            template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
-        }),
-        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object])
-    ], AjfReadOnlyFieldComponent);
+    }
+    AjfReadOnlyFieldComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-read-only-field',
+                    template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfReadOnlyFieldComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+    ];
     return AjfReadOnlyFieldComponent;
 })();
 
@@ -5284,7 +5253,7 @@ let AjfReadOnlyFieldComponent = /** @class */ (() => {
  *
  */
 let AjfReadOnlyFileFieldComponent = /** @class */ (() => {
-    let AjfReadOnlyFileFieldComponent = class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
+    class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
         constructor(cdr, service, was, domSanitizer) {
             super(cdr, service, was);
             this.fileIcon = domSanitizer.bypassSecurityTrustResourceUrl(fileIcon);
@@ -5295,18 +5264,23 @@ let AjfReadOnlyFileFieldComponent = /** @class */ (() => {
             this.fileUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
             this.fileName = fileStream.pipe(map(file => file.name));
         }
-    };
-    AjfReadOnlyFileFieldComponent = __decorate([
-        Component({
-            selector: 'ajf-read-only-file-field',
-            template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"]
-        }),
-        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer])
-    ], AjfReadOnlyFileFieldComponent);
+    }
+    AjfReadOnlyFileFieldComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-read-only-file-field',
+                    template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfReadOnlyFileFieldComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+        { type: DomSanitizer }
+    ];
     return AjfReadOnlyFileFieldComponent;
 })();
 
@@ -5332,7 +5306,7 @@ let AjfReadOnlyFileFieldComponent = /** @class */ (() => {
  *
  */
 let AjfReadOnlyImageFieldComponent = /** @class */ (() => {
-    let AjfReadOnlyImageFieldComponent = class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
+    class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
         constructor(cdr, service, was, domSanitizer) {
             super(cdr, service, was);
             const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
@@ -5341,18 +5315,23 @@ let AjfReadOnlyImageFieldComponent = /** @class */ (() => {
             }), filter(value => value != null), shareReplay(1));
             this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
         }
-    };
-    AjfReadOnlyImageFieldComponent = __decorate([
-        Component({
-            selector: 'ajf-read-only-image-field',
-            template: "<img *ngIf=\"imageUrl|async as iu ; else noImage\" [src]=\"imageUrl|async\">\n<ng-template #noImage>\n  <div class=\"ajf-no-image-placeholder\"></div>\n</ng-template>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"]
-        }),
-        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer])
-    ], AjfReadOnlyImageFieldComponent);
+    }
+    AjfReadOnlyImageFieldComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-read-only-image-field',
+                    template: "<img *ngIf=\"imageUrl|async as iu ; else noImage\" [src]=\"imageUrl|async\">\n<ng-template #noImage>\n  <div class=\"ajf-no-image-placeholder\"></div>\n</ng-template>\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfReadOnlyImageFieldComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+        { type: DomSanitizer }
+    ];
     return AjfReadOnlyImageFieldComponent;
 })();
 
@@ -5378,21 +5357,25 @@ let AjfReadOnlyImageFieldComponent = /** @class */ (() => {
  *
  */
 let AjfReadOnlyTableFieldComponent = /** @class */ (() => {
-    let AjfReadOnlyTableFieldComponent = class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent {
+    class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent {
         constructor(cdr, service, was) {
             super(cdr, service, was);
         }
-    };
-    AjfReadOnlyTableFieldComponent = __decorate([
-        Component({
-            template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["\n"]
-        }),
-        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object])
-    ], AjfReadOnlyTableFieldComponent);
+    }
+    AjfReadOnlyTableFieldComponent.decorators = [
+        { type: Component, args: [{
+                    template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfReadOnlyTableFieldComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+    ];
     return AjfReadOnlyTableFieldComponent;
 })();
 
@@ -5418,7 +5401,7 @@ let AjfReadOnlyTableFieldComponent = /** @class */ (() => {
  *
  */
 let AjfVideoUrlFieldComponent = /** @class */ (() => {
-    let AjfVideoUrlFieldComponent = class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
+    class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
         constructor(cdr, service, was, domSanitizer, httpClient) {
             super(cdr, service, was);
             const video = this.control.pipe(filter(control => control != null), switchMap(control => {
@@ -5428,12 +5411,15 @@ let AjfVideoUrlFieldComponent = /** @class */ (() => {
             this.validUrl = video.pipe(map(v => v != null));
             this.videoThumbnail = video.pipe(filter(info => info != null), switchMap(info => videoPreviewUrl(httpClient, info)), filter(url => url != null), map(url => domSanitizer.bypassSecurityTrustResourceUrl(url)));
         }
-    };
-    AjfVideoUrlFieldComponent = __decorate([
-        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer,
-            HttpClient])
-    ], AjfVideoUrlFieldComponent);
+    }
+    /** @nocollapse */
+    AjfVideoUrlFieldComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+        { type: DomSanitizer },
+        { type: HttpClient }
+    ];
     return AjfVideoUrlFieldComponent;
 })();
 function videoPreviewUrl(httpClient, video) {
@@ -5572,23 +5558,28 @@ function stripParameters(url) {
  *
  */
 let AjfReadOnlyVideoUrlFieldComponent = /** @class */ (() => {
-    let AjfReadOnlyVideoUrlFieldComponent = class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
+    class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
         constructor(cdr, service, was, domSanitizer, httpClient) {
             super(cdr, service, was, domSanitizer, httpClient);
         }
-    };
-    AjfReadOnlyVideoUrlFieldComponent = __decorate([
-        Component({
-            selector: 'ajf-read-only-video-url-field',
-            template: "<div *ngIf=\"control|async as ctrl\" class=\"ajf-video-thumbnail\">\n  <ng-container *ngIf=\"validUrl|async\">\n    <a target=\"_blank\" [href]=\"ctrl.value\">\n      <img *ngIf=\"videoThumbnail|async as thumb\" [src]=\"thumb\" class=\"\" alt=\"\">\n    </a>\n  </ng-container>\n</div>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["\n"]
-        }),
-        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer,
-            HttpClient])
-    ], AjfReadOnlyVideoUrlFieldComponent);
+    }
+    AjfReadOnlyVideoUrlFieldComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-read-only-video-url-field',
+                    template: "<div *ngIf=\"control|async as ctrl\" class=\"ajf-video-thumbnail\">\n  <ng-container *ngIf=\"validUrl|async\">\n    <a target=\"_blank\" [href]=\"ctrl.value\">\n      <img *ngIf=\"videoThumbnail|async as thumb\" [src]=\"thumb\" class=\"\" alt=\"\">\n    </a>\n  </ng-container>\n</div>\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfReadOnlyVideoUrlFieldComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+        { type: DomSanitizer },
+        { type: HttpClient }
+    ];
     return AjfReadOnlyVideoUrlFieldComponent;
 })();
 
@@ -5614,14 +5605,14 @@ let AjfReadOnlyVideoUrlFieldComponent = /** @class */ (() => {
  *
  */
 let AjfTableRowClass = /** @class */ (() => {
-    let AjfTableRowClass = class AjfTableRowClass {
+    class AjfTableRowClass {
         transform(value) {
             return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
         }
-    };
-    AjfTableRowClass = __decorate([
-        Pipe({ name: 'ajfTableRowClass' })
-    ], AjfTableRowClass);
+    }
+    AjfTableRowClass.decorators = [
+        { type: Pipe, args: [{ name: 'ajfTableRowClass' },] }
+    ];
     return AjfTableRowClass;
 })();
 
@@ -5647,7 +5638,7 @@ let AjfTableRowClass = /** @class */ (() => {
  *
  */
 let AjfTableVisibleColumnsPipe = /** @class */ (() => {
-    let AjfTableVisibleColumnsPipe = class AjfTableVisibleColumnsPipe {
+    class AjfTableVisibleColumnsPipe {
         transform(instance) {
             if (!instance.node.editable) {
                 const val = instance.value || [];
@@ -5661,10 +5652,10 @@ let AjfTableVisibleColumnsPipe = /** @class */ (() => {
             return (instance.controls || [])
                 .map(v => [v[0], ...v[1]]);
         }
-    };
-    AjfTableVisibleColumnsPipe = __decorate([
-        Pipe({ name: 'ajfTableVisibleColumns' })
-    ], AjfTableVisibleColumnsPipe);
+    }
+    AjfTableVisibleColumnsPipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfTableVisibleColumns' },] }
+    ];
     return AjfTableVisibleColumnsPipe;
 })();
 
@@ -5690,7 +5681,7 @@ let AjfTableVisibleColumnsPipe = /** @class */ (() => {
  *
  */
 let AjfValidSlidePipe = /** @class */ (() => {
-    let AjfValidSlidePipe = class AjfValidSlidePipe {
+    class AjfValidSlidePipe {
         transform(slide, idx) {
             if (idx == null || typeof idx !== 'number') {
                 return false;
@@ -5707,10 +5698,10 @@ let AjfValidSlidePipe = /** @class */ (() => {
             })
                 .reduce((v1, v2) => v1 && v2, true);
         }
-    };
-    AjfValidSlidePipe = __decorate([
-        Pipe({ name: 'ajfValidSlide', pure: false })
-    ], AjfValidSlidePipe);
+    }
+    AjfValidSlidePipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfValidSlide', pure: false },] }
+    ];
     return AjfValidSlidePipe;
 })();
 
@@ -5736,78 +5727,78 @@ let AjfValidSlidePipe = /** @class */ (() => {
  *
  */
 let AjfFormsModule = /** @class */ (() => {
-    let AjfFormsModule = class AjfFormsModule {
-    };
-    AjfFormsModule = __decorate([
-        NgModule({
-            declarations: [
-                AjfAsFieldInstancePipe,
-                AjfAsRepeatingSlideInstancePipe,
-                AjfBoolToIntPipe,
-                AjfDateValuePipe,
-                AjfDateValueStringPipe,
-                AjfExpandFieldWithChoicesPipe,
-                AjfFieldHost,
-                AjfFieldIconPipe,
-                AjfFieldIsValidPipe,
-                AjfFileFieldComponent,
-                AjfGetTableCellControlPipe,
-                AjfImageFieldComponent,
-                AjfIncrementPipe,
-                AjfIsCellEditablePipe,
-                AjfIsRepeatingSlideInstancePipe,
-                AjfNodeCompleteNamePipe,
-                AjfRangePipe,
-                AjfReadOnlyFieldComponent,
-                AjfReadOnlyFileFieldComponent,
-                AjfReadOnlyImageFieldComponent,
-                AjfReadOnlyTableFieldComponent,
-                AjfReadOnlyVideoUrlFieldComponent,
-                AjfTableRowClass,
-                AjfTableVisibleColumnsPipe,
-                AjfValidSlidePipe,
-            ],
-            imports: [
-                AjfCommonModule,
-                AjfFileInputModule,
-                CommonModule,
-                HttpClientModule,
-                ReactiveFormsModule,
-            ],
-            exports: [
-                AjfAsFieldInstancePipe,
-                AjfAsRepeatingSlideInstancePipe,
-                AjfBoolToIntPipe,
-                AjfDateValuePipe,
-                AjfDateValueStringPipe,
-                AjfExpandFieldWithChoicesPipe,
-                AjfFieldHost,
-                AjfFieldIconPipe,
-                AjfFieldIsValidPipe,
-                AjfFileFieldComponent,
-                AjfGetTableCellControlPipe,
-                AjfImageFieldComponent,
-                AjfIncrementPipe,
-                AjfIsCellEditablePipe,
-                AjfIsRepeatingSlideInstancePipe,
-                AjfNodeCompleteNamePipe,
-                AjfRangePipe,
-                AjfReadOnlyFieldComponent,
-                AjfReadOnlyFileFieldComponent,
-                AjfReadOnlyImageFieldComponent,
-                AjfReadOnlyTableFieldComponent,
-                AjfReadOnlyVideoUrlFieldComponent,
-                AjfTableRowClass,
-                AjfTableVisibleColumnsPipe,
-                AjfValidSlidePipe,
-            ],
-            providers: [
-                AjfDateValueStringPipe,
-                AjfFormRendererService,
-                AjfValidationService,
-            ],
-        })
-    ], AjfFormsModule);
+    class AjfFormsModule {
+    }
+    AjfFormsModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        AjfAsFieldInstancePipe,
+                        AjfAsRepeatingSlideInstancePipe,
+                        AjfBoolToIntPipe,
+                        AjfDateValuePipe,
+                        AjfDateValueStringPipe,
+                        AjfExpandFieldWithChoicesPipe,
+                        AjfFieldHost,
+                        AjfFieldIconPipe,
+                        AjfFieldIsValidPipe,
+                        AjfFileFieldComponent,
+                        AjfGetTableCellControlPipe,
+                        AjfImageFieldComponent,
+                        AjfIncrementPipe,
+                        AjfIsCellEditablePipe,
+                        AjfIsRepeatingSlideInstancePipe,
+                        AjfNodeCompleteNamePipe,
+                        AjfRangePipe,
+                        AjfReadOnlyFieldComponent,
+                        AjfReadOnlyFileFieldComponent,
+                        AjfReadOnlyImageFieldComponent,
+                        AjfReadOnlyTableFieldComponent,
+                        AjfReadOnlyVideoUrlFieldComponent,
+                        AjfTableRowClass,
+                        AjfTableVisibleColumnsPipe,
+                        AjfValidSlidePipe,
+                    ],
+                    imports: [
+                        AjfCommonModule,
+                        AjfFileInputModule,
+                        CommonModule,
+                        HttpClientModule,
+                        ReactiveFormsModule,
+                    ],
+                    exports: [
+                        AjfAsFieldInstancePipe,
+                        AjfAsRepeatingSlideInstancePipe,
+                        AjfBoolToIntPipe,
+                        AjfDateValuePipe,
+                        AjfDateValueStringPipe,
+                        AjfExpandFieldWithChoicesPipe,
+                        AjfFieldHost,
+                        AjfFieldIconPipe,
+                        AjfFieldIsValidPipe,
+                        AjfFileFieldComponent,
+                        AjfGetTableCellControlPipe,
+                        AjfImageFieldComponent,
+                        AjfIncrementPipe,
+                        AjfIsCellEditablePipe,
+                        AjfIsRepeatingSlideInstancePipe,
+                        AjfNodeCompleteNamePipe,
+                        AjfRangePipe,
+                        AjfReadOnlyFieldComponent,
+                        AjfReadOnlyFileFieldComponent,
+                        AjfReadOnlyImageFieldComponent,
+                        AjfReadOnlyTableFieldComponent,
+                        AjfReadOnlyVideoUrlFieldComponent,
+                        AjfTableRowClass,
+                        AjfTableVisibleColumnsPipe,
+                        AjfValidSlidePipe,
+                    ],
+                    providers: [
+                        AjfDateValueStringPipe,
+                        AjfFormRendererService,
+                        AjfValidationService,
+                    ],
+                },] }
+    ];
     return AjfFormsModule;
 })();
 
@@ -6357,7 +6348,7 @@ class AjfFormSerializer {
  *
  */
 let AjfTableFieldComponent = /** @class */ (() => {
-    let AjfTableFieldComponent = class AjfTableFieldComponent extends AjfBaseFieldComponent {
+    class AjfTableFieldComponent extends AjfBaseFieldComponent {
         constructor(cdr, service, was) {
             super(cdr, service, was);
         }
@@ -6408,11 +6399,13 @@ let AjfTableFieldComponent = /** @class */ (() => {
                 nextCell.show = true;
             }
         }
-    };
-    AjfTableFieldComponent = __decorate([
-        __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-        __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object])
-    ], AjfTableFieldComponent);
+    }
+    /** @nocollapse */
+    AjfTableFieldComponent.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+    ];
     return AjfTableFieldComponent;
 })();
 

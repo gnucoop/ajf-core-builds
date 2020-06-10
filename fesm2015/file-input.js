@@ -1,8 +1,7 @@
-import { __decorate, __metadata } from 'tslib';
-import { Directive, ViewContainerRef, EventEmitter, ContentChildren, QueryList, ViewChild, ElementRef, Input, Output, Component, ChangeDetectionStrategy, ViewEncapsulation, forwardRef, ChangeDetectorRef, NgModule } from '@angular/core';
+import { Directive, ViewContainerRef, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, forwardRef, ChangeDetectorRef, ContentChildren, ViewChild, Input, Output, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AjfCommonModule } from '@ajf/core/common';
 import { CommonModule } from '@angular/common';
@@ -52,15 +51,15 @@ import { TranslateModule } from '@ngx-translate/core';
  *
  */
 let AjfDropMessage = /** @class */ (() => {
-    let AjfDropMessage = class AjfDropMessage {
-    };
-    AjfDropMessage = __decorate([
-        Directive({ selector: '[ajfDropMessage]' })
-    ], AjfDropMessage);
+    class AjfDropMessage {
+    }
+    AjfDropMessage.decorators = [
+        { type: Directive, args: [{ selector: '[ajfDropMessage]' },] }
+    ];
     return AjfDropMessage;
 })();
 let AjfFilePreview = /** @class */ (() => {
-    let AjfFilePreview = class AjfFilePreview {
+    class AjfFilePreview {
         constructor(vcr) {
             this._valueSub = Subscription.EMPTY;
             const input = vcr.parentInjector.get(AjfFileInput, null);
@@ -79,19 +78,21 @@ let AjfFilePreview = /** @class */ (() => {
         ngOnDestroy() {
             this._valueSub.unsubscribe();
         }
-    };
-    AjfFilePreview = __decorate([
-        Directive({
-            selector: '[ajfFilePreview]',
-            exportAs: 'ajfFilePreview',
-        }),
-        __metadata("design:paramtypes", [ViewContainerRef])
-    ], AjfFilePreview);
+    }
+    AjfFilePreview.decorators = [
+        { type: Directive, args: [{
+                    selector: '[ajfFilePreview]',
+                    exportAs: 'ajfFilePreview',
+                },] }
+    ];
+    /** @nocollapse */
+    AjfFilePreview.ctorParameters = () => [
+        { type: ViewContainerRef }
+    ];
     return AjfFilePreview;
 })();
 let AjfFileInput = /** @class */ (() => {
-    var AjfFileInput_1;
-    let AjfFileInput = AjfFileInput_1 = class AjfFileInput {
+    class AjfFileInput {
         constructor(domSanitizer, _cdr) {
             this._cdr = _cdr;
             this._valueChange = new EventEmitter();
@@ -178,50 +179,37 @@ let AjfFileInput = /** @class */ (() => {
             };
             reader.readAsDataURL(file);
         }
+    }
+    AjfFileInput.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-file-input',
+                    template: "<div ajfDnd (file)=\"onFileDrop($event)\" class=\"ajf-drop-zone\">\n  <div *ngIf=\"value == null; else fileInfo\" class=\"ajf-drop-message\" (click)=\"triggerNativeInput()\">\n    <ng-container *ngIf=\"_dropMessageChildren?.length; else defaultDropMessage\">\n      <ng-content select=\"[ajfDropMessage]\"></ng-content>\n    </ng-container>\n    <ng-template #defaultDropMessage>Drop your file here or click to select</ng-template>\n  </div>\n  <ng-template #fileInfo>\n    <button (click)=\"resetValue()\" class=\"ajf-remove-file\">\n      <img [src]=\"removeIcon\" alt=\"\">\n      <div class=\"ajf-screen-reader-only\">{{ 'Delete'|translate }}</div>\n    </button>\n    <div class=\"ajf-file-info\">\n      <ng-container *ngIf=\"_filePreviewChildren?.length; else defaultFilePreview\">\n        <ng-content select=\"[ajfFilePreview]\"></ng-content>\n      </ng-container>\n      <ng-template #defaultFilePreview>\n        <div class=\"ajf-file-info-content\">\n          <img [src]=\"fileIcon\" alt=\"\">\n          <div>{{ value.name }}</div>\n        </div>\n      </ng-template>\n    </div>\n  </ng-template>\n</div>\n<input #nativeInput [accept]=\"accept\" name=\"\" aria-label=\"file input\" type=\"file\" (change)=\"onSelectFile()\">\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    host: {
+                        '[class.ajf-file-input]': 'true',
+                    },
+                    providers: [{
+                            provide: NG_VALUE_ACCESSOR,
+                            useExisting: forwardRef(() => AjfFileInput),
+                            multi: true,
+                        }],
+                    styles: [".ajf-file-input{display:flex;min-height:100px;align-items:stretch;position:relative;overflow:hidden}.ajf-file-input .ajf-drop-zone,.ajf-file-input .ajf-file-info,.ajf-file-input .ajf-drop-message{flex:1 1 auto;display:flex;align-items:center;justify-content:center}.ajf-file-input .ajf-drop-zone{background-color:#eee}.ajf-file-input .ajf-drop-zone.ajf-dnd-over{background-color:#999}.ajf-file-input .ajf-drop-message{cursor:pointer;align-self:stretch}.ajf-file-input .ajf-file-info-content{display:flex;align-items:center}.ajf-file-input .ajf-file-info-content img{width:32px;height:32px;margin-right:8px}.ajf-file-input input{position:absolute;top:-9999;left:-9999;opacity:0;z-index:-1}.ajf-file-input .ajf-screen-reader-only{display:none}.ajf-file-input .ajf-remove-file{position:absolute;top:16px;right:16px;padding:8px;cursor:pointer}.ajf-file-input .ajf-remove-file img{width:16px;height:16px;margin-right:0}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfFileInput.ctorParameters = () => [
+        { type: DomSanitizer },
+        { type: ChangeDetectorRef }
+    ];
+    AjfFileInput.propDecorators = {
+        _dropMessageChildren: [{ type: ContentChildren, args: [AjfDropMessage, { descendants: false },] }],
+        _filePreviewChildren: [{ type: ContentChildren, args: [AjfFilePreview, { descendants: false },] }],
+        _nativeInput: [{ type: ViewChild, args: ['nativeInput',] }],
+        accept: [{ type: Input }],
+        value: [{ type: Input }],
+        valueChange: [{ type: Output }]
     };
-    __decorate([
-        ContentChildren(AjfDropMessage, { descendants: false }),
-        __metadata("design:type", QueryList)
-    ], AjfFileInput.prototype, "_dropMessageChildren", void 0);
-    __decorate([
-        ContentChildren(AjfFilePreview, { descendants: false }),
-        __metadata("design:type", QueryList)
-    ], AjfFileInput.prototype, "_filePreviewChildren", void 0);
-    __decorate([
-        ViewChild('nativeInput'),
-        __metadata("design:type", ElementRef)
-    ], AjfFileInput.prototype, "_nativeInput", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], AjfFileInput.prototype, "accept", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfFileInput.prototype, "value", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", Observable)
-    ], AjfFileInput.prototype, "valueChange", void 0);
-    AjfFileInput = AjfFileInput_1 = __decorate([
-        Component({
-            selector: 'ajf-file-input',
-            template: "<div ajfDnd (file)=\"onFileDrop($event)\" class=\"ajf-drop-zone\">\n  <div *ngIf=\"value == null; else fileInfo\" class=\"ajf-drop-message\" (click)=\"triggerNativeInput()\">\n    <ng-container *ngIf=\"_dropMessageChildren?.length; else defaultDropMessage\">\n      <ng-content select=\"[ajfDropMessage]\"></ng-content>\n    </ng-container>\n    <ng-template #defaultDropMessage>Drop your file here or click to select</ng-template>\n  </div>\n  <ng-template #fileInfo>\n    <button (click)=\"resetValue()\" class=\"ajf-remove-file\">\n      <img [src]=\"removeIcon\" alt=\"\">\n      <div class=\"ajf-screen-reader-only\">{{ 'Delete'|translate }}</div>\n    </button>\n    <div class=\"ajf-file-info\">\n      <ng-container *ngIf=\"_filePreviewChildren?.length; else defaultFilePreview\">\n        <ng-content select=\"[ajfFilePreview]\"></ng-content>\n      </ng-container>\n      <ng-template #defaultFilePreview>\n        <div class=\"ajf-file-info-content\">\n          <img [src]=\"fileIcon\" alt=\"\">\n          <div>{{ value.name }}</div>\n        </div>\n      </ng-template>\n    </div>\n  </ng-template>\n</div>\n<input #nativeInput [accept]=\"accept\" name=\"\" aria-label=\"file input\" type=\"file\" (change)=\"onSelectFile()\">\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            host: {
-                '[class.ajf-file-input]': 'true',
-            },
-            providers: [{
-                    provide: NG_VALUE_ACCESSOR,
-                    useExisting: forwardRef(() => AjfFileInput_1),
-                    multi: true,
-                }],
-            styles: [".ajf-file-input{display:flex;min-height:100px;align-items:stretch;position:relative;overflow:hidden}.ajf-file-input .ajf-drop-zone,.ajf-file-input .ajf-file-info,.ajf-file-input .ajf-drop-message{flex:1 1 auto;display:flex;align-items:center;justify-content:center}.ajf-file-input .ajf-drop-zone{background-color:#eee}.ajf-file-input .ajf-drop-zone.ajf-dnd-over{background-color:#999}.ajf-file-input .ajf-drop-message{cursor:pointer;align-self:stretch}.ajf-file-input .ajf-file-info-content{display:flex;align-items:center}.ajf-file-input .ajf-file-info-content img{width:32px;height:32px;margin-right:8px}.ajf-file-input input{position:absolute;top:-9999;left:-9999;opacity:0;z-index:-1}.ajf-file-input .ajf-screen-reader-only{display:none}.ajf-file-input .ajf-remove-file{position:absolute;top:16px;right:16px;padding:8px;cursor:pointer}.ajf-file-input .ajf-remove-file img{width:16px;height:16px;margin-right:0}\n"]
-        }),
-        __metadata("design:paramtypes", [DomSanitizer, ChangeDetectorRef])
-    ], AjfFileInput);
     return AjfFileInput;
 })();
 const ajfFileKeys = JSON.stringify(['content', 'name', 'size', 'type']);
@@ -294,27 +282,27 @@ const trashIcon = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5
  *
  */
 let AjfFileInputModule = /** @class */ (() => {
-    let AjfFileInputModule = class AjfFileInputModule {
-    };
-    AjfFileInputModule = __decorate([
-        NgModule({
-            declarations: [
-                AjfDropMessage,
-                AjfFileInput,
-                AjfFilePreview,
-            ],
-            exports: [
-                AjfDropMessage,
-                AjfFileInput,
-                AjfFilePreview,
-            ],
-            imports: [
-                AjfCommonModule,
-                CommonModule,
-                TranslateModule,
-            ],
-        })
-    ], AjfFileInputModule);
+    class AjfFileInputModule {
+    }
+    AjfFileInputModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        AjfDropMessage,
+                        AjfFileInput,
+                        AjfFilePreview,
+                    ],
+                    exports: [
+                        AjfDropMessage,
+                        AjfFileInput,
+                        AjfFilePreview,
+                    ],
+                    imports: [
+                        AjfCommonModule,
+                        CommonModule,
+                        TranslateModule,
+                    ],
+                },] }
+    ];
     return AjfFileInputModule;
 })();
 

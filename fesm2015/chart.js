@@ -1,7 +1,6 @@
 import * as Chart from 'chart.js';
 import Chart__default from 'chart.js';
-import { __decorate, __metadata } from 'tslib';
-import { Input, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, NgModule } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, Input, NgModule } from '@angular/core';
 import 'chart.piecelabel.js';
 import { deepCopy } from '@ajf/core/utils';
 
@@ -78,7 +77,7 @@ function registerChartPlugins(plugins) {
  */
 const chartClass$1 = Chart__default || Chart;
 let AjfChartComponent = /** @class */ (() => {
-    let AjfChartComponent = class AjfChartComponent {
+    class AjfChartComponent {
         constructor(_el, _renderer) {
             this._el = _el;
             this._renderer = _renderer;
@@ -182,29 +181,26 @@ let AjfChartComponent = /** @class */ (() => {
             }
             return options;
         }
+    }
+    AjfChartComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-chart',
+                    template: "",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["ajf-chart{display:block;width:inherit;height:inherit;position:relative}\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfChartComponent.ctorParameters = () => [
+        { type: ElementRef },
+        { type: Renderer2 }
+    ];
+    AjfChartComponent.propDecorators = {
+        data: [{ type: Input }],
+        options: [{ type: Input }],
+        chartType: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], AjfChartComponent.prototype, "data", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object)
-    ], AjfChartComponent.prototype, "options", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", String)
-    ], AjfChartComponent.prototype, "chartType", void 0);
-    AjfChartComponent = __decorate([
-        Component({
-            selector: 'ajf-chart',
-            template: "",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["ajf-chart{display:block;width:inherit;height:inherit;position:relative}\n"]
-        }),
-        __metadata("design:paramtypes", [ElementRef, Renderer2])
-    ], AjfChartComponent);
     return AjfChartComponent;
 })();
 
@@ -230,18 +226,18 @@ let AjfChartComponent = /** @class */ (() => {
  *
  */
 let AjfChartModule = /** @class */ (() => {
-    let AjfChartModule = class AjfChartModule {
-    };
-    AjfChartModule = __decorate([
-        NgModule({
-            declarations: [
-                AjfChartComponent,
-            ],
-            exports: [
-                AjfChartComponent,
-            ],
-        })
-    ], AjfChartModule);
+    class AjfChartModule {
+    }
+    AjfChartModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        AjfChartComponent,
+                    ],
+                    exports: [
+                        AjfChartComponent,
+                    ],
+                },] }
+    ];
     return AjfChartModule;
 })();
 

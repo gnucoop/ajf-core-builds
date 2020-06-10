@@ -1,5 +1,4 @@
-import { __decorate, __metadata } from 'tslib';
-import { Pipe, Input, Directive, ChangeDetectorRef, ViewContainerRef, NgModule, ViewChild, ComponentFactoryResolver, Renderer2 } from '@angular/core';
+import { Pipe, Directive, ChangeDetectorRef, Input, ViewContainerRef, NgModule, ComponentFactoryResolver, Renderer2, ViewChild } from '@angular/core';
 import { AjfFormulaSerializer, alwaysCondition, AjfConditionSerializer, evaluateExpression, createFormula } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
 
@@ -144,14 +143,14 @@ function chartToChartJsType(chartType) {
  *
  */
 let AjfGetColumnContentPipe = /** @class */ (() => {
-    let AjfGetColumnContentPipe = class AjfGetColumnContentPipe {
+    class AjfGetColumnContentPipe {
         transform(instance, column) {
             return column >= 0 && column < instance.content.length ? instance.content[column] : null;
         }
-    };
-    AjfGetColumnContentPipe = __decorate([
-        Pipe({ name: 'ajfGetColumnContent' })
-    ], AjfGetColumnContentPipe);
+    }
+    AjfGetColumnContentPipe.decorators = [
+        { type: Pipe, args: [{ name: 'ajfGetColumnContent' },] }
+    ];
     return AjfGetColumnContentPipe;
 })();
 
@@ -1082,7 +1081,7 @@ var AjfWidgetType;
  *
  */
 let AjfReportRenderer = /** @class */ (() => {
-    let AjfReportRenderer = class AjfReportRenderer {
+    class AjfReportRenderer {
         constructor(_cdr) {
             this._cdr = _cdr;
         }
@@ -1097,16 +1096,17 @@ let AjfReportRenderer = /** @class */ (() => {
         get report() {
             return this._report;
         }
+    }
+    AjfReportRenderer.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfReportRenderer.ctorParameters = () => [
+        { type: ChangeDetectorRef }
+    ];
+    AjfReportRenderer.propDecorators = {
+        instance: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfReportRenderer.prototype, "instance", null);
-    AjfReportRenderer = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [ChangeDetectorRef])
-    ], AjfReportRenderer);
     return AjfReportRenderer;
 })();
 
@@ -1132,15 +1132,18 @@ let AjfReportRenderer = /** @class */ (() => {
  *
  */
 let AjfWidgetHost = /** @class */ (() => {
-    let AjfWidgetHost = class AjfWidgetHost {
+    class AjfWidgetHost {
         constructor(viewContainerRef) {
             this.viewContainerRef = viewContainerRef;
         }
-    };
-    AjfWidgetHost = __decorate([
-        Directive({ selector: '[ajf-widget-host]' }),
-        __metadata("design:paramtypes", [ViewContainerRef])
-    ], AjfWidgetHost);
+    }
+    AjfWidgetHost.decorators = [
+        { type: Directive, args: [{ selector: '[ajf-widget-host]' },] }
+    ];
+    /** @nocollapse */
+    AjfWidgetHost.ctorParameters = () => [
+        { type: ViewContainerRef }
+    ];
     return AjfWidgetHost;
 })();
 
@@ -1166,20 +1169,20 @@ let AjfWidgetHost = /** @class */ (() => {
  *
  */
 let AjfReportsModule = /** @class */ (() => {
-    let AjfReportsModule = class AjfReportsModule {
-    };
-    AjfReportsModule = __decorate([
-        NgModule({
-            declarations: [
-                AjfGetColumnContentPipe,
-                AjfWidgetHost,
-            ],
-            exports: [
-                AjfGetColumnContentPipe,
-                AjfWidgetHost,
-            ],
-        })
-    ], AjfReportsModule);
+    class AjfReportsModule {
+    }
+    AjfReportsModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        AjfGetColumnContentPipe,
+                        AjfWidgetHost,
+                    ],
+                    exports: [
+                        AjfGetColumnContentPipe,
+                        AjfWidgetHost,
+                    ],
+                },] }
+    ];
     return AjfReportsModule;
 })();
 
@@ -1505,7 +1508,7 @@ class AjfReportSerializer {
  *
  */
 let AjfReportWidget = /** @class */ (() => {
-    let AjfReportWidget = class AjfReportWidget {
+    class AjfReportWidget {
         constructor(_cfr, _renderer) {
             this._cfr = _cfr;
             this._renderer = _renderer;
@@ -1561,20 +1564,19 @@ let AjfReportWidget = /** @class */ (() => {
             catch (e) {
             }
         }
+    }
+    AjfReportWidget.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfReportWidget.ctorParameters = () => [
+        { type: ComponentFactoryResolver },
+        { type: Renderer2 }
+    ];
+    AjfReportWidget.propDecorators = {
+        widgetHost: [{ type: ViewChild, args: [AjfWidgetHost, { static: true },] }],
+        instance: [{ type: Input }]
     };
-    __decorate([
-        ViewChild(AjfWidgetHost, { static: true }),
-        __metadata("design:type", AjfWidgetHost)
-    ], AjfReportWidget.prototype, "widgetHost", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfReportWidget.prototype, "instance", null);
-    AjfReportWidget = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [ComponentFactoryResolver, Renderer2])
-    ], AjfReportWidget);
     return AjfReportWidget;
 })();
 

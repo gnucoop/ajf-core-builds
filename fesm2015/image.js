@@ -1,5 +1,4 @@
-import { __decorate, __metadata } from 'tslib';
-import { RendererStyleFlags2, Input, Directive, ElementRef, Renderer2 } from '@angular/core';
+import { RendererStyleFlags2, Directive, ElementRef, Renderer2, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
@@ -77,7 +76,7 @@ var AjfImageType;
  *
  */
 let AjfImage = /** @class */ (() => {
-    let AjfImage = class AjfImage {
+    class AjfImage {
         constructor(_el, _renderer, _domSanitizer) {
             this._el = _el;
             this._renderer = _renderer;
@@ -139,31 +138,22 @@ let AjfImage = /** @class */ (() => {
                 this._renderer.setStyle(el, 'height', fontSize, RendererStyleFlags2.Important);
             }
         }
+    }
+    AjfImage.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfImage.ctorParameters = () => [
+        { type: ElementRef },
+        { type: Renderer2 },
+        { type: DomSanitizer }
+    ];
+    AjfImage.propDecorators = {
+        type: [{ type: Input }],
+        imageUrl: [{ type: Input }],
+        icon: [{ type: Input }],
+        flag: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfImage.prototype, "type", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfImage.prototype, "imageUrl", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfImage.prototype, "icon", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], AjfImage.prototype, "flag", null);
-    AjfImage = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [ElementRef, Renderer2, DomSanitizer])
-    ], AjfImage);
     return AjfImage;
 })();
 

@@ -1,7 +1,6 @@
-import { __decorate, __metadata } from 'tslib';
 import { AjfCommonModule } from '@ajf/core/common';
 import { CommonModule } from '@angular/common';
-import { Input, Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, NgModule } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, Input, NgModule } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 /**
@@ -48,7 +47,7 @@ import { DomSanitizer } from '@angular/platform-browser';
  *
  */
 let AjfTable = /** @class */ (() => {
-    let AjfTable = class AjfTable {
+    class AjfTable {
         /**
          * Creates an instance of TableComponent.
          *
@@ -81,27 +80,25 @@ let AjfTable = /** @class */ (() => {
             });
             return data;
         }
+    }
+    AjfTable.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-table',
+                    template: "<table *ngIf=\"data\">\n  <tr *ngFor=\"let row of data\">\n    <td *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\">\n    </td>\n  </tr>\n</table>\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["\n"]
+                }] }
+    ];
+    /** @nocollapse */
+    AjfTable.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: DomSanitizer }
+    ];
+    AjfTable.propDecorators = {
+        data: [{ type: Input }],
+        cellpadding: [{ type: Input }]
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Array),
-        __metadata("design:paramtypes", [Array])
-    ], AjfTable.prototype, "data", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfTable.prototype, "cellpadding", null);
-    AjfTable = __decorate([
-        Component({
-            selector: 'ajf-table',
-            template: "<table *ngIf=\"data\">\n  <tr *ngFor=\"let row of data\">\n    <td *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\">\n    </td>\n  </tr>\n</table>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["\n"]
-        }),
-        __metadata("design:paramtypes", [ChangeDetectorRef, DomSanitizer])
-    ], AjfTable);
     return AjfTable;
 })();
 
@@ -127,22 +124,22 @@ let AjfTable = /** @class */ (() => {
  *
  */
 let AjfTableModule = /** @class */ (() => {
-    let AjfTableModule = class AjfTableModule {
-    };
-    AjfTableModule = __decorate([
-        NgModule({
-            imports: [
-                AjfCommonModule,
-                CommonModule,
-            ],
-            declarations: [
-                AjfTable,
-            ],
-            exports: [
-                AjfTable,
-            ]
-        })
-    ], AjfTableModule);
+    class AjfTableModule {
+    }
+    AjfTableModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        AjfCommonModule,
+                        CommonModule,
+                    ],
+                    declarations: [
+                        AjfTable,
+                    ],
+                    exports: [
+                        AjfTable,
+                    ]
+                },] }
+    ];
     return AjfTableModule;
 })();
 

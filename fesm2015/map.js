@@ -1,5 +1,4 @@
-import { __decorate, __metadata } from 'tslib';
-import { Directive, ElementRef, ViewChild, Input, Component, ChangeDetectionStrategy, ViewEncapsulation, NgModule } from '@angular/core';
+import { Directive, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Input, NgModule } from '@angular/core';
 import * as L from 'leaflet';
 import L__default from 'leaflet';
 import { Subscription } from 'rxjs';
@@ -26,18 +25,21 @@ import { Subscription } from 'rxjs';
  *
  */
 let AjfMapContainerDirective = /** @class */ (() => {
-    let AjfMapContainerDirective = class AjfMapContainerDirective {
+    class AjfMapContainerDirective {
         constructor(_el) {
             this._el = _el;
         }
         get htmlElement() {
             return this._el.nativeElement;
         }
-    };
-    AjfMapContainerDirective = __decorate([
-        Directive({ selector: '[mapContainer]' }),
-        __metadata("design:paramtypes", [ElementRef])
-    ], AjfMapContainerDirective);
+    }
+    AjfMapContainerDirective.decorators = [
+        { type: Directive, args: [{ selector: '[mapContainer]' },] }
+    ];
+    /** @nocollapse */
+    AjfMapContainerDirective.ctorParameters = () => [
+        { type: ElementRef }
+    ];
     return AjfMapContainerDirective;
 })();
 
@@ -64,7 +66,7 @@ let AjfMapContainerDirective = /** @class */ (() => {
  */
 const leafletLib = L__default || L;
 let AjfMapComponent = /** @class */ (() => {
-    let AjfMapComponent = class AjfMapComponent {
+    class AjfMapComponent {
         constructor() {
             this._columnWidthChanged = Subscription.EMPTY;
         }
@@ -147,40 +149,23 @@ let AjfMapComponent = /** @class */ (() => {
                 }
             }
         }
+    }
+    AjfMapComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'ajf-map',
+                    template: "<div mapContainer></div>\n",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
+                }] }
+    ];
+    AjfMapComponent.propDecorators = {
+        mapContainer: [{ type: ViewChild, args: [AjfMapContainerDirective, { static: true },] }],
+        coordinate: [{ type: Input }],
+        tileLayer: [{ type: Input }],
+        attribution: [{ type: Input }],
+        disabled: [{ type: Input }]
     };
-    __decorate([
-        ViewChild(AjfMapContainerDirective, { static: true }),
-        __metadata("design:type", AjfMapContainerDirective)
-    ], AjfMapComponent.prototype, "mapContainer", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Array),
-        __metadata("design:paramtypes", [Array])
-    ], AjfMapComponent.prototype, "coordinate", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfMapComponent.prototype, "tileLayer", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], AjfMapComponent.prototype, "attribution", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], AjfMapComponent.prototype, "disabled", null);
-    AjfMapComponent = __decorate([
-        Component({
-            selector: 'ajf-map',
-            template: "<div mapContainer></div>\n",
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-            styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
-        })
-    ], AjfMapComponent);
     return AjfMapComponent;
 })();
 
@@ -206,19 +191,19 @@ let AjfMapComponent = /** @class */ (() => {
  *
  */
 let AjfMapModule = /** @class */ (() => {
-    let AjfMapModule = class AjfMapModule {
-    };
-    AjfMapModule = __decorate([
-        NgModule({
-            declarations: [
-                AjfMapComponent,
-                AjfMapContainerDirective,
-            ],
-            exports: [
-                AjfMapComponent,
-            ],
-        })
-    ], AjfMapModule);
+    class AjfMapModule {
+    }
+    AjfMapModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        AjfMapComponent,
+                        AjfMapContainerDirective,
+                    ],
+                    exports: [
+                        AjfMapComponent,
+                    ],
+                },] }
+    ];
     return AjfMapModule;
 })();
 

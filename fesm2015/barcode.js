@@ -1,4 +1,3 @@
-import { __decorate, __metadata } from 'tslib';
 import { EventEmitter, Directive, ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { BrowserBarcodeReader } from '@zxing/library';
 import { Subscription, of, from } from 'rxjs';
@@ -26,7 +25,7 @@ import { debounceTime, switchMap, catchError } from 'rxjs/operators';
  *
  */
 let AjfBarcode = /** @class */ (() => {
-    let AjfBarcode = class AjfBarcode {
+    class AjfBarcode {
         constructor(_cdr, _renderer) {
             this._cdr = _cdr;
             this._renderer = _renderer;
@@ -199,11 +198,15 @@ let AjfBarcode = /** @class */ (() => {
             }
             return image;
         }
-    };
-    AjfBarcode = __decorate([
-        Directive(),
-        __metadata("design:paramtypes", [ChangeDetectorRef, Renderer2])
-    ], AjfBarcode);
+    }
+    AjfBarcode.decorators = [
+        { type: Directive }
+    ];
+    /** @nocollapse */
+    AjfBarcode.ctorParameters = () => [
+        { type: ChangeDetectorRef },
+        { type: Renderer2 }
+    ];
     return AjfBarcode;
 })();
 
