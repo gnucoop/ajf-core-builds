@@ -118,9 +118,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["ajf-page-slider-item{display:block;position:relative}ajf-page-slider-item .ajf-page-slider-item-content{position:absolute;top:0;right:0;bottom:0;left:0;padding:0;margin:0;display:flex;align-items:flex-start;justify-content:flex-start;overflow:hidden;box-sizing:border-box}ajf-page-slider-item .ajf-page-slider-item-content .ajf-page-slider-item-content-wrapper{flex:1 1 auto;display:flex;align-items:center;justify-content:center;min-width:100%;min-height:100%}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         AjfPageSliderItem.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.Renderer2 }
@@ -496,7 +495,6 @@
         AjfPageSlider.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         AjfPageSlider.ctorParameters = function () { return [
             { type: animations.AnimationBuilder },
             { type: core.ChangeDetectorRef },

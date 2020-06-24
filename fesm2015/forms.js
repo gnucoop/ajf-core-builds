@@ -2877,7 +2877,6 @@ let AjfValidationService = /** @class */ (() => {
     AjfValidationService.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     AjfValidationService.ctorParameters = () => [];
     return AjfValidationService;
 })();
@@ -3931,7 +3930,6 @@ let AjfFormRendererService = /** @class */ (() => {
     AjfFormRendererService.decorators = [
         { type: Injectable }
     ];
-    /** @nocollapse */
     AjfFormRendererService.ctorParameters = () => [
         { type: AjfValidationService }
     ];
@@ -4035,7 +4033,6 @@ let AjfBaseFieldComponent = /** @class */ (() => {
     AjfBaseFieldComponent.decorators = [
         { type: Directive }
     ];
-    /** @nocollapse */
     AjfBaseFieldComponent.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: AjfFormRendererService },
@@ -4249,7 +4246,6 @@ let AjfFieldHost = /** @class */ (() => {
     AjfFieldHost.decorators = [
         { type: Directive, args: [{ selector: '[ajf-field-host]' },] }
     ];
-    /** @nocollapse */
     AjfFieldHost.ctorParameters = () => [
         { type: ViewContainerRef }
     ];
@@ -4349,7 +4345,6 @@ let AjfFormField = /** @class */ (() => {
     AjfFormField.decorators = [
         { type: Directive }
     ];
-    /** @nocollapse */
     AjfFormField.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: ComponentFactoryResolver }
@@ -4603,9 +4598,8 @@ let AjfFileFieldComponent = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: ["\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     AjfFileFieldComponent.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: AjfFormRendererService },
@@ -4873,7 +4867,6 @@ let AjfFormRenderer = /** @class */ (() => {
     AjfFormRenderer.decorators = [
         { type: Directive }
     ];
-    /** @nocollapse */
     AjfFormRenderer.ctorParameters = () => [
         { type: AjfFormRendererService },
         { type: ChangeDetectorRef }
@@ -4973,9 +4966,8 @@ let AjfImageFieldComponent = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     AjfImageFieldComponent.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: AjfFormRendererService },
@@ -5220,9 +5212,8 @@ let AjfReadOnlyFieldComponent = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     AjfReadOnlyFieldComponent.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: AjfFormRendererService },
@@ -5272,9 +5263,8 @@ let AjfReadOnlyFileFieldComponent = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     AjfReadOnlyFileFieldComponent.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: AjfFormRendererService },
@@ -5323,9 +5313,8 @@ let AjfReadOnlyImageFieldComponent = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     AjfReadOnlyImageFieldComponent.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: AjfFormRendererService },
@@ -5368,9 +5357,8 @@ let AjfReadOnlyTableFieldComponent = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: ["\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     AjfReadOnlyTableFieldComponent.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: AjfFormRendererService },
@@ -5412,7 +5400,6 @@ let AjfVideoUrlFieldComponent = /** @class */ (() => {
             this.videoThumbnail = video.pipe(filter(info => info != null), switchMap(info => videoPreviewUrl(httpClient, info)), filter(url => url != null), map(url => domSanitizer.bypassSecurityTrustResourceUrl(url)));
         }
     }
-    /** @nocollapse */
     AjfVideoUrlFieldComponent.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: AjfFormRendererService },
@@ -5570,9 +5557,8 @@ let AjfReadOnlyVideoUrlFieldComponent = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: ["\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     AjfReadOnlyVideoUrlFieldComponent.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: AjfFormRendererService },
@@ -6400,7 +6386,6 @@ let AjfTableFieldComponent = /** @class */ (() => {
             }
         }
     }
-    /** @nocollapse */
     AjfTableFieldComponent.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: AjfFormRendererService },

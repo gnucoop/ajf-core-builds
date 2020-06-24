@@ -418,9 +418,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["ajf-chart{display:block;width:inherit;height:inherit;position:relative}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         AjfChartComponent.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.Renderer2 }

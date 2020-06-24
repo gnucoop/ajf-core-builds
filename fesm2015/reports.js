@@ -1100,7 +1100,6 @@ let AjfReportRenderer = /** @class */ (() => {
     AjfReportRenderer.decorators = [
         { type: Directive }
     ];
-    /** @nocollapse */
     AjfReportRenderer.ctorParameters = () => [
         { type: ChangeDetectorRef }
     ];
@@ -1140,7 +1139,6 @@ let AjfWidgetHost = /** @class */ (() => {
     AjfWidgetHost.decorators = [
         { type: Directive, args: [{ selector: '[ajf-widget-host]' },] }
     ];
-    /** @nocollapse */
     AjfWidgetHost.ctorParameters = () => [
         { type: ViewContainerRef }
     ];
@@ -1568,7 +1566,6 @@ let AjfReportWidget = /** @class */ (() => {
     AjfReportWidget.decorators = [
         { type: Directive }
     ];
-    /** @nocollapse */
     AjfReportWidget.ctorParameters = () => [
         { type: ComponentFactoryResolver },
         { type: Renderer2 }

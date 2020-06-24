@@ -189,9 +189,8 @@ let AjfChartComponent = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: ["ajf-chart{display:block;width:inherit;height:inherit;position:relative}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     AjfChartComponent.ctorParameters = () => [
         { type: ElementRef },
         { type: Renderer2 }

@@ -142,7 +142,6 @@ let AjfImage = /** @class */ (() => {
     AjfImage.decorators = [
         { type: Directive }
     ];
-    /** @nocollapse */
     AjfImage.ctorParameters = () => [
         { type: ElementRef },
         { type: Renderer2 },

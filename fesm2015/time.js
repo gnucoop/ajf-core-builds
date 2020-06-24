@@ -142,7 +142,6 @@ let AjfTime = /** @class */ (() => {
     AjfTime.decorators = [
         { type: Directive }
     ];
-    /** @nocollapse */
     AjfTime.ctorParameters = () => [];
     AjfTime.propDecorators = {
         readonly: [{ type: Input }]

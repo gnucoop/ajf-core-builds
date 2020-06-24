@@ -96,9 +96,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         AjfTable.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: platformBrowser.DomSanitizer }

@@ -36,7 +36,7 @@ let AjfPageBreakComponent = /** @class */ (() => {
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     styles: ["@media print{ajf-page-break{display:block;page-break-after:always}}ajf-page-break{display:none}\n"]
-                }] }
+                },] }
     ];
     return AjfPageBreakComponent;
 })();

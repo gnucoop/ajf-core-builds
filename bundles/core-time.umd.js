@@ -169,7 +169,6 @@
         AjfTime.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         AjfTime.ctorParameters = function () { return []; };
         AjfTime.propDecorators = {
             readonly: [{ type: core.Input }]

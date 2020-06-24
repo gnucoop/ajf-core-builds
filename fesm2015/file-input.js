@@ -85,7 +85,6 @@ let AjfFilePreview = /** @class */ (() => {
                     exportAs: 'ajfFilePreview',
                 },] }
     ];
-    /** @nocollapse */
     AjfFilePreview.ctorParameters = () => [
         { type: ViewContainerRef }
     ];
@@ -195,9 +194,8 @@ let AjfFileInput = /** @class */ (() => {
                             multi: true,
                         }],
                     styles: [".ajf-file-input{display:flex;min-height:100px;align-items:stretch;position:relative;overflow:hidden}.ajf-file-input .ajf-drop-zone,.ajf-file-input .ajf-file-info,.ajf-file-input .ajf-drop-message{flex:1 1 auto;display:flex;align-items:center;justify-content:center}.ajf-file-input .ajf-drop-zone{background-color:#eee}.ajf-file-input .ajf-drop-zone.ajf-dnd-over{background-color:#999}.ajf-file-input .ajf-drop-message{cursor:pointer;align-self:stretch}.ajf-file-input .ajf-file-info-content{display:flex;align-items:center}.ajf-file-input .ajf-file-info-content img{width:32px;height:32px;margin-right:8px}.ajf-file-input input{position:absolute;top:-9999;left:-9999;opacity:0;z-index:-1}.ajf-file-input .ajf-screen-reader-only{display:none}.ajf-file-input .ajf-remove-file{position:absolute;top:16px;right:16px;padding:8px;cursor:pointer}.ajf-file-input .ajf-remove-file img{width:16px;height:16px;margin-right:0}\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     AjfFileInput.ctorParameters = () => [
         { type: DomSanitizer },
         { type: ChangeDetectorRef }

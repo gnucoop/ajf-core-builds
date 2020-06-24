@@ -219,7 +219,6 @@
         AjfBarcode.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         AjfBarcode.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: core.Renderer2 }

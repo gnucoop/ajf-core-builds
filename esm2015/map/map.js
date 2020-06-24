@@ -116,7 +116,7 @@ let AjfMapComponent = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
-                }] }
+                },] }
     ];
     AjfMapComponent.propDecorators = {
         mapContainer: [{ type: ViewChild, args: [AjfMapContainerDirective, { static: true },] }],

@@ -1107,7 +1107,6 @@
         AjfReportRenderer.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         AjfReportRenderer.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef }
         ]; };
@@ -1145,7 +1144,6 @@
         AjfWidgetHost.decorators = [
             { type: core.Directive, args: [{ selector: '[ajf-widget-host]' },] }
         ];
-        /** @nocollapse */
         AjfWidgetHost.ctorParameters = function () { return [
             { type: core.ViewContainerRef }
         ]; };
@@ -1819,7 +1817,6 @@
         AjfReportWidget.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         AjfReportWidget.ctorParameters = function () { return [
             { type: core.ComponentFactoryResolver },
             { type: core.Renderer2 }

@@ -202,7 +202,6 @@ let AjfBarcode = /** @class */ (() => {
     AjfBarcode.decorators = [
         { type: Directive }
     ];
-    /** @nocollapse */
     AjfBarcode.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: Renderer2 }

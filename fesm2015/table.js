@@ -88,9 +88,8 @@ let AjfTable = /** @class */ (() => {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     styles: ["\n"]
-                }] }
+                },] }
     ];
-    /** @nocollapse */
     AjfTable.ctorParameters = () => [
         { type: ChangeDetectorRef },
         { type: DomSanitizer }

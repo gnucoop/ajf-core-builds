@@ -157,7 +157,6 @@
         AjfImage.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         AjfImage.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.Renderer2 },

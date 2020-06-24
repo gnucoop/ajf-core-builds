@@ -240,10 +240,10 @@
             }
             return rows;
         };
+        AjfCalendarService.ɵprov = i0["ɵɵdefineInjectable"]({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
         AjfCalendarService.decorators = [
             { type: i0.Injectable, args: [{ providedIn: 'root' },] }
         ];
-        AjfCalendarService.ɵprov = i0["ɵɵdefineInjectable"]({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
         return AjfCalendarService;
     }());
 
@@ -279,7 +279,6 @@
             { type: i0.Injectable },
             { type: i0.Pipe, args: [{ name: 'ajfCalendarEntryLabel' },] }
         ];
-        /** @nocollapse */
         AjfCalendarEntryLabelPipe.ctorParameters = function () { return [
             { type: AjfCalendarService }
         ]; };
@@ -1097,7 +1096,6 @@
         AjfCalendar.decorators = [
             { type: i0.Directive }
         ];
-        /** @nocollapse */
         AjfCalendar.ctorParameters = function () { return [
             { type: i0.ChangeDetectorRef },
             { type: AjfCalendarService }

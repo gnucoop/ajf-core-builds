@@ -316,7 +316,6 @@
         AjfCheckboxGroupItem.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         AjfCheckboxGroupItem.ctorParameters = function () { return [
             { type: AjfCheckboxGroup }
         ]; };

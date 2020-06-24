@@ -2774,7 +2774,6 @@
         AjfValidationService.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         AjfValidationService.ctorParameters = function () { return []; };
         return AjfValidationService;
     }());
@@ -3864,7 +3863,6 @@
         AjfFormRendererService.decorators = [
             { type: core.Injectable }
         ];
-        /** @nocollapse */
         AjfFormRendererService.ctorParameters = function () { return [
             { type: AjfValidationService }
         ]; };
@@ -3977,7 +3975,6 @@
         AjfBaseFieldComponent.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         AjfBaseFieldComponent.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: AjfFormRendererService },
@@ -4195,7 +4192,6 @@
         AjfFieldHost.decorators = [
             { type: core.Directive, args: [{ selector: '[ajf-field-host]' },] }
         ];
-        /** @nocollapse */
         AjfFieldHost.ctorParameters = function () { return [
             { type: core.ViewContainerRef }
         ]; };
@@ -4302,7 +4298,6 @@
         AjfFormField.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         AjfFormField.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: core.ComponentFactoryResolver }
@@ -4563,9 +4558,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         AjfFileFieldComponent.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: AjfFormRendererService },
@@ -4881,7 +4875,6 @@
         AjfFormRenderer.decorators = [
             { type: core.Directive }
         ];
-        /** @nocollapse */
         AjfFormRenderer.ctorParameters = function () { return [
             { type: AjfFormRendererService },
             { type: core.ChangeDetectorRef }
@@ -4981,9 +4974,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         AjfImageFieldComponent.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: AjfFormRendererService },
@@ -5234,9 +5226,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         AjfReadOnlyFieldComponent.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: AjfFormRendererService },
@@ -5286,9 +5277,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         AjfReadOnlyFileFieldComponent.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: AjfFormRendererService },
@@ -5337,9 +5327,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         AjfReadOnlyImageFieldComponent.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: AjfFormRendererService },
@@ -5381,9 +5370,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         AjfReadOnlyTableFieldComponent.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: AjfFormRendererService },
@@ -5425,7 +5413,6 @@
             _this.videoThumbnail = video.pipe(operators.filter(function (info) { return info != null; }), operators.switchMap(function (info) { return videoPreviewUrl(httpClient, info); }), operators.filter(function (url) { return url != null; }), operators.map(function (url) { return domSanitizer.bypassSecurityTrustResourceUrl(url); }));
             return _this;
         }
-        /** @nocollapse */
         AjfVideoUrlFieldComponent.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: AjfFormRendererService },
@@ -5582,9 +5569,8 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["\n"]
-                    }] }
+                    },] }
         ];
-        /** @nocollapse */
         AjfReadOnlyVideoUrlFieldComponent.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: AjfFormRendererService },
@@ -6429,7 +6415,6 @@
                 nextCell.show = true;
             }
         };
-        /** @nocollapse */
         AjfTableFieldComponent.ctorParameters = function () { return [
             { type: core.ChangeDetectorRef },
             { type: AjfFormRendererService },

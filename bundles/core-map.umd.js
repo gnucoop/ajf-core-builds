@@ -41,7 +41,6 @@
         AjfMapContainerDirective.decorators = [
             { type: core.Directive, args: [{ selector: '[mapContainer]' },] }
         ];
-        /** @nocollapse */
         AjfMapContainerDirective.ctorParameters = function () { return [
             { type: core.ElementRef }
         ]; };
@@ -181,7 +180,7 @@
                         changeDetection: core.ChangeDetectionStrategy.OnPush,
                         encapsulation: core.ViewEncapsulation.None,
                         styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
-                    }] }
+                    },] }
         ];
         AjfMapComponent.propDecorators = {
             mapContainer: [{ type: core.ViewChild, args: [AjfMapContainerDirective, { static: true },] }],

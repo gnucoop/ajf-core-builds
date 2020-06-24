@@ -56,7 +56,6 @@
         ApplyStylesDirective.decorators = [
             { type: core.Directive, args: [{ selector: '[applyStyles]' },] }
         ];
-        /** @nocollapse */
         ApplyStylesDirective.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.Renderer2 }
@@ -98,7 +97,6 @@
         AutofocusDirective.decorators = [
             { type: core.Directive, args: [{ selector: '[autoFocus]' },] }
         ];
-        /** @nocollapse */
         AutofocusDirective.ctorParameters = function () { return [
             { type: core.ElementRef }
         ]; };
@@ -551,7 +549,6 @@
         AjfVideoDirective.decorators = [
             { type: core.Directive, args: [{ selector: '[ajfVideoDirective]' },] }
         ];
-        /** @nocollapse */
         AjfVideoDirective.ctorParameters = function () { return [
             { type: core.ElementRef },
             { type: core.Renderer2 }

@@ -272,7 +272,6 @@ let AjfCheckboxGroupItem = /** @class */ (() => {
     AjfCheckboxGroupItem.decorators = [
         { type: Directive }
     ];
-    /** @nocollapse */
     AjfCheckboxGroupItem.ctorParameters = () => [
         { type: AjfCheckboxGroup }
     ];
