@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "10.0.0-next.0-sha-9439cca",
+  "version": "10.0.0-next.0-sha-2d4d49d",
   "description": "",
   "repository": {
     "type": "git",
@@ -22,7 +22,6 @@
     "@ngx-translate/core": "^12.0.0",
     "@zxing/library": "^0.15.2",
     "chart.js": "^2.9.3",
-    "chart.piecelabel.js": "^0.15.0",
     "css-element-queries": "^1.2.3",
     "date-fns": "^2.9.0",
     "debug": "^4.1.1",

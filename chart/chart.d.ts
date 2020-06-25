@@ -21,7 +21,6 @@
  */
 import { AfterViewInit, ElementRef, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
-import 'chart.piecelabel.js';
 import { ExtendedChartType } from './extended-chart-type';
 export declare class AjfChartComponent implements AfterViewInit, OnChanges {
     private _el;

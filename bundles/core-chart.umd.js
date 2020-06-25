@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('chart.js'), require('@angular/core'), require('chart.piecelabel.js'), require('@ajf/core/utils')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/chart', ['exports', 'chart.js', '@angular/core', 'chart.piecelabel.js', '@ajf/core/utils'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.Chart, global.ng.core, global.Chart.piecelabel, global.ng.core.utils));
-}(this, (function (exports, Chart, core, chart_piecelabel_js, utils) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('chart.js'), require('@angular/core'), require('@ajf/core/utils')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/chart', ['exports', 'chart.js', '@angular/core', '@ajf/core/utils'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.Chart, global.ng.core, global.ng.core.utils));
+}(this, (function (exports, Chart, core, utils) { 'use strict';
 
     var Chart__default = 'default' in Chart ? Chart['default'] : Chart;
 
@@ -385,6 +385,120 @@
         };
         AjfChartComponent.prototype._fixChartOptions = function (options) {
             options = options || {};
+            if (options.legendCallback) {
+                var legendCallback = (typeof options.legendCallback === 'string'
+                    ? new Function(options.legendCallback)
+                    : options.legendCallback);
+                options.legendCallback = legendCallback;
+            }
+            if (options.onHover) {
+                var onHover = (typeof options.onHover === 'string'
+                    ? new Function(options.onHover)
+                    : options.onHover);
+                options.onHover = onHover;
+            }
+            if (options.onClick) {
+                var onClick = (typeof options.onClick === 'string'
+                    ? new Function(options.onClick)
+                    : options.onClick);
+                options.onClick = onClick;
+            }
+            if (options.onResize) {
+                var onResize = (typeof options.onResize === 'string'
+                    ? new Function(options.onResize)
+                    : options.onResize);
+                options.onResize = onResize;
+            }
+            if (options.legend) {
+                var legend = options.legend;
+                if (legend.onClick) {
+                    var onClick = (typeof legend.onClick === 'string'
+                        ? new Function(legend.onClick)
+                        : legend.onClick);
+                    legend.onClick = onClick;
+                }
+                if (legend.onHover) {
+                    var onHover = (typeof legend.onHover === 'string'
+                        ? new Function(legend.onHover)
+                        : legend.onHover);
+                    legend.onHover = onHover;
+                }
+                if (legend.onLeave) {
+                    var onLeave = (typeof legend.onLeave === 'string'
+                        ? new Function(legend.onLeave)
+                        : legend.onLeave);
+                    legend.onLeave = onLeave;
+                }
+                if (legend.labels) {
+                    var labels = legend.labels;
+                    if (labels.generateLabels) {
+                        var generateLabels = (typeof labels.generateLabels === 'string'
+                            ? new Function(labels.generateLabels)
+                            : labels.generateLabels);
+                        labels.generateLabels = generateLabels;
+                    }
+                    if (labels.filter) {
+                        var filter = (typeof labels.filter === 'string'
+                            ? new Function(labels.filter)
+                            : labels.filter);
+                        labels.filter = filter;
+                    }
+                }
+            }
+            if (options.tooltips) {
+                var tooltips = options.tooltips;
+                if (tooltips.custom) {
+                    var custom = (typeof tooltips.custom === 'string'
+                        ? new Function(tooltips.custom)
+                        : tooltips.custom);
+                    tooltips.custom = custom;
+                }
+                if (tooltips.callbacks) {
+                    var callbacks = tooltips.callbacks;
+                    for (var key in callbacks) {
+                        var callback = callbacks[key];
+                        callbacks[key] = typeof callback === 'string'
+                            ? new Function(callback)
+                            : callback;
+                    }
+                }
+                if (tooltips.filter) {
+                    var filter = (typeof tooltips.filter === 'string'
+                        ? new Function(tooltips.filter)
+                        : tooltips.filter);
+                    tooltips.filter = filter;
+                }
+                if (tooltips.itemSort) {
+                    var itemSort = (typeof tooltips.itemSort === 'string'
+                        ? new Function(tooltips.itemSort)
+                        : tooltips.itemSort);
+                    tooltips.itemSort = itemSort;
+                }
+            }
+            if (options.hover) {
+                var hover = options.hover;
+                if (hover.onHover) {
+                    var onHover = (typeof hover.onHover === 'string'
+                        ? new Function(hover.onHover)
+                        : hover.onHover);
+                    hover.onHover = onHover;
+                }
+            }
+            if (options.animation) {
+                var animation = options.animation;
+                if (animation.onProgress) {
+                    var onProgress = (typeof animation.onProgress === 'string'
+                        ? new Function(animation.onProgress)
+                        : animation.onProgress);
+                    animation.onProgress = onProgress;
+                }
+                if (animation.onComplete) {
+                    var onComplete = (typeof animation.onComplete === 'string'
+                        ? new Function(animation.onComplete)
+                        : animation.onComplete);
+                    animation.onComplete = onComplete;
+                }
+            }
             if (options.scales == null) {
                 options.scales = { xAxes: [], yAxes: [] };
             }
@@ -394,6 +508,22 @@
             if (options.scales.yAxes == null) {
                 options.scales.yAxes = [];
             }
+            options.scales.yAxes.forEach(function (yAxe) {
+                if (yAxe.ticks && yAxe.ticks.callback) {
+                    var callback = (typeof yAxe.ticks.callback === 'string'
+                        ? new Function(yAxe.ticks.callback)
+                        : yAxe.ticks.callback);
+                    yAxe.ticks.callback = callback;
+                }
+            });
+            options.scales.xAxes.forEach(function (xAxe) {
+                if (xAxe.ticks && xAxe.ticks.callback) {
+                    var callback = (typeof xAxe.ticks.callback === 'string'
+                        ? new Function(xAxe.ticks.callback)
+                        : xAxe.ticks.callback);
+                    xAxe.ticks.callback = callback;
+                }
+            });
             if (this.chartType == 'pie') {
                 var newOptions = options;
                 newOptions.pieceLabel = {
