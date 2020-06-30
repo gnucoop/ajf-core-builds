@@ -1,5 +1,4 @@
-import * as Chart from 'chart.js';
-import Chart__default from 'chart.js';
+import { Chart } from 'chart.js';
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, Input, NgModule } from '@angular/core';
 import { deepCopy } from '@ajf/core/utils';
 
@@ -46,10 +45,9 @@ import { deepCopy } from '@ajf/core/utils';
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const chartClass = Chart__default || Chart;
 function registerChartPlugins(plugins) {
     if (plugins != null && plugins.length > 0) {
-        plugins.forEach(plugin => chartClass.plugins.register(plugin));
+        plugins.forEach(plugin => Chart.plugins.register(plugin));
     }
 }
 
@@ -74,7 +72,6 @@ function registerChartPlugins(plugins) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const chartClass$1 = Chart__default || Chart;
 let AjfChartComponent = /** @class */ (() => {
     class AjfChartComponent {
         constructor(_el, _renderer) {
@@ -145,7 +142,7 @@ let AjfChartComponent = /** @class */ (() => {
                 this._renderer.setStyle(this._chartCanvasElement, 'height', 'inherit');
                 this._renderer.appendChild(this._el.nativeElement, this._chartCanvasElement);
                 const ctx = this._chartCanvasElement.getContext('2d');
-                this._chart = new chartClass$1(ctx, {
+                this._chart = new Chart(ctx, {
                     type: this.chartType,
                     data: this._fixData(this.chartType, this.data),
                     options: this._fixChartOptions(this.options)

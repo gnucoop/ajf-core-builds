@@ -3,8 +3,7 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subject, BehaviorSubject, Subscription, Observable, of, from, timer, defer } from 'rxjs';
 import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen, shareReplay, catchError } from 'rxjs/operators';
 import { deepCopy } from '@ajf/core/utils';
-import * as esprima from 'esprima';
-import esprima__default from 'esprima';
+import { tokenize } from 'esprima';
 import { evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { __rest } from 'tslib';
 import { format } from 'date-fns';
@@ -2902,8 +2901,6 @@ let AjfValidationService = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const esprimaMod = esprima__default || esprima;
-const { tokenize } = esprimaMod;
 let AjfFormRendererService = /** @class */ (() => {
     class AjfFormRendererService {
         constructor(_) {

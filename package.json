@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "10.0.0-sha-c372688",
+  "version": "10.0.1-sha-f672211",
   "description": "",
   "repository": {
     "type": "git",
@@ -13,22 +13,20 @@
   },
   "homepage": "https://github.com/gnucoop/ajf#readme",
   "peerDependencies": {
-    "@angular/animations": "^10.0.0-sha-c372688 || ^11.0.0",
-    "@angular/cdk": "^10.0.0-sha-c372688 || ^11.0.0",
-    "@angular/core": "^10.0.0-sha-c372688 || ^11.0.0",
-    "@angular/common": "^10.0.0-sha-c372688 || ^11.0.0",
-    "@angular/forms": "^10.0.0-sha-c372688 || ^11.0.0",
-    "@angular/router": "^10.0.0-sha-c372688 || ^11.0.0",
-    "@ngx-translate/core": "^12.0.0",
-    "@zxing/library": "^0.15.2",
+    "@angular/animations": "^10.0.0 || ^11.0.0",
+    "@angular/cdk": "^10.0.0 || ^11.0.0",
+    "@angular/core": "^10.0.0 || ^11.0.0",
+    "@angular/common": "^10.0.0 || ^11.0.0",
+    "@angular/forms": "^10.0.0 || ^11.0.0",
+    "@angular/router": "^10.0.0 || ^11.0.0",
+    "@ngx-translate/core": "^13.0.0",
+    "@zxing/library": "^0.17.0",
     "chart.js": "^2.9.3",
     "css-element-queries": "^1.2.3",
-    "date-fns": "^2.9.0",
-    "debug": "^4.1.1",
+    "date-fns": "^2.14.0",
     "esprima": "^4.0.1",
     "leaflet": "^1.6.0",
-    "numeral": "^2.0.6",
-    "url-parse": "^1.4.7"
+    "numeral": "^2.0.6"
   },
   "dependencies": {
     "tslib": "^2.0.0"

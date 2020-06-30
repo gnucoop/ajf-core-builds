@@ -2,9 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('leaflet'), require('rxjs')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/map', ['exports', '@angular/core', 'leaflet', 'rxjs'], factory) :
     (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.map = {}), global.ng.core, global.leaflet, global.rxjs));
-}(this, (function (exports, core, L, rxjs) { 'use strict';
-
-    var L__default = 'default' in L ? L['default'] : L;
+}(this, (function (exports, core, leaflet, rxjs) { 'use strict';
 
     /**
      * @license
@@ -68,7 +66,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var leafletLib = L__default || L;
     var AjfMapComponent = /** @class */ (function () {
         function AjfMapComponent() {
             this._columnWidthChanged = rxjs.Subscription.EMPTY;
@@ -82,8 +79,8 @@
             configurable: true
         });
         Object.defineProperty(AjfMapComponent.prototype, "tileLayer", {
-            set: function (tileLayer) {
-                this._tileLayer = tileLayer;
+            set: function (tl) {
+                this._tileLayer = tl;
                 this._addTileLayerToMap();
             },
             enumerable: false,
@@ -130,7 +127,7 @@
         };
         AjfMapComponent.prototype._initMap = function () {
             var options = { zoomControl: false, attributionControl: false };
-            this._map = leafletLib.map(this.mapContainer.htmlElement, options);
+            this._map = leaflet.map(this.mapContainer.htmlElement, options);
         };
         AjfMapComponent.prototype._setMapView = function () {
             if (this._map == null) {
@@ -155,7 +152,7 @@
                 return;
             }
             this._map.eachLayer(function (l) { return _this._map.removeLayer(l); });
-            leafletLib.tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
+            leaflet.tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
         };
         AjfMapComponent.prototype._disableMap = function () {
             if (this._map == null) {

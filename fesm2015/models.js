@@ -1,7 +1,4 @@
-import * as debug from 'debug';
-import debug__default from 'debug';
-import * as esprima from 'esprima';
-import esprima__default from 'esprima';
+import { tokenize } from 'esprima';
 import { addDays, addMonths, addYears, endOfISOWeek, format, getDay, parseISO, startOfMonth, startOfISOWeek } from 'date-fns';
 import * as numeral from 'numeral';
 import numeral__default from 'numeral';
@@ -262,30 +259,6 @@ class AjfFormulaSerializer {
 function alwaysCondition() {
     return createCondition({ condition: 'true' });
 }
-
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
-const debugConstructor = debug__default || debug;
-const dbg = debugConstructor('ajf:models:validated-property');
 
 /**
  * @license
@@ -753,8 +726,6 @@ let AjfExpressionUtils = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const esprimaMod = esprima__default || esprima;
-const { tokenize } = esprimaMod;
 let execContext = {};
 function evaluateExpression(expression, context, forceFormula) {
     let formula = forceFormula || expression || '';
@@ -789,22 +760,12 @@ function evaluateExpression(expression, context, forceFormula) {
     identifiers.push('execContext');
     ctx.push(execContext);
     try {
-        if (dbg.enabled) {
-            dbg(`evaluating formula %s using context %j`, formula, ctx);
-        }
         let f = new Function(...identifiers, `return ${formula}`);
         const res = f(...ctx);
-        if (dbg.enabled) {
-            dbg(`formula %s evaluated: result %s`, formula, res);
-        }
         f = null;
         return res;
     }
     catch (e) {
-        console.log(e);
-        if (dbg.enabled) {
-            dbg(`formula %s not evaluated: error %j`, formula, e.message);
-        }
         return false;
     }
 }
@@ -904,11 +865,9 @@ function neverCondition() {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const esprimaMod$1 = esprima__default || esprima;
-const { tokenize: tokenize$1 } = esprimaMod$1;
 function normalizeExpression(formula, ancestorsNames, prefix) {
     const ancestorsNameStrings = Object.keys(ancestorsNames);
-    const tokens = tokenize$1(formula)
+    const tokens = tokenize(formula)
         .filter((token) => token.type == 'Identifier' && token.value != '$value')
         .map((token) => token.value);
     tokens.forEach((t) => {
@@ -953,14 +912,11 @@ function validateExpression(str, context) {
     let ctx = cachedContextString;
     try {
         let f = new Function(`${ctx}${str}`);
-        dbg(`validating formula %s using context %j`, str, ctx);
         f();
-        dbg(`formula %s validated`, str);
         f = null;
         return true;
     }
     catch (e) {
-        dbg(`formula %s not validated: error %j`, str, e);
         return false;
     }
 }
@@ -991,5 +947,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, alert, alwaysCondition, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, dbg, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, alert, alwaysCondition, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=models.js.map

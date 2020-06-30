@@ -20,20 +20,20 @@
  *
  */
 import { AfterViewInit, OnDestroy } from '@angular/core';
-import * as L from 'leaflet';
+import { Map } from 'leaflet';
 import { AjfMapContainerDirective } from './map-container-directive';
 export declare class AjfMapComponent implements AfterViewInit, OnDestroy {
     mapContainer: AjfMapContainerDirective;
     private _coordinate;
     set coordinate(coordinate: number[]);
     private _tileLayer;
-    set tileLayer(tileLayer: string);
+    set tileLayer(tl: string);
     private _attribution;
     set attribution(attribution: string);
     private _disabled;
     set disabled(disabled: boolean);
     private _map;
-    get map(): L.Map;
+    get map(): Map;
     private _columnWidthChanged;
     ngAfterViewInit(): void;
     redraw(): void;

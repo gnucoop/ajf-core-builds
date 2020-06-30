@@ -2,9 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('chart.js'), require('@angular/core'), require('@ajf/core/utils')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/chart', ['exports', 'chart.js', '@angular/core', '@ajf/core/utils'], factory) :
     (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.Chart, global.ng.core, global.ng.core.utils));
-}(this, (function (exports, Chart, core, utils) { 'use strict';
-
-    var Chart__default = 'default' in Chart ? Chart['default'] : Chart;
+}(this, (function (exports, chart_js, core, utils) { 'use strict';
 
     /**
      * @license
@@ -49,10 +47,9 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var chartClass = Chart__default || Chart;
     function registerChartPlugins(plugins) {
         if (plugins != null && plugins.length > 0) {
-            plugins.forEach(function (plugin) { return chartClass.plugins.register(plugin); });
+            plugins.forEach(function (plugin) { return chart_js.Chart.plugins.register(plugin); });
         }
     }
 
@@ -305,7 +302,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var chartClass$1 = Chart__default || Chart;
     var AjfChartComponent = /** @class */ (function () {
         function AjfChartComponent(_el, _renderer) {
             this._el = _el;
@@ -376,7 +372,7 @@
                 this._renderer.setStyle(this._chartCanvasElement, 'height', 'inherit');
                 this._renderer.appendChild(this._el.nativeElement, this._chartCanvasElement);
                 var ctx = this._chartCanvasElement.getContext('2d');
-                this._chart = new chartClass$1(ctx, {
+                this._chart = new chart_js.Chart(ctx, {
                     type: this.chartType,
                     data: this._fixData(this.chartType, this.data),
                     options: this._fixChartOptions(this.options)

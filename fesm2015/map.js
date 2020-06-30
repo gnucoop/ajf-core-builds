@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Input, NgModule } from '@angular/core';
-import * as L from 'leaflet';
-import L__default from 'leaflet';
+import { map, tileLayer } from 'leaflet';
 import { Subscription } from 'rxjs';
 
 /**
@@ -63,7 +62,6 @@ let AjfMapContainerDirective = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const leafletLib = L__default || L;
 let AjfMapComponent = /** @class */ (() => {
     class AjfMapComponent {
         constructor() {
@@ -73,8 +71,8 @@ let AjfMapComponent = /** @class */ (() => {
             this._coordinate = coordinate.slice(0);
             this._setMapView();
         }
-        set tileLayer(tileLayer) {
-            this._tileLayer = tileLayer;
+        set tileLayer(tl) {
+            this._tileLayer = tl;
             this._addTileLayerToMap();
         }
         set attribution(attribution) {
@@ -106,7 +104,7 @@ let AjfMapComponent = /** @class */ (() => {
         }
         _initMap() {
             const options = { zoomControl: false, attributionControl: false };
-            this._map = leafletLib.map(this.mapContainer.htmlElement, options);
+            this._map = map(this.mapContainer.htmlElement, options);
         }
         _setMapView() {
             if (this._map == null) {
@@ -130,7 +128,7 @@ let AjfMapComponent = /** @class */ (() => {
                 return;
             }
             this._map.eachLayer((l) => this._map.removeLayer(l));
-            leafletLib.tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
+            tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
         }
         _disableMap() {
             if (this._map == null) {

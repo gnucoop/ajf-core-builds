@@ -1,11 +1,9 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('debug'), require('esprima'), require('date-fns'), require('numeral')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/models', ['exports', 'debug', 'esprima', 'date-fns', 'numeral'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.models = {}), global.debug, global.esprima, global.dateFns, global.numeral));
-}(this, (function (exports, debug, esprima, dateFns, numeral) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('esprima'), require('date-fns'), require('numeral')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/models', ['exports', 'esprima', 'date-fns', 'numeral'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.models = {}), global.esprima, global.dateFns, global.numeral));
+}(this, (function (exports, esprima, dateFns, numeral) { 'use strict';
 
-    var debug__default = 'default' in debug ? debug['default'] : debug;
-    var esprima__default = 'default' in esprima ? esprima['default'] : esprima;
     var numeral__default = 'default' in numeral ? numeral['default'] : numeral;
 
     /*! *****************************************************************************
@@ -533,30 +531,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var debugConstructor = debug__default || debug;
-    var dbg = debugConstructor('ajf:models:validated-property');
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var numeralConstructor = numeral__default || numeral;
     var dateUtils = {
         addDays: dateFns.addDays,
@@ -1002,8 +976,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var esprimaMod = esprima__default || esprima;
-    var tokenize = esprimaMod.tokenize;
     var execContext = {};
     function evaluateExpression(expression, context, forceFormula) {
         var formula = forceFormula || expression || '';
@@ -1022,7 +994,7 @@
         if (/^"[^"]*"$/.test(formula)) {
             return formula.replace(/^"+|"+$/g, '');
         }
-        var identifiers = tokenize(formula).filter(function (t) { return t.type === 'Identifier'; }).map(function (t) { return t.value; });
+        var identifiers = esprima.tokenize(formula).filter(function (t) { return t.type === 'Identifier'; }).map(function (t) { return t.value; });
         var ctx = [];
         identifiers.forEach(function (key) {
             var val = null;
@@ -1038,22 +1010,12 @@
         identifiers.push('execContext');
         ctx.push(execContext);
         try {
-            if (dbg.enabled) {
-                dbg("evaluating formula %s using context %j", formula, ctx);
-            }
             var f = new (Function.bind.apply(Function, __spread([void 0], identifiers, ["return " + formula])))();
             var res = f.apply(void 0, __spread(ctx));
-            if (dbg.enabled) {
-                dbg("formula %s evaluated: result %s", formula, res);
-            }
             f = null;
             return res;
         }
         catch (e) {
-            console.log(e);
-            if (dbg.enabled) {
-                dbg("formula %s not evaluated: error %j", formula, e.message);
-            }
             return false;
         }
     }
@@ -1153,11 +1115,9 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var esprimaMod$1 = esprima__default || esprima;
-    var tokenize$1 = esprimaMod$1.tokenize;
     function normalizeExpression(formula, ancestorsNames, prefix) {
         var ancestorsNameStrings = Object.keys(ancestorsNames);
-        var tokens = tokenize$1(formula)
+        var tokens = esprima.tokenize(formula)
             .filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; })
             .map(function (token) { return token.value; });
         tokens.forEach(function (t) {
@@ -1202,14 +1162,11 @@
         var ctx = cachedContextString;
         try {
             var f = new Function("" + ctx + str);
-            dbg("validating formula %s using context %j", str, ctx);
             f();
-            dbg("formula %s validated", str);
             f = null;
             return true;
         }
         catch (e) {
-            dbg("formula %s not validated: error %j", str, e);
             return false;
         }
     }
@@ -1254,7 +1211,6 @@
     exports.createFormula = createFormula;
     exports.dateOperations = dateOperations;
     exports.dateUtils = dateUtils;
-    exports.dbg = dbg;
     exports.decimalCount = decimalCount;
     exports.digitCount = digitCount;
     exports.drawThreshold = drawThreshold;

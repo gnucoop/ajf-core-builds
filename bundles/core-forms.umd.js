@@ -4,8 +4,6 @@
     (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.core.utils, global.esprima, global.ng.core.models, global.dateFns, global.ng.cdk.coercion, global.ng.core.pageSlider, global.ng.core.common, global.ng.core.fileInput, global.ng.common, global.ng.common.http, global.ng.platformBrowser));
 }(this, (function (exports, core, forms, rxjs, operators, utils, esprima, models, dateFns, coercion, pageSlider, common, fileInput, common$1, http, platformBrowser) { 'use strict';
 
-    var esprima__default = 'default' in esprima ? esprima['default'] : esprima;
-
     /**
      * @license
      * Copyright (C) Gnucoop soc. coop.
@@ -2799,8 +2797,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var esprimaMod = esprima__default || esprima;
-    var tokenize = esprimaMod.tokenize;
     var AjfFormRendererService = /** @class */ (function () {
         function AjfFormRendererService(_) {
             this._visibilityNodesMapUpdates = new rxjs.Subject();
@@ -3797,7 +3793,7 @@
             this._removeFromNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
         };
         AjfFormRendererService.prototype._removeFromNodesMap = function (nodesMap, nodeInstance, formula) {
-            var tokens = tokenize(formula).filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
+            var tokens = esprima.tokenize(formula).filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
             if (tokens.length > 0) {
                 nodesMap.next(function (vmap) {
                     tokens.forEach(function (token) {
@@ -3844,7 +3840,7 @@
             this._addToNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
         };
         AjfFormRendererService.prototype._addToNodesMap = function (nodesMap, nodeInstance, formula) {
-            var tokens = tokenize(formula).filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
+            var tokens = esprima.tokenize(formula).filter(function (token) { return token.type == 'Identifier' && token.value != '$value'; });
             if (tokens.length > 0) {
                 nodesMap.next(function (vmap) {
                     tokens.forEach(function (token) {
