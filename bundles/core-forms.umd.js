@@ -2937,9 +2937,13 @@
         };
         AjfFormRendererService.prototype._initErrorsStreams = function () {
             var _this = this;
-            this._errorPositions = this._valueChanged.pipe(operators.withLatestFrom(this._nodes, this._form), operators.filter(function (v) { return v[2] != null && v[2].form != null; }), operators.map(function (v) {
-                var nodes = v[1];
-                var form = v[2].form;
+            this._errorPositions = this._valueChanged.pipe(operators.withLatestFrom(this._nodes, this._form), operators.filter(function (_a) {
+                var _b = __read(_a, 3), _ = _b[0], __ = _b[1], form = _b[2];
+                return form != null &&
+                    form.form != null;
+            }), operators.map(function (_a) {
+                var _b = __read(_a, 3), _ = _b[0], nodes = _b[1], formDef = _b[2];
+                var form = formDef.form;
                 var currentPosition = 0;
                 var errors = [];
                 nodes.forEach(function (node) {
@@ -3046,11 +3050,18 @@
                 }
                 return rxjs.from(Promise.all(choicesOrigins.map(function (co) { return initChoicesOrigin(co); })))
                     .pipe(operators.map(function () { return form; }));
-            }), operators.map(function (form) {
+            }), operators.map(function (formDef) {
                 return function (_nodesInstances) {
-                    var nodes = form != null && form.form != null ?
-                        _this._orderedNodesInstancesTree(flattenNodes(form.form.nodes), form.form.nodes, undefined, [], form.context || {}) :
-                        [];
+                    var nodes;
+                    if (formDef != null &&
+                        formDef.form != null) {
+                        var form = formDef;
+                        var baseNodes = form.form.nodes;
+                        nodes = _this._orderedNodesInstancesTree(flattenNodes(baseNodes), baseNodes, undefined, [], form.context || {});
+                    }
+                    else {
+                        nodes = [];
+                    }
                     var currentPosition = 0;
                     nodes.forEach(function (node) {
                         if (node.node.nodeType === exports.AjfNodeType.AjfRepeatingSlide) {
@@ -3219,9 +3230,13 @@
         };
         AjfFormRendererService.prototype._updateFormValueAndValidity = function () {
             this._nodesUpdates.asObservable()
-                .pipe(operators.withLatestFrom(this._formGroup), operators.filter(function (values) { return values[1] !== null; }))
-                .subscribe(function (values) {
-                var form = values[1];
+                .pipe(operators.withLatestFrom(this._formGroup), operators.filter(function (_a) {
+                var _b = __read(_a, 2), _ = _b[0], fg = _b[1];
+                return fg !== null;
+            }))
+                .subscribe(function (_a) {
+                var _b = __read(_a, 2), _ = _b[0], fg = _b[1];
+                var form = fg;
                 form.updateValueAndValidity();
             });
         };
@@ -3895,7 +3910,7 @@
             this._warningTriggerSub = rxjs.Subscription.EMPTY;
             this._instanceUpdateSub = rxjs.Subscription.EMPTY;
             this._control = rxjs.defer(function () { return _this._service.getControl(_this.instance)
-                .pipe(operators.map(function (ctrl) { return ctrl || new forms.FormControl(); })); });
+                .pipe(operators.map(function (ctrl) { return (ctrl || new forms.FormControl()); })); });
         }
         Object.defineProperty(AjfBaseFieldComponent.prototype, "instance", {
             get: function () {
@@ -3921,12 +3936,17 @@
         AjfBaseFieldComponent.prototype.ngOnInit = function () {
             var _this = this;
             this._warningTriggerSub =
-                this.instance.warningTrigger.pipe(operators.withLatestFrom(this.control), operators.filter(function (v) { return v[1] != null; }))
-                    .subscribe(function (v) {
+                this.instance.warningTrigger
+                    .pipe(operators.withLatestFrom(this.control), operators.filter(function (_a) {
+                    var _b = __read(_a, 2), _ = _b[0], ctrl = _b[1];
+                    return ctrl != null;
+                }))
+                    .subscribe(function (_a) {
+                    var _b = __read(_a, 2), _ = _b[0], ctrl = _b[1];
                     if (_this.instance.warningResults == null) {
                         return;
                     }
-                    var control = v[1];
+                    var control = ctrl;
                     var s = _this._warningAlertService
                         .showWarningAlertPrompt(_this.instance.warningResults.filter(function (w) { return w.result; }).map(function (w) { return w.warning; }))
                         .subscribe(function (r) {
@@ -4821,13 +4841,13 @@
                 this._errorMoveSubscription =
                     this._errorMoveEvent
                         .pipe(operators.withLatestFrom(this._errorPositions))
-                        .subscribe(function (v) {
-                        var move = v[0];
+                        .subscribe(function (_a) {
+                        var _b = __read(_a, 2), move = _b[0], errs = _b[1];
                         var currentPosition = _this.formSlider.currentPage - (+_this.hasStartMessage) + 1;
-                        var errors = v[1];
-                        if (errors == null) {
+                        if (errs == null) {
                             return;
                         }
+                        var errors = errs;
                         var found = false;
                         var prevIdx = -1;
                         var nextIdx = -1;

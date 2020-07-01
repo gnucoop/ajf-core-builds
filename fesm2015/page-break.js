@@ -26,20 +26,17 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from 
  *
  * @export
  */
-let AjfPageBreakComponent = /** @class */ (() => {
-    class AjfPageBreakComponent {
-    }
-    AjfPageBreakComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ajf-page-break',
-                    template: "&nbsp;",
-                    encapsulation: ViewEncapsulation.None,
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    styles: ["@media print{ajf-page-break{display:block;page-break-after:always}}ajf-page-break{display:none}\n"]
-                },] }
-    ];
-    return AjfPageBreakComponent;
-})();
+class AjfPageBreakComponent {
+}
+AjfPageBreakComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-page-break',
+                template: "&nbsp;",
+                encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                styles: ["@media print{ajf-page-break{display:block;page-break-after:always}}ajf-page-break{display:none}\n"]
+            },] }
+];
 
 /**
  * @license
@@ -62,21 +59,18 @@ let AjfPageBreakComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfPageBreakModule = /** @class */ (() => {
-    class AjfPageBreakModule {
-    }
-    AjfPageBreakModule.decorators = [
-        { type: NgModule, args: [{
-                    declarations: [
-                        AjfPageBreakComponent,
-                    ],
-                    exports: [
-                        AjfPageBreakComponent,
-                    ]
-                },] }
-    ];
-    return AjfPageBreakModule;
-})();
+class AjfPageBreakModule {
+}
+AjfPageBreakModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [
+                    AjfPageBreakComponent,
+                ],
+                exports: [
+                    AjfPageBreakComponent,
+                ]
+            },] }
+];
 
 /**
  * @license

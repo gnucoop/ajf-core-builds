@@ -36,17 +36,14 @@ import { DomSanitizer } from '@angular/platform-browser';
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfAsFieldInstancePipe = /** @class */ (() => {
-    class AjfAsFieldInstancePipe {
-        transform(instance) {
-            return instance;
-        }
+class AjfAsFieldInstancePipe {
+    transform(instance) {
+        return instance;
     }
-    AjfAsFieldInstancePipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfAsFieldInstance' },] }
-    ];
-    return AjfAsFieldInstancePipe;
-})();
+}
+AjfAsFieldInstancePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfAsFieldInstance' },] }
+];
 
 /**
  * @license
@@ -69,17 +66,14 @@ let AjfAsFieldInstancePipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfAsRepeatingSlideInstancePipe = /** @class */ (() => {
-    class AjfAsRepeatingSlideInstancePipe {
-        transform(instance) {
-            return instance;
-        }
+class AjfAsRepeatingSlideInstancePipe {
+    transform(instance) {
+        return instance;
     }
-    AjfAsRepeatingSlideInstancePipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfAsRepeatingSlideInstance' },] }
-    ];
-    return AjfAsRepeatingSlideInstancePipe;
-})();
+}
+AjfAsRepeatingSlideInstancePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfAsRepeatingSlideInstance' },] }
+];
 
 /**
  * @license
@@ -2507,17 +2501,16 @@ function validSlide(slide, idx) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfValidationService = /** @class */ (() => {
-    class AjfValidationService {
-        constructor() {
-            this._baseUtilFunctions = [
-                `/**
+class AjfValidationService {
+    constructor() {
+        this._baseUtilFunctions = [
+            `/**
         * count the number of digit contained on x.
         * @param  x the value used for digit count
         * @return the count of the digit
       */
     var digitCount = function(x) { return x.toString().length; }`,
-                `/**
+            `/**
         * count the number of decimal contained on x.
         * @param  x the value used for decimal count
         * @return the count of the decimal
@@ -2525,13 +2518,13 @@ let AjfValidationService = /** @class */ (() => {
     var decimalCount = function(x) {
       return (parseFloat(x).toString().split('.')[1] || []).length;
     }`,
-                `/**
+            `/**
         * check if x is integer
         * @param  x the value used for check
         * @return true if x is a number
       */
     var isInt = function(x) { return !/[,.]/.test(x); }`,
-                `/**
+            `/**
         * check if x is not empity
         * @param  x the value used for check
         * @return true if x defined and not null and the number of digit is > 0
@@ -2539,25 +2532,25 @@ let AjfValidationService = /** @class */ (() => {
     var notEmpty = function (x) {
       return (typeof x !== 'undefined' && x !== null ? x.toString().length > 0 : false);
     }`,
-                `/**
+            `/**
         * check if x is contained on array
         * @param  x the value used for check
         * @return the position of x on array or if array === x
       */
     var valueInChoice = function(array, x) { return array.indexOf(x) > -1 || array === x; }`,
-                `var scanGroupField = function(reps, acc, callback) {
+            `var scanGroupField = function(reps, acc, callback) {
         for (var i = 0; i < reps; i++) {
             acc = callback(acc, i);
         }
         return acc;
     }`,
-                `/**
+            `/**
         * sum the value contained on array
         * @param  x the array
         * @return the sum
       */
     var sum = function(array) {return array.reduce(function(a, b){ return a + b; }, 0); }`,
-                `var dateOperations = function(dString, period, operation, v) {
+            `var dateOperations = function(dString, period, operation, v) {
         fmt = 'mm/dd/yyyy';
         var d = (typeof dString !== 'undefined') ? dateUtils.parse(dString) : new Date();
         if (operation == 'remove') {
@@ -2579,7 +2572,7 @@ let AjfValidationService = /** @class */ (() => {
         }
         return dateUtils.format(dateOp(d, v), fmt);
       }`,
-                `/**
+            `/**
         * round the num
         * @param  num the value to round
         * @param  digits how many digit
@@ -2592,7 +2585,7 @@ let AjfValidationService = /** @class */ (() => {
         var m = Math.pow(10, digits);
         return Math.round(f * m) / m;
       }`,
-                `/**
+            `/**
         * extract the property of the source object with property != null
         * @param  source array of object wich contains property
         * @param  property the property on wich we want filter
@@ -2612,7 +2605,7 @@ let AjfValidationService = /** @class */ (() => {
         }
         return res;
       }`,
-                `/**
+            `/**
         * extract the property of the source object with property != null
         * @param  source array of object wich contains property
         * @param  propertues string array the properties to sum
@@ -2632,7 +2625,7 @@ let AjfValidationService = /** @class */ (() => {
         }
         return sum;
       }`,
-                `/**
+            `/**
         * extract the array of sum for each week != null
         * @param  source array of object wich contains property
         * @param  propertues string array the properties to sum
@@ -2657,7 +2650,7 @@ let AjfValidationService = /** @class */ (() => {
         }
         return res;
       }`,
-                `/**
+            `/**
         * draw a threshold line on chart related to the property
         * @param  source array of object wich contains property
         * @param  property the property on wich we want filter
@@ -2674,7 +2667,7 @@ let AjfValidationService = /** @class */ (() => {
         }
         return res;
       }`,
-                `/**
+            `/**
         * extract the dates of the source object with property != null
         * @param  source array of object wich contains property and date_start
         * @param  property the property on wich we want to calculate dates
@@ -2703,7 +2696,7 @@ let AjfValidationService = /** @class */ (() => {
         }
         return res;
       }`,
-                `/**
+            `/**
         * extract the last property contains in source != null
         * @param  source array of object wich contains property and date_start
         * @param  property the property to find
@@ -2719,7 +2712,7 @@ let AjfValidationService = /** @class */ (() => {
         }
         return l >= 0 ? source[l][property] : 0;
       }`,
-                `var sumLastProperties = function(source, properties) {
+            `var sumLastProperties = function(source, properties) {
         source = (source || []).slice(0);
         var sum = 0;
         for (var i = 0; i < properties.length; i++) {
@@ -2728,7 +2721,7 @@ let AjfValidationService = /** @class */ (() => {
 
         return sum;
       }`,
-                `/**
+            `/**
         * compute the trend of the property contained on the source.
         * @param  source array of object wich contains property
         * @param  property the property on wich we want to calculate the trend
@@ -2767,7 +2760,7 @@ let AjfValidationService = /** @class */ (() => {
           return '<p><i class="material-icons" style="color:red">trending_down</i></p>';
         }
       }`,
-                `/**
+            `/**
         * compute the average value of the property contained on the source.
         * @param  source array of object wich contains property
         * @param  property the property on wich we want to calculate the average
@@ -2813,7 +2806,7 @@ let AjfValidationService = /** @class */ (() => {
           return threshold;
         }
       }`,
-                `var alert = function(source, property, threshold, fmt) {
+            `var alert = function(source, property, threshold, fmt) {
         source = (source || []).slice(0);
         var l = source.length;
 
@@ -2823,20 +2816,20 @@ let AjfValidationService = /** @class */ (() => {
             return '<p></p>';
           }
       }`,
-                `var formatNumber = function(num, fmt) {
+            `var formatNumber = function(num, fmt) {
         fmt = fmt || '0,0[.]0';
         return numeral(num).format(fmt);
       }`,
-                `var formatDate = function(date, fmt) {
+            `var formatDate = function(date, fmt) {
         fmt = fmt || 'mm-dd-yyyy';
         return dateUtils.format(date, fmt);
       }`,
-                `var isoMonth = function(date, fmt) {
+            `var isoMonth = function(date, fmt) {
         fmt = fmt || 'mm';
         var du = dateUtils;
         return du.format(du.addDays(du.startOfMonth(date), 4),fmt)
       }`,
-                `var nextCounterValue = function(counterName, firstValue) {
+            `var nextCounterValue = function(counterName, firstValue) {
         firstValue = firstValue != null ? firstValue : 0;
         if (execContext['$$'+counterName] == null) {
           execContext['$$'+counterName] = firstValue;
@@ -2845,7 +2838,7 @@ let AjfValidationService = /** @class */ (() => {
         }
         return execContext['$$'+counterName];
       }`,
-                `var getCoordinate = function(source, zoom) {
+            `var getCoordinate = function(source, zoom) {
         zoom = zoom || 6;
         if(source == null) {
           return [51.505,-0.09, zoom];
@@ -2853,32 +2846,30 @@ let AjfValidationService = /** @class */ (() => {
           return [source[0], source[1], zoom];
         }
       }`
-            ];
-            this._functions = [];
-            this._functionsStr = '';
-            this._initFunctions();
-        }
-        addFunction(f) {
-            this._functions.push(f);
-            this._initFunctions();
-        }
-        addFunctionHandler(name, fn) {
-            if (AjfExpressionUtils.utils[name] === undefined) {
-                AjfExpressionUtils.utils[name] = { fn };
-            }
-        }
-        _initFunctions() {
-            const functionsStr = this._functions.map(f => typeof f === 'string' ? f : f.toString()).join('; ');
-            this._functionsStr = `${this._baseUtilFunctions.join('; ')}; ${functionsStr}`;
-            AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
+        ];
+        this._functions = [];
+        this._functionsStr = '';
+        this._initFunctions();
+    }
+    addFunction(f) {
+        this._functions.push(f);
+        this._initFunctions();
+    }
+    addFunctionHandler(name, fn) {
+        if (AjfExpressionUtils.utils[name] === undefined) {
+            AjfExpressionUtils.utils[name] = { fn };
         }
     }
-    AjfValidationService.decorators = [
-        { type: Injectable }
-    ];
-    AjfValidationService.ctorParameters = () => [];
-    return AjfValidationService;
-})();
+    _initFunctions() {
+        const functionsStr = this._functions.map(f => typeof f === 'string' ? f : f.toString()).join('; ');
+        this._functionsStr = `${this._baseUtilFunctions.join('; ')}; ${functionsStr}`;
+        AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
+    }
+}
+AjfValidationService.decorators = [
+    { type: Injectable }
+];
+AjfValidationService.ctorParameters = () => [];
 
 /**
  * @license
@@ -2901,132 +2892,247 @@ let AjfValidationService = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfFormRendererService = /** @class */ (() => {
-    class AjfFormRendererService {
-        constructor(_) {
-            this._visibilityNodesMapUpdates = new Subject();
-            this._repetitionNodesMapUpdates = new Subject();
-            this._conditionalBranchNodesMapUpdates = new Subject();
-            this._formulaNodesMapUpdates = new Subject();
-            this._validationNodesMapUpdates = new Subject();
-            this._warningNodesMapUpdates = new Subject();
-            this._filteredChoicesNodesMapUpdates = new Subject();
-            this._triggerConditionsNodesMapUpdates = new Subject();
-            this._nextSlideConditionsNodesMapUpdates = new Subject();
-            this._formInitEvent = new EventEmitter();
-            this.formInitEvent = this._formInitEvent.asObservable();
-            this._formGroup = new BehaviorSubject(null);
-            this.formGroup = this._formGroup.asObservable();
-            this._form = new BehaviorSubject(null);
-            this._nodesUpdates = new Subject();
-            this._formGroupSubscription = Subscription.EMPTY;
-            this._valueChanged = new Subject();
-            this._nextSlideTrigger = new EventEmitter();
-            this.nextSlideTrigger = this._nextSlideTrigger.asObservable();
-            this._slidesNum = new BehaviorSubject(0);
-            this.slidesNum = this._slidesNum.asObservable();
-            this._initUpdateMapStreams();
-            this._initNodesStreams();
-            this._initErrorsStreams();
-            this._initFormStreams();
-            this._updateFormValueAndValidity();
+class AjfFormRendererService {
+    constructor(_) {
+        this._visibilityNodesMapUpdates = new Subject();
+        this._repetitionNodesMapUpdates = new Subject();
+        this._conditionalBranchNodesMapUpdates = new Subject();
+        this._formulaNodesMapUpdates = new Subject();
+        this._validationNodesMapUpdates = new Subject();
+        this._warningNodesMapUpdates = new Subject();
+        this._filteredChoicesNodesMapUpdates = new Subject();
+        this._triggerConditionsNodesMapUpdates = new Subject();
+        this._nextSlideConditionsNodesMapUpdates = new Subject();
+        this._formInitEvent = new EventEmitter();
+        this.formInitEvent = this._formInitEvent.asObservable();
+        this._formGroup = new BehaviorSubject(null);
+        this.formGroup = this._formGroup.asObservable();
+        this._form = new BehaviorSubject(null);
+        this._nodesUpdates = new Subject();
+        this._formGroupSubscription = Subscription.EMPTY;
+        this._valueChanged = new Subject();
+        this._nextSlideTrigger = new EventEmitter();
+        this.nextSlideTrigger = this._nextSlideTrigger.asObservable();
+        this._slidesNum = new BehaviorSubject(0);
+        this.slidesNum = this._slidesNum.asObservable();
+        this._initUpdateMapStreams();
+        this._initNodesStreams();
+        this._initErrorsStreams();
+        this._initFormStreams();
+        this._updateFormValueAndValidity();
+    }
+    get nodesTree() {
+        return this._flatNodesTree;
+    }
+    get errorPositions() {
+        return this._errorPositions;
+    }
+    get errors() {
+        return this._errors;
+    }
+    get currentSupplementaryInformations() {
+        const form = this._form.getValue();
+        return form != null && form.form != null ? form.form.supplementaryInformations : null;
+    }
+    setForm(form, context = {}) {
+        this._initUpdateMapStreams();
+        if (form != null && Object.keys(context).length === 0 &&
+            Object.keys(form.initContext || {}).length > 0) {
+            context = form.initContext || {};
         }
-        get nodesTree() {
-            return this._flatNodesTree;
+        const currentForm = this._form.getValue();
+        if ((currentForm == null && form != null) ||
+            (currentForm != null && form !== currentForm.form)) {
+            this._form.next({ form: form, context: context });
         }
-        get errorPositions() {
-            return this._errorPositions;
+    }
+    getFormValue() {
+        const formGroup = this._formGroup.getValue();
+        if (formGroup == null) {
+            return {};
         }
-        get errors() {
-            return this._errors;
-        }
-        get currentSupplementaryInformations() {
-            const form = this._form.getValue();
-            return form != null && form.form != null ? form.form.supplementaryInformations : null;
-        }
-        setForm(form, context = {}) {
-            this._initUpdateMapStreams();
-            if (form != null && Object.keys(context).length === 0 &&
-                Object.keys(form.initContext || {}).length > 0) {
-                context = form.initContext || {};
+        let res = deepCopy(formGroup.value);
+        return res;
+    }
+    addGroup(group) {
+        return new Observable((subscriber) => {
+            if (group.formulaReps != null) {
+                subscriber.next(false);
+                subscriber.complete();
+                return;
             }
-            const currentForm = this._form.getValue();
-            if ((currentForm == null && form != null) ||
-                (currentForm != null && form !== currentForm.form)) {
-                this._form.next({ form: form, context: context });
+            const maxReps = group.node.maxReps;
+            if (maxReps > 0 && group.reps + 1 > maxReps) {
+                subscriber.next(false);
+                subscriber.complete();
+                return;
             }
-        }
-        getFormValue() {
-            const formGroup = this._formGroup.getValue();
-            if (formGroup == null) {
-                return {};
-            }
-            let res = deepCopy(formGroup.value);
-            return res;
-        }
-        addGroup(group) {
-            return new Observable((subscriber) => {
-                if (group.formulaReps != null) {
-                    subscriber.next(false);
-                    subscriber.complete();
-                    return;
-                }
-                const maxReps = group.node.maxReps;
-                if (maxReps > 0 && group.reps + 1 > maxReps) {
-                    subscriber.next(false);
-                    subscriber.complete();
-                    return;
-                }
-                const oldReps = group.reps;
-                group.reps = group.reps + 1;
-                group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
-                group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
-                this._nodesUpdates.next((nodes) => {
-                    const flatNodes = flattenNodesInstances(nodes, true);
-                    this._adjustReps(flatNodes, group, oldReps, this.getFormValue());
-                    subscriber.next(true);
-                    subscriber.complete();
-                    return nodes;
-                });
+            const oldReps = group.reps;
+            group.reps = group.reps + 1;
+            group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
+            group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
+            this._nodesUpdates.next((nodes) => {
+                const flatNodes = flattenNodesInstances(nodes, true);
+                this._adjustReps(flatNodes, group, oldReps, this.getFormValue());
+                subscriber.next(true);
+                subscriber.complete();
+                return nodes;
             });
-        }
-        removeGroup(group) {
-            return new Observable((subscriber) => {
-                if (group.formulaReps != null) {
-                    subscriber.next(false);
-                    subscriber.complete();
-                    return;
-                }
-                const minReps = group.node.minReps;
-                if (group.reps - 1 < minReps) {
-                    subscriber.next(false);
-                    subscriber.complete();
-                    return;
-                }
-                const oldReps = group.reps;
-                group.reps = group.reps - 1;
-                group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
-                group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
-                this._nodesUpdates.next((nodes) => {
-                    this._adjustReps(nodes, group, oldReps, this.getFormValue());
-                    subscriber.next(true);
-                    subscriber.complete();
-                    return nodes;
-                });
+        });
+    }
+    removeGroup(group) {
+        return new Observable((subscriber) => {
+            if (group.formulaReps != null) {
+                subscriber.next(false);
+                subscriber.complete();
+                return;
+            }
+            const minReps = group.node.minReps;
+            if (group.reps - 1 < minReps) {
+                subscriber.next(false);
+                subscriber.complete();
+                return;
+            }
+            const oldReps = group.reps;
+            group.reps = group.reps - 1;
+            group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
+            group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
+            this._nodesUpdates.next((nodes) => {
+                this._adjustReps(nodes, group, oldReps, this.getFormValue());
+                subscriber.next(true);
+                subscriber.complete();
+                return nodes;
             });
-        }
-        getControl(field) {
-            return this.formGroup.pipe(map((f) => {
-                const fieldName = nodeInstanceCompleteName(field);
-                return f != null && f.contains(fieldName) ? f.controls[fieldName] : null;
-            }));
-        }
-        _initErrorsStreams() {
-            this._errorPositions = this._valueChanged.pipe(withLatestFrom(this._nodes, this._form), filter(v => v[2] != null && v[2].form != null), map((v) => {
-                const nodes = v[1];
-                const form = v[2].form;
+        });
+    }
+    getControl(field) {
+        return this.formGroup.pipe(map((f) => {
+            const fieldName = nodeInstanceCompleteName(field);
+            return f != null && f.contains(fieldName) ? f.controls[fieldName] : null;
+        }));
+    }
+    _initErrorsStreams() {
+        this._errorPositions = this._valueChanged.pipe(withLatestFrom(this._nodes, this._form), filter(([_, __, form]) => form != null &&
+            form.form != null), map(([_, nodes, formDef]) => {
+            const form = formDef.form;
+            let currentPosition = 0;
+            const errors = [];
+            nodes.forEach((node) => {
+                if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+                    const rsNode = node;
+                    for (let i = 0; i < rsNode.reps; i++) {
+                        if (node.visible) {
+                            currentPosition++;
+                            if (i == 0) {
+                                rsNode.position = currentPosition;
+                            }
+                            if (!validSlide(rsNode, i)) {
+                                errors.push(currentPosition);
+                            }
+                        }
+                    }
+                }
+                else if (node.node.nodeType === AjfNodeType.AjfSlide) {
+                    const sNode = node;
+                    if (sNode.visible) {
+                        currentPosition++;
+                        sNode.position = currentPosition;
+                        if (!sNode.valid) {
+                            errors.push(currentPosition);
+                        }
+                    }
+                }
+            });
+            form.valid = errors.length == 0;
+            this._slidesNum.next(currentPosition);
+            return errors;
+        }), publishReplay(), refCount());
+        this._errors = this._errorPositions.pipe(map(e => e != null ? e.length : 0), startWith(0), publishReplay(), refCount());
+    }
+    _initUpdateMapStreams() {
+        this._visibilityNodesMap =
+            this._visibilityNodesMapUpdates
+                .pipe(scan((rmap, op) => {
+                return op(rmap);
+            }, {}), startWith({}), share());
+        this._repetitionNodesMap =
+            this._repetitionNodesMapUpdates
+                .pipe(scan((rmap, op) => {
+                return op(rmap);
+            }, {}), startWith({}), share());
+        this._conditionalBranchNodesMap =
+            this._conditionalBranchNodesMapUpdates
+                .pipe(scan((rmap, op) => {
+                return op(rmap);
+            }, {}), startWith({}), share());
+        this._formulaNodesMap =
+            this._formulaNodesMapUpdates
+                .pipe(scan((rmap, op) => {
+                return op(rmap);
+            }, {}), startWith({}), share());
+        this._validationNodesMap =
+            this._validationNodesMapUpdates
+                .pipe(scan((rmap, op) => {
+                return op(rmap);
+            }, {}), startWith({}), share());
+        this._warningNodesMap =
+            this._warningNodesMapUpdates
+                .pipe(scan((rmap, op) => {
+                return op(rmap);
+            }, {}), startWith({}), share());
+        this._filteredChoicesNodesMap =
+            this._filteredChoicesNodesMapUpdates
+                .pipe(scan((rmap, op) => {
+                return op(rmap);
+            }, {}), startWith({}), share());
+        this._triggerConditionsNodesMap =
+            this._triggerConditionsNodesMapUpdates
+                .pipe(scan((rmap, op) => {
+                return op(rmap);
+            }, {}), startWith({}), share());
+        this._nextSlideConditionsNodesMap =
+            this._nextSlideConditionsNodesMapUpdates
+                .pipe(scan((rmap, op) => {
+                return op(rmap);
+            }, {}), startWith({}), share());
+        this._nodesMaps = [
+            this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
+            this._formulaNodesMap, this._validationNodesMap, this._warningNodesMap,
+            this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
+            this._triggerConditionsNodesMap
+        ];
+    }
+    _initFormStreams() {
+        const formObs = this._form;
+        formObs
+            .pipe(map((_form) => {
+            return this._initFormGroupStreams(new FormGroup({}));
+        }))
+            .subscribe(this._formGroup);
+        formObs
+            .pipe(switchMap(form => {
+            if (form == null || form.form == null) {
+                return of(form);
+            }
+            const choicesOrigins = form.form.choicesOrigins || [];
+            if (choicesOrigins.length === 0) {
+                return of(form);
+            }
+            return from(Promise.all(choicesOrigins.map(co => initChoicesOrigin(co))))
+                .pipe(map(() => form));
+        }), map((formDef) => {
+            return (_nodesInstances) => {
+                let nodes;
+                if (formDef != null &&
+                    formDef.form != null) {
+                    const form = formDef;
+                    const baseNodes = form.form.nodes;
+                    nodes = this._orderedNodesInstancesTree(flattenNodes(baseNodes), baseNodes, undefined, [], form.context || {});
+                }
+                else {
+                    nodes = [];
+                }
                 let currentPosition = 0;
-                const errors = [];
                 nodes.forEach((node) => {
                     if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
                         const rsNode = node;
@@ -3036,9 +3142,6 @@ let AjfFormRendererService = /** @class */ (() => {
                                 if (i == 0) {
                                     rsNode.position = currentPosition;
                                 }
-                                if (!validSlide(rsNode, i)) {
-                                    errors.push(currentPosition);
-                                }
                             }
                         }
                     }
@@ -3047,891 +3150,783 @@ let AjfFormRendererService = /** @class */ (() => {
                         if (sNode.visible) {
                             currentPosition++;
                             sNode.position = currentPosition;
-                            if (!sNode.valid) {
-                                errors.push(currentPosition);
-                            }
                         }
                     }
-                });
-                form.valid = errors.length == 0;
-                this._slidesNum.next(currentPosition);
-                return errors;
-            }), publishReplay(), refCount());
-            this._errors = this._errorPositions.pipe(map(e => e != null ? e.length : 0), startWith(0), publishReplay(), refCount());
-        }
-        _initUpdateMapStreams() {
-            this._visibilityNodesMap =
-                this._visibilityNodesMapUpdates
-                    .pipe(scan((rmap, op) => {
-                    return op(rmap);
-                }, {}), startWith({}), share());
-            this._repetitionNodesMap =
-                this._repetitionNodesMapUpdates
-                    .pipe(scan((rmap, op) => {
-                    return op(rmap);
-                }, {}), startWith({}), share());
-            this._conditionalBranchNodesMap =
-                this._conditionalBranchNodesMapUpdates
-                    .pipe(scan((rmap, op) => {
-                    return op(rmap);
-                }, {}), startWith({}), share());
-            this._formulaNodesMap =
-                this._formulaNodesMapUpdates
-                    .pipe(scan((rmap, op) => {
-                    return op(rmap);
-                }, {}), startWith({}), share());
-            this._validationNodesMap =
-                this._validationNodesMapUpdates
-                    .pipe(scan((rmap, op) => {
-                    return op(rmap);
-                }, {}), startWith({}), share());
-            this._warningNodesMap =
-                this._warningNodesMapUpdates
-                    .pipe(scan((rmap, op) => {
-                    return op(rmap);
-                }, {}), startWith({}), share());
-            this._filteredChoicesNodesMap =
-                this._filteredChoicesNodesMapUpdates
-                    .pipe(scan((rmap, op) => {
-                    return op(rmap);
-                }, {}), startWith({}), share());
-            this._triggerConditionsNodesMap =
-                this._triggerConditionsNodesMapUpdates
-                    .pipe(scan((rmap, op) => {
-                    return op(rmap);
-                }, {}), startWith({}), share());
-            this._nextSlideConditionsNodesMap =
-                this._nextSlideConditionsNodesMapUpdates
-                    .pipe(scan((rmap, op) => {
-                    return op(rmap);
-                }, {}), startWith({}), share());
-            this._nodesMaps = [
-                this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
-                this._formulaNodesMap, this._validationNodesMap, this._warningNodesMap,
-                this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
-                this._triggerConditionsNodesMap
-            ];
-        }
-        _initFormStreams() {
-            const formObs = this._form;
-            formObs
-                .pipe(map((_form) => {
-                return this._initFormGroupStreams(new FormGroup({}));
-            }))
-                .subscribe(this._formGroup);
-            formObs
-                .pipe(switchMap(form => {
-                if (form == null || form.form == null) {
-                    return of(form);
-                }
-                const choicesOrigins = form.form.choicesOrigins || [];
-                if (choicesOrigins.length === 0) {
-                    return of(form);
-                }
-                return from(Promise.all(choicesOrigins.map(co => initChoicesOrigin(co))))
-                    .pipe(map(() => form));
-            }), map((form) => {
-                return (_nodesInstances) => {
-                    const nodes = form != null && form.form != null ?
-                        this._orderedNodesInstancesTree(flattenNodes(form.form.nodes), form.form.nodes, undefined, [], form.context || {}) :
-                        [];
-                    let currentPosition = 0;
-                    nodes.forEach((node) => {
-                        if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
-                            const rsNode = node;
-                            for (let i = 0; i < rsNode.reps; i++) {
-                                if (node.visible) {
-                                    currentPosition++;
-                                    if (i == 0) {
-                                        rsNode.position = currentPosition;
-                                    }
-                                }
-                            }
-                        }
-                        else if (node.node.nodeType === AjfNodeType.AjfSlide) {
-                            const sNode = node;
-                            if (sNode.visible) {
-                                currentPosition++;
-                                sNode.position = currentPosition;
-                            }
-                        }
-                    });
-                    return nodes;
-                };
-            }))
-                .subscribe(this._nodesUpdates);
-        }
-        _initNodeInstance(allNodes, node, prefix, context, branchVisibility = true) {
-            let instance = nodeToNodeInstance(allNodes, node, prefix, context);
-            if (instance != null) {
-                const nodeType = instance.node.nodeType;
-                if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
-                    this._explodeRepeatingNode(allNodes, instance, context);
-                }
-                else if (nodeType === AjfNodeType.AjfSlide) {
-                    const sInstance = instance;
-                    sInstance.nodes = this._orderedNodesInstancesTree(allNodes, sInstance.node.nodes, sInstance.node.id, prefix, context);
-                }
-                updateVisibility(instance, context, branchVisibility);
-                updateConditionalBranches(instance, context);
-                if (nodeType === AjfNodeType.AjfField) {
-                    const fInstance = instance;
-                    if (isCustomFieldWithChoices(fInstance.node) || isFieldWithChoices(fInstance.node)) {
-                        updateFilteredChoices(fInstance, context);
-                    }
-                    else {
-                        if (isTableFieldInstance(fInstance)) {
-                            const tfInstance = fInstance;
-                            const tNode = tfInstance.node;
-                            tfInstance.context = context[nodeInstanceCompleteName(tfInstance)] || context;
-                            const formGroup = this._formGroup.getValue();
-                            let controlsWithLabels = [];
-                            controlsWithLabels.push([node.label, tNode.columnLabels]);
-                            if (formGroup != null) {
-                                tNode.rows.forEach((row, rowIdx) => {
-                                    let r = [];
-                                    row.forEach((cell, idx) => {
-                                        /*
-                                        every control is registered with the cell position
-                                        inside the form control matrix
-                                        with this mask `${tNode.name}__${rowIdx}__${idx}`
-                                        */
-                                        const name = `${tNode.name}__${rowIdx}__${idx}`;
-                                        const tableFormControl = { control: new FormControl(), show: false };
-                                        tableFormControl.control.setValue(tfInstance.context[cell.formula]);
-                                        formGroup.registerControl(name, tableFormControl.control);
-                                        r.push(tableFormControl);
-                                        /* create a object that respect the instance interface
-                                        with the minimum defined properties to allow to run addToNodeFormula map*/
-                                        const fakeInstance = {
-                                            formula: { formula: cell.formula },
-                                            node: { name, nodeType: 0, editable: false },
-                                            visible: true,
-                                            prefix: [],
-                                            conditionalBranches: [],
-                                            updatedEvt: new EventEmitter()
-                                        };
-                                        this._addToNodesFormulaMap(fakeInstance, cell.formula);
-                                    });
-                                    controlsWithLabels.push([tNode.rowLabels[rowIdx], r]);
-                                });
-                                tfInstance.controls = controlsWithLabels;
-                            }
-                        }
-                        else {
-                            fInstance.value = context[nodeInstanceCompleteName(instance)];
-                        }
-                        updateFieldInstanceState(fInstance, context);
-                    }
-                }
-                this._addNodeInstance(instance);
-            }
-            return instance;
-        }
-        _adjustReps(allNodes, instance, oldReps, context) {
-            const newReps = instance.reps;
-            const result = { added: null, removed: null };
-            if (oldReps < newReps) {
-                const newNodes = [];
-                if (instance.nodes == null) {
-                    instance.nodes = [];
-                }
-                if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
-                    const node = createField({
-                        id: 999,
-                        name: '',
-                        parent: -1,
-                        fieldType: AjfFieldType.Empty,
-                        label: instance.node.label
-                    });
-                    const newInstance = this._initNodeInstance(allNodes, node, instance.prefix.slice(0), context);
-                    if (newInstance != null) {
-                        instance.nodes.push(newInstance);
-                    }
-                }
-                for (let i = oldReps; i < newReps; i++) {
-                    const prefix = instance.prefix.slice(0);
-                    const group = instance.node;
-                    prefix.push(i);
-                    orderedNodes(group.nodes, instance.node.id).forEach((n) => {
-                        const newInstance = this._initNodeInstance(allNodes, n, prefix, context);
-                        if (newInstance != null) {
-                            newNodes.push(newInstance);
-                            instance.nodes.push(newInstance);
-                        }
-                    });
-                    this._addNodeInstance(instance);
-                }
-                result.added = newNodes;
-            }
-            else if (oldReps > newReps) {
-                let nodesNum = instance.nodes.length / oldReps;
-                if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
-                    nodesNum++;
-                }
-                result.removed = instance.nodes.splice(newReps * nodesNum, nodesNum);
-                result.removed.forEach((n => {
-                    this._removeNodeInstance(n);
-                }));
-            }
-            if (oldReps != newReps && instance.formulaReps == null) {
-                const fg = this._formGroup.getValue();
-                const completeName = nodeInstanceCompleteName(instance);
-                if (fg != null && fg.contains(completeName)) {
-                    fg.controls[completeName].setValue(instance.reps);
-                }
-            }
-            instance.flatNodes = flattenNodesInstances(instance.nodes);
-            if (instance.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
-                const rsInstance = instance;
-                const slideNodes = [];
-                const nodesPerSlide = rsInstance.nodes != null ? rsInstance.nodes.length / rsInstance.reps : 0;
-                for (let i = 0; i < instance.reps; i++) {
-                    const startNode = i * nodesPerSlide;
-                    slideNodes.push(instance.nodes.slice(startNode, startNode + nodesPerSlide));
-                }
-                rsInstance.slideNodes = slideNodes;
-            }
-            return result;
-        }
-        _updateFormValueAndValidity() {
-            this._nodesUpdates.asObservable()
-                .pipe(withLatestFrom(this._formGroup), filter((values) => values[1] !== null))
-                .subscribe((values) => {
-                const form = values[1];
-                form.updateValueAndValidity();
-            });
-        }
-        _explodeRepeatingNode(allNodes, instance, context) {
-            const oldReps = updateRepsNum(instance, context);
-            if (oldReps !== instance.reps) {
-                this._adjustReps(allNodes, instance, oldReps, context);
-            }
-        }
-        _orderedNodesInstancesTree(allNodes, nodes, parent = null, prefix = [], context) {
-            let nodesInstances = [];
-            const curSuffix = prefix.length > 0 ? '__' + prefix.join('__') : '';
-            orderedNodes(nodes, parent).forEach((node) => {
-                const parentNodeInstance = nodesInstances.find(ni => ni.node.id == node.parent && nodeInstanceSuffix(ni) == curSuffix);
-                const branchVisibility = parentNodeInstance != null ?
-                    parentNodeInstance.verifiedBranch != null &&
-                        parentNodeInstance.verifiedBranch == node.parentNode :
-                    true;
-                const nni = this._initNodeInstance(allNodes, node, prefix, context, branchVisibility);
-                if (nni != null) {
-                    nodesInstances.push(nni);
-                }
-            });
-            return nodesInstances;
-        }
-        _formValueDelta(oldValue, newValue) {
-            return Object.keys(newValue).filter((k) => oldValue[k] !== newValue[k]);
-        }
-        _initFormGroupStreams(formGroup) {
-            this._formGroupSubscription.unsubscribe();
-            let init = true;
-            let initForm = true;
-            this._formInitEvent.emit(0 /* Initializing */);
-            this._formGroupSubscription =
-                formGroup.valueChanges
-                    .pipe(startWith({}), pairwise(), debounceTime(200), withLatestFrom(...(this._nodesMaps), this._flatNodes))
-                    .subscribe((v) => {
-                    const oldFormValue = init && {} || v[0][0];
-                    init = false;
-                    const newFormValue = v[0][1];
-                    const visibilityMap = v[1];
-                    const repetitionMap = v[2];
-                    const conditionalBranchesMap = v[3];
-                    const formulaMap = v[4];
-                    const validationMap = v[5];
-                    const warningMap = v[6];
-                    const nextSlideConditionsMap = v[7];
-                    const filteredChoicesMap = v[8];
-                    const triggerConditionsMap = v[9];
-                    const nodes = v[10];
-                    // takes the names of the fields that have changed
-                    const delta = this._formValueDelta(oldFormValue, newFormValue);
-                    const deltaLen = delta.length;
-                    let updatedNodes = [];
-                    /*
-                      for each field update all properties map
-                      with the following rule  "if fieldname is in map update it" and
-                      push on updateNodes the node instance that wrap field
-                    */
-                    delta.forEach((fieldName) => {
-                        updatedNodes = updatedNodes.concat(nodes.filter(n => nodeInstanceCompleteName(n) === fieldName));
-                        if (visibilityMap[fieldName] != null) {
-                            visibilityMap[fieldName].forEach(nodeInstance => {
-                                const completeName = nodeInstanceCompleteName(nodeInstance);
-                                const visibilityChanged = updateVisibility(nodeInstance, newFormValue);
-                                const isField = isFieldInstance(nodeInstance);
-                                if (visibilityChanged && !nodeInstance.visible) {
-                                    const fg = this._formGroup.getValue();
-                                    if (fg != null) {
-                                        const s = timer(200).subscribe(() => {
-                                            if (s && !s.closed) {
-                                                s.unsubscribe();
-                                            }
-                                            fg.controls[completeName].setValue(null);
-                                        });
-                                    }
-                                    if (isField) {
-                                        nodeInstance.value = null;
-                                    }
-                                }
-                                else if (visibilityChanged && nodeInstance.visible && isField) {
-                                    const fg = this._formGroup.getValue();
-                                    const res = updateFormula(nodeInstance, newFormValue);
-                                    if (fg != null && res.changed) {
-                                        fg.controls[completeName].setValue(res.value);
-                                    }
-                                }
-                                if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                    updatedNodes.push(nodeInstance);
-                                }
-                            });
-                        }
-                        if (repetitionMap[fieldName] != null) {
-                            repetitionMap[fieldName].forEach(nodeInstance => {
-                                if (isRepeatingContainerNode(nodeInstance.node)) {
-                                    const rnInstance = nodeInstance;
-                                    const oldReps = updateRepsNum(rnInstance, newFormValue);
-                                    if (oldReps !== rnInstance.reps) {
-                                        this._adjustReps(nodes, rnInstance, oldReps, newFormValue);
-                                    }
-                                }
-                                if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                    updatedNodes.push(nodeInstance);
-                                }
-                            });
-                        }
-                        if (conditionalBranchesMap[fieldName] != null) {
-                            conditionalBranchesMap[fieldName].forEach((nodeInstance) => {
-                                // const branchChanged = nodeInstance.updateConditionalBranches(newFormValue);
-                                updateConditionalBranches(nodeInstance, newFormValue);
-                                // if (branchChanged) {
-                                const verifiedBranch = nodeInstance.verifiedBranch;
-                                nodeInstance.conditionalBranches.forEach((_condition, idx) => {
-                                    if (idx == verifiedBranch) {
-                                        this._showSubtree(newFormValue, nodes, nodeInstance, idx);
-                                    }
-                                    else {
-                                        this._hideSubtree(newFormValue, nodes, nodeInstance, idx);
-                                    }
-                                });
-                                // }
-                                if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                    updatedNodes.push(nodeInstance);
-                                }
-                            });
-                        }
-                        if (formulaMap[fieldName] != null) {
-                            formulaMap[fieldName].forEach((nodeInstance) => {
-                                if (isFieldInstance(nodeInstance)) {
-                                    const fInstance = nodeInstance;
-                                    const res = updateFormula(fInstance, newFormValue);
-                                    const fg = this._formGroup.getValue();
-                                    if (fg != null && res.changed) {
-                                        updateValidation(fInstance, newFormValue);
-                                        fg.controls[nodeInstanceCompleteName(nodeInstance)].setValue(res.value);
-                                    }
-                                }
-                                if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                    updatedNodes.push(nodeInstance);
-                                }
-                            });
-                        }
-                        if (validationMap[fieldName] != null) {
-                            validationMap[fieldName].forEach((nodeInstance) => {
-                                if (isFieldInstance(nodeInstance)) {
-                                    const fInstance = nodeInstance;
-                                    newFormValue.$value = newFormValue[nodeInstanceCompleteName(nodeInstance)];
-                                    updateValidation(fInstance, newFormValue, this.currentSupplementaryInformations);
-                                }
-                                if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                    updatedNodes.push(nodeInstance);
-                                }
-                            });
-                        }
-                        if (warningMap[fieldName] != null) {
-                            warningMap[fieldName].forEach((nodeInstance) => {
-                                if (isFieldInstance(nodeInstance)) {
-                                    const fInstance = nodeInstance;
-                                    updateWarning(fInstance, newFormValue);
-                                    if (fInstance.warningResults != null &&
-                                        fInstance.warningResults.filter(warning => warning.result).length > 0) {
-                                        fInstance.warningTrigger.emit();
-                                    }
-                                }
-                                if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                    updatedNodes.push(nodeInstance);
-                                }
-                            });
-                        }
-                        if (deltaLen == 1 && nextSlideConditionsMap[fieldName] != null) {
-                            if (nextSlideConditionsMap[fieldName]
-                                .filter((nodeInstance) => {
-                                if (isFieldInstance(nodeInstance)) {
-                                    const fInstance = nodeInstance;
-                                    return updateNextSlideCondition(fInstance, newFormValue);
-                                }
-                                return false;
-                            })
-                                .length == 1) {
-                                this._nextSlideTrigger.emit();
-                            }
-                        }
-                        if (filteredChoicesMap[fieldName] != null) {
-                            filteredChoicesMap[fieldName].forEach((nodeInstance) => {
-                                if (isFieldInstance(nodeInstance)) {
-                                    const fInstance = nodeInstance;
-                                    if (isFieldWithChoices(fInstance.node)) {
-                                        updateFilteredChoices(fInstance, newFormValue);
-                                    }
-                                }
-                                if (updatedNodes.indexOf(nodeInstance) === -1) {
-                                    updatedNodes.push(nodeInstance);
-                                }
-                            });
-                        }
-                        if (deltaLen == 1 && triggerConditionsMap[fieldName] != null) {
-                            const res = triggerConditionsMap[fieldName].filter((nodeInstance) => {
-                                if (!isFieldInstance(nodeInstance)) {
-                                    return false;
-                                }
-                                const fInstance = nodeInstance;
-                                if (!isFieldWithChoices(fInstance.node)) {
-                                    return false;
-                                }
-                                return updateTriggerConditions(fInstance, newFormValue);
-                            });
-                            if (res.length == 1) {
-                                res[0].selectionTrigger.emit();
-                            }
-                        }
-                    });
-                    updatedNodes.forEach(n => {
-                        const nodeIdx = nodes.indexOf(n);
-                        let idx = nodeIdx - 1;
-                        while (idx >= 0) {
-                            const curNode = nodes[idx];
-                            if (isSlidesInstance(curNode)) {
-                                const slide = curNode;
-                                const subNodesNum = slide.flatNodes.length;
-                                let valid = true;
-                                for (let i = 0; i < subNodesNum; i++) {
-                                    const subNode = slide.flatNodes[i];
-                                    if (subNode.visible && isFieldInstance(subNode) &&
-                                        !subNode.valid) {
-                                        valid = false;
-                                        break;
-                                    }
-                                }
-                                if (slide.valid !== valid) {
-                                    slide.valid = valid;
-                                }
-                                slide.updatedEvt.emit();
-                            }
-                            idx--;
-                        }
-                        n.updatedEvt.emit();
-                    });
-                    if (initForm) {
-                        initForm = false;
-                        this._formInitEvent.emit(1 /* Complete */);
-                    }
-                    this._valueChanged.next();
-                });
-            return formGroup;
-        }
-        _showSubtree(context, nodes, node, branch) {
-            this._updateSubtreeVisibility(context, nodes, node, true, branch);
-        }
-        _hideSubtree(context, nodes, node, branch) {
-            this._updateSubtreeVisibility(context, nodes, node, false, branch);
-        }
-        _updateSubtreeVisibility(context, nodes, node, visible, branch) {
-            let subNodes;
-            const nodeSuffix = nodeInstanceSuffix(node);
-            if (branch != null) {
-                subNodes = nodes.filter(n => {
-                    const suffix = nodeInstanceSuffix(n);
-                    return suffix == nodeSuffix && n.node.parent == node.node.id && n.node.parentNode == branch;
-                });
-            }
-            else {
-                subNodes = nodes.filter(n => {
-                    const suffix = nodeInstanceSuffix(n);
-                    return suffix == nodeSuffix && n.node.parent == node.node.id;
-                });
-            }
-            const isContainer = isContainerNode(node.node);
-            subNodes.forEach((n) => {
-                if (!isContainer ||
-                    (isContainer && node.node.nodes.find(cn => cn.id == n.node.id) == null)) {
-                    updateVisibility(n, context, visible);
-                    updateFormula(n, context);
-                    this._updateSubtreeVisibility(context, nodes, n, visible);
-                }
-            });
-        }
-        _initNodesStreams() {
-            this._nodes =
-                this._nodesUpdates.pipe(scan((nodes, op) => {
-                    return op(nodes);
-                }, []), share());
-            this._flatNodesTree = this._nodes.pipe(map(nodes => flattenNodesInstancesTree(nodes)), share());
-            this._flatNodes = this._flatNodesTree.pipe(map(slides => {
-                let nodes = [];
-                slides.forEach(s => {
-                    nodes.push(s);
-                    nodes = nodes.concat(s.flatNodes);
                 });
                 return nodes;
-            }), share());
-        }
-        _removeNodeInstance(nodeInstance) {
-            const nodeName = nodeInstanceCompleteName(nodeInstance);
-            this._removeNodesVisibilityMapIndex(nodeName);
-            this._removeNodesRepetitionMapIndex(nodeName);
-            this._removeNodesConditionalBranchMapIndex(nodeName);
-            this._removeNodesFormulaMapIndex(nodeName);
-            this._removeNodesValidationMapIndex(nodeName);
-            this._removeNodesWarningMapIndex(nodeName);
-            this._removeNodesNextSlideConditionsMapIndex(nodeName);
-            this._removeNodesFilteredChoicesMapIndex(nodeName);
-            this._removeNodesTriggerConditionsMapIndex(nodeName);
-            if (isSlidesInstance(nodeInstance)) {
-                return this._removeSlideInstance(nodeInstance);
+            };
+        }))
+            .subscribe(this._nodesUpdates);
+    }
+    _initNodeInstance(allNodes, node, prefix, context, branchVisibility = true) {
+        let instance = nodeToNodeInstance(allNodes, node, prefix, context);
+        if (instance != null) {
+            const nodeType = instance.node.nodeType;
+            if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
+                this._explodeRepeatingNode(allNodes, instance, context);
             }
-            else if (isRepeatingContainerNode(nodeInstance.node)) {
-                this._removeNodeGroupInstance(nodeInstance);
+            else if (nodeType === AjfNodeType.AjfSlide) {
+                const sInstance = instance;
+                sInstance.nodes = this._orderedNodesInstancesTree(allNodes, sInstance.node.nodes, sInstance.node.id, prefix, context);
             }
-            else if (isFieldInstance(nodeInstance)) {
-                this._removeFieldInstance(nodeInstance);
-            }
-            return nodeInstance;
-        }
-        _removeSlideInstance(slideInstance) {
-            const slide = slideInstance.node;
-            if (slide.visibility != null) {
-                this._removeFromNodesVisibilityMap(slideInstance, slide.visibility.condition);
-            }
-            slideInstance.conditionalBranches.forEach((conditionalBranch) => {
-                this._removeFromNodesConditionalBranchMap(slideInstance, conditionalBranch.condition);
-            });
-            return slideInstance;
-        }
-        _removeNodeGroupInstance(nodeGroupInstance) {
-            const nodeGroup = nodeGroupInstance.node;
-            if (nodeGroup.visibility != null) {
-                this._removeFromNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
-            }
-            if (nodeGroupInstance.formulaReps != null && nodeGroup.formulaReps != null) {
-                this._removeFromNodesRepetitionMap(nodeGroupInstance, nodeGroup.formulaReps.formula);
-            }
-            return nodeGroupInstance;
-        }
-        _removeFieldInstance(fieldInstance) {
-            const formGroup = this._formGroup.getValue();
-            const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
-            if (formGroup != null && formGroup.contains(fieldInstanceName)) {
-                formGroup.removeControl(fieldInstanceName);
-            }
-            if (fieldInstance.validation != null) {
-                this._validationNodesMapUpdates.next((vmap) => {
-                    if (vmap[fieldInstanceName] == null) {
-                        delete vmap[fieldInstanceName];
+            updateVisibility(instance, context, branchVisibility);
+            updateConditionalBranches(instance, context);
+            if (nodeType === AjfNodeType.AjfField) {
+                const fInstance = instance;
+                if (isCustomFieldWithChoices(fInstance.node) || isFieldWithChoices(fInstance.node)) {
+                    updateFilteredChoices(fInstance, context);
+                }
+                else {
+                    if (isTableFieldInstance(fInstance)) {
+                        const tfInstance = fInstance;
+                        const tNode = tfInstance.node;
+                        tfInstance.context = context[nodeInstanceCompleteName(tfInstance)] || context;
+                        const formGroup = this._formGroup.getValue();
+                        let controlsWithLabels = [];
+                        controlsWithLabels.push([node.label, tNode.columnLabels]);
+                        if (formGroup != null) {
+                            tNode.rows.forEach((row, rowIdx) => {
+                                let r = [];
+                                row.forEach((cell, idx) => {
+                                    /*
+                                    every control is registered with the cell position
+                                    inside the form control matrix
+                                    with this mask `${tNode.name}__${rowIdx}__${idx}`
+                                    */
+                                    const name = `${tNode.name}__${rowIdx}__${idx}`;
+                                    const tableFormControl = { control: new FormControl(), show: false };
+                                    tableFormControl.control.setValue(tfInstance.context[cell.formula]);
+                                    formGroup.registerControl(name, tableFormControl.control);
+                                    r.push(tableFormControl);
+                                    /* create a object that respect the instance interface
+                                    with the minimum defined properties to allow to run addToNodeFormula map*/
+                                    const fakeInstance = {
+                                        formula: { formula: cell.formula },
+                                        node: { name, nodeType: 0, editable: false },
+                                        visible: true,
+                                        prefix: [],
+                                        conditionalBranches: [],
+                                        updatedEvt: new EventEmitter()
+                                    };
+                                    this._addToNodesFormulaMap(fakeInstance, cell.formula);
+                                });
+                                controlsWithLabels.push([tNode.rowLabels[rowIdx], r]);
+                            });
+                            tfInstance.controls = controlsWithLabels;
+                        }
                     }
-                    return vmap;
-                });
-            }
-            if (fieldInstance.visibility != null) {
-                this._removeFromNodesVisibilityMap(fieldInstance, fieldInstance.visibility.condition);
-            }
-            fieldInstance.conditionalBranches.forEach((conditionalBranch) => {
-                this._removeFromNodesConditionalBranchMap(fieldInstance, conditionalBranch.condition);
-            });
-            if (fieldInstance.formula) {
-                this._removeFromNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
-            }
-            // TODO: check this, probably is never verified
-            if (isRepeatingContainerNode(fieldInstance.node)) {
-                const rcInstance = fieldInstance;
-                if (rcInstance.formulaReps != null) {
-                    this._removeFromNodesRepetitionMap(fieldInstance, rcInstance.formulaReps.formula);
+                    else {
+                        fInstance.value = context[nodeInstanceCompleteName(instance)];
+                    }
+                    updateFieldInstanceState(fInstance, context);
                 }
             }
-            if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
-                fieldInstance.validation.conditions.forEach((condition) => {
-                    this._removeFromNodesValidationMap(fieldInstance, condition.condition);
+            this._addNodeInstance(instance);
+        }
+        return instance;
+    }
+    _adjustReps(allNodes, instance, oldReps, context) {
+        const newReps = instance.reps;
+        const result = { added: null, removed: null };
+        if (oldReps < newReps) {
+            const newNodes = [];
+            if (instance.nodes == null) {
+                instance.nodes = [];
+            }
+            if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
+                const node = createField({
+                    id: 999,
+                    name: '',
+                    parent: -1,
+                    fieldType: AjfFieldType.Empty,
+                    label: instance.node.label
                 });
+                const newInstance = this._initNodeInstance(allNodes, node, instance.prefix.slice(0), context);
+                if (newInstance != null) {
+                    instance.nodes.push(newInstance);
+                }
             }
-            if (fieldInstance.warning != null) {
-                fieldInstance.warning.conditions.forEach((condition) => {
-                    this._removeFromNodesWarningMap(fieldInstance, condition.condition);
+            for (let i = oldReps; i < newReps; i++) {
+                const prefix = instance.prefix.slice(0);
+                const group = instance.node;
+                prefix.push(i);
+                orderedNodes(group.nodes, instance.node.id).forEach((n) => {
+                    const newInstance = this._initNodeInstance(allNodes, n, prefix, context);
+                    if (newInstance != null) {
+                        newNodes.push(newInstance);
+                        instance.nodes.push(newInstance);
+                    }
                 });
+                this._addNodeInstance(instance);
             }
-            if (fieldInstance.nextSlideCondition != null) {
-                this._removeFromNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
+            result.added = newNodes;
+        }
+        else if (oldReps > newReps) {
+            let nodesNum = instance.nodes.length / oldReps;
+            if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
+                nodesNum++;
             }
-            if (isFieldWithChoices(fieldInstance.node)) {
-                const fwcInstance = fieldInstance;
-                if (fwcInstance.choicesFilter != null) {
-                    this._removeFromNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
-                    if (fwcInstance.triggerConditions != null) {
-                        fwcInstance.triggerConditions.forEach((condition) => {
-                            this._removeFromNodesTriggerConditionsMap(fieldInstance, condition.condition);
+            result.removed = instance.nodes.splice(newReps * nodesNum, nodesNum);
+            result.removed.forEach((n => {
+                this._removeNodeInstance(n);
+            }));
+        }
+        if (oldReps != newReps && instance.formulaReps == null) {
+            const fg = this._formGroup.getValue();
+            const completeName = nodeInstanceCompleteName(instance);
+            if (fg != null && fg.contains(completeName)) {
+                fg.controls[completeName].setValue(instance.reps);
+            }
+        }
+        instance.flatNodes = flattenNodesInstances(instance.nodes);
+        if (instance.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+            const rsInstance = instance;
+            const slideNodes = [];
+            const nodesPerSlide = rsInstance.nodes != null ? rsInstance.nodes.length / rsInstance.reps : 0;
+            for (let i = 0; i < instance.reps; i++) {
+                const startNode = i * nodesPerSlide;
+                slideNodes.push(instance.nodes.slice(startNode, startNode + nodesPerSlide));
+            }
+            rsInstance.slideNodes = slideNodes;
+        }
+        return result;
+    }
+    _updateFormValueAndValidity() {
+        this._nodesUpdates.asObservable()
+            .pipe(withLatestFrom(this._formGroup), filter(([_, fg]) => fg !== null))
+            .subscribe(([_, fg]) => {
+            const form = fg;
+            form.updateValueAndValidity();
+        });
+    }
+    _explodeRepeatingNode(allNodes, instance, context) {
+        const oldReps = updateRepsNum(instance, context);
+        if (oldReps !== instance.reps) {
+            this._adjustReps(allNodes, instance, oldReps, context);
+        }
+    }
+    _orderedNodesInstancesTree(allNodes, nodes, parent = null, prefix = [], context) {
+        let nodesInstances = [];
+        const curSuffix = prefix.length > 0 ? '__' + prefix.join('__') : '';
+        orderedNodes(nodes, parent).forEach((node) => {
+            const parentNodeInstance = nodesInstances.find(ni => ni.node.id == node.parent && nodeInstanceSuffix(ni) == curSuffix);
+            const branchVisibility = parentNodeInstance != null ?
+                parentNodeInstance.verifiedBranch != null &&
+                    parentNodeInstance.verifiedBranch == node.parentNode :
+                true;
+            const nni = this._initNodeInstance(allNodes, node, prefix, context, branchVisibility);
+            if (nni != null) {
+                nodesInstances.push(nni);
+            }
+        });
+        return nodesInstances;
+    }
+    _formValueDelta(oldValue, newValue) {
+        return Object.keys(newValue).filter((k) => oldValue[k] !== newValue[k]);
+    }
+    _initFormGroupStreams(formGroup) {
+        this._formGroupSubscription.unsubscribe();
+        let init = true;
+        let initForm = true;
+        this._formInitEvent.emit(0 /* Initializing */);
+        this._formGroupSubscription =
+            formGroup.valueChanges
+                .pipe(startWith({}), pairwise(), debounceTime(200), withLatestFrom(...(this._nodesMaps), this._flatNodes))
+                .subscribe((v) => {
+                const oldFormValue = init && {} || v[0][0];
+                init = false;
+                const newFormValue = v[0][1];
+                const visibilityMap = v[1];
+                const repetitionMap = v[2];
+                const conditionalBranchesMap = v[3];
+                const formulaMap = v[4];
+                const validationMap = v[5];
+                const warningMap = v[6];
+                const nextSlideConditionsMap = v[7];
+                const filteredChoicesMap = v[8];
+                const triggerConditionsMap = v[9];
+                const nodes = v[10];
+                // takes the names of the fields that have changed
+                const delta = this._formValueDelta(oldFormValue, newFormValue);
+                const deltaLen = delta.length;
+                let updatedNodes = [];
+                /*
+                  for each field update all properties map
+                  with the following rule  "if fieldname is in map update it" and
+                  push on updateNodes the node instance that wrap field
+                */
+                delta.forEach((fieldName) => {
+                    updatedNodes = updatedNodes.concat(nodes.filter(n => nodeInstanceCompleteName(n) === fieldName));
+                    if (visibilityMap[fieldName] != null) {
+                        visibilityMap[fieldName].forEach(nodeInstance => {
+                            const completeName = nodeInstanceCompleteName(nodeInstance);
+                            const visibilityChanged = updateVisibility(nodeInstance, newFormValue);
+                            const isField = isFieldInstance(nodeInstance);
+                            if (visibilityChanged && !nodeInstance.visible) {
+                                const fg = this._formGroup.getValue();
+                                if (fg != null) {
+                                    const s = timer(200).subscribe(() => {
+                                        if (s && !s.closed) {
+                                            s.unsubscribe();
+                                        }
+                                        fg.controls[completeName].setValue(null);
+                                    });
+                                }
+                                if (isField) {
+                                    nodeInstance.value = null;
+                                }
+                            }
+                            else if (visibilityChanged && nodeInstance.visible && isField) {
+                                const fg = this._formGroup.getValue();
+                                const res = updateFormula(nodeInstance, newFormValue);
+                                if (fg != null && res.changed) {
+                                    fg.controls[completeName].setValue(res.value);
+                                }
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
                         });
                     }
-                }
-            }
-            return fieldInstance;
-        }
-        _addNodeInstance(nodeInstance) {
-            if (isRepeatingContainerNode(nodeInstance.node)) {
-                return this._addNodeGroupInstance(nodeInstance);
-            }
-            else if (isSlideInstance(nodeInstance)) {
-                return this._addSlideInstance(nodeInstance);
-            }
-            else if (isFieldInstance(nodeInstance)) {
-                return this._addFieldInstance(nodeInstance);
-            }
-            return nodeInstance;
-        }
-        _addFieldInstance(fieldInstance) {
-            const formGroup = this._formGroup.getValue();
-            const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
-            if (formGroup != null && !formGroup.contains(fieldInstanceName)) {
-                const control = new FormControl();
-                control.setValue(fieldInstance.value);
-                formGroup.registerControl(fieldInstanceName, control);
-            }
-            if (fieldInstance.validation != null) {
-                this._validationNodesMapUpdates.next((vmap) => {
-                    if (vmap[fieldInstanceName] == null) {
-                        vmap[fieldInstanceName] = [];
+                    if (repetitionMap[fieldName] != null) {
+                        repetitionMap[fieldName].forEach(nodeInstance => {
+                            if (isRepeatingContainerNode(nodeInstance.node)) {
+                                const rnInstance = nodeInstance;
+                                const oldReps = updateRepsNum(rnInstance, newFormValue);
+                                if (oldReps !== rnInstance.reps) {
+                                    this._adjustReps(nodes, rnInstance, oldReps, newFormValue);
+                                }
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        });
                     }
-                    if (vmap[fieldInstanceName].indexOf(fieldInstance) == -1) {
-                        vmap[fieldInstanceName].push(fieldInstance);
+                    if (conditionalBranchesMap[fieldName] != null) {
+                        conditionalBranchesMap[fieldName].forEach((nodeInstance) => {
+                            // const branchChanged = nodeInstance.updateConditionalBranches(newFormValue);
+                            updateConditionalBranches(nodeInstance, newFormValue);
+                            // if (branchChanged) {
+                            const verifiedBranch = nodeInstance.verifiedBranch;
+                            nodeInstance.conditionalBranches.forEach((_condition, idx) => {
+                                if (idx == verifiedBranch) {
+                                    this._showSubtree(newFormValue, nodes, nodeInstance, idx);
+                                }
+                                else {
+                                    this._hideSubtree(newFormValue, nodes, nodeInstance, idx);
+                                }
+                            });
+                            // }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        });
                     }
-                    return vmap;
+                    if (formulaMap[fieldName] != null) {
+                        formulaMap[fieldName].forEach((nodeInstance) => {
+                            if (isFieldInstance(nodeInstance)) {
+                                const fInstance = nodeInstance;
+                                const res = updateFormula(fInstance, newFormValue);
+                                const fg = this._formGroup.getValue();
+                                if (fg != null && res.changed) {
+                                    updateValidation(fInstance, newFormValue);
+                                    fg.controls[nodeInstanceCompleteName(nodeInstance)].setValue(res.value);
+                                }
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        });
+                    }
+                    if (validationMap[fieldName] != null) {
+                        validationMap[fieldName].forEach((nodeInstance) => {
+                            if (isFieldInstance(nodeInstance)) {
+                                const fInstance = nodeInstance;
+                                newFormValue.$value = newFormValue[nodeInstanceCompleteName(nodeInstance)];
+                                updateValidation(fInstance, newFormValue, this.currentSupplementaryInformations);
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        });
+                    }
+                    if (warningMap[fieldName] != null) {
+                        warningMap[fieldName].forEach((nodeInstance) => {
+                            if (isFieldInstance(nodeInstance)) {
+                                const fInstance = nodeInstance;
+                                updateWarning(fInstance, newFormValue);
+                                if (fInstance.warningResults != null &&
+                                    fInstance.warningResults.filter(warning => warning.result).length > 0) {
+                                    fInstance.warningTrigger.emit();
+                                }
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        });
+                    }
+                    if (deltaLen == 1 && nextSlideConditionsMap[fieldName] != null) {
+                        if (nextSlideConditionsMap[fieldName]
+                            .filter((nodeInstance) => {
+                            if (isFieldInstance(nodeInstance)) {
+                                const fInstance = nodeInstance;
+                                return updateNextSlideCondition(fInstance, newFormValue);
+                            }
+                            return false;
+                        })
+                            .length == 1) {
+                            this._nextSlideTrigger.emit();
+                        }
+                    }
+                    if (filteredChoicesMap[fieldName] != null) {
+                        filteredChoicesMap[fieldName].forEach((nodeInstance) => {
+                            if (isFieldInstance(nodeInstance)) {
+                                const fInstance = nodeInstance;
+                                if (isFieldWithChoices(fInstance.node)) {
+                                    updateFilteredChoices(fInstance, newFormValue);
+                                }
+                            }
+                            if (updatedNodes.indexOf(nodeInstance) === -1) {
+                                updatedNodes.push(nodeInstance);
+                            }
+                        });
+                    }
+                    if (deltaLen == 1 && triggerConditionsMap[fieldName] != null) {
+                        const res = triggerConditionsMap[fieldName].filter((nodeInstance) => {
+                            if (!isFieldInstance(nodeInstance)) {
+                                return false;
+                            }
+                            const fInstance = nodeInstance;
+                            if (!isFieldWithChoices(fInstance.node)) {
+                                return false;
+                            }
+                            return updateTriggerConditions(fInstance, newFormValue);
+                        });
+                        if (res.length == 1) {
+                            res[0].selectionTrigger.emit();
+                        }
+                    }
                 });
-            }
-            else {
-                fieldInstance.valid = true;
-            }
-            if (fieldInstance.visibility != null) {
-                this._addToNodesVisibilityMap(fieldInstance, fieldInstance.visibility.condition);
-            }
-            fieldInstance.conditionalBranches.forEach((conditionalBranch) => {
-                this._addToNodesConditionalBranchMap(fieldInstance, conditionalBranch.condition);
-            });
-            if (fieldInstance.formula) {
-                this._addToNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
-            }
-            if (isNodeGroupInstance(fieldInstance)) {
-                const ngInstance = fieldInstance;
-                if (ngInstance.formulaReps != null) {
-                    this._addToNodesRepetitionMap(fieldInstance, ngInstance.formulaReps.formula);
-                }
-            }
-            if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
-                fieldInstance.validation.conditions.forEach((condition) => {
-                    this._addToNodesValidationMap(fieldInstance, condition.condition);
+                updatedNodes.forEach(n => {
+                    const nodeIdx = nodes.indexOf(n);
+                    let idx = nodeIdx - 1;
+                    while (idx >= 0) {
+                        const curNode = nodes[idx];
+                        if (isSlidesInstance(curNode)) {
+                            const slide = curNode;
+                            const subNodesNum = slide.flatNodes.length;
+                            let valid = true;
+                            for (let i = 0; i < subNodesNum; i++) {
+                                const subNode = slide.flatNodes[i];
+                                if (subNode.visible && isFieldInstance(subNode) &&
+                                    !subNode.valid) {
+                                    valid = false;
+                                    break;
+                                }
+                            }
+                            if (slide.valid !== valid) {
+                                slide.valid = valid;
+                            }
+                            slide.updatedEvt.emit();
+                        }
+                        idx--;
+                    }
+                    n.updatedEvt.emit();
                 });
-            }
-            if (fieldInstance.warning != null) {
-                fieldInstance.warning.conditions.forEach((condition) => {
-                    this._addToNodesWarningMap(fieldInstance, condition.condition);
-                });
-            }
-            if (fieldInstance.nextSlideCondition != null) {
-                this._addToNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
-            }
-            if (isCustomFieldWithChoices(fieldInstance.node) || isFieldWithChoicesInstance(fieldInstance)) {
-                const fwcInstance = fieldInstance;
-                if (fwcInstance.choicesFilter != null) {
-                    this._addToNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
+                if (initForm) {
+                    initForm = false;
+                    this._formInitEvent.emit(1 /* Complete */);
                 }
-                if (fwcInstance.triggerConditions != null) {
-                    fwcInstance.triggerConditions.forEach((condition) => {
-                        this._addToNodesTriggerConditionsMap(fieldInstance, condition.condition);
-                    });
-                }
-            }
-            return fieldInstance;
-        }
-        _addSlideInstance(slideInstance) {
-            const slide = slideInstance.node;
-            if (slide.visibility != null) {
-                this._addToNodesVisibilityMap(slideInstance, slide.visibility.condition);
-            }
-            slideInstance.conditionalBranches.forEach((conditionalBranch) => {
-                this._addToNodesConditionalBranchMap(slideInstance, conditionalBranch.condition);
+                this._valueChanged.next();
             });
-            return slideInstance;
-        }
-        _addNodeGroupInstance(nodeGroupInstance) {
-            const nodeGroup = nodeGroupInstance.node;
-            if (nodeGroup.visibility != null) {
-                this._addToNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
-            }
-            nodeGroupInstance.conditionalBranches.forEach((conditionalBranch) => {
-                this._addToNodesConditionalBranchMap(nodeGroupInstance, conditionalBranch.condition);
+        return formGroup;
+    }
+    _showSubtree(context, nodes, node, branch) {
+        this._updateSubtreeVisibility(context, nodes, node, true, branch);
+    }
+    _hideSubtree(context, nodes, node, branch) {
+        this._updateSubtreeVisibility(context, nodes, node, false, branch);
+    }
+    _updateSubtreeVisibility(context, nodes, node, visible, branch) {
+        let subNodes;
+        const nodeSuffix = nodeInstanceSuffix(node);
+        if (branch != null) {
+            subNodes = nodes.filter(n => {
+                const suffix = nodeInstanceSuffix(n);
+                return suffix == nodeSuffix && n.node.parent == node.node.id && n.node.parentNode == branch;
             });
-            if (nodeGroupInstance.formulaReps != null) {
-                if (nodeGroup.formulaReps != null) {
-                    this._addToNodesRepetitionMap(nodeGroupInstance, nodeGroup.formulaReps.formula);
-                }
+        }
+        else {
+            subNodes = nodes.filter(n => {
+                const suffix = nodeInstanceSuffix(n);
+                return suffix == nodeSuffix && n.node.parent == node.node.id;
+            });
+        }
+        const isContainer = isContainerNode(node.node);
+        subNodes.forEach((n) => {
+            if (!isContainer ||
+                (isContainer && node.node.nodes.find(cn => cn.id == n.node.id) == null)) {
+                updateVisibility(n, context, visible);
+                updateFormula(n, context);
+                this._updateSubtreeVisibility(context, nodes, n, visible);
             }
-            else {
-                let formGroup = this._formGroup.getValue();
-                let nodeGroupInstanceName = nodeInstanceCompleteName(nodeGroupInstance);
-                if (formGroup != null && !formGroup.contains(nodeGroupInstanceName)) {
-                    const control = new FormControl();
-                    control.setValue(nodeGroupInstance.reps);
-                    formGroup.registerControl(nodeGroupInstanceName, control);
-                }
-            }
-            return nodeGroupInstance;
+        });
+    }
+    _initNodesStreams() {
+        this._nodes =
+            this._nodesUpdates.pipe(scan((nodes, op) => {
+                return op(nodes);
+            }, []), share());
+        this._flatNodesTree = this._nodes.pipe(map(nodes => flattenNodesInstancesTree(nodes)), share());
+        this._flatNodes = this._flatNodesTree.pipe(map(slides => {
+            let nodes = [];
+            slides.forEach(s => {
+                nodes.push(s);
+                nodes = nodes.concat(s.flatNodes);
+            });
+            return nodes;
+        }), share());
+    }
+    _removeNodeInstance(nodeInstance) {
+        const nodeName = nodeInstanceCompleteName(nodeInstance);
+        this._removeNodesVisibilityMapIndex(nodeName);
+        this._removeNodesRepetitionMapIndex(nodeName);
+        this._removeNodesConditionalBranchMapIndex(nodeName);
+        this._removeNodesFormulaMapIndex(nodeName);
+        this._removeNodesValidationMapIndex(nodeName);
+        this._removeNodesWarningMapIndex(nodeName);
+        this._removeNodesNextSlideConditionsMapIndex(nodeName);
+        this._removeNodesFilteredChoicesMapIndex(nodeName);
+        this._removeNodesTriggerConditionsMapIndex(nodeName);
+        if (isSlidesInstance(nodeInstance)) {
+            return this._removeSlideInstance(nodeInstance);
         }
-        _removeNodesVisibilityMapIndex(index) {
-            this._removeNodesMapIndex(this._visibilityNodesMapUpdates, index);
+        else if (isRepeatingContainerNode(nodeInstance.node)) {
+            this._removeNodeGroupInstance(nodeInstance);
         }
-        _removeNodesRepetitionMapIndex(index) {
-            this._removeNodesMapIndex(this._repetitionNodesMapUpdates, index);
+        else if (isFieldInstance(nodeInstance)) {
+            this._removeFieldInstance(nodeInstance);
         }
-        _removeNodesConditionalBranchMapIndex(index) {
-            this._removeNodesMapIndex(this._conditionalBranchNodesMapUpdates, index);
+        return nodeInstance;
+    }
+    _removeSlideInstance(slideInstance) {
+        const slide = slideInstance.node;
+        if (slide.visibility != null) {
+            this._removeFromNodesVisibilityMap(slideInstance, slide.visibility.condition);
         }
-        _removeNodesFormulaMapIndex(index) {
-            this._removeNodesMapIndex(this._formulaNodesMapUpdates, index);
+        slideInstance.conditionalBranches.forEach((conditionalBranch) => {
+            this._removeFromNodesConditionalBranchMap(slideInstance, conditionalBranch.condition);
+        });
+        return slideInstance;
+    }
+    _removeNodeGroupInstance(nodeGroupInstance) {
+        const nodeGroup = nodeGroupInstance.node;
+        if (nodeGroup.visibility != null) {
+            this._removeFromNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
         }
-        _removeNodesValidationMapIndex(index) {
-            this._removeNodesMapIndex(this._validationNodesMapUpdates, index);
+        if (nodeGroupInstance.formulaReps != null && nodeGroup.formulaReps != null) {
+            this._removeFromNodesRepetitionMap(nodeGroupInstance, nodeGroup.formulaReps.formula);
         }
-        _removeNodesWarningMapIndex(index) {
-            this._removeNodesMapIndex(this._warningNodesMapUpdates, index);
+        return nodeGroupInstance;
+    }
+    _removeFieldInstance(fieldInstance) {
+        const formGroup = this._formGroup.getValue();
+        const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
+        if (formGroup != null && formGroup.contains(fieldInstanceName)) {
+            formGroup.removeControl(fieldInstanceName);
         }
-        _removeNodesFilteredChoicesMapIndex(index) {
-            this._removeNodesMapIndex(this._filteredChoicesNodesMapUpdates, index);
-        }
-        _removeNodesTriggerConditionsMapIndex(index) {
-            this._removeNodesMapIndex(this._triggerConditionsNodesMapUpdates, index);
-        }
-        _removeNodesNextSlideConditionsMapIndex(index) {
-            this._removeNodesMapIndex(this._nextSlideConditionsNodesMapUpdates, index);
-        }
-        _removeNodesMapIndex(nodesMap, index) {
-            nodesMap.next((vmap) => {
-                if (Object.keys(vmap).indexOf(index) > -1) {
-                    delete vmap[index];
+        if (fieldInstance.validation != null) {
+            this._validationNodesMapUpdates.next((vmap) => {
+                if (vmap[fieldInstanceName] == null) {
+                    delete vmap[fieldInstanceName];
                 }
                 return vmap;
             });
         }
-        _removeFromNodesVisibilityMap(nodeInstance, formula) {
-            this._removeFromNodesMap(this._visibilityNodesMapUpdates, nodeInstance, formula);
+        if (fieldInstance.visibility != null) {
+            this._removeFromNodesVisibilityMap(fieldInstance, fieldInstance.visibility.condition);
         }
-        _removeFromNodesRepetitionMap(nodeInstance, formula) {
-            this._removeFromNodesMap(this._repetitionNodesMapUpdates, nodeInstance, formula);
+        fieldInstance.conditionalBranches.forEach((conditionalBranch) => {
+            this._removeFromNodesConditionalBranchMap(fieldInstance, conditionalBranch.condition);
+        });
+        if (fieldInstance.formula) {
+            this._removeFromNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
         }
-        _removeFromNodesConditionalBranchMap(nodeInstance, formula) {
-            this._removeFromNodesMap(this._conditionalBranchNodesMapUpdates, nodeInstance, formula);
+        // TODO: check this, probably is never verified
+        if (isRepeatingContainerNode(fieldInstance.node)) {
+            const rcInstance = fieldInstance;
+            if (rcInstance.formulaReps != null) {
+                this._removeFromNodesRepetitionMap(fieldInstance, rcInstance.formulaReps.formula);
+            }
         }
-        _removeFromNodesFormulaMap(nodeInstance, formula) {
-            this._removeFromNodesMap(this._formulaNodesMapUpdates, nodeInstance, formula);
+        if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
+            fieldInstance.validation.conditions.forEach((condition) => {
+                this._removeFromNodesValidationMap(fieldInstance, condition.condition);
+            });
         }
-        _removeFromNodesValidationMap(nodeInstance, formula) {
-            this._removeFromNodesMap(this._validationNodesMapUpdates, nodeInstance, formula);
+        if (fieldInstance.warning != null) {
+            fieldInstance.warning.conditions.forEach((condition) => {
+                this._removeFromNodesWarningMap(fieldInstance, condition.condition);
+            });
         }
-        _removeFromNodesWarningMap(nodeInstance, formula) {
-            this._removeFromNodesMap(this._warningNodesMapUpdates, nodeInstance, formula);
+        if (fieldInstance.nextSlideCondition != null) {
+            this._removeFromNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
         }
-        _removeFromNodesFilteredChoicesMap(nodeInstance, formula) {
-            this._removeFromNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
+        if (isFieldWithChoices(fieldInstance.node)) {
+            const fwcInstance = fieldInstance;
+            if (fwcInstance.choicesFilter != null) {
+                this._removeFromNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
+                if (fwcInstance.triggerConditions != null) {
+                    fwcInstance.triggerConditions.forEach((condition) => {
+                        this._removeFromNodesTriggerConditionsMap(fieldInstance, condition.condition);
+                    });
+                }
+            }
         }
-        _removeFromNodesTriggerConditionsMap(nodeInstance, formula) {
-            this._removeFromNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
+        return fieldInstance;
+    }
+    _addNodeInstance(nodeInstance) {
+        if (isRepeatingContainerNode(nodeInstance.node)) {
+            return this._addNodeGroupInstance(nodeInstance);
         }
-        _removeFromNodesNextSlideConditionsMap(nodeInstance, formula) {
-            this._removeFromNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
+        else if (isSlideInstance(nodeInstance)) {
+            return this._addSlideInstance(nodeInstance);
         }
-        _removeFromNodesMap(nodesMap, nodeInstance, formula) {
-            let tokens = tokenize(formula).filter((token) => token.type == 'Identifier' && token.value != '$value');
-            if (tokens.length > 0) {
-                nodesMap.next((vmap) => {
-                    tokens.forEach((token) => {
-                        let tokenName = token.value;
-                        if (vmap[tokenName] != null) {
-                            const idx = vmap[tokenName].indexOf(nodeInstance);
-                            if (idx > -1) {
-                                vmap[tokenName].splice(idx, 1);
-                                if (vmap[tokenName].length == 0) {
-                                    delete vmap[tokenName];
-                                }
+        else if (isFieldInstance(nodeInstance)) {
+            return this._addFieldInstance(nodeInstance);
+        }
+        return nodeInstance;
+    }
+    _addFieldInstance(fieldInstance) {
+        const formGroup = this._formGroup.getValue();
+        const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
+        if (formGroup != null && !formGroup.contains(fieldInstanceName)) {
+            const control = new FormControl();
+            control.setValue(fieldInstance.value);
+            formGroup.registerControl(fieldInstanceName, control);
+        }
+        if (fieldInstance.validation != null) {
+            this._validationNodesMapUpdates.next((vmap) => {
+                if (vmap[fieldInstanceName] == null) {
+                    vmap[fieldInstanceName] = [];
+                }
+                if (vmap[fieldInstanceName].indexOf(fieldInstance) == -1) {
+                    vmap[fieldInstanceName].push(fieldInstance);
+                }
+                return vmap;
+            });
+        }
+        else {
+            fieldInstance.valid = true;
+        }
+        if (fieldInstance.visibility != null) {
+            this._addToNodesVisibilityMap(fieldInstance, fieldInstance.visibility.condition);
+        }
+        fieldInstance.conditionalBranches.forEach((conditionalBranch) => {
+            this._addToNodesConditionalBranchMap(fieldInstance, conditionalBranch.condition);
+        });
+        if (fieldInstance.formula) {
+            this._addToNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
+        }
+        if (isNodeGroupInstance(fieldInstance)) {
+            const ngInstance = fieldInstance;
+            if (ngInstance.formulaReps != null) {
+                this._addToNodesRepetitionMap(fieldInstance, ngInstance.formulaReps.formula);
+            }
+        }
+        if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
+            fieldInstance.validation.conditions.forEach((condition) => {
+                this._addToNodesValidationMap(fieldInstance, condition.condition);
+            });
+        }
+        if (fieldInstance.warning != null) {
+            fieldInstance.warning.conditions.forEach((condition) => {
+                this._addToNodesWarningMap(fieldInstance, condition.condition);
+            });
+        }
+        if (fieldInstance.nextSlideCondition != null) {
+            this._addToNodesNextSlideConditionsMap(fieldInstance, fieldInstance.nextSlideCondition.condition);
+        }
+        if (isCustomFieldWithChoices(fieldInstance.node) || isFieldWithChoicesInstance(fieldInstance)) {
+            const fwcInstance = fieldInstance;
+            if (fwcInstance.choicesFilter != null) {
+                this._addToNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
+            }
+            if (fwcInstance.triggerConditions != null) {
+                fwcInstance.triggerConditions.forEach((condition) => {
+                    this._addToNodesTriggerConditionsMap(fieldInstance, condition.condition);
+                });
+            }
+        }
+        return fieldInstance;
+    }
+    _addSlideInstance(slideInstance) {
+        const slide = slideInstance.node;
+        if (slide.visibility != null) {
+            this._addToNodesVisibilityMap(slideInstance, slide.visibility.condition);
+        }
+        slideInstance.conditionalBranches.forEach((conditionalBranch) => {
+            this._addToNodesConditionalBranchMap(slideInstance, conditionalBranch.condition);
+        });
+        return slideInstance;
+    }
+    _addNodeGroupInstance(nodeGroupInstance) {
+        const nodeGroup = nodeGroupInstance.node;
+        if (nodeGroup.visibility != null) {
+            this._addToNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
+        }
+        nodeGroupInstance.conditionalBranches.forEach((conditionalBranch) => {
+            this._addToNodesConditionalBranchMap(nodeGroupInstance, conditionalBranch.condition);
+        });
+        if (nodeGroupInstance.formulaReps != null) {
+            if (nodeGroup.formulaReps != null) {
+                this._addToNodesRepetitionMap(nodeGroupInstance, nodeGroup.formulaReps.formula);
+            }
+        }
+        else {
+            let formGroup = this._formGroup.getValue();
+            let nodeGroupInstanceName = nodeInstanceCompleteName(nodeGroupInstance);
+            if (formGroup != null && !formGroup.contains(nodeGroupInstanceName)) {
+                const control = new FormControl();
+                control.setValue(nodeGroupInstance.reps);
+                formGroup.registerControl(nodeGroupInstanceName, control);
+            }
+        }
+        return nodeGroupInstance;
+    }
+    _removeNodesVisibilityMapIndex(index) {
+        this._removeNodesMapIndex(this._visibilityNodesMapUpdates, index);
+    }
+    _removeNodesRepetitionMapIndex(index) {
+        this._removeNodesMapIndex(this._repetitionNodesMapUpdates, index);
+    }
+    _removeNodesConditionalBranchMapIndex(index) {
+        this._removeNodesMapIndex(this._conditionalBranchNodesMapUpdates, index);
+    }
+    _removeNodesFormulaMapIndex(index) {
+        this._removeNodesMapIndex(this._formulaNodesMapUpdates, index);
+    }
+    _removeNodesValidationMapIndex(index) {
+        this._removeNodesMapIndex(this._validationNodesMapUpdates, index);
+    }
+    _removeNodesWarningMapIndex(index) {
+        this._removeNodesMapIndex(this._warningNodesMapUpdates, index);
+    }
+    _removeNodesFilteredChoicesMapIndex(index) {
+        this._removeNodesMapIndex(this._filteredChoicesNodesMapUpdates, index);
+    }
+    _removeNodesTriggerConditionsMapIndex(index) {
+        this._removeNodesMapIndex(this._triggerConditionsNodesMapUpdates, index);
+    }
+    _removeNodesNextSlideConditionsMapIndex(index) {
+        this._removeNodesMapIndex(this._nextSlideConditionsNodesMapUpdates, index);
+    }
+    _removeNodesMapIndex(nodesMap, index) {
+        nodesMap.next((vmap) => {
+            if (Object.keys(vmap).indexOf(index) > -1) {
+                delete vmap[index];
+            }
+            return vmap;
+        });
+    }
+    _removeFromNodesVisibilityMap(nodeInstance, formula) {
+        this._removeFromNodesMap(this._visibilityNodesMapUpdates, nodeInstance, formula);
+    }
+    _removeFromNodesRepetitionMap(nodeInstance, formula) {
+        this._removeFromNodesMap(this._repetitionNodesMapUpdates, nodeInstance, formula);
+    }
+    _removeFromNodesConditionalBranchMap(nodeInstance, formula) {
+        this._removeFromNodesMap(this._conditionalBranchNodesMapUpdates, nodeInstance, formula);
+    }
+    _removeFromNodesFormulaMap(nodeInstance, formula) {
+        this._removeFromNodesMap(this._formulaNodesMapUpdates, nodeInstance, formula);
+    }
+    _removeFromNodesValidationMap(nodeInstance, formula) {
+        this._removeFromNodesMap(this._validationNodesMapUpdates, nodeInstance, formula);
+    }
+    _removeFromNodesWarningMap(nodeInstance, formula) {
+        this._removeFromNodesMap(this._warningNodesMapUpdates, nodeInstance, formula);
+    }
+    _removeFromNodesFilteredChoicesMap(nodeInstance, formula) {
+        this._removeFromNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
+    }
+    _removeFromNodesTriggerConditionsMap(nodeInstance, formula) {
+        this._removeFromNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
+    }
+    _removeFromNodesNextSlideConditionsMap(nodeInstance, formula) {
+        this._removeFromNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
+    }
+    _removeFromNodesMap(nodesMap, nodeInstance, formula) {
+        let tokens = tokenize(formula).filter((token) => token.type == 'Identifier' && token.value != '$value');
+        if (tokens.length > 0) {
+            nodesMap.next((vmap) => {
+                tokens.forEach((token) => {
+                    let tokenName = token.value;
+                    if (vmap[tokenName] != null) {
+                        const idx = vmap[tokenName].indexOf(nodeInstance);
+                        if (idx > -1) {
+                            vmap[tokenName].splice(idx, 1);
+                            if (vmap[tokenName].length == 0) {
+                                delete vmap[tokenName];
                             }
                         }
-                    });
-                    return vmap;
+                    }
                 });
-            }
-        }
-        _addToNodesVisibilityMap(nodeInstance, formula) {
-            this._addToNodesMap(this._visibilityNodesMapUpdates, nodeInstance, formula);
-        }
-        _addToNodesRepetitionMap(nodeInstance, formula) {
-            this._addToNodesMap(this._repetitionNodesMapUpdates, nodeInstance, formula);
-        }
-        _addToNodesConditionalBranchMap(nodeInstance, formula) {
-            this._addToNodesMap(this._conditionalBranchNodesMapUpdates, nodeInstance, formula);
-        }
-        _addToNodesFormulaMap(nodeInstance, formula) {
-            this._addToNodesMap(this._formulaNodesMapUpdates, nodeInstance, formula);
-        }
-        _addToNodesValidationMap(nodeInstance, formula) {
-            this._addToNodesMap(this._validationNodesMapUpdates, nodeInstance, formula);
-        }
-        _addToNodesWarningMap(nodeInstance, formula) {
-            this._addToNodesMap(this._warningNodesMapUpdates, nodeInstance, formula);
-        }
-        _addToNodesFilteredChoicesMap(nodeInstance, formula) {
-            this._addToNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
-        }
-        _addToNodesTriggerConditionsMap(nodeInstance, formula) {
-            this._addToNodesMap(this._triggerConditionsNodesMapUpdates, nodeInstance, formula);
-        }
-        _addToNodesNextSlideConditionsMap(nodeInstance, formula) {
-            this._addToNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
-        }
-        _addToNodesMap(nodesMap, nodeInstance, formula) {
-            let tokens = tokenize(formula).filter((token) => token.type == 'Identifier' && token.value != '$value');
-            if (tokens.length > 0) {
-                nodesMap.next((vmap) => {
-                    tokens.forEach((token) => {
-                        let tokenName = token.value;
-                        if (vmap[tokenName] == null) {
-                            vmap[tokenName] = [];
-                        }
-                        if (vmap[tokenName].indexOf(nodeInstance) === -1) {
-                            vmap[tokenName].push(nodeInstance);
-                        }
-                    });
-                    return vmap;
-                });
-            }
+                return vmap;
+            });
         }
     }
-    AjfFormRendererService.decorators = [
-        { type: Injectable }
-    ];
-    AjfFormRendererService.ctorParameters = () => [
-        { type: AjfValidationService }
-    ];
-    return AjfFormRendererService;
-})();
+    _addToNodesVisibilityMap(nodeInstance, formula) {
+        this._addToNodesMap(this._visibilityNodesMapUpdates, nodeInstance, formula);
+    }
+    _addToNodesRepetitionMap(nodeInstance, formula) {
+        this._addToNodesMap(this._repetitionNodesMapUpdates, nodeInstance, formula);
+    }
+    _addToNodesConditionalBranchMap(nodeInstance, formula) {
+        this._addToNodesMap(this._conditionalBranchNodesMapUpdates, nodeInstance, formula);
+    }
+    _addToNodesFormulaMap(nodeInstance, formula) {
+        this._addToNodesMap(this._formulaNodesMapUpdates, nodeInstance, formula);
+    }
+    _addToNodesValidationMap(nodeInstance, formula) {
+        this._addToNodesMap(this._validationNodesMapUpdates, nodeInstance, formula);
+    }
+    _addToNodesWarningMap(nodeInstance, formula) {
+        this._addToNodesMap(this._warningNodesMapUpdates, nodeInstance, formula);
+    }
+    _addToNodesFilteredChoicesMap(nodeInstance, formula) {
+        this._addToNodesMap(this._filteredChoicesNodesMapUpdates, nodeInstance, formula);
+    }
+    _addToNodesTriggerConditionsMap(nodeInstance, formula) {
+        this._addToNodesMap(this._triggerConditionsNodesMapUpdates, nodeInstance, formula);
+    }
+    _addToNodesNextSlideConditionsMap(nodeInstance, formula) {
+        this._addToNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
+    }
+    _addToNodesMap(nodesMap, nodeInstance, formula) {
+        let tokens = tokenize(formula).filter((token) => token.type == 'Identifier' && token.value != '$value');
+        if (tokens.length > 0) {
+            nodesMap.next((vmap) => {
+                tokens.forEach((token) => {
+                    let tokenName = token.value;
+                    if (vmap[tokenName] == null) {
+                        vmap[tokenName] = [];
+                    }
+                    if (vmap[tokenName].indexOf(nodeInstance) === -1) {
+                        vmap[tokenName].push(nodeInstance);
+                    }
+                });
+                return vmap;
+            });
+        }
+    }
+}
+AjfFormRendererService.decorators = [
+    { type: Injectable }
+];
+AjfFormRendererService.ctorParameters = () => [
+    { type: AjfValidationService }
+];
 
 /**
  * @license
@@ -3954,89 +3949,87 @@ let AjfFormRendererService = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfBaseFieldComponent = /** @class */ (() => {
-    class AjfBaseFieldComponent {
-        constructor(_changeDetectorRef, _service, _warningAlertService) {
-            this._changeDetectorRef = _changeDetectorRef;
-            this._service = _service;
-            this._warningAlertService = _warningAlertService;
-            this._warningTriggerSub = Subscription.EMPTY;
+class AjfBaseFieldComponent {
+    constructor(_changeDetectorRef, _service, _warningAlertService) {
+        this._changeDetectorRef = _changeDetectorRef;
+        this._service = _service;
+        this._warningAlertService = _warningAlertService;
+        this._warningTriggerSub = Subscription.EMPTY;
+        this._instanceUpdateSub = Subscription.EMPTY;
+        this._control = defer(() => this._service.getControl(this.instance)
+            .pipe(map(ctrl => (ctrl || new FormControl()))));
+    }
+    get instance() {
+        return this._instance;
+    }
+    set instance(instance) {
+        if (instance !== this._instance) {
+            this._instance = instance;
+            this._setUpInstanceUpdate();
+            this._onInstanceChange();
+        }
+    }
+    get control() {
+        return this._control;
+    }
+    ngOnInit() {
+        this._warningTriggerSub =
+            this.instance.warningTrigger
+                .pipe(withLatestFrom(this.control), filter(([_, ctrl]) => ctrl != null))
+                .subscribe(([_, ctrl]) => {
+                if (this.instance.warningResults == null) {
+                    return;
+                }
+                const control = ctrl;
+                const s = this._warningAlertService
+                    .showWarningAlertPrompt(this.instance.warningResults.filter(w => w.result).map(w => w.warning))
+                    .subscribe((r) => {
+                    if (r.result) {
+                        control.setValue(null);
+                    }
+                }, (_e) => {
+                    if (s) {
+                        s.unsubscribe();
+                    }
+                }, () => {
+                    if (s) {
+                        s.unsubscribe();
+                    }
+                });
+            });
+    }
+    ngOnDestroy() {
+        this._warningTriggerSub.unsubscribe();
+        this._instanceUpdateSub.unsubscribe();
+    }
+    _onInstanceChange() { }
+    _setUpInstanceUpdate() {
+        this._instanceUpdateSub.unsubscribe();
+        if (this._instance != null) {
+            this._instanceUpdateSub = this._instance.updatedEvt.subscribe(() => {
+                if (this._changeDetectorRef) {
+                    try {
+                        this._changeDetectorRef.detectChanges();
+                    }
+                    catch (e) {
+                    }
+                }
+            });
+        }
+        else {
             this._instanceUpdateSub = Subscription.EMPTY;
-            this._control = defer(() => this._service.getControl(this.instance)
-                .pipe(map(ctrl => ctrl || new FormControl())));
         }
-        get instance() {
-            return this._instance;
-        }
-        set instance(instance) {
-            if (instance !== this._instance) {
-                this._instance = instance;
-                this._setUpInstanceUpdate();
-                this._onInstanceChange();
-            }
-        }
-        get control() {
-            return this._control;
-        }
-        ngOnInit() {
-            this._warningTriggerSub =
-                this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter(v => v[1] != null))
-                    .subscribe((v) => {
-                    if (this.instance.warningResults == null) {
-                        return;
-                    }
-                    const control = v[1];
-                    const s = this._warningAlertService
-                        .showWarningAlertPrompt(this.instance.warningResults.filter(w => w.result).map(w => w.warning))
-                        .subscribe((r) => {
-                        if (r.result) {
-                            control.setValue(null);
-                        }
-                    }, (_e) => {
-                        if (s) {
-                            s.unsubscribe();
-                        }
-                    }, () => {
-                        if (s) {
-                            s.unsubscribe();
-                        }
-                    });
-                });
-        }
-        ngOnDestroy() {
-            this._warningTriggerSub.unsubscribe();
-            this._instanceUpdateSub.unsubscribe();
-        }
-        _onInstanceChange() { }
-        _setUpInstanceUpdate() {
-            this._instanceUpdateSub.unsubscribe();
-            if (this._instance != null) {
-                this._instanceUpdateSub = this._instance.updatedEvt.subscribe(() => {
-                    if (this._changeDetectorRef) {
-                        try {
-                            this._changeDetectorRef.detectChanges();
-                        }
-                        catch (e) {
-                        }
-                    }
-                });
-            }
-            else {
-                this._instanceUpdateSub = Subscription.EMPTY;
-            }
-            this._changeDetectorRef.detectChanges();
-        }
+        this._changeDetectorRef.detectChanges();
     }
-    AjfBaseFieldComponent.decorators = [
-        { type: Directive }
-    ];
-    AjfBaseFieldComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: AjfFormRendererService },
-        { type: undefined }
-    ];
-    return AjfBaseFieldComponent;
-})();
+}
+AjfBaseFieldComponent.decorators = [
+    { type: Directive }
+];
+AjfBaseFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined }
+];
 
 /**
  * @license
@@ -4059,17 +4052,14 @@ let AjfBaseFieldComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfBoolToIntPipe = /** @class */ (() => {
-    class AjfBoolToIntPipe {
-        transform(value) {
-            return value ? 1 : 0;
-        }
+class AjfBoolToIntPipe {
+    transform(value) {
+        return value ? 1 : 0;
     }
-    AjfBoolToIntPipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfBoolToInt' },] }
-    ];
-    return AjfBoolToIntPipe;
-})();
+}
+AjfBoolToIntPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfBoolToInt' },] }
+];
 
 /**
  * @license
@@ -4092,20 +4082,17 @@ let AjfBoolToIntPipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfDateValuePipe = /** @class */ (() => {
-    class AjfDateValuePipe {
-        transform(date) {
-            if (date == null) {
-                return null;
-            }
-            return date === 'today' ? new Date() : date;
+class AjfDateValuePipe {
+    transform(date) {
+        if (date == null) {
+            return null;
         }
+        return date === 'today' ? new Date() : date;
     }
-    AjfDateValuePipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfDateValue' },] }
-    ];
-    return AjfDateValuePipe;
-})();
+}
+AjfDateValuePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfDateValue' },] }
+];
 
 /**
  * @license
@@ -4128,22 +4115,19 @@ let AjfDateValuePipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfDateValueStringPipe = /** @class */ (() => {
-    class AjfDateValueStringPipe {
-        transform(date) {
-            if (date == null) {
-                return undefined;
-            }
-            const dateObj = date === 'today' ? new Date() : date;
-            return format(dateObj, 'yyyy-MM-dd');
+class AjfDateValueStringPipe {
+    transform(date) {
+        if (date == null) {
+            return undefined;
         }
+        const dateObj = date === 'today' ? new Date() : date;
+        return format(dateObj, 'yyyy-MM-dd');
     }
-    AjfDateValueStringPipe.decorators = [
-        { type: Injectable },
-        { type: Pipe, args: [{ name: 'ajfDateValueString' },] }
-    ];
-    return AjfDateValueStringPipe;
-})();
+}
+AjfDateValueStringPipe.decorators = [
+    { type: Injectable },
+    { type: Pipe, args: [{ name: 'ajfDateValueString' },] }
+];
 
 /**
  * @license
@@ -4199,19 +4183,16 @@ class AjfInvalidFieldDefinitionError extends AjfError {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfExpandFieldWithChoicesPipe = /** @class */ (() => {
-    class AjfExpandFieldWithChoicesPipe {
-        transform(instance, threshold) {
-            return !instance.node.forceNarrow &&
-                (instance.node.forceExpanded ||
-                    (instance.filteredChoices && instance.filteredChoices.length <= threshold));
-        }
+class AjfExpandFieldWithChoicesPipe {
+    transform(instance, threshold) {
+        return !instance.node.forceNarrow &&
+            (instance.node.forceExpanded ||
+                (instance.filteredChoices && instance.filteredChoices.length <= threshold));
     }
-    AjfExpandFieldWithChoicesPipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
-    ];
-    return AjfExpandFieldWithChoicesPipe;
-})();
+}
+AjfExpandFieldWithChoicesPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
+];
 
 /**
  * @license
@@ -4234,20 +4215,17 @@ let AjfExpandFieldWithChoicesPipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfFieldHost = /** @class */ (() => {
-    class AjfFieldHost {
-        constructor(viewContainerRef) {
-            this.viewContainerRef = viewContainerRef;
-        }
+class AjfFieldHost {
+    constructor(viewContainerRef) {
+        this.viewContainerRef = viewContainerRef;
     }
-    AjfFieldHost.decorators = [
-        { type: Directive, args: [{ selector: '[ajf-field-host]' },] }
-    ];
-    AjfFieldHost.ctorParameters = () => [
-        { type: ViewContainerRef }
-    ];
-    return AjfFieldHost;
-})();
+}
+AjfFieldHost.decorators = [
+    { type: Directive, args: [{ selector: '[ajf-field-host]' },] }
+];
+AjfFieldHost.ctorParameters = () => [
+    { type: ViewContainerRef }
+];
 
 /**
  * @license
@@ -4270,89 +4248,86 @@ let AjfFieldHost = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfFormField = /** @class */ (() => {
-    class AjfFormField {
-        constructor(_cdr, _cfr) {
-            this._cdr = _cdr;
-            this._cfr = _cfr;
-            this._init = false;
-            this._updatedSub = Subscription.EMPTY;
-        }
-        get instance() {
-            return this._instance;
-        }
-        set instance(instance) {
-            if (this._instance !== instance) {
-                this._instance = instance;
-                if (this._init) {
-                    this._loadComponent();
-                }
-            }
-        }
-        get readonly() {
-            return this._readonly;
-        }
-        set readonly(readonly) {
-            this._readonly = coerceBooleanProperty(readonly);
+class AjfFormField {
+    constructor(_cdr, _cfr) {
+        this._cdr = _cdr;
+        this._cfr = _cfr;
+        this._init = false;
+        this._updatedSub = Subscription.EMPTY;
+    }
+    get instance() {
+        return this._instance;
+    }
+    set instance(instance) {
+        if (this._instance !== instance) {
+            this._instance = instance;
             if (this._init) {
                 this._loadComponent();
             }
         }
-        ngOnDestroy() {
-            this._updatedSub.unsubscribe();
-        }
-        ngOnInit() {
-            this._init = true;
+    }
+    get readonly() {
+        return this._readonly;
+    }
+    set readonly(readonly) {
+        this._readonly = coerceBooleanProperty(readonly);
+        if (this._init) {
             this._loadComponent();
         }
-        _loadComponent() {
-            this._updatedSub.unsubscribe();
-            this._updatedSub = Subscription.EMPTY;
-            if (this._instance == null || this.fieldHost == null) {
-                return;
+    }
+    ngOnDestroy() {
+        this._updatedSub.unsubscribe();
+    }
+    ngOnInit() {
+        this._init = true;
+        this._loadComponent();
+    }
+    _loadComponent() {
+        this._updatedSub.unsubscribe();
+        this._updatedSub = Subscription.EMPTY;
+        if (this._instance == null || this.fieldHost == null) {
+            return;
+        }
+        const vcr = this.fieldHost.viewContainerRef;
+        vcr.clear();
+        const componentDef = this.componentsMap[this._instance.node.fieldType];
+        if (componentDef == null) {
+            return;
+        }
+        const component = this._readonly && componentDef.readOnlyComponent ?
+            componentDef.readOnlyComponent :
+            componentDef.component;
+        try {
+            const componentFactory = this._cfr.resolveComponentFactory(component);
+            const componentRef = vcr.createComponent(componentFactory);
+            this._componentInstance = componentRef.instance;
+            this._componentInstance.instance = this._instance;
+            if (componentDef.inputs) {
+                Object.keys(componentDef.inputs).forEach(key => {
+                    if (key in this._componentInstance) {
+                        this._componentInstance[key] = componentDef.inputs[key];
+                    }
+                });
             }
-            const vcr = this.fieldHost.viewContainerRef;
-            vcr.clear();
-            const componentDef = this.componentsMap[this._instance.node.fieldType];
-            if (componentDef == null) {
-                return;
-            }
-            const component = this._readonly && componentDef.readOnlyComponent ?
-                componentDef.readOnlyComponent :
-                componentDef.component;
-            try {
-                const componentFactory = this._cfr.resolveComponentFactory(component);
-                const componentRef = vcr.createComponent(componentFactory);
-                this._componentInstance = componentRef.instance;
-                this._componentInstance.instance = this._instance;
-                if (componentDef.inputs) {
-                    Object.keys(componentDef.inputs).forEach(key => {
-                        if (key in this._componentInstance) {
-                            this._componentInstance[key] = componentDef.inputs[key];
-                        }
-                    });
-                }
-                this._updatedSub = this._instance.updatedEvt.subscribe(() => this._cdr.markForCheck());
-            }
-            catch (e) {
-                console.log(e);
-            }
+            this._updatedSub = this._instance.updatedEvt.subscribe(() => this._cdr.markForCheck());
+        }
+        catch (e) {
+            console.log(e);
         }
     }
-    AjfFormField.decorators = [
-        { type: Directive }
-    ];
-    AjfFormField.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: ComponentFactoryResolver }
-    ];
-    AjfFormField.propDecorators = {
-        fieldHost: [{ type: ViewChild, args: [AjfFieldHost, { static: true },] }],
-        instance: [{ type: Input }],
-        readonly: [{ type: Input }]
-    };
-    return AjfFormField;
-})();
+}
+AjfFormField.decorators = [
+    { type: Directive }
+];
+AjfFormField.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: ComponentFactoryResolver }
+];
+AjfFormField.propDecorators = {
+    fieldHost: [{ type: ViewChild, args: [AjfFieldHost, { static: true },] }],
+    instance: [{ type: Input }],
+    readonly: [{ type: Input }]
+};
 
 /**
  * @license
@@ -4400,17 +4375,14 @@ function fieldIconName(type) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfFieldIconPipe = /** @class */ (() => {
-    class AjfFieldIconPipe {
-        transform(field) {
-            return fieldIconName(field.fieldType ? field.fieldType : field);
-        }
+class AjfFieldIconPipe {
+    transform(field) {
+        return fieldIconName(field.fieldType ? field.fieldType : field);
     }
-    AjfFieldIconPipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfFieldIcon' },] }
-    ];
-    return AjfFieldIconPipe;
-})();
+}
+AjfFieldIconPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfFieldIcon' },] }
+];
 
 /**
  * @license
@@ -4433,17 +4405,14 @@ let AjfFieldIconPipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfFieldIsValidPipe = /** @class */ (() => {
-    class AjfFieldIsValidPipe {
-        transform(validationResults) {
-            return validationResults != null && validationResults.filter((f) => !f.result).length === 0;
-        }
+class AjfFieldIsValidPipe {
+    transform(validationResults) {
+        return validationResults != null && validationResults.filter((f) => !f.result).length === 0;
     }
-    AjfFieldIsValidPipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfFieldIsValid' },] }
-    ];
-    return AjfFieldIsValidPipe;
-})();
+}
+AjfFieldIsValidPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfFieldIsValid' },] }
+];
 
 /**
  * @license
@@ -4582,28 +4551,25 @@ const AJF_WARNING_ALERT_SERVICE = new InjectionToken('ajf-warning-alert-service'
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfFileFieldComponent = /** @class */ (() => {
-    class AjfFileFieldComponent extends AjfBaseFieldComponent {
-        constructor(cdr, service, was) {
-            super(cdr, service, was);
-        }
+class AjfFileFieldComponent extends AjfBaseFieldComponent {
+    constructor(cdr, service, was) {
+        super(cdr, service, was);
     }
-    AjfFileFieldComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ajf-file-field',
-                    template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n",
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
-                    styles: ["\n"]
-                },] }
-    ];
-    AjfFileFieldComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: AjfFormRendererService },
-        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-    ];
-    return AjfFileFieldComponent;
-})();
+}
+AjfFileFieldComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-file-field',
+                template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["\n"]
+            },] }
+];
+AjfFileFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+];
 
 /**
  * @license
@@ -4628,265 +4594,261 @@ let AjfFileFieldComponent = /** @class */ (() => {
  */
 class AjfFormActionEvent {
 }
-let AjfFormRenderer = /** @class */ (() => {
-    class AjfFormRenderer {
-        /**
-         * this constructor will init current formula by ajfBuilderService
-         */
-        constructor(_rendererService, _changeDetectorRef) {
-            this._rendererService = _rendererService;
-            this._changeDetectorRef = _changeDetectorRef;
-            // ajfFieldTypes [ Text, Number, Boolean, SingleChoice, MultipleChoice,
-            // Formula, Empty, Composed, LENGTH ]
-            this.ajfFieldTypes = AjfFieldType;
-            this._orientationChange = new EventEmitter();
-            this.orientationChange = this._orientationChange.asObservable();
-            this._saveDisabled = false;
-            this._hasStartMessage = false;
-            this._hasEndMessage = false;
-            this._hideTopToolbar = false;
-            this._hideBottomToolbar = false;
-            this._hideNavigationButtons = false;
-            this._fixedOrientation = false;
-            this._readonly = false;
-            this._orientation = 'horizontal';
-            this._errorMoveEvent = new EventEmitter();
-            // _init is a private boolean
-            this._init = false;
-            this._nextSlideSubscription = Subscription.EMPTY;
-            this._errorMoveSubscription = Subscription.EMPTY;
-            this._formAction = new EventEmitter();
-            this.formAction = this._formAction.asObservable();
-            this.formGroup = _rendererService.formGroup;
-            this.slides = _rendererService.nodesTree;
-            this._errorPositions = _rendererService.errorPositions;
-            this.errors = _rendererService.errors;
-            this.slidesNum = _rendererService.slidesNum;
-            this.formIsInit =
-                _rendererService.formInitEvent.pipe(map(e => e === 1 /* Complete */));
+class AjfFormRenderer {
+    /**
+     * this constructor will init current formula by ajfBuilderService
+     */
+    constructor(_rendererService, _changeDetectorRef) {
+        this._rendererService = _rendererService;
+        this._changeDetectorRef = _changeDetectorRef;
+        // ajfFieldTypes [ Text, Number, Boolean, SingleChoice, MultipleChoice,
+        // Formula, Empty, Composed, LENGTH ]
+        this.ajfFieldTypes = AjfFieldType;
+        this._orientationChange = new EventEmitter();
+        this.orientationChange = this._orientationChange.asObservable();
+        this._saveDisabled = false;
+        this._hasStartMessage = false;
+        this._hasEndMessage = false;
+        this._hideTopToolbar = false;
+        this._hideBottomToolbar = false;
+        this._hideNavigationButtons = false;
+        this._fixedOrientation = false;
+        this._readonly = false;
+        this._orientation = 'horizontal';
+        this._errorMoveEvent = new EventEmitter();
+        // _init is a private boolean
+        this._init = false;
+        this._nextSlideSubscription = Subscription.EMPTY;
+        this._errorMoveSubscription = Subscription.EMPTY;
+        this._formAction = new EventEmitter();
+        this.formAction = this._formAction.asObservable();
+        this.formGroup = _rendererService.formGroup;
+        this.slides = _rendererService.nodesTree;
+        this._errorPositions = _rendererService.errorPositions;
+        this.errors = _rendererService.errors;
+        this.slidesNum = _rendererService.slidesNum;
+        this.formIsInit =
+            _rendererService.formInitEvent.pipe(map(e => e === 1 /* Complete */));
+    }
+    get saveDisabled() {
+        return this._saveDisabled;
+    }
+    set saveDisabled(saveDisabled) {
+        this._saveDisabled = coerceBooleanProperty(saveDisabled);
+        this._changeDetectorRef.markForCheck();
+    }
+    get hasStartMessage() {
+        return this._hasStartMessage;
+    }
+    set hasStartMessage(hasStartMessage) {
+        this._hasStartMessage = coerceBooleanProperty(hasStartMessage);
+        this._changeDetectorRef.markForCheck();
+    }
+    get hasEndMessage() {
+        return this._hasEndMessage;
+    }
+    set hasEndMessage(hasEndMessage) {
+        this._hasEndMessage = coerceBooleanProperty(hasEndMessage);
+        this._changeDetectorRef.markForCheck();
+    }
+    get hideTopToolbar() {
+        return this._hideTopToolbar;
+    }
+    set hideTopToolbar(hideTopToolbar) {
+        this._hideTopToolbar = coerceBooleanProperty(hideTopToolbar);
+        this._changeDetectorRef.markForCheck();
+    }
+    get hideBottompToolbar() {
+        return this._hideBottomToolbar;
+    }
+    set hideBottomToolbar(hideBottomToolbar) {
+        this._hideBottomToolbar = coerceBooleanProperty(hideBottomToolbar);
+        this._changeDetectorRef.markForCheck();
+    }
+    get hideNavigationButtons() {
+        return this._hideNavigationButtons;
+    }
+    set hideNavigationButtons(hideNavigationButtons) {
+        this._hideNavigationButtons = coerceBooleanProperty(hideNavigationButtons);
+        this._changeDetectorRef.markForCheck();
+    }
+    get fixedOrientation() {
+        return this._fixedOrientation;
+    }
+    set fixedOrientation(fixedOrientation) {
+        this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
+        this._changeDetectorRef.markForCheck();
+    }
+    get readonly() {
+        return this._readonly;
+    }
+    set readonly(readonly) {
+        this._readonly = coerceBooleanProperty(readonly);
+        this._changeDetectorRef.markForCheck();
+    }
+    get orientation() {
+        return this._orientation;
+    }
+    set orientation(orientation) {
+        if (orientation !== 'horizontal' && orientation !== 'vertical') {
+            return;
         }
-        get saveDisabled() {
-            return this._saveDisabled;
-        }
-        set saveDisabled(saveDisabled) {
-            this._saveDisabled = coerceBooleanProperty(saveDisabled);
+        if (orientation !== this._orientation) {
+            this._orientation = orientation;
             this._changeDetectorRef.markForCheck();
+            this._orientationChange.emit(this._orientation);
         }
-        get hasStartMessage() {
-            return this._hasStartMessage;
+    }
+    set form(form) {
+        this._form = form;
+        if (this._init) {
+            this._rendererService.setForm(this._form);
         }
-        set hasStartMessage(hasStartMessage) {
-            this._hasStartMessage = coerceBooleanProperty(hasStartMessage);
-            this._changeDetectorRef.markForCheck();
-        }
-        get hasEndMessage() {
-            return this._hasEndMessage;
-        }
-        set hasEndMessage(hasEndMessage) {
-            this._hasEndMessage = coerceBooleanProperty(hasEndMessage);
-            this._changeDetectorRef.markForCheck();
-        }
-        get hideTopToolbar() {
-            return this._hideTopToolbar;
-        }
-        set hideTopToolbar(hideTopToolbar) {
-            this._hideTopToolbar = coerceBooleanProperty(hideTopToolbar);
-            this._changeDetectorRef.markForCheck();
-        }
-        get hideBottompToolbar() {
-            return this._hideBottomToolbar;
-        }
-        set hideBottomToolbar(hideBottomToolbar) {
-            this._hideBottomToolbar = coerceBooleanProperty(hideBottomToolbar);
-            this._changeDetectorRef.markForCheck();
-        }
-        get hideNavigationButtons() {
-            return this._hideNavigationButtons;
-        }
-        set hideNavigationButtons(hideNavigationButtons) {
-            this._hideNavigationButtons = coerceBooleanProperty(hideNavigationButtons);
-            this._changeDetectorRef.markForCheck();
-        }
-        get fixedOrientation() {
-            return this._fixedOrientation;
-        }
-        set fixedOrientation(fixedOrientation) {
-            this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
-            this._changeDetectorRef.markForCheck();
-        }
-        get readonly() {
-            return this._readonly;
-        }
-        set readonly(readonly) {
-            this._readonly = coerceBooleanProperty(readonly);
-            this._changeDetectorRef.markForCheck();
-        }
-        get orientation() {
-            return this._orientation;
-        }
-        set orientation(orientation) {
-            if (orientation !== 'horizontal' && orientation !== 'vertical') {
-                return;
+    }
+    /**
+     * this method will scroll to next error received by subscribe
+     */
+    goToNextError() {
+        this._errorMoveEvent.emit(true);
+    }
+    /**
+     * this method will scroll to prev error received by subscribe
+     */
+    goToPrevError() {
+        this._errorMoveEvent.emit(false);
+    }
+    /**
+     * this method will add group
+     */
+    addGroup(nodeGroup) {
+        let s = this._rendererService.addGroup(nodeGroup)
+            .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
+            .subscribe((r) => {
+            if (r && this.formSlider != null) {
+                this.formSlider.slide({ dir: 'down' });
             }
-            if (orientation !== this._orientation) {
-                this._orientation = orientation;
-                this._changeDetectorRef.markForCheck();
-                this._orientationChange.emit(this._orientation);
+        }, (_e) => {
+            if (s) {
+                s.unsubscribe();
             }
-        }
-        set form(form) {
-            this._form = form;
-            if (this._init) {
-                this._rendererService.setForm(this._form);
+        }, () => {
+            if (s) {
+                s.unsubscribe();
             }
-        }
-        /**
-         * this method will scroll to next error received by subscribe
-         */
-        goToNextError() {
-            this._errorMoveEvent.emit(true);
-        }
-        /**
-         * this method will scroll to prev error received by subscribe
-         */
-        goToPrevError() {
-            this._errorMoveEvent.emit(false);
-        }
-        /**
-         * this method will add group
-         */
-        addGroup(nodeGroup) {
-            let s = this._rendererService.addGroup(nodeGroup)
-                .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
-                .subscribe((r) => {
-                if (r && this.formSlider != null) {
-                    this.formSlider.slide({ dir: 'down' });
-                }
-            }, (_e) => {
-                if (s) {
-                    s.unsubscribe();
-                }
-            }, () => {
-                if (s) {
-                    s.unsubscribe();
-                }
-            });
-        }
-        /**
-         * this method will remove group
-         */
-        removeGroup(nodeGroup) {
-            let s = this._rendererService.removeGroup(nodeGroup)
-                .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
-                .subscribe((r) => {
-                if (r && this.formSlider != null) {
-                    this.formSlider.slide({ dir: 'up' });
-                }
-            }, (_e) => {
-                if (s) {
-                    s.unsubscribe();
-                }
-            }, () => {
-                if (s) {
-                    s.unsubscribe();
-                }
-            });
-        }
-        onSave(_evt) {
-            this._formAction.emit({ source: this, action: 'save', value: this._rendererService.getFormValue() });
-        }
-        onFormAction(_evt, action) {
-            this._formAction.emit({ source: this, value: this._rendererService.getFormValue(), action: action });
-        }
-        /**
-         * this method will set current form in rederer service when init form
-         */
-        ngAfterViewInit() {
-            if (this._form != null) {
-                this._rendererService.setForm(this._form);
-                this._changeDetectorRef.detectChanges();
+        });
+    }
+    /**
+     * this method will remove group
+     */
+    removeGroup(nodeGroup) {
+        let s = this._rendererService.removeGroup(nodeGroup)
+            .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
+            .subscribe((r) => {
+            if (r && this.formSlider != null) {
+                this.formSlider.slide({ dir: 'up' });
             }
+        }, (_e) => {
+            if (s) {
+                s.unsubscribe();
+            }
+        }, () => {
+            if (s) {
+                s.unsubscribe();
+            }
+        });
+    }
+    onSave(_evt) {
+        this._formAction.emit({ source: this, action: 'save', value: this._rendererService.getFormValue() });
+    }
+    onFormAction(_evt, action) {
+        this._formAction.emit({ source: this, value: this._rendererService.getFormValue(), action: action });
+    }
+    /**
+     * this method will set current form in rederer service when init form
+     */
+    ngAfterViewInit() {
+        if (this._form != null) {
+            this._rendererService.setForm(this._form);
+            this._changeDetectorRef.detectChanges();
         }
-        ngAfterViewChecked() {
-            if (!this._init && this.formSlider != null) {
-                this._init = true;
-                this._errorMoveSubscription =
-                    this._errorMoveEvent
-                        .pipe(withLatestFrom(this._errorPositions))
-                        .subscribe((v) => {
-                        const move = v[0];
-                        const currentPosition = this.formSlider.currentPage - (+this.hasStartMessage) + 1;
-                        const errors = v[1];
-                        if (errors == null) {
-                            return;
+    }
+    ngAfterViewChecked() {
+        if (!this._init && this.formSlider != null) {
+            this._init = true;
+            this._errorMoveSubscription =
+                this._errorMoveEvent
+                    .pipe(withLatestFrom(this._errorPositions))
+                    .subscribe(([move, errs]) => {
+                    const currentPosition = this.formSlider.currentPage - (+this.hasStartMessage) + 1;
+                    if (errs == null) {
+                        return;
+                    }
+                    const errors = errs;
+                    let found = false;
+                    let prevIdx = -1;
+                    let nextIdx = -1;
+                    let idx = 0;
+                    let errorsLen = errors.length;
+                    while (!found && idx < errorsLen) {
+                        if (errors[idx] == currentPosition) {
+                            found = true;
+                            prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+                            nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
                         }
-                        let found = false;
-                        let prevIdx = -1;
-                        let nextIdx = -1;
-                        let idx = 0;
-                        let errorsLen = errors.length;
-                        while (!found && idx < errorsLen) {
-                            if (errors[idx] == currentPosition) {
-                                found = true;
-                                prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
-                                nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
-                            }
-                            else if (errors[idx] > currentPosition) {
-                                found = true;
-                                prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
-                                nextIdx = idx;
-                            }
-                            idx++;
+                        else if (errors[idx] > currentPosition) {
+                            found = true;
+                            prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+                            nextIdx = idx;
                         }
-                        if (!found) {
-                            prevIdx = errorsLen - 1;
-                            nextIdx = 0;
-                        }
-                        this.formSlider.slide({ to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1 });
-                        this._changeDetectorRef.detectChanges();
-                    });
-            }
-        }
-        ngOnDestroy() {
-            this._nextSlideSubscription.unsubscribe();
-            this._errorMoveSubscription.unsubscribe();
-            this._orientationChange.complete();
-            this._errorMoveEvent.complete();
-            this._formAction.complete();
-        }
-        orientationChangeHandler(orientation) {
-            this.orientation = orientation;
-        }
-        trackNodeById(_, node) {
-            return nodeInstanceCompleteName(node);
+                        idx++;
+                    }
+                    if (!found) {
+                        prevIdx = errorsLen - 1;
+                        nextIdx = 0;
+                    }
+                    this.formSlider.slide({ to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1 });
+                    this._changeDetectorRef.detectChanges();
+                });
         }
     }
-    AjfFormRenderer.decorators = [
-        { type: Directive }
-    ];
-    AjfFormRenderer.ctorParameters = () => [
-        { type: AjfFormRendererService },
-        { type: ChangeDetectorRef }
-    ];
-    AjfFormRenderer.propDecorators = {
-        title: [{ type: Input }],
-        orientationChange: [{ type: Output }],
-        saveDisabled: [{ type: Input }],
-        hasStartMessage: [{ type: Input }],
-        hasEndMessage: [{ type: Input }],
-        hideTopToolbar: [{ type: Input }],
-        hideBottomToolbar: [{ type: Input }],
-        hideNavigationButtons: [{ type: Input }],
-        fixedOrientation: [{ type: Input }],
-        readonly: [{ type: Input }],
-        orientation: [{ type: Input }],
-        formSlider: [{ type: ViewChild, args: ['formSlider', { static: false },] }],
-        fields: [{ type: ViewChildren, args: [AjfFormField,] }],
-        formAction: [{ type: Output }],
-        form: [{ type: Input }]
-    };
-    return AjfFormRenderer;
-})();
+    ngOnDestroy() {
+        this._nextSlideSubscription.unsubscribe();
+        this._errorMoveSubscription.unsubscribe();
+        this._orientationChange.complete();
+        this._errorMoveEvent.complete();
+        this._formAction.complete();
+    }
+    orientationChangeHandler(orientation) {
+        this.orientation = orientation;
+    }
+    trackNodeById(_, node) {
+        return nodeInstanceCompleteName(node);
+    }
+}
+AjfFormRenderer.decorators = [
+    { type: Directive }
+];
+AjfFormRenderer.ctorParameters = () => [
+    { type: AjfFormRendererService },
+    { type: ChangeDetectorRef }
+];
+AjfFormRenderer.propDecorators = {
+    title: [{ type: Input }],
+    orientationChange: [{ type: Output }],
+    saveDisabled: [{ type: Input }],
+    hasStartMessage: [{ type: Input }],
+    hasEndMessage: [{ type: Input }],
+    hideTopToolbar: [{ type: Input }],
+    hideBottomToolbar: [{ type: Input }],
+    hideNavigationButtons: [{ type: Input }],
+    fixedOrientation: [{ type: Input }],
+    readonly: [{ type: Input }],
+    orientation: [{ type: Input }],
+    formSlider: [{ type: ViewChild, args: ['formSlider', { static: false },] }],
+    fields: [{ type: ViewChildren, args: [AjfFormField,] }],
+    formAction: [{ type: Output }],
+    form: [{ type: Input }]
+};
 
 /**
  * @license
@@ -4909,20 +4871,17 @@ let AjfFormRenderer = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfGetTableCellControlPipe = /** @class */ (() => {
-    class AjfGetTableCellControlPipe {
-        transform(ctrl) {
-            if (ctrl == null || typeof ctrl === 'string') {
-                return null;
-            }
-            return ctrl;
+class AjfGetTableCellControlPipe {
+    transform(ctrl) {
+        if (ctrl == null || typeof ctrl === 'string') {
+            return null;
         }
+        return ctrl;
     }
-    AjfGetTableCellControlPipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfGetTableCellControl' },] }
-    ];
-    return AjfGetTableCellControlPipe;
-})();
+}
+AjfGetTableCellControlPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfGetTableCellControl' },] }
+];
 
 /**
  * @license
@@ -4945,34 +4904,31 @@ let AjfGetTableCellControlPipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfImageFieldComponent = /** @class */ (() => {
-    class AjfImageFieldComponent extends AjfBaseFieldComponent {
-        constructor(cdr, service, was, domSanitizer) {
-            super(cdr, service, was);
-            const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
-                control = control;
-                return control.valueChanges.pipe(startWith(control.value));
-            }), filter(value => value != null), shareReplay(1));
-            this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
-        }
+class AjfImageFieldComponent extends AjfBaseFieldComponent {
+    constructor(cdr, service, was, domSanitizer) {
+        super(cdr, service, was);
+        const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
+            control = control;
+            return control.valueChanges.pipe(startWith(control.value));
+        }), filter(value => value != null), shareReplay(1));
+        this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
     }
-    AjfImageFieldComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ajf-image-field',
-                    template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n",
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
-                    styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"]
-                },] }
-    ];
-    AjfImageFieldComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: AjfFormRendererService },
-        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
-        { type: DomSanitizer }
-    ];
-    return AjfImageFieldComponent;
-})();
+}
+AjfImageFieldComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-image-field',
+                template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"]
+            },] }
+];
+AjfImageFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+    { type: DomSanitizer }
+];
 
 /**
  * @license
@@ -4995,17 +4951,14 @@ let AjfImageFieldComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfIncrementPipe = /** @class */ (() => {
-    class AjfIncrementPipe {
-        transform(value, increment = 1) {
-            return value + increment;
-        }
+class AjfIncrementPipe {
+    transform(value, increment = 1) {
+        return value + increment;
     }
-    AjfIncrementPipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfIncrement' },] }
-    ];
-    return AjfIncrementPipe;
-})();
+}
+AjfIncrementPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfIncrement' },] }
+];
 
 /**
  * @license
@@ -5028,20 +4981,17 @@ let AjfIncrementPipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfIsCellEditablePipe = /** @class */ (() => {
-    class AjfIsCellEditablePipe {
-        transform(cell) {
-            if (cell == null || typeof cell === 'string') {
-                return false;
-            }
-            return cell.editable === true;
+class AjfIsCellEditablePipe {
+    transform(cell) {
+        if (cell == null || typeof cell === 'string') {
+            return false;
         }
+        return cell.editable === true;
     }
-    AjfIsCellEditablePipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfIsCellEditable' },] }
-    ];
-    return AjfIsCellEditablePipe;
-})();
+}
+AjfIsCellEditablePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfIsCellEditable' },] }
+];
 
 /**
  * @license
@@ -5064,17 +5014,14 @@ let AjfIsCellEditablePipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfIsRepeatingSlideInstancePipe = /** @class */ (() => {
-    class AjfIsRepeatingSlideInstancePipe {
-        transform(instance) {
-            return isRepeatingSlideInstance(instance);
-        }
+class AjfIsRepeatingSlideInstancePipe {
+    transform(instance) {
+        return isRepeatingSlideInstance(instance);
     }
-    AjfIsRepeatingSlideInstancePipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfIsRepeatingSlideInstance' },] }
-    ];
-    return AjfIsRepeatingSlideInstancePipe;
-})();
+}
+AjfIsRepeatingSlideInstancePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfIsRepeatingSlideInstance' },] }
+];
 
 /**
  * @license
@@ -5097,17 +5044,14 @@ let AjfIsRepeatingSlideInstancePipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfNodeCompleteNamePipe = /** @class */ (() => {
-    class AjfNodeCompleteNamePipe {
-        transform(instance) {
-            return instance ? nodeInstanceCompleteName(instance) : '';
-        }
+class AjfNodeCompleteNamePipe {
+    transform(instance) {
+        return instance ? nodeInstanceCompleteName(instance) : '';
     }
-    AjfNodeCompleteNamePipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfNodeCompleteName' },] }
-    ];
-    return AjfNodeCompleteNamePipe;
-})();
+}
+AjfNodeCompleteNamePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfNodeCompleteName' },] }
+];
 
 /**
  * @license
@@ -5130,22 +5074,19 @@ let AjfNodeCompleteNamePipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfRangePipe = /** @class */ (() => {
-    class AjfRangePipe {
-        transform(size = 0, start = 1, step = 1) {
-            const range = [];
-            for (let length = 0; length < size; ++length) {
-                range.push(start);
-                start += step;
-            }
-            return range;
+class AjfRangePipe {
+    transform(size = 0, start = 1, step = 1) {
+        const range = [];
+        for (let length = 0; length < size; ++length) {
+            range.push(start);
+            start += step;
         }
+        return range;
     }
-    AjfRangePipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfRange' },] }
-    ];
-    return AjfRangePipe;
-})();
+}
+AjfRangePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfRange' },] }
+];
 
 /**
  * @license
@@ -5196,28 +5137,25 @@ class AjfInputFieldComponent extends AjfBaseFieldComponent {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfReadOnlyFieldComponent = /** @class */ (() => {
-    class AjfReadOnlyFieldComponent extends AjfInputFieldComponent {
-        constructor(cdr, service, was) {
-            super(cdr, service, was);
-        }
+class AjfReadOnlyFieldComponent extends AjfInputFieldComponent {
+    constructor(cdr, service, was) {
+        super(cdr, service, was);
     }
-    AjfReadOnlyFieldComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ajf-read-only-field',
-                    template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n",
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
-                    styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
-                },] }
-    ];
-    AjfReadOnlyFieldComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: AjfFormRendererService },
-        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-    ];
-    return AjfReadOnlyFieldComponent;
-})();
+}
+AjfReadOnlyFieldComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-read-only-field',
+                template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
+            },] }
+];
+AjfReadOnlyFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+];
 
 /**
  * @license
@@ -5240,36 +5178,33 @@ let AjfReadOnlyFieldComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfReadOnlyFileFieldComponent = /** @class */ (() => {
-    class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
-        constructor(cdr, service, was, domSanitizer) {
-            super(cdr, service, was);
-            this.fileIcon = domSanitizer.bypassSecurityTrustResourceUrl(fileIcon);
-            const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
-                control = control;
-                return control.valueChanges.pipe(startWith(control.value));
-            }), filter(value => value != null), shareReplay(1));
-            this.fileUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
-            this.fileName = fileStream.pipe(map(file => file.name));
-        }
+class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
+    constructor(cdr, service, was, domSanitizer) {
+        super(cdr, service, was);
+        this.fileIcon = domSanitizer.bypassSecurityTrustResourceUrl(fileIcon);
+        const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
+            control = control;
+            return control.valueChanges.pipe(startWith(control.value));
+        }), filter(value => value != null), shareReplay(1));
+        this.fileUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
+        this.fileName = fileStream.pipe(map(file => file.name));
     }
-    AjfReadOnlyFileFieldComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ajf-read-only-file-field',
-                    template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n",
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
-                    styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"]
-                },] }
-    ];
-    AjfReadOnlyFileFieldComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: AjfFormRendererService },
-        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
-        { type: DomSanitizer }
-    ];
-    return AjfReadOnlyFileFieldComponent;
-})();
+}
+AjfReadOnlyFileFieldComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-read-only-file-field',
+                template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"]
+            },] }
+];
+AjfReadOnlyFileFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+    { type: DomSanitizer }
+];
 
 /**
  * @license
@@ -5292,34 +5227,31 @@ let AjfReadOnlyFileFieldComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfReadOnlyImageFieldComponent = /** @class */ (() => {
-    class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
-        constructor(cdr, service, was, domSanitizer) {
-            super(cdr, service, was);
-            const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
-                control = control;
-                return control.valueChanges.pipe(startWith(control.value));
-            }), filter(value => value != null), shareReplay(1));
-            this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
-        }
+class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
+    constructor(cdr, service, was, domSanitizer) {
+        super(cdr, service, was);
+        const fileStream = this.control.pipe(filter(control => control != null), switchMap(control => {
+            control = control;
+            return control.valueChanges.pipe(startWith(control.value));
+        }), filter(value => value != null), shareReplay(1));
+        this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
     }
-    AjfReadOnlyImageFieldComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ajf-read-only-image-field',
-                    template: "<img *ngIf=\"imageUrl|async as iu ; else noImage\" [src]=\"imageUrl|async\">\n<ng-template #noImage>\n  <div class=\"ajf-no-image-placeholder\"></div>\n</ng-template>\n",
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
-                    styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"]
-                },] }
-    ];
-    AjfReadOnlyImageFieldComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: AjfFormRendererService },
-        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
-        { type: DomSanitizer }
-    ];
-    return AjfReadOnlyImageFieldComponent;
-})();
+}
+AjfReadOnlyImageFieldComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-read-only-image-field',
+                template: "<img *ngIf=\"imageUrl|async as iu ; else noImage\" [src]=\"imageUrl|async\">\n<ng-template #noImage>\n  <div class=\"ajf-no-image-placeholder\"></div>\n</ng-template>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"]
+            },] }
+];
+AjfReadOnlyImageFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+    { type: DomSanitizer }
+];
 
 /**
  * @license
@@ -5342,27 +5274,24 @@ let AjfReadOnlyImageFieldComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfReadOnlyTableFieldComponent = /** @class */ (() => {
-    class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent {
-        constructor(cdr, service, was) {
-            super(cdr, service, was);
-        }
+class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent {
+    constructor(cdr, service, was) {
+        super(cdr, service, was);
     }
-    AjfReadOnlyTableFieldComponent.decorators = [
-        { type: Component, args: [{
-                    template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n",
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
-                    styles: ["\n"]
-                },] }
-    ];
-    AjfReadOnlyTableFieldComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: AjfFormRendererService },
-        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-    ];
-    return AjfReadOnlyTableFieldComponent;
-})();
+}
+AjfReadOnlyTableFieldComponent.decorators = [
+    { type: Component, args: [{
+                template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["\n"]
+            },] }
+];
+AjfReadOnlyTableFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+];
 
 /**
  * @license
@@ -5385,27 +5314,24 @@ let AjfReadOnlyTableFieldComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfVideoUrlFieldComponent = /** @class */ (() => {
-    class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
-        constructor(cdr, service, was, domSanitizer, httpClient) {
-            super(cdr, service, was);
-            const video = this.control.pipe(filter(control => control != null), switchMap(control => {
-                control = control;
-                return control.valueChanges.pipe(startWith(control.value));
-            }), filter(value => value != null), map(value => getVideoProviderAndId(value)));
-            this.validUrl = video.pipe(map(v => v != null));
-            this.videoThumbnail = video.pipe(filter(info => info != null), switchMap(info => videoPreviewUrl(httpClient, info)), filter(url => url != null), map(url => domSanitizer.bypassSecurityTrustResourceUrl(url)));
-        }
+class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
+    constructor(cdr, service, was, domSanitizer, httpClient) {
+        super(cdr, service, was);
+        const video = this.control.pipe(filter(control => control != null), switchMap(control => {
+            control = control;
+            return control.valueChanges.pipe(startWith(control.value));
+        }), filter(value => value != null), map(value => getVideoProviderAndId(value)));
+        this.validUrl = video.pipe(map(v => v != null));
+        this.videoThumbnail = video.pipe(filter(info => info != null), switchMap(info => videoPreviewUrl(httpClient, info)), filter(url => url != null), map(url => domSanitizer.bypassSecurityTrustResourceUrl(url)));
     }
-    AjfVideoUrlFieldComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: AjfFormRendererService },
-        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
-        { type: DomSanitizer },
-        { type: HttpClient }
-    ];
-    return AjfVideoUrlFieldComponent;
-})();
+}
+AjfVideoUrlFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+    { type: DomSanitizer },
+    { type: HttpClient }
+];
 function videoPreviewUrl(httpClient, video) {
     if (video.provider === 'youtube') {
         return of(`https://img.youtube.com/vi/${video.id}/default.jpg`);
@@ -5541,30 +5467,27 @@ function stripParameters(url) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfReadOnlyVideoUrlFieldComponent = /** @class */ (() => {
-    class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
-        constructor(cdr, service, was, domSanitizer, httpClient) {
-            super(cdr, service, was, domSanitizer, httpClient);
-        }
+class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
+    constructor(cdr, service, was, domSanitizer, httpClient) {
+        super(cdr, service, was, domSanitizer, httpClient);
     }
-    AjfReadOnlyVideoUrlFieldComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ajf-read-only-video-url-field',
-                    template: "<div *ngIf=\"control|async as ctrl\" class=\"ajf-video-thumbnail\">\n  <ng-container *ngIf=\"validUrl|async\">\n    <a target=\"_blank\" [href]=\"ctrl.value\">\n      <img *ngIf=\"videoThumbnail|async as thumb\" [src]=\"thumb\" class=\"\" alt=\"\">\n    </a>\n  </ng-container>\n</div>\n",
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
-                    styles: ["\n"]
-                },] }
-    ];
-    AjfReadOnlyVideoUrlFieldComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: AjfFormRendererService },
-        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
-        { type: DomSanitizer },
-        { type: HttpClient }
-    ];
-    return AjfReadOnlyVideoUrlFieldComponent;
-})();
+}
+AjfReadOnlyVideoUrlFieldComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-read-only-video-url-field',
+                template: "<div *ngIf=\"control|async as ctrl\" class=\"ajf-video-thumbnail\">\n  <ng-container *ngIf=\"validUrl|async\">\n    <a target=\"_blank\" [href]=\"ctrl.value\">\n      <img *ngIf=\"videoThumbnail|async as thumb\" [src]=\"thumb\" class=\"\" alt=\"\">\n    </a>\n  </ng-container>\n</div>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["\n"]
+            },] }
+];
+AjfReadOnlyVideoUrlFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+    { type: DomSanitizer },
+    { type: HttpClient }
+];
 
 /**
  * @license
@@ -5587,17 +5510,14 @@ let AjfReadOnlyVideoUrlFieldComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfTableRowClass = /** @class */ (() => {
-    class AjfTableRowClass {
-        transform(value) {
-            return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
-        }
+class AjfTableRowClass {
+    transform(value) {
+        return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
     }
-    AjfTableRowClass.decorators = [
-        { type: Pipe, args: [{ name: 'ajfTableRowClass' },] }
-    ];
-    return AjfTableRowClass;
-})();
+}
+AjfTableRowClass.decorators = [
+    { type: Pipe, args: [{ name: 'ajfTableRowClass' },] }
+];
 
 /**
  * @license
@@ -5620,27 +5540,67 @@ let AjfTableRowClass = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfTableVisibleColumnsPipe = /** @class */ (() => {
-    class AjfTableVisibleColumnsPipe {
-        transform(instance) {
-            if (!instance.node.editable) {
-                const val = instance.value || [];
-                return instance.hideEmptyRows ?
-                    val.filter(col => col[1].reduce((prev, cur) => {
-                        return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
-                    }, false))
-                        .map(v => [v[0], ...v[1]]) :
-                    val.map(v => [v[0], ...v[1]]);
+class AjfTableVisibleColumnsPipe {
+    transform(instance) {
+        if (!instance.node.editable) {
+            const val = instance.value || [];
+            return instance.hideEmptyRows ?
+                val.filter(col => col[1].reduce((prev, cur) => {
+                    return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
+                }, false))
+                    .map(v => [v[0], ...v[1]]) :
+                val.map(v => [v[0], ...v[1]]);
+        }
+        return (instance.controls || [])
+            .map(v => [v[0], ...v[1]]);
+    }
+}
+AjfTableVisibleColumnsPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfTableVisibleColumns' },] }
+];
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+class AjfValidSlidePipe {
+    transform(slide, idx) {
+        if (idx == null || typeof idx !== 'number') {
+            return false;
+        }
+        if (idx >= slide.slideNodes.length) {
+            return true;
+        }
+        return slide.slideNodes[idx]
+            .map(n => {
+            if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+                return n.valid;
             }
-            return (instance.controls || [])
-                .map(v => [v[0], ...v[1]]);
-        }
+            return true;
+        })
+            .reduce((v1, v2) => v1 && v2, true);
     }
-    AjfTableVisibleColumnsPipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfTableVisibleColumns' },] }
-    ];
-    return AjfTableVisibleColumnsPipe;
-})();
+}
+AjfValidSlidePipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfValidSlide', pure: false },] }
+];
 
 /**
  * @license
@@ -5663,127 +5623,78 @@ let AjfTableVisibleColumnsPipe = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfValidSlidePipe = /** @class */ (() => {
-    class AjfValidSlidePipe {
-        transform(slide, idx) {
-            if (idx == null || typeof idx !== 'number') {
-                return false;
-            }
-            if (idx >= slide.slideNodes.length) {
-                return true;
-            }
-            return slide.slideNodes[idx]
-                .map(n => {
-                if (n.visible && Object.keys(n).indexOf('valid') > -1) {
-                    return n.valid;
-                }
-                return true;
-            })
-                .reduce((v1, v2) => v1 && v2, true);
-        }
-    }
-    AjfValidSlidePipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfValidSlide', pure: false },] }
-    ];
-    return AjfValidSlidePipe;
-})();
-
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
-let AjfFormsModule = /** @class */ (() => {
-    class AjfFormsModule {
-    }
-    AjfFormsModule.decorators = [
-        { type: NgModule, args: [{
-                    declarations: [
-                        AjfAsFieldInstancePipe,
-                        AjfAsRepeatingSlideInstancePipe,
-                        AjfBoolToIntPipe,
-                        AjfDateValuePipe,
-                        AjfDateValueStringPipe,
-                        AjfExpandFieldWithChoicesPipe,
-                        AjfFieldHost,
-                        AjfFieldIconPipe,
-                        AjfFieldIsValidPipe,
-                        AjfFileFieldComponent,
-                        AjfGetTableCellControlPipe,
-                        AjfImageFieldComponent,
-                        AjfIncrementPipe,
-                        AjfIsCellEditablePipe,
-                        AjfIsRepeatingSlideInstancePipe,
-                        AjfNodeCompleteNamePipe,
-                        AjfRangePipe,
-                        AjfReadOnlyFieldComponent,
-                        AjfReadOnlyFileFieldComponent,
-                        AjfReadOnlyImageFieldComponent,
-                        AjfReadOnlyTableFieldComponent,
-                        AjfReadOnlyVideoUrlFieldComponent,
-                        AjfTableRowClass,
-                        AjfTableVisibleColumnsPipe,
-                        AjfValidSlidePipe,
-                    ],
-                    imports: [
-                        AjfCommonModule,
-                        AjfFileInputModule,
-                        CommonModule,
-                        HttpClientModule,
-                        ReactiveFormsModule,
-                    ],
-                    exports: [
-                        AjfAsFieldInstancePipe,
-                        AjfAsRepeatingSlideInstancePipe,
-                        AjfBoolToIntPipe,
-                        AjfDateValuePipe,
-                        AjfDateValueStringPipe,
-                        AjfExpandFieldWithChoicesPipe,
-                        AjfFieldHost,
-                        AjfFieldIconPipe,
-                        AjfFieldIsValidPipe,
-                        AjfFileFieldComponent,
-                        AjfGetTableCellControlPipe,
-                        AjfImageFieldComponent,
-                        AjfIncrementPipe,
-                        AjfIsCellEditablePipe,
-                        AjfIsRepeatingSlideInstancePipe,
-                        AjfNodeCompleteNamePipe,
-                        AjfRangePipe,
-                        AjfReadOnlyFieldComponent,
-                        AjfReadOnlyFileFieldComponent,
-                        AjfReadOnlyImageFieldComponent,
-                        AjfReadOnlyTableFieldComponent,
-                        AjfReadOnlyVideoUrlFieldComponent,
-                        AjfTableRowClass,
-                        AjfTableVisibleColumnsPipe,
-                        AjfValidSlidePipe,
-                    ],
-                    providers: [
-                        AjfDateValueStringPipe,
-                        AjfFormRendererService,
-                        AjfValidationService,
-                    ],
-                },] }
-    ];
-    return AjfFormsModule;
-})();
+class AjfFormsModule {
+}
+AjfFormsModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [
+                    AjfAsFieldInstancePipe,
+                    AjfAsRepeatingSlideInstancePipe,
+                    AjfBoolToIntPipe,
+                    AjfDateValuePipe,
+                    AjfDateValueStringPipe,
+                    AjfExpandFieldWithChoicesPipe,
+                    AjfFieldHost,
+                    AjfFieldIconPipe,
+                    AjfFieldIsValidPipe,
+                    AjfFileFieldComponent,
+                    AjfGetTableCellControlPipe,
+                    AjfImageFieldComponent,
+                    AjfIncrementPipe,
+                    AjfIsCellEditablePipe,
+                    AjfIsRepeatingSlideInstancePipe,
+                    AjfNodeCompleteNamePipe,
+                    AjfRangePipe,
+                    AjfReadOnlyFieldComponent,
+                    AjfReadOnlyFileFieldComponent,
+                    AjfReadOnlyImageFieldComponent,
+                    AjfReadOnlyTableFieldComponent,
+                    AjfReadOnlyVideoUrlFieldComponent,
+                    AjfTableRowClass,
+                    AjfTableVisibleColumnsPipe,
+                    AjfValidSlidePipe,
+                ],
+                imports: [
+                    AjfCommonModule,
+                    AjfFileInputModule,
+                    CommonModule,
+                    HttpClientModule,
+                    ReactiveFormsModule,
+                ],
+                exports: [
+                    AjfAsFieldInstancePipe,
+                    AjfAsRepeatingSlideInstancePipe,
+                    AjfBoolToIntPipe,
+                    AjfDateValuePipe,
+                    AjfDateValueStringPipe,
+                    AjfExpandFieldWithChoicesPipe,
+                    AjfFieldHost,
+                    AjfFieldIconPipe,
+                    AjfFieldIsValidPipe,
+                    AjfFileFieldComponent,
+                    AjfGetTableCellControlPipe,
+                    AjfImageFieldComponent,
+                    AjfIncrementPipe,
+                    AjfIsCellEditablePipe,
+                    AjfIsRepeatingSlideInstancePipe,
+                    AjfNodeCompleteNamePipe,
+                    AjfRangePipe,
+                    AjfReadOnlyFieldComponent,
+                    AjfReadOnlyFileFieldComponent,
+                    AjfReadOnlyImageFieldComponent,
+                    AjfReadOnlyTableFieldComponent,
+                    AjfReadOnlyVideoUrlFieldComponent,
+                    AjfTableRowClass,
+                    AjfTableVisibleColumnsPipe,
+                    AjfValidSlidePipe,
+                ],
+                providers: [
+                    AjfDateValueStringPipe,
+                    AjfFormRendererService,
+                    AjfValidationService,
+                ],
+            },] }
+];
 
 /**
  * @license
@@ -6330,66 +6241,63 @@ class AjfFormSerializer {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfTableFieldComponent = /** @class */ (() => {
-    class AjfTableFieldComponent extends AjfBaseFieldComponent {
-        constructor(cdr, service, was) {
-            super(cdr, service, was);
+class AjfTableFieldComponent extends AjfBaseFieldComponent {
+    constructor(cdr, service, was) {
+        super(cdr, service, was);
+    }
+    goToNextCell(ev, row, column) {
+        if (this.instance.controls.length < row ||
+            (this.instance.controls.length >= row && this.instance.controls[row].length < 1) ||
+            this.instance.controls[row][1].length < column) {
+            return;
         }
-        goToNextCell(ev, row, column) {
-            if (this.instance.controls.length < row ||
-                (this.instance.controls.length >= row && this.instance.controls[row].length < 1) ||
-                this.instance.controls[row][1].length < column) {
-                return;
-            }
-            const rowLength = this.instance.controls[row][1].length;
-            const currentCell = this.instance.controls[row][1][column];
-            if (column + 1 >= rowLength) {
-                column = 0;
-                if (row + 1 >= this.instance.controls.length) {
-                    row = 1;
-                }
-                else {
-                    row += 1;
-                }
+        const rowLength = this.instance.controls[row][1].length;
+        const currentCell = this.instance.controls[row][1][column];
+        if (column + 1 >= rowLength) {
+            column = 0;
+            if (row + 1 >= this.instance.controls.length) {
+                row = 1;
             }
             else {
-                column += 1;
+                row += 1;
             }
-            if (typeof currentCell !== 'string') {
-                currentCell.show = false;
-            }
-            this._showCell(row, column);
-            ev.preventDefault();
-            ev.stopPropagation();
         }
-        goToCell(row, column) {
-            this._resetControls();
-            this._showCell(row, column);
+        else {
+            column += 1;
         }
-        _resetControls() {
-            this.instance.controls.forEach(row => row[1].forEach(cell => {
-                if (typeof cell !== 'string') {
-                    cell.show = false;
-                }
-            }));
+        if (typeof currentCell !== 'string') {
+            currentCell.show = false;
         }
-        _showCell(row, column) {
-            if (row >= this.instance.controls.length || column >= this.instance.controls[row][1].length) {
-                return;
+        this._showCell(row, column);
+        ev.preventDefault();
+        ev.stopPropagation();
+    }
+    goToCell(row, column) {
+        this._resetControls();
+        this._showCell(row, column);
+    }
+    _resetControls() {
+        this.instance.controls.forEach(row => row[1].forEach(cell => {
+            if (typeof cell !== 'string') {
+                cell.show = false;
             }
-            const nextCell = this.instance.controls[row][1][column];
-            if (typeof nextCell !== 'string') {
-                nextCell.show = true;
-            }
+        }));
+    }
+    _showCell(row, column) {
+        if (row >= this.instance.controls.length || column >= this.instance.controls[row][1].length) {
+            return;
+        }
+        const nextCell = this.instance.controls[row][1][column];
+        if (typeof nextCell !== 'string') {
+            nextCell.show = true;
         }
     }
-    AjfTableFieldComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: AjfFormRendererService },
-        { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-    ];
-    return AjfTableFieldComponent;
-})();
+}
+AjfTableFieldComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: AjfFormRendererService },
+    { type: undefined, decorators: [{ type: Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+];
 
 /**
  * @license

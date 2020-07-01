@@ -23,23 +23,20 @@ import { Subscription } from 'rxjs';
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfMapContainerDirective = /** @class */ (() => {
-    class AjfMapContainerDirective {
-        constructor(_el) {
-            this._el = _el;
-        }
-        get htmlElement() {
-            return this._el.nativeElement;
-        }
+class AjfMapContainerDirective {
+    constructor(_el) {
+        this._el = _el;
     }
-    AjfMapContainerDirective.decorators = [
-        { type: Directive, args: [{ selector: '[mapContainer]' },] }
-    ];
-    AjfMapContainerDirective.ctorParameters = () => [
-        { type: ElementRef }
-    ];
-    return AjfMapContainerDirective;
-})();
+    get htmlElement() {
+        return this._el.nativeElement;
+    }
+}
+AjfMapContainerDirective.decorators = [
+    { type: Directive, args: [{ selector: '[mapContainer]' },] }
+];
+AjfMapContainerDirective.ctorParameters = () => [
+    { type: ElementRef }
+];
 
 /**
  * @license
@@ -62,109 +59,106 @@ let AjfMapContainerDirective = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfMapComponent = /** @class */ (() => {
-    class AjfMapComponent {
-        constructor() {
-            this._columnWidthChanged = Subscription.EMPTY;
-        }
-        set coordinate(coordinate) {
-            this._coordinate = coordinate.slice(0);
+class AjfMapComponent {
+    constructor() {
+        this._columnWidthChanged = Subscription.EMPTY;
+    }
+    set coordinate(coordinate) {
+        this._coordinate = coordinate.slice(0);
+        this._setMapView();
+    }
+    set tileLayer(tl) {
+        this._tileLayer = tl;
+        this._addTileLayerToMap();
+    }
+    set attribution(attribution) {
+        this._attribution = attribution;
+        this._addTileLayerToMap();
+    }
+    set disabled(disabled) {
+        this._disabled = disabled;
+        this._disableMap();
+    }
+    get map() {
+        return this._map;
+    }
+    ngAfterViewInit() {
+        if (this.mapContainer) {
+            this._initMap();
             this._setMapView();
-        }
-        set tileLayer(tl) {
-            this._tileLayer = tl;
             this._addTileLayerToMap();
-        }
-        set attribution(attribution) {
-            this._attribution = attribution;
-            this._addTileLayerToMap();
-        }
-        set disabled(disabled) {
-            this._disabled = disabled;
             this._disableMap();
         }
-        get map() {
-            return this._map;
+    }
+    redraw() {
+        if (this.mapContainer && this._map) {
+            this._map.invalidateSize();
         }
-        ngAfterViewInit() {
-            if (this.mapContainer) {
-                this._initMap();
-                this._setMapView();
-                this._addTileLayerToMap();
-                this._disableMap();
-            }
+    }
+    ngOnDestroy() {
+        this._columnWidthChanged.unsubscribe();
+    }
+    _initMap() {
+        const options = { zoomControl: false, attributionControl: false };
+        this._map = map(this.mapContainer.htmlElement, options);
+    }
+    _setMapView() {
+        if (this._map == null) {
+            return;
         }
-        redraw() {
-            if (this.mapContainer && this._map) {
-                this._map.invalidateSize();
-            }
+        let x, y, z;
+        if (this._coordinate != null && this._coordinate.length === 3) {
+            x = this._coordinate[0];
+            y = this._coordinate[1];
+            z = this._coordinate[2];
         }
-        ngOnDestroy() {
-            this._columnWidthChanged.unsubscribe();
+        else {
+            x = 0;
+            y = 0;
+            z = 14;
         }
-        _initMap() {
-            const options = { zoomControl: false, attributionControl: false };
-            this._map = map(this.mapContainer.htmlElement, options);
+        this._map.setView([x, y], z);
+    }
+    _addTileLayerToMap() {
+        if (this._map == null || this._tileLayer == null) {
+            return;
         }
-        _setMapView() {
-            if (this._map == null) {
-                return;
-            }
-            let x, y, z;
-            if (this._coordinate != null && this._coordinate.length === 3) {
-                x = this._coordinate[0];
-                y = this._coordinate[1];
-                z = this._coordinate[2];
-            }
-            else {
-                x = 0;
-                y = 0;
-                z = 14;
-            }
-            this._map.setView([x, y], z);
+        this._map.eachLayer((l) => this._map.removeLayer(l));
+        tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
+    }
+    _disableMap() {
+        if (this._map == null) {
+            return;
         }
-        _addTileLayerToMap() {
-            if (this._map == null || this._tileLayer == null) {
-                return;
-            }
-            this._map.eachLayer((l) => this._map.removeLayer(l));
-            tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
-        }
-        _disableMap() {
-            if (this._map == null) {
-                return;
-            }
-            if (this._disabled) {
-                this._map.dragging.disable();
-                this._map.touchZoom.disable();
-                this._map.doubleClickZoom.disable();
-                this._map.scrollWheelZoom.disable();
-                this._map.boxZoom.disable();
-                this._map.keyboard.disable();
-                if (this._map.tap) {
-                    this._map.tap.disable();
-                }
+        if (this._disabled) {
+            this._map.dragging.disable();
+            this._map.touchZoom.disable();
+            this._map.doubleClickZoom.disable();
+            this._map.scrollWheelZoom.disable();
+            this._map.boxZoom.disable();
+            this._map.keyboard.disable();
+            if (this._map.tap) {
+                this._map.tap.disable();
             }
         }
     }
-    AjfMapComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ajf-map',
-                    template: "<div mapContainer></div>\n",
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
-                    styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
-                },] }
-    ];
-    AjfMapComponent.propDecorators = {
-        mapContainer: [{ type: ViewChild, args: [AjfMapContainerDirective, { static: true },] }],
-        coordinate: [{ type: Input }],
-        tileLayer: [{ type: Input }],
-        attribution: [{ type: Input }],
-        disabled: [{ type: Input }]
-    };
-    return AjfMapComponent;
-})();
+}
+AjfMapComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-map',
+                template: "<div mapContainer></div>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
+            },] }
+];
+AjfMapComponent.propDecorators = {
+    mapContainer: [{ type: ViewChild, args: [AjfMapContainerDirective, { static: true },] }],
+    coordinate: [{ type: Input }],
+    tileLayer: [{ type: Input }],
+    attribution: [{ type: Input }],
+    disabled: [{ type: Input }]
+};
 
 /**
  * @license
@@ -187,22 +181,19 @@ let AjfMapComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfMapModule = /** @class */ (() => {
-    class AjfMapModule {
-    }
-    AjfMapModule.decorators = [
-        { type: NgModule, args: [{
-                    declarations: [
-                        AjfMapComponent,
-                        AjfMapContainerDirective,
-                    ],
-                    exports: [
-                        AjfMapComponent,
-                    ],
-                },] }
-    ];
-    return AjfMapModule;
-})();
+class AjfMapModule {
+}
+AjfMapModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [
+                    AjfMapComponent,
+                    AjfMapContainerDirective,
+                ],
+                exports: [
+                    AjfMapComponent,
+                ],
+            },] }
+];
 
 /**
  * @license

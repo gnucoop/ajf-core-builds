@@ -46,60 +46,57 @@ import { DomSanitizer } from '@angular/platform-browser';
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfTable = /** @class */ (() => {
-    class AjfTable {
-        /**
-         * Creates an instance of TableComponent.
-         *
-         *
-         * @memberOf TableComponent
-         */
-        constructor(_cdr, _domSanitizer) {
-            this._cdr = _cdr;
-            this._domSanitizer = _domSanitizer;
-        }
-        get data() {
-            return this._data;
-        }
-        set data(data) {
-            this._data = this._fixData(data);
-            this._cdr.markForCheck();
-        }
-        get cellpadding() {
-            return this._cellpadding;
-        }
-        set cellpadding(cellpadding) {
-            this._cellpadding = cellpadding;
-            this._cdr.markForCheck();
-        }
-        _fixData(data) {
-            (data || []).forEach((elem) => {
-                (elem || []).forEach((subElem) => {
-                    subElem.value = this._domSanitizer.bypassSecurityTrustHtml(subElem.value);
-                });
-            });
-            return data;
-        }
+class AjfTable {
+    /**
+     * Creates an instance of TableComponent.
+     *
+     *
+     * @memberOf TableComponent
+     */
+    constructor(_cdr, _domSanitizer) {
+        this._cdr = _cdr;
+        this._domSanitizer = _domSanitizer;
     }
-    AjfTable.decorators = [
-        { type: Component, args: [{
-                    selector: 'ajf-table',
-                    template: "<table *ngIf=\"data\">\n  <tr *ngFor=\"let row of data\">\n    <td *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\">\n    </td>\n  </tr>\n</table>\n",
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    encapsulation: ViewEncapsulation.None,
-                    styles: ["\n"]
-                },] }
-    ];
-    AjfTable.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: DomSanitizer }
-    ];
-    AjfTable.propDecorators = {
-        data: [{ type: Input }],
-        cellpadding: [{ type: Input }]
-    };
-    return AjfTable;
-})();
+    get data() {
+        return this._data;
+    }
+    set data(data) {
+        this._data = this._fixData(data);
+        this._cdr.markForCheck();
+    }
+    get cellpadding() {
+        return this._cellpadding;
+    }
+    set cellpadding(cellpadding) {
+        this._cellpadding = cellpadding;
+        this._cdr.markForCheck();
+    }
+    _fixData(data) {
+        (data || []).forEach((elem) => {
+            (elem || []).forEach((subElem) => {
+                subElem.value = this._domSanitizer.bypassSecurityTrustHtml(subElem.value);
+            });
+        });
+        return data;
+    }
+}
+AjfTable.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-table',
+                template: "<table *ngIf=\"data\">\n  <tr *ngFor=\"let row of data\">\n    <td *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\">\n    </td>\n  </tr>\n</table>\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                styles: ["\n"]
+            },] }
+];
+AjfTable.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: DomSanitizer }
+];
+AjfTable.propDecorators = {
+    data: [{ type: Input }],
+    cellpadding: [{ type: Input }]
+};
 
 /**
  * @license
@@ -122,25 +119,22 @@ let AjfTable = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfTableModule = /** @class */ (() => {
-    class AjfTableModule {
-    }
-    AjfTableModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [
-                        AjfCommonModule,
-                        CommonModule,
-                    ],
-                    declarations: [
-                        AjfTable,
-                    ],
-                    exports: [
-                        AjfTable,
-                    ]
-                },] }
-    ];
-    return AjfTableModule;
-})();
+class AjfTableModule {
+}
+AjfTableModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    AjfCommonModule,
+                    CommonModule,
+                ],
+                declarations: [
+                    AjfTable,
+                ],
+                exports: [
+                    AjfTable,
+                ]
+            },] }
+];
 
 /**
  * @license

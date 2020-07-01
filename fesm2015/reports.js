@@ -142,17 +142,14 @@ function chartToChartJsType(chartType) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfGetColumnContentPipe = /** @class */ (() => {
-    class AjfGetColumnContentPipe {
-        transform(instance, column) {
-            return column >= 0 && column < instance.content.length ? instance.content[column] : null;
-        }
+class AjfGetColumnContentPipe {
+    transform(instance, column) {
+        return column >= 0 && column < instance.content.length ? instance.content[column] : null;
     }
-    AjfGetColumnContentPipe.decorators = [
-        { type: Pipe, args: [{ name: 'ajfGetColumnContent' },] }
-    ];
-    return AjfGetColumnContentPipe;
-})();
+}
+AjfGetColumnContentPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfGetColumnContent' },] }
+];
 
 /**
  * @license
@@ -1080,34 +1077,31 @@ var AjfWidgetType;
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfReportRenderer = /** @class */ (() => {
-    class AjfReportRenderer {
-        constructor(_cdr) {
-            this._cdr = _cdr;
-        }
-        get instance() {
-            return this._instance;
-        }
-        set instance(instance) {
-            this._instance = instance;
-            this._report = instance != null ? instance.report : null;
-            this._cdr.markForCheck();
-        }
-        get report() {
-            return this._report;
-        }
+class AjfReportRenderer {
+    constructor(_cdr) {
+        this._cdr = _cdr;
     }
-    AjfReportRenderer.decorators = [
-        { type: Directive }
-    ];
-    AjfReportRenderer.ctorParameters = () => [
-        { type: ChangeDetectorRef }
-    ];
-    AjfReportRenderer.propDecorators = {
-        instance: [{ type: Input }]
-    };
-    return AjfReportRenderer;
-})();
+    get instance() {
+        return this._instance;
+    }
+    set instance(instance) {
+        this._instance = instance;
+        this._report = instance != null ? instance.report : null;
+        this._cdr.markForCheck();
+    }
+    get report() {
+        return this._report;
+    }
+}
+AjfReportRenderer.decorators = [
+    { type: Directive }
+];
+AjfReportRenderer.ctorParameters = () => [
+    { type: ChangeDetectorRef }
+];
+AjfReportRenderer.propDecorators = {
+    instance: [{ type: Input }]
+};
 
 /**
  * @license
@@ -1130,20 +1124,17 @@ let AjfReportRenderer = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfWidgetHost = /** @class */ (() => {
-    class AjfWidgetHost {
-        constructor(viewContainerRef) {
-            this.viewContainerRef = viewContainerRef;
-        }
+class AjfWidgetHost {
+    constructor(viewContainerRef) {
+        this.viewContainerRef = viewContainerRef;
     }
-    AjfWidgetHost.decorators = [
-        { type: Directive, args: [{ selector: '[ajf-widget-host]' },] }
-    ];
-    AjfWidgetHost.ctorParameters = () => [
-        { type: ViewContainerRef }
-    ];
-    return AjfWidgetHost;
-})();
+}
+AjfWidgetHost.decorators = [
+    { type: Directive, args: [{ selector: '[ajf-widget-host]' },] }
+];
+AjfWidgetHost.ctorParameters = () => [
+    { type: ViewContainerRef }
+];
 
 /**
  * @license
@@ -1166,23 +1157,20 @@ let AjfWidgetHost = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfReportsModule = /** @class */ (() => {
-    class AjfReportsModule {
-    }
-    AjfReportsModule.decorators = [
-        { type: NgModule, args: [{
-                    declarations: [
-                        AjfGetColumnContentPipe,
-                        AjfWidgetHost,
-                    ],
-                    exports: [
-                        AjfGetColumnContentPipe,
-                        AjfWidgetHost,
-                    ],
-                },] }
-    ];
-    return AjfReportsModule;
-})();
+class AjfReportsModule {
+}
+AjfReportsModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [
+                    AjfGetColumnContentPipe,
+                    AjfWidgetHost,
+                ],
+                exports: [
+                    AjfGetColumnContentPipe,
+                    AjfWidgetHost,
+                ],
+            },] }
+];
 
 /**
  * @license
@@ -1505,77 +1493,74 @@ class AjfReportSerializer {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfReportWidget = /** @class */ (() => {
-    class AjfReportWidget {
-        constructor(_cfr, _renderer) {
-            this._cfr = _cfr;
-            this._renderer = _renderer;
-            this._init = false;
-        }
-        get instance() {
-            return this._instance;
-        }
-        set instance(instance) {
-            if (this._instance !== instance) {
-                this._instance = instance;
-                if (this._init) {
-                    this._loadComponent();
-                }
-            }
-        }
-        ngOnInit() {
-            this._init = true;
-            this._loadComponent();
-        }
-        _loadComponent() {
-            if (!this._init || this._instance == null || this.widgetHost == null ||
-                !this.instance.visible) {
-                return;
-            }
-            const vcr = this.widgetHost.viewContainerRef;
-            vcr.clear();
-            const componentDef = this.widgetsMap[this._instance.widget.widgetType];
-            if (componentDef == null) {
-                return;
-            }
-            const component = componentDef.component;
-            try {
-                const componentFactory = this._cfr.resolveComponentFactory(component);
-                const componentRef = vcr.createComponent(componentFactory);
-                const componentInstance = componentRef.instance;
-                Object.keys(this._instance.widget.styles).forEach((style) => {
-                    try {
-                        this._renderer.setStyle(componentInstance.el.nativeElement, style, `${this._instance.widget.styles[style]}`);
-                    }
-                    catch (e) {
-                    }
-                });
-                componentInstance.instance = this._instance;
-                if (componentDef.inputs) {
-                    Object.keys(componentDef.inputs).forEach(key => {
-                        if (key in componentInstance) {
-                            componentInstance[key] = componentDef.inputs[key];
-                        }
-                    });
-                }
-            }
-            catch (e) {
+class AjfReportWidget {
+    constructor(_cfr, _renderer) {
+        this._cfr = _cfr;
+        this._renderer = _renderer;
+        this._init = false;
+    }
+    get instance() {
+        return this._instance;
+    }
+    set instance(instance) {
+        if (this._instance !== instance) {
+            this._instance = instance;
+            if (this._init) {
+                this._loadComponent();
             }
         }
     }
-    AjfReportWidget.decorators = [
-        { type: Directive }
-    ];
-    AjfReportWidget.ctorParameters = () => [
-        { type: ComponentFactoryResolver },
-        { type: Renderer2 }
-    ];
-    AjfReportWidget.propDecorators = {
-        widgetHost: [{ type: ViewChild, args: [AjfWidgetHost, { static: true },] }],
-        instance: [{ type: Input }]
-    };
-    return AjfReportWidget;
-})();
+    ngOnInit() {
+        this._init = true;
+        this._loadComponent();
+    }
+    _loadComponent() {
+        if (!this._init || this._instance == null || this.widgetHost == null ||
+            !this.instance.visible) {
+            return;
+        }
+        const vcr = this.widgetHost.viewContainerRef;
+        vcr.clear();
+        const componentDef = this.widgetsMap[this._instance.widget.widgetType];
+        if (componentDef == null) {
+            return;
+        }
+        const component = componentDef.component;
+        try {
+            const componentFactory = this._cfr.resolveComponentFactory(component);
+            const componentRef = vcr.createComponent(componentFactory);
+            const componentInstance = componentRef.instance;
+            Object.keys(this._instance.widget.styles).forEach((style) => {
+                try {
+                    this._renderer.setStyle(componentInstance.el.nativeElement, style, `${this._instance.widget.styles[style]}`);
+                }
+                catch (e) {
+                }
+            });
+            componentInstance.instance = this._instance;
+            if (componentDef.inputs) {
+                Object.keys(componentDef.inputs).forEach(key => {
+                    if (key in componentInstance) {
+                        componentInstance[key] = componentDef.inputs[key];
+                    }
+                });
+            }
+        }
+        catch (e) {
+        }
+    }
+}
+AjfReportWidget.decorators = [
+    { type: Directive }
+];
+AjfReportWidget.ctorParameters = () => [
+    { type: ComponentFactoryResolver },
+    { type: Renderer2 }
+];
+AjfReportWidget.propDecorators = {
+    widgetHost: [{ type: ViewChild, args: [AjfWidgetHost, { static: true },] }],
+    instance: [{ type: Input }]
+};
 
 /**
  * @license
@@ -1694,7 +1679,7 @@ function createWidgetInstance(widget, context, _ts) {
  */
 function trFormula(f, context, ts) {
     let formula = f.formula;
-    if (formula.substr(0, 1) === '"') {
+    if (formula.substr(0, 1) === '"' || formula.substr(0, 1) === '\'') {
         const ft = formula.slice(1, -1);
         const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.instant(ft) : ft;
         if (ft.length > 0) {
@@ -1781,7 +1766,7 @@ function widgetToWidgetInstance(widget, context, ts) {
                 ds = Object.assign(Object.assign({}, ds), { options: d.options });
             }
             if (d.label != null) {
-                ds = Object.assign(Object.assign({}, ds), { label: d.label });
+                ds = Object.assign(Object.assign({}, ds), { label: d.label.trim().length > 0 ? ts.instant(d.label) : d.label });
             }
             if (d.datalabels != null) {
                 ds.datalabels = deepCopy(d.datalabels);
@@ -1815,12 +1800,22 @@ function widgetToWidgetInstance(widget, context, ts) {
                 trFormula(cell.formula, context, ts);
         }));
         twi.data = (tw.dataset ||
-            []).map(row => row.map(cell => ({
-            value: evaluateExpression(cell.formula.formula, context),
-            style: Object.assign(Object.assign({}, tw.cellStyles), cell.style),
-            rowspan: cell.rowspan,
-            colspan: cell.colspan,
-        })));
+            []).map(row => row.map(cell => {
+            let evf = '';
+            try {
+                evf = cell.formula instanceof Array ?
+                    cell.formula.map(f => trFormula(f, context, ts)) :
+                    trFormula(cell.formula, context, ts);
+            }
+            catch (_e) {
+            }
+            return ({
+                value: evf,
+                style: Object.assign(Object.assign({}, tw.cellStyles), cell.style),
+                rowspan: cell.rowspan,
+                colspan: cell.colspan,
+            });
+        }));
     }
     else if (widget.widgetType === AjfWidgetType.DynamicTable) {
         const tdw = widget;
@@ -1830,13 +1825,38 @@ function widgetToWidgetInstance(widget, context, ts) {
                 cell.formula.map(f => trFormula(f, context, ts)) :
                 trFormula(cell.formula, context, ts);
         });
-        const dataset = evaluateExpression(tdw.rowDefinition.formula, context) || [];
-        const header = (tdw.dataset || []).map(cell => ({
-            value: evaluateExpression(cell.formula.formula, context),
-            style: Object.assign(Object.assign({}, tdw.cellStyles), cell.style),
-            rowspan: cell.rowspan,
-            colspan: cell.colspan,
+        let dataset = evaluateExpression(tdw.rowDefinition.formula, context) || [];
+        dataset = (dataset || []).map((row) => row.map(cell => {
+            let trf = cell.value;
+            try {
+                if (trf instanceof Array) {
+                    trf = trf.map(v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v);
+                }
+                else {
+                    trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
+                        ts.instant(trf) : trf;
+                }
+            }
+            catch (_e) {
+            }
+            return (Object.assign(Object.assign({}, cell), { value: trf }));
         }));
+        const header = (tdw.dataset || []).map(cell => {
+            let evf = '';
+            try {
+                evf = cell.formula instanceof Array ?
+                    cell.formula.map(f => trFormula(f, context, ts)) :
+                    trFormula(cell.formula, context, ts);
+            }
+            catch (_e) {
+            }
+            return ({
+                value: evf,
+                style: Object.assign(Object.assign({}, tdw.cellStyles), cell.style),
+                rowspan: cell.rowspan,
+                colspan: cell.colspan,
+            });
+        });
         tdwi.data = [[...header], ...dataset];
     }
     else if (widget.widgetType === AjfWidgetType.Image) {

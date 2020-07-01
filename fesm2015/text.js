@@ -29,44 +29,41 @@ import { DomSanitizer } from '@angular/platform-browser';
  *
  * @export
  */
-let AjfTextComponent = /** @class */ (() => {
-    class AjfTextComponent {
-        constructor(_cdr, _domSanitizer, _ts) {
-            this._cdr = _cdr;
-            this._domSanitizer = _domSanitizer;
-            this._ts = _ts;
-        }
-        set htmlText(htmlText) {
-            // type checking and length checking for instant method
-            const htmlTextToBeTranslate = htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0 ?
-                this._ts.instant(htmlText) :
-                htmlText;
-            this._htmlText = this._domSanitizer.bypassSecurityTrustHtml(htmlTextToBeTranslate);
-            this._cdr.markForCheck();
-        }
-        get innerHTML() {
-            return this._htmlText;
-        }
+class AjfTextComponent {
+    constructor(_cdr, _domSanitizer, _ts) {
+        this._cdr = _cdr;
+        this._domSanitizer = _domSanitizer;
+        this._ts = _ts;
     }
-    AjfTextComponent.decorators = [
-        { type: Component, args: [{
-                    selector: 'ajf-text',
-                    template: "<div class=\"ajf-text-container\" *ngIf=\"innerHTML\" [innerHTML]=\"innerHTML\"></div>\n",
-                    encapsulation: ViewEncapsulation.None,
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    styles: ["ajf-text .ajf-text-container{width:100%}ajf-text .ajf-text-container .ajf-ql-size-small{font-size:.75em}ajf-text .ajf-text-container .ajf-ql-size-large{font-size:1.5em}ajf-text .ajf-text-container .ajf-ql-size-huge{font-size:2.5em}ajf-text .ajf-text-container .ajf-ql-size-veryhuge{font-size:3.5em}ajf-text .ajf-text-container .ajf-ql-align-right{text-align:right}ajf-text .ajf-text-container .ajf-ql-align-center{text-align:center}ajf-text .ajf-text-container .ajf-ql-align-justify{text-align:justify}ajf-text .ajf-text-container h1,ajf-text .ajf-text-container h2,ajf-text .ajf-text-container h3,ajf-text .ajf-text-container h4,ajf-text .ajf-text-container h5,ajf-text .ajf-text-container h6{margin:0}\n"]
-                },] }
-    ];
-    AjfTextComponent.ctorParameters = () => [
-        { type: ChangeDetectorRef },
-        { type: DomSanitizer },
-        { type: TranslateService }
-    ];
-    AjfTextComponent.propDecorators = {
-        htmlText: [{ type: Input }]
-    };
-    return AjfTextComponent;
-})();
+    set htmlText(htmlText) {
+        // type checking and length checking for instant method
+        const htmlTextToBeTranslate = htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0 ?
+            this._ts.instant(htmlText) :
+            htmlText;
+        this._htmlText = this._domSanitizer.bypassSecurityTrustHtml(htmlTextToBeTranslate);
+        this._cdr.markForCheck();
+    }
+    get innerHTML() {
+        return this._htmlText;
+    }
+}
+AjfTextComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'ajf-text',
+                template: "<div class=\"ajf-text-container\" *ngIf=\"innerHTML\" [innerHTML]=\"innerHTML\"></div>\n",
+                encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                styles: ["ajf-text .ajf-text-container{width:100%}ajf-text .ajf-text-container .ajf-ql-size-small{font-size:.75em}ajf-text .ajf-text-container .ajf-ql-size-large{font-size:1.5em}ajf-text .ajf-text-container .ajf-ql-size-huge{font-size:2.5em}ajf-text .ajf-text-container .ajf-ql-size-veryhuge{font-size:3.5em}ajf-text .ajf-text-container .ajf-ql-align-right{text-align:right}ajf-text .ajf-text-container .ajf-ql-align-center{text-align:center}ajf-text .ajf-text-container .ajf-ql-align-justify{text-align:justify}ajf-text .ajf-text-container h1,ajf-text .ajf-text-container h2,ajf-text .ajf-text-container h3,ajf-text .ajf-text-container h4,ajf-text .ajf-text-container h5,ajf-text .ajf-text-container h6{margin:0}\n"]
+            },] }
+];
+AjfTextComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: DomSanitizer },
+    { type: TranslateService }
+];
+AjfTextComponent.propDecorators = {
+    htmlText: [{ type: Input }]
+};
 
 /**
  * @license
@@ -89,25 +86,22 @@ let AjfTextComponent = /** @class */ (() => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfTextModule = /** @class */ (() => {
-    class AjfTextModule {
-    }
-    AjfTextModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                        TranslateModule,
-                    ],
-                    declarations: [
-                        AjfTextComponent,
-                    ],
-                    exports: [
-                        AjfTextComponent,
-                    ]
-                },] }
-    ];
-    return AjfTextModule;
-})();
+class AjfTextModule {
+}
+AjfTextModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    TranslateModule,
+                ],
+                declarations: [
+                    AjfTextComponent,
+                ],
+                exports: [
+                    AjfTextComponent,
+                ]
+            },] }
+];
 
 /**
  * @license

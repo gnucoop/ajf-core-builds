@@ -191,7 +191,8 @@
          * @memberof AjfBarcode
          */
         AjfBarcode.prototype._readBarcodeFromImage = function (img) {
-            return rxjs.from(this.codeReader.decodeFromImage(img)).pipe(operators.catchError(function (e) { return rxjs.of(e); }));
+            var decode = rxjs.from(this.codeReader.decodeFromImage(img));
+            return decode.pipe(operators.catchError(function (e) { return rxjs.of(e); }));
         };
         /**
          * build an image by data and call _readBarcodeFromImage

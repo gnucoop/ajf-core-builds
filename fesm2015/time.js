@@ -86,68 +86,65 @@ class AjfTimeModel {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfTime = /** @class */ (() => {
-    class AjfTime {
-        constructor() {
-            this._value = new AjfTimeModel();
-            this._onChangeCallback = (_) => { };
-            this._onTouchedCallback = () => { };
-            this._valueChangeSub = Subscription.EMPTY;
-            this._valueChangeSub = this._value.changed.subscribe((x) => {
-                this._onChangeCallback(x);
-            });
-        }
-        get time() {
-            return this._value;
-        }
-        get value() {
-            return this._value.toString();
-        }
-        set value(value) {
-            if (value !== this._value.toString()) {
-                this._value.fromString(value);
-                this._onChangeCallback(value);
-            }
-        }
-        get hours() {
-            return this._value.hours;
-        }
-        set hours(hours) {
-            this._value.hours = hours;
-            this._onChangeCallback(this._value.toString());
-        }
-        get minutes() {
-            return this._value.minutes;
-        }
-        set minutes(minutes) {
-            this._value.minutes = minutes;
-            this._onChangeCallback(this._value.toString());
-        }
-        ngOnDestroy() {
-            this._valueChangeSub.unsubscribe();
-        }
-        writeValue(value) {
+class AjfTime {
+    constructor() {
+        this._value = new AjfTimeModel();
+        this._onChangeCallback = (_) => { };
+        this._onTouchedCallback = () => { };
+        this._valueChangeSub = Subscription.EMPTY;
+        this._valueChangeSub = this._value.changed.subscribe((x) => {
+            this._onChangeCallback(x);
+        });
+    }
+    get time() {
+        return this._value;
+    }
+    get value() {
+        return this._value.toString();
+    }
+    set value(value) {
+        if (value !== this._value.toString()) {
             this._value.fromString(value);
-        }
-        registerOnChange(fn) {
-            this._onChangeCallback = fn;
-        }
-        registerOnTouched(fn) {
-            this._onTouchedCallback = fn;
-        }
-        focusHandler() {
-            this._onTouchedCallback();
+            this._onChangeCallback(value);
         }
     }
-    AjfTime.decorators = [
-        { type: Directive }
-    ];
-    AjfTime.ctorParameters = () => [];
-    AjfTime.propDecorators = {
-        readonly: [{ type: Input }]
-    };
-    return AjfTime;
-})();
+    get hours() {
+        return this._value.hours;
+    }
+    set hours(hours) {
+        this._value.hours = hours;
+        this._onChangeCallback(this._value.toString());
+    }
+    get minutes() {
+        return this._value.minutes;
+    }
+    set minutes(minutes) {
+        this._value.minutes = minutes;
+        this._onChangeCallback(this._value.toString());
+    }
+    ngOnDestroy() {
+        this._valueChangeSub.unsubscribe();
+    }
+    writeValue(value) {
+        this._value.fromString(value);
+    }
+    registerOnChange(fn) {
+        this._onChangeCallback = fn;
+    }
+    registerOnTouched(fn) {
+        this._onTouchedCallback = fn;
+    }
+    focusHandler() {
+        this._onTouchedCallback();
+    }
+}
+AjfTime.decorators = [
+    { type: Directive }
+];
+AjfTime.ctorParameters = () => [];
+AjfTime.propDecorators = {
+    readonly: [{ type: Input }]
+};
 
 /**
  * @license

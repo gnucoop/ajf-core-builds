@@ -666,44 +666,41 @@ function getCoordinate(source, zoom) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfExpressionUtils = /** @class */ (() => {
-    class AjfExpressionUtils {
-    }
-    AjfExpressionUtils.UTIL_FUNCTIONS = '';
-    AjfExpressionUtils.utils = {
-        digitCount: { fn: digitCount },
-        decimalCount: { fn: decimalCount },
-        isInt: { fn: isInt },
-        notEmpty: { fn: notEmpty },
-        valueInChoice: { fn: valueInChoice },
-        scanGroupField: { fn: scanGroupField },
-        sum: { fn: sum },
-        dateOperations: { fn: dateOperations },
-        round: { fn: round },
-        extractArray: { fn: extractArray },
-        extractSum: { fn: extractSum },
-        extractArraySum: { fn: extractArraySum },
-        drawThreshold: { fn: drawThreshold },
-        extractDates: { fn: extractDates },
-        lastProperty: { fn: lastProperty },
-        sumLastProperties: { fn: sumLastProperties },
-        calculateTrendProperty: { fn: calculateTrendProperty },
-        calculateTrendByProperties: { fn: calculateTrendByProperties },
-        calculateAvgProperty: { fn: calculateAvgProperty },
-        calculateAvgPropertyArray: { fn: calculateAvgPropertyArray },
-        alert: { fn: alert },
-        formatNumber: { fn: formatNumber },
-        formatDate: { fn: formatDate },
-        isoMonth: { fn: isoMonth },
-        getCoordinate: { fn: getCoordinate },
-        Math: { fn: Math },
-        parseInt: { fn: parseInt },
-        parseFloat: { fn: parseFloat },
-        parseDate: { fn: dateUtils.parse },
-        Date: { fn: Date }
-    };
-    return AjfExpressionUtils;
-})();
+class AjfExpressionUtils {
+}
+AjfExpressionUtils.UTIL_FUNCTIONS = '';
+AjfExpressionUtils.utils = {
+    digitCount: { fn: digitCount },
+    decimalCount: { fn: decimalCount },
+    isInt: { fn: isInt },
+    notEmpty: { fn: notEmpty },
+    valueInChoice: { fn: valueInChoice },
+    scanGroupField: { fn: scanGroupField },
+    sum: { fn: sum },
+    dateOperations: { fn: dateOperations },
+    round: { fn: round },
+    extractArray: { fn: extractArray },
+    extractSum: { fn: extractSum },
+    extractArraySum: { fn: extractArraySum },
+    drawThreshold: { fn: drawThreshold },
+    extractDates: { fn: extractDates },
+    lastProperty: { fn: lastProperty },
+    sumLastProperties: { fn: sumLastProperties },
+    calculateTrendProperty: { fn: calculateTrendProperty },
+    calculateTrendByProperties: { fn: calculateTrendByProperties },
+    calculateAvgProperty: { fn: calculateAvgProperty },
+    calculateAvgPropertyArray: { fn: calculateAvgPropertyArray },
+    alert: { fn: alert },
+    formatNumber: { fn: formatNumber },
+    formatDate: { fn: formatDate },
+    isoMonth: { fn: isoMonth },
+    getCoordinate: { fn: getCoordinate },
+    Math: { fn: Math },
+    parseInt: { fn: parseInt },
+    parseFloat: { fn: parseFloat },
+    parseDate: { fn: dateUtils.parse },
+    Date: { fn: Date }
+};
 
 /**
  * @license

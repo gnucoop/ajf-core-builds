@@ -1945,7 +1945,7 @@
      */
     function trFormula(f, context, ts) {
         var formula = f.formula;
-        if (formula.substr(0, 1) === '"') {
+        if (formula.substr(0, 1) === '"' || formula.substr(0, 1) === '\'') {
             var ft = formula.slice(1, -1);
             var transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.instant(ft) : ft;
             if (ft.length > 0) {
@@ -2032,7 +2032,7 @@
                     ds = __assign(__assign({}, ds), { options: d.options });
                 }
                 if (d.label != null) {
-                    ds = __assign(__assign({}, ds), { label: d.label });
+                    ds = __assign(__assign({}, ds), { label: d.label.trim().length > 0 ? ts.instant(d.label) : d.label });
                 }
                 if (d.datalabels != null) {
                     ds.datalabels = utils.deepCopy(d.datalabels);
@@ -2066,12 +2066,22 @@
                     trFormula(cell.formula, context, ts);
             }); });
             twi.data = (tw_1.dataset ||
-                []).map(function (row) { return row.map(function (cell) { return ({
-                value: models.evaluateExpression(cell.formula.formula, context),
-                style: __assign(__assign({}, tw_1.cellStyles), cell.style),
-                rowspan: cell.rowspan,
-                colspan: cell.colspan,
-            }); }); });
+                []).map(function (row) { return row.map(function (cell) {
+                var evf = '';
+                try {
+                    evf = cell.formula instanceof Array ?
+                        cell.formula.map(function (f) { return trFormula(f, context, ts); }) :
+                        trFormula(cell.formula, context, ts);
+                }
+                catch (_e) {
+                }
+                return ({
+                    value: evf,
+                    style: __assign(__assign({}, tw_1.cellStyles), cell.style),
+                    rowspan: cell.rowspan,
+                    colspan: cell.colspan,
+                });
+            }); });
         }
         else if (widget.widgetType === exports.AjfWidgetType.DynamicTable) {
             var tdw_1 = widget;
@@ -2082,12 +2092,37 @@
                     trFormula(cell.formula, context, ts);
             });
             var dataset = models.evaluateExpression(tdw_1.rowDefinition.formula, context) || [];
-            var header = (tdw_1.dataset || []).map(function (cell) { return ({
-                value: models.evaluateExpression(cell.formula.formula, context),
-                style: __assign(__assign({}, tdw_1.cellStyles), cell.style),
-                rowspan: cell.rowspan,
-                colspan: cell.colspan,
+            dataset = (dataset || []).map(function (row) { return row.map(function (cell) {
+                var trf = cell.value;
+                try {
+                    if (trf instanceof Array) {
+                        trf = trf.map(function (v) { return v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v; });
+                    }
+                    else {
+                        trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
+                            ts.instant(trf) : trf;
+                    }
+                }
+                catch (_e) {
+                }
+                return (__assign(__assign({}, cell), { value: trf }));
             }); });
+            var header = (tdw_1.dataset || []).map(function (cell) {
+                var evf = '';
+                try {
+                    evf = cell.formula instanceof Array ?
+                        cell.formula.map(function (f) { return trFormula(f, context, ts); }) :
+                        trFormula(cell.formula, context, ts);
+                }
+                catch (_e) {
+                }
+                return ({
+                    value: evf,
+                    style: __assign(__assign({}, tdw_1.cellStyles), cell.style),
+                    rowspan: cell.rowspan,
+                    colspan: cell.colspan,
+                });
+            });
             tdwi.data = __spread([__spread(header)], dataset);
         }
         else if (widget.widgetType === exports.AjfWidgetType.Image) {

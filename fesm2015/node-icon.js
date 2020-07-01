@@ -22,41 +22,38 @@ import { Directive, Input } from '@angular/core';
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-let AjfNodeIcon = /** @class */ (() => {
-    class AjfNodeIcon {
-        get fontSet() {
-            return this._fontSet;
-        }
-        get fontIcon() {
-            return this._fontIcon;
-        }
-        get node() {
-            return this._node;
-        }
-        set node(node) {
-            this._node = node;
-            this._fontSet = 'ajf-icon';
-            this._fontIcon = this._getFontIcon(node);
-        }
-        _getFontIcon(node) {
-            switch (node.nodeType) {
-                case AjfNodeType.AjfField:
-                    const fieldType = AjfFieldType[node.fieldType];
-                    return fieldType != null ? `field-${fieldType.toLowerCase()}` : '';
-                default:
-                    const nodeType = AjfNodeType[node.nodeType];
-                    return nodeType != null ? `node-${nodeType.toLowerCase().replace('ajf', '')}` : '';
-            }
+class AjfNodeIcon {
+    get fontSet() {
+        return this._fontSet;
+    }
+    get fontIcon() {
+        return this._fontIcon;
+    }
+    get node() {
+        return this._node;
+    }
+    set node(node) {
+        this._node = node;
+        this._fontSet = 'ajf-icon';
+        this._fontIcon = this._getFontIcon(node);
+    }
+    _getFontIcon(node) {
+        switch (node.nodeType) {
+            case AjfNodeType.AjfField:
+                const fieldType = AjfFieldType[node.fieldType];
+                return fieldType != null ? `field-${fieldType.toLowerCase()}` : '';
+            default:
+                const nodeType = AjfNodeType[node.nodeType];
+                return nodeType != null ? `node-${nodeType.toLowerCase().replace('ajf', '')}` : '';
         }
     }
-    AjfNodeIcon.decorators = [
-        { type: Directive }
-    ];
-    AjfNodeIcon.propDecorators = {
-        node: [{ type: Input }]
-    };
-    return AjfNodeIcon;
-})();
+}
+AjfNodeIcon.decorators = [
+    { type: Directive }
+];
+AjfNodeIcon.propDecorators = {
+    node: [{ type: Input }]
+};
 
 /**
  * @license
