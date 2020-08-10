@@ -217,15 +217,15 @@
             }
             return image;
         };
-        AjfBarcode.decorators = [
-            { type: core.Directive }
-        ];
-        AjfBarcode.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: core.Renderer2 }
-        ]; };
         return AjfBarcode;
     }());
+    AjfBarcode.decorators = [
+        { type: core.Directive }
+    ];
+    AjfBarcode.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: core.Renderer2 }
+    ]; };
 
     /**
      * @license

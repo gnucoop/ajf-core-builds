@@ -64,14 +64,14 @@
                     return nodeType != null ? "node-" + nodeType.toLowerCase().replace('ajf', '') : '';
             }
         };
-        AjfNodeIcon.decorators = [
-            { type: core.Directive }
-        ];
-        AjfNodeIcon.propDecorators = {
-            node: [{ type: core.Input }]
-        };
         return AjfNodeIcon;
     }());
+    AjfNodeIcon.decorators = [
+        { type: core.Directive }
+    ];
+    AjfNodeIcon.propDecorators = {
+        node: [{ type: core.Input }]
+    };
 
     /**
      * @license

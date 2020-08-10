@@ -166,15 +166,15 @@
         AjfTime.prototype.focusHandler = function () {
             this._onTouchedCallback();
         };
-        AjfTime.decorators = [
-            { type: core.Directive }
-        ];
-        AjfTime.ctorParameters = function () { return []; };
-        AjfTime.propDecorators = {
-            readonly: [{ type: core.Input }]
-        };
         return AjfTime;
     }());
+    AjfTime.decorators = [
+        { type: core.Directive }
+    ];
+    AjfTime.ctorParameters = function () { return []; };
+    AjfTime.propDecorators = {
+        readonly: [{ type: core.Input }]
+    };
 
     /**
      * @license

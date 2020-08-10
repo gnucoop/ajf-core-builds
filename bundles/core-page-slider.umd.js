@@ -111,26 +111,26 @@
                 this._scrollEvt.emit({ x: this._scrollX, y: this._scrollY });
             }
         };
-        AjfPageSliderItem.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ajf-page-slider-item',
-                        template: "<div #content class=\"ajf-page-slider-item-content\">\n  <div #wrapper class=\"ajf-page-slider-item-content-wrapper\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: ["ajf-page-slider-item{display:block;position:relative}ajf-page-slider-item .ajf-page-slider-item-content{position:absolute;top:0;right:0;bottom:0;left:0;padding:0;margin:0;display:flex;align-items:flex-start;justify-content:flex-start;overflow:hidden;box-sizing:border-box}ajf-page-slider-item .ajf-page-slider-item-content .ajf-page-slider-item-content-wrapper{flex:1 1 auto;display:flex;align-items:center;justify-content:center;min-width:100%;min-height:100%}\n"]
-                    },] }
-        ];
-        AjfPageSliderItem.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.Renderer2 }
-        ]; };
-        AjfPageSliderItem.propDecorators = {
-            wrapper: [{ type: core.ViewChild, args: ['wrapper', { static: true },] }],
-            content: [{ type: core.ViewChild, args: ['content', { static: true },] }],
-            scroll: [{ type: core.Output }]
-        };
         return AjfPageSliderItem;
     }());
+    AjfPageSliderItem.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ajf-page-slider-item',
+                    template: "<div #content class=\"ajf-page-slider-item-content\">\n  <div #wrapper class=\"ajf-page-slider-item-content-wrapper\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["ajf-page-slider-item{display:block;position:relative}ajf-page-slider-item .ajf-page-slider-item-content{position:absolute;top:0;right:0;bottom:0;left:0;padding:0;margin:0;display:flex;align-items:flex-start;justify-content:flex-start;overflow:hidden;box-sizing:border-box}ajf-page-slider-item .ajf-page-slider-item-content .ajf-page-slider-item-content-wrapper{flex:1 1 auto;display:flex;align-items:center;justify-content:center;min-width:100%;min-height:100%}\n"]
+                },] }
+    ];
+    AjfPageSliderItem.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.Renderer2 }
+    ]; };
+    AjfPageSliderItem.propDecorators = {
+        wrapper: [{ type: core.ViewChild, args: ['wrapper', { static: true },] }],
+        content: [{ type: core.ViewChild, args: ['content', { static: true },] }],
+        scroll: [{ type: core.Output }]
+    };
 
     /**
      * @license
@@ -492,27 +492,27 @@
         AjfPageSlider.prototype._restoreCurrentPage = function () {
             this._doSlide(true);
         };
-        AjfPageSlider.decorators = [
-            { type: core.Directive }
-        ];
-        AjfPageSlider.ctorParameters = function () { return [
-            { type: animations.AnimationBuilder },
-            { type: core.ChangeDetectorRef },
-            { type: core.Renderer2 }
-        ]; };
-        AjfPageSlider.propDecorators = {
-            body: [{ type: core.ViewChild, args: ['body', { static: true },] }],
-            pages: [{ type: core.ContentChildren, args: [AjfPageSliderItem, { descendants: true },] }],
-            pageScrollFinish: [{ type: core.Output }],
-            orientationChange: [{ type: core.Output }],
-            duration: [{ type: core.Input }],
-            orientation: [{ type: core.Input }],
-            fixedOrientation: [{ type: core.Input }],
-            currentPage: [{ type: core.Input }],
-            hideNavigationButtons: [{ type: core.Input }]
-        };
         return AjfPageSlider;
     }());
+    AjfPageSlider.decorators = [
+        { type: core.Directive }
+    ];
+    AjfPageSlider.ctorParameters = function () { return [
+        { type: animations.AnimationBuilder },
+        { type: core.ChangeDetectorRef },
+        { type: core.Renderer2 }
+    ]; };
+    AjfPageSlider.propDecorators = {
+        body: [{ type: core.ViewChild, args: ['body', { static: true },] }],
+        pages: [{ type: core.ContentChildren, args: [AjfPageSliderItem, { descendants: true },] }],
+        pageScrollFinish: [{ type: core.Output }],
+        orientationChange: [{ type: core.Output }],
+        duration: [{ type: core.Input }],
+        orientation: [{ type: core.Input }],
+        fixedOrientation: [{ type: core.Input }],
+        currentPage: [{ type: core.Input }],
+        hideNavigationButtons: [{ type: core.Input }]
+    };
 
     /**
      * @license
@@ -538,18 +538,18 @@
     var AjfPageSliderModule = /** @class */ (function () {
         function AjfPageSliderModule() {
         }
-        AjfPageSliderModule.decorators = [
-            { type: core.NgModule, args: [{
-                        declarations: [
-                            AjfPageSliderItem,
-                        ],
-                        exports: [
-                            AjfPageSliderItem,
-                        ]
-                    },] }
-        ];
         return AjfPageSliderModule;
     }());
+    AjfPageSliderModule.decorators = [
+        { type: core.NgModule, args: [{
+                    declarations: [
+                        AjfPageSliderItem,
+                    ],
+                    exports: [
+                        AjfPageSliderItem,
+                    ]
+                },] }
+    ];
 
     /**
      * @license

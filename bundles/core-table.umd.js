@@ -89,25 +89,25 @@
             });
             return data;
         };
-        AjfTable.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ajf-table',
-                        template: "<table *ngIf=\"data\">\n  <tr *ngFor=\"let row of data\">\n    <td *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\">\n    </td>\n  </tr>\n</table>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: ["\n"]
-                    },] }
-        ];
-        AjfTable.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: platformBrowser.DomSanitizer }
-        ]; };
-        AjfTable.propDecorators = {
-            data: [{ type: core.Input }],
-            cellpadding: [{ type: core.Input }]
-        };
         return AjfTable;
     }());
+    AjfTable.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ajf-table',
+                    template: "<table *ngIf=\"data\">\n  <tr *ngFor=\"let row of data\">\n    <td *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\">\n    </td>\n  </tr>\n</table>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["\n"]
+                },] }
+    ];
+    AjfTable.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: platformBrowser.DomSanitizer }
+    ]; };
+    AjfTable.propDecorators = {
+        data: [{ type: core.Input }],
+        cellpadding: [{ type: core.Input }]
+    };
 
     /**
      * @license
@@ -133,22 +133,22 @@
     var AjfTableModule = /** @class */ (function () {
         function AjfTableModule() {
         }
-        AjfTableModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [
-                            common.AjfCommonModule,
-                            common$1.CommonModule,
-                        ],
-                        declarations: [
-                            AjfTable,
-                        ],
-                        exports: [
-                            AjfTable,
-                        ]
-                    },] }
-        ];
         return AjfTableModule;
     }());
+    AjfTableModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        common.AjfCommonModule,
+                        common$1.CommonModule,
+                    ],
+                    declarations: [
+                        AjfTable,
+                    ],
+                    exports: [
+                        AjfTable,
+                    ]
+                },] }
+    ];
 
     /**
      * @license

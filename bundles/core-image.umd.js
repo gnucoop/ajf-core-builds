@@ -154,22 +154,22 @@
                 this._renderer.setStyle(el, 'height', fontSize, core.RendererStyleFlags2.Important);
             }
         };
-        AjfImage.decorators = [
-            { type: core.Directive }
-        ];
-        AjfImage.ctorParameters = function () { return [
-            { type: core.ElementRef },
-            { type: core.Renderer2 },
-            { type: platformBrowser.DomSanitizer }
-        ]; };
-        AjfImage.propDecorators = {
-            type: [{ type: core.Input }],
-            imageUrl: [{ type: core.Input }],
-            icon: [{ type: core.Input }],
-            flag: [{ type: core.Input }]
-        };
         return AjfImage;
     }());
+    AjfImage.decorators = [
+        { type: core.Directive }
+    ];
+    AjfImage.ctorParameters = function () { return [
+        { type: core.ElementRef },
+        { type: core.Renderer2 },
+        { type: platformBrowser.DomSanitizer }
+    ]; };
+    AjfImage.propDecorators = {
+        type: [{ type: core.Input }],
+        imageUrl: [{ type: core.Input }],
+        icon: [{ type: core.Input }],
+        flag: [{ type: core.Input }]
+    };
 
     /**
      * @license

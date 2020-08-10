@@ -55,25 +55,25 @@
             enumerable: false,
             configurable: true
         });
-        AjfTextComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ajf-text',
-                        template: "<div class=\"ajf-text-container\" *ngIf=\"innerHTML\" [innerHTML]=\"innerHTML\"></div>\n",
-                        encapsulation: core.ViewEncapsulation.None,
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        styles: ["ajf-text .ajf-text-container{width:100%}ajf-text .ajf-text-container .ajf-ql-size-small{font-size:.75em}ajf-text .ajf-text-container .ajf-ql-size-large{font-size:1.5em}ajf-text .ajf-text-container .ajf-ql-size-huge{font-size:2.5em}ajf-text .ajf-text-container .ajf-ql-size-veryhuge{font-size:3.5em}ajf-text .ajf-text-container .ajf-ql-align-right{text-align:right}ajf-text .ajf-text-container .ajf-ql-align-center{text-align:center}ajf-text .ajf-text-container .ajf-ql-align-justify{text-align:justify}ajf-text .ajf-text-container h1,ajf-text .ajf-text-container h2,ajf-text .ajf-text-container h3,ajf-text .ajf-text-container h4,ajf-text .ajf-text-container h5,ajf-text .ajf-text-container h6{margin:0}\n"]
-                    },] }
-        ];
-        AjfTextComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: platformBrowser.DomSanitizer },
-            { type: core$1.TranslateService }
-        ]; };
-        AjfTextComponent.propDecorators = {
-            htmlText: [{ type: core.Input }]
-        };
         return AjfTextComponent;
     }());
+    AjfTextComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ajf-text',
+                    template: "<div class=\"ajf-text-container\" *ngIf=\"innerHTML\" [innerHTML]=\"innerHTML\"></div>\n",
+                    encapsulation: core.ViewEncapsulation.None,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    styles: ["ajf-text .ajf-text-container{width:100%}ajf-text .ajf-text-container .ajf-ql-size-small{font-size:.75em}ajf-text .ajf-text-container .ajf-ql-size-large{font-size:1.5em}ajf-text .ajf-text-container .ajf-ql-size-huge{font-size:2.5em}ajf-text .ajf-text-container .ajf-ql-size-veryhuge{font-size:3.5em}ajf-text .ajf-text-container .ajf-ql-align-right{text-align:right}ajf-text .ajf-text-container .ajf-ql-align-center{text-align:center}ajf-text .ajf-text-container .ajf-ql-align-justify{text-align:justify}ajf-text .ajf-text-container h1,ajf-text .ajf-text-container h2,ajf-text .ajf-text-container h3,ajf-text .ajf-text-container h4,ajf-text .ajf-text-container h5,ajf-text .ajf-text-container h6{margin:0}\n"]
+                },] }
+    ];
+    AjfTextComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: platformBrowser.DomSanitizer },
+        { type: core$1.TranslateService }
+    ]; };
+    AjfTextComponent.propDecorators = {
+        htmlText: [{ type: core.Input }]
+    };
 
     /**
      * @license
@@ -99,22 +99,22 @@
     var AjfTextModule = /** @class */ (function () {
         function AjfTextModule() {
         }
-        AjfTextModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [
-                            common.CommonModule,
-                            core$1.TranslateModule,
-                        ],
-                        declarations: [
-                            AjfTextComponent,
-                        ],
-                        exports: [
-                            AjfTextComponent,
-                        ]
-                    },] }
-        ];
         return AjfTextModule;
     }());
+    AjfTextModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        common.CommonModule,
+                        core$1.TranslateModule,
+                    ],
+                    declarations: [
+                        AjfTextComponent,
+                    ],
+                    exports: [
+                        AjfTextComponent,
+                    ]
+                },] }
+    ];
 
     /**
      * @license

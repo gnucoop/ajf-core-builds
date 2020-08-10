@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@ajf/core/utils'), require('esprima'), require('@ajf/core/models'), require('date-fns'), require('@angular/cdk/coercion'), require('@ajf/core/page-slider'), require('@ajf/core/common'), require('@ajf/core/file-input'), require('@angular/common'), require('@angular/common/http'), require('@angular/platform-browser')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/core', '@angular/forms', 'rxjs', 'rxjs/operators', '@ajf/core/utils', 'esprima', '@ajf/core/models', 'date-fns', '@angular/cdk/coercion', '@ajf/core/page-slider', '@ajf/core/common', '@ajf/core/file-input', '@angular/common', '@angular/common/http', '@angular/platform-browser'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.core.utils, global.esprima, global.ng.core.models, global.dateFns, global.ng.cdk.coercion, global.ng.core.pageSlider, global.ng.core.common, global.ng.core.fileInput, global.ng.common, global.ng.common.http, global.ng.platformBrowser));
-}(this, (function (exports, core, forms, rxjs, operators, utils, esprima, models, dateFns, coercion, pageSlider, common, fileInput, common$1, http, platformBrowser) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@ajf/core/utils'), require('esprima'), require('@ajf/core/models'), require('date-fns'), require('@angular/cdk/coercion'), require('@ajf/core/common'), require('@ajf/core/file-input'), require('@angular/common'), require('@angular/common/http'), require('@angular/platform-browser')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/core', '@angular/forms', 'rxjs', 'rxjs/operators', '@ajf/core/utils', 'esprima', '@ajf/core/models', 'date-fns', '@angular/cdk/coercion', '@ajf/core/common', '@ajf/core/file-input', '@angular/common', '@angular/common/http', '@angular/platform-browser'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.core.utils, global.esprima, global.ng.core.models, global.dateFns, global.ng.cdk.coercion, global.ng.core.common, global.ng.core.fileInput, global.ng.common, global.ng.common.http, global.ng.platformBrowser));
+}(this, (function (exports, core, forms, rxjs, operators, utils, esprima, models, dateFns, coercion, common, fileInput, common$1, http, platformBrowser) { 'use strict';
 
     /**
      * @license
@@ -31,11 +31,11 @@
         AjfAsFieldInstancePipe.prototype.transform = function (instance) {
             return instance;
         };
-        AjfAsFieldInstancePipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfAsFieldInstance' },] }
-        ];
         return AjfAsFieldInstancePipe;
     }());
+    AjfAsFieldInstancePipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfAsFieldInstance' },] }
+    ];
 
     /**
      * @license
@@ -64,11 +64,11 @@
         AjfAsRepeatingSlideInstancePipe.prototype.transform = function (instance) {
             return instance;
         };
-        AjfAsRepeatingSlideInstancePipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfAsRepeatingSlideInstance' },] }
-        ];
         return AjfAsRepeatingSlideInstancePipe;
     }());
+    AjfAsRepeatingSlideInstancePipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfAsRepeatingSlideInstance' },] }
+    ];
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -85,35 +85,36 @@
     PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
-
-    var extendStatics = function(d, b) {
+    var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b)
+                if (b.hasOwnProperty(p))
+                    d[p] = b[p]; };
         return extendStatics(d, b);
     };
-
     function __extends(d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
-
-    var __assign = function() {
+    var __assign = function () {
         __assign = Object.assign || function __assign(t) {
             for (var s, i = 1, n = arguments.length; i < n; i++) {
                 s = arguments[i];
-                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+                for (var p in s)
+                    if (Object.prototype.hasOwnProperty.call(s, p))
+                        t[p] = s[p];
             }
             return t;
         };
         return __assign.apply(this, arguments);
     };
-
     function __rest(s, e) {
         var t = {};
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
+        for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+                t[p] = s[p];
         if (s != null && typeof Object.getOwnPropertySymbols === "function")
             for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
                 if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
@@ -121,175 +122,247 @@
             }
         return t;
     }
-
     function __decorate(decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+            r = Reflect.decorate(decorators, target, key, desc);
+        else
+            for (var i = decorators.length - 1; i >= 0; i--)
+                if (d = decorators[i])
+                    r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     }
-
     function __param(paramIndex, decorator) {
-        return function (target, key) { decorator(target, key, paramIndex); }
+        return function (target, key) { decorator(target, key, paramIndex); };
     }
-
     function __metadata(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+            return Reflect.metadata(metadataKey, metadataValue);
     }
-
     function __awaiter(thisArg, _arguments, P, generator) {
         function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function fulfilled(value) { try {
+                step(generator.next(value));
+            }
+            catch (e) {
+                reject(e);
+            } }
+            function rejected(value) { try {
+                step(generator["throw"](value));
+            }
+            catch (e) {
+                reject(e);
+            } }
             function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
-
     function __generator(thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        var _ = { label: 0, sent: function () { if (t[0] & 1)
+                throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function () { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
         function step(op) {
-            if (f) throw new TypeError("Generator is already executing.");
-            while (_) try {
-                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-                if (y = 0, t) op = [op[0] & 2, t.value];
-                switch (op[0]) {
-                    case 0: case 1: t = op; break;
-                    case 4: _.label++; return { value: op[1], done: false };
-                    case 5: _.label++; y = op[1]; op = [0]; continue;
-                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                    default:
-                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                        if (t[2]) _.ops.pop();
-                        _.trys.pop(); continue;
+            if (f)
+                throw new TypeError("Generator is already executing.");
+            while (_)
+                try {
+                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
+                        return t;
+                    if (y = 0, t)
+                        op = [op[0] & 2, t.value];
+                    switch (op[0]) {
+                        case 0:
+                        case 1:
+                            t = op;
+                            break;
+                        case 4:
+                            _.label++;
+                            return { value: op[1], done: false };
+                        case 5:
+                            _.label++;
+                            y = op[1];
+                            op = [0];
+                            continue;
+                        case 7:
+                            op = _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                        default:
+                            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                                _ = 0;
+                                continue;
+                            }
+                            if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                                _.label = op[1];
+                                break;
+                            }
+                            if (op[0] === 6 && _.label < t[1]) {
+                                _.label = t[1];
+                                t = op;
+                                break;
+                            }
+                            if (t && _.label < t[2]) {
+                                _.label = t[2];
+                                _.ops.push(op);
+                                break;
+                            }
+                            if (t[2])
+                                _.ops.pop();
+                            _.trys.pop();
+                            continue;
+                    }
+                    op = body.call(thisArg, _);
                 }
-                op = body.call(thisArg, _);
-            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+                catch (e) {
+                    op = [6, e];
+                    y = 0;
+                }
+                finally {
+                    f = t = 0;
+                }
+            if (op[0] & 5)
+                throw op[1];
+            return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-
-    var __createBinding = Object.create ? (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-    }) : (function(o, m, k, k2) {
-        if (k2 === undefined) k2 = k;
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
         o[k2] = m[k];
     });
-
     function __exportStar(m, exports) {
-        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+        for (var p in m)
+            if (p !== "default" && !exports.hasOwnProperty(p))
+                __createBinding(exports, m, p);
     }
-
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m) return m.call(o);
-        if (o && typeof o.length === "number") return {
-            next: function () {
-                if (o && i >= o.length) o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
+        if (m)
+            return m.call(o);
+        if (o && typeof o.length === "number")
+            return {
+                next: function () {
+                    if (o && i >= o.length)
+                        o = void 0;
+                    return { value: o && o[i++], done: !o };
+                }
+            };
         throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
-
     function __read(o, n) {
         var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
+        if (!m)
+            return o;
         var i = m.call(o), r, ar = [], e;
         try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+                ar.push(r.value);
         }
-        catch (error) { e = { error: error }; }
+        catch (error) {
+            e = { error: error };
+        }
         finally {
             try {
-                if (r && !r.done && (m = i["return"])) m.call(i);
+                if (r && !r.done && (m = i["return"]))
+                    m.call(i);
             }
-            finally { if (e) throw e.error; }
+            finally {
+                if (e)
+                    throw e.error;
+            }
         }
         return ar;
     }
-
     function __spread() {
         for (var ar = [], i = 0; i < arguments.length; i++)
             ar = ar.concat(__read(arguments[i]));
         return ar;
     }
-
     function __spreadArrays() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+            s += arguments[i].length;
         for (var r = Array(s), k = 0, i = 0; i < il; i++)
             for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
                 r[k] = a[j];
         return r;
-    };
-
+    }
+    ;
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
-
     function __asyncGenerator(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var g = generator.apply(thisArg, _arguments || []), i, q = [];
         return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function verb(n) { if (g[n])
+            i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try {
+            step(g[n](v));
+        }
+        catch (e) {
+            settle(q[0][3], e);
+        } }
         function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
         function fulfill(value) { resume("next", value); }
         function reject(value) { resume("throw", value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+        function settle(f, v) { if (f(v), q.shift(), q.length)
+            resume(q[0][0], q[0][1]); }
     }
-
     function __asyncDelegator(o) {
         var i, p;
         return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
         function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
     }
-
     function __asyncValues(o) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        if (!Symbol.asyncIterator)
+            throw new TypeError("Symbol.asyncIterator is not defined.");
         var m = o[Symbol.asyncIterator], i;
         return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
         function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function (v) { resolve({ value: v, done: d }); }, reject); }
     }
-
     function __makeTemplateObject(cooked, raw) {
-        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        if (Object.defineProperty) {
+            Object.defineProperty(cooked, "raw", { value: raw });
+        }
+        else {
+            cooked.raw = raw;
+        }
         return cooked;
-    };
-
-    var __setModuleDefault = Object.create ? (function(o, v) {
+    }
+    ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
         Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
+    }) : function (o, v) {
         o["default"] = v;
     };
-
     function __importStar(mod) {
-        if (mod && mod.__esModule) return mod;
+        if (mod && mod.__esModule)
+            return mod;
         var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+        if (mod != null)
+            for (var k in mod)
+                if (Object.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
     }
-
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-
     function __classPrivateFieldGet(receiver, privateMap) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to get private field on non-instance");
         }
         return privateMap.get(receiver);
     }
-
     function __classPrivateFieldSet(receiver, privateMap, value) {
         if (!privateMap.has(receiver)) {
             throw new TypeError("attempted to set private field on non-instance");
@@ -1365,7 +1438,7 @@
         var conditionalBranches = node.conditionalBranches != null && node.conditionalBranches.length > 0 ?
             node.conditionalBranches :
             [models.alwaysCondition()];
-        return __assign(__assign({}, node), { parentNode: node.parentNode != null ? node.parentNode : 0, label: node.label || '', visibility: node.visibility || models.alwaysCondition(), conditionalBranches: conditionalBranches });
+        return Object.assign(Object.assign({}, node), { parentNode: node.parentNode != null ? node.parentNode : 0, label: node.label || '', visibility: node.visibility || models.alwaysCondition(), conditionalBranches: conditionalBranches });
     }
 
     /**
@@ -1390,11 +1463,11 @@
      *
      */
     function createField(field) {
-        var node = createNode(__assign(__assign({}, field), { nodeType: exports.AjfNodeType.AjfField }));
+        var node = createNode(Object.assign(Object.assign({}, field), { nodeType: exports.AjfNodeType.AjfField }));
         var editable = field.editable != null ?
             field.editable :
             field.fieldType !== exports.AjfFieldType.Formula && field.fieldType !== exports.AjfFieldType.Table;
-        return __assign(__assign(__assign({}, node), field), { nodeType: exports.AjfNodeType.AjfField, editable: editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
+        return Object.assign(Object.assign(Object.assign({}, node), field), { nodeType: exports.AjfNodeType.AjfField, editable: editable, defaultValue: field.defaultValue != null ? field.defaultValue : null, size: field.size || 'normal' });
     }
 
     /**
@@ -1718,27 +1791,6 @@
         return nodeInstance != null && nodeInstance.node != null && isSlideNode(nodeInstance.node);
     }
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     function createNodeInstance(instance) {
         return {
             node: instance.node,
@@ -1782,33 +1834,12 @@
                 value = context[completeName];
             }
         }
-        return __assign(__assign({}, nodeInstance), { node: instance.node, value: value, valid: false, defaultValue: instance.defaultValue != null ? instance.defaultValue : null, validationResults: instance.validationResults || [], warningResults: instance.warningResults || [], warningTrigger: new core.EventEmitter() });
+        return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, value: value, valid: false, defaultValue: instance.defaultValue != null ? instance.defaultValue : null, validationResults: instance.validationResults || [], warningResults: instance.warningResults || [], warningTrigger: new core.EventEmitter() });
     }
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     function createFieldWithChoicesInstance(instance, context) {
         var fieldInstance = createFieldInstance(instance, context);
-        return __assign(__assign({}, fieldInstance), { node: instance.node, filteredChoices: __spread(instance.node.choices), firstTriggerConditionDone: {}, selectionTrigger: new core.EventEmitter() });
+        return Object.assign(Object.assign({}, fieldInstance), { node: instance.node, filteredChoices: __spread(instance.node.choices), firstTriggerConditionDone: {}, selectionTrigger: new core.EventEmitter() });
     }
 
     /**
@@ -1849,7 +1880,7 @@
     function createTableFieldInstance(instance, context) {
         normalizeRows(instance.node);
         var fieldInstance = createFieldInstance(instance, context);
-        return __assign(__assign({}, fieldInstance), { node: instance.node, context: context, hideEmptyRows: instance.hideEmptyRows || false, controls: [] });
+        return Object.assign(Object.assign({}, fieldInstance), { node: instance.node, context: context, hideEmptyRows: instance.hideEmptyRows || false, controls: [] });
     }
 
     /**
@@ -1875,7 +1906,7 @@
      */
     function createNodeGroupInstance(instance) {
         var nodeInstance = createNodeInstance(instance);
-        return __assign(__assign({}, nodeInstance), { node: instance.node, formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
+        return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
     }
 
     /**
@@ -1901,7 +1932,7 @@
      */
     function createSlideInstance(instance) {
         var nodeInstance = createNodeInstance(instance);
-        return __assign(__assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0 });
+        return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0 });
     }
 
     /**
@@ -1928,8 +1959,8 @@
     function createRepeatingSlideInstance(instance) {
         var node = instance.node, slideInstanceCreate = __rest(instance, ["node"]);
         var nodeType = node.nodeType, slideNode = __rest(node, ["nodeType"]);
-        var slideInstance = createSlideInstance(__assign(__assign({}, slideInstanceCreate), { node: __assign({ nodeType: exports.AjfNodeType.AjfSlide }, slideNode) }));
-        return __assign(__assign({}, slideInstance), { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
+        var slideInstance = createSlideInstance(Object.assign(Object.assign({}, slideInstanceCreate), { node: Object.assign({ nodeType: exports.AjfNodeType.AjfSlide }, slideNode) }));
+        return Object.assign(Object.assign({}, slideInstance), { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
     }
 
     /**
@@ -1954,7 +1985,7 @@
      *
      */
     function createValidationGroup(group) {
-        return __assign(__assign({}, group), { conditions: group.conditions || [] });
+        return Object.assign(Object.assign({}, group), { conditions: group.conditions || [] });
     }
 
     /**
@@ -1979,7 +2010,7 @@
      *
      */
     function createWarningGroup(group) {
-        return __assign(__assign({}, group), { conditions: group.conditions || [] });
+        return Object.assign(Object.assign({}, group), { conditions: group.conditions || [] });
     }
 
     /**
@@ -2193,7 +2224,7 @@
      *
      */
     function createValidation(validation) {
-        return __assign(__assign({}, validation), { clientValidation: validation.clientValidation || false, errorMessage: validation.errorMessage || 'Undefined Error' });
+        return Object.assign(Object.assign({}, validation), { clientValidation: validation.clientValidation || false, errorMessage: validation.errorMessage || 'Undefined Error' });
     }
 
     /**
@@ -2281,7 +2312,7 @@
      *
      */
     function createWarning(warning) {
-        return __assign(__assign({}, warning), { warningMessage: warning.warningMessage || 'Undefined Warning' });
+        return Object.assign(Object.assign({}, warning), { warningMessage: warning.warningMessage || 'Undefined Warning' });
     }
 
     /**
@@ -2769,34 +2800,13 @@
             this._functionsStr = this._baseUtilFunctions.join('; ') + "; " + functionsStr;
             models.AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
         };
-        AjfValidationService.decorators = [
-            { type: core.Injectable }
-        ];
-        AjfValidationService.ctorParameters = function () { return []; };
         return AjfValidationService;
     }());
+    AjfValidationService.decorators = [
+        { type: core.Injectable }
+    ];
+    AjfValidationService.ctorParameters = function () { return []; };
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfFormRendererService = /** @class */ (function () {
         function AjfFormRendererService(_) {
             this._visibilityNodesMapUpdates = new rxjs.Subject();
@@ -3871,36 +3881,15 @@
                 });
             }
         };
-        AjfFormRendererService.decorators = [
-            { type: core.Injectable }
-        ];
-        AjfFormRendererService.ctorParameters = function () { return [
-            { type: AjfValidationService }
-        ]; };
         return AjfFormRendererService;
     }());
+    AjfFormRendererService.decorators = [
+        { type: core.Injectable }
+    ];
+    AjfFormRendererService.ctorParameters = function () { return [
+        { type: AjfValidationService }
+    ]; };
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfBaseFieldComponent = /** @class */ (function () {
         function AjfBaseFieldComponent(_changeDetectorRef, _service, _warningAlertService) {
             var _this = this;
@@ -3988,16 +3977,16 @@
             }
             this._changeDetectorRef.detectChanges();
         };
-        AjfBaseFieldComponent.decorators = [
-            { type: core.Directive }
-        ];
-        AjfBaseFieldComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: AjfFormRendererService },
-            { type: undefined }
-        ]; };
         return AjfBaseFieldComponent;
     }());
+    AjfBaseFieldComponent.decorators = [
+        { type: core.Directive }
+    ];
+    AjfBaseFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined }
+    ]; };
 
     /**
      * @license
@@ -4026,11 +4015,11 @@
         AjfBoolToIntPipe.prototype.transform = function (value) {
             return value ? 1 : 0;
         };
-        AjfBoolToIntPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfBoolToInt' },] }
-        ];
         return AjfBoolToIntPipe;
     }());
+    AjfBoolToIntPipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfBoolToInt' },] }
+    ];
 
     /**
      * @license
@@ -4062,11 +4051,11 @@
             }
             return date === 'today' ? new Date() : date;
         };
-        AjfDateValuePipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfDateValue' },] }
-        ];
         return AjfDateValuePipe;
     }());
+    AjfDateValuePipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfDateValue' },] }
+    ];
 
     /**
      * @license
@@ -4099,34 +4088,13 @@
             var dateObj = date === 'today' ? new Date() : date;
             return dateFns.format(dateObj, 'yyyy-MM-dd');
         };
-        AjfDateValueStringPipe.decorators = [
-            { type: core.Injectable },
-            { type: core.Pipe, args: [{ name: 'ajfDateValueString' },] }
-        ];
         return AjfDateValueStringPipe;
     }());
+    AjfDateValueStringPipe.decorators = [
+        { type: core.Injectable },
+        { type: core.Pipe, args: [{ name: 'ajfDateValueString' },] }
+    ];
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     /**
      * This class will define an Ajf invalid field definition error
      */
@@ -4174,11 +4142,11 @@
                 (instance.node.forceExpanded ||
                     (instance.filteredChoices && instance.filteredChoices.length <= threshold));
         };
-        AjfExpandFieldWithChoicesPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
-        ];
         return AjfExpandFieldWithChoicesPipe;
     }());
+    AjfExpandFieldWithChoicesPipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfExpandFieldWithChoices' },] }
+    ];
 
     /**
      * @license
@@ -4205,14 +4173,14 @@
         function AjfFieldHost(viewContainerRef) {
             this.viewContainerRef = viewContainerRef;
         }
-        AjfFieldHost.decorators = [
-            { type: core.Directive, args: [{ selector: '[ajf-field-host]' },] }
-        ];
-        AjfFieldHost.ctorParameters = function () { return [
-            { type: core.ViewContainerRef }
-        ]; };
         return AjfFieldHost;
     }());
+    AjfFieldHost.decorators = [
+        { type: core.Directive, args: [{ selector: '[ajf-field-host]' },] }
+    ];
+    AjfFieldHost.ctorParameters = function () { return [
+        { type: core.ViewContainerRef }
+    ]; };
 
     /**
      * @license
@@ -4311,20 +4279,20 @@
                 console.log(e);
             }
         };
-        AjfFormField.decorators = [
-            { type: core.Directive }
-        ];
-        AjfFormField.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: core.ComponentFactoryResolver }
-        ]; };
-        AjfFormField.propDecorators = {
-            fieldHost: [{ type: core.ViewChild, args: [AjfFieldHost, { static: true },] }],
-            instance: [{ type: core.Input }],
-            readonly: [{ type: core.Input }]
-        };
         return AjfFormField;
     }());
+    AjfFormField.decorators = [
+        { type: core.Directive }
+    ];
+    AjfFormField.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: core.ComponentFactoryResolver }
+    ]; };
+    AjfFormField.propDecorators = {
+        fieldHost: [{ type: core.ViewChild, args: [AjfFieldHost, { static: true },] }],
+        instance: [{ type: core.Input }],
+        readonly: [{ type: core.Input }]
+    };
 
     /**
      * @license
@@ -4378,11 +4346,11 @@
         AjfFieldIconPipe.prototype.transform = function (field) {
             return fieldIconName(field.fieldType ? field.fieldType : field);
         };
-        AjfFieldIconPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfFieldIcon' },] }
-        ];
         return AjfFieldIconPipe;
     }());
+    AjfFieldIconPipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfFieldIcon' },] }
+    ];
 
     /**
      * @license
@@ -4411,11 +4379,11 @@
         AjfFieldIsValidPipe.prototype.transform = function (validationResults) {
             return validationResults != null && validationResults.filter(function (f) { return !f.result; }).length === 0;
         };
-        AjfFieldIsValidPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfFieldIsValid' },] }
-        ];
         return AjfFieldIsValidPipe;
     }());
+    AjfFieldIsValidPipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfFieldIsValid' },] }
+    ];
 
     /**
      * @license
@@ -4477,27 +4445,6 @@
      *
      */
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfFieldWithChoicesComponent = /** @class */ (function (_super) {
         __extends(AjfFieldWithChoicesComponent, _super);
         function AjfFieldWithChoicesComponent(cdr, service, warningAlertService, searchThreshold) {
@@ -4541,70 +4488,28 @@
      */
     var AJF_WARNING_ALERT_SERVICE = new core.InjectionToken('ajf-warning-alert-service');
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfFileFieldComponent = /** @class */ (function (_super) {
         __extends(AjfFileFieldComponent, _super);
         function AjfFileFieldComponent(cdr, service, was) {
             return _super.call(this, cdr, service, was) || this;
         }
-        AjfFileFieldComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ajf-file-field',
-                        template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: ["\n"]
-                    },] }
-        ];
-        AjfFileFieldComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: AjfFormRendererService },
-            { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-        ]; };
         return AjfFileFieldComponent;
     }(AjfBaseFieldComponent));
+    AjfFileFieldComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ajf-file-field',
+                    template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["\n"]
+                },] }
+    ];
+    AjfFileFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+    ]; };
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfFormActionEvent = /** @class */ (function () {
         function AjfFormActionEvent() {
         }
@@ -4644,7 +4549,7 @@
             this.errors = _rendererService.errors;
             this.slidesNum = _rendererService.slidesNum;
             this.formIsInit =
-                _rendererService.formInitEvent.pipe(operators.map(function (e) { return e === 1 /* Complete */; }));
+                _rendererService.formInitEvent.pipe(operators.map(function (e) { return e === 1; } /* Complete */));
         }
         Object.defineProperty(AjfFormRenderer.prototype, "saveDisabled", {
             get: function () {
@@ -4888,32 +4793,32 @@
         AjfFormRenderer.prototype.trackNodeById = function (_, node) {
             return nodeInstanceCompleteName(node);
         };
-        AjfFormRenderer.decorators = [
-            { type: core.Directive }
-        ];
-        AjfFormRenderer.ctorParameters = function () { return [
-            { type: AjfFormRendererService },
-            { type: core.ChangeDetectorRef }
-        ]; };
-        AjfFormRenderer.propDecorators = {
-            title: [{ type: core.Input }],
-            orientationChange: [{ type: core.Output }],
-            saveDisabled: [{ type: core.Input }],
-            hasStartMessage: [{ type: core.Input }],
-            hasEndMessage: [{ type: core.Input }],
-            hideTopToolbar: [{ type: core.Input }],
-            hideBottomToolbar: [{ type: core.Input }],
-            hideNavigationButtons: [{ type: core.Input }],
-            fixedOrientation: [{ type: core.Input }],
-            readonly: [{ type: core.Input }],
-            orientation: [{ type: core.Input }],
-            formSlider: [{ type: core.ViewChild, args: ['formSlider', { static: false },] }],
-            fields: [{ type: core.ViewChildren, args: [AjfFormField,] }],
-            formAction: [{ type: core.Output }],
-            form: [{ type: core.Input }]
-        };
         return AjfFormRenderer;
     }());
+    AjfFormRenderer.decorators = [
+        { type: core.Directive }
+    ];
+    AjfFormRenderer.ctorParameters = function () { return [
+        { type: AjfFormRendererService },
+        { type: core.ChangeDetectorRef }
+    ]; };
+    AjfFormRenderer.propDecorators = {
+        title: [{ type: core.Input }],
+        orientationChange: [{ type: core.Output }],
+        saveDisabled: [{ type: core.Input }],
+        hasStartMessage: [{ type: core.Input }],
+        hasEndMessage: [{ type: core.Input }],
+        hideTopToolbar: [{ type: core.Input }],
+        hideBottomToolbar: [{ type: core.Input }],
+        hideNavigationButtons: [{ type: core.Input }],
+        fixedOrientation: [{ type: core.Input }],
+        readonly: [{ type: core.Input }],
+        orientation: [{ type: core.Input }],
+        formSlider: [{ type: core.ViewChild, args: ['formSlider', { static: false },] }],
+        fields: [{ type: core.ViewChildren, args: [AjfFormField,] }],
+        formAction: [{ type: core.Output }],
+        form: [{ type: core.Input }]
+    };
 
     /**
      * @license
@@ -4945,33 +4850,12 @@
             }
             return ctrl;
         };
-        AjfGetTableCellControlPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfGetTableCellControl' },] }
-        ];
         return AjfGetTableCellControlPipe;
     }());
+    AjfGetTableCellControlPipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfGetTableCellControl' },] }
+    ];
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfImageFieldComponent = /** @class */ (function (_super) {
         __extends(AjfImageFieldComponent, _super);
         function AjfImageFieldComponent(cdr, service, was, domSanitizer) {
@@ -4983,23 +4867,23 @@
             _this.imageUrl = fileStream.pipe(operators.map(function (file) { return domSanitizer.bypassSecurityTrustResourceUrl(file.content); }));
             return _this;
         }
-        AjfImageFieldComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ajf-image-field',
-                        template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"]
-                    },] }
-        ];
-        AjfImageFieldComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: AjfFormRendererService },
-            { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
-            { type: platformBrowser.DomSanitizer }
-        ]; };
         return AjfImageFieldComponent;
     }(AjfBaseFieldComponent));
+    AjfImageFieldComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ajf-image-field',
+                    template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"]
+                },] }
+    ];
+    AjfImageFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+        { type: platformBrowser.DomSanitizer }
+    ]; };
 
     /**
      * @license
@@ -5029,11 +4913,11 @@
             if (increment === void 0) { increment = 1; }
             return value + increment;
         };
-        AjfIncrementPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfIncrement' },] }
-        ];
         return AjfIncrementPipe;
     }());
+    AjfIncrementPipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfIncrement' },] }
+    ];
 
     /**
      * @license
@@ -5065,11 +4949,11 @@
             }
             return cell.editable === true;
         };
-        AjfIsCellEditablePipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfIsCellEditable' },] }
-        ];
         return AjfIsCellEditablePipe;
     }());
+    AjfIsCellEditablePipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfIsCellEditable' },] }
+    ];
 
     /**
      * @license
@@ -5098,11 +4982,11 @@
         AjfIsRepeatingSlideInstancePipe.prototype.transform = function (instance) {
             return isRepeatingSlideInstance(instance);
         };
-        AjfIsRepeatingSlideInstancePipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfIsRepeatingSlideInstance' },] }
-        ];
         return AjfIsRepeatingSlideInstancePipe;
     }());
+    AjfIsRepeatingSlideInstancePipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfIsRepeatingSlideInstance' },] }
+    ];
 
     /**
      * @license
@@ -5131,11 +5015,11 @@
         AjfNodeCompleteNamePipe.prototype.transform = function (instance) {
             return instance ? nodeInstanceCompleteName(instance) : '';
         };
-        AjfNodeCompleteNamePipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfNodeCompleteName' },] }
-        ];
         return AjfNodeCompleteNamePipe;
     }());
+    AjfNodeCompleteNamePipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfNodeCompleteName' },] }
+    ];
 
     /**
      * @license
@@ -5166,113 +5050,50 @@
             if (start === void 0) { start = 1; }
             if (step === void 0) { step = 1; }
             var range = [];
-            for (var length_1 = 0; length_1 < size; ++length_1) {
+            for (var length = 0; length < size; ++length) {
                 range.push(start);
                 start += step;
             }
             return range;
         };
-        AjfRangePipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfRange' },] }
-        ];
         return AjfRangePipe;
     }());
+    AjfRangePipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfRange' },] }
+    ];
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfInputFieldComponent = /** @class */ (function (_super) {
         __extends(AjfInputFieldComponent, _super);
         function AjfInputFieldComponent() {
-            var _this = _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.apply(this, __spread(arguments)) || this;
             _this.type = 'text';
             return _this;
         }
         return AjfInputFieldComponent;
     }(AjfBaseFieldComponent));
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfReadOnlyFieldComponent = /** @class */ (function (_super) {
         __extends(AjfReadOnlyFieldComponent, _super);
         function AjfReadOnlyFieldComponent(cdr, service, was) {
             return _super.call(this, cdr, service, was) || this;
         }
-        AjfReadOnlyFieldComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ajf-read-only-field',
-                        template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
-                    },] }
-        ];
-        AjfReadOnlyFieldComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: AjfFormRendererService },
-            { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-        ]; };
         return AjfReadOnlyFieldComponent;
     }(AjfInputFieldComponent));
+    AjfReadOnlyFieldComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ajf-read-only-field',
+                    template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"]
+                },] }
+    ];
+    AjfReadOnlyFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+    ]; };
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfReadOnlyFileFieldComponent = /** @class */ (function (_super) {
         __extends(AjfReadOnlyFileFieldComponent, _super);
         function AjfReadOnlyFileFieldComponent(cdr, service, was, domSanitizer) {
@@ -5286,45 +5107,24 @@
             _this.fileName = fileStream.pipe(operators.map(function (file) { return file.name; }));
             return _this;
         }
-        AjfReadOnlyFileFieldComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ajf-read-only-file-field',
-                        template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"]
-                    },] }
-        ];
-        AjfReadOnlyFileFieldComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: AjfFormRendererService },
-            { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
-            { type: platformBrowser.DomSanitizer }
-        ]; };
         return AjfReadOnlyFileFieldComponent;
     }(AjfBaseFieldComponent));
+    AjfReadOnlyFileFieldComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ajf-read-only-file-field',
+                    template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"]
+                },] }
+    ];
+    AjfReadOnlyFileFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+        { type: platformBrowser.DomSanitizer }
+    ]; };
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfReadOnlyImageFieldComponent = /** @class */ (function (_super) {
         __extends(AjfReadOnlyImageFieldComponent, _super);
         function AjfReadOnlyImageFieldComponent(cdr, service, was, domSanitizer) {
@@ -5336,87 +5136,45 @@
             _this.imageUrl = fileStream.pipe(operators.map(function (file) { return domSanitizer.bypassSecurityTrustResourceUrl(file.content); }));
             return _this;
         }
-        AjfReadOnlyImageFieldComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ajf-read-only-image-field',
-                        template: "<img *ngIf=\"imageUrl|async as iu ; else noImage\" [src]=\"imageUrl|async\">\n<ng-template #noImage>\n  <div class=\"ajf-no-image-placeholder\"></div>\n</ng-template>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"]
-                    },] }
-        ];
-        AjfReadOnlyImageFieldComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: AjfFormRendererService },
-            { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
-            { type: platformBrowser.DomSanitizer }
-        ]; };
         return AjfReadOnlyImageFieldComponent;
     }(AjfBaseFieldComponent));
+    AjfReadOnlyImageFieldComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ajf-read-only-image-field',
+                    template: "<img *ngIf=\"imageUrl|async as iu ; else noImage\" [src]=\"imageUrl|async\">\n<ng-template #noImage>\n  <div class=\"ajf-no-image-placeholder\"></div>\n</ng-template>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"]
+                },] }
+    ];
+    AjfReadOnlyImageFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+        { type: platformBrowser.DomSanitizer }
+    ]; };
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfReadOnlyTableFieldComponent = /** @class */ (function (_super) {
         __extends(AjfReadOnlyTableFieldComponent, _super);
         function AjfReadOnlyTableFieldComponent(cdr, service, was) {
             return _super.call(this, cdr, service, was) || this;
         }
-        AjfReadOnlyTableFieldComponent.decorators = [
-            { type: core.Component, args: [{
-                        template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: ["\n"]
-                    },] }
-        ];
-        AjfReadOnlyTableFieldComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: AjfFormRendererService },
-            { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-        ]; };
         return AjfReadOnlyTableFieldComponent;
     }(AjfBaseFieldComponent));
+    AjfReadOnlyTableFieldComponent.decorators = [
+        { type: core.Component, args: [{
+                    template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["\n"]
+                },] }
+    ];
+    AjfReadOnlyTableFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+    ]; };
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfVideoUrlFieldComponent = /** @class */ (function (_super) {
         __extends(AjfVideoUrlFieldComponent, _super);
         function AjfVideoUrlFieldComponent(cdr, service, was, domSanitizer, httpClient) {
@@ -5429,15 +5187,15 @@
             _this.videoThumbnail = video.pipe(operators.filter(function (info) { return info != null; }), operators.switchMap(function (info) { return videoPreviewUrl(httpClient, info); }), operators.filter(function (url) { return url != null; }), operators.map(function (url) { return domSanitizer.bypassSecurityTrustResourceUrl(url); }));
             return _this;
         }
-        AjfVideoUrlFieldComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: AjfFormRendererService },
-            { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
-            { type: platformBrowser.DomSanitizer },
-            { type: http.HttpClient }
-        ]; };
         return AjfVideoUrlFieldComponent;
     }(AjfBaseFieldComponent));
+    AjfVideoUrlFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+        { type: platformBrowser.DomSanitizer },
+        { type: http.HttpClient }
+    ]; };
     function videoPreviewUrl(httpClient, video) {
         if (video.provider === 'youtube') {
             return rxjs.of("https://img.youtube.com/vi/" + video.id + "/default.jpg");
@@ -5552,50 +5310,29 @@
         return url;
     }
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfReadOnlyVideoUrlFieldComponent = /** @class */ (function (_super) {
         __extends(AjfReadOnlyVideoUrlFieldComponent, _super);
         function AjfReadOnlyVideoUrlFieldComponent(cdr, service, was, domSanitizer, httpClient) {
             return _super.call(this, cdr, service, was, domSanitizer, httpClient) || this;
         }
-        AjfReadOnlyVideoUrlFieldComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ajf-read-only-video-url-field',
-                        template: "<div *ngIf=\"control|async as ctrl\" class=\"ajf-video-thumbnail\">\n  <ng-container *ngIf=\"validUrl|async\">\n    <a target=\"_blank\" [href]=\"ctrl.value\">\n      <img *ngIf=\"videoThumbnail|async as thumb\" [src]=\"thumb\" class=\"\" alt=\"\">\n    </a>\n  </ng-container>\n</div>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: ["\n"]
-                    },] }
-        ];
-        AjfReadOnlyVideoUrlFieldComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: AjfFormRendererService },
-            { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
-            { type: platformBrowser.DomSanitizer },
-            { type: http.HttpClient }
-        ]; };
         return AjfReadOnlyVideoUrlFieldComponent;
     }(AjfVideoUrlFieldComponent));
+    AjfReadOnlyVideoUrlFieldComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ajf-read-only-video-url-field',
+                    template: "<div *ngIf=\"control|async as ctrl\" class=\"ajf-video-thumbnail\">\n  <ng-container *ngIf=\"validUrl|async\">\n    <a target=\"_blank\" [href]=\"ctrl.value\">\n      <img *ngIf=\"videoThumbnail|async as thumb\" [src]=\"thumb\" class=\"\" alt=\"\">\n    </a>\n  </ng-container>\n</div>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["\n"]
+                },] }
+    ];
+    AjfReadOnlyVideoUrlFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] },
+        { type: platformBrowser.DomSanitizer },
+        { type: http.HttpClient }
+    ]; };
 
     /**
      * @license
@@ -5624,33 +5361,12 @@
         AjfTableRowClass.prototype.transform = function (value) {
             return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
         };
-        AjfTableRowClass.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfTableRowClass' },] }
-        ];
         return AjfTableRowClass;
     }());
+    AjfTableRowClass.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfTableRowClass' },] }
+    ];
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfTableVisibleColumnsPipe = /** @class */ (function () {
         function AjfTableVisibleColumnsPipe() {
         }
@@ -5667,11 +5383,11 @@
             return (instance.controls || [])
                 .map(function (v) { return __spread([v[0]], v[1]); });
         };
-        AjfTableVisibleColumnsPipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfTableVisibleColumns' },] }
-        ];
         return AjfTableVisibleColumnsPipe;
     }());
+    AjfTableVisibleColumnsPipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfTableVisibleColumns' },] }
+    ];
 
     /**
      * @license
@@ -5713,11 +5429,11 @@
             })
                 .reduce(function (v1, v2) { return v1 && v2; }, true);
         };
-        AjfValidSlidePipe.decorators = [
-            { type: core.Pipe, args: [{ name: 'ajfValidSlide', pure: false },] }
-        ];
         return AjfValidSlidePipe;
     }());
+    AjfValidSlidePipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfValidSlide', pure: false },] }
+    ];
 
     /**
      * @license
@@ -5743,78 +5459,78 @@
     var AjfFormsModule = /** @class */ (function () {
         function AjfFormsModule() {
         }
-        AjfFormsModule.decorators = [
-            { type: core.NgModule, args: [{
-                        declarations: [
-                            AjfAsFieldInstancePipe,
-                            AjfAsRepeatingSlideInstancePipe,
-                            AjfBoolToIntPipe,
-                            AjfDateValuePipe,
-                            AjfDateValueStringPipe,
-                            AjfExpandFieldWithChoicesPipe,
-                            AjfFieldHost,
-                            AjfFieldIconPipe,
-                            AjfFieldIsValidPipe,
-                            AjfFileFieldComponent,
-                            AjfGetTableCellControlPipe,
-                            AjfImageFieldComponent,
-                            AjfIncrementPipe,
-                            AjfIsCellEditablePipe,
-                            AjfIsRepeatingSlideInstancePipe,
-                            AjfNodeCompleteNamePipe,
-                            AjfRangePipe,
-                            AjfReadOnlyFieldComponent,
-                            AjfReadOnlyFileFieldComponent,
-                            AjfReadOnlyImageFieldComponent,
-                            AjfReadOnlyTableFieldComponent,
-                            AjfReadOnlyVideoUrlFieldComponent,
-                            AjfTableRowClass,
-                            AjfTableVisibleColumnsPipe,
-                            AjfValidSlidePipe,
-                        ],
-                        imports: [
-                            common.AjfCommonModule,
-                            fileInput.AjfFileInputModule,
-                            common$1.CommonModule,
-                            http.HttpClientModule,
-                            forms.ReactiveFormsModule,
-                        ],
-                        exports: [
-                            AjfAsFieldInstancePipe,
-                            AjfAsRepeatingSlideInstancePipe,
-                            AjfBoolToIntPipe,
-                            AjfDateValuePipe,
-                            AjfDateValueStringPipe,
-                            AjfExpandFieldWithChoicesPipe,
-                            AjfFieldHost,
-                            AjfFieldIconPipe,
-                            AjfFieldIsValidPipe,
-                            AjfFileFieldComponent,
-                            AjfGetTableCellControlPipe,
-                            AjfImageFieldComponent,
-                            AjfIncrementPipe,
-                            AjfIsCellEditablePipe,
-                            AjfIsRepeatingSlideInstancePipe,
-                            AjfNodeCompleteNamePipe,
-                            AjfRangePipe,
-                            AjfReadOnlyFieldComponent,
-                            AjfReadOnlyFileFieldComponent,
-                            AjfReadOnlyImageFieldComponent,
-                            AjfReadOnlyTableFieldComponent,
-                            AjfReadOnlyVideoUrlFieldComponent,
-                            AjfTableRowClass,
-                            AjfTableVisibleColumnsPipe,
-                            AjfValidSlidePipe,
-                        ],
-                        providers: [
-                            AjfDateValueStringPipe,
-                            AjfFormRendererService,
-                            AjfValidationService,
-                        ],
-                    },] }
-        ];
         return AjfFormsModule;
     }());
+    AjfFormsModule.decorators = [
+        { type: core.NgModule, args: [{
+                    declarations: [
+                        AjfAsFieldInstancePipe,
+                        AjfAsRepeatingSlideInstancePipe,
+                        AjfBoolToIntPipe,
+                        AjfDateValuePipe,
+                        AjfDateValueStringPipe,
+                        AjfExpandFieldWithChoicesPipe,
+                        AjfFieldHost,
+                        AjfFieldIconPipe,
+                        AjfFieldIsValidPipe,
+                        AjfFileFieldComponent,
+                        AjfGetTableCellControlPipe,
+                        AjfImageFieldComponent,
+                        AjfIncrementPipe,
+                        AjfIsCellEditablePipe,
+                        AjfIsRepeatingSlideInstancePipe,
+                        AjfNodeCompleteNamePipe,
+                        AjfRangePipe,
+                        AjfReadOnlyFieldComponent,
+                        AjfReadOnlyFileFieldComponent,
+                        AjfReadOnlyImageFieldComponent,
+                        AjfReadOnlyTableFieldComponent,
+                        AjfReadOnlyVideoUrlFieldComponent,
+                        AjfTableRowClass,
+                        AjfTableVisibleColumnsPipe,
+                        AjfValidSlidePipe,
+                    ],
+                    imports: [
+                        common.AjfCommonModule,
+                        fileInput.AjfFileInputModule,
+                        common$1.CommonModule,
+                        http.HttpClientModule,
+                        forms.ReactiveFormsModule,
+                    ],
+                    exports: [
+                        AjfAsFieldInstancePipe,
+                        AjfAsRepeatingSlideInstancePipe,
+                        AjfBoolToIntPipe,
+                        AjfDateValuePipe,
+                        AjfDateValueStringPipe,
+                        AjfExpandFieldWithChoicesPipe,
+                        AjfFieldHost,
+                        AjfFieldIconPipe,
+                        AjfFieldIsValidPipe,
+                        AjfFileFieldComponent,
+                        AjfGetTableCellControlPipe,
+                        AjfImageFieldComponent,
+                        AjfIncrementPipe,
+                        AjfIsCellEditablePipe,
+                        AjfIsRepeatingSlideInstancePipe,
+                        AjfNodeCompleteNamePipe,
+                        AjfRangePipe,
+                        AjfReadOnlyFieldComponent,
+                        AjfReadOnlyFileFieldComponent,
+                        AjfReadOnlyImageFieldComponent,
+                        AjfReadOnlyTableFieldComponent,
+                        AjfReadOnlyVideoUrlFieldComponent,
+                        AjfTableRowClass,
+                        AjfTableVisibleColumnsPipe,
+                        AjfValidSlidePipe,
+                    ],
+                    providers: [
+                        AjfDateValueStringPipe,
+                        AjfFormRendererService,
+                        AjfValidationService,
+                    ],
+                },] }
+    ];
 
     /**
      * @license
@@ -5887,7 +5603,7 @@
      *
      */
     function createAttachmentsOrigin(origin) {
-        return __assign(__assign({}, origin), { attachments: origin.attachments || [] });
+        return Object.assign(Object.assign({}, origin), { attachments: origin.attachments || [] });
     }
 
     /**
@@ -5945,7 +5661,7 @@
      *
      */
     function createChoicesOrigin(origin) {
-        return __assign(__assign({}, origin), { type: origin.type, label: origin.label || '', choices: origin.choices || [] });
+        return Object.assign(Object.assign({}, origin), { type: origin.type, label: origin.label || '', choices: origin.choices || [] });
     }
 
     /**
@@ -5973,7 +5689,7 @@
         function AjfChoicesOriginSerializer() {
         }
         AjfChoicesOriginSerializer.fromJson = function (origin) {
-            return createChoicesOrigin(__assign(__assign({}, origin), { type: origin.type || 'fixed', name: origin.name || '' }));
+            return createChoicesOrigin(Object.assign(Object.assign({}, origin), { type: origin.type || 'fixed', name: origin.name || '' }));
         };
         return AjfChoicesOriginSerializer;
     }());
@@ -6000,8 +5716,8 @@
      *
      */
     function createFieldWithChoices(field) {
-        var node = createField(__assign({}, field));
-        return __assign(__assign(__assign({}, node), field), { choices: field.choices || [], forceExpanded: field.forceExpanded || false, forceNarrow: field.forceNarrow || false });
+        var node = createField(Object.assign({}, field));
+        return Object.assign(Object.assign(Object.assign({}, node), field), { choices: field.choices || [], forceExpanded: field.forceExpanded || false, forceNarrow: field.forceNarrow || false });
     }
 
     /**
@@ -6027,7 +5743,7 @@
      */
     function createContainerNode(containerNode) {
         var node = createNode(containerNode);
-        return __assign(__assign({}, node), { nodes: containerNode.nodes || [] });
+        return Object.assign(Object.assign({}, node), { nodes: containerNode.nodes || [] });
     }
 
     /**
@@ -6053,7 +5769,7 @@
      */
     function createRepeatingNode(repeatingNode) {
         var node = createNode(repeatingNode);
-        return __assign(__assign(__assign({}, repeatingNode), node), { minReps: repeatingNode.minReps != null ? repeatingNode.minReps : 1, maxReps: repeatingNode.maxReps != null ? repeatingNode.maxReps : 0 });
+        return Object.assign(Object.assign(Object.assign({}, repeatingNode), node), { minReps: repeatingNode.minReps != null ? repeatingNode.minReps : 1, maxReps: repeatingNode.maxReps != null ? repeatingNode.maxReps : 0 });
     }
 
     /**
@@ -6078,7 +5794,7 @@
      *
      */
     function createNodeGroup(nodeGroup) {
-        return __assign(__assign(__assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfNodeGroup });
+        return Object.assign(Object.assign(Object.assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfNodeGroup });
     }
 
     /**
@@ -6103,7 +5819,7 @@
      *
      */
     function createRepeatingSlide(nodeGroup) {
-        return __assign(__assign(__assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfRepeatingSlide });
+        return Object.assign(Object.assign(Object.assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfRepeatingSlide });
     }
 
     /**
@@ -6128,7 +5844,7 @@
      *
      */
     function createSlide(nodeGroup) {
-        return __assign(__assign({}, createContainerNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfSlide });
+        return Object.assign(Object.assign({}, createContainerNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfSlide });
     }
 
     /**
@@ -6279,7 +5995,7 @@
             return createField(obj);
         };
         AjfNodeSerializer._fieldNodeLinkFromJson = function (json) {
-            return __assign(__assign({}, createNode(json)), { nodeType: exports.AjfNodeType.AjfFieldNodeLink });
+            return Object.assign(Object.assign({}, createNode(json)), { nodeType: exports.AjfNodeType.AjfFieldNodeLink });
         };
         AjfNodeSerializer._fieldWithChoicesFromJson = function (json, choicesOrigins) {
             var err = 'Malformed field with choices';
@@ -6296,16 +6012,16 @@
             if (json.triggerConditions) {
                 json.triggerConditions = json.triggerConditions.map(function (t) { return models.AjfConditionSerializer.fromJson(t); });
             }
-            return createFieldWithChoices(__assign(__assign({}, json), { choicesOrigin: choicesOrigin }));
+            return createFieldWithChoices(Object.assign(Object.assign({}, json), { choicesOrigin: choicesOrigin }));
         };
         AjfNodeSerializer._formulaFieldFromJson = function (json) {
             if (json.formula) {
                 json.formula = models.AjfFormulaSerializer.fromJson(json.formula);
             }
-            return __assign(__assign({}, createField(json)), { fieldType: exports.AjfFieldType.Formula });
+            return Object.assign(Object.assign({}, createField(json)), { fieldType: exports.AjfFieldType.Formula });
         };
         AjfNodeSerializer._nodeGroupFromJson = function (json, choicesOrigins, attachmentsOrigins) {
-            return createNodeGroup(__assign(__assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins)), AjfNodeSerializer._repeatingNodeFromJson(json)));
+            return createNodeGroup(Object.assign(Object.assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins)), AjfNodeSerializer._repeatingNodeFromJson(json)));
         };
         AjfNodeSerializer._repeatingNodeFromJson = function (json) {
             if (json.formulaReps) {
@@ -6314,7 +6030,7 @@
             return createRepeatingNode(json);
         };
         AjfNodeSerializer._repeatingSlideFromJson = function (json, choicesOrigins, attachmentsOrigins) {
-            return createRepeatingSlide(__assign(__assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins)), AjfNodeSerializer._repeatingNodeFromJson(json)));
+            return createRepeatingSlide(Object.assign(Object.assign({}, AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins)), AjfNodeSerializer._repeatingNodeFromJson(json)));
         };
         AjfNodeSerializer._slideFromJson = function (json, choicesOrigins, attachmentsOrigins) {
             return createSlide(AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins));
@@ -6351,34 +6067,13 @@
             var attachmentsOrigins = (form.attachmentsOrigins || []).map(function (a) { return AjfAttachmentsOriginSerializer.fromJson(a); });
             var nodes = (form.nodes || [])
                 .map(function (n) { return AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins); });
-            return __assign(__assign({}, form), { choicesOrigins: choicesOrigins,
+            return Object.assign(Object.assign({}, form), { choicesOrigins: choicesOrigins,
                 attachmentsOrigins: attachmentsOrigins,
                 nodes: nodes, stringIdentifier: form.stringIdentifier || [], initContext: utils.deepCopy(context || {}) });
         };
         return AjfFormSerializer;
     }());
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfTableFieldComponent = /** @class */ (function (_super) {
         __extends(AjfTableFieldComponent, _super);
         function AjfTableFieldComponent(cdr, service, was) {
@@ -6431,13 +6126,13 @@
                 nextCell.show = true;
             }
         };
-        AjfTableFieldComponent.ctorParameters = function () { return [
-            { type: core.ChangeDetectorRef },
-            { type: AjfFormRendererService },
-            { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
-        ]; };
         return AjfTableFieldComponent;
     }(AjfBaseFieldComponent));
+    AjfTableFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+    ]; };
 
     /**
      * @license
@@ -7936,7 +7631,7 @@
      */
     function createChoicesFixedOrigin(origin) {
         var type = 'fixed';
-        return __assign(__assign({}, createChoicesOrigin(__assign(__assign({}, origin), { type: type }))), { type: type });
+        return Object.assign(Object.assign({}, createChoicesOrigin(Object.assign(Object.assign({}, origin), { type: type }))), { type: type });
     }
 
     /**
@@ -7961,7 +7656,7 @@
      *
      */
     function createChoicesFunctionOrigin(origin) {
-        return __assign(__assign({}, origin), { type: 'function', label: origin.label || '', choices: origin.choices || [] });
+        return Object.assign(Object.assign({}, origin), { type: 'function', label: origin.label || '', choices: origin.choices || [] });
     }
 
     /**
@@ -7986,7 +7681,7 @@
      *
      */
     function createChoicesObservableArrayOrigin(origin) {
-        return __assign(__assign({}, origin), { type: 'observableArray', label: origin.label || '', choices: origin.choices || [] });
+        return Object.assign(Object.assign({}, origin), { type: 'observableArray', label: origin.label || '', choices: origin.choices || [] });
     }
 
     /**
@@ -8011,7 +7706,7 @@
      *
      */
     function createChoicesObservableOrigin(origin) {
-        return __assign(__assign({}, origin), { type: 'observable', label: origin.label || '', choices: origin.choices || [] });
+        return Object.assign(Object.assign({}, origin), { type: 'observable', label: origin.label || '', choices: origin.choices || [] });
     }
 
     /**
@@ -8036,7 +7731,7 @@
      *
      */
     function createChoicesPromiseOrigin(origin) {
-        return __assign(__assign({}, origin), { type: 'promise', label: origin.label || '', choices: origin.choices || [] });
+        return Object.assign(Object.assign({}, origin), { type: 'promise', label: origin.label || '', choices: origin.choices || [] });
     }
 
     /**

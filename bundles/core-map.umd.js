@@ -36,14 +36,14 @@
             enumerable: false,
             configurable: true
         });
-        AjfMapContainerDirective.decorators = [
-            { type: core.Directive, args: [{ selector: '[mapContainer]' },] }
-        ];
-        AjfMapContainerDirective.ctorParameters = function () { return [
-            { type: core.ElementRef }
-        ]; };
         return AjfMapContainerDirective;
     }());
+    AjfMapContainerDirective.decorators = [
+        { type: core.Directive, args: [{ selector: '[mapContainer]' },] }
+    ];
+    AjfMapContainerDirective.ctorParameters = function () { return [
+        { type: core.ElementRef }
+    ]; };
 
     /**
      * @license
@@ -170,24 +170,24 @@
                 }
             }
         };
-        AjfMapComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ajf-map',
-                        template: "<div mapContainer></div>\n",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None,
-                        styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
-                    },] }
-        ];
-        AjfMapComponent.propDecorators = {
-            mapContainer: [{ type: core.ViewChild, args: [AjfMapContainerDirective, { static: true },] }],
-            coordinate: [{ type: core.Input }],
-            tileLayer: [{ type: core.Input }],
-            attribution: [{ type: core.Input }],
-            disabled: [{ type: core.Input }]
-        };
         return AjfMapComponent;
     }());
+    AjfMapComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ajf-map',
+                    template: "<div mapContainer></div>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"]
+                },] }
+    ];
+    AjfMapComponent.propDecorators = {
+        mapContainer: [{ type: core.ViewChild, args: [AjfMapContainerDirective, { static: true },] }],
+        coordinate: [{ type: core.Input }],
+        tileLayer: [{ type: core.Input }],
+        attribution: [{ type: core.Input }],
+        disabled: [{ type: core.Input }]
+    };
 
     /**
      * @license
@@ -213,19 +213,19 @@
     var AjfMapModule = /** @class */ (function () {
         function AjfMapModule() {
         }
-        AjfMapModule.decorators = [
-            { type: core.NgModule, args: [{
-                        declarations: [
-                            AjfMapComponent,
-                            AjfMapContainerDirective,
-                        ],
-                        exports: [
-                            AjfMapComponent,
-                        ],
-                    },] }
-        ];
         return AjfMapModule;
     }());
+    AjfMapModule.decorators = [
+        { type: core.NgModule, args: [{
+                    declarations: [
+                        AjfMapComponent,
+                        AjfMapContainerDirective,
+                    ],
+                    exports: [
+                        AjfMapComponent,
+                    ],
+                },] }
+    ];
 
     /**
      * @license
