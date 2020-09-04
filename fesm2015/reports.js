@@ -1605,6 +1605,66 @@ AjfReportWidget.propDecorators = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const componentsMap = {};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+class AjfWidgetService {
+    constructor() {
+        this.componentsMap = componentsMap;
+    }
+    registerCustomWidget(widget) {
+        const { widgetType, component } = widget;
+        if (widgetType < 100) {
+            throw new Error('Invalid custom widget type, it must be greater than 100');
+        }
+        if (component == null) {
+            throw new Error('Invalid custom widget component');
+        }
+        this.componentsMap[widgetType] = widget;
+    }
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 function evaluateAggregation(aggregation, formulas, context) {
     const data = formulas.map(f => evaluateExpression(f.formula, context));
     switch (aggregation.aggregation) {
@@ -1799,8 +1859,7 @@ function widgetToWidgetInstance(widget, context, ts) {
                 cell.formula.map(f => trFormula(f, context, ts)) :
                 trFormula(cell.formula, context, ts);
         }));
-        twi.data = (tw.dataset ||
-            []).map(row => row.map(cell => {
+        twi.data = (tw.dataset || []).map(row => row.map(cell => {
             let evf = '';
             try {
                 evf = cell.formula instanceof Array ?
@@ -1833,8 +1892,8 @@ function widgetToWidgetInstance(widget, context, ts) {
                     trf = trf.map(v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v);
                 }
                 else {
-                    trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
-                        ts.instant(trf) : trf;
+                    trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ? ts.instant(trf) :
+                        trf;
                 }
             }
             catch (_e) {
@@ -1925,6 +1984,14 @@ function widgetToWidgetInstance(widget, context, ts) {
         const mw = widget;
         const mwi = wi;
         mwi.coordinate = evaluateExpression(mw.coordinate.formula, context);
+    }
+    else if (widget.widgetType > 100) {
+        const iiFn = componentsMap[widget.widgetType] != null ?
+            componentsMap[widget.widgetType].initInstance :
+            null;
+        if (iiFn != null) {
+            return iiFn(wi, context, ts);
+        }
     }
     return wi;
 }
@@ -2020,5 +2087,5 @@ function createReportInstance(report, context, ts) {
  * Generated bundle index. Do not edit.
  */
 
-export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfGetColumnContentPipe, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportWidget, AjfReportsModule, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createWidget, createWidgetInstance, widgetToWidgetInstance };
+export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfGetColumnContentPipe, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportWidget, AjfReportsModule, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetService, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createWidget, createWidgetInstance, widgetToWidgetInstance };
 //# sourceMappingURL=reports.js.map

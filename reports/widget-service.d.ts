@@ -21,11 +21,14 @@
  */
 import { Type } from '@angular/core';
 import { AjfBaseWidgetComponent } from './base-widget';
-export interface AjfWidgetComponentsMap {
-    [key: number]: {
+import { AjfWidgetComponentsMap } from './interface/widgets/widget-components-map';
+export declare abstract class AjfWidgetService {
+    readonly componentsMap: AjfWidgetComponentsMap;
+    registerCustomWidget(widget: {
+        widgetType: number;
         component: Type<AjfBaseWidgetComponent>;
         inputs?: {
             [key: string]: any;
         };
-    };
+    }): void;
 }

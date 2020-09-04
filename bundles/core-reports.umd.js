@@ -1622,6 +1622,67 @@
      *
      */
 
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var componentsMap = {};
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfWidgetService = /** @class */ (function () {
+        function AjfWidgetService() {
+            this.componentsMap = componentsMap;
+        }
+        AjfWidgetService.prototype.registerCustomWidget = function (widget) {
+            var widgetType = widget.widgetType, component = widget.component;
+            if (widgetType < 100) {
+                throw new Error('Invalid custom widget type, it must be greater than 100');
+            }
+            if (component == null) {
+                throw new Error('Invalid custom widget component');
+            }
+            this.componentsMap[widgetType] = widget;
+        };
+        return AjfWidgetService;
+    }());
+
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
 
@@ -2117,8 +2178,7 @@
                     cell.formula.map(function (f) { return trFormula(f, context, ts); }) :
                     trFormula(cell.formula, context, ts);
             }); });
-            twi.data = (tw_1.dataset ||
-                []).map(function (row) { return row.map(function (cell) {
+            twi.data = (tw_1.dataset || []).map(function (row) { return row.map(function (cell) {
                 var evf = '';
                 try {
                     evf = cell.formula instanceof Array ?
@@ -2151,8 +2211,8 @@
                         trf = trf.map(function (v) { return v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v; });
                     }
                     else {
-                        trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
-                            ts.instant(trf) : trf;
+                        trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ? ts.instant(trf) :
+                            trf;
                     }
                 }
                 catch (_e) {
@@ -2243,6 +2303,14 @@
             var mw = widget;
             var mwi = wi;
             mwi.coordinate = models.evaluateExpression(mw.coordinate.formula, context);
+        }
+        else if (widget.widgetType > 100) {
+            var iiFn = componentsMap[widget.widgetType] != null ?
+                componentsMap[widget.widgetType].initInstance :
+                null;
+            if (iiFn != null) {
+                return iiFn(wi, context, ts);
+            }
         }
         return wi;
     }
@@ -2349,6 +2417,7 @@
     exports.AjfReportsModule = AjfReportsModule;
     exports.AjfWidgetHost = AjfWidgetHost;
     exports.AjfWidgetSerializer = AjfWidgetSerializer;
+    exports.AjfWidgetService = AjfWidgetService;
     exports.chartToChartJsType = chartToChartJsType;
     exports.createAggregation = createAggregation;
     exports.createReportInstance = createReportInstance;

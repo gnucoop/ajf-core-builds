@@ -19,20 +19,5 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { ComponentFactoryResolver, OnInit, Renderer2 } from '@angular/core';
-import { AjfWidgetInstance } from './interface/widgets-instances/widget-instance';
-import { AjfWidgetComponentsMap } from './interface/widgets/widget-components-map';
-import { AjfWidgetHost } from './widget-host';
-export declare abstract class AjfReportWidget implements OnInit {
-    private _cfr;
-    private _renderer;
-    widgetHost: AjfWidgetHost;
-    private _instance;
-    get instance(): AjfWidgetInstance;
-    set instance(instance: AjfWidgetInstance);
-    protected abstract widgetsMap: AjfWidgetComponentsMap;
-    private _init;
-    constructor(_cfr: ComponentFactoryResolver, _renderer: Renderer2);
-    ngOnInit(): void;
-    private _loadComponent;
-}
+import { AjfWidgetComponentsMap } from '../../interface/widgets/widget-components-map';
+export declare const componentsMap: AjfWidgetComponentsMap;
