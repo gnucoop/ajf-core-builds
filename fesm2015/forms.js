@@ -2818,7 +2818,7 @@ class AjfValidationService {
       }`,
             `var formatNumber = function(num, fmt) {
         fmt = fmt || '0,0[.]0';
-        return numeral(num).format(fmt);
+        return numbro(num).format(fmt);
       }`,
             `var formatDate = function(date, fmt) {
         fmt = fmt || 'mm-dd-yyyy';

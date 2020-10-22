@@ -1,10 +1,10 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('esprima'), require('date-fns'), require('numeral')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/models', ['exports', 'esprima', 'date-fns', 'numeral'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.models = {}), global.esprima, global.dateFns, global.numeral));
-}(this, (function (exports, esprima, dateFns, numeral) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('esprima'), require('date-fns'), require('numbro')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/models', ['exports', 'esprima', 'date-fns', 'numbro'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.models = {}), global.esprima, global.dateFns, global.numbro));
+}(this, (function (exports, esprima, dateFns, numbroMod) { 'use strict';
 
-    var numeral__default = 'default' in numeral ? numeral['default'] : numeral;
+    var numbroMod__default = 'default' in numbroMod ? numbroMod['default'] : numbroMod;
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -604,7 +604,7 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var numeralConstructor = numeral__default || numeral;
+    var numbro = numbroMod__default || numbroMod;
     var dateUtils = {
         addDays: dateFns.addDays,
         addMonths: dateFns.addMonths,
@@ -947,7 +947,7 @@
     }
     function formatNumber(num, fmt) {
         fmt = fmt || '0,0[.]0';
-        return numeralConstructor(num).format(fmt);
+        return numbro(num).format(fmt);
     }
     function formatDate(date, fmt) {
         fmt = fmt || 'mm-DD-yyyy';

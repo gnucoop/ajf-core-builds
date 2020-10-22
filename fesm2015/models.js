@@ -1,7 +1,7 @@
 import { tokenize } from 'esprima';
 import { addDays, addMonths, addYears, endOfISOWeek, format, getDay, parseISO, startOfMonth, startOfISOWeek } from 'date-fns';
-import * as numeral from 'numeral';
-import numeral__default from 'numeral';
+import * as numbroMod from 'numbro';
+import numbroMod__default from 'numbro';
 
 /**
  * @license
@@ -281,7 +281,7 @@ function alwaysCondition() {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const numeralConstructor = numeral__default || numeral;
+const numbro = numbroMod__default || numbroMod;
 const dateUtils = {
     addDays: addDays,
     addMonths: addMonths,
@@ -624,7 +624,7 @@ function alert(source, property, threshold) {
 }
 function formatNumber(num, fmt) {
     fmt = fmt || '0,0[.]0';
-    return numeralConstructor(num).format(fmt);
+    return numbro(num).format(fmt);
 }
 function formatDate(date, fmt) {
     fmt = fmt || 'mm-DD-yyyy';
