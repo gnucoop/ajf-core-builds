@@ -23,7 +23,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -170,10 +170,10 @@
             k2 = k;
         o[k2] = m[k];
     });
-    function __exportStar(m, exports) {
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                __createBinding(exports, m, p);
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -283,7 +283,7 @@
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
                     __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
@@ -332,7 +332,7 @@
             this._selected = [];
             /** Event emitted when the group's value changes. */
             this._change = new core.EventEmitter();
-            this.change = this._change.asObservable();
+            this.change = this._change;
             /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
             this.onTouched = function () { };
             /** The method to be called in order to update ngModel. */
@@ -488,18 +488,18 @@
         function AjfCheckboxGroupItem(checkboxGroup) {
             /** The unique ID for this button toggle. */
             this._checkboxId = new rxjs.BehaviorSubject('');
-            this.checkboxId = this._checkboxId.asObservable();
+            this.checkboxId = this._checkboxId;
             /** Whether or not this button toggle is checked. */
             this._checkedState = new rxjs.BehaviorSubject(false);
-            this.checkedState = this._checkedState.asObservable();
+            this.checkedState = this._checkedState;
             /** Whether or not this button toggle is disabled. */
             this._disabledState = new rxjs.BehaviorSubject(false);
-            this.disabledState = this._disabledState.asObservable();
+            this.disabledState = this._disabledState;
             this._checkedIconVal = new rxjs.BehaviorSubject('');
             this._notCheckedIconVal = new rxjs.BehaviorSubject('');
             /** Event emitted when the group value changes. */
             this._change = new core.EventEmitter();
-            this.change = this._change.asObservable();
+            this.change = this._change;
             this.icon = rxjs.combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal)
                 .pipe(operators.map(function (_a) {
                 var _b = __read(_a, 3), checked = _b[0], checkedIcon = _b[1], notCheckedIcon = _b[2];

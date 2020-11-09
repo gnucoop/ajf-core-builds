@@ -82,13 +82,13 @@ class AjfImage {
         this._domSanitizer = _domSanitizer;
         this.imageTypes = AjfImageType;
         this._imageType = new BehaviorSubject(null);
-        this.imageType = this._imageType.asObservable();
+        this.imageType = this._imageType;
         this._url = new BehaviorSubject(null);
-        this.url = this._url.asObservable();
+        this.url = this._url;
         this._iconObj = new BehaviorSubject(null);
-        this.iconObj = this._iconObj.asObservable();
+        this.iconObj = this._iconObj;
         this._flagName = new BehaviorSubject(null);
-        this.flagName = this._flagName.asObservable();
+        this.flagName = this._flagName;
         this._iconSub = Subscription.EMPTY;
         this._iconSub = this.iconObj.subscribe(() => this._updateIconSize());
     }

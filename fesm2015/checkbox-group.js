@@ -46,7 +46,7 @@ class AjfCheckboxGroup {
         this._selected = [];
         /** Event emitted when the group's value changes. */
         this._change = new EventEmitter();
-        this.change = this._change.asObservable();
+        this.change = this._change;
         /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
         this.onTouched = () => { };
         /** The method to be called in order to update ngModel. */
@@ -183,18 +183,18 @@ class AjfCheckboxGroupItem {
     constructor(checkboxGroup) {
         /** The unique ID for this button toggle. */
         this._checkboxId = new BehaviorSubject('');
-        this.checkboxId = this._checkboxId.asObservable();
+        this.checkboxId = this._checkboxId;
         /** Whether or not this button toggle is checked. */
         this._checkedState = new BehaviorSubject(false);
-        this.checkedState = this._checkedState.asObservable();
+        this.checkedState = this._checkedState;
         /** Whether or not this button toggle is disabled. */
         this._disabledState = new BehaviorSubject(false);
-        this.disabledState = this._disabledState.asObservable();
+        this.disabledState = this._disabledState;
         this._checkedIconVal = new BehaviorSubject('');
         this._notCheckedIconVal = new BehaviorSubject('');
         /** Event emitted when the group value changes. */
         this._change = new EventEmitter();
-        this.change = this._change.asObservable();
+        this.change = this._change;
         this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal)
             .pipe(map(([checked, checkedIcon, notCheckedIcon]) => (checked ? checkedIcon : notCheckedIcon)));
         if (checkboxGroup) {

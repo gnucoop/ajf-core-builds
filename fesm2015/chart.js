@@ -1,6 +1,6 @@
 import { Chart } from 'chart.js';
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, Input, NgModule } from '@angular/core';
 import { deepCopy } from '@ajf/core/utils';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, Input, NgModule } from '@angular/core';
 
 /**
  * @license
@@ -151,61 +151,59 @@ class AjfChartComponent {
     _fixChartOptions(options) {
         options = options || {};
         if (options.legendCallback) {
-            const legendCallback = (typeof options.legendCallback === 'string'
-                ? new Function(options.legendCallback)
-                : options.legendCallback);
+            const legendCallback = (typeof options.legendCallback === 'string' ?
+                new Function(options.legendCallback) :
+                options.legendCallback);
             options.legendCallback = legendCallback;
         }
         if (options.onHover) {
-            const onHover = (typeof options.onHover === 'string'
-                ? new Function(options.onHover)
-                : options.onHover);
+            const onHover = (typeof options.onHover === 'string' ?
+                new Function(options.onHover) :
+                options.onHover);
             options.onHover = onHover;
         }
         if (options.onClick) {
-            const onClick = (typeof options.onClick === 'string'
-                ? new Function(options.onClick)
-                : options.onClick);
+            const onClick = (typeof options.onClick === 'string' ?
+                new Function(options.onClick) :
+                options.onClick);
             options.onClick = onClick;
         }
         if (options.onResize) {
-            const onResize = (typeof options.onResize === 'string'
-                ? new Function(options.onResize)
-                : options.onResize);
+            const onResize = (typeof options.onResize === 'string' ?
+                new Function(options.onResize) :
+                options.onResize);
             options.onResize = onResize;
         }
         if (options.legend) {
             const legend = options.legend;
             if (legend.onClick) {
-                const onClick = (typeof legend.onClick === 'string'
-                    ? new Function(legend.onClick)
-                    : legend.onClick);
+                const onClick = (typeof legend.onClick === 'string' ?
+                    new Function(legend.onClick) :
+                    legend.onClick);
                 legend.onClick = onClick;
             }
             if (legend.onHover) {
-                const onHover = (typeof legend.onHover === 'string'
-                    ? new Function(legend.onHover)
-                    : legend.onHover);
+                const onHover = (typeof legend.onHover === 'string' ?
+                    new Function(legend.onHover) :
+                    legend.onHover);
                 legend.onHover = onHover;
             }
             if (legend.onLeave) {
-                const onLeave = (typeof legend.onLeave === 'string'
-                    ? new Function(legend.onLeave)
-                    : legend.onLeave);
+                const onLeave = (typeof legend.onLeave === 'string' ?
+                    new Function(legend.onLeave) :
+                    legend.onLeave);
                 legend.onLeave = onLeave;
             }
             if (legend.labels) {
                 const labels = legend.labels;
                 if (labels.generateLabels) {
-                    const generateLabels = (typeof labels.generateLabels === 'string'
-                        ? new Function(labels.generateLabels)
-                        : labels.generateLabels);
+                    const generateLabels = (typeof labels.generateLabels === 'string' ?
+                        new Function(labels.generateLabels) :
+                        labels.generateLabels);
                     labels.generateLabels = generateLabels;
                 }
                 if (labels.filter) {
-                    const filter = (typeof labels.filter === 'string'
-                        ? new Function(labels.filter)
-                        : labels.filter);
+                    const filter = (typeof labels.filter === 'string' ? new Function(labels.filter) : labels.filter);
                     labels.filter = filter;
                 }
             }
@@ -213,54 +211,49 @@ class AjfChartComponent {
         if (options.tooltips) {
             const tooltips = options.tooltips;
             if (tooltips.custom) {
-                const custom = (typeof tooltips.custom === 'string'
-                    ? new Function(tooltips.custom)
-                    : tooltips.custom);
+                const custom = (typeof tooltips.custom === 'string' ?
+                    new Function(tooltips.custom) :
+                    tooltips.custom);
                 tooltips.custom = custom;
             }
             if (tooltips.callbacks) {
                 const callbacks = tooltips.callbacks;
                 for (const key in callbacks) {
                     const callback = callbacks[key];
-                    callbacks[key] = typeof callback === 'string'
-                        ? new Function(callback)
-                        : callback;
+                    callbacks[key] =
+                        typeof callback === 'string' ? new Function(callback) : callback;
                 }
             }
             if (tooltips.filter) {
-                const filter = (typeof tooltips.filter === 'string'
-                    ? new Function(tooltips.filter)
-                    : tooltips.filter);
+                const filter = (typeof tooltips.filter === 'string' ? new Function(tooltips.filter) :
+                    tooltips.filter);
                 tooltips.filter = filter;
             }
             if (tooltips.itemSort) {
-                const itemSort = (typeof tooltips.itemSort === 'string'
-                    ? new Function(tooltips.itemSort)
-                    : tooltips.itemSort);
+                const itemSort = (typeof tooltips.itemSort === 'string' ? new Function(tooltips.itemSort) :
+                    tooltips.itemSort);
                 tooltips.itemSort = itemSort;
             }
         }
         if (options.hover) {
             const hover = options.hover;
             if (hover.onHover) {
-                const onHover = (typeof hover.onHover === 'string'
-                    ? new Function(hover.onHover)
-                    : hover.onHover);
+                const onHover = (typeof hover.onHover === 'string' ? new Function(hover.onHover) : hover.onHover);
                 hover.onHover = onHover;
             }
         }
         if (options.animation) {
             const animation = options.animation;
             if (animation.onProgress) {
-                const onProgress = (typeof animation.onProgress === 'string'
-                    ? new Function(animation.onProgress)
-                    : animation.onProgress);
+                const onProgress = (typeof animation.onProgress === 'string' ?
+                    new Function(animation.onProgress) :
+                    animation.onProgress);
                 animation.onProgress = onProgress;
             }
             if (animation.onComplete) {
-                const onComplete = (typeof animation.onComplete === 'string'
-                    ? new Function(animation.onComplete)
-                    : animation.onComplete);
+                const onComplete = (typeof animation.onComplete === 'string' ?
+                    new Function(animation.onComplete) :
+                    animation.onComplete);
                 animation.onComplete = onComplete;
             }
         }
@@ -275,33 +268,30 @@ class AjfChartComponent {
         }
         options.scales.yAxes.forEach((yAxe) => {
             if (yAxe.ticks && yAxe.ticks.callback) {
-                const callback = (typeof yAxe.ticks.callback === 'string'
-                    ? new Function(yAxe.ticks.callback)
-                    : yAxe.ticks.callback);
+                const callback = (typeof yAxe.ticks.callback === 'string' ?
+                    new Function(yAxe.ticks.callback) :
+                    yAxe.ticks.callback);
                 yAxe.ticks.callback = callback;
             }
         });
         options.scales.xAxes.forEach((xAxe) => {
             if (xAxe.ticks && xAxe.ticks.callback) {
-                const callback = (typeof xAxe.ticks.callback === 'string'
-                    ? new Function(xAxe.ticks.callback)
-                    : xAxe.ticks.callback);
+                const callback = (typeof xAxe.ticks.callback === 'string' ?
+                    new Function(xAxe.ticks.callback) :
+                    xAxe.ticks.callback);
                 xAxe.ticks.callback = callback;
             }
         });
         if (this.chartType == 'pie') {
             let newOptions = options;
-            newOptions.pieceLabel = {
-                render: function (args) {
+            newOptions.pieceLabel = Object.assign(Object.assign({}, Object.assign({ render: function (args) {
                     if (args.label) {
                         return args.label + ':' + args.value;
                     }
                     else {
                         return args.value;
                     }
-                },
-                position: 'outside'
-            };
+                } }, newOptions.pieceLabel)), { position: 'outside' });
             return newOptions;
         }
         return options;

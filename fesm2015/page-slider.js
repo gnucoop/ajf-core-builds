@@ -31,7 +31,7 @@ class AjfPageSliderItem {
         this._el = _el;
         this._renderer = _renderer;
         this._scrollEvt = new EventEmitter();
-        this.scroll = this._scrollEvt.asObservable();
+        this.scroll = this._scrollEvt;
         this._scrollX = 0;
         this._scrollY = 0;
         this._resizeEvent = new EventEmitter();
@@ -202,9 +202,9 @@ class AjfPageSlider {
         this._cdr = _cdr;
         this._renderer = _renderer;
         this._pageScrollFinish = new EventEmitter();
-        this.pageScrollFinish = this._pageScrollFinish.asObservable();
+        this.pageScrollFinish = this._pageScrollFinish;
         this._orientationChange = new EventEmitter();
-        this.orientationChange = this._orientationChange.asObservable();
+        this.orientationChange = this._orientationChange;
         this.duration = 300;
         this._orientation = 'horizontal';
         this._fixedOrientation = false;

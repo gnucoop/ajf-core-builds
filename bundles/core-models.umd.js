@@ -25,7 +25,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -172,10 +172,10 @@
             k2 = k;
         o[k2] = m[k];
     });
-    function __exportStar(m, exports) {
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                __createBinding(exports, m, p);
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -285,7 +285,7 @@
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
                     __createBinding(result, mod, k);
         __setModuleDefault(result, mod);
         return result;
@@ -357,94 +357,6 @@
         });
         return AjfError;
     }(Error));
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
 
     /**
      * @license

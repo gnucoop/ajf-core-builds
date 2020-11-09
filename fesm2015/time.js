@@ -25,7 +25,7 @@ import { Subscription } from 'rxjs';
 class AjfTimeModel {
     constructor() {
         this._changed = new EventEmitter();
-        this.changed = this._changed.asObservable();
+        this.changed = this._changed;
         this._hours = 0;
         this._minutes = 0;
     }

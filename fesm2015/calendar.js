@@ -535,7 +535,7 @@ class AjfCalendar {
         this._startOfWeekDay = 1;
         this._isoMode = false;
         this._change = new EventEmitter();
-        this.change = this._change.asObservable();
+        this.change = this._change;
         this._viewDate = new Date();
         this._viewHeader = '';
         this._calendarRows = [];

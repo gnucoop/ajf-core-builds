@@ -1559,8 +1559,12 @@ function createFieldInstance(instance, context) {
         else if (context[completeName] != null) {
             value = context[completeName];
         }
+        else if (instance.node.defaultValue != null) {
+            context[completeName] = instance.node.defaultValue;
+            value = context[completeName];
+        }
     }
-    return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, value, valid: false, defaultValue: instance.defaultValue != null ? instance.defaultValue : null, validationResults: instance.validationResults || [], warningResults: instance.warningResults || [], warningTrigger: new EventEmitter() });
+    return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, value, valid: false, validationResults: instance.validationResults || [], warningResults: instance.warningResults || [], warningTrigger: new EventEmitter() });
 }
 
 /**
@@ -2904,17 +2908,17 @@ class AjfFormRendererService {
         this._triggerConditionsNodesMapUpdates = new Subject();
         this._nextSlideConditionsNodesMapUpdates = new Subject();
         this._formInitEvent = new EventEmitter();
-        this.formInitEvent = this._formInitEvent.asObservable();
+        this.formInitEvent = this._formInitEvent;
         this._formGroup = new BehaviorSubject(null);
-        this.formGroup = this._formGroup.asObservable();
+        this.formGroup = this._formGroup;
         this._form = new BehaviorSubject(null);
         this._nodesUpdates = new Subject();
         this._formGroupSubscription = Subscription.EMPTY;
         this._valueChanged = new Subject();
         this._nextSlideTrigger = new EventEmitter();
-        this.nextSlideTrigger = this._nextSlideTrigger.asObservable();
+        this.nextSlideTrigger = this._nextSlideTrigger;
         this._slidesNum = new BehaviorSubject(0);
-        this.slidesNum = this._slidesNum.asObservable();
+        this.slidesNum = this._slidesNum;
         this._initUpdateMapStreams();
         this._initNodesStreams();
         this._initErrorsStreams();
@@ -3292,7 +3296,7 @@ class AjfFormRendererService {
         return result;
     }
     _updateFormValueAndValidity() {
-        this._nodesUpdates.asObservable()
+        this._nodesUpdates
             .pipe(withLatestFrom(this._formGroup), filter(([_, fg]) => fg !== null))
             .subscribe(([_, fg]) => {
             const form = fg;
@@ -4605,7 +4609,7 @@ class AjfFormRenderer {
         // Formula, Empty, Composed, LENGTH ]
         this.ajfFieldTypes = AjfFieldType;
         this._orientationChange = new EventEmitter();
-        this.orientationChange = this._orientationChange.asObservable();
+        this.orientationChange = this._orientationChange;
         this._saveDisabled = false;
         this._hasStartMessage = false;
         this._hasEndMessage = false;
@@ -4621,7 +4625,7 @@ class AjfFormRenderer {
         this._nextSlideSubscription = Subscription.EMPTY;
         this._errorMoveSubscription = Subscription.EMPTY;
         this._formAction = new EventEmitter();
-        this.formAction = this._formAction.asObservable();
+        this.formAction = this._formAction;
         this.formGroup = _rendererService.formGroup;
         this.slides = _rendererService.nodesTree;
         this._errorPositions = _rendererService.errorPositions;

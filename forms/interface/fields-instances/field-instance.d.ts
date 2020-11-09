@@ -29,7 +29,6 @@ import { AjfWarningGroup } from '../warning/warning-group';
 import { AjfWarningResult } from '../warning/warning-result';
 export interface AjfFieldInstance extends AjfNodeInstance {
     valid: boolean;
-    defaultValue: any;
     node: AjfField;
     value: any;
     formula?: AjfFormula;

@@ -25,28 +25,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     (function (AjfImageType) {
         AjfImageType[AjfImageType["Image"] = 0] = "Image";
         AjfImageType[AjfImageType["Flag"] = 1] = "Flag";
@@ -83,13 +61,13 @@
             this._domSanitizer = _domSanitizer;
             this.imageTypes = exports.AjfImageType;
             this._imageType = new rxjs.BehaviorSubject(null);
-            this.imageType = this._imageType.asObservable();
+            this.imageType = this._imageType;
             this._url = new rxjs.BehaviorSubject(null);
-            this.url = this._url.asObservable();
+            this.url = this._url;
             this._iconObj = new rxjs.BehaviorSubject(null);
-            this.iconObj = this._iconObj.asObservable();
+            this.iconObj = this._iconObj;
             this._flagName = new rxjs.BehaviorSubject(null);
-            this.flagName = this._flagName.asObservable();
+            this.flagName = this._flagName;
             this._iconSub = rxjs.Subscription.EMPTY;
             this._iconSub = this.iconObj.subscribe(function () { return _this._updateIconSize(); });
         }

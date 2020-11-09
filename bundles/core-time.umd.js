@@ -28,7 +28,7 @@
     var AjfTimeModel = /** @class */ (function () {
         function AjfTimeModel() {
             this._changed = new core.EventEmitter();
-            this.changed = this._changed.asObservable();
+            this.changed = this._changed;
             this._hours = 0;
             this._minutes = 0;
         }

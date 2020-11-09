@@ -1,30 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('chart.js'), require('@angular/core'), require('@ajf/core/utils')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/chart', ['exports', 'chart.js', '@angular/core', '@ajf/core/utils'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.Chart, global.ng.core, global.ng.core.utils));
-}(this, (function (exports, chart_js, core, utils) { 'use strict';
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('chart.js'), require('@ajf/core/utils'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/chart', ['exports', 'chart.js', '@ajf/core/utils', '@angular/core'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.Chart, global.ng.core.utils, global.ng.core));
+}(this, (function (exports, chart_js, utils, core) { 'use strict';
 
     /**
      * @license
@@ -154,61 +132,59 @@
         AjfChartComponent.prototype._fixChartOptions = function (options) {
             options = options || {};
             if (options.legendCallback) {
-                var legendCallback = (typeof options.legendCallback === 'string'
-                    ? new Function(options.legendCallback)
-                    : options.legendCallback);
+                var legendCallback = (typeof options.legendCallback === 'string' ?
+                    new Function(options.legendCallback) :
+                    options.legendCallback);
                 options.legendCallback = legendCallback;
             }
             if (options.onHover) {
-                var onHover = (typeof options.onHover === 'string'
-                    ? new Function(options.onHover)
-                    : options.onHover);
+                var onHover = (typeof options.onHover === 'string' ?
+                    new Function(options.onHover) :
+                    options.onHover);
                 options.onHover = onHover;
             }
             if (options.onClick) {
-                var onClick = (typeof options.onClick === 'string'
-                    ? new Function(options.onClick)
-                    : options.onClick);
+                var onClick = (typeof options.onClick === 'string' ?
+                    new Function(options.onClick) :
+                    options.onClick);
                 options.onClick = onClick;
             }
             if (options.onResize) {
-                var onResize = (typeof options.onResize === 'string'
-                    ? new Function(options.onResize)
-                    : options.onResize);
+                var onResize = (typeof options.onResize === 'string' ?
+                    new Function(options.onResize) :
+                    options.onResize);
                 options.onResize = onResize;
             }
             if (options.legend) {
                 var legend = options.legend;
                 if (legend.onClick) {
-                    var onClick = (typeof legend.onClick === 'string'
-                        ? new Function(legend.onClick)
-                        : legend.onClick);
+                    var onClick = (typeof legend.onClick === 'string' ?
+                        new Function(legend.onClick) :
+                        legend.onClick);
                     legend.onClick = onClick;
                 }
                 if (legend.onHover) {
-                    var onHover = (typeof legend.onHover === 'string'
-                        ? new Function(legend.onHover)
-                        : legend.onHover);
+                    var onHover = (typeof legend.onHover === 'string' ?
+                        new Function(legend.onHover) :
+                        legend.onHover);
                     legend.onHover = onHover;
                 }
                 if (legend.onLeave) {
-                    var onLeave = (typeof legend.onLeave === 'string'
-                        ? new Function(legend.onLeave)
-                        : legend.onLeave);
+                    var onLeave = (typeof legend.onLeave === 'string' ?
+                        new Function(legend.onLeave) :
+                        legend.onLeave);
                     legend.onLeave = onLeave;
                 }
                 if (legend.labels) {
                     var labels = legend.labels;
                     if (labels.generateLabels) {
-                        var generateLabels = (typeof labels.generateLabels === 'string'
-                            ? new Function(labels.generateLabels)
-                            : labels.generateLabels);
+                        var generateLabels = (typeof labels.generateLabels === 'string' ?
+                            new Function(labels.generateLabels) :
+                            labels.generateLabels);
                         labels.generateLabels = generateLabels;
                     }
                     if (labels.filter) {
-                        var filter = (typeof labels.filter === 'string'
-                            ? new Function(labels.filter)
-                            : labels.filter);
+                        var filter = (typeof labels.filter === 'string' ? new Function(labels.filter) : labels.filter);
                         labels.filter = filter;
                     }
                 }
@@ -216,54 +192,49 @@
             if (options.tooltips) {
                 var tooltips = options.tooltips;
                 if (tooltips.custom) {
-                    var custom = (typeof tooltips.custom === 'string'
-                        ? new Function(tooltips.custom)
-                        : tooltips.custom);
+                    var custom = (typeof tooltips.custom === 'string' ?
+                        new Function(tooltips.custom) :
+                        tooltips.custom);
                     tooltips.custom = custom;
                 }
                 if (tooltips.callbacks) {
                     var callbacks = tooltips.callbacks;
                     for (var key in callbacks) {
                         var callback = callbacks[key];
-                        callbacks[key] = typeof callback === 'string'
-                            ? new Function(callback)
-                            : callback;
+                        callbacks[key] =
+                            typeof callback === 'string' ? new Function(callback) : callback;
                     }
                 }
                 if (tooltips.filter) {
-                    var filter = (typeof tooltips.filter === 'string'
-                        ? new Function(tooltips.filter)
-                        : tooltips.filter);
+                    var filter = (typeof tooltips.filter === 'string' ? new Function(tooltips.filter) :
+                        tooltips.filter);
                     tooltips.filter = filter;
                 }
                 if (tooltips.itemSort) {
-                    var itemSort = (typeof tooltips.itemSort === 'string'
-                        ? new Function(tooltips.itemSort)
-                        : tooltips.itemSort);
+                    var itemSort = (typeof tooltips.itemSort === 'string' ? new Function(tooltips.itemSort) :
+                        tooltips.itemSort);
                     tooltips.itemSort = itemSort;
                 }
             }
             if (options.hover) {
                 var hover = options.hover;
                 if (hover.onHover) {
-                    var onHover = (typeof hover.onHover === 'string'
-                        ? new Function(hover.onHover)
-                        : hover.onHover);
+                    var onHover = (typeof hover.onHover === 'string' ? new Function(hover.onHover) : hover.onHover);
                     hover.onHover = onHover;
                 }
             }
             if (options.animation) {
                 var animation = options.animation;
                 if (animation.onProgress) {
-                    var onProgress = (typeof animation.onProgress === 'string'
-                        ? new Function(animation.onProgress)
-                        : animation.onProgress);
+                    var onProgress = (typeof animation.onProgress === 'string' ?
+                        new Function(animation.onProgress) :
+                        animation.onProgress);
                     animation.onProgress = onProgress;
                 }
                 if (animation.onComplete) {
-                    var onComplete = (typeof animation.onComplete === 'string'
-                        ? new Function(animation.onComplete)
-                        : animation.onComplete);
+                    var onComplete = (typeof animation.onComplete === 'string' ?
+                        new Function(animation.onComplete) :
+                        animation.onComplete);
                     animation.onComplete = onComplete;
                 }
             }
@@ -278,33 +249,30 @@
             }
             options.scales.yAxes.forEach(function (yAxe) {
                 if (yAxe.ticks && yAxe.ticks.callback) {
-                    var callback = (typeof yAxe.ticks.callback === 'string'
-                        ? new Function(yAxe.ticks.callback)
-                        : yAxe.ticks.callback);
+                    var callback = (typeof yAxe.ticks.callback === 'string' ?
+                        new Function(yAxe.ticks.callback) :
+                        yAxe.ticks.callback);
                     yAxe.ticks.callback = callback;
                 }
             });
             options.scales.xAxes.forEach(function (xAxe) {
                 if (xAxe.ticks && xAxe.ticks.callback) {
-                    var callback = (typeof xAxe.ticks.callback === 'string'
-                        ? new Function(xAxe.ticks.callback)
-                        : xAxe.ticks.callback);
+                    var callback = (typeof xAxe.ticks.callback === 'string' ?
+                        new Function(xAxe.ticks.callback) :
+                        xAxe.ticks.callback);
                     xAxe.ticks.callback = callback;
                 }
             });
             if (this.chartType == 'pie') {
                 var newOptions = options;
-                newOptions.pieceLabel = {
-                    render: function (args) {
+                newOptions.pieceLabel = Object.assign(Object.assign({}, Object.assign({ render: function (args) {
                         if (args.label) {
                             return args.label + ':' + args.value;
                         }
                         else {
                             return args.value;
                         }
-                    },
-                    position: 'outside'
-                };
+                    } }, newOptions.pieceLabel)), { position: 'outside' });
                 return newOptions;
             }
             return options;

@@ -122,7 +122,7 @@ AutofocusDirective.propDecorators = {
 class AjfDndDirective {
     constructor() {
         this._file = new EventEmitter();
-        this.file = this._file.asObservable();
+        this.file = this._file;
         this._over = false;
     }
     get over() {

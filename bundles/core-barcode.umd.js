@@ -46,7 +46,7 @@
             this._onChangeCallback = function (_) { };
             this._onTouchedCallback = function () { };
             this._init();
-            this._startDetectionSub = this.startDetection.asObservable()
+            this._startDetectionSub = this.startDetection
                 .pipe(operators.debounceTime(300), operators.switchMap(function () {
                 var data = _this._getDataFromVideo(_this.videoSource);
                 return _this._readBarcodeFromData(data);
@@ -62,7 +62,7 @@
                     _this.value = result.text;
                 }
             });
-            this._startCalculationSub = this.startCalculation.asObservable()
+            this._startCalculationSub = this.startCalculation
                 .pipe(operators.switchMap(function (data) {
                 return _this._readBarcodeFromData(data);
             }))

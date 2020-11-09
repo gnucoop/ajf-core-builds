@@ -44,7 +44,7 @@ class AjfBarcode {
         this._onChangeCallback = (_) => { };
         this._onTouchedCallback = () => { };
         this._init();
-        this._startDetectionSub = this.startDetection.asObservable()
+        this._startDetectionSub = this.startDetection
             .pipe(debounceTime(300), switchMap(() => {
             const data = this._getDataFromVideo(this.videoSource);
             return this._readBarcodeFromData(data);
@@ -60,7 +60,7 @@ class AjfBarcode {
                 this.value = result.text;
             }
         });
-        this._startCalculationSub = this.startCalculation.asObservable()
+        this._startCalculationSub = this.startCalculation
             .pipe(switchMap((data) => {
             return this._readBarcodeFromData(data);
         }))

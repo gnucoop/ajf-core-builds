@@ -88,7 +88,7 @@ class AjfFileInput {
     constructor(domSanitizer, _cdr) {
         this._cdr = _cdr;
         this._valueChange = new EventEmitter();
-        this.valueChange = this._valueChange.asObservable();
+        this.valueChange = this._valueChange;
         /** The method to be called in order to update ngModel. */
         this._controlValueAccessorChangeFn = () => { };
         /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
