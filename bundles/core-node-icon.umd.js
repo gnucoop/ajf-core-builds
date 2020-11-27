@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ajf/core/forms'), require('@angular/core')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/node-icon', ['exports', '@ajf/core/forms', '@angular/core'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.nodeIcon = {}), global.ng.core.forms, global.ng.core));
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.nodeIcon = {}), global.ajf.core.forms, global.ng.core));
 }(this, (function (exports, forms, core) { 'use strict';
 
     /**

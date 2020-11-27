@@ -88,6 +88,14 @@ class AjfChartComponent {
         else if ('options' in changes || 'data' in changes) {
             this._updateChart();
         }
+        if ('instance' in changes) {
+            this.instance.canvasDataUrl = () => {
+                if (this._chartCanvasElement == null) {
+                    return '';
+                }
+                return this._chartCanvasElement.toDataURL();
+            };
+        }
     }
     _fixData(chartType, data) {
         const newData = deepCopy(data);
@@ -313,7 +321,8 @@ AjfChartComponent.ctorParameters = () => [
 AjfChartComponent.propDecorators = {
     data: [{ type: Input }],
     options: [{ type: Input }],
-    chartType: [{ type: Input }]
+    chartType: [{ type: Input }],
+    instance: [{ type: Input }]
 };
 
 /**

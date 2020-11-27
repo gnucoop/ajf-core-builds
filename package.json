@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "11.0.0-sha-ddac4e635",
+  "version": "11.0.0-sha-4780d4f70",
   "description": "",
   "repository": {
     "type": "git",
@@ -26,7 +26,8 @@
     "date-fns": "^2.14.0",
     "esprima": "^4.0.1",
     "leaflet": "^1.6.0",
-    "numbro": "^2.3.1"
+    "numbro": "^2.3.1",
+    "pdfmake": "^0.1.68"
   },
   "dependencies": {
     "tslib": "^2.0.0"

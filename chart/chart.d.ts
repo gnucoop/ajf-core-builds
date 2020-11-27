@@ -22,12 +22,16 @@
 import { AfterViewInit, ElementRef, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
 import { ExtendedChartType } from './extended-chart-type';
+interface ChartWidgetInstance {
+    canvasDataUrl?(): string;
+}
 export declare class AjfChartComponent implements AfterViewInit, OnChanges {
     private _el;
     private _renderer;
     data: ChartData;
     options: ChartOptions;
     chartType: ExtendedChartType;
+    instance: ChartWidgetInstance;
     private _chart;
     private _chartCanvasElement;
     private _chartTypesNeedPoints;
@@ -39,3 +43,4 @@ export declare class AjfChartComponent implements AfterViewInit, OnChanges {
     private _rebuildChart;
     private _fixChartOptions;
 }
+export {};

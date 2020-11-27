@@ -19,15 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { ExtendedChartType } from '@ajf/core/chart';
-import { ChartData, ChartDataSets } from 'chart.js';
-import { AjfChartWidget } from '../widgets/chart-widget';
-import { AjfDataWidgetInstance } from './data-widget-instance';
-export interface AjfChartWidgetInstance extends AjfDataWidgetInstance {
-    widget: AjfChartWidget;
-    datasets: ChartDataSets[];
-    chartType: ExtendedChartType;
-    data: ChartData;
-    labels: string[];
-    canvasDataUrl?(): string;
+import { AjfReportInstance } from '../interface/reports-instances/report-instance';
+export interface ImageMap {
+    [url: string]: string;
 }
+export declare function loadReportImages(report: AjfReportInstance): Promise<ImageMap>;

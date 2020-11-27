@@ -19,15 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { ExtendedChartType } from '@ajf/core/chart';
-import { ChartData, ChartDataSets } from 'chart.js';
-import { AjfChartWidget } from '../widgets/chart-widget';
-import { AjfDataWidgetInstance } from './data-widget-instance';
-export interface AjfChartWidgetInstance extends AjfDataWidgetInstance {
-    widget: AjfChartWidget;
-    datasets: ChartDataSets[];
-    chartType: ExtendedChartType;
-    data: ChartData;
-    labels: string[];
-    canvasDataUrl?(): string;
-}
+import { TCreatedPdf } from 'pdfmake/build/pdfmake';
+import { PageOrientation } from 'pdfmake/interfaces';
+import { AjfReportInstance } from '../interface/reports-instances/report-instance';
+export declare function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation): void;
+export declare function createReportPdf(report: AjfReportInstance, orientation?: PageOrientation): Promise<TCreatedPdf>;

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ajf/core/common'), require('@angular/common'), require('@angular/core'), require('@angular/platform-browser')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/table', ['exports', '@ajf/core/common', '@angular/common', '@angular/core', '@angular/platform-browser'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.table = {}), global.ng.core.common, global.ng.common, global.ng.core, global.ng.platformBrowser));
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.table = {}), global.ajf.core.common, global.ng.common, global.ng.core, global.ng.platformBrowser));
 }(this, (function (exports, common, common$1, core, platformBrowser) { 'use strict';
 
     /**

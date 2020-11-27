@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('chart.js'), require('@ajf/core/utils'), require('@angular/core')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/chart', ['exports', 'chart.js', '@ajf/core/utils', '@angular/core'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.Chart, global.ng.core.utils, global.ng.core));
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.Chart, global.ajf.core.utils, global.ng.core));
 }(this, (function (exports, chart_js, utils, core) { 'use strict';
 
     /**
@@ -62,11 +62,20 @@
             this._rebuildChart();
         };
         AjfChartComponent.prototype.ngOnChanges = function (changes) {
+            var _this = this;
             if ('chartType' in changes) {
                 this._rebuildChart();
             }
             else if ('options' in changes || 'data' in changes) {
                 this._updateChart();
+            }
+            if ('instance' in changes) {
+                this.instance.canvasDataUrl = function () {
+                    if (_this._chartCanvasElement == null) {
+                        return '';
+                    }
+                    return _this._chartCanvasElement.toDataURL();
+                };
             }
         };
         AjfChartComponent.prototype._fixData = function (chartType, data) {
@@ -295,7 +304,8 @@
     AjfChartComponent.propDecorators = {
         data: [{ type: core.Input }],
         options: [{ type: core.Input }],
-        chartType: [{ type: core.Input }]
+        chartType: [{ type: core.Input }],
+        instance: [{ type: core.Input }]
     };
 
     /**
