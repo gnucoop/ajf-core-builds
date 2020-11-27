@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@ajf/core/utils'), require('esprima'), require('@ajf/core/models'), require('date-fns'), require('@angular/cdk/coercion'), require('@ajf/core/common'), require('@ajf/core/file-input'), require('@angular/common'), require('@angular/common/http'), require('@angular/platform-browser')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/core', '@angular/forms', 'rxjs', 'rxjs/operators', '@ajf/core/utils', 'esprima', '@ajf/core/models', 'date-fns', '@angular/cdk/coercion', '@ajf/core/common', '@ajf/core/file-input', '@angular/common', '@angular/common/http', '@angular/platform-browser'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.core.utils, global.esprima, global.ng.core.models, global.dateFns, global.ng.cdk.coercion, global.ng.core.common, global.ng.core.fileInput, global.ng.common, global.ng.common.http, global.ng.platformBrowser));
-}(this, (function (exports, core, forms, rxjs, operators, utils, esprima, models, dateFns, coercion, common, fileInput, common$1, http, platformBrowser) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@ajf/core/utils'), require('esprima'), require('@ajf/core/models'), require('date-fns'), require('@angular/cdk/coercion'), require('@ajf/core/common'), require('@ajf/core/file-input'), require('@angular/common'), require('@angular/common/http'), require('@ngx-translate/core'), require('@angular/platform-browser')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/core', '@angular/forms', 'rxjs', 'rxjs/operators', '@ajf/core/utils', 'esprima', '@ajf/core/models', 'date-fns', '@angular/cdk/coercion', '@ajf/core/common', '@ajf/core/file-input', '@angular/common', '@angular/common/http', '@ngx-translate/core', '@angular/platform-browser'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.core.utils, global.esprima, global.ng.core.models, global.dateFns, global.ng.cdk.coercion, global.ng.core.common, global.ng.core.fileInput, global.ng.common, global.ng.common.http, global.ngxTranslate.core, global.ng.platformBrowser));
+}(this, (function (exports, core, forms, rxjs, operators, utils, esprima, models, dateFns, coercion, common, fileInput, common$1, http, core$1, platformBrowser) { 'use strict';
 
     /**
      * @license
@@ -5136,6 +5136,29 @@
         { type: platformBrowser.DomSanitizer }
     ]; };
 
+    var AjfReadOnlySelectFieldComponent = /** @class */ (function (_super) {
+        __extends(AjfReadOnlySelectFieldComponent, _super);
+        function AjfReadOnlySelectFieldComponent(cdr, service, was) {
+            var _this = _super.call(this, cdr, service, was) || this;
+            _this.multiple = _this.control.pipe(operators.filter(function (control) { return control != null; }), operators.map(function () { return _this.instance.node.fieldType === exports.AjfFieldType.MultipleChoice; }));
+            return _this;
+        }
+        return AjfReadOnlySelectFieldComponent;
+    }(AjfBaseFieldComponent));
+    AjfReadOnlySelectFieldComponent.decorators = [
+        { type: core.Component, args: [{
+                    template: "<ng-container *ngIf=\"control|async as ctrl\">\n    <ng-container *ngFor=\"let choice of instance.filteredChoices; let idx = index\">\n        <ng-container *ngIf=\"multiple|async; else singleChoice\">\n            <span *ngIf=\"ctrl.value && ctrl.value?.indexOf(choice.value) > -1\">\n                {{choice.label|translate}}{{ctrl.value[ctrl.value.length - 1] !== choice.value ? ', ': ''}}\n            </span>\n        </ng-container>\n        <ng-template #singleChoice>\n            <span *ngIf=\"ctrl.value === choice.value\">{{choice.label|translate}}</span>\n        </ng-template>\n    </ng-container>\n</ng-container>\n",
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
+                    styles: ["\n"]
+                },] }
+    ];
+    AjfReadOnlySelectFieldComponent.ctorParameters = function () { return [
+        { type: core.ChangeDetectorRef },
+        { type: AjfFormRendererService },
+        { type: undefined, decorators: [{ type: core.Inject, args: [AJF_WARNING_ALERT_SERVICE,] }] }
+    ]; };
+
     var AjfReadOnlyTableFieldComponent = /** @class */ (function (_super) {
         __extends(AjfReadOnlyTableFieldComponent, _super);
         function AjfReadOnlyTableFieldComponent(cdr, service, was) {
@@ -5466,6 +5489,7 @@
                         AjfReadOnlyFieldComponent,
                         AjfReadOnlyFileFieldComponent,
                         AjfReadOnlyImageFieldComponent,
+                        AjfReadOnlySelectFieldComponent,
                         AjfReadOnlyTableFieldComponent,
                         AjfReadOnlyVideoUrlFieldComponent,
                         AjfTableRowClass,
@@ -5473,11 +5497,8 @@
                         AjfValidSlidePipe,
                     ],
                     imports: [
-                        common.AjfCommonModule,
-                        fileInput.AjfFileInputModule,
-                        common$1.CommonModule,
-                        http.HttpClientModule,
-                        forms.ReactiveFormsModule,
+                        common.AjfCommonModule, fileInput.AjfFileInputModule, common$1.CommonModule, http.HttpClientModule, forms.ReactiveFormsModule,
+                        core$1.TranslateModule
                     ],
                     exports: [
                         AjfAsFieldInstancePipe,
@@ -5500,11 +5521,22 @@
                         AjfReadOnlyFieldComponent,
                         AjfReadOnlyFileFieldComponent,
                         AjfReadOnlyImageFieldComponent,
+                        AjfReadOnlySelectFieldComponent,
                         AjfReadOnlyTableFieldComponent,
                         AjfReadOnlyVideoUrlFieldComponent,
                         AjfTableRowClass,
                         AjfTableVisibleColumnsPipe,
                         AjfValidSlidePipe,
+                    ],
+                    entryComponents: [
+                        AjfFileFieldComponent,
+                        AjfImageFieldComponent,
+                        AjfReadOnlyFieldComponent,
+                        AjfReadOnlyFileFieldComponent,
+                        AjfReadOnlyImageFieldComponent,
+                        AjfReadOnlySelectFieldComponent,
+                        AjfReadOnlyTableFieldComponent,
+                        AjfReadOnlyVideoUrlFieldComponent,
                     ],
                     providers: [
                         AjfDateValueStringPipe,
@@ -6577,6 +6609,7 @@
     exports.AjfReadOnlyFieldComponent = AjfReadOnlyFieldComponent;
     exports.AjfReadOnlyFileFieldComponent = AjfReadOnlyFileFieldComponent;
     exports.AjfReadOnlyImageFieldComponent = AjfReadOnlyImageFieldComponent;
+    exports.AjfReadOnlySelectFieldComponent = AjfReadOnlySelectFieldComponent;
     exports.AjfReadOnlyTableFieldComponent = AjfReadOnlyTableFieldComponent;
     exports.AjfReadOnlyVideoUrlFieldComponent = AjfReadOnlyVideoUrlFieldComponent;
     exports.AjfTableFieldComponent = AjfTableFieldComponent;
