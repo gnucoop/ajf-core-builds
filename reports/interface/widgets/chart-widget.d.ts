@@ -30,4 +30,5 @@ export interface AjfChartWidget extends AjfDataWidget {
     labels: AjfFormula | AjfFormula[];
     dataset: AjfChartDataset[];
     options: ChartOptions;
+    exportable?: boolean;
 }

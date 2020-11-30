@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "11.0.0-sha-0e6a88dc0",
+  "version": "11.0.0-sha-58edd83a4",
   "description": "",
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "css-element-queries": "^1.2.3",
     "date-fns": "^2.14.0",
     "esprima": "^4.0.1",
+    "file-saver": "^2.0.2",
     "leaflet": "^1.6.0",
     "numbro": "^2.3.1",
     "pdfmake": "^0.1.68"

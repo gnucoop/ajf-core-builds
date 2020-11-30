@@ -127,8 +127,22 @@
             }
             if (this.data != null) {
                 this._chartCanvasElement = this._renderer.createElement('canvas');
-                this._renderer.setStyle(this._chartCanvasElement, 'width', 'inherit');
-                this._renderer.setStyle(this._chartCanvasElement, 'height', 'inherit');
+                var widgetExportElement = this._el.nativeElement.parentElement.parentElement;
+                var height = widgetExportElement.clientHeight;
+                var width = widgetExportElement.clientWidth;
+                if (widgetExportElement != null) {
+                    if (height > 0) {
+                        this._renderer.setStyle(this._el.nativeElement, 'height', height + "px");
+                        this._renderer.setStyle(this._chartCanvasElement, 'height', height + "px");
+                    }
+                    if (width > 0) {
+                        this._renderer.setStyle(this._chartCanvasElement, 'width', width);
+                    }
+                }
+                else {
+                    this._renderer.setStyle(this._chartCanvasElement, 'width', 'inherit');
+                    this._renderer.setStyle(this._chartCanvasElement, 'height', 'inherit');
+                }
                 this._renderer.appendChild(this._el.nativeElement, this._chartCanvasElement);
                 var ctx = this._chartCanvasElement.getContext('2d');
                 this._chart = new chart_js.Chart(ctx, {

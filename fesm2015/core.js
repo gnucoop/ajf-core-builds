@@ -22,7 +22,7 @@ import { Version } from '@angular/core';
  *
  */
 /** Current version of Ajf. */
-const VERSION = new Version('11.0.0-sha-0e6a88dc0');
+const VERSION = new Version('11.0.0-sha-58edd83a4');
 
 /**
  * @license

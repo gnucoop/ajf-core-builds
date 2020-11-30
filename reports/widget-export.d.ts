@@ -19,16 +19,20 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { ExtendedChartType } from '@ajf/core/chart';
-import { ChartData, ChartDataSets } from 'chart.js';
-import { AjfChartWidget } from '../widgets/chart-widget';
-import { AjfDataWidgetInstance } from './data-widget-instance';
-export interface AjfChartWidgetInstance extends AjfDataWidgetInstance {
-    widget: AjfChartWidget;
-    datasets: ChartDataSets[];
-    chartType: ExtendedChartType;
-    exportable: boolean;
-    data: ChartData;
-    labels: string[];
-    canvasDataUrl?(): string;
+import { AjfTableCell } from '@ajf/core/table';
+import { ChartData } from 'chart.js';
+import { AjfWidgetType } from '../reports/interface/widgets/widget-type';
+export declare class AjfWidgetExport {
+    widgetType: AjfWidgetType;
+    data: ChartData | AjfTableCell[][];
+    overlay: boolean;
+    enable: boolean;
+    constructor();
+    buildCsv(): string;
+    exportCsv(): void;
+    buildXlsx(): {
+        [key: string]: string | number;
+    }[];
+    exportXlsx(): void;
+    private _buildTitle;
 }

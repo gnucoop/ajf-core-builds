@@ -27,4 +27,5 @@ export interface AjfTableWidgetInstance extends AjfDataWidgetInstance {
     widget: AjfTableWidget;
     data: AjfTableCell[][];
     recalcEvt: Subject<boolean>;
+    exportable: boolean;
 }

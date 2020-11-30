@@ -29,4 +29,5 @@ export interface AjfDynamicTableWidget extends AjfDataWidget {
     rowDefinition: AjfFormula;
     cellStyles: any;
     dataset: AjfTableDataset[];
+    exportable?: boolean;
 }
