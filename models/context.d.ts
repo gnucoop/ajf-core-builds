@@ -19,5 +19,4 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfContext } from '@ajf/core/common';
-export declare function evaluateExpression(expression: string, context?: AjfContext, forceFormula?: string): any;
+export declare type AjfContext = import('@ajf/core/common').AjfContext;

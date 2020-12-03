@@ -19,5 +19,5 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfContext } from '@ajf/core/common';
-export declare function evaluateExpression(expression: string, context?: AjfContext, forceFormula?: string): any;
+import { AjfStringIdentifier } from '@ajf/core/common';
+export declare type AjfReportStringIdentifier = AjfStringIdentifier;

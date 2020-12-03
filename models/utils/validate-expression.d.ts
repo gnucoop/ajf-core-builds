@@ -19,5 +19,5 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfContext } from '../interface/context';
+import { AjfContext } from '@ajf/core/common';
 export declare function validateExpression(str: string, context?: AjfContext): boolean;

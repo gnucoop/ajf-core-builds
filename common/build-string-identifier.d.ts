@@ -19,5 +19,6 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfContext } from '@ajf/core/common';
-export declare function evaluateExpression(expression: string, context?: AjfContext, forceFormula?: string): any;
+import { AjfContext } from './context';
+import { AjfStringIdentifier } from './string-identifier';
+export declare const buildStringIdentifier: (stringIdentifier: AjfStringIdentifier[] | undefined, context: AjfContext, emptyString?: string) => string;

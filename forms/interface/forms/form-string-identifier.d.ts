@@ -19,7 +19,5 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export interface AjfFormStringIdentifier {
-    label: string;
-    value: string[];
-}
+import { AjfStringIdentifier } from '@ajf/core/common';
+export declare type AjfFormStringIdentifier = AjfStringIdentifier;

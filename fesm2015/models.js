@@ -24,24 +24,6 @@ import numbroMod__default from 'numbro';
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-class AjfError extends Error {
-    /**
-     * this constructor will init the message error
-     */
-    constructor(message) {
-        super(message);
-        // Set the prototype explicitly. Workaround needed in TS >= 2.1 when extending built-ins
-        // See: https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md
-        Object.setPrototypeOf(this, AjfError.prototype);
-        this._message = message || '';
-    }
-    get name() {
-        return 'AjfError';
-    }
-    get message() {
-        return this._message;
-    }
-}
 
 /**
  * @license
@@ -64,6 +46,24 @@ class AjfError extends Error {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+class AjfError extends Error {
+    /**
+     * this constructor will init the message error
+     */
+    constructor(message) {
+        super(message);
+        // Set the prototype explicitly. Workaround needed in TS >= 2.1 when extending built-ins
+        // See: https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md
+        Object.setPrototypeOf(this, AjfError.prototype);
+        this._message = message || '';
+    }
+    get name() {
+        return 'AjfError';
+    }
+    get message() {
+        return this._message;
+    }
+}
 
 /**
  * @license
