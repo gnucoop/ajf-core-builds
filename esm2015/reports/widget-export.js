@@ -154,7 +154,7 @@ AjfWidgetExport.decorators = [
     `,
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
-                styles: ["ajf-widget-export{width:100%;height:inherit}ajf-widget-export .ajf-export-menu{position:absolute;right:0;top:0}ajf-widget-export .ajf-export-menu button{margin:.5em;border:none;color:#fff;background-color:#4a403f;padding:7.5px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;cursor:pointer}ajf-widget-export .ajf-widget-wrapper{position:relative}ajf-widget-export .ajf-widget-wrapper:hover .ajf-export-menu{display:block !important}\n"]
+                styles: ["ajf-widget-export{width:100%;height:inherit}ajf-widget-export .ajf-export-menu{position:absolute;right:0;top:0}ajf-widget-export .ajf-export-menu button{margin:.5em;border:none;color:#fff;background-color:#4a403f;padding:7.5px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;cursor:pointer}ajf-widget-export .ajf-widget-wrapper{position:relative;height:inherit}ajf-widget-export .ajf-widget-wrapper:hover .ajf-export-menu{display:block !important}\n"]
             },] }
 ];
 AjfWidgetExport.ctorParameters = () => [];
