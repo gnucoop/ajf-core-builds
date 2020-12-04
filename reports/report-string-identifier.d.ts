@@ -19,13 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfContext } from './context';
-import { AjfStringIdentifier } from './string-identifier';
-export interface BuildStringIdentifierOpts {
-    emptyString?: string;
-    entriesDivider?: string;
-    labelSuffix?: string;
-    valuesDivider?: string;
+import { AjfContext, BuildStringIdentifierOpts } from '@ajf/core/common';
+import { PipeTransform } from '@angular/core';
+import { AjfReport } from './interface/reports/report';
+export declare class AjfReportStringIdentifierPipe implements PipeTransform {
+    transform(report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts): string;
 }
-export declare const buildStringIdentifierOpts: (opts?: BuildStringIdentifierOpts | undefined) => Required<BuildStringIdentifierOpts>;
-export declare const buildStringIdentifier: (stringIdentifier: AjfStringIdentifier[] | undefined, context: AjfContext, opts?: BuildStringIdentifierOpts | undefined) => string;

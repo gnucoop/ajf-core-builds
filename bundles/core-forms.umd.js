@@ -4823,6 +4823,96 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    var buildFormStringIdentifier = function (form, context, opts) {
+        if (form == null) {
+            return '';
+        }
+        var stringIdentifier = form.stringIdentifier || [];
+        if (stringIdentifier.length === 0) {
+            return '';
+        }
+        var fields = flattenNodes(form.nodes).filter(function (n) { return isField(n) && isFieldWithChoices(n); });
+        if (fields.length > 0) {
+            context = Object.assign({}, context);
+            fields.forEach(function (field) {
+                var value = context[field.name];
+                if (value == null) {
+                    return;
+                }
+                if (field.fieldType === exports.AjfFieldType.SingleChoice) {
+                    var singleChoiceField = field;
+                    var choice = singleChoiceField.choicesOrigin.choices.find(function (c) { return c.value === value; });
+                    if (choice == null) {
+                        return;
+                    }
+                    context[field.name] = choice.value;
+                }
+                else if (field.fieldType === exports.AjfFieldType.MultipleChoice && Array.isArray(value) &&
+                    value.length > 0) {
+                    var strings = common.buildStringIdentifierOpts(opts);
+                    var multipleChoiceField = field;
+                    var choices = multipleChoiceField.choicesOrigin.choices.filter(function (c) { return value.indexOf(c.value) > -1; });
+                    context[field.name] = choices.join(strings.valuesDivider);
+                }
+            });
+        }
+        return common.buildStringIdentifier(stringIdentifier, context, opts);
+    };
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfFormStringIdentifierPipe = /** @class */ (function () {
+        function AjfFormStringIdentifierPipe() {
+        }
+        AjfFormStringIdentifierPipe.prototype.transform = function (form, context, opts) {
+            return buildFormStringIdentifier(form, context, opts);
+        };
+        return AjfFormStringIdentifierPipe;
+    }());
+    AjfFormStringIdentifierPipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfFormStringIdentifier' },] }
+    ];
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
     var AjfGetTableCellControlPipe = /** @class */ (function () {
         function AjfGetTableCellControlPipe() {
         }
@@ -5513,6 +5603,7 @@
                         AjfFieldIconPipe,
                         AjfFieldIsValidPipe,
                         AjfFileFieldComponent,
+                        AjfFormStringIdentifierPipe,
                         AjfGetTableCellControlPipe,
                         AjfImageFieldComponent,
                         AjfIncrementPipe,
@@ -5546,6 +5637,7 @@
                         AjfFieldIconPipe,
                         AjfFieldIsValidPipe,
                         AjfFileFieldComponent,
+                        AjfFormStringIdentifierPipe,
                         AjfGetTableCellControlPipe,
                         AjfImageFieldComponent,
                         AjfIncrementPipe,
@@ -6631,6 +6723,7 @@
     exports.AjfFormRenderer = AjfFormRenderer;
     exports.AjfFormRendererService = AjfFormRendererService;
     exports.AjfFormSerializer = AjfFormSerializer;
+    exports.AjfFormStringIdentifierPipe = AjfFormStringIdentifierPipe;
     exports.AjfFormsModule = AjfFormsModule;
     exports.AjfGetTableCellControlPipe = AjfGetTableCellControlPipe;
     exports.AjfImageFieldComponent = AjfImageFieldComponent;
@@ -6657,6 +6750,7 @@
     exports.AjfValidationService = AjfValidationService;
     exports.AjfVideoUrlFieldComponent = AjfVideoUrlFieldComponent;
     exports.AjfWarningGroupSerializer = AjfWarningGroupSerializer;
+    exports.buildFormStringIdentifier = buildFormStringIdentifier;
     exports.createChoicesFixedOrigin = createChoicesFixedOrigin;
     exports.createChoicesFunctionOrigin = createChoicesFunctionOrigin;
     exports.createChoicesObservableArrayOrigin = createChoicesObservableArrayOrigin;

@@ -119,31 +119,40 @@ AutofocusDirective.propDecorators = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const buildStringIdentifier = (stringIdentifier, context, emptyString = '') => {
+const defaultOpts = {
+    emptyString: 'Not specified',
+    entriesDivider: ' - ',
+    labelSuffix: ': ',
+    valuesDivider: ', ',
+};
+const buildStringIdentifierOpts = (opts) => (Object.assign(Object.assign({}, defaultOpts), opts));
+const buildStringIdentifier = (stringIdentifier, context, opts) => {
+    const strings = Object.assign(Object.assign({}, defaultOpts), opts);
     if (stringIdentifier == null) {
-        return emptyString;
+        return strings.emptyString;
     }
     const str = stringIdentifier.map(s => {
         const values = [];
         if (s.value != null && s.value.length > 0) {
             s.value.forEach(curValue => {
-                let val = null;
                 const vp = curValue.split('.');
+                let curContext = context;
+                let val = null;
                 vp.forEach(k => {
-                    if (context[k] !== undefined) {
+                    if (curContext[k] !== undefined) {
                         val = context[k];
+                        curContext = context[k];
                     }
                 });
-                if (val != null && val instanceof Array &&
-                    val.length > 0) {
-                    val = val.join(', ');
+                if (val != null && val instanceof Array && val.length > 0) {
+                    val = val.map(v => `${v}`).join(', ');
                 }
                 if (val != null) {
                     values.push(`${val}`);
                 }
             });
         }
-        return `${s.label}: ${values.length > 0 ? values.join(', ') : emptyString}`;
+        return `${s.label}: ${values.length > 0 ? values.join(', ') : strings.emptyString}`;
     });
     return str.join(' - ');
 };
@@ -463,5 +472,5 @@ AjfCommonModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { AjfCommonModule, AjfDndDirective, AjfVideoDirective, ApplyStylesDirective, AutofocusDirective, FormatIfNumber, TranslateIfString, buildStringIdentifier };
+export { AjfCommonModule, AjfDndDirective, AjfVideoDirective, ApplyStylesDirective, AutofocusDirective, FormatIfNumber, TranslateIfString, buildStringIdentifier, buildStringIdentifierOpts };
 //# sourceMappingURL=common.js.map

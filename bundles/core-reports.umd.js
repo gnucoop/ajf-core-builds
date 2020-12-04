@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('date-fns'), require('file-saver'), require('xlsx'), require('@ajf/core/models'), require('@ajf/core/utils'), require('@ajf/core/image'), require('pdfmake/build/pdfmake')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/reports', ['exports', '@angular/core', '@angular/common', 'date-fns', 'file-saver', 'xlsx', '@ajf/core/models', '@ajf/core/utils', '@ajf/core/image', 'pdfmake/build/pdfmake'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.reports = {}), global.ng.core, global.ng.common, global.dateFns, global['file-saver'], global.xlsx, global.ajf.core.models, global.ajf.core.utils, global.ajf.core.image, global.pdfmake.build.pdfmake));
-}(this, (function (exports, core, common, dateFns, fileSaver, XLSX, models, utils, image, pdfmake) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ajf/core/common'), require('@angular/common'), require('date-fns'), require('file-saver'), require('xlsx'), require('@ajf/core/models'), require('@ajf/core/utils'), require('@ajf/core/image'), require('pdfmake/build/pdfmake')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/reports', ['exports', '@angular/core', '@ajf/core/common', '@angular/common', 'date-fns', 'file-saver', 'xlsx', '@ajf/core/models', '@ajf/core/utils', '@ajf/core/image', 'pdfmake/build/pdfmake'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.reports = {}), global.ng.core, global.ajf.core.common, global.ng.common, global.dateFns, global['file-saver'], global.xlsx, global.ajf.core.models, global.ajf.core.utils, global.ajf.core.image, global.pdfmake.build.pdfmake));
+}(this, (function (exports, core, common, common$1, dateFns, fileSaver, XLSX, models, utils, image, pdfmake) { 'use strict';
 
     var fileSaver__default = 'default' in fileSaver ? fileSaver['default'] : fileSaver;
     var XLSX__default = 'default' in XLSX ? XLSX['default'] : XLSX;
@@ -282,6 +282,71 @@
     AjfReportRenderer.propDecorators = {
         instance: [{ type: core.Input }]
     };
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var buildReportStringIdentifier = function (report, context, opts) {
+        if (report == null) {
+            return '';
+        }
+        var stringIdentifier = report.stringIdentifier || [];
+        if (stringIdentifier.length === 0) {
+            return '';
+        }
+        return common.buildStringIdentifier(stringIdentifier, context, opts);
+    };
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
+    var AjfReportStringIdentifierPipe = /** @class */ (function () {
+        function AjfReportStringIdentifierPipe() {
+        }
+        AjfReportStringIdentifierPipe.prototype.transform = function (report, context, opts) {
+            return buildReportStringIdentifier(report, context, opts);
+        };
+        return AjfReportStringIdentifierPipe;
+    }());
+    AjfReportStringIdentifierPipe.decorators = [
+        { type: core.Pipe, args: [{ name: 'ajfReportStringIdentifier' },] }
+    ];
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -798,12 +863,16 @@
         { type: core.NgModule, args: [{
                     declarations: [
                         AjfGetColumnContentPipe,
+                        AjfReportStringIdentifierPipe,
                         AjfWidgetHost,
                         AjfWidgetExport,
                     ],
-                    imports: [common.CommonModule],
+                    imports: [
+                        common$1.CommonModule,
+                    ],
                     exports: [
                         AjfGetColumnContentPipe,
+                        AjfReportStringIdentifierPipe,
                         AjfWidgetHost,
                         AjfWidgetExport,
                     ],
@@ -1969,6 +2038,7 @@
     exports.AjfReportContainerSerializer = AjfReportContainerSerializer;
     exports.AjfReportRenderer = AjfReportRenderer;
     exports.AjfReportSerializer = AjfReportSerializer;
+    exports.AjfReportStringIdentifierPipe = AjfReportStringIdentifierPipe;
     exports.AjfReportWidget = AjfReportWidget;
     exports.AjfReportsModule = AjfReportsModule;
     exports.AjfWidgetExport = AjfWidgetExport;

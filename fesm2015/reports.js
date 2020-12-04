@@ -1,4 +1,5 @@
 import { Pipe, Directive, ChangeDetectorRef, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewContainerRef, NgModule, ComponentFactoryResolver, Renderer2, ViewChild } from '@angular/core';
+import { buildStringIdentifier } from '@ajf/core/common';
 import { CommonModule } from '@angular/common';
 import { format } from 'date-fns';
 import fileSaver__default from 'file-saver';
@@ -1152,6 +1153,68 @@ AjfReportRenderer.propDecorators = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const buildReportStringIdentifier = (report, context, opts) => {
+    if (report == null) {
+        return '';
+    }
+    const stringIdentifier = report.stringIdentifier || [];
+    if (stringIdentifier.length === 0) {
+        return '';
+    }
+    return buildStringIdentifier(stringIdentifier, context, opts);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+class AjfReportStringIdentifierPipe {
+    transform(report, context, opts) {
+        return buildReportStringIdentifier(report, context, opts);
+    }
+}
+AjfReportStringIdentifierPipe.decorators = [
+    { type: Pipe, args: [{ name: 'ajfReportStringIdentifier' },] }
+];
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 class AjfWidgetExport {
     constructor() {
         this.overlay = true;
@@ -1352,12 +1415,16 @@ AjfReportsModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
                     AjfGetColumnContentPipe,
+                    AjfReportStringIdentifierPipe,
                     AjfWidgetHost,
                     AjfWidgetExport,
                 ],
-                imports: [CommonModule],
+                imports: [
+                    CommonModule,
+                ],
                 exports: [
                     AjfGetColumnContentPipe,
+                    AjfReportStringIdentifierPipe,
                     AjfWidgetHost,
                     AjfWidgetExport,
                 ],
@@ -2546,5 +2613,5 @@ function stripHTML(s) {
  * Generated bundle index. Do not edit.
  */
 
-export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfGetColumnContentPipe, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportWidget, AjfReportsModule, AjfWidgetExport, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetService, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createReportPdf, createWidget, createWidgetInstance, openReportPdf, widgetToWidgetInstance };
+export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfGetColumnContentPipe, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportStringIdentifierPipe, AjfReportWidget, AjfReportsModule, AjfWidgetExport, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetService, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createReportPdf, createWidget, createWidgetInstance, openReportPdf, widgetToWidgetInstance };
 //# sourceMappingURL=reports.js.map

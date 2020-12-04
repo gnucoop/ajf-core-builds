@@ -127,32 +127,40 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var buildStringIdentifier = function (stringIdentifier, context, emptyString) {
-        if (emptyString === void 0) { emptyString = ''; }
+    var defaultOpts = {
+        emptyString: 'Not specified',
+        entriesDivider: ' - ',
+        labelSuffix: ': ',
+        valuesDivider: ', ',
+    };
+    var buildStringIdentifierOpts = function (opts) { return (Object.assign(Object.assign({}, defaultOpts), opts)); };
+    var buildStringIdentifier = function (stringIdentifier, context, opts) {
+        var strings = Object.assign(Object.assign({}, defaultOpts), opts);
         if (stringIdentifier == null) {
-            return emptyString;
+            return strings.emptyString;
         }
         var str = stringIdentifier.map(function (s) {
             var values = [];
             if (s.value != null && s.value.length > 0) {
                 s.value.forEach(function (curValue) {
-                    var val = null;
                     var vp = curValue.split('.');
+                    var curContext = context;
+                    var val = null;
                     vp.forEach(function (k) {
-                        if (context[k] !== undefined) {
+                        if (curContext[k] !== undefined) {
                             val = context[k];
+                            curContext = context[k];
                         }
                     });
-                    if (val != null && val instanceof Array &&
-                        val.length > 0) {
-                        val = val.join(', ');
+                    if (val != null && val instanceof Array && val.length > 0) {
+                        val = val.map(function (v) { return "" + v; }).join(', ');
                     }
                     if (val != null) {
                         values.push("" + val);
                     }
                 });
             }
-            return s.label + ": " + (values.length > 0 ? values.join(', ') : emptyString);
+            return s.label + ": " + (values.length > 0 ? values.join(', ') : strings.emptyString);
         });
         return str.join(' - ');
     };
@@ -723,6 +731,7 @@
     exports.FormatIfNumber = FormatIfNumber;
     exports.TranslateIfString = TranslateIfString;
     exports.buildStringIdentifier = buildStringIdentifier;
+    exports.buildStringIdentifierOpts = buildStringIdentifierOpts;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
