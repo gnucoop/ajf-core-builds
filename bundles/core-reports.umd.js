@@ -1874,7 +1874,7 @@
     };
     function openReportPdf(report, orientation) {
         createReportPdf(report, orientation).then(function (pdf) {
-            pdf.download();
+            pdf.open();
         });
     }
     function createReportPdf(report, orientation) {

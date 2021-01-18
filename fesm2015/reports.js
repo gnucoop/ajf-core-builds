@@ -2456,7 +2456,7 @@ const fontsMap = {
 };
 function openReportPdf(report, orientation) {
     createReportPdf(report, orientation).then(pdf => {
-        pdf.download();
+        pdf.open();
     });
 }
 function createReportPdf(report, orientation) {
