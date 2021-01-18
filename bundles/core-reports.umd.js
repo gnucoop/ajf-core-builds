@@ -1547,6 +1547,8 @@
                     cell.formula.map(function (f) { return trFormula(f, context, ts); }) :
                     trFormula(cell.formula, context, ts);
             }); });
+            twi.exportable =
+                tw_1.exportable && (tw_1.exportable === true || tw_1.exportable === 'true') ? true : false;
             twi.data = (tw_1.dataset || []).map(function (row) { return row.map(function (cell) {
                 var evf = '';
                 try {

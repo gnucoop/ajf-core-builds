@@ -2811,6 +2811,21 @@
     ];
     AjfValidationService.ctorParameters = function () { return []; };
 
+    var updateSlideValidity = function (slide) {
+        var subNodesNum = slide.flatNodes.length;
+        var valid = true;
+        for (var i = 0; i < subNodesNum; i++) {
+            var subNode = slide.flatNodes[i];
+            if (subNode.visible && isFieldInstance(subNode) && !subNode.valid) {
+                valid = false;
+                break;
+            }
+        }
+        if (slide.valid !== valid) {
+            slide.valid = valid;
+        }
+    };
+    var ɵ0 = updateSlideValidity;
     var AjfFormRendererService = /** @class */ (function () {
         function AjfFormRendererService(_) {
             this._visibilityNodesMapUpdates = new rxjs.Subject();
@@ -3472,21 +3487,8 @@
                         while (idx >= 0) {
                             var curNode = nodes[idx];
                             if (isSlidesInstance(curNode)) {
-                                var slide = curNode;
-                                var subNodesNum = slide.flatNodes.length;
-                                var valid = true;
-                                for (var i = 0; i < subNodesNum; i++) {
-                                    var subNode = slide.flatNodes[i];
-                                    if (subNode.visible && isFieldInstance(subNode) &&
-                                        !subNode.valid) {
-                                        valid = false;
-                                        break;
-                                    }
-                                }
-                                if (slide.valid !== valid) {
-                                    slide.valid = valid;
-                                }
-                                slide.updatedEvt.emit();
+                                updateSlideValidity(curNode);
+                                curNode.updatedEvt.emit();
                             }
                             idx--;
                         }
@@ -3543,6 +3545,7 @@
                 slides.forEach(function (s) {
                     nodes.push(s);
                     nodes = nodes.concat(s.flatNodes);
+                    updateSlideValidity(s);
                 });
                 return nodes;
             }), operators.share());
@@ -6787,6 +6790,7 @@
     exports.minValidation = minValidation;
     exports.notEmptyValidation = notEmptyValidation;
     exports.notEmptyWarning = notEmptyWarning;
+    exports.ɵ0 = ɵ0;
     exports.ɵgc_ajf_src_core_forms_forms_a = createNodeGroup;
     exports.ɵgc_ajf_src_core_forms_forms_b = createRepeatingSlide;
     exports.ɵgc_ajf_src_core_forms_forms_c = createSlide;

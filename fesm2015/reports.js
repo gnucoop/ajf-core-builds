@@ -2120,6 +2120,8 @@ function widgetToWidgetInstance(widget, context, ts) {
                 cell.formula.map(f => trFormula(f, context, ts)) :
                 trFormula(cell.formula, context, ts);
         }));
+        twi.exportable =
+            tw.exportable && (tw.exportable === true || tw.exportable === 'true') ? true : false;
         twi.data = (tw.dataset || []).map(row => row.map(cell => {
             let evf = '';
             try {
