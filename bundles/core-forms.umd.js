@@ -4848,14 +4848,14 @@
                     if (choice == null) {
                         return;
                     }
-                    context[field.name] = choice.value;
+                    context[field.name] = choice.label;
                 }
                 else if (field.fieldType === exports.AjfFieldType.MultipleChoice && Array.isArray(value) &&
                     value.length > 0) {
                     var strings = common.buildStringIdentifierOpts(opts);
                     var multipleChoiceField = field;
                     var choices = multipleChoiceField.choicesOrigin.choices.filter(function (c) { return value.indexOf(c.value) > -1; });
-                    context[field.name] = choices.join(strings.valuesDivider);
+                    context[field.name] = choices.map(function (c) { return c.label; }).join(strings.valuesDivider);
                 }
             });
         }

@@ -4901,14 +4901,14 @@ const buildFormStringIdentifier = (form, context, opts) => {
                 if (choice == null) {
                     return;
                 }
-                context[field.name] = choice.value;
+                context[field.name] = choice.label;
             }
             else if (field.fieldType === AjfFieldType.MultipleChoice && Array.isArray(value) &&
                 value.length > 0) {
                 const strings = buildStringIdentifierOpts(opts);
                 const multipleChoiceField = field;
                 const choices = multipleChoiceField.choicesOrigin.choices.filter(c => value.indexOf(c.value) > -1);
-                context[field.name] = choices.join(strings.valuesDivider);
+                context[field.name] = choices.map(c => c.label).join(strings.valuesDivider);
             }
         });
     }
