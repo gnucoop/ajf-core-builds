@@ -40,4 +40,9 @@ export interface AjfField extends AjfNode {
     nextSlideCondition?: AjfCondition;
     attachmentOrigin?: AjfAttachmentsOrigin<any>;
     attachments?: any[];
+    hint?: string;
+    /**
+     * Hint icon showed as anchor of hint
+     */
+    hintIcon?: string;
 }
