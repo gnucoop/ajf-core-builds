@@ -70,6 +70,7 @@ export * from './video-url-field';
 export * from './warning-alert-service';
 export * from './read-only-field';
 export * from './read-only-table-field';
+export * from './form-to-pdf/form-to-pdf';
 export * from './interface/attachments/attachment';
 export * from './interface/attachments/attachments-fixed-origin';
 export * from './interface/attachments/attachments-origin';
