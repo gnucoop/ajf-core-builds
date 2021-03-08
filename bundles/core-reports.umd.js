@@ -1966,6 +1966,10 @@
         if (dataUrl == null) {
             return { text: '' };
         }
+        var w = image$1.styles.width;
+        if (typeof (w) === 'string' && w.endsWith('px')) {
+            width = Number(w.slice(0, -2));
+        }
         return { image: dataUrl, width: width, margin: [0, 0, 0, marginBetweenWidgets] };
     }
     function textToPdf(tw) {

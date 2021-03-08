@@ -2548,6 +2548,10 @@ function imageToPdf(image, images, width) {
     if (dataUrl == null) {
         return { text: '' };
     }
+    const w = image.styles.width;
+    if (typeof (w) === 'string' && w.endsWith('px')) {
+        width = Number(w.slice(0, -2));
+    }
     return { image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets] };
 }
 function textToPdf(tw) {
