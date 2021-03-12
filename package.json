@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "12.0.0-next.0-sha-994a721ec",
+  "version": "12.0.0-next.0-sha-b37f738cf",
   "description": "",
   "repository": {
     "type": "git",
@@ -13,12 +13,12 @@
   },
   "homepage": "https://github.com/gnucoop/ajf#readme",
   "peerDependencies": {
-    "@angular/animations": "^11.0.0 || ^12.0.0-0",
-    "@angular/cdk": "^11.0.0 || ^12.0.0-0",
-    "@angular/core": "^11.0.0 || ^12.0.0-0",
-    "@angular/common": "^11.0.0 || ^12.0.0-0",
-    "@angular/forms": "^11.0.0 || ^12.0.0-0",
-    "@angular/router": "^11.0.0 || ^12.0.0-0",
+    "@angular/animations": "^12.0.0-0 || ^13.0.0-0",
+    "@angular/cdk": "^12.0.0-0 || ^13.0.0-0",
+    "@angular/core": "^12.0.0-0 || ^13.0.0-0",
+    "@angular/common": "^12.0.0-0 || ^13.0.0-0",
+    "@angular/forms": "^12.0.0-0 || ^13.0.0-0",
+    "@angular/router": "^12.0.0-0 || ^13.0.0-0",
     "@ngx-translate/core": "^13.0.0",
     "@zxing/library": "^0.17.0",
     "chart.js": "^2.9.3",

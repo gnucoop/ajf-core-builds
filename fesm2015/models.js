@@ -1,7 +1,7 @@
 import { tokenize } from 'esprima';
 import { addDays, addMonths, addYears, endOfISOWeek, format, getDay, parseISO, startOfMonth, startOfISOWeek } from 'date-fns';
 import * as numbroMod from 'numbro';
-import numbroMod__default from 'numbro';
+import numbroMod__default, {  } from 'numbro';
 
 /**
  * @license

@@ -242,7 +242,7 @@
         };
         return AjfCalendarService;
     }());
-    AjfCalendarService.ɵprov = i0["ɵɵdefineInjectable"]({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
+    AjfCalendarService.ɵprov = i0.ɵɵdefineInjectable({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
     AjfCalendarService.decorators = [
         { type: i0.Injectable, args: [{ providedIn: 'root' },] }
     ];
