@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('css-element-queries'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/coercion')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/page-slider', ['exports', '@angular/core', 'css-element-queries', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/coercion'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.pageSlider = {}), global.ng.core, global.cssElementQueries, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.coercion));
-}(this, (function (exports, core, cssElementQueries, rxjs, operators, animations, coercion) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/coercion')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/page-slider', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/coercion'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.pageSlider = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.coercion));
+}(this, (function (exports, core, rxjs, operators, animations, coercion) { 'use strict';
 
     /**
      * @license
@@ -34,19 +34,23 @@
             this.scroll = this._scrollEvt;
             this._scrollX = 0;
             this._scrollY = 0;
+            this._resizeObserver = null;
             this._resizeEvent = new core.EventEmitter();
             this._resizeSub = rxjs.Subscription.EMPTY;
-            this._resizeSensor = new cssElementQueries.ResizeSensor(_el.nativeElement, function () { return _this._onResize(); });
+            if (typeof ResizeObserver !== 'undefined') {
+                this._resizeObserver = new ResizeObserver(function () { return _this._onResize(); });
+                this._resizeObserver.observe(this._el.nativeElement);
+            }
             this._resizeSub = this._resizeEvent
                 .pipe(operators.debounceTime(300))
                 .subscribe(function () { return _this._fixScrollOnResize(); });
         }
         AjfPageSliderItem.prototype.ngOnDestroy = function () {
-            if (this._resizeSensor) {
-                this._resizeSensor.detach();
+            if (this._resizeObserver) {
+                this._resizeObserver.unobserve(this._el.nativeElement);
             }
-            this._resizeSub.unsubscribe();
             this._resizeEvent.complete();
+            this._resizeSub.unsubscribe();
         };
         AjfPageSliderItem.prototype.setScroll = function (dir, amount, _duration) {
             if (this._el == null || this.wrapper == null || amount === 0) {

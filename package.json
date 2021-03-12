@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "12.0.0-next.0-sha-7e79c0a24",
+  "version": "12.0.0-next.0-sha-35951dcec",
   "description": "",
   "repository": {
     "type": "git",
@@ -22,13 +22,15 @@
     "@ngx-translate/core": "^13.0.0",
     "@zxing/library": "^0.17.0",
     "chart.js": "^2.9.3",
-    "css-element-queries": "^1.2.3",
     "date-fns": "^2.14.0",
     "esprima": "^4.0.1",
     "file-saver": "^2.0.2",
     "leaflet": "^1.6.0",
     "numbro": "^2.3.1",
     "pdfmake": "^0.1.68"
+  },
+  "devDependencies": {
+    "@types/resize-observer-browser": "^0.1.5"
   },
   "dependencies": {
     "tslib": "^2.0.0"

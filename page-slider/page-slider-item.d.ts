@@ -34,7 +34,7 @@ export declare class AjfPageSliderItem implements OnDestroy {
     }>;
     private _scrollX;
     private _scrollY;
-    private _resizeSensor;
+    private _resizeObserver;
     private _resizeEvent;
     private _resizeSub;
     constructor(_el: ElementRef, _renderer: Renderer2);

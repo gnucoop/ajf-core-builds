@@ -1,5 +1,4 @@
 import { EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Renderer2, ViewChild, Output, Directive, ChangeDetectorRef, ContentChildren, Input, NgModule } from '@angular/core';
-import { ResizeSensor } from 'css-element-queries';
 import { Subscription } from 'rxjs';
 import { debounceTime, map, filter, scan, throttleTime } from 'rxjs/operators';
 import { animate, style, AnimationBuilder } from '@angular/animations';
@@ -34,19 +33,23 @@ class AjfPageSliderItem {
         this.scroll = this._scrollEvt;
         this._scrollX = 0;
         this._scrollY = 0;
+        this._resizeObserver = null;
         this._resizeEvent = new EventEmitter();
         this._resizeSub = Subscription.EMPTY;
-        this._resizeSensor = new ResizeSensor(_el.nativeElement, () => this._onResize());
+        if (typeof ResizeObserver !== 'undefined') {
+            this._resizeObserver = new ResizeObserver(() => this._onResize());
+            this._resizeObserver.observe(this._el.nativeElement);
+        }
         this._resizeSub = this._resizeEvent
             .pipe(debounceTime(300))
             .subscribe(() => this._fixScrollOnResize());
     }
     ngOnDestroy() {
-        if (this._resizeSensor) {
-            this._resizeSensor.detach();
+        if (this._resizeObserver) {
+            this._resizeObserver.unobserve(this._el.nativeElement);
         }
-        this._resizeSub.unsubscribe();
         this._resizeEvent.complete();
+        this._resizeSub.unsubscribe();
     }
     setScroll(dir, amount, _duration) {
         if (this._el == null || this.wrapper == null || amount === 0) {
