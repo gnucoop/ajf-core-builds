@@ -26,7 +26,7 @@
 	 *
 	 */
 	/** Current version of Ajf. */
-	var VERSION = new core.Version('12.0.0-next.0-sha-35951dcec');
+	var VERSION = new core.Version('12.0.0-next.0-sha-010eefb12');
 
 	/**
 	 * @license

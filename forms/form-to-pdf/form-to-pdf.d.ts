@@ -24,8 +24,8 @@ import { AjfContext } from '@ajf/core/models';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 interface FormSchema {
     name: string;
-    schema: AjfForm;
-    is_tallysheet: boolean;
+    schema?: AjfForm;
+    is_tallysheet?: boolean;
 }
 interface FormData {
     date_start: string;
