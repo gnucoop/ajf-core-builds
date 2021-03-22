@@ -21,19 +21,6 @@
  */
 import { AjfForm } from '../interface/forms/form';
 import { AjfContext } from '@ajf/core/models';
+import { Content, PageOrientation } from 'pdfmake/interfaces';
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
-interface FormSchema {
-    name: string;
-    schema?: AjfForm;
-    is_tallysheet?: boolean;
-}
-interface FormData {
-    date_start: string;
-    date_end: string;
-    data: AjfContext;
-}
-interface TranslateService {
-    instant(s: string): string;
-}
-export declare function createFormPdf(formSchema: FormSchema, ts?: TranslateService, formData?: FormData): TCreatedPdf;
-export {};
+export declare function createFormPdf(form: AjfForm, translate?: (s: string) => string, orientation?: PageOrientation, header?: Content[], context?: AjfContext): TCreatedPdf;

@@ -6522,29 +6522,19 @@ const fontsMap = {
         bolditalics: 'roboto-all-500-italic.woff'
     },
 };
-function createFormPdf(formSchema, ts, formData) {
-    const pdfDef = formToPdf(formSchema, ts, formData);
+function createFormPdf(form, translate, orientation, header, context) {
+    const t = translate ? translate : (s) => s;
+    const pdfDef = formToPdf(form, t, orientation, header, context);
     return createPdf(pdfDef, undefined, fontsMap, vfsFonts);
 }
 function stripHTML(s) {
     return s.replace(/<\/?[^>]+(>|$)/g, '');
 }
-function translateFunction(ts) {
-    if (ts == null) {
-        return (s) => s;
-    }
-    return (s) => {
-        if (s == null || s === '' || s === ' ') {
-            return ' ';
-        }
-        return ts.instant(s);
-    };
-}
-// Given a formData, lookupStringFunction returns a function that allows to retrieve
-// the field values from the formData. The values are returned as print-friendly strings.
+// Given a context, lookupStringFunction returns a function that allows to retrieve
+// the field values from the context. The values are returned as print-friendly strings.
 // rep is the index of the repeating slide, if the field belongs to one.
-function lookupStringFunction(formData, rep) {
-    if (formData == null || formData.data == null) {
+function lookupStringFunction(context, rep) {
+    if (context == null) {
         return (_) => ' ';
     }
     return (name) => {
@@ -6554,7 +6544,7 @@ function lookupStringFunction(formData, rep) {
         if (rep != null) {
             name = name + '__' + rep;
         }
-        const val = formData.data[name];
+        const val = context[name];
         if (val == null) {
             return ' ';
         }
@@ -6569,8 +6559,8 @@ function lookupStringFunction(formData, rep) {
 }
 // Analogous to lookupStringFunction, but for multiple-choice questions,
 // returning an array of values.
-function lookupArrayFunction(formData, rep) {
-    if (formData == null || formData.data == null) {
+function lookupArrayFunction(context, rep) {
+    if (context == null) {
         return (_) => [];
     }
     return (name) => {
@@ -6580,7 +6570,7 @@ function lookupArrayFunction(formData, rep) {
         if (rep != null) {
             name = name + '__' + rep;
         }
-        const val = formData.data[name];
+        const val = context[name];
         if (Array.isArray(val)) {
             return val;
         }
@@ -6588,80 +6578,62 @@ function lookupArrayFunction(formData, rep) {
     };
 }
 // Given an AjfForm, returns its pdfmake pdf document definition.
-function formToPdf(formSchema, ts, formData) {
-    const translate = translateFunction(ts);
-    const name = translate(formSchema.name);
-    const form = formSchema.schema;
+function formToPdf(form, translate, orientation, header, context) {
     const choicesMap = {};
     for (const o of form.choicesOrigins) {
         choicesMap[o.name] = o.choices;
     }
-    const content = [
-        { text: name, fontSize: 22, bold: true, alignment: 'center', margin: [0, 0, 0, 10] }, {
-            table: {
-                widths: ['*', '*'],
-                body: [[
-                        translate('date start') + ': ' + (formData ? formData.date_start : ''),
-                        translate('date end') + ': ' + (formData ? formData.date_end : ''),
-                    ]]
-            },
-            layout: 'noBorders'
-        }
-    ];
+    const content = header ? [...header] : [];
     for (const slide of form.nodes) {
         if (slide.nodeType === AjfNodeType.AjfSlide) {
-            content.push(...slideToPdf(slide, choicesMap, translate, formData));
+            content.push(...slideToPdf(slide, choicesMap, translate, context));
         }
         else if (slide.nodeType === AjfNodeType.AjfRepeatingSlide) {
-            content.push(...repeatingSlideToPdf(slide, choicesMap, translate, formData));
+            content.push(...repeatingSlideToPdf(slide, choicesMap, translate, context));
         }
     }
-    const doc = { info: { title: name }, content };
-    if (formSchema.is_tallysheet) {
-        doc.pageOrientation = 'landscape';
-    }
-    return doc;
+    return { content, pageOrientation: orientation };
 }
-function slideToPdf(slide, choicesMap, translate, formData, rep) {
+function slideToPdf(slide, choicesMap, translate, context, rep) {
     let label = translate(slide.label);
     if (rep != null) {
         label = `${label} (${translate('repeat')} ${rep})`;
     }
     const content = [{ text: label, fontSize: 18, bold: true, margin: [0, 15, 0, 10] }];
     for (const field of slide.nodes) {
-        content.push(...fieldToPdf(field, choicesMap, translate, formData, rep));
+        content.push(...fieldToPdf(field, choicesMap, translate, context, rep));
     }
     return content;
 }
-function repeatingSlideToPdf(slide, choicesMap, translate, formData) {
+function repeatingSlideToPdf(slide, choicesMap, translate, context) {
     let repeats = 3; // default, if no formData
     const maxRepeats = 20;
-    if (formData != null && formData.data != null && slide.name != null) {
-        const r = formData.data[slide.name];
+    if (context != null && slide.name != null) {
+        const r = context[slide.name];
         if (typeof (r) === 'number') {
             repeats = Math.min(r, maxRepeats);
         }
     }
     const content = [];
     for (let r = 0; r < repeats; r++) {
-        content.push(...slideToPdf(slide, choicesMap, translate, formData, r));
+        content.push(...slideToPdf(slide, choicesMap, translate, context, r));
     }
     return content;
 }
 function borderlessCell(text, bold) {
     return { table: { body: [[{ text, bold, border: [false, false, false, false] }]] } };
 }
-function fieldToPdf(field, choicesMap, translate, formData, rep) {
+function fieldToPdf(field, choicesMap, translate, context, rep) {
     if (field.nodeType !== AjfNodeType.AjfField) {
         throw new Error('not a field');
     }
-    const visible = formData == null /* form not compiled, show all fields */ ||
+    const visible = context == null /* form not compiled, show all fields */ ||
         field.visibility == null ||
-        evaluateExpression(field.visibility.condition, formData.data);
+        evaluateExpression(field.visibility.condition, context);
     if (!visible) {
         return [];
     }
-    const lookupString = lookupStringFunction(formData, rep);
+    const lookupString = lookupStringFunction(context, rep);
     switch (field.fieldType) {
         case AjfFieldType.String:
         case AjfFieldType.Text:
@@ -6671,7 +6643,7 @@ function fieldToPdf(field, choicesMap, translate, formData, rep) {
             ];
         case AjfFieldType.Formula:
             const formula = field.formula.formula;
-            const value = evaluateExpression(formula, (formData || {}).data);
+            const value = evaluateExpression(formula, context);
             return [
                 borderlessCell(translate(field.label)),
                 { table: { widths: ['*'], body: [[String(value)]] }, margin: [5, 0, 0, 5] }
@@ -6682,7 +6654,7 @@ function fieldToPdf(field, choicesMap, translate, formData, rep) {
         case AjfFieldType.Time:
             let val = lookupString(field.name);
             // for boolean fields in compiled forms, a null value is printed as 'no':
-            if (field.fieldType === AjfFieldType.Boolean && formData != null && val === ' ') {
+            if (field.fieldType === AjfFieldType.Boolean && context != null && val === ' ') {
                 val = 'no';
             }
             return [{
@@ -6694,16 +6666,16 @@ function fieldToPdf(field, choicesMap, translate, formData, rep) {
         case AjfFieldType.SingleChoice:
         case AjfFieldType.MultipleChoice:
             const choices = choicesMap[field.choicesOriginRef];
-            if (formData == null) { // empty form
+            if (context == null) { // empty form
                 return choiceToPdf(field, choices, translate);
             }
             // compiled form, only print choices that are selected
             const selectedValues = (field.fieldType === AjfFieldType.SingleChoice) ?
                 [lookupString(field.name)] :
-                lookupArrayFunction(formData, rep)(field.name);
+                lookupArrayFunction(context, rep)(field.name);
             const selectedChoices = selectedValues.map(v => choices.find(c => c.value = v))
                 .filter(c => c);
-            return choiceToPdf(field, selectedChoices, translate);
+            return choiceToPdf(field, selectedChoices, translate, context);
         case AjfFieldType.Empty:
             const text = stripHTML(translate(field.HTML));
             return [borderlessCell(text, true)];
@@ -6713,7 +6685,7 @@ function fieldToPdf(field, choicesMap, translate, formData, rep) {
             return [];
     }
 }
-function choiceToPdf(field, choices, translate) {
+function choiceToPdf(field, choices, translate, context) {
     let choiceLabels;
     if (choices == null || choices.length === 0) {
         choiceLabels = [' '];
@@ -6725,9 +6697,15 @@ function choiceToPdf(field, choices, translate) {
     for (const c of choiceLabels) {
         body.push([translate(c)]);
     }
-    const question = translate(field.label) +
-        ((field.fieldType === AjfFieldType.SingleChoice) ? ` (${translate('single choice')})` :
-            ` (${translate('multipe choice')})`);
+    let question = translate(field.label);
+    // If the form is empty (to be compiled),
+    // help the user distinguish between single- and multiple-choice questions:
+    if (context == null && field.fieldType === AjfFieldType.SingleChoice) {
+        question += ` (${translate('single choice')})`;
+    }
+    if (context == null && field.fieldType === AjfFieldType.MultipleChoice) {
+        question += ` (${translate('multipe choice')})`;
+    }
     return [{
             columns: [
                 borderlessCell(question), {

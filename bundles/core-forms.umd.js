@@ -6308,29 +6308,19 @@
             bolditalics: 'roboto-all-500-italic.woff'
         },
     };
-    function createFormPdf(formSchema, ts, formData) {
-        var pdfDef = formToPdf(formSchema, ts, formData);
+    function createFormPdf(form, translate, orientation, header, context) {
+        var t = translate ? translate : function (s) { return s; };
+        var pdfDef = formToPdf(form, t, orientation, header, context);
         return pdfmake.createPdf(pdfDef, undefined, fontsMap, vfsFonts);
     }
     function stripHTML(s) {
         return s.replace(/<\/?[^>]+(>|$)/g, '');
     }
-    function translateFunction(ts) {
-        if (ts == null) {
-            return function (s) { return s; };
-        }
-        return function (s) {
-            if (s == null || s === '' || s === ' ') {
-                return ' ';
-            }
-            return ts.instant(s);
-        };
-    }
-    // Given a formData, lookupStringFunction returns a function that allows to retrieve
-    // the field values from the formData. The values are returned as print-friendly strings.
+    // Given a context, lookupStringFunction returns a function that allows to retrieve
+    // the field values from the context. The values are returned as print-friendly strings.
     // rep is the index of the repeating slide, if the field belongs to one.
-    function lookupStringFunction(formData, rep) {
-        if (formData == null || formData.data == null) {
+    function lookupStringFunction(context, rep) {
+        if (context == null) {
             return function (_) { return ' '; };
         }
         return function (name) {
@@ -6340,7 +6330,7 @@
             if (rep != null) {
                 name = name + '__' + rep;
             }
-            var val = formData.data[name];
+            var val = context[name];
             if (val == null) {
                 return ' ';
             }
@@ -6355,8 +6345,8 @@
     }
     // Analogous to lookupStringFunction, but for multiple-choice questions,
     // returning an array of values.
-    function lookupArrayFunction(formData, rep) {
-        if (formData == null || formData.data == null) {
+    function lookupArrayFunction(context, rep) {
+        if (context == null) {
             return function (_) { return []; };
         }
         return function (name) {
@@ -6366,7 +6356,7 @@
             if (rep != null) {
                 name = name + '__' + rep;
             }
-            var val = formData.data[name];
+            var val = context[name];
             if (Array.isArray(val)) {
                 return val;
             }
@@ -6374,11 +6364,8 @@
         };
     }
     // Given an AjfForm, returns its pdfmake pdf document definition.
-    function formToPdf(formSchema, ts, formData) {
+    function formToPdf(form, translate, orientation, header, context) {
         var e_1, _a, e_2, _b;
-        var translate = translateFunction(ts);
-        var name = translate(formSchema.name);
-        var form = formSchema.schema;
         var choicesMap = {};
         try {
             for (var _c = __values(form.choicesOrigins), _d = _c.next(); !_d.done; _d = _c.next()) {
@@ -6393,26 +6380,15 @@
             }
             finally { if (e_1) throw e_1.error; }
         }
-        var content = [
-            { text: name, fontSize: 22, bold: true, alignment: 'center', margin: [0, 0, 0, 10] }, {
-                table: {
-                    widths: ['*', '*'],
-                    body: [[
-                            translate('date start') + ': ' + (formData ? formData.date_start : ''),
-                            translate('date end') + ': ' + (formData ? formData.date_end : ''),
-                        ]]
-                },
-                layout: 'noBorders'
-            }
-        ];
+        var content = header ? __spread(header) : [];
         try {
             for (var _e = __values(form.nodes), _f = _e.next(); !_f.done; _f = _e.next()) {
                 var slide = _f.value;
                 if (slide.nodeType === exports.AjfNodeType.AjfSlide) {
-                    content.push.apply(content, __spread(slideToPdf(slide, choicesMap, translate, formData)));
+                    content.push.apply(content, __spread(slideToPdf(slide, choicesMap, translate, context)));
                 }
                 else if (slide.nodeType === exports.AjfNodeType.AjfRepeatingSlide) {
-                    content.push.apply(content, __spread(repeatingSlideToPdf(slide, choicesMap, translate, formData)));
+                    content.push.apply(content, __spread(repeatingSlideToPdf(slide, choicesMap, translate, context)));
                 }
             }
         }
@@ -6423,13 +6399,9 @@
             }
             finally { if (e_2) throw e_2.error; }
         }
-        var doc = { info: { title: name }, content: content };
-        if (formSchema.is_tallysheet) {
-            doc.pageOrientation = 'landscape';
-        }
-        return doc;
+        return { content: content, pageOrientation: orientation };
     }
-    function slideToPdf(slide, choicesMap, translate, formData, rep) {
+    function slideToPdf(slide, choicesMap, translate, context, rep) {
         var e_3, _a;
         var label = translate(slide.label);
         if (rep != null) {
@@ -6439,7 +6411,7 @@
         try {
             for (var _b = __values(slide.nodes), _c = _b.next(); !_c.done; _c = _b.next()) {
                 var field = _c.value;
-                content.push.apply(content, __spread(fieldToPdf(field, choicesMap, translate, formData, rep)));
+                content.push.apply(content, __spread(fieldToPdf(field, choicesMap, translate, context, rep)));
             }
         }
         catch (e_3_1) { e_3 = { error: e_3_1 }; }
@@ -6451,35 +6423,35 @@
         }
         return content;
     }
-    function repeatingSlideToPdf(slide, choicesMap, translate, formData) {
+    function repeatingSlideToPdf(slide, choicesMap, translate, context) {
         var repeats = 3; // default, if no formData
         var maxRepeats = 20;
-        if (formData != null && formData.data != null && slide.name != null) {
-            var r = formData.data[slide.name];
+        if (context != null && slide.name != null) {
+            var r = context[slide.name];
             if (typeof (r) === 'number') {
                 repeats = Math.min(r, maxRepeats);
             }
         }
         var content = [];
         for (var r = 0; r < repeats; r++) {
-            content.push.apply(content, __spread(slideToPdf(slide, choicesMap, translate, formData, r)));
+            content.push.apply(content, __spread(slideToPdf(slide, choicesMap, translate, context, r)));
         }
         return content;
     }
     function borderlessCell(text, bold) {
         return { table: { body: [[{ text: text, bold: bold, border: [false, false, false, false] }]] } };
     }
-    function fieldToPdf(field, choicesMap, translate, formData, rep) {
+    function fieldToPdf(field, choicesMap, translate, context, rep) {
         if (field.nodeType !== exports.AjfNodeType.AjfField) {
             throw new Error('not a field');
         }
-        var visible = formData == null /* form not compiled, show all fields */ ||
+        var visible = context == null /* form not compiled, show all fields */ ||
             field.visibility == null ||
-            models.evaluateExpression(field.visibility.condition, formData.data);
+            models.evaluateExpression(field.visibility.condition, context);
         if (!visible) {
             return [];
         }
-        var lookupString = lookupStringFunction(formData, rep);
+        var lookupString = lookupStringFunction(context, rep);
         switch (field.fieldType) {
             case exports.AjfFieldType.String:
             case exports.AjfFieldType.Text:
@@ -6489,7 +6461,7 @@
                 ];
             case exports.AjfFieldType.Formula:
                 var formula = field.formula.formula;
-                var value = models.evaluateExpression(formula, (formData || {}).data);
+                var value = models.evaluateExpression(formula, context);
                 return [
                     borderlessCell(translate(field.label)),
                     { table: { widths: ['*'], body: [[String(value)]] }, margin: [5, 0, 0, 5] }
@@ -6500,7 +6472,7 @@
             case exports.AjfFieldType.Time:
                 var val = lookupString(field.name);
                 // for boolean fields in compiled forms, a null value is printed as 'no':
-                if (field.fieldType === exports.AjfFieldType.Boolean && formData != null && val === ' ') {
+                if (field.fieldType === exports.AjfFieldType.Boolean && context != null && val === ' ') {
                     val = 'no';
                 }
                 return [{
@@ -6512,16 +6484,16 @@
             case exports.AjfFieldType.SingleChoice:
             case exports.AjfFieldType.MultipleChoice:
                 var choices_1 = choicesMap[field.choicesOriginRef];
-                if (formData == null) { // empty form
+                if (context == null) { // empty form
                     return choiceToPdf(field, choices_1, translate);
                 }
                 // compiled form, only print choices that are selected
                 var selectedValues = (field.fieldType === exports.AjfFieldType.SingleChoice) ?
                     [lookupString(field.name)] :
-                    lookupArrayFunction(formData, rep)(field.name);
+                    lookupArrayFunction(context, rep)(field.name);
                 var selectedChoices = selectedValues.map(function (v) { return choices_1.find(function (c) { return c.value = v; }); })
                     .filter(function (c) { return c; });
-                return choiceToPdf(field, selectedChoices, translate);
+                return choiceToPdf(field, selectedChoices, translate, context);
             case exports.AjfFieldType.Empty:
                 var text = stripHTML(translate(field.HTML));
                 return [borderlessCell(text, true)];
@@ -6531,7 +6503,7 @@
                 return [];
         }
     }
-    function choiceToPdf(field, choices, translate) {
+    function choiceToPdf(field, choices, translate, context) {
         var e_4, _a;
         var choiceLabels;
         if (choices == null || choices.length === 0) {
@@ -6554,9 +6526,15 @@
             }
             finally { if (e_4) throw e_4.error; }
         }
-        var question = translate(field.label) +
-            ((field.fieldType === exports.AjfFieldType.SingleChoice) ? " (" + translate('single choice') + ")" :
-                " (" + translate('multipe choice') + ")");
+        var question = translate(field.label);
+        // If the form is empty (to be compiled),
+        // help the user distinguish between single- and multiple-choice questions:
+        if (context == null && field.fieldType === exports.AjfFieldType.SingleChoice) {
+            question += " (" + translate('single choice') + ")";
+        }
+        if (context == null && field.fieldType === exports.AjfFieldType.MultipleChoice) {
+            question += " (" + translate('multipe choice') + ")";
+        }
         return [{
                 columns: [
                     borderlessCell(question),
