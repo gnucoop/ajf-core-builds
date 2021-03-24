@@ -1713,7 +1713,7 @@ function createRepeatingSlideInstance(instance) {
     const { node } = instance, slideInstanceCreate = __rest(instance, ["node"]);
     const { nodeType } = node, slideNode = __rest(node, ["nodeType"]);
     const slideInstance = createSlideInstance(Object.assign(Object.assign({}, slideInstanceCreate), { node: Object.assign({ nodeType: AjfNodeType.AjfSlide }, slideNode) }));
-    return Object.assign(Object.assign({}, slideInstance), { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
+    return Object.assign(Object.assign({}, slideInstance), { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, disableRemoval: instance.disableRemoval, reps: 0, nodes: [], flatNodes: [] });
 }
 
 /**
@@ -4832,6 +4832,9 @@ class AjfFormRenderer {
         this._orientationChange.complete();
         this._errorMoveEvent.complete();
         this._formAction.complete();
+    }
+    scrollToSlide(slide) {
+        this.formSlider.slide({ to: slide.position - 1 });
     }
     orientationChangeHandler(orientation) {
         this.orientation = orientation;

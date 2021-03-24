@@ -26,6 +26,7 @@ export interface AjfRepeatingNodeInstance extends AjfNodeInstance {
     node: AjfRepeatingNode;
     formulaReps?: AjfFormula;
     reps: number;
+    disableRemoval?: boolean;
     canAdd?: boolean;
     canRemove?: boolean;
 }

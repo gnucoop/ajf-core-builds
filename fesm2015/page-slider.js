@@ -306,7 +306,7 @@ class AjfPageSlider {
                 this._slideForward();
             }
         }
-        else if (opts.to) {
+        else if (opts.to != null) {
             this._slideTo(opts.to);
         }
     }

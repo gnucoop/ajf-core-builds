@@ -114,6 +114,7 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
     ngAfterViewInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
+    scrollToSlide(slide: AjfSlideInstance): void;
     orientationChangeHandler(orientation: AjfPageSliderOrientation): void;
     trackNodeById(_: number, node: AjfNodeInstance): string;
 }

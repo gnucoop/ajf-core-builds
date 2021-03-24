@@ -1972,7 +1972,7 @@
         var node = instance.node, slideInstanceCreate = __rest(instance, ["node"]);
         var nodeType = node.nodeType, slideNode = __rest(node, ["nodeType"]);
         var slideInstance = createSlideInstance(Object.assign(Object.assign({}, slideInstanceCreate), { node: Object.assign({ nodeType: exports.AjfNodeType.AjfSlide }, slideNode) }));
-        return Object.assign(Object.assign({}, slideInstance), { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
+        return Object.assign(Object.assign({}, slideInstance), { node: instance.node, slideNodes: [], formulaReps: instance.formulaReps, disableRemoval: instance.disableRemoval, reps: 0, nodes: [], flatNodes: [] });
     }
 
     /**
@@ -4785,6 +4785,9 @@
             this._orientationChange.complete();
             this._errorMoveEvent.complete();
             this._formAction.complete();
+        };
+        AjfFormRenderer.prototype.scrollToSlide = function (slide) {
+            this.formSlider.slide({ to: slide.position - 1 });
         };
         AjfFormRenderer.prototype.orientationChangeHandler = function (orientation) {
             this.orientation = orientation;
