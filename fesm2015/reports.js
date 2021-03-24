@@ -2,8 +2,8 @@ import { Pipe, Directive, ChangeDetectorRef, Input, Component, ViewEncapsulation
 import { buildStringIdentifier } from '@ajf/core/common';
 import { CommonModule } from '@angular/common';
 import { format } from 'date-fns';
-import fileSaver__default from 'file-saver';
-import XLSX__default from 'xlsx';
+import { saveAs } from 'file-saver';
+import { utils, write } from 'xlsx';
 import { AjfFormulaSerializer, alwaysCondition, AjfConditionSerializer, evaluateExpression, createFormula } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
 import { AjfImageType } from '@ajf/core/image';
@@ -1220,65 +1220,24 @@ class AjfWidgetExport {
         this.overlay = true;
         this.enable = false;
     }
-    buildCsv() {
-        let csvString = '';
-        const DELIMITER = ',';
-        const STOP = '\n';
-        switch (this.widgetType) {
-            default:
-            case AjfWidgetType.Chart:
-                this.data = this.data;
-                if (this.data.datasets == null || this.data.labels == null) {
-                    return csvString;
-                }
-                csvString = DELIMITER + this.data.labels.toString() + STOP;
-                this.data.datasets.forEach((dataset) => {
-                    const data = dataset.data || [];
-                    csvString += dataset.label + DELIMITER + data.toString() + STOP;
-                });
-                break;
-            case AjfWidgetType.Table:
-                let prefix = '';
-                let rowSpan = 0;
-                this.data = this.data;
-                for (let row of this.data) {
-                    csvString += prefix;
-                    for (let elem of row) {
-                        if (elem.rowspan == null) {
-                            if (parseInt(elem.value, 10) || elem.value === false) {
-                                csvString += elem.value + ',';
-                            }
-                            else {
-                                csvString += elem.value + ',';
-                            }
-                        }
-                        else {
-                            rowSpan = elem.rowspan;
-                            csvString += elem.value + ',';
-                            prefix = ',';
-                        }
-                    }
-                    if (csvString[csvString.length - 1] === ',') {
-                        csvString = csvString.substring(0, csvString.length - 1);
-                    }
-                    csvString += '\n';
-                    rowSpan--;
-                    if (rowSpan > 0) {
-                        csvString += ',';
-                    }
-                    prefix = '';
-                }
-                break;
-        }
-        return csvString;
-    }
     exportCsv() {
-        if (this.widgetType == null || this.data == null) {
-            return;
-        }
-        fileSaver__default(new Blob([this.buildCsv()], { type: 'text/csv;charset=utf-8' }), `${this._buildTitle(this.widgetType)}${'.csv'}`);
+        const sheetName = this._buildTitle(this.widgetType);
+        const worksheet = utils.json_to_sheet(this._buildXlsxData());
+        const csv = utils.sheet_to_csv(worksheet);
+        saveAs(new Blob([csv], { type: 'text/csv;charset=utf-8' }), `${sheetName}${'.csv'}`);
     }
-    buildXlsx() {
+    exportXlsx() {
+        const sheetName = this._buildTitle(this.widgetType);
+        const sheets = {};
+        sheets[sheetName] = utils.json_to_sheet(this._buildXlsxData());
+        const worksheet = { Sheets: sheets, SheetNames: [sheetName] };
+        const excelBuffer = write(worksheet, {
+            bookType: 'xlsx',
+            type: 'array',
+        });
+        saveAs(new Blob([excelBuffer]), `${sheetName}.xlsx`);
+    }
+    _buildXlsxData() {
         let xlsxData = [];
         let labels = [];
         switch (this.widgetType) {
@@ -1314,13 +1273,6 @@ class AjfWidgetExport {
                 break;
         }
         return xlsxData;
-    }
-    exportXlsx() {
-        const ws = XLSX__default.utils.json_to_sheet(this.buildXlsx());
-        const wb = XLSX__default.utils.book_new();
-        const title = this._buildTitle(this.widgetType);
-        XLSX__default.utils.book_append_sheet(wb, ws, title);
-        XLSX__default.writeFile(wb, `${title}.xlsx`);
     }
     _buildTitle(widgetType) {
         return `${AjfWidgetType[widgetType]} ${format(new Date(), `yyyy-MM-dd`)}`;

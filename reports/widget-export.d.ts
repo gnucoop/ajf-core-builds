@@ -28,11 +28,8 @@ export declare class AjfWidgetExport {
     overlay: boolean;
     enable: boolean;
     constructor();
-    buildCsv(): string;
     exportCsv(): void;
-    buildXlsx(): {
-        [key: string]: string | number;
-    }[];
     exportXlsx(): void;
+    private _buildXlsxData;
     private _buildTitle;
 }
