@@ -1802,7 +1802,7 @@
     function createNodeInstance(instance) {
         return {
             node: instance.node,
-            prefix: instance.prefix ? __spread(instance.prefix) : [],
+            prefix: instance.prefix ? __spreadArray([], __read(instance.prefix)) : [],
             visible: instance.visible != null ? instance.visible : true,
             conditionalBranches: [],
             updatedEvt: new core.EventEmitter()
@@ -1851,7 +1851,7 @@
 
     function createFieldWithChoicesInstance(instance, context) {
         var fieldInstance = createFieldInstance(instance, context);
-        return Object.assign(Object.assign({}, fieldInstance), { node: instance.node, filteredChoices: __spread(instance.node.choices), firstTriggerConditionDone: {}, selectionTrigger: new core.EventEmitter() });
+        return Object.assign(Object.assign({}, fieldInstance), { node: instance.node, filteredChoices: __spreadArray([], __read(instance.node.choices)), firstTriggerConditionDone: {}, selectionTrigger: new core.EventEmitter() });
     }
 
     /**
@@ -3313,7 +3313,7 @@
             this._formInitEvent.emit(0 /* Initializing */);
             this._formGroupSubscription =
                 formGroup.valueChanges
-                    .pipe(operators.startWith({}), operators.pairwise(), operators.debounceTime(200), operators.withLatestFrom.apply(void 0, __spread((this._nodesMaps), [this._flatNodes])))
+                    .pipe(operators.startWith({}), operators.pairwise(), operators.debounceTime(200), operators.withLatestFrom.apply(void 0, __spreadArray(__spreadArray([], __read((this._nodesMaps))), [this._flatNodes])))
                     .subscribe(function (v) {
                     var oldFormValue = init && {} || v[0][0];
                     init = false;
@@ -5191,7 +5191,7 @@
     var AjfInputFieldComponent = /** @class */ (function (_super) {
         __extends(AjfInputFieldComponent, _super);
         function AjfInputFieldComponent() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this.type = 'text';
             return _this;
         }
@@ -5526,11 +5526,11 @@
                     val.filter(function (col) { return col[1].reduce(function (prev, cur) {
                         return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
                     }, false); })
-                        .map(function (v) { return __spread([v[0]], v[1]); }) :
-                    val.map(function (v) { return __spread([v[0]], v[1]); });
+                        .map(function (v) { return __spreadArray([v[0]], __read(v[1])); }) :
+                    val.map(function (v) { return __spreadArray([v[0]], __read(v[1])); });
             }
             return (instance.controls || [])
-                .map(function (v) { return __spread([v[0]], v[1]); });
+                .map(function (v) { return __spreadArray([v[0]], __read(v[1])); });
         };
         return AjfTableVisibleColumnsPipe;
     }());
@@ -6383,15 +6383,15 @@
             }
             finally { if (e_1) throw e_1.error; }
         }
-        var content = header ? __spread(header) : [];
+        var content = header ? __spreadArray([], __read(header)) : [];
         try {
             for (var _e = __values(form.nodes), _f = _e.next(); !_f.done; _f = _e.next()) {
                 var slide = _f.value;
                 if (slide.nodeType === exports.AjfNodeType.AjfSlide) {
-                    content.push.apply(content, __spread(slideToPdf(slide, choicesMap, translate, context)));
+                    content.push.apply(content, __spreadArray([], __read(slideToPdf(slide, choicesMap, translate, context))));
                 }
                 else if (slide.nodeType === exports.AjfNodeType.AjfRepeatingSlide) {
-                    content.push.apply(content, __spread(repeatingSlideToPdf(slide, choicesMap, translate, context)));
+                    content.push.apply(content, __spreadArray([], __read(repeatingSlideToPdf(slide, choicesMap, translate, context))));
                 }
             }
         }
@@ -6414,7 +6414,7 @@
         try {
             for (var _b = __values(slide.nodes), _c = _b.next(); !_c.done; _c = _b.next()) {
                 var field = _c.value;
-                content.push.apply(content, __spread(fieldToPdf(field, choicesMap, translate, context, rep)));
+                content.push.apply(content, __spreadArray([], __read(fieldToPdf(field, choicesMap, translate, context, rep))));
             }
         }
         catch (e_3_1) { e_3 = { error: e_3_1 }; }
@@ -6437,7 +6437,7 @@
         }
         var content = [];
         for (var r = 0; r < repeats; r++) {
-            content.push.apply(content, __spread(slideToPdf(slide, choicesMap, translate, context, r)));
+            content.push.apply(content, __spreadArray([], __read(slideToPdf(slide, choicesMap, translate, context, r))));
         }
         return content;
     }
@@ -6549,16 +6549,16 @@
             }];
     }
     function tableToPdf(table, lookupString, translate) {
-        var body = [__spread([''], table.columnLabels.map(translate))];
+        var body = [__spreadArray([''], __read(table.columnLabels.map(translate)))];
         for (var i = 0; i < table.rows.length; i++) {
-            var row = __spread(table.rows[i]);
+            var row = __spreadArray([], __read(table.rows[i]));
             for (var j = 0; j < row.length; j++) {
                 if (typeof (row[j]) !== 'string') {
                     row[j] = row[j].formula;
                 }
             }
             var valsRow = row.map(lookupString).map(translate);
-            body.push(__spread([translate(table.rowLabels[i])], valsRow));
+            body.push(__spreadArray([translate(table.rowLabels[i])], __read(valsRow)));
         }
         return [
             borderlessCell(translate(table.label)),

@@ -577,7 +577,7 @@
                 args[_i - 1] = arguments[_i];
             }
             if (typeof query === 'string') {
-                return _super.prototype.transform.apply(this, __spread([query], args));
+                return _super.prototype.transform.apply(this, __spreadArray([query], __read(args)));
             }
             else {
                 return query;

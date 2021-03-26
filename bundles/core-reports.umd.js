@@ -1565,7 +1565,7 @@
                     colspan: cell.colspan,
                 });
             });
-            tdwi.data = __spread([__spread(header)], dataset);
+            tdwi.data = __spreadArray([__spreadArray([], __read(header))], __read(dataset));
         }
         else if (widget.widgetType === exports.AjfWidgetType.Image) {
             var iw = widget;
@@ -1896,7 +1896,7 @@
         }
     }
     function layoutToPdf(lw, images, width) {
-        var columns = __spread(lw.widget.columns);
+        var columns = __spreadArray([], __read(lw.widget.columns));
         while (columns.length < lw.content.length) {
             columns.push(1);
         }

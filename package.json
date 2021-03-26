@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "12.0.0-next.1-sha-252984847",
+  "version": "12.0.0-next.1-sha-c2390f2e9",
   "description": "",
   "repository": {
     "type": "git",
@@ -33,7 +33,7 @@
     "@types/resize-observer-browser": "^0.1.5"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.1.0"
   },
   "sideEffects": false,
   "main": "./bundles/core.umd.js",

@@ -982,8 +982,8 @@
         identifiers.push('execContext');
         ctx.push(execContext);
         try {
-            var f = new (Function.bind.apply(Function, __spread([void 0], identifiers, ["return " + formula])))();
-            var res = f.apply(void 0, __spread(ctx));
+            var f = new (Function.bind.apply(Function, __spreadArray(__spreadArray([void 0], __read(identifiers)), ["return " + formula])))();
+            var res = f.apply(void 0, __spreadArray([], __read(ctx)));
             f = null;
             return res;
         }
