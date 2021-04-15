@@ -1096,7 +1096,7 @@
         var ctx = { '$value': value };
         if (typeof validation.notEmpty === 'boolean') {
             return {
-                result: models.evaluateExpression("($value != null) === " + validation.notEmpty, ctx),
+                result: models.evaluateExpression("notEmpty($value) === " + validation.notEmpty, ctx),
                 error: 'Value must not be empty',
                 clientValidation: false
             };
