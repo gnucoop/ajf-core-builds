@@ -6494,7 +6494,7 @@
                 var selectedValues = (field.fieldType === exports.AjfFieldType.SingleChoice) ?
                     [lookupString(field.name)] :
                     lookupArrayFunction(context, rep)(field.name);
-                var selectedChoices = selectedValues.map(function (v) { return choices_1.find(function (c) { return c.value = v; }); })
+                var selectedChoices = selectedValues.map(function (v) { return choices_1.find(function (c) { return c.value === v; }); })
                     .filter(function (c) { return c; });
                 return choiceToPdf(field, selectedChoices, translate, context);
             case exports.AjfFieldType.Empty:
