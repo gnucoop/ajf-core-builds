@@ -28,8 +28,22 @@ export declare class AjfWidgetExport {
     overlay: boolean;
     enable: boolean;
     constructor();
+    /**
+     * Export widget data in CSV format
+     * @deprecated Use `AjfWidgetExport.export` with 'csv' parameter.
+     * @breaking-change 13.0.0
+     */
     exportCsv(): void;
+    /**
+     * Export widget data in Xlsx format
+     * @deprecated Use `AjfWidgetExport.export` with 'xlsx' parameter.
+     * @breaking-change 13.0.0
+     */
     exportXlsx(): void;
+    /**
+     * Export widget data in CSV or Xlsx format
+     */
+    export(bookType: 'csv' | 'xlsx'): void;
     private _buildXlsxData;
     private _buildTitle;
 }

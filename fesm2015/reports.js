@@ -2,8 +2,7 @@ import { Pipe, Directive, ChangeDetectorRef, Input, Component, ViewEncapsulation
 import { buildStringIdentifier } from '@ajf/core/common';
 import { CommonModule } from '@angular/common';
 import { format } from 'date-fns';
-import { saveAs } from 'file-saver';
-import { utils, write } from 'xlsx';
+import { utils, writeFile } from 'xlsx';
 import { AjfFormulaSerializer, alwaysCondition, AjfConditionSerializer, evaluateExpression, createFormula } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
 import { AjfImageType } from '@ajf/core/image';
@@ -1220,22 +1219,34 @@ class AjfWidgetExport {
         this.overlay = true;
         this.enable = false;
     }
+    /**
+     * Export widget data in CSV format
+     * @deprecated Use `AjfWidgetExport.export` with 'csv' parameter.
+     * @breaking-change 13.0.0
+     */
     exportCsv() {
-        const sheetName = this._buildTitle(this.widgetType);
-        const worksheet = utils.json_to_sheet(this._buildXlsxData());
-        const csv = utils.sheet_to_csv(worksheet);
-        saveAs(new Blob([csv], { type: 'text/csv;charset=utf-8' }), `${sheetName}${'.csv'}`);
+        this.export('csv');
     }
+    /**
+     * Export widget data in Xlsx format
+     * @deprecated Use `AjfWidgetExport.export` with 'xlsx' parameter.
+     * @breaking-change 13.0.0
+     */
     exportXlsx() {
+        this.export('xlsx');
+    }
+    /**
+     * Export widget data in CSV or Xlsx format
+     */
+    export(bookType) {
         const sheetName = this._buildTitle(this.widgetType);
         const sheets = {};
         sheets[sheetName] = utils.json_to_sheet(this._buildXlsxData());
-        const worksheet = { Sheets: sheets, SheetNames: [sheetName] };
-        const excelBuffer = write(worksheet, {
-            bookType: 'xlsx',
+        const workBook = { Sheets: sheets, SheetNames: [sheetName] };
+        writeFile(workBook, `${sheetName}.${bookType}`, {
+            bookType,
             type: 'array',
         });
-        saveAs(new Blob([excelBuffer]), `${sheetName}.xlsx`);
     }
     _buildXlsxData() {
         let xlsxData = [];
@@ -1281,22 +1292,10 @@ class AjfWidgetExport {
 AjfWidgetExport.decorators = [
     { type: Component, args: [{
                 selector: 'ajf-widget-export',
-                template: `
-    <div class="ajf-widget-wrapper">
-        <ng-content></ng-content>
-        <div  *ngIf="enable" class="ajf-export-menu" [style.display]="!overlay?'block':'none'">
-            <button (click)="exportCsv()">
-                CSV
-            </button>
-            <button (click)="exportXlsx()" mat-menu-item>
-                XLSX
-            </button>
-        </div>
-    </div>
-    `,
+                template: "<div class=\"ajf-widget-wrapper\">\n  <ng-content></ng-content>\n  <div *ngIf=\"enable\" class=\"ajf-export-menu\" [class.ajf-export-menu-overlay]=\"overlay\">\n      <button (click)=\"export('csv')\">CSV</button>\n      <button (click)=\"export('xlsx')\">XLSX</button>\n  </div>\n</div>\n",
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
-                styles: ["ajf-widget-export{width:100%;height:inherit}ajf-widget-export .ajf-export-menu{position:absolute;right:0;top:0}ajf-widget-export .ajf-export-menu button{margin:.5em;border:none;color:#fff;background-color:#4a403f;padding:7.5px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;cursor:pointer}ajf-widget-export .ajf-widget-wrapper{position:relative;height:inherit}ajf-widget-export .ajf-widget-wrapper:hover .ajf-export-menu{display:block !important}\n"]
+                styles: ["ajf-widget-export{width:100%;height:inherit}ajf-widget-export .ajf-widget-wrapper{position:relative;height:inherit}ajf-widget-export .ajf-export-menu{position:absolute;right:0;top:0}ajf-widget-export .ajf-export-menu.ajf-export-menu-overlay{display:none}ajf-widget-export .ajf-export-menu button{margin:.5em;border:none;color:#fff;background-color:#4a403f;padding:7.5px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;cursor:pointer}ajf-widget-export .ajf-widget-wrapper:hover .ajf-export-menu-overlay{display:block}\n"]
             },] }
 ];
 AjfWidgetExport.ctorParameters = () => [];

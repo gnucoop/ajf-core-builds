@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ajf/core/common'), require('@angular/common'), require('date-fns'), require('file-saver'), require('xlsx'), require('@ajf/core/models'), require('@ajf/core/utils'), require('@ajf/core/image'), require('pdfmake/build/pdfmake')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/reports', ['exports', '@angular/core', '@ajf/core/common', '@angular/common', 'date-fns', 'file-saver', 'xlsx', '@ajf/core/models', '@ajf/core/utils', '@ajf/core/image', 'pdfmake/build/pdfmake'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.reports = {}), global.ng.core, global.ajf.core.common, global.ng.common, global.dateFns, global['file-saver'], global.xlsx, global.ajf.core.models, global.ajf.core.utils, global.ajf.core.image, global.pdfmake.build.pdfmake));
-}(this, (function (exports, core, common, common$1, dateFns, fileSaver, XLSX, models, utils, image, pdfmake) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ajf/core/common'), require('@angular/common'), require('date-fns'), require('xlsx'), require('@ajf/core/models'), require('@ajf/core/utils'), require('@ajf/core/image'), require('pdfmake/build/pdfmake')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/reports', ['exports', '@angular/core', '@ajf/core/common', '@angular/common', 'date-fns', 'xlsx', '@ajf/core/models', '@ajf/core/utils', '@ajf/core/image', 'pdfmake/build/pdfmake'], factory) :
+    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.reports = {}), global.ng.core, global.ajf.core.common, global.ng.common, global.dateFns, global.xlsx, global.ajf.core.models, global.ajf.core.utils, global.ajf.core.image, global.pdfmake.build.pdfmake));
+}(this, (function (exports, core, common, common$1, dateFns, XLSX, models, utils, image, pdfmake) { 'use strict';
 
     /**
      * @license
@@ -371,22 +371,34 @@
             this.overlay = true;
             this.enable = false;
         }
+        /**
+         * Export widget data in CSV format
+         * @deprecated Use `AjfWidgetExport.export` with 'csv' parameter.
+         * @breaking-change 13.0.0
+         */
         AjfWidgetExport.prototype.exportCsv = function () {
-            var sheetName = this._buildTitle(this.widgetType);
-            var worksheet = XLSX.utils.json_to_sheet(this._buildXlsxData());
-            var csv = XLSX.utils.sheet_to_csv(worksheet);
-            fileSaver.saveAs(new Blob([csv], { type: 'text/csv;charset=utf-8' }), "" + sheetName + '.csv');
+            this.export('csv');
         };
+        /**
+         * Export widget data in Xlsx format
+         * @deprecated Use `AjfWidgetExport.export` with 'xlsx' parameter.
+         * @breaking-change 13.0.0
+         */
         AjfWidgetExport.prototype.exportXlsx = function () {
+            this.export('xlsx');
+        };
+        /**
+         * Export widget data in CSV or Xlsx format
+         */
+        AjfWidgetExport.prototype.export = function (bookType) {
             var sheetName = this._buildTitle(this.widgetType);
             var sheets = {};
             sheets[sheetName] = XLSX.utils.json_to_sheet(this._buildXlsxData());
-            var worksheet = { Sheets: sheets, SheetNames: [sheetName] };
-            var excelBuffer = XLSX.write(worksheet, {
-                bookType: 'xlsx',
+            var workBook = { Sheets: sheets, SheetNames: [sheetName] };
+            XLSX.writeFile(workBook, sheetName + "." + bookType, {
+                bookType: bookType,
                 type: 'array',
             });
-            fileSaver.saveAs(new Blob([excelBuffer]), sheetName + ".xlsx");
         };
         AjfWidgetExport.prototype._buildXlsxData = function () {
             var xlsxData = [];
@@ -433,10 +445,10 @@
     AjfWidgetExport.decorators = [
         { type: core.Component, args: [{
                     selector: 'ajf-widget-export',
-                    template: "\n    <div class=\"ajf-widget-wrapper\">\n        <ng-content></ng-content>\n        <div  *ngIf=\"enable\" class=\"ajf-export-menu\" [style.display]=\"!overlay?'block':'none'\">\n            <button (click)=\"exportCsv()\">\n                CSV\n            </button>\n            <button (click)=\"exportXlsx()\" mat-menu-item>\n                XLSX\n            </button>\n        </div>\n    </div>\n    ",
+                    template: "<div class=\"ajf-widget-wrapper\">\n  <ng-content></ng-content>\n  <div *ngIf=\"enable\" class=\"ajf-export-menu\" [class.ajf-export-menu-overlay]=\"overlay\">\n      <button (click)=\"export('csv')\">CSV</button>\n      <button (click)=\"export('xlsx')\">XLSX</button>\n  </div>\n</div>\n",
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
-                    styles: ["ajf-widget-export{width:100%;height:inherit}ajf-widget-export .ajf-export-menu{position:absolute;right:0;top:0}ajf-widget-export .ajf-export-menu button{margin:.5em;border:none;color:#fff;background-color:#4a403f;padding:7.5px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;cursor:pointer}ajf-widget-export .ajf-widget-wrapper{position:relative;height:inherit}ajf-widget-export .ajf-widget-wrapper:hover .ajf-export-menu{display:block !important}\n"]
+                    styles: ["ajf-widget-export{width:100%;height:inherit}ajf-widget-export .ajf-widget-wrapper{position:relative;height:inherit}ajf-widget-export .ajf-export-menu{position:absolute;right:0;top:0}ajf-widget-export .ajf-export-menu.ajf-export-menu-overlay{display:none}ajf-widget-export .ajf-export-menu button{margin:.5em;border:none;color:#fff;background-color:#4a403f;padding:7.5px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;cursor:pointer}ajf-widget-export .ajf-widget-wrapper:hover .ajf-export-menu-overlay{display:block}\n"]
                 },] }
     ];
     AjfWidgetExport.ctorParameters = function () { return []; };
