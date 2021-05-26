@@ -19,16 +19,18 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { InputType } from '../forms/table-form-control';
 import { AjfField } from './field';
 import { AjfFieldType } from './field-type';
 export interface AjfTableCell {
-    formula: string;
     editable?: boolean;
+    formula: string;
 }
 export interface AjfTableField extends AjfField {
-    fieldType: AjfFieldType.Table;
-    rows: (string | AjfTableCell)[][];
     columnLabels: string[];
-    rowLabels: string[];
+    columnTypes: InputType[];
+    fieldType: AjfFieldType.Table;
     hideEmptyRows: boolean;
+    rowLabels: string[];
+    rows: (string | AjfTableCell)[][];
 }

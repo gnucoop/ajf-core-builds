@@ -3163,7 +3163,11 @@
                                         with this mask `${tNode.name}__${rowIdx}__${idx}`
                                         */
                                         var name = tNode_1.name + "__" + rowIdx + "__" + idx;
-                                        var tableFormControl = { control: new forms.FormControl(), show: false };
+                                        var tableFormControl = {
+                                            control: new forms.FormControl(),
+                                            show: false,
+                                            type: tNode_1.columnTypes && tNode_1.columnTypes[idx] || 'number'
+                                        };
                                         tableFormControl.control.setValue(tfInstance_1.context[cell.formula]);
                                         formGroup_1.registerControl(name, tableFormControl.control);
                                         r.push(tableFormControl);
