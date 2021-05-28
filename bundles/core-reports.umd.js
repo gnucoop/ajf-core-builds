@@ -393,7 +393,7 @@
         AjfWidgetExport.prototype.export = function (bookType) {
             var sheetName = this._buildTitle(this.widgetType);
             var sheets = {};
-            sheets[sheetName] = XLSX.utils.json_to_sheet(this._buildXlsxData());
+            sheets[sheetName] = XLSX.utils.aoa_to_sheet(this._buildXlsxData());
             var workBook = { Sheets: sheets, SheetNames: [sheetName] };
             XLSX.writeFile(workBook, sheetName + "." + bookType, {
                 bookType: bookType,
@@ -408,13 +408,14 @@
                 case exports.AjfWidgetType.Chart:
                     this.data = this.data;
                     var datasets = this.data.datasets || [];
-                    labels = this.data.labels;
+                    labels = ['name'].concat(this.data.labels);
+                    xlsxData.push(labels);
                     for (var i = 0; i < datasets.length; i++) {
-                        var row = {};
+                        var row = [];
                         var data = datasets[i].data || [];
-                        row['name'] = datasets[i].label;
+                        row.push(datasets[i].label);
                         for (var j = 0; j < data.length; j++) {
-                            row[labels[j]] = data[j];
+                            row.push(data[j]);
                         }
                         xlsxData.push(row);
                     }
@@ -422,13 +423,21 @@
                 case exports.AjfWidgetType.Table:
                     this.data = this.data;
                     this.data.forEach(function (row, idxRow) {
-                        var res = {};
+                        var res = [];
                         if (idxRow === 0) {
-                            labels = row.map(function (r) { return r.value.changingThisBreaksApplicationSecurity; });
+                            row.forEach(function (elem) {
+                                labels.push(elem.value.changingThisBreaksApplicationSecurity);
+                                if (elem.colspan && elem.colspan > 1) {
+                                    for (var i = 1; i < elem.colspan; i++) {
+                                        labels.push(' ');
+                                    }
+                                }
+                            });
+                            xlsxData.push(labels);
                         }
                         else {
-                            row.forEach(function (elem, idxElem) {
-                                res[labels[idxElem]] = elem.value.changingThisBreaksApplicationSecurity;
+                            row.forEach(function (elem) {
+                                res.push(elem.value.changingThisBreaksApplicationSecurity);
                             });
                             xlsxData.push(res);
                         }
