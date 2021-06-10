@@ -21,5 +21,6 @@
  */
 export interface AjfStringIdentifier {
     label: string;
+    show?: 'all' | 'first' | 'last';
     value: string[];
 }
