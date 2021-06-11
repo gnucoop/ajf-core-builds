@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/image', ['exports', '@angular/core', '@angular/platform-browser', 'rxjs'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.image = {}), global.ng.core, global.ng.platformBrowser, global.rxjs));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.image = {}), global.ng.core, global.ng.platformBrowser, global.rxjs));
 }(this, (function (exports, core, platformBrowser, rxjs) { 'use strict';
 
     /**
@@ -25,6 +25,8 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    // tslint:disable-next-line:prefer-const-enum
+    exports.AjfImageType = void 0;
     (function (AjfImageType) {
         AjfImageType[AjfImageType["Image"] = 0] = "Image";
         AjfImageType[AjfImageType["Flag"] = 1] = "Flag";

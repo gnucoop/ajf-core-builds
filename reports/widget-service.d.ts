@@ -24,6 +24,7 @@ import { AjfBaseWidgetComponent } from './base-widget';
 import { AjfWidgetComponentsMap } from './interface/widgets/widget-components-map';
 export declare abstract class AjfWidgetService {
     readonly componentsMap: AjfWidgetComponentsMap;
+    constructor(defaultWidgets: AjfWidgetComponentsMap);
     registerCustomWidget(widget: {
         widgetType: number;
         component: Type<AjfBaseWidgetComponent>;

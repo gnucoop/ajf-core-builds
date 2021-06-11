@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/time', ['exports', '@angular/core', 'rxjs'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.time = {}), global.ng.core, global.rxjs));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.time = {}), global.ng.core, global.rxjs));
 }(this, (function (exports, core, rxjs) { 'use strict';
 
     /**

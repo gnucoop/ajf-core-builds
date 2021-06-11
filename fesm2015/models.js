@@ -1,7 +1,6 @@
 import { tokenize } from 'esprima';
-import { addDays, addMonths, addYears, endOfISOWeek, format, getDay, parseISO, startOfMonth, startOfISOWeek } from 'date-fns';
+import * as dateFns from 'date-fns';
 import * as numbroMod from 'numbro';
-import numbroMod__default, {  } from 'numbro';
 
 /**
  * @license
@@ -281,17 +280,17 @@ function alwaysCondition() {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const numbro = numbroMod__default || numbroMod;
+const numbro = numbroMod.default || numbroMod;
 const dateUtils = {
-    addDays: addDays,
-    addMonths: addMonths,
-    addYears: addYears,
-    endOfISOWeek: endOfISOWeek,
-    format: format,
-    getDay: getDay,
-    parse: parseISO,
-    startOfMonth: startOfMonth,
-    startOfISOWeek: startOfISOWeek
+    addDays: dateFns.addDays,
+    addMonths: dateFns.addMonths,
+    addYears: dateFns.addYears,
+    endOfISOWeek: dateFns.endOfISOWeek,
+    format: dateFns.format,
+    getDay: dateFns.getDay,
+    parse: dateFns.parseISO,
+    startOfMonth: dateFns.startOfMonth,
+    startOfISOWeek: dateFns.startOfISOWeek
 };
 function digitCount(x) {
     if (isNaN(x) || typeof (x) !== 'number') {

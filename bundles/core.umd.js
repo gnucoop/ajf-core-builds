@@ -1,7 +1,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core')) :
 	typeof define === 'function' && define.amd ? define('@ajf/core', ['exports', '@angular/core'], factory) :
-	(global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = {}), global.ng.core));
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = {}), global.ng.core));
 }(this, (function (exports, core) { 'use strict';
 
 	/**
@@ -26,7 +26,7 @@
 	 *
 	 */
 	/** Current version of Ajf. */
-	var VERSION = new core.Version('12.0.0-next.3-sha-a07f75230');
+	var VERSION = new core.Version('12.0.0-sha-0ab3aa98f');
 
 	/**
 	 * @license

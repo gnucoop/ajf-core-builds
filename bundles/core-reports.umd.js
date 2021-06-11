@@ -1,8 +1,30 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ajf/core/common'), require('@angular/common'), require('date-fns'), require('xlsx'), require('@ajf/core/models'), require('@ajf/core/utils'), require('@ajf/core/image'), require('pdfmake/build/pdfmake')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/reports', ['exports', '@angular/core', '@ajf/core/common', '@angular/common', 'date-fns', 'xlsx', '@ajf/core/models', '@ajf/core/utils', '@ajf/core/image', 'pdfmake/build/pdfmake'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.reports = {}), global.ng.core, global.ajf.core.common, global.ng.common, global.dateFns, global.xlsx, global.ajf.core.models, global.ajf.core.utils, global.ajf.core.image, global.pdfmake.build.pdfmake));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.reports = {}), global.ng.core, global.ajf.core.common, global.ng.common, global.dateFns, global.xlsx, global.ajf.core.models, global.ajf.core.utils, global.ajf.core.image, global.pdfmake.build.pdfmake));
 }(this, (function (exports, core, common, common$1, dateFns, XLSX, models, utils, image, pdfmake) { 'use strict';
+
+    function _interopNamespace(e) {
+        if (e && e.__esModule) return e;
+        var n = Object.create(null);
+        if (e) {
+            Object.keys(e).forEach(function (k) {
+                if (k !== 'default') {
+                    var d = Object.getOwnPropertyDescriptor(e, k);
+                    Object.defineProperty(n, k, d.get ? d : {
+                        enumerable: true,
+                        get: function () {
+                            return e[k];
+                        }
+                    });
+                }
+            });
+        }
+        n['default'] = e;
+        return Object.freeze(n);
+    }
+
+    var XLSX__namespace = /*#__PURE__*/_interopNamespace(XLSX);
 
     /**
      * @license
@@ -67,6 +89,8 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    // tslint:disable-next-line:prefer-const-enum
+    exports.AjfChartType = void 0;
     (function (AjfChartType) {
         AjfChartType[AjfChartType["Line"] = 0] = "Line";
         AjfChartType[AjfChartType["Bar"] = 1] = "Bar";
@@ -147,6 +171,29 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    var AJF_DEFAULT_WIDGETS = new core.InjectionToken('ajf-default-widgets');
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
     var AjfGetColumnContentPipe = /** @class */ (function () {
         function AjfGetColumnContentPipe() {
         }
@@ -180,6 +227,8 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    // tslint:disable-next-line:prefer-const-enum
+    exports.AjfAggregationType = void 0;
     (function (AjfAggregationType) {
         AjfAggregationType[AjfAggregationType["None"] = 0] = "None";
         AjfAggregationType[AjfAggregationType["Sum"] = 1] = "Sum";
@@ -209,6 +258,8 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    // tslint:disable-next-line:prefer-const-enum
+    exports.AjfWidgetType = void 0;
     (function (AjfWidgetType) {
         AjfWidgetType[AjfWidgetType["Layout"] = 0] = "Layout";
         AjfWidgetType[AjfWidgetType["PageBreak"] = 1] = "PageBreak";
@@ -366,6 +417,7 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    var xlsxMod = (XLSX__namespace.default || XLSX__namespace);
     var AjfWidgetExport = /** @class */ (function () {
         function AjfWidgetExport() {
             this.overlay = true;
@@ -393,9 +445,9 @@
         AjfWidgetExport.prototype.export = function (bookType) {
             var sheetName = this._buildTitle(this.widgetType);
             var sheets = {};
-            sheets[sheetName] = XLSX.utils.aoa_to_sheet(this._buildXlsxData());
+            sheets[sheetName] = xlsxMod.utils.aoa_to_sheet(this._buildXlsxData());
             var workBook = { Sheets: sheets, SheetNames: [sheetName] };
-            XLSX.writeFile(workBook, sheetName + "." + bookType, {
+            xlsxMod.writeFile(workBook, sheetName + "." + bookType, {
                 bookType: bookType,
                 type: 'array',
             });
@@ -1004,8 +1056,14 @@
      *
      */
     var AjfWidgetService = /** @class */ (function () {
-        function AjfWidgetService() {
+        function AjfWidgetService(defaultWidgets) {
             this.componentsMap = componentsMap;
+            if (defaultWidgets != null) {
+                for (var key in defaultWidgets) {
+                    var nKey = parseInt(key, 10);
+                    this.componentsMap[nKey] = defaultWidgets[key];
+                }
+            }
         }
         AjfWidgetService.prototype.registerCustomWidget = function (widget) {
             var widgetType = widget.widgetType, component = widget.component;
@@ -1019,6 +1077,12 @@
         };
         return AjfWidgetService;
     }());
+    AjfWidgetService.decorators = [
+        { type: core.Injectable }
+    ];
+    AjfWidgetService.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [AJF_DEFAULT_WIDGETS,] }] }
+    ]; };
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -1315,18 +1379,21 @@
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-    function __classPrivateFieldGet(receiver, privateMap) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to get private field on non-instance");
-        }
-        return privateMap.get(receiver);
+    function __classPrivateFieldGet(receiver, state, kind, f) {
+        if (kind === "a" && !f)
+            throw new TypeError("Private accessor was defined without a getter");
+        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+            throw new TypeError("Cannot read private member from an object whose class did not declare it");
+        return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
     }
-    function __classPrivateFieldSet(receiver, privateMap, value) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to set private field on non-instance");
-        }
-        privateMap.set(receiver, value);
-        return value;
+    function __classPrivateFieldSet(receiver, state, value, kind, f) {
+        if (kind === "m")
+            throw new TypeError("Private method is not writable");
+        if (kind === "a" && !f)
+            throw new TypeError("Private accessor was defined without a setter");
+        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+            throw new TypeError("Cannot write private member to an object whose class did not declare it");
+        return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
     }
 
     /**
@@ -2015,6 +2082,7 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.AJF_DEFAULT_WIDGETS = AJF_DEFAULT_WIDGETS;
     exports.AjfAggregationSerializer = AjfAggregationSerializer;
     exports.AjfBaseWidgetComponent = AjfBaseWidgetComponent;
     exports.AjfDatasetSerializer = AjfDatasetSerializer;

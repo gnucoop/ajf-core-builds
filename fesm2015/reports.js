@@ -1,8 +1,8 @@
-import { Pipe, Directive, ChangeDetectorRef, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewContainerRef, NgModule, ComponentFactoryResolver, Renderer2, ViewChild } from '@angular/core';
+import { InjectionToken, Pipe, Directive, ChangeDetectorRef, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewContainerRef, NgModule, ComponentFactoryResolver, Renderer2, ViewChild, Injectable, Optional, Inject } from '@angular/core';
 import { buildStringIdentifier } from '@ajf/core/common';
 import { CommonModule } from '@angular/common';
 import { format } from 'date-fns';
-import { utils, writeFile } from 'xlsx';
+import * as XLSX from 'xlsx';
 import { AjfFormulaSerializer, alwaysCondition, AjfConditionSerializer, evaluateExpression, createFormula } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
 import { AjfImageType } from '@ajf/core/image';
@@ -126,6 +126,29 @@ function chartToChartJsType(chartType) {
             return 'line';
     }
 }
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const AJF_DEFAULT_WIDGETS = new InjectionToken('ajf-default-widgets');
 
 /**
  * @license
@@ -1214,6 +1237,7 @@ AjfReportStringIdentifierPipe.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const xlsxMod = (XLSX.default || XLSX);
 class AjfWidgetExport {
     constructor() {
         this.overlay = true;
@@ -1241,9 +1265,9 @@ class AjfWidgetExport {
     export(bookType) {
         const sheetName = this._buildTitle(this.widgetType);
         const sheets = {};
-        sheets[sheetName] = utils.aoa_to_sheet(this._buildXlsxData());
+        sheets[sheetName] = xlsxMod.utils.aoa_to_sheet(this._buildXlsxData());
         const workBook = { Sheets: sheets, SheetNames: [sheetName] };
-        writeFile(workBook, `${sheetName}.${bookType}`, {
+        xlsxMod.writeFile(workBook, `${sheetName}.${bookType}`, {
             bookType,
             type: 'array',
         });
@@ -1848,8 +1872,14 @@ const componentsMap = {};
  *
  */
 class AjfWidgetService {
-    constructor() {
+    constructor(defaultWidgets) {
         this.componentsMap = componentsMap;
+        if (defaultWidgets != null) {
+            for (const key in defaultWidgets) {
+                const nKey = parseInt(key, 10);
+                this.componentsMap[nKey] = defaultWidgets[key];
+            }
+        }
     }
     registerCustomWidget(widget) {
         const { widgetType, component } = widget;
@@ -1862,6 +1892,12 @@ class AjfWidgetService {
         this.componentsMap[widgetType] = widget;
     }
 }
+AjfWidgetService.decorators = [
+    { type: Injectable }
+];
+AjfWidgetService.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [AJF_DEFAULT_WIDGETS,] }] }
+];
 
 /**
  * @license
@@ -2579,5 +2615,5 @@ function stripHTML(s) {
  * Generated bundle index. Do not edit.
  */
 
-export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfGetColumnContentPipe, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportStringIdentifierPipe, AjfReportWidget, AjfReportsModule, AjfWidgetExport, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetService, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createReportPdf, createWidget, createWidgetInstance, openReportPdf, widgetToWidgetInstance };
+export { AJF_DEFAULT_WIDGETS, AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfGetColumnContentPipe, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportStringIdentifierPipe, AjfReportWidget, AjfReportsModule, AjfWidgetExport, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetService, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createReportPdf, createWidget, createWidgetInstance, openReportPdf, widgetToWidgetInstance };
 //# sourceMappingURL=reports.js.map

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@zxing/library'), require('rxjs'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/barcode', ['exports', '@angular/core', '@zxing/library', 'rxjs', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.barcode = {}), global.ng.core, global.zxing, global.rxjs, global.rxjs.operators));
-}(this, (function (exports, core, library, rxjs, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@zxing/browser'), require('rxjs'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/barcode', ['exports', '@angular/core', '@zxing/browser', 'rxjs', 'rxjs/operators'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.barcode = {}), global.ng.core, global.zxing.browser, global.rxjs, global.rxjs.operators));
+}(this, (function (exports, core, browser, rxjs, operators) { 'use strict';
 
     /**
      * @license
@@ -30,7 +30,7 @@
             var _this = this;
             this._cdr = _cdr;
             this._renderer = _renderer;
-            this.codeReader = new library.BrowserBarcodeReader();
+            this.codeReader = new browser.BrowserMultiFormatReader();
             this.startDetection = new core.EventEmitter();
             this.startCalculation = new core.EventEmitter();
             this._startDetectionSub = rxjs.Subscription.EMPTY;
@@ -191,7 +191,7 @@
          * @memberof AjfBarcode
          */
         AjfBarcode.prototype._readBarcodeFromImage = function (img) {
-            var decode = rxjs.from(this.codeReader.decodeFromImage(img));
+            var decode = rxjs.from(this.codeReader.decodeFromImageElement(img));
             return decode.pipe(operators.catchError(function (e) { return rxjs.of(e); }));
         };
         /**

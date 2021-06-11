@@ -1,4 +1,5 @@
-import { ɵɵdefineInjectable, Injectable, Pipe, NgModule, EventEmitter, Directive, ChangeDetectorRef, Input, Output } from '@angular/core';
+import * as i0 from '@angular/core';
+import { Injectable, Pipe, NgModule, EventEmitter, Directive, ChangeDetectorRef, Input, Output } from '@angular/core';
 import { isAfter, isSameDay, isBefore, format, startOfMonth, endOfMonth, getISODay, endOfISOWeek, startOfISOWeek, addWeeks, subWeeks, startOfYear, endOfYear, startOfDay, endOfDay, addMonths, addYears, subMonths, subYears, setISODay, startOfWeek, addDays, endOfWeek, parseISO } from 'date-fns';
 import 'rxjs';
 
@@ -237,7 +238,7 @@ class AjfCalendarService {
         return rows;
     }
 }
-AjfCalendarService.ɵprov = ɵɵdefineInjectable({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
+AjfCalendarService.ɵprov = i0.ɵɵdefineInjectable({ factory: function AjfCalendarService_Factory() { return new AjfCalendarService(); }, token: AjfCalendarService, providedIn: "root" });
 AjfCalendarService.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] }
 ];

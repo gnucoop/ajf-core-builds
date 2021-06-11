@@ -1,10 +1,31 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('esprima'), require('date-fns'), require('numbro')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/models', ['exports', 'esprima', 'date-fns', 'numbro'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.models = {}), global.esprima, global.dateFns, global.numbro));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.models = {}), global.esprima, global.dateFns, global.numbro));
 }(this, (function (exports, esprima, dateFns, numbroMod) { 'use strict';
 
-    var numbroMod__default = 'default' in numbroMod ? numbroMod['default'] : numbroMod;
+    function _interopNamespace(e) {
+        if (e && e.__esModule) return e;
+        var n = Object.create(null);
+        if (e) {
+            Object.keys(e).forEach(function (k) {
+                if (k !== 'default') {
+                    var d = Object.getOwnPropertyDescriptor(e, k);
+                    Object.defineProperty(n, k, d.get ? d : {
+                        enumerable: true,
+                        get: function () {
+                            return e[k];
+                        }
+                    });
+                }
+            });
+        }
+        n['default'] = e;
+        return Object.freeze(n);
+    }
+
+    var dateFns__namespace = /*#__PURE__*/_interopNamespace(dateFns);
+    var numbroMod__namespace = /*#__PURE__*/_interopNamespace(numbroMod);
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -301,18 +322,21 @@
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-    function __classPrivateFieldGet(receiver, privateMap) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to get private field on non-instance");
-        }
-        return privateMap.get(receiver);
+    function __classPrivateFieldGet(receiver, state, kind, f) {
+        if (kind === "a" && !f)
+            throw new TypeError("Private accessor was defined without a getter");
+        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+            throw new TypeError("Cannot read private member from an object whose class did not declare it");
+        return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
     }
-    function __classPrivateFieldSet(receiver, privateMap, value) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to set private field on non-instance");
-        }
-        privateMap.set(receiver, value);
-        return value;
+    function __classPrivateFieldSet(receiver, state, value, kind, f) {
+        if (kind === "m")
+            throw new TypeError("Private method is not writable");
+        if (kind === "a" && !f)
+            throw new TypeError("Private accessor was defined without a setter");
+        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+            throw new TypeError("Cannot write private member to an object whose class did not declare it");
+        return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
     }
 
     /**
@@ -524,17 +548,17 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var numbro = numbroMod__default || numbroMod;
+    var numbro = numbroMod__namespace.default || numbroMod__namespace;
     var dateUtils = {
-        addDays: dateFns.addDays,
-        addMonths: dateFns.addMonths,
-        addYears: dateFns.addYears,
-        endOfISOWeek: dateFns.endOfISOWeek,
-        format: dateFns.format,
-        getDay: dateFns.getDay,
-        parse: dateFns.parseISO,
-        startOfMonth: dateFns.startOfMonth,
-        startOfISOWeek: dateFns.startOfISOWeek
+        addDays: dateFns__namespace.addDays,
+        addMonths: dateFns__namespace.addMonths,
+        addYears: dateFns__namespace.addYears,
+        endOfISOWeek: dateFns__namespace.endOfISOWeek,
+        format: dateFns__namespace.format,
+        getDay: dateFns__namespace.getDay,
+        parse: dateFns__namespace.parseISO,
+        startOfMonth: dateFns__namespace.startOfMonth,
+        startOfISOWeek: dateFns__namespace.startOfISOWeek
     };
     function digitCount(x) {
         if (isNaN(x) || typeof (x) !== 'number') {

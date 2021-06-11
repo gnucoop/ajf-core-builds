@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/cdk/coercion')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/page-slider', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/cdk/coercion'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.pageSlider = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.coercion));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.pageSlider = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.ng.animations, global.ng.cdk.coercion));
 }(this, (function (exports, core, rxjs, operators, animations, coercion) { 'use strict';
 
     /**

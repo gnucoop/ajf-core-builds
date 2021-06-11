@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@angular/platform-browser'), require('rxjs'), require('rxjs/operators'), require('@ajf/core/common'), require('@angular/common'), require('@ngx-translate/core')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/file-input', ['exports', '@angular/core', '@angular/forms', '@angular/platform-browser', 'rxjs', 'rxjs/operators', '@ajf/core/common', '@angular/common', '@ngx-translate/core'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.fileInput = {}), global.ng.core, global.ng.forms, global.ng.platformBrowser, global.rxjs, global.rxjs.operators, global.ajf.core.common, global.ng.common, global.ngxTranslate.core));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.fileInput = {}), global.ng.core, global.ng.forms, global.ng.platformBrowser, global.rxjs, global.rxjs.operators, global.ajf.core.common, global.ng.common, global.ngxTranslate.core));
 }(this, (function (exports, core, forms, platformBrowser, rxjs, operators, common, common$1, core$1) { 'use strict';
 
     /**

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('chart.js'), require('@ajf/core/utils'), require('@angular/core')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/chart', ['exports', 'chart.js', '@ajf/core/utils', '@angular/core'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.Chart, global.ajf.core.utils, global.ng.core));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.chart = {}), global.Chart, global.ajf.core.utils, global.ng.core));
 }(this, (function (exports, chart_js, utils, core) { 'use strict';
 
     /**

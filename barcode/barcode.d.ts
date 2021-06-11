@@ -21,12 +21,12 @@
  */
 import { ChangeDetectorRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { BrowserBarcodeReader } from '@zxing/library';
+import { BrowserMultiFormatReader } from '@zxing/browser';
 import { Subscription } from 'rxjs';
 export declare abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     private _cdr;
     private _renderer;
-    readonly codeReader: BrowserBarcodeReader;
+    readonly codeReader: BrowserMultiFormatReader;
     readonly startDetection: EventEmitter<void>;
     readonly startCalculation: EventEmitter<string>;
     readonly _startDetectionSub: Subscription;

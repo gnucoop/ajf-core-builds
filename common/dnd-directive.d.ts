@@ -22,7 +22,7 @@
 import { Observable } from 'rxjs';
 export declare class AjfDndDirective {
     private _file;
-    file: Observable<FileList>;
+    readonly file: Observable<FileList>;
     private _over;
     get over(): boolean;
     onDragOver(evt: DragEvent): void;

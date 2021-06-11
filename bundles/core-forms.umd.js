@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@ajf/core/utils'), require('esprima'), require('@ajf/core/models'), require('date-fns'), require('@angular/cdk/coercion'), require('@ajf/core/common'), require('@ajf/core/file-input'), require('@angular/common'), require('@angular/common/http'), require('@ngx-translate/core'), require('@angular/platform-browser'), require('pdfmake/build/pdfmake')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/forms', ['exports', '@angular/core', '@angular/forms', 'rxjs', 'rxjs/operators', '@ajf/core/utils', 'esprima', '@ajf/core/models', 'date-fns', '@angular/cdk/coercion', '@ajf/core/common', '@ajf/core/file-input', '@angular/common', '@angular/common/http', '@ngx-translate/core', '@angular/platform-browser', 'pdfmake/build/pdfmake'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators, global.ajf.core.utils, global.esprima, global.ajf.core.models, global.dateFns, global.ng.cdk.coercion, global.ajf.core.common, global.ajf.core.fileInput, global.ng.common, global.ng.common.http, global.ngxTranslate.core, global.ng.platformBrowser, global.pdfmake.build.pdfmake));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.forms = {}), global.ng.core, global.ng.forms, global.rxjs, global.rxjs.operators, global.ajf.core.utils, global.esprima, global.ajf.core.models, global.dateFns, global.ng.cdk.coercion, global.ajf.core.common, global.ajf.core.fileInput, global.ng.common, global.ng.common.http, global.ngxTranslate.core, global.ng.platformBrowser, global.pdfmake.build.pdfmake));
 }(this, (function (exports, core, forms, rxjs, operators, utils, esprima, models, dateFns, coercion, common, fileInput, common$1, http, core$1, platformBrowser, pdfmake) { 'use strict';
 
     /**
@@ -365,18 +365,21 @@
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
     }
-    function __classPrivateFieldGet(receiver, privateMap) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to get private field on non-instance");
-        }
-        return privateMap.get(receiver);
+    function __classPrivateFieldGet(receiver, state, kind, f) {
+        if (kind === "a" && !f)
+            throw new TypeError("Private accessor was defined without a getter");
+        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+            throw new TypeError("Cannot read private member from an object whose class did not declare it");
+        return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
     }
-    function __classPrivateFieldSet(receiver, privateMap, value) {
-        if (!privateMap.has(receiver)) {
-            throw new TypeError("attempted to set private field on non-instance");
-        }
-        privateMap.set(receiver, value);
-        return value;
+    function __classPrivateFieldSet(receiver, state, value, kind, f) {
+        if (kind === "m")
+            throw new TypeError("Private method is not writable");
+        if (kind === "a" && !f)
+            throw new TypeError("Private accessor was defined without a setter");
+        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+            throw new TypeError("Cannot write private member to an object whose class did not declare it");
+        return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
     }
 
     /**
@@ -400,6 +403,8 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    // tslint:disable-next-line:prefer-const-enum
+    exports.AjfFieldType = void 0;
     (function (AjfFieldType) {
         AjfFieldType[AjfFieldType["String"] = 0] = "String";
         AjfFieldType[AjfFieldType["Text"] = 1] = "Text";
@@ -442,6 +447,8 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    // tslint:disable-next-line:prefer-const-enum
+    exports.AjfNodeType = void 0;
     (function (AjfNodeType) {
         AjfNodeType[AjfNodeType["AjfField"] = 0] = "AjfField";
         AjfNodeType[AjfNodeType["AjfFieldNodeLink"] = 1] = "AjfFieldNodeLink";

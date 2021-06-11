@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('leaflet'), require('rxjs')) :
     typeof define === 'function' && define.amd ? define('@ajf/core/map', ['exports', '@angular/core', 'leaflet', 'rxjs'], factory) :
-    (global = global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.map = {}), global.ng.core, global.leaflet, global.rxjs));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.map = {}), global.ng.core, global.leaflet, global.rxjs));
 }(this, (function (exports, core, leaflet, rxjs) { 'use strict';
 
     /**

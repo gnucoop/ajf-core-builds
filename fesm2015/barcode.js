@@ -1,5 +1,5 @@
 import { EventEmitter, Directive, ChangeDetectorRef, Renderer2 } from '@angular/core';
-import { BrowserBarcodeReader } from '@zxing/library';
+import { BrowserMultiFormatReader } from '@zxing/browser';
 import { Subscription, of, from } from 'rxjs';
 import { debounceTime, switchMap, catchError } from 'rxjs/operators';
 
@@ -28,7 +28,7 @@ class AjfBarcode {
     constructor(_cdr, _renderer) {
         this._cdr = _cdr;
         this._renderer = _renderer;
-        this.codeReader = new BrowserBarcodeReader();
+        this.codeReader = new BrowserMultiFormatReader();
         this.startDetection = new EventEmitter();
         this.startCalculation = new EventEmitter();
         this._startDetectionSub = Subscription.EMPTY;
@@ -172,7 +172,7 @@ class AjfBarcode {
      * @memberof AjfBarcode
      */
     _readBarcodeFromImage(img) {
-        const decode = from(this.codeReader.decodeFromImage(img));
+        const decode = from(this.codeReader.decodeFromImageElement(img));
         return decode.pipe(catchError(e => of(e)));
     }
     /**

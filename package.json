@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "12.0.0-next.3-sha-a07f75230",
+  "version": "12.0.0-sha-0ab3aa98f",
   "description": "",
   "repository": {
     "type": "git",
@@ -13,26 +13,28 @@
   },
   "homepage": "https://github.com/gnucoop/ajf#readme",
   "peerDependencies": {
-    "@angular/animations": "^12.0.0-0 || ^13.0.0-0",
-    "@angular/cdk": "^12.0.0-0 || ^13.0.0-0",
-    "@angular/core": "^12.0.0-0 || ^13.0.0-0",
-    "@angular/common": "^12.0.0-0 || ^13.0.0-0",
-    "@angular/forms": "^12.0.0-0 || ^13.0.0-0",
-    "@angular/router": "^12.0.0-0 || ^13.0.0-0",
+    "@angular/animations": "^12.0.0 || ^13.0.0-0",
+    "@angular/cdk": "^12.0.0 || ^13.0.0-0",
+    "@angular/core": "^12.0.0 || ^13.0.0-0",
+    "@angular/common": "^12.0.0 || ^13.0.0-0",
+    "@angular/forms": "^12.0.0 || ^13.0.0-0",
+    "@angular/router": "^12.0.0 || ^13.0.0-0",
     "@ngx-translate/core": "^13.0.0",
-    "@zxing/library": "^0.17.0",
+    "@zxing/browser": "^0.0.9",
+    "@zxing/library": "^0.18.6",
     "chart.js": "^2.9.3",
     "date-fns": "^2.14.0",
     "esprima": "^4.0.1",
     "leaflet": "^1.6.0",
     "numbro": "^2.3.1",
-    "pdfmake": "^0.1.68"
+    "pdfmake": "^0.1.68",
+    "rxjs": "^6.5.3"
   },
   "devDependencies": {
     "@types/resize-observer-browser": "^0.1.5"
   },
   "dependencies": {
-    "tslib": "^2.1.0"
+    "tslib": "^2.2.0"
   },
   "sideEffects": false,
   "main": "./bundles/core.umd.js",
