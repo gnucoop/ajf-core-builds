@@ -2478,7 +2478,7 @@ function validSlide(slide, idx) {
     }
     return slide.slideNodes[idx]
         .map(n => {
-        if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+        if (n.visible && Object.keys(n).includes('valid')) {
             return n.valid;
         }
         return true;
@@ -5541,10 +5541,10 @@ function getVideoProviderAndId(url) {
     return { provider, id };
 }
 function getVimeoVideoId(url) {
-    if (url.indexOf('#') > -1) {
+    if (url.includes('#')) {
         url = url.split('#')[0];
     }
-    if (url.indexOf('?') > -1 && url.indexOf('clip_id=') === -1) {
+    if (url.includes('?') && !url.includes('clip_id=')) {
         url = url.split('?')[0];
     }
     let id = null;
@@ -5618,10 +5618,10 @@ function getYouTubeVideoId(url) {
 }
 function stripParameters(url) {
     // Split parameters or split folder separator
-    if (url.indexOf('?') > -1) {
+    if (url.includes('?')) {
         return url.split('?')[0];
     }
-    else if (url.indexOf('/') > -1) {
+    else if (url.includes('/')) {
         return url.split('/')[0];
     }
     return url;
@@ -5771,7 +5771,7 @@ class AjfValidSlidePipe {
         }
         return slide.slideNodes[idx]
             .map(n => {
-            if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+            if (n.visible && Object.keys(n).includes('valid')) {
                 return n.valid;
             }
             return true;

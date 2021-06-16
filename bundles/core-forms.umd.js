@@ -2744,7 +2744,7 @@
         }
         return slide.slideNodes[idx]
             .map(function (n) {
-            if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+            if (n.visible && Object.keys(n).includes('valid')) {
                 return n.valid;
             }
             return true;
@@ -5384,10 +5384,10 @@
         return { provider: provider, id: id };
     }
     function getVimeoVideoId(url) {
-        if (url.indexOf('#') > -1) {
+        if (url.includes('#')) {
             url = url.split('#')[0];
         }
-        if (url.indexOf('?') > -1 && url.indexOf('clip_id=') === -1) {
+        if (url.includes('?') && !url.includes('clip_id=')) {
             url = url.split('?')[0];
         }
         var id = null;
@@ -5461,10 +5461,10 @@
     }
     function stripParameters(url) {
         // Split parameters or split folder separator
-        if (url.indexOf('?') > -1) {
+        if (url.includes('?')) {
             return url.split('?')[0];
         }
-        else if (url.indexOf('/') > -1) {
+        else if (url.includes('/')) {
             return url.split('/')[0];
         }
         return url;
@@ -5582,7 +5582,7 @@
             }
             return slide.slideNodes[idx]
                 .map(function (n) {
-                if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+                if (n.visible && Object.keys(n).includes('valid')) {
                     return n.valid;
                 }
                 return true;
@@ -6551,8 +6551,7 @@
         }
         return [{
                 columns: [
-                    borderlessCell(question),
-                    {
+                    borderlessCell(question), {
                         table: { widths: ['*'], body: body },
                     }
                 ],
