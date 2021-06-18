@@ -19,8 +19,13 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfContext } from '@ajf/core/models';
-import { TCreatedPdf } from 'pdfmake/build/pdfmake';
-import { Content, PageOrientation } from 'pdfmake/interfaces';
-import { AjfForm } from '../interface/forms/form';
-export declare function createFormPdf(form: AjfForm, translate?: (s: string) => string, orientation?: PageOrientation, header?: Content[], context?: AjfContext): TCreatedPdf;
+export interface VfsFont {
+    normal: string;
+    bold: string;
+    italics: string;
+    bolditalics: string;
+}
+export declare type VfsFontsMap = {
+    [key: string]: VfsFont;
+};
+export declare const vfsFontsMap: VfsFontsMap;

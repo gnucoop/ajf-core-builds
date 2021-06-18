@@ -1,0 +1,9 @@
+{
+  "name": "@ajf/core/vfs-fonts",
+  "main": "../bundles/core-vfs-fonts.umd.js",
+  "fesm2015": "../fesm2015/vfs-fonts.js",
+  "esm2015": "../esm2015/vfs-fonts/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm2015/vfs-fonts.js",
+  "es2015": "../fesm2015/vfs-fonts.js"
+}
