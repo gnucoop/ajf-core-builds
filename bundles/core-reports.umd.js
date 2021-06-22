@@ -171,29 +171,6 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
-    var AJF_DEFAULT_WIDGETS = new core.InjectionToken('ajf-default-widgets');
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
     var AjfGetColumnContentPipe = /** @class */ (function () {
         function AjfGetColumnContentPipe() {
         }
@@ -1077,12 +1054,6 @@
         };
         return AjfWidgetService;
     }());
-    AjfWidgetService.decorators = [
-        { type: core.Injectable }
-    ];
-    AjfWidgetService.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [AJF_DEFAULT_WIDGETS,] }] }
-    ]; };
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -2067,7 +2038,6 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.AJF_DEFAULT_WIDGETS = AJF_DEFAULT_WIDGETS;
     exports.AjfAggregationSerializer = AjfAggregationSerializer;
     exports.AjfBaseWidgetComponent = AjfBaseWidgetComponent;
     exports.AjfDatasetSerializer = AjfDatasetSerializer;
