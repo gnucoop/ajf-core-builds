@@ -1928,6 +1928,7 @@
                 }
                 return { image: dataUrl, width: width, margin: [0, 0, 0, marginBetweenWidgets] };
             case exports.AjfWidgetType.Table:
+            case exports.AjfWidgetType.DynamicTable:
                 return tableToPdf(widget);
             case exports.AjfWidgetType.Column:
                 var cw = widget;
@@ -1989,24 +1990,81 @@
         return text;
     }
     function tableToPdf(table) {
+        var e_1, _a, e_2, _b;
         if (table.data == null || table.data.length === 0) {
             return { text: '' };
         }
         var body = [];
-        for (var i = 0; i < table.data.length; i++) {
-            var dataRow = table.data[i];
-            var bodyRow = [];
-            for (var j = 0; j < dataRow.length; j++) {
-                var cell = dataRow[j];
-                bodyRow.push({ text: table.dataset[i][j], colSpan: cell.colspan });
-                // pdfmake wants placeholder cells after cells with colspan > 1:
-                for (var k = 1; k < (cell.colspan || 1); k++) {
-                    bodyRow.push({ text: '' });
+        try {
+            for (var _c = __values(expandColAndRowSpan(table.data)), _d = _c.next(); !_d.done; _d = _c.next()) {
+                var dataRow = _d.value;
+                var bodyRow = [];
+                try {
+                    for (var dataRow_1 = (e_2 = void 0, __values(dataRow)), dataRow_1_1 = dataRow_1.next(); !dataRow_1_1.done; dataRow_1_1 = dataRow_1.next()) {
+                        var cell = dataRow_1_1.value;
+                        var text = '';
+                        if (typeof (cell.value) === 'string' || typeof (cell.value) === 'number') {
+                            text = String(cell.value);
+                        }
+                        if (typeof (cell.value) === 'object') {
+                            text = String(cell.value.changingThisBreaksApplicationSecurity || '');
+                        }
+                        bodyRow.push({ text: text, colSpan: cell.colspan, rowSpan: cell.rowspan });
+                    }
                 }
+                catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                finally {
+                    try {
+                        if (dataRow_1_1 && !dataRow_1_1.done && (_b = dataRow_1.return)) _b.call(dataRow_1);
+                    }
+                    finally { if (e_2) throw e_2.error; }
+                }
+                body.push(bodyRow);
             }
-            body.push(bodyRow);
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
+            }
+            finally { if (e_1) throw e_1.error; }
         }
         return { table: { headerRows: 0, body: body }, margin: [0, 0, 0, marginBetweenWidgets] };
+    }
+    // pdfmake wants placeholder cells after cells with col/rowspan > 1
+    function expandColAndRowSpan(data) {
+        var e_3, _a;
+        data = utils.deepCopy(data);
+        try {
+            // expand colspan:
+            for (var data_1 = __values(data), data_1_1 = data_1.next(); !data_1_1.done; data_1_1 = data_1.next()) {
+                var row = data_1_1.value;
+                for (var j = 0; j < row.length; j++) {
+                    var cell = row[j];
+                    for (var k = 1; k < (cell.colspan || 1); k++) {
+                        row.splice(j + k, 0, { rowspan: cell.rowspan, value: '', style: {} });
+                    }
+                }
+            }
+        }
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+        finally {
+            try {
+                if (data_1_1 && !data_1_1.done && (_a = data_1.return)) _a.call(data_1);
+            }
+            finally { if (e_3) throw e_3.error; }
+        }
+        // expand rowspan:
+        for (var i = 0; i < data.length; i++) {
+            var row = data[i];
+            for (var j = 0; j < row.length; j++) {
+                var cell = row[j];
+                for (var k = 1; k < (cell.rowspan || 1); k++) {
+                    data[i + k].splice(j, 0, { value: '', style: {} });
+                }
+            }
+        }
+        return data;
     }
     function stripHTML(s) {
         return s.replace(/<\/?[^>]+(>|$)/g, '');

@@ -2462,6 +2462,7 @@ function widgetToPdf(widget, images, width) {
             }
             return { image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets] };
         case AjfWidgetType.Table:
+        case AjfWidgetType.DynamicTable:
             return tableToPdf(widget);
         case AjfWidgetType.Column:
             const cw = widget;
@@ -2527,20 +2528,45 @@ function tableToPdf(table) {
         return { text: '' };
     }
     const body = [];
-    for (let i = 0; i < table.data.length; i++) {
-        const dataRow = table.data[i];
+    for (const dataRow of expandColAndRowSpan(table.data)) {
         const bodyRow = [];
-        for (let j = 0; j < dataRow.length; j++) {
-            const cell = dataRow[j];
-            bodyRow.push({ text: table.dataset[i][j], colSpan: cell.colspan });
-            // pdfmake wants placeholder cells after cells with colspan > 1:
-            for (let k = 1; k < (cell.colspan || 1); k++) {
-                bodyRow.push({ text: '' });
+        for (const cell of dataRow) {
+            let text = '';
+            if (typeof (cell.value) === 'string' || typeof (cell.value) === 'number') {
+                text = String(cell.value);
             }
+            if (typeof (cell.value) === 'object') {
+                text = String(cell.value.changingThisBreaksApplicationSecurity || '');
+            }
+            bodyRow.push({ text, colSpan: cell.colspan, rowSpan: cell.rowspan });
         }
         body.push(bodyRow);
     }
     return { table: { headerRows: 0, body }, margin: [0, 0, 0, marginBetweenWidgets] };
+}
+// pdfmake wants placeholder cells after cells with col/rowspan > 1
+function expandColAndRowSpan(data) {
+    data = deepCopy(data);
+    // expand colspan:
+    for (const row of data) {
+        for (let j = 0; j < row.length; j++) {
+            const cell = row[j];
+            for (let k = 1; k < (cell.colspan || 1); k++) {
+                row.splice(j + k, 0, { rowspan: cell.rowspan, value: '', style: {} });
+            }
+        }
+    }
+    // expand rowspan:
+    for (let i = 0; i < data.length; i++) {
+        const row = data[i];
+        for (let j = 0; j < row.length; j++) {
+            const cell = row[j];
+            for (let k = 1; k < (cell.rowspan || 1); k++) {
+                data[i + k].splice(j, 0, { value: '', style: {} });
+            }
+        }
+    }
+    return data;
 }
 function stripHTML(s) {
     return s.replace(/<\/?[^>]+(>|$)/g, '');
