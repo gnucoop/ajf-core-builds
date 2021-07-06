@@ -1968,14 +1968,14 @@ function trFormula(f, context, ts) {
     let formula = f.formula;
     if (formula.substr(0, 1) === '"' || formula.substr(0, 1) === '\'') {
         const ft = formula.slice(1, -1);
-        const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.instant(ft) : ft;
+        const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.translate(ft) : ft;
         if (ft.length > 0) {
             formula = `"${transFt}"`;
         }
     }
     else {
         formula = formula != null && typeof formula === 'string' && formula.trim().length > 0 ?
-            ts.instant(formula) :
+            ts.translate(formula) :
             formula;
     }
     return evaluateExpression(formula, context);
@@ -2031,10 +2031,11 @@ function widgetToWidgetInstance(widget, context, ts) {
             let evf = evaluateExpression(l.formula, context);
             try {
                 if (evf instanceof Array) {
-                    evf = evf.map(v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v);
+                    evf = evf.map(v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v);
                 }
                 else {
-                    evf = evf != null && typeof evf === 'string' && evf.trim().length > 0 ? ts.instant(evf) :
+                    evf = evf != null && typeof evf === 'string' && evf.trim().length > 0 ?
+                        ts.translate(evf) :
                         evf;
                 }
             }
@@ -2053,7 +2054,7 @@ function widgetToWidgetInstance(widget, context, ts) {
                 ds = Object.assign(Object.assign({}, ds), { options: d.options });
             }
             if (d.label != null) {
-                ds = Object.assign(Object.assign({}, ds), { label: d.label.trim().length > 0 ? ts.instant(d.label) : d.label });
+                ds = Object.assign(Object.assign({}, ds), { label: d.label.trim().length > 0 ? ts.translate(d.label) : d.label });
             }
             if (d.datalabels != null) {
                 ds.datalabels = deepCopy(d.datalabels);
@@ -2122,10 +2123,11 @@ function widgetToWidgetInstance(widget, context, ts) {
             let trf = cell.value;
             try {
                 if (trf instanceof Array) {
-                    trf = trf.map(v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v);
+                    trf = trf.map(v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v);
                 }
                 else {
-                    trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ? ts.instant(trf) :
+                    trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
+                        ts.translate(trf) :
                         trf;
                 }
             }
@@ -2206,7 +2208,7 @@ function widgetToWidgetInstance(widget, context, ts) {
             }
             htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
         });
-        tewi.htmlText = htmlText != null && htmlText.length > 0 ? ts.instant(htmlText) : htmlText;
+        tewi.htmlText = htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
     }
     else if (widget.widgetType === AjfWidgetType.Formula) {
         const fw = widget;

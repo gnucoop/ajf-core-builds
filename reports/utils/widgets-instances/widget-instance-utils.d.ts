@@ -20,5 +20,5 @@
  *
  */
 import { AjfContext, AjfFormula } from '@ajf/core/models';
-import { TranslateService } from '@ngx-translate/core';
-export declare function trFormula(f: AjfFormula, context: AjfContext, ts: TranslateService): any;
+import { TranslocoService } from '@ajf/core/transloco';
+export declare function trFormula(f: AjfFormula, context: AjfContext, ts: TranslocoService): any;

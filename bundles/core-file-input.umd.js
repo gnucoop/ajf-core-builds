@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@angular/platform-browser'), require('rxjs'), require('rxjs/operators'), require('@ajf/core/common'), require('@angular/common'), require('@ngx-translate/core')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/file-input', ['exports', '@angular/core', '@angular/forms', '@angular/platform-browser', 'rxjs', 'rxjs/operators', '@ajf/core/common', '@angular/common', '@ngx-translate/core'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.fileInput = {}), global.ng.core, global.ng.forms, global.ng.platformBrowser, global.rxjs, global.rxjs.operators, global.ajf.core.common, global.ng.common, global.ngxTranslate.core));
-}(this, (function (exports, core, forms, platformBrowser, rxjs, operators, common, common$1, core$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@angular/platform-browser'), require('rxjs'), require('rxjs/operators'), require('@ajf/core/common'), require('@ajf/core/transloco'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/file-input', ['exports', '@angular/core', '@angular/forms', '@angular/platform-browser', 'rxjs', 'rxjs/operators', '@ajf/core/common', '@ajf/core/transloco', '@angular/common'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.fileInput = {}), global.ng.core, global.ng.forms, global.ng.platformBrowser, global.rxjs, global.rxjs.operators, global.ajf.core.common, global.ajf.core.transloco, global.ng.common));
+}(this, (function (exports, core, forms, platformBrowser, rxjs, operators, common, transloco, common$1) { 'use strict';
 
     /**
      * @license
@@ -165,7 +165,7 @@
     AjfFileInput.decorators = [
         { type: core.Component, args: [{
                     selector: 'ajf-file-input',
-                    template: "<div ajfDnd (file)=\"onFileDrop($event)\" class=\"ajf-drop-zone\">\n  <div *ngIf=\"value == null; else fileInfo\" class=\"ajf-drop-message\" (click)=\"triggerNativeInput()\">\n    <ng-container *ngIf=\"_dropMessageChildren?.length; else defaultDropMessage\">\n      <ng-content select=\"[ajfDropMessage]\"></ng-content>\n    </ng-container>\n    <ng-template #defaultDropMessage>{{'Drop your file here or click to select'|translate}}</ng-template>\n  </div>\n  <ng-template #fileInfo>\n    <button (click)=\"resetValue()\" class=\"ajf-remove-file\">\n      <img [src]=\"removeIcon\" alt=\"\">\n      <div class=\"ajf-screen-reader-only\">{{ 'Delete'|translate }}</div>\n    </button>\n    <div class=\"ajf-file-info\">\n      <ng-container *ngIf=\"_filePreviewChildren?.length; else defaultFilePreview\">\n        <ng-content select=\"[ajfFilePreview]\"></ng-content>\n      </ng-container>\n      <ng-template #defaultFilePreview>\n        <div class=\"ajf-file-info-content\">\n          <img [src]=\"fileIcon\" alt=\"\">\n          <div>{{ value.name }}</div>\n        </div>\n      </ng-template>\n    </div>\n  </ng-template>\n</div>\n<input #nativeInput [accept]=\"accept\" name=\"\" aria-label=\"file input\" type=\"file\" (change)=\"onSelectFile()\">\n",
+                    template: "<div ajfDnd (file)=\"onFileDrop($event)\" class=\"ajf-drop-zone\">\n  <div *ngIf=\"value == null; else fileInfo\" class=\"ajf-drop-message\" (click)=\"triggerNativeInput()\">\n    <ng-container *ngIf=\"_dropMessageChildren?.length; else defaultDropMessage\">\n      <ng-content select=\"[ajfDropMessage]\"></ng-content>\n    </ng-container>\n    <ng-template #defaultDropMessage>{{'Drop your file here or click to select'|transloco}}</ng-template>\n  </div>\n  <ng-template #fileInfo>\n    <button (click)=\"resetValue()\" class=\"ajf-remove-file\">\n      <img [src]=\"removeIcon\" alt=\"\">\n      <div class=\"ajf-screen-reader-only\">{{ 'Delete'|transloco }}</div>\n    </button>\n    <div class=\"ajf-file-info\">\n      <ng-container *ngIf=\"_filePreviewChildren?.length; else defaultFilePreview\">\n        <ng-content select=\"[ajfFilePreview]\"></ng-content>\n      </ng-container>\n      <ng-template #defaultFilePreview>\n        <div class=\"ajf-file-info-content\">\n          <img [src]=\"fileIcon\" alt=\"\">\n          <div>{{ value.name }}</div>\n        </div>\n      </ng-template>\n    </div>\n  </ng-template>\n</div>\n<input #nativeInput [accept]=\"accept\" name=\"\" aria-label=\"file input\" type=\"file\" (change)=\"onSelectFile()\">\n",
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     host: {
@@ -280,7 +280,7 @@
                     imports: [
                         common.AjfCommonModule,
                         common$1.CommonModule,
-                        core$1.TranslateModule,
+                        transloco.AjfTranslocoModule,
                     ],
                 },] }
     ];

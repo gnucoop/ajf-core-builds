@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@ngx-translate/core'), require('@angular/platform-browser')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/text', ['exports', '@angular/common', '@angular/core', '@ngx-translate/core', '@angular/platform-browser'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.text = {}), global.ng.common, global.ng.core, global.ngxTranslate.core, global.ng.platformBrowser));
-}(this, (function (exports, common, core, core$1, platformBrowser) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@ajf/core/transloco'), require('@angular/common'), require('@angular/core'), require('@angular/platform-browser')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/text', ['exports', '@ajf/core/transloco', '@angular/common', '@angular/core', '@angular/platform-browser'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.text = {}), global.ajf.core.transloco, global.ng.common, global.ng.core, global.ng.platformBrowser));
+}(this, (function (exports, transloco, common, core, platformBrowser) { 'use strict';
 
     /**
      * @license
@@ -40,7 +40,7 @@
             set: function (htmlText) {
                 // type checking and length checking for instant method
                 var htmlTextToBeTranslate = htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0 ?
-                    this._ts.instant(htmlText) :
+                    this._ts.translate(htmlText) :
                     htmlText;
                 this._htmlText = this._domSanitizer.bypassSecurityTrustHtml(htmlTextToBeTranslate);
                 this._cdr.markForCheck();
@@ -69,7 +69,7 @@
     AjfTextComponent.ctorParameters = function () { return [
         { type: core.ChangeDetectorRef },
         { type: platformBrowser.DomSanitizer },
-        { type: core$1.TranslateService }
+        { type: transloco.TranslocoService }
     ]; };
     AjfTextComponent.propDecorators = {
         htmlText: [{ type: core.Input }]
@@ -105,7 +105,7 @@
         { type: core.NgModule, args: [{
                     imports: [
                         common.CommonModule,
-                        core$1.TranslateModule,
+                        transloco.AjfTranslocoModule,
                     ],
                     declarations: [
                         AjfTextComponent,

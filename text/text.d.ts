@@ -19,9 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { TranslocoService } from '@ajf/core/transloco';
 import { ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
 /**
  * this component manages the report text
  *
@@ -37,5 +37,5 @@ export declare class AjfTextComponent {
     private _htmlText;
     set htmlText(htmlText: string);
     get innerHTML(): SafeHtml;
-    constructor(_cdr: ChangeDetectorRef, _domSanitizer: DomSanitizer, _ts: TranslateService);
+    constructor(_cdr: ChangeDetectorRef, _domSanitizer: DomSanitizer, _ts: TranslocoService);
 }

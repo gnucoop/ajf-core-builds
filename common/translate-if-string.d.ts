@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { TranslatePipe } from '@ngx-translate/core';
-export declare class TranslateIfString extends TranslatePipe {
+import { TranslocoPipe } from '@ajf/core/transloco';
+export declare class TranslateIfString extends TranslocoPipe {
     transform(query: any, ...args: any[]): any;
 }

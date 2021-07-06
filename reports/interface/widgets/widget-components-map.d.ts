@@ -20,8 +20,8 @@
  *
  */
 import { AjfContext } from '@ajf/core/models';
+import { TranslocoService } from '@ajf/core/transloco';
 import { Type } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { AjfBaseWidgetComponent } from '../../base-widget';
 import { AjfWidgetInstance } from '../widgets-instances/widget-instance';
 export interface AjfWidgetComponentsMap {
@@ -30,6 +30,6 @@ export interface AjfWidgetComponentsMap {
         inputs?: {
             [key: string]: any;
         };
-        initInstance?: (widgetInstance: AjfWidgetInstance, context: AjfContext, translateService: TranslateService) => AjfWidgetInstance;
+        initInstance?: (widgetInstance: AjfWidgetInstance, context: AjfContext, translateService: TranslocoService) => AjfWidgetInstance;
     };
 }

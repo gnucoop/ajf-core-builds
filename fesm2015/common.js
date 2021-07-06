@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Renderer2, Input, EventEmitter, Output, Pipe, NgModule } from '@angular/core';
 import 'rxjs';
 import { DecimalPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslocoPipe } from '@ajf/core/transloco';
 
 /**
  * @license
@@ -281,7 +281,7 @@ FormatIfNumber.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-class TranslateIfString extends TranslatePipe {
+class TranslateIfString extends TranslocoPipe {
     transform(query, ...args) {
         if (typeof query === 'string') {
             return super.transform(query, ...args);

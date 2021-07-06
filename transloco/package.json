@@ -1,0 +1,9 @@
+{
+  "name": "@ajf/core/transloco",
+  "main": "../bundles/core-transloco.umd.js",
+  "fesm2015": "../fesm2015/transloco.js",
+  "esm2015": "../esm2015/transloco/index.js",
+  "typings": "./index.d.ts",
+  "module": "../fesm2015/transloco.js",
+  "es2015": "../fesm2015/transloco.js"
+}

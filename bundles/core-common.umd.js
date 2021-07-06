@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@ngx-translate/core')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/common', ['exports', '@angular/core', '@angular/common', '@ngx-translate/core'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.common = {}), global.ng.core, global.ng.common, global.ngxTranslate.core));
-}(this, (function (exports, core, common, core$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@ajf/core/transloco')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/common', ['exports', '@angular/core', '@angular/common', '@ajf/core/transloco'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.common = {}), global.ng.core, global.ng.common, global.ajf.core.transloco));
+}(this, (function (exports, core, common, transloco) { 'use strict';
 
     /**
      * @license
@@ -587,7 +587,7 @@
             }
         };
         return TranslateIfString;
-    }(core$1.TranslatePipe));
+    }(transloco.TranslocoPipe));
     TranslateIfString.decorators = [
         { type: core.Pipe, args: [{ name: 'ajfTranslateIfString' },] }
     ];

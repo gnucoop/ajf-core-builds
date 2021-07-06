@@ -20,7 +20,7 @@
  *
  */
 import { AjfContext } from '@ajf/core/models';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslocoService } from '@ajf/core/transloco';
 import { AjfWidgetInstance } from '../../interface/widgets-instances/widget-instance';
 import { AjfWidget } from '../../interface/widgets/widget';
-export declare function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext, ts: TranslateService): AjfWidgetInstance;
+export declare function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext, ts: TranslocoService): AjfWidgetInstance;

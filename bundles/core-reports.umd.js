@@ -1464,14 +1464,14 @@
         var formula = f.formula;
         if (formula.substr(0, 1) === '"' || formula.substr(0, 1) === '\'') {
             var ft = formula.slice(1, -1);
-            var transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.instant(ft) : ft;
+            var transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.translate(ft) : ft;
             if (ft.length > 0) {
                 formula = "\"" + transFt + "\"";
             }
         }
         else {
             formula = formula != null && typeof formula === 'string' && formula.trim().length > 0 ?
-                ts.instant(formula) :
+                ts.translate(formula) :
                 formula;
         }
         return models.evaluateExpression(formula, context);
@@ -1506,10 +1506,11 @@
                 var evf = models.evaluateExpression(l.formula, context);
                 try {
                     if (evf instanceof Array) {
-                        evf = evf.map(function (v) { return v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v; });
+                        evf = evf.map(function (v) { return v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v; });
                     }
                     else {
-                        evf = evf != null && typeof evf === 'string' && evf.trim().length > 0 ? ts.instant(evf) :
+                        evf = evf != null && typeof evf === 'string' && evf.trim().length > 0 ?
+                            ts.translate(evf) :
                             evf;
                     }
                 }
@@ -1528,7 +1529,7 @@
                     ds = Object.assign(Object.assign({}, ds), { options: d.options });
                 }
                 if (d.label != null) {
-                    ds = Object.assign(Object.assign({}, ds), { label: d.label.trim().length > 0 ? ts.instant(d.label) : d.label });
+                    ds = Object.assign(Object.assign({}, ds), { label: d.label.trim().length > 0 ? ts.translate(d.label) : d.label });
                 }
                 if (d.datalabels != null) {
                     ds.datalabels = utils.deepCopy(d.datalabels);
@@ -1597,10 +1598,11 @@
                 var trf = cell.value;
                 try {
                     if (trf instanceof Array) {
-                        trf = trf.map(function (v) { return v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v; });
+                        trf = trf.map(function (v) { return v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v; });
                     }
                     else {
-                        trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ? ts.instant(trf) :
+                        trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
+                            ts.translate(trf) :
                             trf;
                     }
                 }
@@ -1681,7 +1683,7 @@
                 }
                 htmlText_1 = "" + htmlText_1.substr(0, m.idx) + calcValue + htmlText_1.substr(m.idx + m.len);
             });
-            tewi.htmlText = htmlText_1 != null && htmlText_1.length > 0 ? ts.instant(htmlText_1) : htmlText_1;
+            tewi.htmlText = htmlText_1 != null && htmlText_1.length > 0 ? ts.translate(htmlText_1) : htmlText_1;
         }
         else if (widget.widgetType === exports.AjfWidgetType.Formula) {
             var fw = widget;

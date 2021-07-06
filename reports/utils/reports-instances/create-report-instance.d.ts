@@ -20,7 +20,7 @@
  *
  */
 import { AjfContext } from '@ajf/core/models';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslocoService } from '@ajf/core/transloco';
 import { AjfReportInstance } from '../../interface/reports-instances/report-instance';
 import { AjfReport } from '../../interface/reports/report';
-export declare function createReportInstance(report: AjfReport, context: AjfContext, ts: TranslateService): AjfReportInstance;
+export declare function createReportInstance(report: AjfReport, context: AjfContext, ts: TranslocoService): AjfReportInstance;

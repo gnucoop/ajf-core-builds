@@ -1,6 +1,6 @@
+import { TranslocoService, AjfTranslocoModule } from '@ajf/core/transloco';
 import { CommonModule } from '@angular/common';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, Input, NgModule } from '@angular/core';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 /**
@@ -38,7 +38,7 @@ class AjfTextComponent {
     set htmlText(htmlText) {
         // type checking and length checking for instant method
         const htmlTextToBeTranslate = htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0 ?
-            this._ts.instant(htmlText) :
+            this._ts.translate(htmlText) :
             htmlText;
         this._htmlText = this._domSanitizer.bypassSecurityTrustHtml(htmlTextToBeTranslate);
         this._cdr.markForCheck();
@@ -59,7 +59,7 @@ AjfTextComponent.decorators = [
 AjfTextComponent.ctorParameters = () => [
     { type: ChangeDetectorRef },
     { type: DomSanitizer },
-    { type: TranslateService }
+    { type: TranslocoService }
 ];
 AjfTextComponent.propDecorators = {
     htmlText: [{ type: Input }]
@@ -92,7 +92,7 @@ AjfTextModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     CommonModule,
-                    TranslateModule,
+                    AjfTranslocoModule,
                 ],
                 declarations: [
                     AjfTextComponent,

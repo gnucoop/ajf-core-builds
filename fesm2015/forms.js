@@ -11,9 +11,9 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import '@ajf/core/page-slider';
 import { buildStringIdentifierOpts, buildStringIdentifier, AjfCommonModule } from '@ajf/core/common';
 import { fileIcon, AjfFileInputModule } from '@ajf/core/file-input';
+import { AjfTranslocoModule } from '@ajf/core/transloco';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { vfsFontsMap, vfsFonts } from '@ajf/core/vfs-fonts';
 import { createPdf } from 'pdfmake/build/pdfmake';
@@ -5423,7 +5423,7 @@ class AjfReadOnlySelectFieldComponent extends AjfBaseFieldComponent {
 }
 AjfReadOnlySelectFieldComponent.decorators = [
     { type: Component, args: [{
-                template: "<ng-container *ngIf=\"control|async as ctrl\">\n    <ng-container *ngFor=\"let choice of instance.filteredChoices; let idx = index\">\n        <ng-container *ngIf=\"multiple|async; else singleChoice\">\n            <span *ngIf=\"ctrl.value && ctrl.value?.indexOf(choice.value) > -1\">\n                {{choice.label|translate}}{{ctrl.value[ctrl.value.length - 1] !== choice.value ? ', ': ''}}\n            </span>\n        </ng-container>\n        <ng-template #singleChoice>\n            <span *ngIf=\"ctrl.value === choice.value\">{{choice.label|translate}}</span>\n        </ng-template>\n    </ng-container>\n</ng-container>\n",
+                template: "<ng-container *ngIf=\"control|async as ctrl\">\n    <ng-container *ngFor=\"let choice of instance.filteredChoices; let idx = index\">\n        <ng-container *ngIf=\"multiple|async; else singleChoice\">\n            <span *ngIf=\"ctrl.value && ctrl.value?.indexOf(choice.value) > -1\">\n                {{choice.label|transloco}}{{ctrl.value[ctrl.value.length - 1] !== choice.value ? ', ': ''}}\n            </span>\n        </ng-container>\n        <ng-template #singleChoice>\n            <span *ngIf=\"ctrl.value === choice.value\">{{choice.label|transloco}}</span>\n        </ng-template>\n    </ng-container>\n</ng-container>\n",
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 styles: ["\n"]
@@ -5840,8 +5840,12 @@ AjfFormsModule.decorators = [
                     AjfValidSlidePipe,
                 ],
                 imports: [
-                    AjfCommonModule, AjfFileInputModule, CommonModule, HttpClientModule, ReactiveFormsModule,
-                    TranslateModule
+                    AjfCommonModule,
+                    AjfFileInputModule,
+                    CommonModule,
+                    HttpClientModule,
+                    ReactiveFormsModule,
+                    AjfTranslocoModule,
                 ],
                 exports: [
                     AjfAsFieldInstancePipe,
