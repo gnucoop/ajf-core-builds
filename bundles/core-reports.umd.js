@@ -1626,7 +1626,7 @@
                     colspan: cell.colspan,
                 });
             });
-            tdwi.data = __spreadArray([__spreadArray([], __read(header))], __read(dataset));
+            tdwi.data = header.length === 0 ? __spreadArray([], __read(dataset)) : __spreadArray([__spreadArray([], __read(header))], __read(dataset));
         }
         else if (widget.widgetType === exports.AjfWidgetType.Image) {
             var iw = widget;
