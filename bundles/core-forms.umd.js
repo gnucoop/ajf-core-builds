@@ -3198,8 +3198,8 @@
                         else {
                             fInstance.value = context[nodeInstanceCompleteName(instance)];
                         }
-                        updateFieldInstanceState(fInstance, context);
                     }
+                    updateFieldInstanceState(fInstance, context);
                 }
                 this._addNodeInstance(instance);
             }
@@ -3231,7 +3231,8 @@
                     var prefix = instance.prefix.slice(0);
                     var group = instance.node;
                     prefix.push(i);
-                    orderedNodes(group.nodes, instance.node.id).forEach(function (n) {
+                    var orderedListNodes = orderedNodes(group.nodes, instance.node.id);
+                    orderedListNodes.forEach(function (n) {
                         var newInstance = _this._initNodeInstance(allNodes, n, prefix, context);
                         if (newInstance != null) {
                             newNodes_1.push(newInstance);

@@ -3244,8 +3244,8 @@ class AjfFormRendererService {
                     else {
                         fInstance.value = context[nodeInstanceCompleteName(instance)];
                     }
-                    updateFieldInstanceState(fInstance, context);
                 }
+                updateFieldInstanceState(fInstance, context);
             }
             this._addNodeInstance(instance);
         }
@@ -3276,7 +3276,8 @@ class AjfFormRendererService {
                 const prefix = instance.prefix.slice(0);
                 const group = instance.node;
                 prefix.push(i);
-                orderedNodes(group.nodes, instance.node.id).forEach((n) => {
+                const orderedListNodes = orderedNodes(group.nodes, instance.node.id);
+                orderedListNodes.forEach((n) => {
                     const newInstance = this._initNodeInstance(allNodes, n, prefix, context);
                     if (newInstance != null) {
                         newNodes.push(newInstance);
