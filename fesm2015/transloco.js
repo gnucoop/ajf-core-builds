@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { Injectable, NgModule } from '@angular/core';
 import { translocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER } from '@ngneat/transloco';
-export { TranslocoPipe, TranslocoService } from '@ngneat/transloco';
+export { TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER, TRANSLOCO_SCOPE, TranslocoPipe, TranslocoService, translocoConfig } from '@ngneat/transloco';
 import { of } from 'rxjs';
 
 /**
@@ -25,7 +25,7 @@ import { of } from 'rxjs';
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const en = {
+const ENG = {
     'Drop your file here or click to select': 'Drop your file here or click to select',
     'Delete': 'Delete',
     'Upload image': 'Upload image',
@@ -159,7 +159,7 @@ const en = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const es = {
+const ESP = {
     'Drop your file here or click to select': 'Suelta tu archivo aquí o haz clic para seleccionar',
     'Delete': 'Borrar',
     'Upload image': 'Cargar imagen',
@@ -293,7 +293,141 @@ const es = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const fr = {
+const ETH = {
+    'Drop your file here or click to select': 'ፋይልዎን እዚህ ጣል ያድርጉ ወይም አጠቃላይ ጠቅ ያድርጉ',
+    'Delete': 'ሰርዝ',
+    'Upload image': 'ስቀልን ምስል',
+    'Camera': 'ካሜራ',
+    'Save': 'አስቀምጥ',
+    'Errors': 'ስህተቶች',
+    'Drop image': 'ምስል ጣል',
+    'Drop your image here!': 'ምስልዎን እዚህ ጣል ያድርጉ!',
+    'Edit choices origin': 'ምርጫዎችን አመጣጥ ያርትዑ',
+    'Close': 'ዝጋ',
+    'Name': 'ሰርዝ0',
+    'Label': 'ሰርዝ1',
+    'Add value': 'ሰርዝ2',
+    'Value': 'ሰርዝ3',
+    'delete': 'ሰርዝ4',
+    'Edit condition': 'ሰርዝ5',
+    'Choices': 'ሰርዝ6',
+    'Identifier': 'ሰርዝ7',
+    'New..': 'ሰርዝ8',
+    'Properties': 'ሰርዝ9',
+    'Visibility': 'ስቀልን ምስል0',
+    'Visible': 'ስቀልን ምስል1',
+    'Always': 'ስቀልን ምስል2',
+    'Never': 'ስቀልን ምስል3',
+    'Condition...': 'ስቀልን ምስል4',
+    'Branches': 'ስቀልን ምስል5',
+    'Repetitions': 'ስቀልን ምስል6',
+    'Min repetitions': 'ስቀልን ምስል7',
+    'Max repetitions': 'ስቀልን ምስል8',
+    'Field size': 'ስቀልን ምስል9',
+    'Size': 'ካሜራ0',
+    'Hint': 'ካሜራ1',
+    'Description': 'ካሜራ2',
+    'Default value': 'ካሜራ3',
+    'Formula': 'ካሜራ4',
+    'Not empty': 'ካሜራ5',
+    'Min value': 'ካሜራ6',
+    'Max value': 'ካሜራ7',
+    'Min digits': 'ካሜራ8',
+    'Max digits': 'ካሜራ9',
+    'Validation': 'አስቀምጥ0',
+    'No conditions': 'አስቀምጥ1',
+    'Not empty warning': 'አስቀምጥ2',
+    'Warnings': 'አስቀምጥ3',
+    'No warnings': 'አስቀምጥ4',
+    'Go to next slide condition': 'አስቀምጥ5',
+    'Choices origins': 'አስቀምጥ6',
+    'Choices filter': 'አስቀምጥ7',
+    'Force expanded selection': 'አስቀምጥ8',
+    'Force narrow selection': 'አስቀምጥ9',
+    'Trigger selection': 'ርጫን የሚያነቃቃ',
+    'No trigger condition': 'የማስነሻ ሁኔታ የለም',
+    'Edit identifier': 'መለያ አርትዕ',
+    'Show': 'አሳይ',
+    'All': 'ሁሉም',
+    'First': 'የመጀመሪያ',
+    'Last': 'የመጨረሻ',
+    'Error message': 'የስህተት መልእክት',
+    'Warning message': 'የማስጠንቀቂያ መልእክት',
+    'Invalid condition! Please check syntax.': 'ልክ ያልሆነ ሁኔታ! እባክዎ አገባብ ይፈትሹ።',
+    'Drop here': 'የማስነሻ ሁኔታ የለም0',
+    'Main Data': 'የማስነሻ ሁኔታ የለም1',
+    'Edit': 'የማስነሻ ሁኔታ የለም2',
+    'Remove': 'የማስነሻ ሁኔታ የለም3',
+    'add dataset': 'የማስነሻ ሁኔታ የለም4',
+    'add data': 'የማስነሻ ሁኔታ የለም5',
+    'Add Main Data': 'የማስነሻ ሁኔታ የለም6',
+    'data': 'የማስነሻ ሁኔታ የለም7',
+    'CSS style': 'የማስነሻ ሁኔታ የለም8',
+    'height': 'የማስነሻ ሁኔታ የለም9',
+    'margin': 'መለያ አርትዕ0',
+    'border': 'መለያ አርትዕ1',
+    'padding': 'መለያ አርትዕ2',
+    'content': 'መለያ አርትዕ3',
+    'margin top': 'መለያ አርትዕ4',
+    'margin right': 'መለያ አርትዕ5',
+    'margin bottom': 'መለያ አርትዕ6',
+    'margin left': 'መለያ አርትዕ7',
+    'padding top': 'መለያ አርትዕ8',
+    'padding right': 'መለያ አርትዕ9',
+    'padding bottom': 'አሳይ0',
+    'padding left': 'አሳይ1',
+    'border width': 'አሳይ2',
+    'border width top': 'አሳይ3',
+    'border width right': 'አሳይ4',
+    'border width bottom': 'አሳይ5',
+    'border width left': 'አሳይ6',
+    'border radius': 'አሳይ7',
+    'border radius top left': 'አሳይ8',
+    'border radius top right': 'አሳይ9',
+    'border radius bottom left': 'ሁሉም0',
+    'border radius bottom right': 'ሁሉም1',
+    'font size': 'ሁሉም2',
+    'Font size': 'ሁሉም3',
+    'Font style': 'ሁሉም4',
+    'Normal': 'ሁሉም5',
+    'Italic': 'ሁሉም6',
+    'Oblique': 'ሁሉም7',
+    'Align': 'ሁሉም8',
+    'Center': 'ሁሉም9',
+    'Left': 'የመጀመሪያ0',
+    'Right': 'የመጀመሪያ1',
+    'properties of': 'የመጀመሪያ2',
+    'Column': 'የመጀመሪያ3',
+    'Add column': 'የመጀመሪያ4',
+    'paste a link': 'የመጀመሪያ5',
+    'Set image': 'የመጀመሪያ6',
+    'Choose type of Chart': 'የመጀመሪያ7',
+    'Labels': 'የመጀመሪያ8',
+    'Border width': 'የመጀመሪያ9'
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const FRA = {
     'Drop your file here or click to select': 'Déposez votre fichier ici ou cliquez pour sélectionner',
     'Delete': 'Effacer',
     'Upload image': 'Télécharger une image',
@@ -427,7 +561,7 @@ const fr = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const it = {
+const ITA = {
     'Drop your file here or click to select': 'Trascina qui il tuo file o fai clic per selezionare',
     'Delete': 'Elimina',
     'Upload image': 'Carica immagine',
@@ -561,11 +695,190 @@ const it = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const PRT = {
+    'Drop your file here or click to select': 'Solte seu arquivo aqui ou clique para selecionar',
+    'Delete': 'Excluir',
+    'Upload image': 'Enviar Imagem',
+    'Camera': 'Câmera',
+    'Save': 'Gravar',
+    'Errors': 'Erros',
+    'Drop image': 'Soltar imagem',
+    'Drop your image here!': 'Drop your image here!Solte sua imagem aqui!',
+    'Edit choices origin': 'Editar a origem das escolhas',
+    'Close': 'Perto',
+    'Name': 'Nome',
+    'Label': 'a etiqueta',
+    'Add value': 'adicionar valores',
+    'Value': 'Valor',
+    'delete': 'excluir',
+    'Edit condition': 'Modificar a condicao',
+    'Choices': 'Escolha',
+    'Identifier': 'Identificador',
+    'New..': 'Novo..',
+    'Properties': 'Propriedades',
+    'Visibility': 'Visibilidade',
+    'Visible': 'Visível',
+    'Always': 'Sempre',
+    'Never': 'Nunca',
+    'Condition...': 'Doença...',
+    'Branches': 'Departamentos',
+    'Repetitions': 'Repetições',
+    'Min repetitions': 'Repetições mínimas',
+    'Max repetitions': 'Repetições máximas',
+    'Field size': 'Tamanho do Campos',
+    'Size': 'Tamanho',
+    'Hint': 'sugestão',
+    'Description': 'Descricao',
+    'Default value': 'Valor padrao',
+    'Formula': 'Formula',
+    'Not empty': 'Não está vazio',
+    'Min value': 'Valor mínimo',
+    'Max value': 'Valor máximo',
+    'Min digits': 'Dígitos mínimos',
+    'Max digits': 'Dígitos máximos',
+    'Validation': 'Validação',
+    'No conditions': 'Sem condições',
+    'Not empty warning': 'Aviso de não vazio',
+    'Warnings': 'Avisos',
+    'No warnings': 'Sem avisos',
+    'Go to next slide condition': 'Vá para a próxima condição de slide',
+    'Choices origins': 'Origens de escolhas',
+    'Choices filter': 'Filtro de opções',
+    'Force expanded selection': 'Force expanded selection',
+    'Force narrow selection': 'Forçar seleção expandida',
+    'Trigger selection': 'Seleção de gatilho',
+    'No trigger condition': 'Sem condição de gatilho',
+    'Edit identifier': 'Editar identificador',
+    'Show': 'Mostrar',
+    'All': 'Tudo',
+    'First': 'Primeiro',
+    'Last': 'Durar',
+    'Error message': 'Mensagem de erro',
+    'Warning message': 'Mensagem de aviso',
+    'Invalid condition! Please check syntax.': 'Condição inválida! Verifique a sintaxe.',
+    'Drop here': 'Solta aqui',
+    'Main Data': ' Dados principais',
+    'Edit': 'Editar',
+    'Remove': 'Remover',
+    'add dataset': 'add dataset',
+    'add data': 'adicionar dados',
+    'Add Main Data': 'adicionar dados principais',
+    'data': 'dados',
+    'CSS style': 'CSS style',
+    'height': 'height',
+    'margin': 'margin',
+    'border': 'border',
+    'padding': 'padding',
+    'content': 'content',
+    'margin top': 'margin top',
+    'margin right': 'margin right',
+    'margin bottom': 'margin bottom',
+    'margin left': 'margin left',
+    'padding top': 'padding top',
+    'padding right': 'padding right',
+    'padding bottom': 'padding bottom',
+    'padding left': 'padding left',
+    'border width': 'border width',
+    'border width top': 'border width top',
+    'border width right': 'border width right',
+    'border width bottom': 'border width bottom',
+    'border width left': 'border width left',
+    'border radius': 'border radius',
+    'border radius top left': 'border radius top left',
+    'border radius top right': 'border radius top right',
+    'border radius bottom left': 'border radius bottom left',
+    'border radius bottom right': 'border radius bottom right',
+    'font size': 'font size',
+    'Font size': 'Font size',
+    'Font style': 'Font style',
+    'Normal': 'Normal',
+    'Italic': 'Italic',
+    'Oblique': 'Oblique',
+    'Align': 'Align',
+    'Center': 'Center',
+    'Left': 'Left',
+    'Right': 'Right',
+    'properties of': 'propriedades de',
+    'Column': 'Coluna',
+    'Add column': 'Adicionar coluna',
+    'paste a link': 'cole um link',
+    'Set image': 'Definir imagem',
+    'Choose type of Chart': 'Escolha o tipo de gráfico',
+    'Labels': 'Etiquetas',
+    'Border width': 'Border width'
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 const langs = {
-    en,
-    es,
-    fr,
-    it
+    ENG,
+    ESP,
+    FRA,
+    ITA,
+    PRT,
+    ETH
+};
+/**
+ * @param lang
+ * is the language of the translation expressed with the standard iso country code 3 digits,
+ * except for English expressed with ENG.
+ * @param translation
+ * is a dictionary key value, which represents the translation to add.
+ * @param prefix
+ * if present it creates a sub-section, the translations present in the prefix section will not
+ * change the translations of the other sections.
+ *
+ */
+const addLang = (lang, translation, prefix) => {
+    if (lang != null && langs[lang] == null && translation != null) {
+        langs[lang] = {};
+        if (prefix != null) {
+            langs[lang][prefix] = translation;
+        }
+        else {
+            langs[lang] = translation;
+        }
+    }
+};
+/**
+ * @param lang
+ * is the language of the translation expressed with the standard iso country code 3 digits,
+ * except for English expressed with ENG.
+ * @param translation
+ * is a dictionary key value, which represents the translation to add.
+ * @param prefix
+ * if present it creates a sub-section, the translations present in the prefix section will not
+ * change the translations of the other sections.
+ *
+ */
+const updateLang = (lang, translation, prefix) => {
+    if (lang != null && langs[lang] != null && translation != null) {
+        if (prefix != null) {
+            langs[lang][prefix] = translation;
+        }
+        else {
+            langs[lang] = Object.assign(Object.assign({}, langs[lang]), translation);
+        }
+    }
 };
 
 /**
@@ -651,8 +964,8 @@ class MissingHandler {
  *
  */
 const ɵ0 = translocoConfig({
-    availableLangs: ['en', 'es', 'fr', 'it'],
-    defaultLang: 'en',
+    availableLangs: ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'],
+    defaultLang: 'ENG',
     reRenderOnLangChange: true,
     prodMode: false,
 });
@@ -660,6 +973,7 @@ class AjfTranslocoModule {
 }
 AjfTranslocoModule.decorators = [
     { type: NgModule, args: [{
+                imports: [TranslocoModule],
                 exports: [TranslocoModule],
                 providers: [
                     {
@@ -698,5 +1012,5 @@ AjfTranslocoModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { AjfTranslocoModule, MissingHandler, TranslocoHttpLoader, langs, ɵ0, en as ɵgc_ajf_src_core_transloco_transloco_a, es as ɵgc_ajf_src_core_transloco_transloco_b, fr as ɵgc_ajf_src_core_transloco_transloco_c, it as ɵgc_ajf_src_core_transloco_transloco_d };
+export { AjfTranslocoModule, MissingHandler, TranslocoHttpLoader, addLang, langs, updateLang, ɵ0, ENG as ɵgc_ajf_src_core_transloco_transloco_a, ESP as ɵgc_ajf_src_core_transloco_transloco_b, FRA as ɵgc_ajf_src_core_transloco_transloco_c, ITA as ɵgc_ajf_src_core_transloco_transloco_d, PRT as ɵgc_ajf_src_core_transloco_transloco_e, ETH as ɵgc_ajf_src_core_transloco_transloco_f };
 //# sourceMappingURL=transloco.js.map

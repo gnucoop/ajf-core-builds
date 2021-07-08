@@ -20,4 +20,4 @@
  *
  */
 import { Translation } from '@ngneat/transloco';
-export declare const en: Translation;
+export declare const ESP: Translation;

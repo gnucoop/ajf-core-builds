@@ -23,3 +23,27 @@ import { Translation } from '@ngneat/transloco';
 export declare const langs: {
     [key: string]: Translation;
 };
+/**
+ * @param lang
+ * is the language of the translation expressed with the standard iso country code 3 digits,
+ * except for English expressed with ENG.
+ * @param translation
+ * is a dictionary key value, which represents the translation to add.
+ * @param prefix
+ * if present it creates a sub-section, the translations present in the prefix section will not
+ * change the translations of the other sections.
+ *
+ */
+export declare const addLang: (lang: string, translation: Translation, prefix?: string | undefined) => void;
+/**
+ * @param lang
+ * is the language of the translation expressed with the standard iso country code 3 digits,
+ * except for English expressed with ENG.
+ * @param translation
+ * is a dictionary key value, which represents the translation to add.
+ * @param prefix
+ * if present it creates a sub-section, the translations present in the prefix section will not
+ * change the translations of the other sections.
+ *
+ */
+export declare const updateLang: (lang: string, translation: Translation, prefix?: string | undefined) => void;

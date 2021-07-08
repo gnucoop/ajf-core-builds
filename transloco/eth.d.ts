@@ -20,4 +20,4 @@
  *
  */
 import { Translation } from '@ngneat/transloco';
-export declare const es: Translation;
+export declare const ETH: Translation;
