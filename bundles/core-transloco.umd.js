@@ -1,30 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ngneat/transloco'), require('rxjs')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/transloco', ['exports', '@angular/core', '@ngneat/transloco', 'rxjs'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.transloco = {}), global.ng.core, global.ngneat.transloco, global.rxjs));
-}(this, (function (exports, i0, transloco, rxjs) { 'use strict';
-
-    function _interopNamespace(e) {
-        if (e && e.__esModule) return e;
-        var n = Object.create(null);
-        if (e) {
-            Object.keys(e).forEach(function (k) {
-                if (k !== 'default') {
-                    var d = Object.getOwnPropertyDescriptor(e, k);
-                    Object.defineProperty(n, k, d.get ? d : {
-                        enumerable: true,
-                        get: function () {
-                            return e[k];
-                        }
-                    });
-                }
-            });
-        }
-        n['default'] = e;
-        return Object.freeze(n);
-    }
-
-    var i0__namespace = /*#__PURE__*/_interopNamespace(i0);
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@ngneat/transloco')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/transloco', ['exports', '@angular/core', '@ngneat/transloco'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.transloco = {}), global.ng.core, global.ngneat.transloco));
+}(this, (function (exports, core, transloco) { 'use strict';
 
     /**
      * @license
@@ -48,6 +26,7 @@
      *
      */
     var ENG = {
+        'Drop your slides here': 'Drop your slides here',
         'Drop your file here or click to select': 'Drop your file here or click to select',
         'Delete': 'Delete',
         'Upload image': 'Upload image',
@@ -182,6 +161,7 @@
      *
      */
     var ESP = {
+        'Drop your slides here': 'Suelta tus diapositivas aquí',
         'Drop your file here or click to select': 'Suelta tu archivo aquí o haz clic para seleccionar',
         'Delete': 'Borrar',
         'Upload image': 'Cargar imagen',
@@ -316,6 +296,7 @@
      *
      */
     var ETH = {
+        'Drop your slides here': 'ተንሸራታቾችዎን እዚህ ይጥሉ',
         'Drop your file here or click to select': 'ፋይልዎን እዚህ ጣል ያድርጉ ወይም አጠቃላይ ጠቅ ያድርጉ',
         'Delete': 'ሰርዝ',
         'Upload image': 'ስቀልን ምስል',
@@ -450,6 +431,7 @@
      *
      */
     var FRA = {
+        'Drop your slides here': 'Déposez vos diapositives ici',
         'Drop your file here or click to select': 'Déposez votre fichier ici ou cliquez pour sélectionner',
         'Delete': 'Effacer',
         'Upload image': 'Télécharger une image',
@@ -584,6 +566,7 @@
      *
      */
     var ITA = {
+        'Drop your slides here': 'Lascia qui le tue slide',
         'Drop your file here or click to select': 'Trascina qui il tuo file o fai clic per selezionare',
         'Delete': 'Elimina',
         'Upload image': 'Carica immagine',
@@ -718,6 +701,7 @@
      *
      */
     var PRT = {
+        'Drop your slides here': 'Solte seus slides aqui',
         'Drop your file here or click to select': 'Solte seu arquivo aqui ou clique para selecionar',
         'Delete': 'Excluir',
         'Upload image': 'Enviar Imagem',
@@ -859,85 +843,6 @@
         PRT: PRT,
         ETH: ETH
     };
-    /**
-     * @param lang
-     * is the language of the translation expressed with the standard iso country code 3 digits,
-     * except for English expressed with ENG.
-     * @param translation
-     * is a dictionary key value, which represents the translation to add.
-     * @param prefix
-     * if present it creates a sub-section, the translations present in the prefix section will not
-     * change the translations of the other sections.
-     *
-     */
-    var addLang = function (lang, translation, prefix) {
-        if (lang != null && langs[lang] == null && translation != null) {
-            langs[lang] = {};
-            if (prefix != null) {
-                langs[lang][prefix] = translation;
-            }
-            else {
-                langs[lang] = translation;
-            }
-        }
-    };
-    /**
-     * @param lang
-     * is the language of the translation expressed with the standard iso country code 3 digits,
-     * except for English expressed with ENG.
-     * @param translation
-     * is a dictionary key value, which represents the translation to add.
-     * @param prefix
-     * if present it creates a sub-section, the translations present in the prefix section will not
-     * change the translations of the other sections.
-     *
-     */
-    var updateLang = function (lang, translation, prefix) {
-        if (lang != null && langs[lang] != null && translation != null) {
-            if (prefix != null) {
-                langs[lang][prefix] = translation;
-            }
-            else {
-                langs[lang] = Object.assign(Object.assign({}, langs[lang]), translation);
-            }
-        }
-    };
-
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
-    var TranslocoHttpLoader = /** @class */ (function () {
-        function TranslocoHttpLoader() {
-        }
-        TranslocoHttpLoader.prototype.getTranslation = function (lang) {
-            var lang$ = rxjs.of(langs[lang] != null ? langs[lang] : langs['en']);
-            return lang$;
-        };
-        return TranslocoHttpLoader;
-    }());
-    TranslocoHttpLoader.ɵprov = i0__namespace.ɵɵdefineInjectable({ factory: function TranslocoHttpLoader_Factory() { return new TranslocoHttpLoader(); }, token: TranslocoHttpLoader, providedIn: "root" });
-    TranslocoHttpLoader.decorators = [
-        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
-    ];
-    TranslocoHttpLoader.ctorParameters = function () { return []; };
 
     /**
      * @license
@@ -990,19 +895,25 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    var availableLangs = ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'];
     var ɵ0 = transloco.translocoConfig({
-        availableLangs: ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'],
+        availableLangs: availableLangs,
         defaultLang: 'ENG',
         reRenderOnLangChange: true,
         prodMode: false,
     });
     var AjfTranslocoModule = /** @class */ (function () {
-        function AjfTranslocoModule() {
+        function AjfTranslocoModule(ts) {
+            availableLangs.forEach(function (lang) {
+                if (langs[lang] != null) {
+                    ts.setTranslation(langs[lang], lang);
+                }
+            });
         }
         return AjfTranslocoModule;
     }());
     AjfTranslocoModule.decorators = [
-        { type: i0.NgModule, args: [{
+        { type: core.NgModule, args: [{
                     imports: [transloco.TranslocoModule],
                     exports: [transloco.TranslocoModule],
                     providers: [
@@ -1010,11 +921,13 @@
                             provide: transloco.TRANSLOCO_CONFIG,
                             useValue: ɵ0
                         },
-                        { provide: transloco.TRANSLOCO_LOADER, useClass: TranslocoHttpLoader },
                         { provide: transloco.TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler }
                     ],
                 },] }
     ];
+    AjfTranslocoModule.ctorParameters = function () { return [
+        { type: transloco.TranslocoService }
+    ]; };
 
     /**
      * @license
@@ -1086,10 +999,7 @@
     });
     exports.AjfTranslocoModule = AjfTranslocoModule;
     exports.MissingHandler = MissingHandler;
-    exports.TranslocoHttpLoader = TranslocoHttpLoader;
-    exports.addLang = addLang;
     exports.langs = langs;
-    exports.updateLang = updateLang;
     exports.ɵ0 = ɵ0;
     exports.ɵgc_ajf_src_core_transloco_transloco_a = ENG;
     exports.ɵgc_ajf_src_core_transloco_transloco_b = ESP;

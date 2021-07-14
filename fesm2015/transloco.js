@@ -1,8 +1,6 @@
-import * as i0 from '@angular/core';
-import { Injectable, NgModule } from '@angular/core';
-import { translocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER } from '@ngneat/transloco';
+import { NgModule } from '@angular/core';
+import { translocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_MISSING_HANDLER, TranslocoService } from '@ngneat/transloco';
 export { TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER, TRANSLOCO_SCOPE, TranslocoPipe, TranslocoService, translocoConfig } from '@ngneat/transloco';
-import { of } from 'rxjs';
 
 /**
  * @license
@@ -26,6 +24,7 @@ import { of } from 'rxjs';
  *
  */
 const ENG = {
+    'Drop your slides here': 'Drop your slides here',
     'Drop your file here or click to select': 'Drop your file here or click to select',
     'Delete': 'Delete',
     'Upload image': 'Upload image',
@@ -160,6 +159,7 @@ const ENG = {
  *
  */
 const ESP = {
+    'Drop your slides here': 'Suelta tus diapositivas aquí',
     'Drop your file here or click to select': 'Suelta tu archivo aquí o haz clic para seleccionar',
     'Delete': 'Borrar',
     'Upload image': 'Cargar imagen',
@@ -294,6 +294,7 @@ const ESP = {
  *
  */
 const ETH = {
+    'Drop your slides here': 'ተንሸራታቾችዎን እዚህ ይጥሉ',
     'Drop your file here or click to select': 'ፋይልዎን እዚህ ጣል ያድርጉ ወይም አጠቃላይ ጠቅ ያድርጉ',
     'Delete': 'ሰርዝ',
     'Upload image': 'ስቀልን ምስል',
@@ -428,6 +429,7 @@ const ETH = {
  *
  */
 const FRA = {
+    'Drop your slides here': 'Déposez vos diapositives ici',
     'Drop your file here or click to select': 'Déposez votre fichier ici ou cliquez pour sélectionner',
     'Delete': 'Effacer',
     'Upload image': 'Télécharger une image',
@@ -562,6 +564,7 @@ const FRA = {
  *
  */
 const ITA = {
+    'Drop your slides here': 'Lascia qui le tue slide',
     'Drop your file here or click to select': 'Trascina qui il tuo file o fai clic per selezionare',
     'Delete': 'Elimina',
     'Upload image': 'Carica immagine',
@@ -696,6 +699,7 @@ const ITA = {
  *
  */
 const PRT = {
+    'Drop your slides here': 'Solte seus slides aqui',
     'Drop your file here or click to select': 'Solte seu arquivo aqui ou clique para selecionar',
     'Delete': 'Excluir',
     'Upload image': 'Enviar Imagem',
@@ -837,83 +841,6 @@ const langs = {
     PRT,
     ETH
 };
-/**
- * @param lang
- * is the language of the translation expressed with the standard iso country code 3 digits,
- * except for English expressed with ENG.
- * @param translation
- * is a dictionary key value, which represents the translation to add.
- * @param prefix
- * if present it creates a sub-section, the translations present in the prefix section will not
- * change the translations of the other sections.
- *
- */
-const addLang = (lang, translation, prefix) => {
-    if (lang != null && langs[lang] == null && translation != null) {
-        langs[lang] = {};
-        if (prefix != null) {
-            langs[lang][prefix] = translation;
-        }
-        else {
-            langs[lang] = translation;
-        }
-    }
-};
-/**
- * @param lang
- * is the language of the translation expressed with the standard iso country code 3 digits,
- * except for English expressed with ENG.
- * @param translation
- * is a dictionary key value, which represents the translation to add.
- * @param prefix
- * if present it creates a sub-section, the translations present in the prefix section will not
- * change the translations of the other sections.
- *
- */
-const updateLang = (lang, translation, prefix) => {
-    if (lang != null && langs[lang] != null && translation != null) {
-        if (prefix != null) {
-            langs[lang][prefix] = translation;
-        }
-        else {
-            langs[lang] = Object.assign(Object.assign({}, langs[lang]), translation);
-        }
-    }
-};
-
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
-class TranslocoHttpLoader {
-    constructor() { }
-    getTranslation(lang) {
-        const lang$ = of(langs[lang] != null ? langs[lang] : langs['en']);
-        return lang$;
-    }
-}
-TranslocoHttpLoader.ɵprov = i0.ɵɵdefineInjectable({ factory: function TranslocoHttpLoader_Factory() { return new TranslocoHttpLoader(); }, token: TranslocoHttpLoader, providedIn: "root" });
-TranslocoHttpLoader.decorators = [
-    { type: Injectable, args: [{ providedIn: 'root' },] }
-];
-TranslocoHttpLoader.ctorParameters = () => [];
 
 /**
  * @license
@@ -963,13 +890,21 @@ class MissingHandler {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const availableLangs = ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'];
 const ɵ0 = translocoConfig({
-    availableLangs: ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'],
+    availableLangs,
     defaultLang: 'ENG',
     reRenderOnLangChange: true,
     prodMode: false,
 });
 class AjfTranslocoModule {
+    constructor(ts) {
+        availableLangs.forEach(lang => {
+            if (langs[lang] != null) {
+                ts.setTranslation(langs[lang], lang);
+            }
+        });
+    }
 }
 AjfTranslocoModule.decorators = [
     { type: NgModule, args: [{
@@ -980,10 +915,12 @@ AjfTranslocoModule.decorators = [
                         provide: TRANSLOCO_CONFIG,
                         useValue: ɵ0
                     },
-                    { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader },
                     { provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler }
                 ],
             },] }
+];
+AjfTranslocoModule.ctorParameters = () => [
+    { type: TranslocoService }
 ];
 
 /**
@@ -1012,5 +949,5 @@ AjfTranslocoModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { AjfTranslocoModule, MissingHandler, TranslocoHttpLoader, addLang, langs, updateLang, ɵ0, ENG as ɵgc_ajf_src_core_transloco_transloco_a, ESP as ɵgc_ajf_src_core_transloco_transloco_b, FRA as ɵgc_ajf_src_core_transloco_transloco_c, ITA as ɵgc_ajf_src_core_transloco_transloco_d, PRT as ɵgc_ajf_src_core_transloco_transloco_e, ETH as ɵgc_ajf_src_core_transloco_transloco_f };
+export { AjfTranslocoModule, MissingHandler, langs, ɵ0, ENG as ɵgc_ajf_src_core_transloco_transloco_a, ESP as ɵgc_ajf_src_core_transloco_transloco_b, FRA as ɵgc_ajf_src_core_transloco_transloco_c, ITA as ɵgc_ajf_src_core_transloco_transloco_d, PRT as ɵgc_ajf_src_core_transloco_transloco_e, ETH as ɵgc_ajf_src_core_transloco_transloco_f };
 //# sourceMappingURL=transloco.js.map
