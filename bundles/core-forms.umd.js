@@ -6495,6 +6495,13 @@
                     [lookupString(field.name)] :
                     lookupArrayFunction(context, rep)(field.name);
                 var selectedChoices = selectedValues.map(function (v) { return choices_1.find(function (c) { return c.value === v; }); }).filter(function (c) { return c; });
+                if (selectedChoices.length === 0) {
+                    selectedChoices =
+                        selectedValues.map(function (v) { return ({
+                            label: v,
+                            value: v
+                        }); });
+                }
                 return choiceToPdf(field, selectedChoices, translate, context);
             case exports.AjfFieldType.Empty:
                 var text = stripHTML(translate(field.HTML));
