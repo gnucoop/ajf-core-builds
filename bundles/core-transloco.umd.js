@@ -910,6 +910,14 @@
                 }
             });
         }
+        AjfTranslocoModule.forRoot = function () {
+            return {
+                ngModule: AjfTranslocoModule,
+                providers: [
+                    transloco.TranslocoService,
+                ]
+            };
+        };
         return AjfTranslocoModule;
     }());
     AjfTranslocoModule.decorators = [

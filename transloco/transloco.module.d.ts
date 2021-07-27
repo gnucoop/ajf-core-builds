@@ -19,7 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { ModuleWithProviders } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 export declare class AjfTranslocoModule {
     constructor(ts: TranslocoService);
+    static forRoot(): ModuleWithProviders<AjfTranslocoModule>;
 }

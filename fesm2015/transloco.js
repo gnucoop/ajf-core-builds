@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { translocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_MISSING_HANDLER, TranslocoService } from '@ngneat/transloco';
+import { translocoConfig, TranslocoService, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_MISSING_HANDLER } from '@ngneat/transloco';
 export { TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER, TRANSLOCO_SCOPE, TranslocoPipe, TranslocoService, translocoConfig } from '@ngneat/transloco';
 
 /**
@@ -904,6 +904,14 @@ class AjfTranslocoModule {
                 ts.setTranslation(langs[lang], lang);
             }
         });
+    }
+    static forRoot() {
+        return {
+            ngModule: AjfTranslocoModule,
+            providers: [
+                TranslocoService,
+            ]
+        };
     }
 }
 AjfTranslocoModule.decorators = [
