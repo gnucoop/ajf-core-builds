@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('esprima'), require('date-fns'), require('numbro')) :
-    typeof define === 'function' && define.amd ? define('@ajf/core/models', ['exports', 'esprima', 'date-fns', 'numbro'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.models = {}), global.esprima, global.dateFns, global.numbro));
-}(this, (function (exports, esprima, dateFns, numbroMod) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('date-fns'), require('esprima'), require('numbro')) :
+    typeof define === 'function' && define.amd ? define('@ajf/core/models', ['exports', 'date-fns', 'esprima', 'numbro'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ajf = global.ajf || {}, global.ajf.core = global.ajf.core || {}, global.ajf.core.models = {}), global.dateFns, global.esprima, global.numbro));
+}(this, (function (exports, dateFns, esprima, numbroMod) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -527,28 +527,9 @@
         return createCondition({ condition: 'true' });
     }
 
-    /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
-     */
+    var execContext = {};
     var numbro = numbroMod__namespace.default || numbroMod__namespace;
+    var MAX_REPS = 30;
     var dateUtils = {
         addDays: dateFns__namespace.addDays,
         addMonths: dateFns__namespace.addMonths,
@@ -560,6 +541,95 @@
         startOfMonth: dateFns__namespace.startOfMonth,
         startOfISOWeek: dateFns__namespace.startOfISOWeek
     };
+    var AjfExpressionUtils = /** @class */ (function () {
+        function AjfExpressionUtils() {
+        }
+        return AjfExpressionUtils;
+    }());
+    AjfExpressionUtils.UTIL_FUNCTIONS = '';
+    AjfExpressionUtils.utils = {
+        digitCount: { fn: digitCount },
+        decimalCount: { fn: decimalCount },
+        isInt: { fn: isInt },
+        notEmpty: { fn: notEmpty },
+        valueInChoice: { fn: valueInChoice },
+        scanGroupField: { fn: scanGroupField },
+        sum: { fn: sum },
+        dateOperations: { fn: dateOperations },
+        round: { fn: round },
+        extractArray: { fn: extractArray },
+        extractSum: { fn: extractSum },
+        extractArraySum: { fn: extractArraySum },
+        drawThreshold: { fn: drawThreshold },
+        extractDates: { fn: extractDates },
+        lastProperty: { fn: lastProperty },
+        sumLastProperties: { fn: sumLastProperties },
+        calculateTrendProperty: { fn: calculateTrendProperty },
+        calculateTrendByProperties: { fn: calculateTrendByProperties },
+        calculateAvgProperty: { fn: calculateAvgProperty },
+        calculateAvgPropertyArray: { fn: calculateAvgPropertyArray },
+        alert: { fn: alert },
+        formatNumber: { fn: formatNumber },
+        formatDate: { fn: formatDate },
+        isoMonth: { fn: isoMonth },
+        getCoordinate: { fn: getCoordinate },
+        Math: { fn: Math },
+        parseInt: { fn: parseInt },
+        parseFloat: { fn: parseFloat },
+        parseDate: { fn: dateUtils.parse },
+        Date: { fn: Date },
+        COUNTFORMS: { fn: COUNTFORMS },
+        COUNTFORMS_UNIQUE: { fn: COUNTFORMS_UNIQUE },
+        SUM: { fn: SUM },
+        MEAN: { fn: MEAN },
+        PERCENT: { fn: PERCENT },
+        LAST: { fn: LAST },
+        MAX: { fn: MAX },
+        MEDIAN: { fn: MEDIAN },
+        MODE: { fn: MODE },
+    };
+    function evaluateExpression(expression, context, forceFormula) {
+        var formula = forceFormula || expression || '';
+        if (formula === '') {
+            return '';
+        }
+        if (formula === 'true') {
+            return true;
+        }
+        if (formula === 'false') {
+            return false;
+        }
+        if (context != null && context[formula] !== undefined) {
+            return context[formula];
+        }
+        if (/^"[^"]*"$/.test(formula)) {
+            return formula.replace(/^"+|"+$/g, '');
+        }
+        var identifiers = esprima.tokenize(formula).filter(function (t) { return t.type === 'Identifier'; }).map(function (t) { return t.value; });
+        var ctx = [];
+        identifiers.forEach(function (key) {
+            var val = null;
+            if (context != null && context[key] !== undefined) {
+                val = context[key];
+            }
+            else if (AjfExpressionUtils.utils[key] !== undefined) {
+                var util = AjfExpressionUtils.utils[key];
+                val = util.fn;
+            }
+            ctx.push(val);
+        });
+        identifiers.push('execContext');
+        ctx.push(execContext);
+        try {
+            var f = new (Function.bind.apply(Function, __spreadArray(__spreadArray([void 0], __read(identifiers)), ["return " + formula])))();
+            var res = f.apply(void 0, __spreadArray([], __read(ctx)));
+            f = null;
+            return res;
+        }
+        catch (e) {
+            return false;
+        }
+    }
     function digitCount(x) {
         if (isNaN(x) || typeof (x) !== 'number') {
             return 0;
@@ -911,109 +981,181 @@
             return [source[0], source[1], zoom];
         }
     }
-
     /**
-     * @license
-     * Copyright (C) Gnucoop soc. coop.
-     *
-     * This file is part of the Advanced JSON forms (ajf).
-     *
-     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
-     * modify it under the terms of the GNU Affero General Public License as
-     * published by the Free Software Foundation, either version 3 of the License,
-     * or (at your option) any later version.
-     *
-     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
-     * but WITHOUT ANY WARRANTY; without even the implied warranty of
-     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
-     * General Public License for more details.
-     *
-     * You should have received a copy of the GNU Affero General Public License
-     * along with Advanced JSON forms (ajf).
-     * If not, see http://www.gnu.org/licenses/.
-     *
+     * Counts the collected forms. The form name must be specified. An optional condition can be added
+     * to discriminate which forms to count in.
      */
-    var AjfExpressionUtils = /** @class */ (function () {
-        function AjfExpressionUtils() {
+    function COUNTFORMS(forms, expression) {
+        if (expression === void 0) { expression = 'true'; }
+        forms = (forms || []).slice(0);
+        if (expression === 'true') {
+            return forms.length;
         }
-        return AjfExpressionUtils;
-    }());
-    AjfExpressionUtils.UTIL_FUNCTIONS = '';
-    AjfExpressionUtils.utils = {
-        digitCount: { fn: digitCount },
-        decimalCount: { fn: decimalCount },
-        isInt: { fn: isInt },
-        notEmpty: { fn: notEmpty },
-        valueInChoice: { fn: valueInChoice },
-        scanGroupField: { fn: scanGroupField },
-        sum: { fn: sum },
-        dateOperations: { fn: dateOperations },
-        round: { fn: round },
-        extractArray: { fn: extractArray },
-        extractSum: { fn: extractSum },
-        extractArraySum: { fn: extractArraySum },
-        drawThreshold: { fn: drawThreshold },
-        extractDates: { fn: extractDates },
-        lastProperty: { fn: lastProperty },
-        sumLastProperties: { fn: sumLastProperties },
-        calculateTrendProperty: { fn: calculateTrendProperty },
-        calculateTrendByProperties: { fn: calculateTrendByProperties },
-        calculateAvgProperty: { fn: calculateAvgProperty },
-        calculateAvgPropertyArray: { fn: calculateAvgPropertyArray },
-        alert: { fn: alert },
-        formatNumber: { fn: formatNumber },
-        formatDate: { fn: formatDate },
-        isoMonth: { fn: isoMonth },
-        getCoordinate: { fn: getCoordinate },
-        Math: { fn: Math },
-        parseInt: { fn: parseInt },
-        parseFloat: { fn: parseFloat },
-        parseDate: { fn: dateUtils.parse },
-        Date: { fn: Date }
-    };
-
-    var execContext = {};
-    function evaluateExpression(expression, context, forceFormula) {
-        var formula = forceFormula || expression || '';
-        if (formula === '') {
-            return '';
+        if (forms.length === 0) {
+            return 0;
         }
-        if (formula === 'true') {
-            return true;
+        var isInRepeatingSlide = expression.includes("__");
+        if (isInRepeatingSlide) {
+            var count_1 = 0;
+            forms.forEach(function (f) {
+                var _loop_1 = function (i) {
+                    if (Object.keys(f).filter(function (key) { return key.includes("__" + i); }).length === 0) {
+                        return "break";
+                    }
+                    if (evaluateExpression(expression.replace('__', "__" + i)), f) {
+                        count_1++;
+                    }
+                };
+                for (var i = 0; i <= MAX_REPS; i++) {
+                    var state_1 = _loop_1(i);
+                    if (state_1 === "break")
+                        break;
+                }
+            });
+            return count_1;
         }
-        if (formula === 'false') {
-            return false;
+        else {
+            return forms.filter(function (f) { return evaluateExpression(expression, f); }).length;
         }
-        if (context != null && context[formula] !== undefined) {
-            return context[formula];
+    }
+    /**
+     * Counts the amount of unique form values for a specific field. The form name must be specified. An
+     * optional condition can be added to discriminate which forms to count in
+     */
+    function COUNTFORMS_UNIQUE(forms, fieldName, expression) {
+        forms = (forms || []).slice(0);
+        var values = [];
+        if (expression != null) {
+            forms = forms.filter(function (f) { return evaluateExpression(expression, f); });
         }
-        if (/^"[^"]*"$/.test(formula)) {
-            return formula.replace(/^"+|"+$/g, '');
-        }
-        var identifiers = esprima.tokenize(formula).filter(function (t) { return t.type === 'Identifier'; }).map(function (t) { return t.value; });
-        var ctx = [];
-        identifiers.forEach(function (key) {
-            var val = null;
-            if (context != null && context[key] !== undefined) {
-                val = context[key];
-            }
-            else if (AjfExpressionUtils.utils[key] !== undefined) {
-                var util = AjfExpressionUtils.utils[key];
-                val = util.fn;
-            }
-            ctx.push(val);
+        forms.forEach(function (f) {
+            values.push(evaluateExpression(fieldName, f));
         });
-        identifiers.push('execContext');
-        ctx.push(execContext);
-        try {
-            var f = new (Function.bind.apply(Function, __spreadArray(__spreadArray([void 0], __read(identifiers)), ["return " + formula])))();
-            var res = f.apply(void 0, __spreadArray([], __read(ctx)));
-            f = null;
-            return res;
+        return Array.from(new Set(values)).length;
+    }
+    /**
+     * Aggregates and sums the values of one or more. An optional condition can be added to discriminate
+     * which forms to take for the sum.
+     */
+    function SUM(forms, expression, condition) {
+        var acc = 0;
+        forms = (forms || []).slice(0);
+        if (expression == null) {
+            return 0;
         }
-        catch (e) {
-            return false;
+        if (condition != null) {
+            forms = forms.filter(function (f) { return evaluateExpression(condition, f); });
         }
+        var isInRepeatingSlide = expression.includes("__");
+        if (isInRepeatingSlide) {
+            forms.forEach(function (f) {
+                var _loop_2 = function (i) {
+                    if (Object.keys(f).filter(function (key) { return key.includes("__" + i); }).length === 0) {
+                        return "break";
+                    }
+                    var evaluatedExpression = evaluateExpression(expression.replace('__', "__" + i), f);
+                    if (Number.isFinite(evaluateExpression)) {
+                        acc += evaluatedExpression;
+                    }
+                };
+                for (var i = 0; i <= MAX_REPS; i++) {
+                    var state_2 = _loop_2(i);
+                    if (state_2 === "break")
+                        break;
+                }
+            });
+        }
+        else {
+            forms.forEach(function (f) { return acc += evaluateExpression(expression, f); });
+        }
+        return acc;
+    }
+    /**
+     * Calculates the mean of a simple or derived value. An optional condition can be added to
+     * discriminate which forms to take for the sum.
+     */
+    function MEAN(forms, expression) {
+        forms = (forms || []).slice(0);
+        expression = (expression || '');
+        var length = forms.length;
+        if (length === 0) {
+            return 0;
+        }
+        var acc = 0;
+        forms.forEach(function (f) {
+            acc += evaluateExpression(expression, f);
+        });
+        return Math.trunc(acc / length);
+    }
+    /**
+     * Calculates the % between two members.
+     */
+    function PERCENT(value1, value2) {
+        var res = +value1 / +value2;
+        return Number.isFinite(res) ? res + "%" : 'err';
+    }
+    /**
+     * Calculates the expression in the last form by date.
+     */
+    function LAST(forms, expression, date) {
+        if (date === void 0) { date = 'date_end'; }
+        forms = (forms || []).slice(0).sort(function (a, b) {
+            var dateA = new Date(b[date]).getTime();
+            var dateB = new Date(a[date]).getTime();
+            return dateA - dateB;
+        });
+        if (forms.length > 0 && expression != null) {
+            var lastForm = forms[forms.length - 1] || [];
+            return evaluateExpression(expression, lastForm);
+        }
+        return 0;
+    }
+    /**
+     * Calculates the max value of the field.
+     */
+    function MAX(forms, fieldName) {
+        forms = (forms || []).slice(0);
+        var max = 0;
+        forms.forEach(function (form) {
+            if (form[fieldName] != null && !isNaN(form[fieldName]) &&
+                form[fieldName] > max) {
+                max = form[fieldName];
+            }
+        });
+        return max;
+    }
+    /**
+     * Calculates the median value of the field.
+     */
+    function MEDIAN(forms, fieldName) {
+        forms = (forms || []).slice(0);
+        var numbers = forms.filter(function (f) { return f[fieldName] != null && !isNaN(f[fieldName]); })
+            .map(function (f) { return f[fieldName]; })
+            .sort(function (a, b) { return a - b; })
+            .filter(function (item, pos, self) { return self.indexOf(item) == pos; });
+        return Number.isInteger(numbers.length / 2) ?
+            numbers[numbers.length / 2] :
+            (numbers[+parseInt("" + (numbers.length - 1 / 2)) / 2] +
+                numbers[+parseInt("" + (numbers.length - 1 / 2)) / 2 + 1]) /
+                2;
+    }
+    /**
+     * Calculates the mode value of the field.
+     */
+    function MODE(forms, fieldName) {
+        forms = (forms || []).slice(0);
+        var maxCount = 0;
+        var map = {};
+        forms.forEach(function (f) {
+            var value = f[fieldName];
+            if (value != null) {
+                map[value] = map[value] != null ? map[value] + 1 : 1;
+            }
+            if (map[value] > maxCount) {
+                maxCount = map[value];
+            }
+        });
+        return Object.keys(map).filter(function (v) { return map[+v] === maxCount; }).map(function (v) { return +v; });
     }
 
     /**
@@ -1197,6 +1339,15 @@
     exports.AjfError = AjfError;
     exports.AjfExpressionUtils = AjfExpressionUtils;
     exports.AjfFormulaSerializer = AjfFormulaSerializer;
+    exports.COUNTFORMS = COUNTFORMS;
+    exports.COUNTFORMS_UNIQUE = COUNTFORMS_UNIQUE;
+    exports.LAST = LAST;
+    exports.MAX = MAX;
+    exports.MEAN = MEAN;
+    exports.MEDIAN = MEDIAN;
+    exports.MODE = MODE;
+    exports.PERCENT = PERCENT;
+    exports.SUM = SUM;
     exports.alert = alert;
     exports.alwaysCondition = alwaysCondition;
     exports.calculateAvgProperty = calculateAvgProperty;

@@ -19,5 +19,10 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfContext } from '@ajf/core/common';
-export declare function evaluateExpression(expression: string, context?: AjfContext, forceFormula?: string): any;
+import { AjfStyles } from '../interface/styles';
+export declare const slideTitleStyle: AjfStyles;
+export declare const slideContentStyle: AjfStyles;
+export declare const widgetTitleStyle: AjfStyles;
+export declare const boxStyle: AjfStyles;
+export declare const widgetStyle: AjfStyles;
+export declare const backgroundColor: string[];

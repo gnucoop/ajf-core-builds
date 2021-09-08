@@ -1,5 +1,5 @@
-import { tokenize } from 'esprima';
 import * as dateFns from 'date-fns';
+import { tokenize } from 'esprima';
 import * as numbroMod from 'numbro';
 
 /**
@@ -280,7 +280,9 @@ function alwaysCondition() {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+let execContext = {};
 const numbro = numbroMod.default || numbroMod;
+const MAX_REPS = 30;
 const dateUtils = {
     addDays: dateFns.addDays,
     addMonths: dateFns.addMonths,
@@ -292,6 +294,92 @@ const dateUtils = {
     startOfMonth: dateFns.startOfMonth,
     startOfISOWeek: dateFns.startOfISOWeek
 };
+class AjfExpressionUtils {
+}
+AjfExpressionUtils.UTIL_FUNCTIONS = '';
+AjfExpressionUtils.utils = {
+    digitCount: { fn: digitCount },
+    decimalCount: { fn: decimalCount },
+    isInt: { fn: isInt },
+    notEmpty: { fn: notEmpty },
+    valueInChoice: { fn: valueInChoice },
+    scanGroupField: { fn: scanGroupField },
+    sum: { fn: sum },
+    dateOperations: { fn: dateOperations },
+    round: { fn: round },
+    extractArray: { fn: extractArray },
+    extractSum: { fn: extractSum },
+    extractArraySum: { fn: extractArraySum },
+    drawThreshold: { fn: drawThreshold },
+    extractDates: { fn: extractDates },
+    lastProperty: { fn: lastProperty },
+    sumLastProperties: { fn: sumLastProperties },
+    calculateTrendProperty: { fn: calculateTrendProperty },
+    calculateTrendByProperties: { fn: calculateTrendByProperties },
+    calculateAvgProperty: { fn: calculateAvgProperty },
+    calculateAvgPropertyArray: { fn: calculateAvgPropertyArray },
+    alert: { fn: alert },
+    formatNumber: { fn: formatNumber },
+    formatDate: { fn: formatDate },
+    isoMonth: { fn: isoMonth },
+    getCoordinate: { fn: getCoordinate },
+    Math: { fn: Math },
+    parseInt: { fn: parseInt },
+    parseFloat: { fn: parseFloat },
+    parseDate: { fn: dateUtils.parse },
+    Date: { fn: Date },
+    COUNTFORMS: { fn: COUNTFORMS },
+    COUNTFORMS_UNIQUE: { fn: COUNTFORMS_UNIQUE },
+    SUM: { fn: SUM },
+    MEAN: { fn: MEAN },
+    PERCENT: { fn: PERCENT },
+    LAST: { fn: LAST },
+    MAX: { fn: MAX },
+    MEDIAN: { fn: MEDIAN },
+    MODE: { fn: MODE },
+};
+function evaluateExpression(expression, context, forceFormula) {
+    let formula = forceFormula || expression || '';
+    if (formula === '') {
+        return '';
+    }
+    if (formula === 'true') {
+        return true;
+    }
+    if (formula === 'false') {
+        return false;
+    }
+    if (context != null && context[formula] !== undefined) {
+        return context[formula];
+    }
+    if (/^"[^"]*"$/.test(formula)) {
+        return formula.replace(/^"+|"+$/g, '');
+    }
+    const identifiers = tokenize(formula).filter((t) => t.type === 'Identifier').map((t) => t.value);
+    const ctx = [];
+    identifiers.forEach((key) => {
+        let val = null;
+        if (context != null && context[key] !== undefined) {
+            val = context[key];
+        }
+        else if (AjfExpressionUtils.utils[key] !== undefined) {
+            const util = AjfExpressionUtils.utils[key];
+            val = util.fn;
+        }
+        ctx.push(val);
+    });
+    identifiers.push('execContext');
+    ctx.push(execContext);
+    try {
+        let f = new Function(...identifiers, `return ${formula}`);
+        const res = f(...ctx);
+        f = null;
+        return res;
+    }
+    catch (e) {
+        return false;
+    }
+}
 function digitCount(x) {
     if (isNaN(x) || typeof (x) !== 'number') {
         return 0;
@@ -643,127 +731,169 @@ function getCoordinate(source, zoom) {
         return [source[0], source[1], zoom];
     }
 }
-
 /**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
+ * Counts the collected forms. The form name must be specified. An optional condition can be added
+ * to discriminate which forms to count in.
  */
-class AjfExpressionUtils {
+function COUNTFORMS(forms, expression = 'true') {
+    forms = (forms || []).slice(0);
+    if (expression === 'true') {
+        return forms.length;
+    }
+    if (forms.length === 0) {
+        return 0;
+    }
+    const isInRepeatingSlide = expression.includes(`__`);
+    if (isInRepeatingSlide) {
+        let count = 0;
+        forms.forEach(f => {
+            for (let i = 0; i <= MAX_REPS; i++) {
+                if (Object.keys(f).filter(key => key.includes(`__${i}`)).length === 0) {
+                    break;
+                }
+                if (evaluateExpression(expression.replace('__', `__${i}`)), f) {
+                    count++;
+                }
+            }
+        });
+        return count;
+    }
+    else {
+        return forms.filter((f) => evaluateExpression(expression, f)).length;
+    }
 }
-AjfExpressionUtils.UTIL_FUNCTIONS = '';
-AjfExpressionUtils.utils = {
-    digitCount: { fn: digitCount },
-    decimalCount: { fn: decimalCount },
-    isInt: { fn: isInt },
-    notEmpty: { fn: notEmpty },
-    valueInChoice: { fn: valueInChoice },
-    scanGroupField: { fn: scanGroupField },
-    sum: { fn: sum },
-    dateOperations: { fn: dateOperations },
-    round: { fn: round },
-    extractArray: { fn: extractArray },
-    extractSum: { fn: extractSum },
-    extractArraySum: { fn: extractArraySum },
-    drawThreshold: { fn: drawThreshold },
-    extractDates: { fn: extractDates },
-    lastProperty: { fn: lastProperty },
-    sumLastProperties: { fn: sumLastProperties },
-    calculateTrendProperty: { fn: calculateTrendProperty },
-    calculateTrendByProperties: { fn: calculateTrendByProperties },
-    calculateAvgProperty: { fn: calculateAvgProperty },
-    calculateAvgPropertyArray: { fn: calculateAvgPropertyArray },
-    alert: { fn: alert },
-    formatNumber: { fn: formatNumber },
-    formatDate: { fn: formatDate },
-    isoMonth: { fn: isoMonth },
-    getCoordinate: { fn: getCoordinate },
-    Math: { fn: Math },
-    parseInt: { fn: parseInt },
-    parseFloat: { fn: parseFloat },
-    parseDate: { fn: dateUtils.parse },
-    Date: { fn: Date }
-};
-
 /**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
+ * Counts the amount of unique form values for a specific field. The form name must be specified. An
+ * optional condition can be added to discriminate which forms to count in
  */
-let execContext = {};
-function evaluateExpression(expression, context, forceFormula) {
-    let formula = forceFormula || expression || '';
-    if (formula === '') {
-        return '';
+function COUNTFORMS_UNIQUE(forms, fieldName, expression) {
+    forms = (forms || []).slice(0);
+    const values = [];
+    if (expression != null) {
+        forms = forms.filter(f => evaluateExpression(expression, f));
     }
-    if (formula === 'true') {
-        return true;
-    }
-    if (formula === 'false') {
-        return false;
-    }
-    if (context != null && context[formula] !== undefined) {
-        return context[formula];
-    }
-    if (/^"[^"]*"$/.test(formula)) {
-        return formula.replace(/^"+|"+$/g, '');
-    }
-    const identifiers = tokenize(formula).filter((t) => t.type === 'Identifier').map((t) => t.value);
-    const ctx = [];
-    identifiers.forEach((key) => {
-        let val = null;
-        if (context != null && context[key] !== undefined) {
-            val = context[key];
-        }
-        else if (AjfExpressionUtils.utils[key] !== undefined) {
-            const util = AjfExpressionUtils.utils[key];
-            val = util.fn;
-        }
-        ctx.push(val);
+    forms.forEach(f => {
+        values.push(evaluateExpression(fieldName, f));
     });
-    identifiers.push('execContext');
-    ctx.push(execContext);
-    try {
-        let f = new Function(...identifiers, `return ${formula}`);
-        const res = f(...ctx);
-        f = null;
-        return res;
+    return Array.from(new Set(values)).length;
+}
+/**
+ * Aggregates and sums the values of one or more. An optional condition can be added to discriminate
+ * which forms to take for the sum.
+ */
+function SUM(forms, expression, condition) {
+    let acc = 0;
+    forms = (forms || []).slice(0);
+    if (expression == null) {
+        return 0;
     }
-    catch (e) {
-        return false;
+    if (condition != null) {
+        forms = forms.filter((f) => evaluateExpression(condition, f));
     }
+    const isInRepeatingSlide = expression.includes(`__`);
+    if (isInRepeatingSlide) {
+        forms.forEach(f => {
+            for (let i = 0; i <= MAX_REPS; i++) {
+                if (Object.keys(f).filter(key => key.includes(`__${i}`)).length === 0) {
+                    break;
+                }
+                const evaluatedExpression = evaluateExpression(expression.replace('__', `__${i}`), f);
+                if (Number.isFinite(evaluateExpression)) {
+                    acc += evaluatedExpression;
+                }
+            }
+        });
+    }
+    else {
+        forms.forEach((f) => acc += evaluateExpression(expression, f));
+    }
+    return acc;
+}
+/**
+ * Calculates the mean of a simple or derived value. An optional condition can be added to
+ * discriminate which forms to take for the sum.
+ */
+function MEAN(forms, expression) {
+    forms = (forms || []).slice(0);
+    expression = (expression || '');
+    const length = forms.length;
+    if (length === 0) {
+        return 0;
+    }
+    let acc = 0;
+    forms.forEach((f) => {
+        acc += evaluateExpression(expression, f);
+    });
+    return Math.trunc(acc / length);
+}
+/**
+ * Calculates the % between two members.
+ */
+function PERCENT(value1, value2) {
+    const res = +value1 / +value2;
+    return Number.isFinite(res) ? `${res}%` : 'err';
+}
+/**
+ * Calculates the expression in the last form by date.
+ */
+function LAST(forms, expression, date = 'date_end') {
+    forms = (forms || []).slice(0).sort((a, b) => {
+        const dateA = new Date(b[date]).getTime();
+        const dateB = new Date(a[date]).getTime();
+        return dateA - dateB;
+    });
+    if (forms.length > 0 && expression != null) {
+        const lastForm = forms[forms.length - 1] || [];
+        return evaluateExpression(expression, lastForm);
+    }
+    return 0;
+}
+/**
+ * Calculates the max value of the field.
+ */
+function MAX(forms, fieldName) {
+    forms = (forms || []).slice(0);
+    let max = 0;
+    forms.forEach(form => {
+        if (form[fieldName] != null && !isNaN(form[fieldName]) &&
+            form[fieldName] > max) {
+            max = form[fieldName];
+        }
+    });
+    return max;
+}
+/**
+ * Calculates the median value of the field.
+ */
+function MEDIAN(forms, fieldName) {
+    forms = (forms || []).slice(0);
+    const numbers = forms.filter(f => f[fieldName] != null && !isNaN(f[fieldName]))
+        .map(f => f[fieldName])
+        .sort((a, b) => a - b)
+        .filter((item, pos, self) => self.indexOf(item) == pos);
+    return Number.isInteger(numbers.length / 2) ?
+        numbers[numbers.length / 2] :
+        (numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2] +
+            numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2 + 1]) /
+            2;
+}
+/**
+ * Calculates the mode value of the field.
+ */
+function MODE(forms, fieldName) {
+    forms = (forms || []).slice(0);
+    let maxCount = 0;
+    const map = {};
+    forms.forEach(f => {
+        const value = f[fieldName];
+        if (value != null) {
+            map[value] = map[value] != null ? map[value] + 1 : 1;
+        }
+        if (map[value] > maxCount) {
+            maxCount = map[value];
+        }
+    });
+    return Object.keys(map).filter(v => map[+v] === maxCount).map(v => +v);
 }
 
 /**
@@ -943,5 +1073,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, alert, alwaysCondition, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, COUNTFORMS, COUNTFORMS_UNIQUE, LAST, MAX, MEAN, MEDIAN, MODE, PERCENT, SUM, alert, alwaysCondition, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=models.js.map

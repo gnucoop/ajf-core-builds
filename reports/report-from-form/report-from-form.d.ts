@@ -19,18 +19,12 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export * from './context';
-export * from './error';
-export * from './interface/condition';
-export * from './interface/formula';
-export * from './interface/validation-function';
-export * from './serializers/condition-serializer';
-export * from './serializers/formula-serializer';
-export * from './utils/always-condition';
-export * from './utils/create-condition';
-export * from './utils/create-formula';
-export * from './utils/expression-utils';
-export * from './utils/get-context-string';
-export * from './utils/never-condition';
-export * from './utils/normalize-expression';
-export * from './utils/validate-expression';
+import { AjfForm } from '@ajf/core/forms';
+import { AjfReport } from '../interface/reports/report';
+/**
+ * This function returns a basic report for any form passed in input.
+ *
+ * @param form the form schema
+ * @param [id] the id of the form inside the plathform.
+ */
+export declare function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport;
