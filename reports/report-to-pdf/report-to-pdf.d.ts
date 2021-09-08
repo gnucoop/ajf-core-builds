@@ -22,5 +22,6 @@
 import { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { PageOrientation } from 'pdfmake/interfaces';
 import { AjfReportInstance } from '../interface/reports-instances/report-instance';
-export declare function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation): void;
-export declare function createReportPdf(report: AjfReportInstance, orientation?: PageOrientation): Promise<TCreatedPdf>;
+import { ImageMap } from './load-report-images';
+export declare function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation, icons?: ImageMap): void;
+export declare function createReportPdf(report: AjfReportInstance, orientation?: PageOrientation, icons?: ImageMap): Promise<TCreatedPdf>;

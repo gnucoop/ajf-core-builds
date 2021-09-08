@@ -2797,19 +2797,19 @@ function loadWidgetImages(widget) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-function openReportPdf(report, orientation) {
-    createReportPdf(report, orientation).then(pdf => {
+function openReportPdf(report, orientation = 'portrait', icons = {}) {
+    createReportPdf(report, orientation, icons).then(pdf => {
         pdf.open();
     });
 }
-function createReportPdf(report, orientation) {
+function createReportPdf(report, orientation = 'portrait', icons = {}) {
     return new Promise(resolve => {
         loadReportImages(report).then(images => {
             let width = 595.28 - 40 * 2; // A4 page width - margins
             if (orientation === 'landscape') {
                 width = 841.89 - 40 * 2;
             }
-            const pdfDef = reportToPdf(report, images, width);
+            const pdfDef = reportToPdf(report, Object.assign(Object.assign({}, images), icons), width);
             pdfDef.pageOrientation = orientation;
             resolve(createPdf(pdfDef, undefined, vfsFontsMap, vfsFonts));
         });
@@ -2841,7 +2841,7 @@ function widgetToPdf(widget, images, width) {
         case AjfWidgetType.Image:
             return imageToPdf(widget, images, width);
         case AjfWidgetType.Text:
-            return textToPdf(widget);
+            return textToPdf(widget, images);
         case AjfWidgetType.Chart:
             const chart = widget;
             const dataUrl = chart.canvasDataUrl == null ? '' : chart.canvasDataUrl();
@@ -2851,7 +2851,7 @@ function widgetToPdf(widget, images, width) {
             return { image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets] };
         case AjfWidgetType.Table:
         case AjfWidgetType.DynamicTable:
-            return tableToPdf(widget);
+            return tableToPdf(widget, images);
         case AjfWidgetType.Column:
             const cw = widget;
             return { stack: cw.content.map(w => widgetToPdf(w, images, width)) };
@@ -2896,9 +2896,16 @@ function imageToPdf(image, images, width) {
     }
     return { image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets] };
 }
-function textToPdf(tw) {
+function htmlTextToPdfText(htmlText, images) {
+    const iconText = images[htmlText];
+    if (typeof (iconText) === 'string') {
+        return iconText;
+    }
+    return stripHTML(htmlText);
+}
+function textToPdf(tw, images) {
     const text = {
-        text: stripHTML(tw.htmlText),
+        text: htmlTextToPdfText(tw.htmlText, images),
         margin: [0, 0, 0, marginBetweenWidgets],
     };
     if (tw.htmlText.startsWith('<h1>')) {
@@ -2911,7 +2918,7 @@ function textToPdf(tw) {
     }
     return text;
 }
-function tableToPdf(table) {
+function tableToPdf(table, images) {
     if (table.data == null || table.data.length === 0) {
         return { text: '' };
     }
@@ -2920,11 +2927,17 @@ function tableToPdf(table) {
         const bodyRow = [];
         for (const cell of dataRow) {
             let text = '';
-            if (typeof (cell.value) === 'string' || typeof (cell.value) === 'number') {
-                text = String(cell.value);
-            }
-            if (typeof (cell.value) === 'object') {
-                text = String(cell.value.changingThisBreaksApplicationSecurity || '');
+            switch (typeof (cell.value)) {
+                case 'number':
+                    text = String(cell.value);
+                    break;
+                case 'string':
+                    text = htmlTextToPdfText(cell.value, images);
+                    break;
+                case 'object':
+                    const val = cell.value.changingThisBreaksApplicationSecurity || '';
+                    text = htmlTextToPdfText(val, images);
+                    break;
             }
             bodyRow.push({ text, colSpan: cell.colspan, rowSpan: cell.rowspan });
         }

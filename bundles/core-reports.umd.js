@@ -2241,19 +2241,23 @@
         return new Promise(function (resolve) { return resolve({}); });
     }
 
-    function openReportPdf(report, orientation) {
-        createReportPdf(report, orientation).then(function (pdf) {
+    function openReportPdf(report, orientation, icons) {
+        if (orientation === void 0) { orientation = 'portrait'; }
+        if (icons === void 0) { icons = {}; }
+        createReportPdf(report, orientation, icons).then(function (pdf) {
             pdf.open();
         });
     }
-    function createReportPdf(report, orientation) {
+    function createReportPdf(report, orientation, icons) {
+        if (orientation === void 0) { orientation = 'portrait'; }
+        if (icons === void 0) { icons = {}; }
         return new Promise(function (resolve) {
             loadReportImages(report).then(function (images) {
                 var width = 595.28 - 40 * 2; // A4 page width - margins
                 if (orientation === 'landscape') {
                     width = 841.89 - 40 * 2;
                 }
-                var pdfDef = reportToPdf(report, images, width);
+                var pdfDef = reportToPdf(report, Object.assign(Object.assign({}, images), icons), width);
                 pdfDef.pageOrientation = orientation;
                 resolve(pdfmake.createPdf(pdfDef, undefined, vfsFonts.vfsFontsMap, vfsFonts.vfsFonts));
             });
@@ -2285,7 +2289,7 @@
             case exports.AjfWidgetType.Image:
                 return imageToPdf(widget, images, width);
             case exports.AjfWidgetType.Text:
-                return textToPdf(widget);
+                return textToPdf(widget, images);
             case exports.AjfWidgetType.Chart:
                 var chart = widget;
                 var dataUrl = chart.canvasDataUrl == null ? '' : chart.canvasDataUrl();
@@ -2295,7 +2299,7 @@
                 return { image: dataUrl, width: width, margin: [0, 0, 0, marginBetweenWidgets] };
             case exports.AjfWidgetType.Table:
             case exports.AjfWidgetType.DynamicTable:
-                return tableToPdf(widget);
+                return tableToPdf(widget, images);
             case exports.AjfWidgetType.Column:
                 var cw = widget;
                 return { stack: cw.content.map(function (w) { return widgetToPdf(w, images, width); }) };
@@ -2340,9 +2344,16 @@
         }
         return { image: dataUrl, width: width, margin: [0, 0, 0, marginBetweenWidgets] };
     }
-    function textToPdf(tw) {
+    function htmlTextToPdfText(htmlText, images) {
+        var iconText = images[htmlText];
+        if (typeof (iconText) === 'string') {
+            return iconText;
+        }
+        return stripHTML(htmlText);
+    }
+    function textToPdf(tw, images) {
         var text = {
-            text: stripHTML(tw.htmlText),
+            text: htmlTextToPdfText(tw.htmlText, images),
             margin: [0, 0, 0, marginBetweenWidgets],
         };
         if (tw.htmlText.startsWith('<h1>')) {
@@ -2355,7 +2366,7 @@
         }
         return text;
     }
-    function tableToPdf(table) {
+    function tableToPdf(table, images) {
         var e_1, _a, e_2, _b;
         if (table.data == null || table.data.length === 0) {
             return { text: '' };
@@ -2369,11 +2380,17 @@
                     for (var dataRow_1 = (e_2 = void 0, __values(dataRow)), dataRow_1_1 = dataRow_1.next(); !dataRow_1_1.done; dataRow_1_1 = dataRow_1.next()) {
                         var cell = dataRow_1_1.value;
                         var text = '';
-                        if (typeof (cell.value) === 'string' || typeof (cell.value) === 'number') {
-                            text = String(cell.value);
-                        }
-                        if (typeof (cell.value) === 'object') {
-                            text = String(cell.value.changingThisBreaksApplicationSecurity || '');
+                        switch (typeof (cell.value)) {
+                            case 'number':
+                                text = String(cell.value);
+                                break;
+                            case 'string':
+                                text = htmlTextToPdfText(cell.value, images);
+                                break;
+                            case 'object':
+                                var val = cell.value.changingThisBreaksApplicationSecurity || '';
+                                text = htmlTextToPdfText(val, images);
+                                break;
                         }
                         bodyRow.push({ text: text, colSpan: cell.colspan, rowSpan: cell.rowspan });
                     }
