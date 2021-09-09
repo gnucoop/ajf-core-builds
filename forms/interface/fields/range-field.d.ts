@@ -19,24 +19,11 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare enum AjfFieldType {
-    String = 0,
-    Text = 1,
-    Number = 2,
-    Boolean = 3,
-    SingleChoice = 4,
-    MultipleChoice = 5,
-    Formula = 6,
-    Empty = 7,
-    Date = 8,
-    DateInput = 9,
-    Time = 10,
-    Table = 11,
-    Geolocation = 12,
-    Barcode = 13,
-    File = 14,
-    Image = 15,
-    VideoUrl = 16,
-    Range = 17,
-    LENGTH = 18
+import { AjfField } from './field';
+import { AjfFieldType } from './field-type';
+export interface AjfRangeField extends AjfField {
+    fieldType: AjfFieldType.Range;
+    end?: number;
+    start?: number;
+    step?: number;
 }

@@ -423,7 +423,8 @@
         AjfFieldType[AjfFieldType["File"] = 14] = "File";
         AjfFieldType[AjfFieldType["Image"] = 15] = "Image";
         AjfFieldType[AjfFieldType["VideoUrl"] = 16] = "VideoUrl";
-        AjfFieldType[AjfFieldType["LENGTH"] = 17] = "LENGTH";
+        AjfFieldType[AjfFieldType["Range"] = 17] = "Range";
+        AjfFieldType[AjfFieldType["LENGTH"] = 18] = "LENGTH";
     })(exports.AjfFieldType || (exports.AjfFieldType = {}));
 
     /**
@@ -4014,34 +4015,36 @@
         });
         AjfBaseFieldComponent.prototype.ngOnInit = function () {
             var _this = this;
-            this._warningTriggerSub =
-                this.instance.warningTrigger
-                    .pipe(operators.withLatestFrom(this.control), operators.filter(function (_a) {
-                    var _b = __read(_a, 2), _ = _b[0], ctrl = _b[1];
-                    return ctrl != null;
-                }))
-                    .subscribe(function (_a) {
-                    var _b = __read(_a, 2), _ = _b[0], ctrl = _b[1];
-                    if (_this.instance.warningResults == null) {
-                        return;
-                    }
-                    var control = ctrl;
-                    var s = _this._warningAlertService
-                        .showWarningAlertPrompt(_this.instance.warningResults.filter(function (w) { return w.result; }).map(function (w) { return w.warning; }))
-                        .subscribe(function (r) {
-                        if (r.result) {
-                            control.setValue(null);
+            if (this.instance != null) {
+                this._warningTriggerSub =
+                    this.instance.warningTrigger
+                        .pipe(operators.withLatestFrom(this.control), operators.filter(function (_a) {
+                        var _b = __read(_a, 2), _ = _b[0], ctrl = _b[1];
+                        return ctrl != null;
+                    }))
+                        .subscribe(function (_a) {
+                        var _b = __read(_a, 2), _ = _b[0], ctrl = _b[1];
+                        if (_this.instance.warningResults == null) {
+                            return;
                         }
-                    }, function (_e) {
-                        if (s) {
-                            s.unsubscribe();
-                        }
-                    }, function () {
-                        if (s) {
-                            s.unsubscribe();
-                        }
+                        var control = ctrl;
+                        var s = _this._warningAlertService
+                            .showWarningAlertPrompt(_this.instance.warningResults.filter(function (w) { return w.result; }).map(function (w) { return w.warning; }))
+                            .subscribe(function (r) {
+                            if (r.result) {
+                                control.setValue(null);
+                            }
+                        }, function (_e) {
+                            if (s) {
+                                s.unsubscribe();
+                            }
+                        }, function () {
+                            if (s) {
+                                s.unsubscribe();
+                            }
+                        });
                     });
-                });
+            }
         };
         AjfBaseFieldComponent.prototype.ngOnDestroy = function () {
             this._warningTriggerSub.unsubscribe();

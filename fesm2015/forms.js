@@ -119,7 +119,8 @@ var AjfFieldType;
     AjfFieldType[AjfFieldType["File"] = 14] = "File";
     AjfFieldType[AjfFieldType["Image"] = 15] = "Image";
     AjfFieldType[AjfFieldType["VideoUrl"] = 16] = "VideoUrl";
-    AjfFieldType[AjfFieldType["LENGTH"] = 17] = "LENGTH";
+    AjfFieldType[AjfFieldType["Range"] = 17] = "Range";
+    AjfFieldType[AjfFieldType["LENGTH"] = 18] = "LENGTH";
 })(AjfFieldType || (AjfFieldType = {}));
 
 /**
@@ -4051,30 +4052,32 @@ class AjfBaseFieldComponent {
         return this._control;
     }
     ngOnInit() {
-        this._warningTriggerSub =
-            this.instance.warningTrigger
-                .pipe(withLatestFrom(this.control), filter(([_, ctrl]) => ctrl != null))
-                .subscribe(([_, ctrl]) => {
-                if (this.instance.warningResults == null) {
-                    return;
-                }
-                const control = ctrl;
-                const s = this._warningAlertService
-                    .showWarningAlertPrompt(this.instance.warningResults.filter(w => w.result).map(w => w.warning))
-                    .subscribe((r) => {
-                    if (r.result) {
-                        control.setValue(null);
+        if (this.instance != null) {
+            this._warningTriggerSub =
+                this.instance.warningTrigger
+                    .pipe(withLatestFrom(this.control), filter(([_, ctrl]) => ctrl != null))
+                    .subscribe(([_, ctrl]) => {
+                    if (this.instance.warningResults == null) {
+                        return;
                     }
-                }, (_e) => {
-                    if (s) {
-                        s.unsubscribe();
-                    }
-                }, () => {
-                    if (s) {
-                        s.unsubscribe();
-                    }
+                    const control = ctrl;
+                    const s = this._warningAlertService
+                        .showWarningAlertPrompt(this.instance.warningResults.filter(w => w.result).map(w => w.warning))
+                        .subscribe((r) => {
+                        if (r.result) {
+                            control.setValue(null);
+                        }
+                    }, (_e) => {
+                        if (s) {
+                            s.unsubscribe();
+                        }
+                    }, () => {
+                        if (s) {
+                            s.unsubscribe();
+                        }
+                    });
                 });
-            });
+        }
     }
     ngOnDestroy() {
         this._warningTriggerSub.unsubscribe();
@@ -6802,6 +6805,50 @@ function tableToPdf(table, lookupString, translate) {
         { table: { body, widths: Array(table.columnLabels.length + 1).fill('*') }, margin: [5, 0, 0, 5] }
     ];
 }
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 
 /**
  * @license
