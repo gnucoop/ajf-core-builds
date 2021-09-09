@@ -4,7 +4,7 @@ import { Subject, BehaviorSubject, Subscription, Observable, of, from, timer, de
 import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen, shareReplay, catchError } from 'rxjs/operators';
 import { deepCopy } from '@ajf/core/utils';
 import { tokenize } from 'esprima';
-import { evaluateExpression, alwaysCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
+import { evaluateExpression, alwaysCondition, neverCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { __rest } from 'tslib';
 import { format } from 'date-fns';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -1686,7 +1686,7 @@ function createNodeGroupInstance(instance) {
  */
 function createSlideInstance(instance) {
     const nodeInstance = createNodeInstance(instance);
-    return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0 });
+    return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0, editable: instance.editable || true, readonly: instance.node.readonly || neverCondition() });
 }
 
 /**
@@ -2364,6 +2364,41 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+function updateEditability(instance, context) {
+    if (instance.readonly == null) {
+        instance.editable = true;
+        return true;
+    }
+    const readOnly = instance.readonly;
+    const oldEditability = instance.editable;
+    let newEditability = !evaluateExpression(readOnly.condition, context);
+    if (newEditability !== instance.editable) {
+        instance.editable = newEditability;
+    }
+    return oldEditability !== newEditability;
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 function flattenNodes(nodes) {
     let flatNodes = [];
     nodes.forEach((node) => {
@@ -2916,6 +2951,7 @@ const updateSlideValidity = (slide) => {
 const ɵ0 = updateSlideValidity;
 class AjfFormRendererService {
     constructor(_) {
+        this._editabilityNodesMapUpdates = new Subject();
         this._visibilityNodesMapUpdates = new Subject();
         this._repetitionNodesMapUpdates = new Subject();
         this._conditionalBranchNodesMapUpdates = new Subject();
@@ -3072,6 +3108,11 @@ class AjfFormRendererService {
         this._errors = this._errorPositions.pipe(map(e => e != null ? e.length : 0), startWith(0), publishReplay(), refCount());
     }
     _initUpdateMapStreams() {
+        this._editabilityNodesMap =
+            this._editabilityNodesMapUpdates
+                .pipe(scan((rmap, op) => {
+                return op(rmap);
+            }, {}), startWith({}), share());
         this._visibilityNodesMap =
             this._visibilityNodesMapUpdates
                 .pipe(scan((rmap, op) => {
@@ -3118,9 +3159,9 @@ class AjfFormRendererService {
                 return op(rmap);
             }, {}), startWith({}), share());
         this._nodesMaps = [
-            this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
-            this._formulaNodesMap, this._validationNodesMap, this._warningNodesMap,
-            this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
+            this._editabilityNodesMap, this._visibilityNodesMap, this._repetitionNodesMap,
+            this._conditionalBranchNodesMap, this._formulaNodesMap, this._validationNodesMap,
+            this._warningNodesMap, this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
             this._triggerConditionsNodesMap
         ];
     }
@@ -3247,6 +3288,9 @@ class AjfFormRendererService {
                 }
                 updateFieldInstanceState(fInstance, context);
             }
+            if (nodeType === AjfNodeType.AjfSlide) {
+                updateEditability(instance, context);
+            }
             this._addNodeInstance(instance);
         }
         return instance;
@@ -3363,16 +3407,17 @@ class AjfFormRendererService {
                 const oldFormValue = init && {} || v[0][0];
                 init = false;
                 const newFormValue = v[0][1];
-                const visibilityMap = v[1];
-                const repetitionMap = v[2];
-                const conditionalBranchesMap = v[3];
-                const formulaMap = v[4];
-                const validationMap = v[5];
-                const warningMap = v[6];
-                const nextSlideConditionsMap = v[7];
-                const filteredChoicesMap = v[8];
-                const triggerConditionsMap = v[9];
-                const nodes = v[10];
+                const editability = v[1];
+                const visibilityMap = v[2];
+                const repetitionMap = v[3];
+                const conditionalBranchesMap = v[4];
+                const formulaMap = v[5];
+                const validationMap = v[6];
+                const warningMap = v[7];
+                const nextSlideConditionsMap = v[8];
+                const filteredChoicesMap = v[9];
+                const triggerConditionsMap = v[10];
+                const nodes = v[11];
                 // takes the names of the fields that have changed
                 const delta = this._formValueDelta(oldFormValue, newFormValue);
                 const deltaLen = delta.length;
@@ -3384,6 +3429,14 @@ class AjfFormRendererService {
                 */
                 delta.forEach((fieldName) => {
                     updatedNodes = updatedNodes.concat(nodes.filter(n => nodeInstanceCompleteName(n) === fieldName));
+                    if (editability[fieldName] != null) {
+                        editability[fieldName].forEach(nodeInstance => {
+                            if (isSlideInstance(nodeInstance)) {
+                                const slideInstance = nodeInstance;
+                                updateEditability(slideInstance, newFormValue);
+                            }
+                        });
+                    }
                     if (visibilityMap[fieldName] != null) {
                         visibilityMap[fieldName].forEach(nodeInstance => {
                             const completeName = nodeInstanceCompleteName(nodeInstance);
@@ -3614,6 +3667,7 @@ class AjfFormRendererService {
         this._removeNodesFilteredChoicesMapIndex(nodeName);
         this._removeNodesTriggerConditionsMapIndex(nodeName);
         if (isSlidesInstance(nodeInstance)) {
+            this._removeNodesEditabilityMapIndex(nodeName);
             return this._removeSlideInstance(nodeInstance);
         }
         else if (isRepeatingContainerNode(nodeInstance.node)) {
@@ -3777,6 +3831,9 @@ class AjfFormRendererService {
     }
     _addSlideInstance(slideInstance) {
         const slide = slideInstance.node;
+        if (slide.readonly != null) {
+            this._addToNodesEditabilityMap(slideInstance, slide.readonly.condition);
+        }
         if (slide.visibility != null) {
             this._addToNodesVisibilityMap(slideInstance, slide.visibility.condition);
         }
@@ -3808,6 +3865,9 @@ class AjfFormRendererService {
             }
         }
         return nodeGroupInstance;
+    }
+    _removeNodesEditabilityMapIndex(index) {
+        this._removeNodesMapIndex(this._editabilityNodesMapUpdates, index);
     }
     _removeNodesVisibilityMapIndex(index) {
         this._removeNodesMapIndex(this._visibilityNodesMapUpdates, index);
@@ -3890,6 +3950,9 @@ class AjfFormRendererService {
                 return vmap;
             });
         }
+    }
+    _addToNodesEditabilityMap(nodeInstance, formula) {
+        this._addToNodesMap(this._editabilityNodesMapUpdates, nodeInstance, formula);
     }
     _addToNodesVisibilityMap(nodeInstance, formula) {
         this._addToNodesMap(this._visibilityNodesMapUpdates, nodeInstance, formula);
@@ -4330,7 +4393,7 @@ class AjfFormField {
                     }
                 });
             }
-            this._updatedSub = this._instance.updatedEvt.subscribe(() => this._cdr.markForCheck());
+            this._instance.updatedEvt.subscribe(() => this._cdr.markForCheck());
         }
         catch (e) {
             console.log(e);
@@ -6202,7 +6265,7 @@ function createRepeatingSlide(nodeGroup) {
  *
  */
 function createSlide(nodeGroup) {
-    return Object.assign(Object.assign({}, createContainerNode(nodeGroup)), { nodeType: AjfNodeType.AjfSlide });
+    return Object.assign(Object.assign({}, createContainerNode(nodeGroup)), { nodeType: AjfNodeType.AjfSlide, readonly: nodeGroup.readonly || neverCondition() });
 }
 
 /**
@@ -6303,7 +6366,11 @@ class AjfNodeSerializer {
             case AjfNodeType.AjfRepeatingSlide:
                 return AjfNodeSerializer._repeatingSlideFromJson(obj, choicesOrigins, attachmentsOrigins);
             case AjfNodeType.AjfSlide:
-                return AjfNodeSerializer._slideFromJson(obj, choicesOrigins, attachmentsOrigins);
+                const slideObj = obj;
+                if (slideObj.readonly) {
+                    slideObj.readonly = AjfConditionSerializer.fromJson(slideObj.readonly);
+                }
+                return AjfNodeSerializer._slideFromJson(slideObj, choicesOrigins, attachmentsOrigins);
         }
         throw new Error(err);
     }
@@ -6735,28 +6802,6 @@ function tableToPdf(table, lookupString, translate) {
         { table: { body, widths: Array(table.columnLabels.length + 1).fill('*') }, margin: [5, 0, 0, 5] }
     ];
 }
-
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
 
 /**
  * @license

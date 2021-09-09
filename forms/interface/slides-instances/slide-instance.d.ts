@@ -19,8 +19,11 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfCondition } from '@ajf/core/models';
 import { AjfSlide } from '../slides/slide';
 import { AjfBaseSlideInstance } from './base-slide-instance';
 export interface AjfSlideInstance extends AjfBaseSlideInstance {
+    editable: boolean;
     node: AjfSlide;
+    readonly: AjfCondition;
 }

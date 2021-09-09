@@ -34,6 +34,8 @@ export declare const enum AjfFormInitStatus {
     Complete = 1
 }
 export declare class AjfFormRendererService {
+    private _editabilityNodesMap;
+    private _editabilityNodesMapUpdates;
     private _visibilityNodesMap;
     private _visibilityNodesMapUpdates;
     private _repetitionNodesMap;
@@ -102,6 +104,7 @@ export declare class AjfFormRendererService {
     private _addFieldInstance;
     private _addSlideInstance;
     private _addNodeGroupInstance;
+    private _removeNodesEditabilityMapIndex;
     private _removeNodesVisibilityMapIndex;
     private _removeNodesRepetitionMapIndex;
     private _removeNodesConditionalBranchMapIndex;
@@ -122,6 +125,7 @@ export declare class AjfFormRendererService {
     private _removeFromNodesTriggerConditionsMap;
     private _removeFromNodesNextSlideConditionsMap;
     private _removeFromNodesMap;
+    private _addToNodesEditabilityMap;
     private _addToNodesVisibilityMap;
     private _addToNodesRepetitionMap;
     private _addToNodesConditionalBranchMap;

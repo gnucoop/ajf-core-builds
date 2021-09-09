@@ -1951,7 +1951,7 @@
      */
     function createSlideInstance(instance) {
         var nodeInstance = createNodeInstance(instance);
-        return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0 });
+        return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0, editable: instance.editable || true, readonly: instance.node.readonly || models.neverCondition() });
     }
 
     /**
@@ -2629,6 +2629,41 @@
      * If not, see http://www.gnu.org/licenses/.
      *
      */
+    function updateEditability(instance, context) {
+        if (instance.readonly == null) {
+            instance.editable = true;
+            return true;
+        }
+        var readOnly = instance.readonly;
+        var oldEditability = instance.editable;
+        var newEditability = !models.evaluateExpression(readOnly.condition, context);
+        if (newEditability !== instance.editable) {
+            instance.editable = newEditability;
+        }
+        return oldEditability !== newEditability;
+    }
+
+    /**
+     * @license
+     * Copyright (C) Gnucoop soc. coop.
+     *
+     * This file is part of the Advanced JSON forms (ajf).
+     *
+     * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+     * modify it under the terms of the GNU Affero General Public License as
+     * published by the Free Software Foundation, either version 3 of the License,
+     * or (at your option) any later version.
+     *
+     * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+     * General Public License for more details.
+     *
+     * You should have received a copy of the GNU Affero General Public License
+     * along with Advanced JSON forms (ajf).
+     * If not, see http://www.gnu.org/licenses/.
+     *
+     */
     function flattenNodes(nodes) {
         var flatNodes = [];
         nodes.forEach(function (node) {
@@ -2843,6 +2878,7 @@
     var ɵ0 = updateSlideValidity;
     var AjfFormRendererService = /** @class */ (function () {
         function AjfFormRendererService(_) {
+            this._editabilityNodesMapUpdates = new rxjs.Subject();
             this._visibilityNodesMapUpdates = new rxjs.Subject();
             this._repetitionNodesMapUpdates = new rxjs.Subject();
             this._conditionalBranchNodesMapUpdates = new rxjs.Subject();
@@ -3023,6 +3059,11 @@
             this._errors = this._errorPositions.pipe(operators.map(function (e) { return e != null ? e.length : 0; }), operators.startWith(0), operators.publishReplay(), operators.refCount());
         };
         AjfFormRendererService.prototype._initUpdateMapStreams = function () {
+            this._editabilityNodesMap =
+                this._editabilityNodesMapUpdates
+                    .pipe(operators.scan(function (rmap, op) {
+                    return op(rmap);
+                }, {}), operators.startWith({}), operators.share());
             this._visibilityNodesMap =
                 this._visibilityNodesMapUpdates
                     .pipe(operators.scan(function (rmap, op) {
@@ -3069,9 +3110,9 @@
                     return op(rmap);
                 }, {}), operators.startWith({}), operators.share());
             this._nodesMaps = [
-                this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
-                this._formulaNodesMap, this._validationNodesMap, this._warningNodesMap,
-                this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
+                this._editabilityNodesMap, this._visibilityNodesMap, this._repetitionNodesMap,
+                this._conditionalBranchNodesMap, this._formulaNodesMap, this._validationNodesMap,
+                this._warningNodesMap, this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
                 this._triggerConditionsNodesMap
             ];
         };
@@ -3200,6 +3241,9 @@
                         }
                     }
                     updateFieldInstanceState(fInstance, context);
+                }
+                if (nodeType === exports.AjfNodeType.AjfSlide) {
+                    updateEditability(instance, context);
                 }
                 this._addNodeInstance(instance);
             }
@@ -3330,16 +3374,17 @@
                     var oldFormValue = init && {} || v[0][0];
                     init = false;
                     var newFormValue = v[0][1];
-                    var visibilityMap = v[1];
-                    var repetitionMap = v[2];
-                    var conditionalBranchesMap = v[3];
-                    var formulaMap = v[4];
-                    var validationMap = v[5];
-                    var warningMap = v[6];
-                    var nextSlideConditionsMap = v[7];
-                    var filteredChoicesMap = v[8];
-                    var triggerConditionsMap = v[9];
-                    var nodes = v[10];
+                    var editability = v[1];
+                    var visibilityMap = v[2];
+                    var repetitionMap = v[3];
+                    var conditionalBranchesMap = v[4];
+                    var formulaMap = v[5];
+                    var validationMap = v[6];
+                    var warningMap = v[7];
+                    var nextSlideConditionsMap = v[8];
+                    var filteredChoicesMap = v[9];
+                    var triggerConditionsMap = v[10];
+                    var nodes = v[11];
                     // takes the names of the fields that have changed
                     var delta = _this._formValueDelta(oldFormValue, newFormValue);
                     var deltaLen = delta.length;
@@ -3351,6 +3396,14 @@
                     */
                     delta.forEach(function (fieldName) {
                         updatedNodes = updatedNodes.concat(nodes.filter(function (n) { return nodeInstanceCompleteName(n) === fieldName; }));
+                        if (editability[fieldName] != null) {
+                            editability[fieldName].forEach(function (nodeInstance) {
+                                if (isSlideInstance(nodeInstance)) {
+                                    var slideInstance = nodeInstance;
+                                    updateEditability(slideInstance, newFormValue);
+                                }
+                            });
+                        }
                         if (visibilityMap[fieldName] != null) {
                             visibilityMap[fieldName].forEach(function (nodeInstance) {
                                 var completeName = nodeInstanceCompleteName(nodeInstance);
@@ -3582,6 +3635,7 @@
             this._removeNodesFilteredChoicesMapIndex(nodeName);
             this._removeNodesTriggerConditionsMapIndex(nodeName);
             if (isSlidesInstance(nodeInstance)) {
+                this._removeNodesEditabilityMapIndex(nodeName);
                 return this._removeSlideInstance(nodeInstance);
             }
             else if (isRepeatingContainerNode(nodeInstance.node)) {
@@ -3749,6 +3803,9 @@
         AjfFormRendererService.prototype._addSlideInstance = function (slideInstance) {
             var _this = this;
             var slide = slideInstance.node;
+            if (slide.readonly != null) {
+                this._addToNodesEditabilityMap(slideInstance, slide.readonly.condition);
+            }
             if (slide.visibility != null) {
                 this._addToNodesVisibilityMap(slideInstance, slide.visibility.condition);
             }
@@ -3781,6 +3838,9 @@
                 }
             }
             return nodeGroupInstance;
+        };
+        AjfFormRendererService.prototype._removeNodesEditabilityMapIndex = function (index) {
+            this._removeNodesMapIndex(this._editabilityNodesMapUpdates, index);
         };
         AjfFormRendererService.prototype._removeNodesVisibilityMapIndex = function (index) {
             this._removeNodesMapIndex(this._visibilityNodesMapUpdates, index);
@@ -3863,6 +3923,9 @@
                     return vmap;
                 });
             }
+        };
+        AjfFormRendererService.prototype._addToNodesEditabilityMap = function (nodeInstance, formula) {
+            this._addToNodesMap(this._editabilityNodesMapUpdates, nodeInstance, formula);
         };
         AjfFormRendererService.prototype._addToNodesVisibilityMap = function (nodeInstance, formula) {
             this._addToNodesMap(this._visibilityNodesMapUpdates, nodeInstance, formula);
@@ -4306,7 +4369,7 @@
                         }
                     });
                 }
-                this._updatedSub = this._instance.updatedEvt.subscribe(function () { return _this._cdr.markForCheck(); });
+                this._instance.updatedEvt.subscribe(function () { return _this._cdr.markForCheck(); });
             }
             catch (e) {
                 console.log(e);
@@ -6022,7 +6085,7 @@
      *
      */
     function createSlide(nodeGroup) {
-        return Object.assign(Object.assign({}, createContainerNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfSlide });
+        return Object.assign(Object.assign({}, createContainerNode(nodeGroup)), { nodeType: exports.AjfNodeType.AjfSlide, readonly: nodeGroup.readonly || models.neverCondition() });
     }
 
     /**
@@ -6131,7 +6194,11 @@
                 case exports.AjfNodeType.AjfRepeatingSlide:
                     return AjfNodeSerializer._repeatingSlideFromJson(obj, choicesOrigins, attachmentsOrigins);
                 case exports.AjfNodeType.AjfSlide:
-                    return AjfNodeSerializer._slideFromJson(obj, choicesOrigins, attachmentsOrigins);
+                    var slideObj = obj;
+                    if (slideObj.readonly) {
+                        slideObj.readonly = models.AjfConditionSerializer.fromJson(slideObj.readonly);
+                    }
+                    return AjfNodeSerializer._slideFromJson(slideObj, choicesOrigins, attachmentsOrigins);
             }
             throw new Error(err);
         };

@@ -19,9 +19,6 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfCondition } from '@ajf/core/models';
-import { AjfNode } from './node';
-export interface AjfContainerNode extends AjfNode {
-    nodes: AjfNode[];
-    readonly?: AjfCondition;
-}
+import { AjfContext } from '@ajf/core/models';
+import { AjfSlideInstance } from '../../interface/slides-instances/slide-instance';
+export declare function updateEditability(instance: AjfSlideInstance, context: AjfContext): boolean;
