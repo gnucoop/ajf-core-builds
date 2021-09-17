@@ -27,15 +27,45 @@ import { AjfValidationGroup } from '../validation/validation-group';
 import { AjfValidationResult } from '../validation/validation-results';
 import { AjfWarningGroup } from '../warning/warning-group';
 import { AjfWarningResult } from '../warning/warning-result';
+/**
+ * An AjfNodeInstance with a node of type AjfField.
+ */
 export interface AjfFieldInstance extends AjfNodeInstance {
+    /**
+     * True if the field pass the validation
+     */
     valid: boolean;
+    /**
+     * The AjfField blueprint
+     */
     node: AjfField;
+    /**
+     * The value of the field
+     */
     value: any;
+    /**
+     * A formula used to derive the value of the field.
+     */
     formula?: AjfFormula;
+    /**
+     * A set of conditions that defines if the Field value is valid.
+     */
     validation?: AjfValidationGroup;
+    /**
+     * A set of conditions that defines if warning must be shown.
+     */
     warning?: AjfWarningGroup;
     nextSlideCondition?: AjfCondition;
+    /**
+     * The results of the evaluation of the validation group conditions
+     */
     validationResults?: AjfValidationResult[];
+    /**
+     * The results of the evaluation of the warning group conditions
+     */
     warningResults?: AjfWarningResult[];
+    /**
+     * Emitted when there are warningResults
+     */
     warningTrigger: EventEmitter<void>;
 }

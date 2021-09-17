@@ -20,4 +20,7 @@
  *
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
+/**
+ * It is true if nodeInstance is relative to a AjfNodeGroup.
+ */
 export declare function isNodeGroupInstance(nodeInstance: AjfNodeInstance): boolean;

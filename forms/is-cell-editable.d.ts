@@ -21,6 +21,12 @@
  */
 import { PipeTransform } from '@angular/core';
 import { AjfTableCell } from './interface/fields/table-field';
+/**
+ * it checks if the cell parameter is an editable AjfTableCell.
+ *
+ * @export
+ * @class AjfIsCellEditablePipe
+ */
 export declare class AjfIsCellEditablePipe implements PipeTransform {
     transform(cell: string | AjfTableCell): boolean;
 }

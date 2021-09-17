@@ -21,4 +21,13 @@
  */
 import { AjfForm } from '../../interface/forms/form';
 export declare type AjfFormCreate = Partial<AjfForm>;
+/**
+ * It creates an Ajf form.
+ * Any missing mandatory attributes are initialized with the respective
+ * empty object
+ *
+ * @export
+ * @param [form={}]
+ * @return {*}
+ */
 export declare function createForm(form?: AjfFormCreate): AjfForm;

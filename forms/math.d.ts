@@ -19,4 +19,11 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * it returns the factorial of n parameter.
+ *
+ * @export
+ * @param n
+ * @return {*}
+ */
 export declare function factorial(n: number): number;

@@ -22,6 +22,9 @@
 import { AjfRepeatingContainerNodeInstance } from '../nodes-instances/repeating-container-node-instance';
 import { AjfRepeatingSlide } from '../slides/repeating-slide';
 import { AjfBaseSlideInstance } from './base-slide-instance';
+/**
+ * An AjfBaseSlideInstance with node of type AjfRepeatingSlide
+ */
 export interface AjfRepeatingSlideInstance extends AjfBaseSlideInstance, AjfRepeatingContainerNodeInstance {
     node: AjfRepeatingSlide;
 }

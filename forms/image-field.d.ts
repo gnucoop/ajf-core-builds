@@ -25,6 +25,12 @@ import { Observable } from 'rxjs';
 import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfWarningAlertService } from './warning-alert-service';
+/**
+ * It allows the loading of image url inside an AjfForm.
+ *
+ * @export
+ * @class AjfImageFieldComponent
+ */
 export declare class AjfImageFieldComponent extends AjfBaseFieldComponent {
     readonly imageUrl: Observable<SafeResourceUrl>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer);

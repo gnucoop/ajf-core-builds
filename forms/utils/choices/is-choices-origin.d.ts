@@ -19,4 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * isChoicesOrigin check if co parameter is defined and if correctly implements choicheOrigin
+ * interface
+ */
 export declare function isChoicesOrigin(co: any): boolean;

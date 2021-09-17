@@ -21,4 +21,8 @@
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
 import { AjfSlideInstance } from '../../interface/slides-instances/slide-instance';
+/**
+ * It creates a one dimensional array of AjfSlideInstance.
+ * If the node is a slides node recursively  concat their nodes.
+ */
 export declare function flattenNodesInstancesTree(nodes: AjfNodeInstance[]): AjfSlideInstance[];

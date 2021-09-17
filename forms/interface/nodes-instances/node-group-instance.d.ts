@@ -21,6 +21,9 @@
  */
 import { AjfNodeGroup } from '../nodes/node-group';
 import { AjfRepeatingContainerNodeInstance } from './repeating-container-node-instance';
+/**
+ * A repeating container instance containing an AjfNodeGroup node.
+ */
 export interface AjfNodeGroupInstance extends AjfRepeatingContainerNodeInstance {
     node: AjfNodeGroup;
 }

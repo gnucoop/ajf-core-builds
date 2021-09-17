@@ -22,4 +22,8 @@
 import { AjfChoicesObservableArrayOrigin } from '../../interface/choices/choices-observable-array-origin';
 import { AjfChoicesOriginCreate } from './create-choices-origin';
 export declare type AjfChoicesObservableArrayOriginCreate<T> = Omit<AjfChoicesOriginCreate<T>, 'type'> & Pick<AjfChoicesObservableArrayOrigin<T>, 'generator'> & Partial<AjfChoicesObservableArrayOrigin<T>>;
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply type attrinute as 'observableArray'
+ *  apply default value for label and choices
+ */
 export declare function createChoicesObservableArrayOrigin<T>(origin: AjfChoicesObservableArrayOriginCreate<T>): AjfChoicesObservableArrayOrigin<T>;

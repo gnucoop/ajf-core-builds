@@ -22,4 +22,7 @@
 import { AjfSlide } from '../../interface/slides/slide';
 import { AjfContainerNodeCreate } from '../nodes/create-container-node';
 export declare type AjfSlideCreate = AjfContainerNodeCreate;
+/**
+ * It creates AjfSlide.
+ */
 export declare function createSlide(nodeGroup: AjfSlideCreate): AjfSlide;

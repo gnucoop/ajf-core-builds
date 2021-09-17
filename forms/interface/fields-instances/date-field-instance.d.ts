@@ -21,6 +21,9 @@
  */
 import { AjfDateField } from '../fields/date-field';
 import { AjfFieldInstance } from './field-instance';
+/**
+ * An AjfFieldInstance with a node of type AjfDateField.
+ */
 export interface AjfDateFieldInstance extends AjfFieldInstance {
     node: AjfDateField;
 }

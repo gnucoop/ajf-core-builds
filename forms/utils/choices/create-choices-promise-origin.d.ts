@@ -22,4 +22,8 @@
 import { AjfChoicesPromiseOrigin } from '../../interface/choices/choices-promise-origin';
 import { AjfChoicesOriginCreate } from './create-choices-origin';
 export declare type AjfChoicesPromiseOriginCreate<T> = Omit<AjfChoicesOriginCreate<T>, 'type'> & Pick<AjfChoicesPromiseOrigin<T>, 'generator'> & Partial<AjfChoicesPromiseOrigin<T>>;
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply type attrinute as 'promise'
+ *  apply default value for label and choices
+ */
 export declare function createChoicesPromiseOrigin<T>(origin: AjfChoicesPromiseOriginCreate<T>): AjfChoicesPromiseOrigin<T>;

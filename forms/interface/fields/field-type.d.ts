@@ -19,6 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * The available ajf field types.
+ */
 export declare enum AjfFieldType {
     String = 0,
     Text = 1,

@@ -151,6 +151,10 @@ class AjfError extends Error {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It Creates an AjfCondition by conditio.
+ * If condition.condition is not defined will be assigned ''.
+ */
 function createCondition(condition = {}) {
     return { condition: condition.condition || '' };
 }
@@ -202,6 +206,10 @@ class AjfConditionSerializer {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It Creates an AjfFormula.
+ * If formula.formula is not defined will be assigned ''.
  */
 function createFormula(formula = {}) {
     return { formula: formula.formula || '' };
@@ -255,6 +263,9 @@ class AjfFormulaSerializer {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It creates a true AjfCondidion.
+ */
 function alwaysCondition() {
     return createCondition({ condition: 'true' });
 }
@@ -296,7 +307,11 @@ const dateUtils = {
 };
 class AjfExpressionUtils {
 }
+// TODO what is it for
 AjfExpressionUtils.UTIL_FUNCTIONS = '';
+/**
+ * It is a key-value dictionary, that mapping all Ajf validation functions.
+ */
 AjfExpressionUtils.utils = {
     digitCount: { fn: digitCount },
     decimalCount: { fn: decimalCount },
@@ -380,6 +395,9 @@ function evaluateExpression(expression, context, forceFormula) {
         return false;
     }
 }
+/**
+ * It returns the count of digit inside x.
+ */
 function digitCount(x) {
     if (isNaN(x) || typeof (x) !== 'number') {
         return 0;
@@ -389,6 +407,9 @@ function digitCount(x) {
     }
     return x.toString().replace(/[^0-9]/g, '').length;
 }
+/**
+ * It is count the count of decimal digit inside s.
+ */
 function decimalCount(x) {
     if (typeof x === 'string') {
         x = parseFloat(x);
@@ -399,6 +420,9 @@ function decimalCount(x) {
     const parts = x.toString().split('.');
     return parts.length > 1 ? parts[1].length : 0;
 }
+/**
+ * It is true if x is an integer.
+ */
 function isInt(x) {
     if (typeof (x) === 'string') {
         return /^-?\d+$/.test(x);
@@ -408,21 +432,39 @@ function isInt(x) {
     }
     return false;
 }
+/**
+ * It is true if x is not empty.
+ */
 function notEmpty(x) {
     return (typeof x !== 'undefined' && x !== null ? x.toString().length > 0 : false);
 }
+/**
+ * It is true if array contains x or array is equal to x.
+ */
 function valueInChoice(array, x) {
     return (array || []).indexOf(x) > -1 || array === x;
 }
+/**
+ * It applies callback for reps times and accumulate the result in acc.
+ */
 function scanGroupField(reps, acc, callback) {
     for (let i = 0; i < reps; i++) {
         acc = callback(acc, i);
     }
     return acc;
 }
+/**
+ * It returns the sum of the array values.
+ */
 function sum(array) {
     return array.reduce((a, b) => a + b, 0);
 }
+/**
+ * It applies add/remove(operation) v (day/month/year)period to dstring and return new format date.
+ */
+// TODO check if deprecated instead refacotoring parameter type
+// TODO (dString: string|null, period:'day'|'month'|'year',
+// TODO operation: 'add/remove' = 'add', v:number)
 function dateOperations(dString, period, operation, v) {
     const fmt = 'mm/dd/yyyy';
     let d = (typeof dString !== 'undefined') ? dateUtils.parse(dString) : new Date();
@@ -445,6 +487,9 @@ function dateOperations(dString, period, operation, v) {
     }
     return dateUtils.format(dateOp(d, v), fmt);
 }
+/**
+ * It rounds the num with the value of digits
+ */
 function round(num, digits) {
     digits = digits || 0;
     let f;
@@ -464,6 +509,11 @@ function round(num, digits) {
     const m = Math.pow(10, digits);
     return Math.round(f * m) / m;
 }
+/**
+ * It extracts property from source.
+ * for every element of source if property and property2 are defined return the sum
+ * else if only property is defined return him.
+ */
 function extractArray(source, property, property2) {
     source = (source || []).slice(0);
     const l = source.length;
@@ -478,6 +528,9 @@ function extractArray(source, property, property2) {
     }
     return res;
 }
+/**
+ * It returns the sum of all defined properties of each element of source.
+ */
 function extractSum(source, properties) {
     let sumVal = 0;
     properties = (properties || []).slice(0);
@@ -493,6 +546,10 @@ function extractSum(source, properties) {
     }
     return sumVal;
 }
+/**
+ * It returns a number array that contains the sum of properties value inside the source.
+ * extractArraySum([{a: 5}, {b: 1}, {a: 5, b: 1}], ['a', 'b']); =&gt; [6,6]
+ */
 function extractArraySum(source, properties) {
     const arrays = [];
     properties = (properties || []).slice(0);
@@ -512,6 +569,9 @@ function extractArraySum(source, properties) {
     }
     return res;
 }
+/**
+ * Draw a threshold line on chart related to the property.
+ */
 function drawThreshold(source, property, threshold) {
     source = (source || []).slice(0);
     threshold = threshold || [0];
@@ -534,6 +594,9 @@ function drawThreshold(source, property, threshold) {
     }
     return res;
 }
+/**
+ * Extract the dates of the source object with property != null
+ */
 function extractDates(source, property, fmt) {
     source = (source || []).slice(0);
     const l = source.length;
@@ -560,6 +623,9 @@ function extractDates(source, property, fmt) {
     }
     return res;
 }
+/**
+ * Extract the last property contains in source != null
+ */
 function lastProperty(source, property) {
     source = (source || []).slice(0);
     let l = source.length - 1;
@@ -571,6 +637,9 @@ function lastProperty(source, property) {
     }
     return l >= 0 ? source[l][property] : '';
 }
+/**
+ * It sum the LAst properties of source.
+ */
 function sumLastProperties(source, properties) {
     source = (source || []).slice(0);
     let sumVal = 0;
@@ -583,6 +652,9 @@ function sumLastProperties(source, properties) {
     }
     return sumVal;
 }
+/**
+ * Compute the trend of the property contained on the source.
+ */
 function calculateTrendProperty(source, property) {
     source = (source || []).slice(0);
     let last = source.length - 1;
@@ -617,6 +689,9 @@ function calculateTrendProperty(source, property) {
         return '<p><i class="material-icons" style="color:red">trending_down</i></p>';
     }
 }
+/**
+ * Compute the average value of the property contained on the source.
+ */
 function calculateTrendByProperties(source, properties) {
     const arraysum = extractArraySum(source, properties);
     const lastProp = arraysum.length > 0 ? (arraysum[arraysum.length - 1] || 0) : 0;
@@ -631,6 +706,9 @@ function calculateTrendByProperties(source, properties) {
         return '<p><i class="material-icons" style="color:red">trending_down</i></p>';
     }
 }
+/**
+ *
+ */
 function calculateAvgProperty(source, property, range, coefficient) {
     source = (source || []).slice(0);
     coefficient = coefficient || 1;
@@ -965,6 +1043,9 @@ function getContextString(context) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates a false AjfCondidion.
  */
 function neverCondition() {
     return createCondition({ condition: 'false' });

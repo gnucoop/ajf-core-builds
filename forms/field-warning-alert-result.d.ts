@@ -19,6 +19,13 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is used in AjfBaseFieldComponent, is a partial of AjfWarningResult.
+ * It rappresents the result of warning condition.
+ *
+ * @export
+ * @interface AjfFieldWarningAlertResult
+ */
 export interface AjfFieldWarningAlertResult {
     result: boolean;
 }

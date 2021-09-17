@@ -22,4 +22,7 @@
 import { AjfContext } from '@ajf/core/models';
 import { AjfValidationGroup } from '../../interface/validation/validation-group';
 import { AjfValidationResult } from '../../interface/validation/validation-results';
+/**
+ * It applies evaluateValidation to every validation condition and return it.
+ */
 export declare function evaluateValidationConditions(validation: AjfValidationGroup, context?: AjfContext): AjfValidationResult[];

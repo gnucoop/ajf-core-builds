@@ -20,4 +20,7 @@
  *
  */
 import { AjfValidationGroup } from '../../interface/validation/validation-group';
+/**
+ *  Create a AjfValidationGroup, apply conditions defaults when it missing
+ */
 export declare function createValidationGroup(group: Partial<AjfValidationGroup>): AjfValidationGroup;

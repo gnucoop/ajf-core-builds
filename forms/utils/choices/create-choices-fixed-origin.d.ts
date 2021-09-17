@@ -22,4 +22,7 @@
 import { AjfChoicesFixedOrigin } from '../../interface/choices/choices-fixed-origin';
 import { AjfChoicesOriginCreate } from './create-choices-origin';
 export declare type AjfChoicesFixedOriginCreate<T> = Omit<AjfChoicesOriginCreate<T>, 'type'> & Partial<AjfChoicesFixedOrigin<T>>;
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply type attrinute as 'fixed'
+ */
 export declare function createChoicesFixedOrigin<T = string | number>(origin: AjfChoicesFixedOriginCreate<T>): AjfChoicesFixedOrigin<T>;

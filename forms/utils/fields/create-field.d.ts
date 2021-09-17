@@ -22,4 +22,10 @@
 import { AjfField } from '../../interface/fields/field';
 import { AjfNodeCreate } from '../nodes/create-node';
 export declare type AjfFieldCreate = Omit<AjfNodeCreate, 'nodeType'> & Pick<AjfField, 'fieldType'> & Partial<AjfField>;
+/**
+ * It creates an AjfField.
+ * If size is not defined apply 'normal'.
+ * If defaultValue is not defined apply null.
+ * If editable is not defined return true if field type is'nt formula or table
+ */
 export declare function createField(field: AjfFieldCreate): AjfField;

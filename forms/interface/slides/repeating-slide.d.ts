@@ -21,6 +21,9 @@
  */
 import { AjfNodeType } from '../nodes/node-type';
 import { AjfRepeatingContainerNode } from '../nodes/repeating-container-node';
+/**
+ * An AjfRepeatingContainerNode of type AjfRepeatingSlide
+ */
 export interface AjfRepeatingSlide extends AjfRepeatingContainerNode {
     nodeType: AjfNodeType.AjfRepeatingSlide;
 }

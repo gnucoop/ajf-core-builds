@@ -21,4 +21,7 @@
  */
 import { AjfChoicesOrigin } from '../../interface/choices/choices-origin';
 export declare type AjfChoicesOriginCreate<T> = Pick<AjfChoicesOrigin<any>, 'type' | 'name'> & Partial<AjfChoicesOrigin<T>>;
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply label and choices defaults when it missing
+ */
 export declare function createChoicesOrigin<T>(origin: AjfChoicesOriginCreate<T>): AjfChoicesOrigin<T>;

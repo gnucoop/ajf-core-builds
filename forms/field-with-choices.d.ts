@@ -24,8 +24,22 @@ import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfFieldWithChoicesInstance } from './interface/fields-instances/field-with-choices-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
+/**
+ * It rappresents the base componet for every ajf fields with choiches.
+ *
+ * @export
+ * @abstract
+ * @class AjfFieldWithChoicesComponent
+ * @template T
+ */
 export declare abstract class AjfFieldWithChoicesComponent<T> extends AjfBaseFieldComponent<AjfFieldWithChoicesInstance<T>> {
     private _searchThreshold;
+    /**
+     * It represents the threshold below which the choices are displayed
+     * in expanded mode.
+     *
+     * @readonly
+     */
     get searchThreshold(): number;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, warningAlertService: AjfWarningAlertService, searchThreshold: number);
 }

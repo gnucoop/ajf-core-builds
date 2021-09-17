@@ -27,6 +27,12 @@ import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfWarningAlertService } from './warning-alert-service';
 export declare type AjfVideoProvider = 'youtube' | 'vimeo';
+/**
+ * It allows the loading of video(youtube or vimeo) url inside an AjfForm.
+ *
+ * @export
+ * @class AjfVideoUrlFieldComponent
+ */
 export declare class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
     readonly validUrl: Observable<boolean>;
     readonly videoThumbnail: Observable<SafeResourceUrl>;

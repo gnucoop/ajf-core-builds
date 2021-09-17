@@ -20,6 +20,10 @@
  *
  */
 import { PipeTransform } from '@angular/core';
+/**
+ * It returns a Date.
+ * if date is 'today' it return a now Date.
+ */
 export declare class AjfDateValuePipe implements PipeTransform {
     transform(date: Date | 'today' | undefined): Date | null;
 }

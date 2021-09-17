@@ -23,6 +23,12 @@ import { ChangeDetectorRef } from '@angular/core';
 import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfWarningAlertService } from './warning-alert-service';
+/**
+ * It allows the loading of files inside an AjfForm through an AjfFileInput.
+ *
+ * @export
+ * @class AjfFileFieldComponent
+ */
 export declare class AjfFileFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
 }

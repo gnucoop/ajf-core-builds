@@ -23,6 +23,15 @@ import { ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, OnInit } from '
 import { AjfFieldHost } from './field-host';
 import { AjfFieldInstance } from './interface/fields-instances/field-instance';
 import { AjfFieldComponentsMap } from './interface/fields/field-components-map';
+/**
+ * It is a base wrapper of every ajfField.
+ * It manages what type of component to load(editable component or readonly component)
+ * by input instance.
+ *
+ * @export
+ * @abstract
+ * @class AjfFormField
+ */
 export declare abstract class AjfFormField implements OnDestroy, OnInit {
     private _cdr;
     private _cfr;
@@ -30,6 +39,11 @@ export declare abstract class AjfFormField implements OnDestroy, OnInit {
     private _instance;
     get instance(): AjfFieldInstance;
     set instance(instance: AjfFieldInstance);
+    /**
+     * if true mean that component need to be a readonly component
+     *
+     * @private
+     */
     private _readonly;
     get readonly(): boolean;
     set readonly(readonly: boolean);
@@ -40,5 +54,11 @@ export declare abstract class AjfFormField implements OnDestroy, OnInit {
     constructor(_cdr: ChangeDetectorRef, _cfr: ComponentFactoryResolver);
     ngOnDestroy(): void;
     ngOnInit(): void;
+    /**
+     * It builds a new AjfField component by fieldType and binds it to the fieldHost.
+     *
+     * @private
+     * @return {*}
+     */
     private _loadComponent;
 }

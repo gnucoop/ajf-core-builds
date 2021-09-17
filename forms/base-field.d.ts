@@ -25,6 +25,17 @@ import { Observable } from 'rxjs';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfFieldInstance } from './interface/fields-instances/field-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
+/**
+ * It rappresents the base field component, the first overlay of ajfFieldInstance.
+ * It keeps a reference to the relative control of the form.
+ * It manages the component update in conjunction with the instance update.
+ * It manages the warningTrigger of the instance by displaying a confirmation
+ * popup when an alert event is triggered.
+ * @export
+ * @abstract
+ * @class AjfBaseFieldComponent
+ * @template T
+ */
 export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFieldInstance> implements OnDestroy, OnInit {
     protected _changeDetectorRef: ChangeDetectorRef;
     private _service;

@@ -20,4 +20,7 @@
  *
  */
 import { AjfCondition } from '../interface/condition';
+/**
+ * It creates a false AjfCondidion.
+ */
 export declare function neverCondition(): AjfCondition;

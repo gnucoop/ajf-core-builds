@@ -24,6 +24,13 @@ import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfTableFieldInstance } from './interface/fields-instances/table-field-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
+/**
+ * This component allows you to shows the values contained in the controls of
+ * the form inherited from AjfBaseFieldComponent with AjfTableFieldInstance.
+ *
+ * @export
+ * @class AjfReadOnlyTableFieldComponent
+ */
 export declare class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
 }

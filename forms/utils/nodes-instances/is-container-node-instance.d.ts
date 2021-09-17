@@ -20,4 +20,7 @@
  *
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
+/**
+ * It is true if nodeInstance is realtive to an AjfNodeGroup or slides nodes.
+ */
 export declare function isContainerNodeInstance(nodeInstance: AjfNodeInstance): boolean;

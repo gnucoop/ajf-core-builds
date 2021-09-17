@@ -23,4 +23,10 @@ import { AjfNodeGroup } from '../../interface/nodes/node-group';
 import { AjfContainerNodeCreate } from './create-container-node';
 import { AjfRepeatingNodeCreate } from './create-repeating-node';
 export declare type AjfNodeGroupCreate = AjfContainerNodeCreate & AjfRepeatingNodeCreate;
+/**
+ * It creates a AjfNodeGroup
+ * set nodeType to AjfNodeType.AjfNodeGroup = 2.
+ * Extends an AjfNode with the merging of containerNode  attributes(nodes)
+ * with repeatingNode attributes(formulaReps, minReps, maxReps)
+ */
 export declare function createNodeGroup(nodeGroup: AjfNodeGroupCreate): AjfNodeGroup;

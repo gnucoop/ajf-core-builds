@@ -21,4 +21,7 @@
  */
 import { AjfAttachmentsOrigin } from '../../interface/attachments/attachments-origin';
 export declare type AjfAttachmentsOriginCreate<T> = Pick<AjfAttachmentsOrigin<T>, 'name'> & Partial<AjfAttachmentsOrigin<T>>;
+/**
+ *  Create a attachmentsOrigin&lt;T&gt;, apply attachments defaults when it missing
+ */
 export declare function createAttachmentsOrigin<T>(origin: AjfAttachmentsOriginCreate<T>): AjfAttachmentsOrigin<T>;

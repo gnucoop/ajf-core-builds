@@ -22,6 +22,13 @@
 import { PipeTransform } from '@angular/core';
 import { AjfField } from './interface/fields/field';
 import { AjfFieldType } from './interface/fields/field-type';
+/**
+ *
+ *
+ * @param Field.
+ *
+ * @return An icon class name relative to the AjfType.
+ */
 export declare class AjfFieldIconPipe implements PipeTransform {
     transform(field: AjfField | AjfFieldType): string;
 }

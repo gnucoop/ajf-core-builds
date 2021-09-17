@@ -20,4 +20,9 @@
  *
  */
 import { AjfChoicesOrigin } from '../../interface/choices/choices-origin';
+/**
+ * Called by form-rederer
+ * take as param an AjfChoicesOrigin&lt;any&gt; and return an Promise&lt;void&gt; for handling async
+ * event
+ */
 export declare function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void>;

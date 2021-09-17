@@ -20,4 +20,7 @@
  *
  */
 import { AjfNode } from '../../interface/nodes/node';
+/**
+ * It is true if node is AjfSlide.
+ */
 export declare function isSlideNode(node: AjfNode): boolean;

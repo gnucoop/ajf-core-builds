@@ -20,4 +20,12 @@
  *
  */
 import { AjfBaseSlideInstance } from '../../interface/slides-instances/base-slide-instance';
+/**
+ * It checks if the idx slide of
+ *
+ * @export
+ * @param slide
+ * @param idx
+ * @return boolean
+ */
 export declare function validSlide(slide: AjfBaseSlideInstance, idx: number): boolean;

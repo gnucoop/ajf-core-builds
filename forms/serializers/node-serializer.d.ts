@@ -22,6 +22,11 @@
 import { AjfAttachmentsOrigin } from '../interface/attachments/attachments-origin';
 import { AjfChoicesOrigin } from '../interface/choices/choices-origin';
 import { AjfNode } from '../interface/nodes/node';
+/**
+ * Create an AjfNode by json schema,
+ * apply a default value for name
+ * throw new error if id,parent or nodeType attribute missed
+ */
 export declare class AjfNodeSerializer {
     static fromJson(json: Partial<AjfNode>, choicesOrigins?: AjfChoicesOrigin<any>[], attachmentsOrigins?: AjfAttachmentsOrigin<any>[]): AjfNode;
     private static _containerNodeFromJson;

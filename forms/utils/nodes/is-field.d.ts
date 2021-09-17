@@ -20,4 +20,7 @@
  *
  */
 import { AjfNode } from '../../interface/nodes/node';
+/**
+ * It is true if node is an AjfField.
+ */
 export declare function isField(node: AjfNode): boolean;

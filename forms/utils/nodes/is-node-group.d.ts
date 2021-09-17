@@ -20,4 +20,7 @@
  *
  */
 import { AjfNode } from '../../interface/nodes/node';
+/**
+ * It is true if node is an AjfNodeGroup.
+ */
 export declare function isNodeGroup(node: AjfNode): boolean;

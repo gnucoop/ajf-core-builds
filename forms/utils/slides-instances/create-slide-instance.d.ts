@@ -22,4 +22,10 @@
 import { AjfSlideInstance } from '../../interface/slides-instances/slide-instance';
 import { AjfBaseSlideInstanceCreate } from './base';
 export declare type AjfSlideInstanceCreate = AjfBaseSlideInstanceCreate & Partial<AjfSlideInstance>;
+/**
+ * It creates AjfSlideInstance.
+ * Init nodes,slideNodes and flatNodes with empty array.
+ * Init valid with false.
+ * Init position with 0.
+ */
 export declare function createSlideInstance(instance: AjfSlideInstanceCreate): AjfSlideInstance;

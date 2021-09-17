@@ -20,6 +20,9 @@
  *
  */
 import { PipeTransform } from '@angular/core';
+/**
+ * It casts a boolean as number.
+ */
 export declare class AjfBoolToIntPipe implements PipeTransform {
     transform(value: boolean): number;
 }

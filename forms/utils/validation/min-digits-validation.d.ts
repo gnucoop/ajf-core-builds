@@ -20,4 +20,8 @@
  *
  */
 import { AjfValidation } from '../../interface/validation/validation';
+/**
+ * It checks if the length of digits is greater than or equal to minValue and returns
+ * an AjfValidation.
+ */
 export declare function minDigitsValidation(minValue: number): AjfValidation;

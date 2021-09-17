@@ -20,7 +20,16 @@
  *
  */
 export interface AjfStringIdentifier {
+    /**
+     * A label used to describe the form data
+     */
     label: string;
+    /**
+     * if field is inside a repeating slide it indicates which fields to show
+     */
     show?: 'all' | 'first' | 'last';
+    /**
+     * The field name to be associated with the label
+     */
     value: string[];
 }

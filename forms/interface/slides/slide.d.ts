@@ -21,6 +21,9 @@
  */
 import { AjfContainerNode } from '../nodes/container-node';
 import { AjfNodeType } from '../nodes/node-type';
+/**
+ * An AjfContainerNode of type AjfSlide
+ */
 export interface AjfSlide extends AjfContainerNode {
     nodeType: AjfNodeType.AjfSlide;
 }

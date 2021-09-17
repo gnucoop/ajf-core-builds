@@ -21,6 +21,9 @@
  */
 import { AjfContext } from '@ajf/core/models';
 import { AjfForm } from '../interface/forms/form';
+/**
+ *  Create an AjfForm by json schema, apply a default value for stringIdentifier and initContext
+ */
 export declare class AjfFormSerializer {
     static fromJson(form: Partial<AjfForm>, context?: AjfContext): AjfForm;
 }

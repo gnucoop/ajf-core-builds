@@ -21,4 +21,10 @@
  */
 import { AjfContext } from '@ajf/core/models';
 import { AjfFieldInstance } from '../../interface/fields-instances/field-instance';
+/**
+ * it updates the instance.valid attribute.
+ * If validation is not defined the instance.valid is true.
+ * If valdiation.forceValue is true update context.
+ * Updates instance.valid with the re-evaluation of validationResults in AND.
+ */
 export declare function updateValidation(instance: AjfFieldInstance, context: AjfContext, supplementaryInformations?: any): void;

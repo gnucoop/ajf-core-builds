@@ -20,4 +20,9 @@
  *
  */
 import { AjfFieldType } from './interface/fields/field-type';
+/**
+ *
+ * @return a string that indetified the icon relative to type
+ * ex. ajf-icon-field-string, ajf-icon-field-number, ajf-icon-field-text ecc.
+ */
 export declare function fieldIconName(type: AjfFieldType): string;

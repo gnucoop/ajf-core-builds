@@ -24,10 +24,47 @@ import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfTableFieldInstance } from './interface/fields-instances/table-field-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
+/**
+ * This component manages the table field data.
+ * It exposes methods for managing the display of controllers.
+ *
+ *
+ * @export
+ * @abstract
+ * @class AjfTableFieldComponent
+ */
 export declare abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
+    /**
+     *  set the current cell show to false and set the next cell show to true.
+     *
+     * @param ev
+     * @param row
+     * @param column
+     * @return {*}
+     */
     goToNextCell(ev: Event, row: number, column: number): void;
+    /**
+     * It resets all control.show to false and sets the control.show
+     * (identified by row and column) to true.
+     *
+     * @param row
+     * @param column
+     */
     goToCell(row: number, column: number): void;
+    /**
+     * it sets all controls show to false.
+     *
+     * @private
+     */
     private _resetControls;
+    /**
+     * It sets the control.show (identified by row and column) to true.
+     *
+     * @private
+     * @param row
+     * @param column
+     * @return {*}
+     */
     private _showCell;
 }

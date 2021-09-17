@@ -38,29 +38,92 @@ export declare const dateUtils: {
 };
 export declare class AjfExpressionUtils {
     static UTIL_FUNCTIONS: string;
+    /**
+     * It is a key-value dictionary, that mapping all Ajf validation functions.
+     */
     static utils: {
         [name: string]: AjfValidationFn;
     };
 }
 export declare function evaluateExpression(expression: string, context?: AjfContext, forceFormula?: string): any;
+/**
+ * It returns the count of digit inside x.
+ */
 export declare function digitCount(x: number): number;
+/**
+ * It is count the count of decimal digit inside s.
+ */
 export declare function decimalCount(x: string | number): number;
+/**
+ * It is true if x is an integer.
+ */
 export declare function isInt(x: string | number): boolean;
+/**
+ * It is true if x is not empty.
+ */
 export declare function notEmpty(x: any): boolean;
+/**
+ * It is true if array contains x or array is equal to x.
+ */
 export declare function valueInChoice(array: any[], x: any): boolean;
+/**
+ * It applies callback for reps times and accumulate the result in acc.
+ */
 export declare function scanGroupField(reps: number, acc: any, callback: any): any;
+/**
+ * It returns the sum of the array values.
+ */
 export declare function sum(array: any[]): any;
+/**
+ * It applies add/remove(operation) v (day/month/year)period to dstring and return new format date.
+ */
 export declare function dateOperations(dString: string, period: string, operation: string, v: any): string;
+/**
+ * It rounds the num with the value of digits
+ */
 export declare function round(num: number | string, digits: number): number;
+/**
+ * It extracts property from source.
+ * for every element of source if property and property2 are defined return the sum
+ * else if only property is defined return him.
+ */
 export declare function extractArray(source: any[], property: string, property2?: string): any[];
+/**
+ * It returns the sum of all defined properties of each element of source.
+ */
 export declare function extractSum(source: any[], properties: string[]): number;
+/**
+ * It returns a number array that contains the sum of properties value inside the source.
+ * extractArraySum([{a: 5}, {b: 1}, {a: 5, b: 1}], ['a', 'b']); =&gt; [6,6]
+ */
 export declare function extractArraySum(source: any[], properties: string[]): any[];
+/**
+ * Draw a threshold line on chart related to the property.
+ */
 export declare function drawThreshold(source: any[], property: string, threshold: any[]): any[];
+/**
+ * Extract the dates of the source object with property != null
+ */
 export declare function extractDates(source: any[], property: string, fmt: string): string[];
+/**
+ * Extract the last property contains in source != null
+ */
 export declare function lastProperty(source: any, property: string): any;
+/**
+ * It sum the LAst properties of source.
+ */
 export declare function sumLastProperties(source: any[], properties: string[]): number;
+/**
+ * Compute the trend of the property contained on the source.
+ */
 export declare function calculateTrendProperty(source: any[], property: string): string;
+/**
+ * Compute the average value of the property contained on the source.
+ */
 export declare function calculateTrendByProperties(source: any[], properties: string[]): string;
+/**
+ *
+ */
 export declare function calculateAvgProperty(source: any[], property: string, range: number, coefficient: number): number;
 export declare function calculateAvgPropertyArray(source: any[], properties: string[], range: number, coefficient: number): number[];
 export declare function alert(source: any[], property: string, threshold: number): string;

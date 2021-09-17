@@ -22,4 +22,10 @@
 import { AjfNodeGroupInstance } from '../../interface/nodes-instances/node-group-instance';
 import { AjfNodeInstanceCreate } from './create-node-instance';
 export declare type AjfNodeGroupInstanceCreate = AjfNodeInstanceCreate & Partial<AjfNodeGroupInstance>;
+/**
+ * It creates an AjfNodeGroupInstance.
+ * It extends nodeInstance with (formulaReps,reps,nodes and flatNodes).
+ * Init reps with 0.
+ * Init nodes and flatNodes with empty array
+ */
 export declare function createNodeGroupInstance(instance: AjfNodeGroupInstanceCreate): AjfNodeGroupInstance;

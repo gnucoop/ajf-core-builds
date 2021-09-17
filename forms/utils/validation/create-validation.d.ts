@@ -20,4 +20,7 @@
  *
  */
 import { AjfValidation } from '../../interface/validation/validation';
+/**
+ *  Create a AjfValidation, apply clientValidation and errorMessage defaults when it missing
+ */
 export declare function createValidation(validation: Pick<AjfValidation, 'condition'> & Partial<AjfValidation>): AjfValidation;

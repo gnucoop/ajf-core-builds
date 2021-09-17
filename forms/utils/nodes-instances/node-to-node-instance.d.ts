@@ -22,4 +22,9 @@
 import { AjfContext } from '@ajf/core/models';
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
 import { AjfNode } from '../../interface/nodes/node';
+/**
+ * It creates a nodeInstance relative to a node.
+ * To create the instance it calls relative create builder by nodeType.
+ * If the prefix is ​​defined all formulas and conditions are calculated based on it.
+ */
 export declare function nodeToNodeInstance(allNodes: AjfNode[] | AjfNodeInstance[], node: AjfNode, prefix: number[], context: AjfContext): AjfNodeInstance | null;

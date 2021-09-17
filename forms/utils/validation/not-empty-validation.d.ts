@@ -20,4 +20,7 @@
  *
  */
 import { AjfValidation } from '../../interface/validation/validation';
+/**
+ * It creates an AjfValidation with notEmpty condition.
+ */
 export declare function notEmptyValidation(): AjfValidation;

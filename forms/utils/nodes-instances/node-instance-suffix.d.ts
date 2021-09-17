@@ -20,4 +20,7 @@
  *
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
+/**
+ * It creates the node instance suffix.
+ */
 export declare function nodeInstanceSuffix(instance: AjfNodeInstance): string;

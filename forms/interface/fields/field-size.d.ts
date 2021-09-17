@@ -19,4 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * The size of the Field to be used when the Field is rendered
+ */
 export declare type AjfFieldSize = 'normal' | 'small' | 'smaller' | 'tiny' | 'mini';

@@ -21,4 +21,9 @@
  */
 import { AjfContext } from '@ajf/core/models';
 import { AjfFieldInstance } from '../../interface/fields-instances/field-instance';
+/**
+ * It Updates instance warining results.
+ * If instance.warning in null return.
+ * If nodeInstanceCompleteName is in context and warning is defined re-evaluate warning group
+ */
 export declare function updateWarning(instance: AjfFieldInstance, context: AjfContext): void;

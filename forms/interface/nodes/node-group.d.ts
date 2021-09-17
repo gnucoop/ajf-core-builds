@@ -21,6 +21,9 @@
  */
 import { AjfNodeType } from './node-type';
 import { AjfRepeatingContainerNode } from './repeating-container-node';
+/**
+ * Is a AjfRepeatingContainerNode of AjfNodeGroup
+ */
 export interface AjfNodeGroup extends AjfRepeatingContainerNode {
     nodeType: AjfNodeType.AjfNodeGroup;
 }

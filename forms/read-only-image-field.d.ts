@@ -25,6 +25,13 @@ import { Observable } from 'rxjs';
 import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfWarningAlertService } from './warning-alert-service';
+/**
+ * This component allows you to show the image related to url contained in the control of
+ * the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyImageFieldComponent
+ */
 export declare class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
     readonly imageUrl: Observable<SafeResourceUrl>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer);

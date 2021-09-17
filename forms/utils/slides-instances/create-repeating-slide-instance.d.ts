@@ -22,4 +22,9 @@
 import { AjfRepeatingSlideInstance } from '../../interface/slides-instances/repeating-slide-instance';
 import { AjfSlideInstanceCreate } from './create-slide-instance';
 export declare type AjfRepeatingSlideInstanceCreate = Omit<AjfSlideInstanceCreate, 'node'> & Pick<AjfRepeatingSlideInstance, 'node'> & Partial<AjfRepeatingSlideInstance>;
+/**
+ * It creates AjfRepeatingSlideInstance.
+ * Init slideNodes, nodes and flatNodes with empty array,
+ * Init reps as with 0.
+ */
 export declare function createRepeatingSlideInstance(instance: AjfRepeatingSlideInstanceCreate): AjfRepeatingSlideInstance;

@@ -23,4 +23,10 @@ import { AjfContext } from '@ajf/core/models';
 import { AjfTableFieldInstance } from '../../interface/fields-instances/table-field-instance';
 import { AjfFieldInstanceCreate } from './create-field-instance';
 export declare type AjfTableFieldInstanceCreate = AjfFieldInstanceCreate & Partial<AjfTableFieldInstance>;
+/**
+ * Create an Table Fieldinstance.
+ * Extends simple field instance with context,hideEmptyRows and controls.
+ * If hideEmptyRows is not defined in instance set with false.
+ * Assign empty array to controls
+ */
 export declare function createTableFieldInstance(instance: AjfTableFieldInstanceCreate, context: AjfContext): AjfTableFieldInstance;

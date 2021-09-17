@@ -20,6 +20,9 @@
  *
  */
 import { ViewContainerRef } from '@angular/core';
+/**
+ * It Applies a viewContainerRef to a component selector.
+ */
 export declare class AjfFieldHost {
     readonly viewContainerRef: ViewContainerRef;
     constructor(viewContainerRef: ViewContainerRef);

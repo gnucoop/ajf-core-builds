@@ -20,4 +20,7 @@
  *
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
+/**
+ * It creates the complete name of the instance.
+ */
 export declare function nodeInstanceCompleteName(instance: AjfNodeInstance): string;

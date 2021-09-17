@@ -23,4 +23,8 @@ import { AjfRepeatingSlide } from '../../interface/slides/repeating-slide';
 import { AjfContainerNodeCreate } from '../nodes/create-container-node';
 import { AjfRepeatingNodeCreate } from '../nodes/create-repeating-node';
 export declare type AjfRepeatingSlideCreate = AjfContainerNodeCreate & AjfRepeatingNodeCreate;
+/**
+ * It creates a AjfRepeatingSlide as the composition of createContainerNode and
+ * createRepeatingNode and set AjfRepeatingSlide as nodeType
+ */
 export declare function createRepeatingSlide(nodeGroup: AjfRepeatingSlideCreate): AjfRepeatingSlide;

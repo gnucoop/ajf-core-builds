@@ -22,4 +22,10 @@
 import { AjfFieldWithChoices } from '../../interface/fields/field-with-choices';
 import { AjfFieldCreate } from './create-field';
 export declare type AjfFieldWithChoicesCreate<T> = AjfFieldCreate & Pick<AjfFieldWithChoices<T>, 'fieldType' | 'choicesOrigin'> & Partial<AjfFieldWithChoices<T>>;
+/**
+ * Create an AjfFieldWithChoice.
+ * If choices is not defined apply empty array.
+ * If forceExpanded is not defined apply false.
+ * If forceNarrow is not defined apply false.
+ */
 export declare function createFieldWithChoices<T>(field: AjfFieldWithChoicesCreate<T>): AjfFieldWithChoices<T>;

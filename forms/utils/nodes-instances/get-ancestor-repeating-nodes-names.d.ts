@@ -21,6 +21,11 @@
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
 import { AjfNode } from '../../interface/nodes/node';
+/**
+ * Returns all childs node.name of the node's ancestor (includes itself).
+ * It is a key-value dictionary, key is the name of the node and
+ * value is the position inside ancestorRepeatingNodes.
+ */
 export declare function getAncestorRepeatingNodesNames(allNodes: (AjfNode | AjfNodeInstance)[], node: AjfNode): {
     [prop: string]: number;
 };

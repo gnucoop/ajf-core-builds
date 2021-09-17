@@ -21,6 +21,12 @@
  */
 import { PipeTransform } from '@angular/core';
 import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
+/**
+ * It checks if the AjfNodeInstance parameter is an Formula AjfField.
+ *
+ * @export
+ * @class AjfIsReadonlyInputFieldPipe
+ */
 export declare class AjfIsReadonlyInputFieldPipe implements PipeTransform {
     transform(instance: AjfNodeInstance): boolean;
 }

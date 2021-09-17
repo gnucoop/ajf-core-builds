@@ -21,4 +21,11 @@
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
 export declare type AjfNodeInstanceCreate = Pick<AjfNodeInstance, 'node'> & Partial<AjfNodeInstance>;
+/**
+ * It creates an AjfNodeInstance.
+ * If instance.prefix is defined copy it else assign empty array.
+ * If instance.visible is not defined assign true.
+ * Assign empty array to conditionalBranches.
+ * Assign new eventEmitter to updatedEvt.
+ */
 export declare function createNodeInstance(instance: AjfNodeInstanceCreate): AjfNodeInstance;

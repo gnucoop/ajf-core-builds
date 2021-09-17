@@ -21,4 +21,7 @@
  */
 import { AjfContext } from '@ajf/core/models';
 import { AjfFieldWithChoicesInstance } from '../../interface/fields-instances/field-with-choices-instance';
+/**
+ * It is true if at least one of the triggherate coditions is true
+ */
 export declare function updateTriggerConditions(instance: AjfFieldWithChoicesInstance<any>, context: AjfContext): boolean;

@@ -21,9 +21,24 @@
  */
 import { AjfFormula } from '@ajf/core/models';
 import { AjfNode } from './node';
+/**
+ * Interface that is extended to represent a Repeating Node.
+ * Repeating nodes are used any time a node can or must be repeated
+ * N times, where N is the value of the "formulaReps" property.
+ */
 export interface AjfRepeatingNode extends AjfNode {
+    /**
+     * Is the number of node repetition
+     * Example: "opd_treatment == 'Yes' && ($groupReps || 1) || 0"
+     */
     formulaReps?: AjfFormula;
+    /**
+     *  Max number of repetitions
+     */
     maxReps: number;
+    /**
+     *  Min number of repetitions
+     */
     minReps: number;
     /**
      * If true show all slides of repeating node in readonly mode.

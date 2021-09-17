@@ -20,4 +20,7 @@
  *
  */
 import { AjfCondition } from '../interface/condition';
+/**
+ * It creates a true AjfCondidion.
+ */
 export declare function alwaysCondition(): AjfCondition;

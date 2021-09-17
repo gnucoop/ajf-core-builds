@@ -25,6 +25,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfVideoUrlFieldComponent } from './video-url-field';
 import { AjfWarningAlertService } from './warning-alert-service';
+/**
+ * This component allows you to show the video related to url contained in the control of
+ * the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyVideoUrlFieldComponent
+ */
 export declare class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer, httpClient: HttpClient);
 }

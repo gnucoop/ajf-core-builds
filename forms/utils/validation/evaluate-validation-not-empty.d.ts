@@ -21,4 +21,8 @@
  */
 import { AjfValidationGroup } from '../../interface/validation/validation-group';
 import { AjfValidationResult } from '../../interface/validation/validation-results';
+/**
+ * Basic validation function that cheecks the value is not null
+ * notEmpty is the associated AjfCondition
+ */
 export declare function evaluateValidationNotEmpty(validation: AjfValidationGroup, value: any): AjfValidationResult | null;

@@ -25,6 +25,13 @@ import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfFieldWithChoicesInstance } from './interface/fields-instances/field-with-choices-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
+/**
+ * This component allows you to show the values of AjfFieldWithChoicesInstance
+ * contained in the control of the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlySelectFieldComponent
+ */
 export declare class AjfReadOnlySelectFieldComponent extends AjfBaseFieldComponent<AjfFieldWithChoicesInstance<String | number>> {
     readonly multiple: Observable<boolean>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);

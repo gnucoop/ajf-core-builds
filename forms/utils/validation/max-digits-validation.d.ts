@@ -20,4 +20,8 @@
  *
  */
 import { AjfValidation } from '../../interface/validation/validation';
+/**
+ * It checks if the length of digits is less than or equal to maxValue and returns
+ * an AjfValidation.
+ */
 export declare function maxDigitsValidation(maxValue: number): AjfValidation;

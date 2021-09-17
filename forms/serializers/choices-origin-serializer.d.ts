@@ -20,6 +20,9 @@
  *
  */
 import { AjfChoicesOrigin } from '../interface/choices/choices-origin';
+/**
+ *  Create an AjfChoicesOrigin by json schema, apply a default value for type and name
+ */
 export declare class AjfChoicesOriginSerializer {
     static fromJson(origin: Partial<AjfChoicesOrigin<any>>): AjfChoicesOrigin<any>;
 }

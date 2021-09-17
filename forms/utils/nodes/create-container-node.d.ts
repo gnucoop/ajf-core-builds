@@ -22,4 +22,9 @@
 import { AjfContainerNode } from '../../interface/nodes/container-node';
 import { AjfNodeCreate } from './create-node';
 export declare type AjfContainerNodeCreate = AjfNodeCreate & Partial<AjfContainerNode>;
+/**
+ * It creates an AjfContainerNode by schema.
+ * Extends AjfNode with nodes.
+ * if nodes is not defined assign empty array
+ */
 export declare function createContainerNode(containerNode: AjfContainerNodeCreate): AjfContainerNode;

@@ -19,4 +19,11 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * Should return the name of the class of the given object in string
+ *
+ * @export
+ * @param v
+ * @return {*}
+ */
 export declare function getTypeName(v: any): string;

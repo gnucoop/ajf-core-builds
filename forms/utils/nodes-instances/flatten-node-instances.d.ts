@@ -20,4 +20,9 @@
  *
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
+/**
+ * it creates a one dimensional array of AjfNodeInstance.
+ * if the node is a isContainerNodeInstance(has the nodes attribute)
+ * recursively  concat their nodes
+ */
 export declare function flattenNodeInstances(nodes?: AjfNodeInstance[]): AjfNodeInstance[];

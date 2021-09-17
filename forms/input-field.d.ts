@@ -20,6 +20,14 @@
  *
  */
 import { AjfBaseFieldComponent } from './base-field';
+/**
+ * It is an AjfBaseFieldComponent where the type can be only text or number.
+ * Type is text by default.
+ *
+ * @export
+ * @abstract
+ * @class AjfInputFieldComponent
+ */
 export declare abstract class AjfInputFieldComponent extends AjfBaseFieldComponent {
     type: 'text' | 'number';
 }

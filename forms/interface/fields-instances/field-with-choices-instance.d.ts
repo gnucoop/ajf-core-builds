@@ -24,9 +24,18 @@ import { EventEmitter } from '@angular/core';
 import { AjfChoice } from '../choices/choice';
 import { AjfFieldWithChoices } from '../fields/field-with-choices';
 import { AjfFieldInstance } from './field-instance';
+/**
+ * An AjfFieldInstance with a node of type AjfFieldWithChoicesInstance.
+ */
 export interface AjfFieldWithChoicesInstance<T> extends AjfFieldInstance {
     node: AjfFieldWithChoices<T>;
+    /**
+     * The filtered choices list, originally taken from json schema
+     */
     filteredChoices: AjfChoice<any>[];
+    /**
+     * A formula to filter choices elements
+     */
     choicesFilter?: AjfFormula;
     triggerConditions?: AjfCondition[];
     firstTriggerConditionDone: any;

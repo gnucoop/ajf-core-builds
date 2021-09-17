@@ -20,4 +20,8 @@
  *
  */
 import { AjfValidation } from '../../interface/validation/validation';
+/**
+ * It checks if the value is geater than or equal to minValue and returns
+ * an AjfValidation.
+ */
 export declare function minValidation(minValue: number): AjfValidation;

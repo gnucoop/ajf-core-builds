@@ -20,7 +20,16 @@
  *
  */
 import { AjfNodeInstance } from './node-instance';
+/**
+ * An AjfNodeInstance that contains other AjfNodeInstances.
+ */
 export interface AjfContainerNodeInstance extends AjfNodeInstance {
-    flatNodes: AjfNodeInstance[];
+    /**
+     * The children NodeInstances
+     */
     nodes: AjfNodeInstance[];
+    /**
+     * A list of all the descendants NodeInstances, flattened in a single array
+     */
+    flatNodes: AjfNodeInstance[];
 }

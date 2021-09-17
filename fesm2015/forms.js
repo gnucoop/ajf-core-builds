@@ -39,6 +39,9 @@ import { createPdf } from 'pdfmake/build/pdfmake';
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It casts an AjfNodeInstance as AjfFieldInstance.
+ */
 class AjfAsFieldInstancePipe {
     transform(instance) {
         return instance;
@@ -69,6 +72,9 @@ AjfAsFieldInstancePipe.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It casts an AjfSlideInstance as AjfRepeatingSlideInstance.
+ */
 class AjfAsRepeatingSlideInstancePipe {
     transform(instance) {
         return instance;
@@ -98,6 +104,9 @@ AjfAsRepeatingSlideInstancePipe.decorators = [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * The available ajf field types.
  */
 // tslint:disable-next-line:prefer-const-enum
 var AjfFieldType;
@@ -144,6 +153,9 @@ var AjfFieldType;
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * An enum containing all the available NodeTypes
+ */
 // tslint:disable-next-line:prefer-const-enum
 var AjfNodeType;
 (function (AjfNodeType) {
@@ -176,19 +188,28 @@ var AjfNodeType;
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * Called by form-rederer
+ * take as param an AjfChoicesOrigin&lt;any&gt; and return an Promise&lt;void&gt; for handling async
+ * event
+ */
 function initChoicesOrigin(origin) {
+    /** fixed don't use async evente the promise is resolved */
     if (origin.type === 'fixed') {
         return Promise.resolve();
     }
+    /** apply function and than return resolve promise */
     if (origin.type === 'function') {
         const fo = origin;
         fo.choices = fo.generator();
         return Promise.resolve();
     }
+    /** modify origin.choices with result of resolved promise */
     if (origin.type === 'promise') {
         const po = origin;
         return po.generator.then(choices => po.choices = choices).then();
     }
+    /** modify origin.choices with result of subscribed observable */
     if (origin.type === 'observable') {
         const obso = origin;
         if (obso.generator != null) {
@@ -198,6 +219,7 @@ function initChoicesOrigin(origin) {
             });
         }
     }
+    /** modify origin.choices with result of subscribed observable */
     if (origin.type === 'observableArray') {
         const aoo = origin;
         if (aoo.generator != null) {
@@ -234,6 +256,9 @@ function initChoicesOrigin(origin) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if the field type is a SingleChoice or MultipleChoice.
+ */
 function isFieldWithChoices(field) {
     return field.fieldType === AjfFieldType.SingleChoice ||
         field.fieldType === AjfFieldType.MultipleChoice;
@@ -260,6 +285,9 @@ function isFieldWithChoices(field) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if node is an AjfField.
+ */
 function isField(node) {
     return node != null && node.nodeType === AjfNodeType.AjfField;
 }
@@ -285,6 +313,9 @@ function isField(node) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if the nodeInstance is relative to a AjfField.
+ */
 function isFieldInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isField(nodeInstance.node);
 }
@@ -309,6 +340,10 @@ function isFieldInstance(nodeInstance) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It is true if the nodeInstance is a fieldInstance and
+ * if the node of instance is a field with choices.
  */
 function isFieldWithChoicesInstance(nodeInstance) {
     return nodeInstance != null && isFieldInstance(nodeInstance) &&
@@ -336,6 +371,9 @@ function isFieldWithChoicesInstance(nodeInstance) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if the field type is Table.
+ */
 function isTableField(field) {
     return field.fieldType === AjfFieldType.Table;
 }
@@ -360,6 +398,10 @@ function isTableField(field) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It is true if the nodeInstance is a fieldInstance and
+ * if the node of instance is a Table field.
  */
 function isTableFieldInstance(nodeInstance) {
     return nodeInstance != null && isFieldInstance(nodeInstance) &&
@@ -386,6 +428,10 @@ function isTableFieldInstance(nodeInstance) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It updates instance.verifiedBranch with the idx of the last branch verified.
+ * If instance.verifiedBranch value changes return true
  */
 function updateConditionalBranches(instance, context) {
     const conditionalBranches = instance.conditionalBranches;
@@ -431,6 +477,11 @@ function updateConditionalBranches(instance, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It updates instance.visible with the result of evaluating instance.visibility.condition.
+ * If instance.visibility is null instance.visible is false and it returns false.
+ * If instance.visible changes return true.
+ */
 function updateVisibility(instance, context, branchVisibility = true) {
     if (instance.visibility == null) {
         instance.visible = false;
@@ -466,6 +517,10 @@ function updateVisibility(instance, context, branchVisibility = true) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+// TODO: add details
+/**
+ * It creates the node instance suffix.
+ */
 function nodeInstanceSuffix(instance) {
     if (instance.prefix == null || instance.prefix.length == 0) {
         return '';
@@ -493,6 +548,10 @@ function nodeInstanceSuffix(instance) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+// TODO: add details
+/**
+ * It creates the complete name of the instance.
  */
 function nodeInstanceCompleteName(instance) {
     return instance != null && instance.node != null ?
@@ -562,6 +621,10 @@ function updateFormula(instance, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * If nextSlideCondition of instance is defined return the evaluateExpression of nextSlideCondition
+ * else return false.
+ */
 function updateNextSlideCondition(instance, context) {
     if (instance.nextSlideCondition != null) {
         return evaluateExpression(instance.nextSlideCondition.condition, context);
@@ -589,6 +652,9 @@ function updateNextSlideCondition(instance, context) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It evaluates validation and returns an AjfValidationResult.
  */
 function evaluateValidation(validation, context, forceFormula) {
     return {
@@ -619,6 +685,9 @@ function evaluateValidation(validation, context, forceFormula) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It applies evaluateValidation to every validation condition and return it.
+ */
 function evaluateValidationConditions(validation, context) {
     let res = [];
     validation.conditions.forEach((cond) => {
@@ -647,6 +716,10 @@ function evaluateValidationConditions(validation, context) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * Basic validation function that cheecks the maximum digit's length.
+ * maxDigits is the associated AjfCondition
  */
 function evaluateValidationMaxDigits(validation, value) {
     if (validation.maxDigits == null) {
@@ -684,6 +757,10 @@ function evaluateValidationMaxDigits(validation, value) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * Basic validation function that cheecks the maximum value of the digit
+ * maxValue is the associated AjfCondition
+ */
 function evaluateValidationMaxValue(validation, value) {
     if (validation.maxValue == null) {
         return null;
@@ -719,6 +796,10 @@ function evaluateValidationMaxValue(validation, value) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * Basic validation function that cheecks the minimum digit's length.
+ * minDigits is the associated AjfCondition
  */
 function evaluateValidationMinDigits(validation, value) {
     if (validation.minDigits == null) {
@@ -756,6 +837,10 @@ function evaluateValidationMinDigits(validation, value) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * Basic validation function that cheecks the minimum value of the digit
+ * minValue is the associated AjfCondition
+ */
 function evaluateValidationMinValue(validation, value) {
     if (validation.minValue == null) {
         return null;
@@ -792,6 +877,10 @@ function evaluateValidationMinValue(validation, value) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * Basic validation function that cheecks the value is not null
+ * notEmpty is the associated AjfCondition
+ */
 function evaluateValidationNotEmpty(validation, value) {
     if (validation.notEmpty == null) {
         return null;
@@ -827,6 +916,9 @@ function evaluateValidationNotEmpty(validation, value) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It evaluate AjfValidationGroup and returns an AjfValidationResult[].
  */
 function evaluateValidationGroup(validation, value, context) {
     let res = [];
@@ -887,12 +979,19 @@ function evaluateValidationGroup(validation, value, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * it updates the instance.valid attribute.
+ * If validation is not defined the instance.valid is true.
+ * If valdiation.forceValue is true update context.
+ * Updates instance.valid with the re-evaluation of validationResults in AND.
+ */
 function updateValidation(instance, context, supplementaryInformations) {
     const validation = instance.validation;
     if (validation == null) {
         instance.valid = true;
         return;
     }
+    // TODO what is this??
     if (supplementaryInformations) {
         Object.keys(supplementaryInformations).forEach((key) => {
             context[`__supplementary__${key}__`] = supplementaryInformations[key];
@@ -1007,6 +1106,11 @@ function evaluateWarningGroup(warning, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It Updates instance warining results.
+ * If instance.warning in null return.
+ * If nodeInstanceCompleteName is in context and warning is defined re-evaluate warning group
+ */
 function updateWarning(instance, context) {
     const warning = instance.warning;
     if (warning == null) {
@@ -1038,6 +1142,9 @@ function updateWarning(instance, context) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It grab all the field instance update functions.
  */
 function updateFieldInstanceState(instance, context, branchVisibility = true) {
     updateVisibility(instance, context, branchVisibility);
@@ -1103,6 +1210,9 @@ function updateFilteredChoices(instance, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if at least one of the triggherate coditions is true
+ */
 function updateTriggerConditions(instance, context) {
     if (instance.triggerConditions == null) {
         return false;
@@ -1144,6 +1254,13 @@ function updateTriggerConditions(instance, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It creates an AjfNode by schema.
+ * If conditionalBranches is not defined assign {condition: 'true'}.
+ * If parentNode is not defined assign 0.
+ * If label is not defined assign ''.
+ * If visibility is not defined assign {condition: 'true'}.
+ */
 function createNode(node) {
     const conditionalBranches = node.conditionalBranches != null && node.conditionalBranches.length > 0 ?
         node.conditionalBranches :
@@ -1171,6 +1288,12 @@ function createNode(node) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates an AjfField.
+ * If size is not defined apply 'normal'.
+ * If defaultValue is not defined apply null.
+ * If editable is not defined return true if field type is'nt formula or table
  */
 function createField(field) {
     const node = createNode(Object.assign(Object.assign({}, field), { nodeType: AjfNodeType.AjfField }));
@@ -1201,6 +1324,11 @@ function createField(field) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * The componentsMap is a dictionary key value
+ * Represents the association between an AjfFieldType and the
+ * components used to render it.
+ */
 const componentsMap = {};
 
 /**
@@ -1223,6 +1351,12 @@ const componentsMap = {};
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It is true if
+ *  the field is a custom field (field.fieldType &gt; 100) and
+ *  the field is not already present in the component map (componentsMap[field.fieldType] != null)
+ * and the field is a fieldWithChoice (componentsMap[field.fieldType].isFieldWithChoice === true)
  */
 function isCustomFieldWithChoices(field) {
     return field.fieldType > 100 && componentsMap[field.fieldType] != null &&
@@ -1250,6 +1384,9 @@ function isCustomFieldWithChoices(field) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if node is AjfRepeatingSlide or AjfSlide.
+ */
 function isSlidesNode(node) {
     return node != null &&
         (node.nodeType === AjfNodeType.AjfRepeatingSlide || node.nodeType === AjfNodeType.AjfSlide);
@@ -1276,6 +1413,9 @@ function isSlidesNode(node) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if node is AjfNodeGroup or slides nodes.
+ */
 function isContainerNode(node) {
     return node != null && (node.nodeType === AjfNodeType.AjfNodeGroup || isSlidesNode(node));
 }
@@ -1301,6 +1441,9 @@ function isContainerNode(node) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if nodeInstance is realtive to an AjfNodeGroup or slides nodes.
+ */
 function isContainerNodeInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isContainerNode(nodeInstance.node);
 }
@@ -1325,6 +1468,12 @@ function isContainerNodeInstance(nodeInstance) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates a one dimensional array of AjfNodeInstance.
+ * If the node is a containerNode(has the nodes attribute)
+ * recursively  concat their nodes.
+ * If includeGroups is true the result also contains the containerNodeInstance.
  */
 function flattenNodesInstances(nodes, includeGroups = false) {
     let flatNodes = [];
@@ -1363,6 +1512,9 @@ function flattenNodesInstances(nodes, includeGroups = false) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if nodeInstance is relative to AjfRepeatingSlide node or AjfSlide node.
+ */
 function isSlidesInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isSlidesNode(nodeInstance.node);
 }
@@ -1387,6 +1539,10 @@ function isSlidesInstance(nodeInstance) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates a one dimensional array of AjfSlideInstance.
+ * If the node is a slides node recursively  concat their nodes.
  */
 function flattenNodesInstancesTree(nodes) {
     let flatTree = [];
@@ -1421,6 +1577,9 @@ function flattenNodesInstancesTree(nodes) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if node is an AjfNodeGroup.
+ */
 function isNodeGroup(node) {
     return node != null && node.nodeType === AjfNodeType.AjfNodeGroup;
 }
@@ -1445,6 +1604,9 @@ function isNodeGroup(node) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It is true if nodeInstance is relative to a AjfNodeGroup.
  */
 function isNodeGroupInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isNodeGroup(nodeInstance.node);
@@ -1471,6 +1633,9 @@ function isNodeGroupInstance(nodeInstance) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if node is AjfSlide.
+ */
 function isSlideNode(node) {
     return node != null && node.nodeType === AjfNodeType.AjfSlide;
 }
@@ -1496,6 +1661,9 @@ function isSlideNode(node) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if nodeInstance is relative to an AjfSlide node.
+ */
 function isSlideInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isSlideNode(nodeInstance.node);
 }
@@ -1520,6 +1688,13 @@ function isSlideInstance(nodeInstance) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates an AjfNodeInstance.
+ * If instance.prefix is defined copy it else assign empty array.
+ * If instance.visible is not defined assign true.
+ * Assign empty array to conditionalBranches.
+ * Assign new eventEmitter to updatedEvt.
  */
 function createNodeInstance(instance) {
     return {
@@ -1551,6 +1726,18 @@ function createNodeInstance(instance) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * Create a field instance and init the value of the field by cascade conditions.
+ *
+ * First check if the value is in the context by node name.
+ * Second check if the value is in the context by complete name.
+ * Third check if the field has a default value.
+ * Else value is null.
+ *
+ * If instance validationResultsis is not defined assign empty array.
+ * If instance warningResults is not defined assign empty array.
+ * Init valid with false.
  */
 function createFieldInstance(instance, context) {
     const nodeInstance = createNodeInstance(instance);
@@ -1592,6 +1779,11 @@ function createFieldInstance(instance, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * Create a field with choices instance.
+ * Extends simple field instance with
+ * filteredChoices,firstTriggerConditionDone and selectionTrigger
+ */
 function createFieldWithChoicesInstance(instance, context) {
     const fieldInstance = createFieldInstance(instance, context);
     return Object.assign(Object.assign({}, fieldInstance), { node: instance.node, filteredChoices: [...instance.node.choices], firstTriggerConditionDone: {}, selectionTrigger: new EventEmitter() });
@@ -1632,6 +1824,12 @@ function normalizeRows(node) {
         });
     });
 }
+/**
+ * Create an Table Fieldinstance.
+ * Extends simple field instance with context,hideEmptyRows and controls.
+ * If hideEmptyRows is not defined in instance set with false.
+ * Assign empty array to controls
+ */
 function createTableFieldInstance(instance, context) {
     normalizeRows(instance.node);
     const fieldInstance = createFieldInstance(instance, context);
@@ -1659,6 +1857,12 @@ function createTableFieldInstance(instance, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It creates an AjfNodeGroupInstance.
+ * It extends nodeInstance with (formulaReps,reps,nodes and flatNodes).
+ * Init reps with 0.
+ * Init nodes and flatNodes with empty array
+ */
 function createNodeGroupInstance(instance) {
     const nodeInstance = createNodeInstance(instance);
     return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, formulaReps: instance.formulaReps, reps: 0, nodes: [], flatNodes: [] });
@@ -1685,6 +1889,12 @@ function createNodeGroupInstance(instance) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It creates AjfSlideInstance.
+ * Init nodes,slideNodes and flatNodes with empty array.
+ * Init valid with false.
+ * Init position with 0.
+ */
 function createSlideInstance(instance) {
     const nodeInstance = createNodeInstance(instance);
     return Object.assign(Object.assign({}, nodeInstance), { node: instance.node, nodes: [], slideNodes: [], flatNodes: [], valid: false, position: 0, editable: instance.editable || true, readonly: instance.node.readonly || neverCondition() });
@@ -1710,6 +1920,11 @@ function createSlideInstance(instance) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates AjfRepeatingSlideInstance.
+ * Init slideNodes, nodes and flatNodes with empty array,
+ * Init reps as with 0.
  */
 function createRepeatingSlideInstance(instance) {
     const { node } = instance, slideInstanceCreate = __rest(instance, ["node"]);
@@ -1739,6 +1954,9 @@ function createRepeatingSlideInstance(instance) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *  Create a AjfValidationGroup, apply conditions defaults when it missing
+ */
 function createValidationGroup(group) {
     return Object.assign(Object.assign({}, group), { conditions: group.conditions || [] });
 }
@@ -1764,6 +1982,9 @@ function createValidationGroup(group) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *  Create an AjfWarningGroup, apply conditions defaults when it missing
+ */
 function createWarningGroup(group) {
     return Object.assign(Object.assign({}, group), { conditions: group.conditions || [] });
 }
@@ -1788,6 +2009,9 @@ function createWarningGroup(group) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It is true if node is AjfNodeGroup or AjfRepeatingSlide.
  */
 function isRepeatingContainerNode(node) {
     return node != null &&
@@ -1815,6 +2039,9 @@ function isRepeatingContainerNode(node) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It returns all ancestor repeatingContainerNodes of the node.
  */
 function getAncestorRepeatingNodes(allNodes, node) {
     let nodeGroups = [];
@@ -1852,6 +2079,11 @@ function getAncestorRepeatingNodes(allNodes, node) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * Returns all childs node.name of the node's ancestor (includes itself).
+ * It is a key-value dictionary, key is the name of the node and
+ * value is the position inside ancestorRepeatingNodes.
  */
 function getAncestorRepeatingNodesNames(allNodes, node) {
     let names = {};
@@ -1977,6 +2209,9 @@ function getInstanceFormula(formula, ancestorsNames, prefix) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ *  Create a AjfValidation, apply clientValidation and errorMessage defaults when it missing
  */
 function createValidation(validation) {
     return Object.assign(Object.assign({}, validation), { clientValidation: validation.clientValidation || false, errorMessage: validation.errorMessage || 'Undefined Error' });
@@ -2154,6 +2389,9 @@ function getInstanceWarnings(warnings, ancestorsNames, prefix) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if node is AjfRepeatingSlide.
+ */
 function isRepeatingSlide(node) {
     return node != null && node.nodeType === AjfNodeType.AjfRepeatingSlide;
 }
@@ -2178,6 +2416,10 @@ function isRepeatingSlide(node) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It is true if nodeInstance is a slide instance
+ * and the relative node is AjfRepeatingSlide.
  */
 function isRepeatingSlideInstance(nodeInstance) {
     return nodeInstance != null && nodeInstance.node != null && isSlidesInstance(nodeInstance) &&
@@ -2204,6 +2446,11 @@ function isRepeatingSlideInstance(nodeInstance) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates a nodeInstance relative to a node.
+ * To create the instance it calls relative create builder by nodeType.
+ * If the prefix is ​​defined all formulas and conditions are calculated based on it.
  */
 function nodeToNodeInstance(allNodes, node, prefix, context) {
     let instance = null;
@@ -2400,6 +2647,11 @@ function updateEditability(instance, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It creates an one dimensional array of AjfNode.
+ * If the node is a containerNode(has the nodes attribute)
+ * recursively  concat their nodes.
+ */
 function flattenNodes(nodes) {
     let flatNodes = [];
     nodes.forEach((node) => {
@@ -2431,6 +2683,11 @@ function flattenNodes(nodes) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It is return a new orderered nodes.
+ * The newNodes are ordered recursively by parentNode.
+ * The sorting begins by parent
  */
 function orderedNodes(nodes, parent) {
     let newNodes = [];
@@ -2464,6 +2721,9 @@ function orderedNodes(nodes, parent) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It upodates AjfRepeatingNodeInstance reps and it returns oldReps.
  */
 function updateRepsNum(instance, context) {
     const oldReps = instance.reps || 0;
@@ -2508,6 +2768,14 @@ function updateRepsNum(instance, context) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It checks if the idx slide of
+ *
+ * @export
+ * @param slide
+ * @param idx
+ * @return boolean
  */
 function validSlide(slide, idx) {
     if (idx >= slide.slideNodes.length) {
@@ -4028,6 +4296,17 @@ AjfFormRendererService.ctorParameters = () => [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It rappresents the base field component, the first overlay of ajfFieldInstance.
+ * It keeps a reference to the relative control of the form.
+ * It manages the component update in conjunction with the instance update.
+ * It manages the warningTrigger of the instance by displaying a confirmation
+ * popup when an alert event is triggered.
+ * @export
+ * @abstract
+ * @class AjfBaseFieldComponent
+ * @template T
+ */
 class AjfBaseFieldComponent {
     constructor(_changeDetectorRef, _service, _warningAlertService) {
         this._changeDetectorRef = _changeDetectorRef;
@@ -4083,6 +4362,7 @@ class AjfBaseFieldComponent {
         this._warningTriggerSub.unsubscribe();
         this._instanceUpdateSub.unsubscribe();
     }
+    // TODO: why?
     _onInstanceChange() { }
     _setUpInstanceUpdate() {
         this._instanceUpdateSub.unsubscribe();
@@ -4133,6 +4413,9 @@ AjfBaseFieldComponent.ctorParameters = () => [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It casts a boolean as number.
+ */
 class AjfBoolToIntPipe {
     transform(value) {
         return value ? 1 : 0;
@@ -4162,6 +4445,10 @@ AjfBoolToIntPipe.decorators = [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It returns a Date.
+ * if date is 'today' it return a now Date.
  */
 class AjfDateValuePipe {
     transform(date) {
@@ -4195,6 +4482,11 @@ AjfDateValuePipe.decorators = [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It formats Date with 'yyyy-MM-dd'
+ * @param date the date to format
+ * @return the format date
  */
 class AjfDateValueStringPipe {
     transform(date) {
@@ -4264,6 +4556,10 @@ class AjfInvalidFieldDefinitionError extends AjfError {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It returns true if AjfFieldWithChoices is forceExpanded and filteredChoices length is
+ * less than equal threshold.
+ */
 class AjfExpandFieldWithChoicesPipe {
     transform(instance, threshold) {
         return !instance.node.forceNarrow &&
@@ -4295,6 +4591,9 @@ AjfExpandFieldWithChoicesPipe.decorators = [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It Applies a viewContainerRef to a component selector.
  */
 class AjfFieldHost {
     constructor(viewContainerRef) {
@@ -4328,6 +4627,15 @@ AjfFieldHost.ctorParameters = () => [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It is a base wrapper of every ajfField.
+ * It manages what type of component to load(editable component or readonly component)
+ * by input instance.
+ *
+ * @export
+ * @abstract
+ * @class AjfFormField
  */
 class AjfFormField {
     constructor(_cdr, _cfr) {
@@ -4369,6 +4677,12 @@ class AjfFormField {
         this._init = true;
         this._loadComponent();
     }
+    /**
+     * It builds a new AjfField component by fieldType and binds it to the fieldHost.
+     *
+     * @private
+     * @return {*}
+     */
     _loadComponent() {
         this._updatedSub.unsubscribe();
         this._updatedSub = Subscription.EMPTY;
@@ -4437,6 +4751,11 @@ AjfFormField.propDecorators = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *
+ * @return a string that indetified the icon relative to type
+ * ex. ajf-icon-field-string, ajf-icon-field-number, ajf-icon-field-text ecc.
+ */
 function fieldIconName(type) {
     return `ajf-icon-field-${typeof AjfFieldType[type] === 'string' ? AjfFieldType[type].toLowerCase() : type}`;
 }
@@ -4461,6 +4780,13 @@ function fieldIconName(type) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ *
+ *
+ * @param Field.
+ *
+ * @return An icon class name relative to the AjfType.
  */
 class AjfFieldIconPipe {
     transform(field) {
@@ -4490,6 +4816,10 @@ AjfFieldIconPipe.decorators = [
  * You should have received a copy of the GNU Affero General Public License
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+/**
+ * It returns true if all validationResults are true.
  *
  */
 class AjfFieldIsValidPipe {
@@ -4526,6 +4856,16 @@ class AjfFieldService {
     constructor() {
         this.componentsMap = componentsMap;
     }
+    /**
+     * It allows to register custom fields inside an Ajf form.
+     * @param fieldType is the field type of the custom field. Values from 0 to 100 are reserved to
+     *     Ajf.
+     * @param component It is the custom component that implement an AjfBaseFieldComponent.
+     * @param readOnlyComponent It is the readonly custom component that implement an
+     *     AjfBaseFieldComponent.
+     * @createInstance The signature and return type of the method used for create Instance.
+     * @isFieldWithChoice If true, the field has choices.
+     */
     registerCustomField(field) {
         const { fieldType, component } = field;
         if (fieldType < 100) {
@@ -4581,6 +4921,14 @@ class AjfFieldService {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It rappresents the base componet for every ajf fields with choiches.
+ *
+ * @export
+ * @abstract
+ * @class AjfFieldWithChoicesComponent
+ * @template T
+ */
 class AjfFieldWithChoicesComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, warningAlertService, searchThreshold) {
         super(cdr, service, warningAlertService);
@@ -4589,6 +4937,12 @@ class AjfFieldWithChoicesComponent extends AjfBaseFieldComponent {
             this._searchThreshold = searchThreshold;
         }
     }
+    /**
+     * It represents the threshold below which the choices are displayed
+     * in expanded mode.
+     *
+     * @readonly
+     */
     get searchThreshold() {
         return this._searchThreshold;
     }
@@ -4637,6 +4991,12 @@ const AJF_WARNING_ALERT_SERVICE = new InjectionToken('ajf-warning-alert-service'
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It allows the loading of files inside an AjfForm through an AjfFileInput.
+ *
+ * @export
+ * @class AjfFileFieldComponent
  */
 class AjfFileFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, was) {
@@ -4961,6 +5321,9 @@ AjfFormRenderer.propDecorators = {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It builds a string that contains information preview about the form and its context.
+ */
 const buildFormStringIdentifier = (form, context, opts) => {
     if (form == null) {
         return '';
@@ -5018,6 +5381,12 @@ const buildFormStringIdentifier = (form, context, opts) => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * it returns a form string identifier.
+ *
+ * @export
+ * @class AjfFormStringIdentifierPipe
+ */
 class AjfFormStringIdentifierPipe {
     transform(form, context, opts) {
         return buildFormStringIdentifier(form, context, opts);
@@ -5047,6 +5416,13 @@ AjfFormStringIdentifierPipe.decorators = [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It filters the type of ctrl.
+ * return null or a valid AjfTableFormControl.
+ *
+ * @export
+ * @class AjfGetTableCellControlPipe
  */
 class AjfGetTableCellControlPipe {
     transform(ctrl) {
@@ -5080,6 +5456,12 @@ AjfGetTableCellControlPipe.decorators = [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It allows the loading of image url inside an AjfForm.
+ *
+ * @export
+ * @class AjfImageFieldComponent
  */
 class AjfImageFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, was, domSanitizer) {
@@ -5128,6 +5510,12 @@ AjfImageFieldComponent.ctorParameters = () => [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It increments the value parameter by increment offset parameter.
+ *
+ * @export
+ * @class AjfIncrementPipe
+ */
 class AjfIncrementPipe {
     transform(value, increment = 1) {
         return value + increment;
@@ -5157,6 +5545,12 @@ AjfIncrementPipe.decorators = [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * it checks if the cell parameter is an editable AjfTableCell.
+ *
+ * @export
+ * @class AjfIsCellEditablePipe
  */
 class AjfIsCellEditablePipe {
     transform(cell) {
@@ -5191,6 +5585,12 @@ AjfIsCellEditablePipe.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It checks if the AjfNodeInstance parameter is an Formula AjfField.
+ *
+ * @export
+ * @class AjfIsReadonlyInputFieldPipe
+ */
 class AjfIsReadonlyInputFieldPipe {
     transform(instance) {
         return isFieldInstance(instance) &&
@@ -5222,6 +5622,12 @@ AjfIsReadonlyInputFieldPipe.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It checks if the AjfNodeInstance parameter is an isRepeatingSlideInstance.
+ *
+ * @export
+ * @class AjfIsRepeatingSlideInstancePipe
+ */
 class AjfIsRepeatingSlideInstancePipe {
     transform(instance) {
         return isRepeatingSlideInstance(instance);
@@ -5252,6 +5658,12 @@ AjfIsRepeatingSlideInstancePipe.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It returns a completeName of AjfNodeInstance paramenter.
+ *
+ * @export
+ * @class AjfNodeCompleteNamePipe
+ */
 class AjfNodeCompleteNamePipe {
     transform(instance) {
         return instance ? nodeInstanceCompleteName(instance) : '';
@@ -5281,6 +5693,13 @@ AjfNodeCompleteNamePipe.decorators = [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It returns a array of numbers.
+ * The numbers are incremental by step.
+ *
+ * @export
+ * @class AjfRangePipe
  */
 class AjfRangePipe {
     transform(size = 0, start = 1, step = 1) {
@@ -5317,6 +5736,14 @@ AjfRangePipe.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is an AjfBaseFieldComponent where the type can be only text or number.
+ * Type is text by default.
+ *
+ * @export
+ * @abstract
+ * @class AjfInputFieldComponent
+ */
 class AjfInputFieldComponent extends AjfBaseFieldComponent {
     constructor() {
         super(...arguments);
@@ -5344,6 +5771,12 @@ class AjfInputFieldComponent extends AjfBaseFieldComponent {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * this component show the control value inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyFieldComponent
  */
 class AjfReadOnlyFieldComponent extends AjfInputFieldComponent {
     constructor(cdr, service, was) {
@@ -5385,6 +5818,13 @@ AjfReadOnlyFieldComponent.ctorParameters = () => [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * This component allows you to download the file contained in the control of
+ * the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyFileFieldComponent
  */
 class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, was, domSanitizer) {
@@ -5435,6 +5875,13 @@ AjfReadOnlyFileFieldComponent.ctorParameters = () => [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * This component allows you to show the image related to url contained in the control of
+ * the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyImageFieldComponent
+ */
 class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, was, domSanitizer) {
         super(cdr, service, was);
@@ -5482,6 +5929,13 @@ AjfReadOnlyImageFieldComponent.ctorParameters = () => [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * This component allows you to show the values of AjfFieldWithChoicesInstance
+ * contained in the control of the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlySelectFieldComponent
+ */
 class AjfReadOnlySelectFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, was) {
         super(cdr, service, was);
@@ -5523,6 +5977,13 @@ AjfReadOnlySelectFieldComponent.ctorParameters = () => [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * This component allows you to shows the values contained in the controls of
+ * the form inherited from AjfBaseFieldComponent with AjfTableFieldInstance.
+ *
+ * @export
+ * @class AjfReadOnlyTableFieldComponent
+ */
 class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, was) {
         super(cdr, service, was);
@@ -5563,6 +6024,12 @@ AjfReadOnlyTableFieldComponent.ctorParameters = () => [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It allows the loading of video(youtube or vimeo) url inside an AjfForm.
+ *
+ * @export
+ * @class AjfVideoUrlFieldComponent
+ */
 class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, was, domSanitizer, httpClient) {
         super(cdr, service, was);
@@ -5581,6 +6048,13 @@ AjfVideoUrlFieldComponent.ctorParameters = () => [
     { type: DomSanitizer },
     { type: HttpClient }
 ];
+/**
+ * it returns a url of thumbnail related to video or null.
+ *
+ * @param httpClient
+ * @param video
+ * @return {*}
+ */
 function videoPreviewUrl(httpClient, video) {
     if (video.provider === 'youtube') {
         return of(`https://img.youtube.com/vi/${video.id}/default.jpg`);
@@ -5592,6 +6066,13 @@ function videoPreviewUrl(httpClient, video) {
     }
     return of('');
 }
+/**
+ * It checks the url param, if url is an youtube o vimeo domain return
+ * an videoInfo else null
+ *
+ * @param url
+ * @return {*}
+ */
 function getVideoProviderAndId(url) {
     let provider = null;
     let id = null;
@@ -5608,6 +6089,12 @@ function getVideoProviderAndId(url) {
     }
     return { provider, id };
 }
+/**
+ * it gets the id of vimeo video url.
+ *
+ * @param url
+ * @return {*}
+ */
 function getVimeoVideoId(url) {
     if (url.includes('#')) {
         url = url.split('#')[0];
@@ -5636,6 +6123,12 @@ function getVimeoVideoId(url) {
     }
     return id;
 }
+/**
+ * it gets the id of youtube video url.
+ *
+ * @param url
+ * @return {*}
+ */
 function getYouTubeVideoId(url) {
     const shortcode = /youtube:\/\/|https?:\/\/youtu\.be\/|http:\/\/y2u\.be\//g;
     if (shortcode.test(url)) {
@@ -5716,6 +6209,13 @@ function stripParameters(url) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * This component allows you to show the video related to url contained in the control of
+ * the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyVideoUrlFieldComponent
+ */
 class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
     constructor(cdr, service, was, domSanitizer, httpClient) {
         super(cdr, service, was, domSanitizer, httpClient);
@@ -5759,6 +6259,12 @@ AjfReadOnlyVideoUrlFieldComponent.ctorParameters = () => [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It returns a string that indetifies if the value is even or odd.
+ *
+ * @export
+ * @class AjfTableRowClass
+ */
 class AjfTableRowClass {
     transform(value) {
         return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
@@ -5789,6 +6295,13 @@ AjfTableRowClass.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It returns all visible columns of form table.
+ *
+ * @export
+ * @class AjfTableVisibleColumnsPipe
+ */
+// TODO helpful? currently not used
 class AjfTableVisibleColumnsPipe {
     transform(instance) {
         if (!instance.node.editable) {
@@ -5828,6 +6341,12 @@ AjfTableVisibleColumnsPipe.decorators = [
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It checks if idx is a valid index for slide parameter.
+ *
+ * @export
+ * @class AjfValidSlidePipe
  */
 class AjfValidSlidePipe {
     transform(slide, idx) {
@@ -5983,6 +6502,14 @@ AjfFormsModule.decorators = [
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * Should return the name of the class of the given object in string
+ *
+ * @export
+ * @param v
+ * @return {*}
+ */
+// TODO still useful? it is not used anywhere
 function getTypeName(v) {
     let typeStr = typeof v;
     return typeStr === 'object' ? v.constructor.toString().match(/\w+/g)[1] : typeStr;
@@ -6032,6 +6559,9 @@ const AJF_SEARCH_ALERT_THRESHOLD = new InjectionToken('AJF_SEARCH_ALERT_THRESHOL
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *  Create a attachmentsOrigin&lt;T&gt;, apply attachments defaults when it missing
+ */
 function createAttachmentsOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { attachments: origin.attachments || [] });
 }
@@ -6056,6 +6586,9 @@ function createAttachmentsOrigin(origin) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ *  Create an AjfAttachmentsOrigin by json schema, throw error if name isn't defined
  */
 class AjfAttachmentsOriginSerializer {
     static fromJson(origin) {
@@ -6087,6 +6620,9 @@ class AjfAttachmentsOriginSerializer {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply label and choices defaults when it missing
+ */
 function createChoicesOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { type: origin.type, label: origin.label || '', choices: origin.choices || [] });
 }
@@ -6111,6 +6647,9 @@ function createChoicesOrigin(origin) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ *  Create an AjfChoicesOrigin by json schema, apply a default value for type and name
  */
 class AjfChoicesOriginSerializer {
     static fromJson(origin) {
@@ -6139,6 +6678,12 @@ class AjfChoicesOriginSerializer {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * Create an AjfFieldWithChoice.
+ * If choices is not defined apply empty array.
+ * If forceExpanded is not defined apply false.
+ * If forceNarrow is not defined apply false.
+ */
 function createFieldWithChoices(field) {
     const node = createField(Object.assign({}, field));
     return Object.assign(Object.assign(Object.assign({}, node), field), { choices: field.choices || [], forceExpanded: field.forceExpanded || false, forceNarrow: field.forceNarrow || false });
@@ -6164,6 +6709,11 @@ function createFieldWithChoices(field) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates an AjfContainerNode by schema.
+ * Extends AjfNode with nodes.
+ * if nodes is not defined assign empty array
  */
 function createContainerNode(containerNode) {
     const node = createNode(containerNode);
@@ -6191,6 +6741,12 @@ function createContainerNode(containerNode) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It creates an AjfRepeatingNode.
+ * It extends AjfNode with formulaReps, minReps, maxReps by schema.
+ * If minReps is not defined assign 1.
+ * If maxReps is not defined assign 0.
+ */
 function createRepeatingNode(repeatingNode) {
     const node = createNode(repeatingNode);
     return Object.assign(Object.assign(Object.assign({}, repeatingNode), node), { minReps: repeatingNode.minReps != null ? repeatingNode.minReps : 1, maxReps: repeatingNode.maxReps != null ? repeatingNode.maxReps : 0 });
@@ -6217,6 +6773,12 @@ function createRepeatingNode(repeatingNode) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It creates a AjfNodeGroup
+ * set nodeType to AjfNodeType.AjfNodeGroup = 2.
+ * Extends an AjfNode with the merging of containerNode  attributes(nodes)
+ * with repeatingNode attributes(formulaReps, minReps, maxReps)
+ */
 function createNodeGroup(nodeGroup) {
     return Object.assign(Object.assign(Object.assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: AjfNodeType.AjfNodeGroup });
 }
@@ -6241,6 +6803,10 @@ function createNodeGroup(nodeGroup) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates a AjfRepeatingSlide as the composition of createContainerNode and
+ * createRepeatingNode and set AjfRepeatingSlide as nodeType
  */
 function createRepeatingSlide(nodeGroup) {
     return Object.assign(Object.assign(Object.assign({}, createContainerNode(nodeGroup)), createRepeatingNode(nodeGroup)), { nodeType: AjfNodeType.AjfRepeatingSlide });
@@ -6267,6 +6833,9 @@ function createRepeatingSlide(nodeGroup) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It creates AjfSlide.
+ */
 function createSlide(nodeGroup) {
     return Object.assign(Object.assign({}, createContainerNode(nodeGroup)), { nodeType: AjfNodeType.AjfSlide, readonly: nodeGroup.readonly || neverCondition() });
 }
@@ -6291,6 +6860,9 @@ function createSlide(nodeGroup) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ *  Create an AjfValidationGroup by json schema
  */
 class AjfValidationGroupSerializer {
     static fromJson(group) {
@@ -6319,6 +6891,9 @@ class AjfValidationGroupSerializer {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *  Create an AjfWarningGroup by json schema
+ */
 class AjfWarningGroupSerializer {
     static fromJson(group) {
         return createWarningGroup(group);
@@ -6346,6 +6921,11 @@ class AjfWarningGroupSerializer {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * Create an AjfNode by json schema,
+ * apply a default value for name
+ * throw new error if id,parent or nodeType attribute missed
+ */
 class AjfNodeSerializer {
     static fromJson(json, choicesOrigins, attachmentsOrigins) {
         const err = 'Malformed node';
@@ -6359,6 +6939,7 @@ class AjfNodeSerializer {
         }
         obj.conditionalBranches =
             (obj.conditionalBranches || []).map(c => AjfConditionSerializer.fromJson(c));
+        // call serializer by nodeType and cast obj with the right interface
         switch (obj.nodeType) {
             case AjfNodeType.AjfField:
                 return AjfNodeSerializer._fieldFromJson(obj, choicesOrigins, attachmentsOrigins);
@@ -6478,10 +7059,22 @@ class AjfNodeSerializer {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *  Create an AjfForm by json schema, apply a default value for stringIdentifier and initContext
+ */
 class AjfFormSerializer {
     static fromJson(form, context) {
+        /**
+         * create choicesOrigins by serializer
+         */
         const choicesOrigins = (form.choicesOrigins || []).map(c => AjfChoicesOriginSerializer.fromJson(c));
+        /**
+         * create attachmentsOrigins by serializer
+         */
         const attachmentsOrigins = (form.attachmentsOrigins || []).map(a => AjfAttachmentsOriginSerializer.fromJson(a));
+        /**
+         * create nodes by serializer
+         */
         const nodes = (form.nodes || [])
             .map(n => AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins));
         return Object.assign(Object.assign({}, form), { choicesOrigins,
@@ -6511,10 +7104,27 @@ class AjfFormSerializer {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * This component manages the table field data.
+ * It exposes methods for managing the display of controllers.
+ *
+ *
+ * @export
+ * @abstract
+ * @class AjfTableFieldComponent
+ */
 class AjfTableFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, was) {
         super(cdr, service, was);
     }
+    /**
+     *  set the current cell show to false and set the next cell show to true.
+     *
+     * @param ev
+     * @param row
+     * @param column
+     * @return {*}
+     */
     goToNextCell(ev, row, column) {
         if (this.instance.controls.length < row ||
             (this.instance.controls.length >= row && this.instance.controls[row].length < 1) ||
@@ -6542,10 +7152,22 @@ class AjfTableFieldComponent extends AjfBaseFieldComponent {
         ev.preventDefault();
         ev.stopPropagation();
     }
+    /**
+     * It resets all control.show to false and sets the control.show
+     * (identified by row and column) to true.
+     *
+     * @param row
+     * @param column
+     */
     goToCell(row, column) {
         this._resetControls();
         this._showCell(row, column);
     }
+    /**
+     * it sets all controls show to false.
+     *
+     * @private
+     */
     _resetControls() {
         this.instance.controls.forEach(row => row[1].forEach(cell => {
             if (typeof cell !== 'string') {
@@ -6553,6 +7175,14 @@ class AjfTableFieldComponent extends AjfBaseFieldComponent {
             }
         }));
     }
+    /**
+     * It sets the control.show (identified by row and column) to true.
+     *
+     * @private
+     * @param row
+     * @param column
+     * @return {*}
+     */
     _showCell(row, column) {
         if (row >= this.instance.controls.length || column >= this.instance.controls[row][1].length) {
             return;
@@ -8323,6 +8953,9 @@ function tableToPdf(table, lookupString, translate) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply type attrinute as 'fixed'
+ */
 function createChoicesFixedOrigin(origin) {
     const type = 'fixed';
     return Object.assign(Object.assign({}, createChoicesOrigin(Object.assign(Object.assign({}, origin), { type }))), { type });
@@ -8349,6 +8982,10 @@ function createChoicesFixedOrigin(origin) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply type attrinute as 'function'
+ *  apply default value for label and choices
+ */
 function createChoicesFunctionOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { type: 'function', label: origin.label || '', choices: origin.choices || [] });
 }
@@ -8373,6 +9010,10 @@ function createChoicesFunctionOrigin(origin) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply type attrinute as 'observableArray'
+ *  apply default value for label and choices
  */
 function createChoicesObservableArrayOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { type: 'observableArray', label: origin.label || '', choices: origin.choices || [] });
@@ -8399,6 +9040,10 @@ function createChoicesObservableArrayOrigin(origin) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply type attrinute as 'observable'
+ *  apply default value for label and choices
+ */
 function createChoicesObservableOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { type: 'observable', label: origin.label || '', choices: origin.choices || [] });
 }
@@ -8424,6 +9069,10 @@ function createChoicesObservableOrigin(origin) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply type attrinute as 'promise'
+ *  apply default value for label and choices
+ */
 function createChoicesPromiseOrigin(origin) {
     return Object.assign(Object.assign({}, origin), { type: 'promise', label: origin.label || '', choices: origin.choices || [] });
 }
@@ -8448,6 +9097,10 @@ function createChoicesPromiseOrigin(origin) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * isChoicesOrigin check if co parameter is defined and if correctly implements choicheOrigin
+ * interface
  */
 function isChoicesOrigin(co) {
     return co != null && typeof co === 'object' && co.name != null && typeof co.name === 'string' &&
@@ -8477,6 +9130,9 @@ function isChoicesOrigin(co) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * isChoicesFixedOrigin check if origin parameter is ChoicesOrigin and  type is 'fixed'
+ */
 function isChoicesFixedOrigin(origin) {
     return isChoicesOrigin(origin) && origin.type === 'fixed';
 }
@@ -8502,6 +9158,9 @@ function isChoicesFixedOrigin(origin) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It is true if the field type is Number.
+ */
 function isNumberField(field) {
     return field.fieldType === AjfFieldType.Number;
 }
@@ -8526,6 +9185,15 @@ function isNumberField(field) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates an Ajf form.
+ * Any missing mandatory attributes are initialized with the respective
+ * empty object
+ *
+ * @export
+ * @param [form={}]
+ * @return {*}
  */
 function createForm(form = {}) {
     return {
@@ -8559,6 +9227,10 @@ function createForm(form = {}) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It checks if the length of digits is less than or equal to maxValue and returns
+ * an AjfValidation.
+ */
 function maxDigitsValidation(maxValue) {
     return createValidation({
         condition: `$value ? $value.toString().length <= ${maxValue.toString()} : false`,
@@ -8586,6 +9258,10 @@ function maxDigitsValidation(maxValue) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It checks if the value is less than or equal to maxValue and returns
+ * an AjfValidation.
  */
 function maxValidation(maxValue) {
     return createValidation({
@@ -8615,6 +9291,10 @@ function maxValidation(maxValue) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It checks if the length of digits is greater than or equal to minValue and returns
+ * an AjfValidation.
+ */
 function minDigitsValidation(minValue) {
     return createValidation({
         condition: `$value ? $value.toString().length >= ${minValue.toString()} : false`,
@@ -8643,6 +9323,10 @@ function minDigitsValidation(minValue) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It checks if the value is geater than or equal to minValue and returns
+ * an AjfValidation.
+ */
 function minValidation(minValue) {
     return createValidation({
         condition: '$value >= ' + minValue.toString(),
@@ -8670,6 +9354,9 @@ function minValidation(minValue) {
  * along with Advanced JSON forms (ajf).
  * If not, see http://www.gnu.org/licenses/.
  *
+ */
+/**
+ * It creates an AjfValidation with notEmpty condition.
  */
 function notEmptyValidation() {
     return createValidation({ condition: `notEmpty($value)`, errorMessage: `Value must not be empty` });

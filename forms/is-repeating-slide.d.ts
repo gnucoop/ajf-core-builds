@@ -21,6 +21,12 @@
  */
 import { PipeTransform } from '@angular/core';
 import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
+/**
+ * It checks if the AjfNodeInstance parameter is an isRepeatingSlideInstance.
+ *
+ * @export
+ * @class AjfIsRepeatingSlideInstancePipe
+ */
 export declare class AjfIsRepeatingSlideInstancePipe implements PipeTransform {
     transform(instance: AjfNodeInstance): boolean;
 }

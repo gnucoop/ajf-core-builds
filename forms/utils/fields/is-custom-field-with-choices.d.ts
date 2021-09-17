@@ -20,4 +20,10 @@
  *
  */
 import { AjfField } from '../../interface/fields/field';
+/**
+ * It is true if
+ *  the field is a custom field (field.fieldType &gt; 100) and
+ *  the field is not already present in the component map (componentsMap[field.fieldType] != null)
+ * and the field is a fieldWithChoice (componentsMap[field.fieldType].isFieldWithChoice === true)
+ */
 export declare function isCustomFieldWithChoices(field: AjfField): boolean;

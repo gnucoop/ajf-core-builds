@@ -21,6 +21,9 @@
  */
 import { AjfField } from './field';
 import { AjfFieldType } from './field-type';
+/**
+ * An AjfField of type Boolean
+ */
 export interface AjfBooleanField extends AjfField {
     fieldType: AjfFieldType.Boolean;
 }

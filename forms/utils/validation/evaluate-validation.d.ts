@@ -22,4 +22,7 @@
 import { AjfContext } from '@ajf/core/models';
 import { AjfValidation } from '../../interface/validation/validation';
 import { AjfValidationResult } from '../../interface/validation/validation-results';
+/**
+ * It evaluates validation and returns an AjfValidationResult.
+ */
 export declare function evaluateValidation(validation: AjfValidation, context?: AjfContext, forceFormula?: string): AjfValidationResult;

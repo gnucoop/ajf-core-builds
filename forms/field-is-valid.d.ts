@@ -20,6 +20,10 @@
  *
  */
 import { AjfValidationResult } from './interface/validation/validation-results';
+/**
+ * It returns true if all validationResults are true.
+ *
+ */
 export declare class AjfFieldIsValidPipe {
     transform(validationResults?: AjfValidationResult[]): boolean;
 }

@@ -20,4 +20,9 @@
  *
  */
 import { AjfNode } from '../../interface/nodes/node';
+/**
+ * It creates an one dimensional array of AjfNode.
+ * If the node is a containerNode(has the nodes attribute)
+ * recursively  concat their nodes.
+ */
 export declare function flattenNodes(nodes: AjfNode[]): AjfNode[];

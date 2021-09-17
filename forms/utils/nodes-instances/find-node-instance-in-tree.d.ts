@@ -20,6 +20,12 @@
  *
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
+/**
+ * It search recursively a nodeInstance inside a tree of nodes.
+ * Base case: search it in main nodes.
+ * Otherwise search it recursively inside all containerNodieInstance.
+ * If found return the container of node instance and the index position inside him.
+ */
 export declare function findNodeInstanceInTree(nodes: AjfNodeInstance[], node: AjfNodeInstance): {
     container: AjfNodeInstance[];
     index: number;

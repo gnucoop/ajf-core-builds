@@ -20,6 +20,9 @@
  *
  */
 import { AjfAttachmentsOrigin } from '../interface/attachments/attachments-origin';
+/**
+ *  Create an AjfAttachmentsOrigin by json schema, throw error if name isn't defined
+ */
 export declare class AjfAttachmentsOriginSerializer {
     static fromJson(origin: Partial<AjfAttachmentsOrigin<any>>): AjfAttachmentsOrigin<any>;
 }

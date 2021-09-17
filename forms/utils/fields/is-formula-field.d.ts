@@ -20,4 +20,7 @@
  *
  */
 import { AjfField } from '../../interface/fields/field';
+/**
+ * It is true if the field type is Formula.
+ */
 export declare function isFormulaField(field: AjfField): boolean;

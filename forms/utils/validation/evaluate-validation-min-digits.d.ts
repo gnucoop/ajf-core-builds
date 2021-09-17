@@ -21,4 +21,8 @@
  */
 import { AjfValidationGroup } from '../../interface/validation/validation-group';
 import { AjfValidationResult } from '../../interface/validation/validation-results';
+/**
+ * Basic validation function that cheecks the minimum digit's length.
+ * minDigits is the associated AjfCondition
+ */
 export declare function evaluateValidationMinDigits(validation: AjfValidationGroup, value: any): AjfValidationResult | null;

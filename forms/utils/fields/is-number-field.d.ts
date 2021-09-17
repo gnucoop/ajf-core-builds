@@ -20,4 +20,7 @@
  *
  */
 import { AjfField } from '../../interface/fields/field';
+/**
+ * It is true if the field type is Number.
+ */
 export declare function isNumberField(field: AjfField): boolean;

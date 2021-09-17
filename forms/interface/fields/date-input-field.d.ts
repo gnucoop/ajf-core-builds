@@ -21,8 +21,17 @@
  */
 import { AjfField } from './field';
 import { AjfFieldType } from './field-type';
+/**
+ * An AjfField of type DateInput
+ */
 export interface AjfDateInputField extends AjfField {
     fieldType: AjfFieldType.DateInput;
+    /**
+     * The min selectable date of the calendar.
+     */
     minDate: Date | 'today';
+    /**
+     * The max selectable date of the calendar.
+     */
     maxDate: Date | 'today';
 }

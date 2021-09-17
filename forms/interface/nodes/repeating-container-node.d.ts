@@ -21,4 +21,10 @@
  */
 import { AjfContainerNode } from './container-node';
 import { AjfRepeatingNode } from './repeating-node';
+/**
+ * Interface representing a Repeating Node Group.
+ * Repeating node groups are used any time the user is required to fill
+ * the same node group N times, where N is the value of the "formulaReps" property.
+ * (eg. N = number of children, then fill data for each of N children).
+ */
 export declare type AjfRepeatingContainerNode = AjfContainerNode & AjfRepeatingNode;

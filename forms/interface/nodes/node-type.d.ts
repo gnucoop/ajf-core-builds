@@ -19,6 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * An enum containing all the available NodeTypes
+ */
 export declare enum AjfNodeType {
     AjfField = 0,
     AjfFieldNodeLink = 1,

@@ -21,4 +21,7 @@
  */
 import { AjfContext } from '@ajf/core/models';
 import { AjfFieldInstance } from '../../interface/fields-instances/field-instance';
+/**
+ * It grab all the field instance update functions.
+ */
 export declare function updateFieldInstanceState(instance: AjfFieldInstance, context: AjfContext, branchVisibility?: boolean): void;

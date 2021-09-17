@@ -20,4 +20,8 @@
  *
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
+/**
+ * It is true if nodeInstance is a slide instance
+ * and the relative node is AjfRepeatingSlide.
+ */
 export declare function isRepeatingSlideInstance(nodeInstance: AjfNodeInstance): boolean;

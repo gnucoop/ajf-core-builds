@@ -20,4 +20,7 @@
  *
  */
 import { AjfWarningGroup } from '../../interface/warning/warning-group';
+/**
+ *  Create an AjfWarningGroup, apply conditions defaults when it missing
+ */
 export declare function createWarningGroup(group: Partial<AjfWarningGroup>): AjfWarningGroup;

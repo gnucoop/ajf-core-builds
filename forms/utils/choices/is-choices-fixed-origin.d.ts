@@ -20,4 +20,7 @@
  *
  */
 import { AjfChoicesOrigin } from '../../interface/choices/choices-origin';
+/**
+ * isChoicesFixedOrigin check if origin parameter is ChoicesOrigin and  type is 'fixed'
+ */
 export declare function isChoicesFixedOrigin(origin: AjfChoicesOrigin<any>): boolean;
