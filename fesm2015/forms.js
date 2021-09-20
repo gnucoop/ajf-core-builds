@@ -2783,7 +2783,7 @@ function validSlide(slide, idx) {
     }
     return slide.slideNodes[idx]
         .map(n => {
-        if (n.visible && Object.keys(n).includes('valid')) {
+        if (n.visible && Object.keys(n).indexOf('valid') > -1) {
             return n.valid;
         }
         return true;
@@ -6353,17 +6353,7 @@ class AjfValidSlidePipe {
         if (idx == null || typeof idx !== 'number') {
             return false;
         }
-        if (idx >= slide.slideNodes.length) {
-            return true;
-        }
-        return slide.slideNodes[idx]
-            .map(n => {
-            if (n.visible && Object.keys(n).includes('valid')) {
-                return n.valid;
-            }
-            return true;
-        })
-            .reduce((v1, v2) => v1 && v2, true);
+        return validSlide(slide, idx);
     }
 }
 AjfValidSlidePipe.decorators = [

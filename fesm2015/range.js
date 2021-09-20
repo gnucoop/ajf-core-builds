@@ -81,6 +81,7 @@ class AjfRange extends AjfBaseFieldComponent {
         }
     }
     ngOnInit() {
+        super.ngOnInit();
         if (this.instance != null && this.instance.node != null) {
             const node = this.instance.node;
             if (node.end != null) {

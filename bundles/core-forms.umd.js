@@ -302,10 +302,16 @@
                 r[k] = a[j];
         return r;
     }
-    function __spreadArray(to, from) {
-        for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-            to[j] = from[i];
-        return to;
+    function __spreadArray(to, from, pack) {
+        if (pack || arguments.length === 2)
+            for (var i = 0, l = from.length, ar; i < l; i++) {
+                if (ar || !(i in from)) {
+                    if (!ar)
+                        ar = Array.prototype.slice.call(from, 0, i);
+                    ar[i] = from[i];
+                }
+            }
+        return to.concat(ar || Array.prototype.slice.call(from));
     }
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -3048,7 +3054,7 @@
         }
         return slide.slideNodes[idx]
             .map(function (n) {
-            if (n.visible && Object.keys(n).includes('valid')) {
+            if (n.visible && Object.keys(n).indexOf('valid') > -1) {
                 return n.valid;
             }
             return true;
@@ -6163,17 +6169,7 @@
             if (idx == null || typeof idx !== 'number') {
                 return false;
             }
-            if (idx >= slide.slideNodes.length) {
-                return true;
-            }
-            return slide.slideNodes[idx]
-                .map(function (n) {
-                if (n.visible && Object.keys(n).includes('valid')) {
-                    return n.valid;
-                }
-                return true;
-            })
-                .reduce(function (v1, v2) { return v1 && v2; }, true);
+            return validSlide(slide, idx);
         };
         return AjfValidSlidePipe;
     }());
@@ -6908,9 +6904,7 @@
              */
             var nodes = (form.nodes || [])
                 .map(function (n) { return AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins); });
-            return Object.assign(Object.assign({}, form), { choicesOrigins: choicesOrigins,
-                attachmentsOrigins: attachmentsOrigins,
-                nodes: nodes, stringIdentifier: form.stringIdentifier || [], initContext: utils.deepCopy(context || {}) });
+            return Object.assign(Object.assign({}, form), { choicesOrigins: choicesOrigins, attachmentsOrigins: attachmentsOrigins, nodes: nodes, stringIdentifier: form.stringIdentifier || [], initContext: utils.deepCopy(context || {}) });
         };
         return AjfFormSerializer;
     }());
