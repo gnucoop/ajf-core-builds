@@ -690,7 +690,7 @@ function evaluateValidation(validation, context, forceFormula) {
  */
 function evaluateValidationConditions(validation, context) {
     let res = [];
-    validation.conditions.forEach((cond) => {
+    (validation.conditions || []).forEach((cond) => {
         res.push(evaluateValidation(cond, context));
     });
     return res;
@@ -2270,7 +2270,7 @@ function getInstanceValidation(validation, ancestorsNames, prefix) {
  */
 function getInstanceValidations(validations, ancestorsNames, prefix) {
     let changed = false;
-    const newValidations = validations.map((validation) => {
+    const newValidations = (validations || []).map((validation) => {
         const newValidation = getInstanceValidation(validation, ancestorsNames, prefix);
         if (newValidation !== validation) {
             changed = true;

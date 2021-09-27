@@ -1001,7 +1001,7 @@
      */
     function evaluateValidationConditions(validation, context) {
         var res = [];
-        validation.conditions.forEach(function (cond) {
+        (validation.conditions || []).forEach(function (cond) {
             res.push(evaluateValidation(cond, context));
         });
         return res;
@@ -2541,7 +2541,7 @@
      */
     function getInstanceValidations(validations, ancestorsNames, prefix) {
         var changed = false;
-        var newValidations = validations.map(function (validation) {
+        var newValidations = (validations || []).map(function (validation) {
             var newValidation = getInstanceValidation(validation, ancestorsNames, prefix);
             if (newValidation !== validation) {
                 changed = true;
