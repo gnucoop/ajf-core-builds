@@ -6752,12 +6752,13 @@
         function AjfNodeSerializer() {
         }
         AjfNodeSerializer.fromJson = function (json, choicesOrigins, attachmentsOrigins) {
+            var _a;
             var err = 'Malformed node';
-            json.name = json.name || '';
-            if (json.id == null || json.parent == null || json.nodeType == null) {
+            var obj = Object.assign({}, json);
+            obj.name = (_a = obj.name) !== null && _a !== void 0 ? _a : '';
+            if (obj.id == null || obj.parent == null || obj.nodeType == null) {
                 throw new Error(err);
             }
-            var obj = json;
             if (obj.visibility) {
                 obj.visibility = models.AjfConditionSerializer.fromJson(obj.visibility);
             }

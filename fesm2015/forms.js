@@ -6918,12 +6918,13 @@ class AjfWarningGroupSerializer {
  */
 class AjfNodeSerializer {
     static fromJson(json, choicesOrigins, attachmentsOrigins) {
+        var _a;
         const err = 'Malformed node';
-        json.name = json.name || '';
-        if (json.id == null || json.parent == null || json.nodeType == null) {
+        const obj = Object.assign({}, json);
+        obj.name = (_a = obj.name) !== null && _a !== void 0 ? _a : '';
+        if (obj.id == null || obj.parent == null || obj.nodeType == null) {
             throw new Error(err);
         }
-        const obj = json;
         if (obj.visibility) {
             obj.visibility = AjfConditionSerializer.fromJson(obj.visibility);
         }
