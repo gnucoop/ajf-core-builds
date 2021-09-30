@@ -2442,13 +2442,7 @@ const backgroundColor = [
 function createBooleanWidget(field) {
     return createWidget({
         widgetType: AjfWidgetType.Column,
-        content: [
-            createWidget({
-                widgetType: AjfWidgetType.Text,
-                htmlText: `<h5>[[COUNTFORMS(forms,"${field.name} != null")]] answers</h5>`,
-                styles: { margin: '10px', paddingLeft: '15px' },
-            }),
-            createWidget({
+        content: [createWidget({
                 widgetType: AjfWidgetType.Chart,
                 type: AjfChartType.Pie,
                 labels: { formula: '[\'True\', \'False\']' },
@@ -2466,8 +2460,7 @@ function createBooleanWidget(field) {
                 },
                 styles: { width: '100%', height: '400px' },
                 exportable: true
-            })
-        ],
+            })],
     });
 }
 function createMultipleChoiceWidget(field) {
@@ -2484,13 +2477,7 @@ function createMultipleChoiceWidget(field) {
     let labels = { formula: `[]` };
     return createWidget({
         widgetType: AjfWidgetType.Column,
-        content: [
-            createWidget({
-                widgetType: AjfWidgetType.Text,
-                htmlText: `<h5>[[COUNTFORMS(forms,"${field.name} != null")]] answers</h5>`,
-                styles: { margin: '10px', paddingLeft: '15px' },
-            }),
-            createWidget({
+        content: [createWidget({
                 widgetType: AjfWidgetType.Chart,
                 type: chartType,
                 labels,
@@ -2502,8 +2489,7 @@ function createMultipleChoiceWidget(field) {
                 },
                 styles: { width: '100%', height: '400px' },
                 exportable: true
-            })
-        ],
+            })],
     });
 }
 function createNumberWidget(field) {
@@ -2572,7 +2558,7 @@ function createSingleChoiceWidget(field) {
     let chartType = AjfChartType.Bar;
     let labels = { formula: `[]` };
     if (choices.length > 5) {
-        labels = { formula: `[${choices.map(c => `\'${c.label}\'`)}]` };
+        labels = { formula: `[${choices.map(c => `${JSON.stringify(c.label)}`)}]` };
         chartType = AjfChartType.Pie;
         dataset =
             [createDataset({
@@ -2596,13 +2582,7 @@ function createSingleChoiceWidget(field) {
     }
     return createWidget({
         widgetType: AjfWidgetType.Column,
-        content: [
-            createWidget({
-                widgetType: AjfWidgetType.Text,
-                htmlText: `<h5>[[COUNTFORMS(forms,"${field.name} != null")]] answers</h5>`,
-                styles: { margin: '10px', paddingLeft: '15px' },
-            }),
-            createWidget({
+        content: [createWidget({
                 widgetType: AjfWidgetType.Chart,
                 type: chartType,
                 labels,
@@ -2614,8 +2594,98 @@ function createSingleChoiceWidget(field) {
                 },
                 styles: { width: '100%', height: '400px' },
                 exportable: true
+            })],
+    });
+}
+function createRangeWidget(field) {
+    var _a, _b;
+    const end = (_a = field.end) !== null && _a !== void 0 ? _a : 11;
+    const start = (_b = field.start) !== null && _b !== void 0 ? _b : 1;
+    let choices = [];
+    for (let i = start; i <= end; i++) {
+        choices.push(i);
+    }
+    let labels = { formula: `[${JSON.stringify(field.label)}]` };
+    let dataset = choices.map((_, index) => createDataset({
+        label: `${index + start}`,
+        formula: [createFormula({ formula: `[COUNTFORMS(forms,"${field.name}===${index + 1 + start}")]` })],
+        options: {
+            backgroundColor: backgroundColor[index],
+            stack: `Stack ${index}`,
+        }
+    }));
+    return createWidget({
+        widgetType: AjfWidgetType.Column,
+        styles: widgetStyle,
+        content: [
+            createWidget({
+                widgetType: AjfWidgetType.Layout,
+                columns: [0.33, 0.33, 0.33],
+                content: [
+                    createWidget({
+                        widgetType: AjfWidgetType.Column,
+                        styles: boxStyle,
+                        content: [
+                            createWidget({
+                                widgetType: AjfWidgetType.Text,
+                                htmlText: `<div color="primary"><h5>Mean</h5></div>`,
+                                styles: widgetTitleStyle,
+                            }),
+                            createWidget({
+                                widgetType: AjfWidgetType.Text,
+                                'htmlText': `<p>[[MEAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
+                                styles: widgetTitleStyle,
+                            })
+                        ]
+                    }),
+                    createWidget({
+                        widgetType: AjfWidgetType.Column,
+                        styles: boxStyle,
+                        content: [
+                            createWidget({
+                                widgetType: AjfWidgetType.Text,
+                                htmlText: `<div color="primary"><h5>Median</h5></div>`,
+                                styles: widgetTitleStyle,
+                            }),
+                            createWidget({
+                                widgetType: AjfWidgetType.Text,
+                                'htmlText': `<p>[[MEDIAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
+                                styles: widgetTitleStyle,
+                            })
+                        ]
+                    }),
+                    createWidget({
+                        widgetType: AjfWidgetType.Column,
+                        styles: boxStyle,
+                        content: [
+                            createWidget({
+                                widgetType: AjfWidgetType.Text,
+                                htmlText: `<div color="primary"><h5>Mode</h5></div>`,
+                                styles: widgetTitleStyle,
+                            }),
+                            createWidget({
+                                widgetType: AjfWidgetType.Text,
+                                htmlText: `<p>[[MODE(forms,"${field.name}")]]</p>`,
+                                styles: widgetTitleStyle,
+                            })
+                        ]
+                    }),
+                ]
+            }),
+            createWidget({
+                widgetType: AjfWidgetType.Chart,
+                type: AjfChartType.Bar,
+                labels,
+                dataset,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: { display: true, position: 'bottom' }
+                },
+                styles: { width: '100%', height: '400px' },
+                exportable: true
             })
-        ],
+        ]
     });
 }
 /**
@@ -2638,7 +2708,7 @@ function reportFromForm(form, id) {
             // create the title of the widget.
             const fieldTitleWidget = createWidget({
                 widgetType: AjfWidgetType.Text,
-                htmlText: `<div color="primary"><h5>${field.label}</h5></div>`,
+                htmlText: `<div color="primary"><h5>${field.label} - [[COUNTFORMS(forms,"${field.name} != null")]] answers</h5></div>`,
                 styles: widgetTitleStyle
             });
             slideWidgets.push(fieldTitleWidget);
@@ -2657,6 +2727,9 @@ function reportFromForm(form, id) {
                     break;
                 case AjfFieldType.MultipleChoice:
                     slideWidgets.push(createMultipleChoiceWidget(field));
+                    break;
+                case AjfFieldType.Range:
+                    slideWidgets.push(createRangeWidget(field));
                     break;
             }
         });
