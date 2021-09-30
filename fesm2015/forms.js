@@ -3526,12 +3526,12 @@ class AjfFormRendererService {
                                     with this mask `${tNode.name}__${rowIdx}__${idx}`
                                     */
                                     const name = `${tNode.name}__${rowIdx}__${idx}`;
-                                    const tableFormControl = {
-                                        control: new FormControl(),
-                                        show: false,
-                                        type: tNode.columnTypes && tNode.columnTypes[idx] || 'number'
-                                    };
-                                    tableFormControl.control.setValue(tfInstance.context[cell.formula]);
+                                    const type = tNode.columnTypes && tNode.columnTypes[idx] || 'number';
+                                    const tableFormControl = { control: new FormControl(), show: false, type };
+                                    const value = (tfInstance.context[cell.formula] && type === 'number') ?
+                                        +tfInstance.context[cell.formula] :
+                                        tfInstance.context[cell.formula];
+                                    tableFormControl.control.setValue(value);
                                     formGroup.registerControl(name, tableFormControl.control);
                                     r.push(tableFormControl);
                                     /* create a object that respect the instance interface

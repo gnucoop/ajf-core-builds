@@ -3486,12 +3486,12 @@
                                         with this mask `${tNode.name}__${rowIdx}__${idx}`
                                         */
                                         var name = tNode_1.name + "__" + rowIdx + "__" + idx;
-                                        var tableFormControl = {
-                                            control: new forms.FormControl(),
-                                            show: false,
-                                            type: tNode_1.columnTypes && tNode_1.columnTypes[idx] || 'number'
-                                        };
-                                        tableFormControl.control.setValue(tfInstance_1.context[cell.formula]);
+                                        var type = tNode_1.columnTypes && tNode_1.columnTypes[idx] || 'number';
+                                        var tableFormControl = { control: new forms.FormControl(), show: false, type: type };
+                                        var value = (tfInstance_1.context[cell.formula] && type === 'number') ?
+                                            +tfInstance_1.context[cell.formula] :
+                                            tfInstance_1.context[cell.formula];
+                                        tableFormControl.control.setValue(value);
                                         formGroup_1.registerControl(name, tableFormControl.control);
                                         r.push(tableFormControl);
                                         /* create a object that respect the instance interface
