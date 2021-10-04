@@ -20,5 +20,5 @@
  *
  */
 import { AjfForm } from '@ajf/core/forms';
-import { AjfReport } from '@ajf/core/reports';
+import { AjfReport } from '../../interface/reports/report';
 export declare function createReportSchema(form: Partial<AjfForm>): Partial<AjfReport>;
