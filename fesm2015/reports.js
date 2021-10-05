@@ -2870,6 +2870,9 @@ function loadWidgetImages(widget) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const pageWidth = 800;
+const pageHeight = pageWidth * 1.4142; // A4 proportions
+const pageMargins = [40, 60];
 function openReportPdf(report, orientation = 'portrait', icons = {}) {
     createReportPdf(report, orientation, icons).then(pdf => {
         pdf.open();
@@ -2878,11 +2881,13 @@ function openReportPdf(report, orientation = 'portrait', icons = {}) {
 function createReportPdf(report, orientation = 'portrait', icons = {}) {
     return new Promise(resolve => {
         loadReportImages(report).then(images => {
-            let width = 595.28 - 40 * 2; // A4 page width - margins
+            let width = pageWidth - pageMargins[0] * 2;
             if (orientation === 'landscape') {
-                width = 841.89 - 40 * 2;
+                width = pageHeight - pageMargins[1] * 2;
             }
             const pdfDef = reportToPdf(report, Object.assign(Object.assign({}, images), icons), width);
+            pdfDef.pageSize = { width: pageWidth, height: pageHeight };
+            pdfDef.pageMargins = pageMargins;
             pdfDef.pageOrientation = orientation;
             resolve(createPdf(pdfDef, undefined, vfsFontsMap, vfsFonts));
         });
@@ -3008,8 +3013,11 @@ function tableToPdf(table, images) {
                     text = htmlTextToPdfText(cell.value, images);
                     break;
                 case 'object':
-                    const val = cell.value.changingThisBreaksApplicationSecurity || '';
-                    text = htmlTextToPdfText(val, images);
+                    let val = cell.value.changingThisBreaksApplicationSecurity;
+                    if (typeof (val) === 'number') {
+                        val = String(val);
+                    }
+                    text = htmlTextToPdfText(val || '', images);
                     break;
             }
             bodyRow.push({ text, colSpan: cell.colspan, rowSpan: cell.rowspan });
