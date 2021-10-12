@@ -22,6 +22,7 @@
 import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AjfPageSliderItemScrollDirection } from './page-slider-item-scroll-direction';
+import * as i0 from "@angular/core";
 export declare class AjfPageSliderItem implements OnDestroy {
     private _el;
     private _renderer;
@@ -42,4 +43,6 @@ export declare class AjfPageSliderItem implements OnDestroy {
     setScroll(dir: AjfPageSliderItemScrollDirection, amount: number, _duration: number): boolean;
     private _onResize;
     private _fixScrollOnResize;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfPageSliderItem, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfPageSliderItem, "ajf-page-slider-item", never, {}, { "scroll": "scroll"; }, never, ["*"]>;
 }

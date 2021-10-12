@@ -22,6 +22,7 @@
 import { AjfTableCell } from '@ajf/core/table';
 import { ChartData } from 'chart.js';
 import { AjfWidgetType } from '../reports/interface/widgets/widget-type';
+import * as i0 from "@angular/core";
 export declare class AjfWidgetExport {
     widgetType: AjfWidgetType;
     data: ChartData | AjfTableCell[][];
@@ -46,4 +47,6 @@ export declare class AjfWidgetExport {
     export(bookType: 'csv' | 'xlsx'): void;
     private _buildXlsxData;
     private _buildTitle;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfWidgetExport, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfWidgetExport, "ajf-widget-export", never, { "widgetType": "widgetType"; "data": "data"; "overlay": "overlay"; "enable": "enable"; }, {}, never, ["*"]>;
 }

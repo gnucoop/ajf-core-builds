@@ -25,6 +25,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfVideoUrlFieldComponent } from './video-url-field';
 import { AjfWarningAlertService } from './warning-alert-service';
+import * as i0 from "@angular/core";
 /**
  * This component allows you to show the video related to url contained in the control of
  * the form inherited from AjfBaseFieldComponent.
@@ -34,4 +35,6 @@ import { AjfWarningAlertService } from './warning-alert-service';
  */
 export declare class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer, httpClient: HttpClient);
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyVideoUrlFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyVideoUrlFieldComponent, "ajf-read-only-video-url-field", never, {}, {}, never, never>;
 }

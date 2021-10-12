@@ -24,6 +24,7 @@ import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfTableFieldInstance } from './interface/fields-instances/table-field-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
+import * as i0 from "@angular/core";
 /**
  * This component allows you to shows the values contained in the controls of
  * the form inherited from AjfBaseFieldComponent with AjfTableFieldInstance.
@@ -33,4 +34,6 @@ import { AjfWarningAlertService } from './warning-alert-service';
  */
 export declare class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyTableFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyTableFieldComponent, "ng-component", never, {}, {}, never, never>;
 }

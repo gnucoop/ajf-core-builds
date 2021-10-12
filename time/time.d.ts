@@ -22,6 +22,7 @@
 import { OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { AjfTimeModel } from './time-model';
+import * as i0 from "@angular/core";
 export declare abstract class AjfTime implements ControlValueAccessor, OnDestroy {
     readonly: boolean;
     get time(): AjfTimeModel;
@@ -41,4 +42,6 @@ export declare abstract class AjfTime implements ControlValueAccessor, OnDestroy
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: any): void;
     focusHandler(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTime, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfTime, never, never, { "readonly": "readonly"; }, {}, never>;
 }

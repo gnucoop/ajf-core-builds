@@ -20,10 +20,13 @@
  *
  */
 import { PipeTransform } from '@angular/core';
+import * as i0 from "@angular/core";
 /**
  * It returns a Date.
  * if date is 'today' it return a now Date.
  */
 export declare class AjfDateValuePipe implements PipeTransform {
     transform(date: Date | 'today' | undefined): Date | null;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfDateValuePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfDateValuePipe, "ajfDateValue">;
 }

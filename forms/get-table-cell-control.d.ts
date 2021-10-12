@@ -21,6 +21,7 @@
  */
 import { PipeTransform } from '@angular/core';
 import { AjfTableFormControl } from './interface/forms/table-form-control';
+import * as i0 from "@angular/core";
 /**
  * It filters the type of ctrl.
  * return null or a valid AjfTableFormControl.
@@ -30,4 +31,6 @@ import { AjfTableFormControl } from './interface/forms/table-form-control';
  */
 export declare class AjfGetTableCellControlPipe implements PipeTransform {
     transform(ctrl: null | string | AjfTableFormControl): AjfTableFormControl | null;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfGetTableCellControlPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfGetTableCellControlPipe, "ajfGetTableCellControl">;
 }

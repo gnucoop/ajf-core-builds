@@ -22,6 +22,7 @@
 import { TranslocoService } from '@ajf/core/transloco';
 import { ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import * as i0 from "@angular/core";
 /**
  * this component manages the report text
  *
@@ -38,4 +39,6 @@ export declare class AjfTextComponent {
     set htmlText(htmlText: string);
     get innerHTML(): SafeHtml;
     constructor(_cdr: ChangeDetectorRef, _domSanitizer: DomSanitizer, _ts: TranslocoService);
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTextComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfTextComponent, "ajf-text", never, { "htmlText": "htmlText"; }, {}, never, never>;
 }

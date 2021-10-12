@@ -22,9 +22,12 @@
 import { PipeTransform } from '@angular/core';
 import { AjfFieldInstance } from './interface/fields-instances/field-instance';
 import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
+import * as i0 from "@angular/core";
 /**
  * It casts an AjfNodeInstance as AjfFieldInstance.
  */
 export declare class AjfAsFieldInstancePipe implements PipeTransform {
     transform(instance: AjfNodeInstance): AjfFieldInstance;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfAsFieldInstancePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfAsFieldInstancePipe, "ajfAsFieldInstance">;
 }

@@ -31,6 +31,7 @@ import { AjfNodeGroupInstance } from './interface/nodes-instances/node-group-ins
 import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
 import { AjfRepeatingSlideInstance } from './interface/slides-instances/repeating-slide-instance';
 import { AjfSlideInstance } from './interface/slides-instances/slide-instance';
+import * as i0 from "@angular/core";
 export declare class AjfFormActionEvent {
     source: AjfFormRenderer;
     value: Object;
@@ -117,4 +118,6 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
     scrollToSlide(slide: AjfSlideInstance): void;
     orientationChangeHandler(orientation: AjfPageSliderOrientation): void;
     trackNodeById(_: number, node: AjfNodeInstance): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormRenderer, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFormRenderer, never, never, { "title": "title"; "saveDisabled": "saveDisabled"; "hasStartMessage": "hasStartMessage"; "hasEndMessage": "hasEndMessage"; "hideTopToolbar": "hideTopToolbar"; "hideBottomToolbar": "hideBottomToolbar"; "hideNavigationButtons": "hideNavigationButtons"; "fixedOrientation": "fixedOrientation"; "readonly": "readonly"; "orientation": "orientation"; "form": "form"; }, { "orientationChange": "orientationChange"; "formAction": "formAction"; }, never>;
 }

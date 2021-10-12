@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/page-break",
-  "main": "../bundles/core-page-break.umd.js",
-  "fesm2015": "../fesm2015/page-break.js",
-  "esm2015": "../esm2015/page-break/index.js",
+  "fesm2020": "../fesm2020/page-break.mjs",
+  "fesm2015": "../fesm2015/page-break.mjs",
+  "esm2020": "../esm2020/page-break/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/page-break.js",
-  "es2015": "../fesm2015/page-break.js"
+  "module": "../fesm2015/page-break.mjs",
+  "es2020": "../fesm2020/page-break.mjs"
 }

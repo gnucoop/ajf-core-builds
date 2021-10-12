@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/map",
-  "main": "../bundles/core-map.umd.js",
-  "fesm2015": "../fesm2015/map.js",
-  "esm2015": "../esm2015/map/index.js",
+  "fesm2020": "../fesm2020/map.mjs",
+  "fesm2015": "../fesm2015/map.mjs",
+  "esm2020": "../esm2020/map/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/map.js",
-  "es2015": "../fesm2015/map.js"
+  "module": "../fesm2015/map.mjs",
+  "es2020": "../fesm2020/map.mjs"
 }

@@ -1,23 +1,40 @@
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
+import * as i0 from "@angular/core";
+import * as i1 from "./as-field-instance";
+import * as i2 from "./as-repeating-slide-instance";
+import * as i3 from "./bool-to-int";
+import * as i4 from "./date-value";
+import * as i5 from "./date-value-string";
+import * as i6 from "./expand-input-with-choices";
+import * as i7 from "./field-host";
+import * as i8 from "./field-icon";
+import * as i9 from "./field-is-valid";
+import * as i10 from "./file-field";
+import * as i11 from "./form-string-identifier";
+import * as i12 from "./get-table-cell-control";
+import * as i13 from "./image-field";
+import * as i14 from "./increment";
+import * as i15 from "./is-cell-editable";
+import * as i16 from "./is-readonly-input-field";
+import * as i17 from "./is-repeating-slide";
+import * as i18 from "./node-complete-name";
+import * as i19 from "./range";
+import * as i20 from "./read-only-field";
+import * as i21 from "./read-only-file-field";
+import * as i22 from "./read-only-image-field";
+import * as i23 from "./read-only-select-field";
+import * as i24 from "./read-only-table-field";
+import * as i25 from "./read-only-video-url-field";
+import * as i26 from "./table-row-class";
+import * as i27 from "./table-visible-columns";
+import * as i28 from "./valid-slide";
+import * as i29 from "@ajf/core/common";
+import * as i30 from "@ajf/core/file-input";
+import * as i31 from "@angular/common";
+import * as i32 from "@angular/common/http";
+import * as i33 from "@angular/forms";
+import * as i34 from "@ajf/core/transloco";
 export declare class AjfFormsModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormsModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfFormsModule, [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfFileFieldComponent, typeof i11.AjfFormStringIdentifierPipe, typeof i12.AjfGetTableCellControlPipe, typeof i13.AjfImageFieldComponent, typeof i14.AjfIncrementPipe, typeof i15.AjfIsCellEditablePipe, typeof i16.AjfIsReadonlyInputFieldPipe, typeof i17.AjfIsRepeatingSlideInstancePipe, typeof i18.AjfNodeCompleteNamePipe, typeof i19.AjfRangePipe, typeof i20.AjfReadOnlyFieldComponent, typeof i21.AjfReadOnlyFileFieldComponent, typeof i22.AjfReadOnlyImageFieldComponent, typeof i23.AjfReadOnlySelectFieldComponent, typeof i24.AjfReadOnlyTableFieldComponent, typeof i25.AjfReadOnlyVideoUrlFieldComponent, typeof i26.AjfTableRowClass, typeof i27.AjfTableVisibleColumnsPipe, typeof i28.AjfValidSlidePipe], [typeof i29.AjfCommonModule, typeof i30.AjfFileInputModule, typeof i31.CommonModule, typeof i32.HttpClientModule, typeof i33.ReactiveFormsModule, typeof i34.AjfTranslocoModule], [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfFileFieldComponent, typeof i11.AjfFormStringIdentifierPipe, typeof i12.AjfGetTableCellControlPipe, typeof i13.AjfImageFieldComponent, typeof i14.AjfIncrementPipe, typeof i15.AjfIsCellEditablePipe, typeof i16.AjfIsReadonlyInputFieldPipe, typeof i17.AjfIsRepeatingSlideInstancePipe, typeof i18.AjfNodeCompleteNamePipe, typeof i19.AjfRangePipe, typeof i20.AjfReadOnlyFieldComponent, typeof i21.AjfReadOnlyFileFieldComponent, typeof i22.AjfReadOnlyImageFieldComponent, typeof i23.AjfReadOnlySelectFieldComponent, typeof i24.AjfReadOnlyTableFieldComponent, typeof i25.AjfReadOnlyVideoUrlFieldComponent, typeof i26.AjfTableRowClass, typeof i27.AjfTableVisibleColumnsPipe, typeof i28.AjfValidSlidePipe]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfFormsModule>;
 }

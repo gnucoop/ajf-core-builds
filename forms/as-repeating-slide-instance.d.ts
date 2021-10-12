@@ -22,9 +22,12 @@
 import { PipeTransform } from '@angular/core';
 import { AjfRepeatingSlideInstance } from './interface/slides-instances/repeating-slide-instance';
 import { AjfSlideInstance } from './interface/slides-instances/slide-instance';
+import * as i0 from "@angular/core";
 /**
  * It casts an AjfSlideInstance as AjfRepeatingSlideInstance.
  */
 export declare class AjfAsRepeatingSlideInstancePipe implements PipeTransform {
     transform(instance: AjfSlideInstance): AjfRepeatingSlideInstance;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfAsRepeatingSlideInstancePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfAsRepeatingSlideInstancePipe, "ajfAsRepeatingSlideInstance">;
 }

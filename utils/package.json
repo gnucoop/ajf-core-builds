@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/utils",
-  "main": "../bundles/core-utils.umd.js",
-  "fesm2015": "../fesm2015/utils.js",
-  "esm2015": "../esm2015/utils/index.js",
+  "fesm2020": "../fesm2020/utils.mjs",
+  "fesm2015": "../fesm2015/utils.mjs",
+  "esm2020": "../esm2020/utils/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/utils.js",
-  "es2015": "../fesm2015/utils.js"
+  "module": "../fesm2015/utils.mjs",
+  "es2020": "../fesm2020/utils.mjs"
 }

@@ -22,6 +22,7 @@
 import { PipeTransform } from '@angular/core';
 import { AjfField } from './interface/fields/field';
 import { AjfFieldType } from './interface/fields/field-type';
+import * as i0 from "@angular/core";
 /**
  *
  *
@@ -31,4 +32,6 @@ import { AjfFieldType } from './interface/fields/field-type';
  */
 export declare class AjfFieldIconPipe implements PipeTransform {
     transform(field: AjfField | AjfFieldType): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFieldIconPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfFieldIconPipe, "ajfFieldIcon">;
 }

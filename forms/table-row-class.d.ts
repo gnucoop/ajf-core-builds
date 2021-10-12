@@ -20,6 +20,7 @@
  *
  */
 import { PipeTransform } from '@angular/core';
+import * as i0 from "@angular/core";
 /**
  * It returns a string that indetifies if the value is even or odd.
  *
@@ -28,4 +29,6 @@ import { PipeTransform } from '@angular/core';
  */
 export declare class AjfTableRowClass implements PipeTransform {
     transform(value: number): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTableRowClass, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfTableRowClass, "ajfTableRowClass">;
 }

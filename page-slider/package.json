@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/page-slider",
-  "main": "../bundles/core-page-slider.umd.js",
-  "fesm2015": "../fesm2015/page-slider.js",
-  "esm2015": "../esm2015/page-slider/index.js",
+  "fesm2020": "../fesm2020/page-slider.mjs",
+  "fesm2015": "../fesm2015/page-slider.mjs",
+  "esm2020": "../esm2020/page-slider/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/page-slider.js",
-  "es2015": "../fesm2015/page-slider.js"
+  "module": "../fesm2015/page-slider.mjs",
+  "es2020": "../fesm2020/page-slider.mjs"
 }

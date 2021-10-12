@@ -20,6 +20,7 @@
  *
  */
 import { AjfNode } from '@ajf/core/forms';
+import * as i0 from "@angular/core";
 export declare abstract class AjfNodeIcon {
     private _fontSet;
     get fontSet(): string;
@@ -29,4 +30,6 @@ export declare abstract class AjfNodeIcon {
     get node(): AjfNode;
     set node(node: AjfNode);
     private _getFontIcon;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfNodeIcon, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfNodeIcon, never, never, { "node": "node"; }, {}, never>;
 }

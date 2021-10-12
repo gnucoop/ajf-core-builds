@@ -23,6 +23,7 @@ import { ChangeDetectorRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/
 import { ControlValueAccessor } from '@angular/forms';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 import { Subscription } from 'rxjs';
+import * as i0 from "@angular/core";
 export declare abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     private _cdr;
     private _renderer;
@@ -97,4 +98,6 @@ export declare abstract class AjfBarcode implements ControlValueAccessor, OnDest
      * @memberof AjfBarcode
      */
     private _createImage;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfBarcode, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBarcode, never, never, {}, {}, never>;
 }

@@ -23,6 +23,7 @@ import { ComponentFactoryResolver, OnInit, Renderer2 } from '@angular/core';
 import { AjfWidgetInstance } from './interface/widgets-instances/widget-instance';
 import { AjfWidgetComponentsMap } from './interface/widgets/widget-components-map';
 import { AjfWidgetHost } from './widget-host';
+import * as i0 from "@angular/core";
 export declare abstract class AjfReportWidget implements OnInit {
     private _cfr;
     private _renderer;
@@ -35,4 +36,6 @@ export declare abstract class AjfReportWidget implements OnInit {
     constructor(_cfr: ComponentFactoryResolver, _renderer: Renderer2);
     ngOnInit(): void;
     private _loadComponent;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportWidget, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfReportWidget, never, never, { "instance": "instance"; }, {}, never>;
 }

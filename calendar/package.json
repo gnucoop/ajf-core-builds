@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/calendar",
-  "main": "../bundles/core-calendar.umd.js",
-  "fesm2015": "../fesm2015/calendar.js",
-  "esm2015": "../esm2015/calendar/index.js",
+  "fesm2020": "../fesm2020/calendar.mjs",
+  "fesm2015": "../fesm2015/calendar.mjs",
+  "esm2020": "../esm2020/calendar/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/calendar.js",
-  "es2015": "../fesm2015/calendar.js"
+  "module": "../fesm2015/calendar.mjs",
+  "es2020": "../fesm2020/calendar.mjs"
 }

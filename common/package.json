@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/common",
-  "main": "../bundles/core-common.umd.js",
-  "fesm2015": "../fesm2015/common.js",
-  "esm2015": "../esm2015/common/index.js",
+  "fesm2020": "../fesm2020/common.mjs",
+  "fesm2015": "../fesm2015/common.mjs",
+  "esm2020": "../esm2020/common/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/common.js",
-  "es2015": "../fesm2015/common.js"
+  "module": "../fesm2015/common.mjs",
+  "es2020": "../fesm2020/common.mjs"
 }

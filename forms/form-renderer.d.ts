@@ -29,6 +29,7 @@ import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
 import { AjfRepeatingSlideInstance } from './interface/slides-instances/repeating-slide-instance';
 import { AjfSlideInstance } from './interface/slides-instances/slide-instance';
 import { AjfValidationService } from './validation-service';
+import * as i0 from "@angular/core";
 export declare const enum AjfFormInitStatus {
     Initializing = 0,
     Complete = 1
@@ -136,4 +137,6 @@ export declare class AjfFormRendererService {
     private _addToNodesTriggerConditionsMap;
     private _addToNodesNextSlideConditionsMap;
     private _addToNodesMap;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormRendererService, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfFormRendererService>;
 }

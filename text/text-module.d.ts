@@ -1,23 +1,9 @@
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
+import * as i0 from "@angular/core";
+import * as i1 from "./text";
+import * as i2 from "@angular/common";
+import * as i3 from "@ajf/core/transloco";
 export declare class AjfTextModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTextModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfTextModule, [typeof i1.AjfTextComponent], [typeof i2.CommonModule, typeof i3.AjfTranslocoModule], [typeof i1.AjfTextComponent]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfTextModule>;
 }

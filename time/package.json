@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/time",
-  "main": "../bundles/core-time.umd.js",
-  "fesm2015": "../fesm2015/time.js",
-  "esm2015": "../esm2015/time/index.js",
+  "fesm2020": "../fesm2020/time.mjs",
+  "fesm2015": "../fesm2015/time.mjs",
+  "esm2020": "../esm2020/time/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/time.js",
-  "es2015": "../fesm2015/time.js"
+  "module": "../fesm2015/time.mjs",
+  "es2020": "../fesm2020/time.mjs"
 }

@@ -21,6 +21,7 @@
  */
 import { PipeTransform } from '@angular/core';
 import { AjfBaseSlideInstance } from './interface/slides-instances/base-slide-instance';
+import * as i0 from "@angular/core";
 /**
  * It checks if idx is a valid index for slide parameter.
  *
@@ -29,4 +30,6 @@ import { AjfBaseSlideInstance } from './interface/slides-instances/base-slide-in
  */
 export declare class AjfValidSlidePipe implements PipeTransform {
     transform(slide: AjfBaseSlideInstance, idx: number): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfValidSlidePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfValidSlidePipe, "ajfValidSlide">;
 }

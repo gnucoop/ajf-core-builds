@@ -21,7 +21,12 @@
  */
 import { ModuleWithProviders } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
+import * as i0 from "@angular/core";
+import * as i1 from "@ngneat/transloco";
 export declare class AjfTranslocoModule {
     constructor(ts: TranslocoService);
     static forRoot(): ModuleWithProviders<AjfTranslocoModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTranslocoModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfTranslocoModule, never, [typeof i1.TranslocoModule], [typeof i1.TranslocoModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfTranslocoModule>;
 }

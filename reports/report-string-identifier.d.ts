@@ -22,6 +22,9 @@
 import { AjfContext, BuildStringIdentifierOpts } from '@ajf/core/common';
 import { PipeTransform } from '@angular/core';
 import { AjfReport } from './interface/reports/report';
+import * as i0 from "@angular/core";
 export declare class AjfReportStringIdentifierPipe implements PipeTransform {
     transform(report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportStringIdentifierPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfReportStringIdentifierPipe, "ajfReportStringIdentifier">;
 }

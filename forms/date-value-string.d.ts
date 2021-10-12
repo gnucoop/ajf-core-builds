@@ -20,6 +20,7 @@
  *
  */
 import { PipeTransform } from '@angular/core';
+import * as i0 from "@angular/core";
 /**
  * It formats Date with 'yyyy-MM-dd'
  * @param date the date to format
@@ -27,4 +28,7 @@ import { PipeTransform } from '@angular/core';
  */
 export declare class AjfDateValueStringPipe implements PipeTransform {
     transform(date: Date | 'today' | undefined): string | undefined;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfDateValueStringPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfDateValueStringPipe, "ajfDateValueString">;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfDateValueStringPipe>;
 }

@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/reports",
-  "main": "../bundles/core-reports.umd.js",
-  "fesm2015": "../fesm2015/reports.js",
-  "esm2015": "../esm2015/reports/index.js",
+  "fesm2020": "../fesm2020/reports.mjs",
+  "fesm2015": "../fesm2015/reports.mjs",
+  "esm2020": "../esm2020/reports/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/reports.js",
-  "es2015": "../fesm2015/reports.js"
+  "module": "../fesm2015/reports.mjs",
+  "es2020": "../fesm2020/reports.mjs"
 }

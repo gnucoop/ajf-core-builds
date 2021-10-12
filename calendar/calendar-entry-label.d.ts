@@ -22,8 +22,12 @@
 import { PipeTransform } from '@angular/core';
 import { AjfCalendarEntry } from './calendar-entry';
 import { AjfCalendarService } from './calendar-service';
+import * as i0 from "@angular/core";
 export declare class AjfCalendarEntryLabelPipe implements PipeTransform {
     private _service;
     constructor(_service: AjfCalendarService);
     transform(entry: AjfCalendarEntry): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCalendarEntryLabelPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfCalendarEntryLabelPipe, "ajfCalendarEntryLabel">;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfCalendarEntryLabelPipe>;
 }

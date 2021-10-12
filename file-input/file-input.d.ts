@@ -24,7 +24,10 @@ import { ControlValueAccessor } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { AjfFile } from './file';
+import * as i0 from "@angular/core";
 export declare class AjfDropMessage {
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfDropMessage, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfDropMessage, "[ajfDropMessage]", never, {}, {}, never>;
 }
 export declare class AjfFilePreview implements OnDestroy {
     private _value;
@@ -32,6 +35,8 @@ export declare class AjfFilePreview implements OnDestroy {
     private _valueSub;
     constructor(vcr: ViewContainerRef);
     ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFilePreview, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFilePreview, "[ajfFilePreview]", ["ajfFilePreview"], {}, {}, never>;
 }
 export declare class AjfFileInput implements ControlValueAccessor {
     private _cdr;
@@ -59,5 +64,7 @@ export declare class AjfFileInput implements ControlValueAccessor {
     triggerNativeInput(): void;
     writeValue(value: any): void;
     private _processFileUpload;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFileInput, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfFileInput, "ajf-file-input", never, { "accept": "accept"; "value": "value"; }, { "valueChange": "valueChange"; }, ["_dropMessageChildren", "_filePreviewChildren"], ["[ajfDropMessage]", "[ajfFilePreview]"]>;
 }
 export declare const fileIcon: string;

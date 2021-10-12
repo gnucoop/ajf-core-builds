@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/checkbox-group",
-  "main": "../bundles/core-checkbox-group.umd.js",
-  "fesm2015": "../fesm2015/checkbox-group.js",
-  "esm2015": "../esm2015/checkbox-group/index.js",
+  "fesm2020": "../fesm2020/checkbox-group.mjs",
+  "fesm2015": "../fesm2015/checkbox-group.mjs",
+  "esm2020": "../esm2020/checkbox-group/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/checkbox-group.js",
-  "es2015": "../fesm2015/checkbox-group.js"
+  "module": "../fesm2015/checkbox-group.mjs",
+  "es2020": "../fesm2020/checkbox-group.mjs"
 }

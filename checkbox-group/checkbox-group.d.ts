@@ -23,6 +23,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, OnInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
+import * as i0 from "@angular/core";
 export declare const AJF_CHECKBOX_GROUP_VALUE_ACCESSOR: any;
 export declare class AjfCheckboxGroupItemChange<T> {
     source: AjfCheckboxGroupItem<T>;
@@ -78,6 +79,8 @@ export declare class AjfCheckboxGroup<T> implements AfterContentInit, ControlVal
     /** Dispatch change event with current selection and group value. */
     private _emitChangeEvent;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCheckboxGroup<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfCheckboxGroup<any>, "ajf-checkbox-group,[ajf-checkbox-group]", never, { "value": "value"; "name": "name"; "disabled": "disabled"; }, { "change": "change"; }, never>;
 }
 export declare class AjfCheckboxGroupItem<T> implements OnInit {
     /** The unique ID for this button toggle. */
@@ -117,4 +120,6 @@ export declare class AjfCheckboxGroupItem<T> implements OnInit {
     onInputChange(event: Event): void;
     /** Toggle the state of the current button toggle. */
     private _toggle;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCheckboxGroupItem<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfCheckboxGroupItem<any>, never, never, { "id": "id"; "name": "name"; "checked": "checked"; "disabled": "disabled"; "value": "value"; "checkedIcon": "checkedIcon"; "notCheckedIcon": "notCheckedIcon"; }, { "change": "change"; }, never>;
 }

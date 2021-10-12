@@ -22,6 +22,7 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AjfTableCell } from './table-cell';
+import * as i0 from "@angular/core";
 export declare class AjfTable {
     private _cdr;
     private _domSanitizer;
@@ -39,4 +40,6 @@ export declare class AjfTable {
      */
     constructor(_cdr: ChangeDetectorRef, _domSanitizer: DomSanitizer);
     private _fixData;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTable, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfTable, "ajf-table", never, { "data": "data"; "cellpadding": "cellpadding"; }, {}, never, never>;
 }

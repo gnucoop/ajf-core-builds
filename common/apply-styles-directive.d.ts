@@ -20,6 +20,7 @@
  *
  */
 import { ElementRef, Renderer2 } from '@angular/core';
+import * as i0 from "@angular/core";
 export declare class ApplyStylesDirective {
     private _el;
     private _renderer;
@@ -29,4 +30,6 @@ export declare class ApplyStylesDirective {
     } | null);
     constructor(_el: ElementRef, _renderer: Renderer2);
     private _updateStyles;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ApplyStylesDirective, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<ApplyStylesDirective, "[applyStyles]", never, { "applyStyles": "applyStyles"; }, {}, never>;
 }

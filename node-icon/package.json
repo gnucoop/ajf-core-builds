@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/node-icon",
-  "main": "../bundles/core-node-icon.umd.js",
-  "fesm2015": "../fesm2015/node-icon.js",
-  "esm2015": "../esm2015/node-icon/index.js",
+  "fesm2020": "../fesm2020/node-icon.mjs",
+  "fesm2015": "../fesm2015/node-icon.mjs",
+  "esm2020": "../esm2020/node-icon/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/node-icon.js",
-  "es2015": "../fesm2015/node-icon.js"
+  "module": "../fesm2015/node-icon.mjs",
+  "es2020": "../fesm2020/node-icon.mjs"
 }

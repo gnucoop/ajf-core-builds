@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/text",
-  "main": "../bundles/core-text.umd.js",
-  "fesm2015": "../fesm2015/text.js",
-  "esm2015": "../esm2015/text/index.js",
+  "fesm2020": "../fesm2020/text.mjs",
+  "fesm2015": "../fesm2015/text.mjs",
+  "esm2020": "../esm2020/text/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/text.js",
-  "es2015": "../fesm2015/text.js"
+  "module": "../fesm2015/text.mjs",
+  "es2020": "../fesm2020/text.mjs"
 }

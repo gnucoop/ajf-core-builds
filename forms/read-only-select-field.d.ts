@@ -25,6 +25,7 @@ import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfFieldWithChoicesInstance } from './interface/fields-instances/field-with-choices-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
+import * as i0 from "@angular/core";
 /**
  * This component allows you to show the values of AjfFieldWithChoicesInstance
  * contained in the control of the form inherited from AjfBaseFieldComponent.
@@ -35,4 +36,6 @@ import { AjfWarningAlertService } from './warning-alert-service';
 export declare class AjfReadOnlySelectFieldComponent extends AjfBaseFieldComponent<AjfFieldWithChoicesInstance<String | number>> {
     readonly multiple: Observable<boolean>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlySelectFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlySelectFieldComponent, "ng-component", never, {}, {}, never, never>;
 }

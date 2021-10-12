@@ -22,6 +22,7 @@
 import { AfterViewInit, OnDestroy } from '@angular/core';
 import { Map } from 'leaflet';
 import { AjfMapContainerDirective } from './map-container-directive';
+import * as i0 from "@angular/core";
 export declare class AjfMapComponent implements AfterViewInit, OnDestroy {
     mapContainer: AjfMapContainerDirective;
     private _coordinate;
@@ -42,4 +43,6 @@ export declare class AjfMapComponent implements AfterViewInit, OnDestroy {
     private _setMapView;
     private _addTileLayerToMap;
     private _disableMap;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfMapComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfMapComponent, "ajf-map", never, { "coordinate": "coordinate"; "tileLayer": "tileLayer"; "attribution": "attribution"; "disabled": "disabled"; }, {}, never, never>;
 }

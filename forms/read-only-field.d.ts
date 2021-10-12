@@ -23,6 +23,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfInputFieldComponent as CoreComponent } from './input-field';
 import { AjfWarningAlertService } from './warning-alert-service';
+import * as i0 from "@angular/core";
 /**
  * this component show the control value inherited from AjfBaseFieldComponent.
  *
@@ -31,4 +32,6 @@ import { AjfWarningAlertService } from './warning-alert-service';
  */
 export declare class AjfReadOnlyFieldComponent extends CoreComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyFieldComponent, "ajf-read-only-field", never, {}, {}, never, never>;
 }

@@ -22,6 +22,7 @@
 import { AjfBaseFieldComponent, AjfFormRendererService, AjfRangeFieldInstance, AjfWarningAlertService } from '@ajf/core/forms';
 import { ChangeDetectorRef, OnInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import * as i0 from "@angular/core";
 export declare abstract class AjfRange extends AjfBaseFieldComponent<AjfRangeFieldInstance> implements ControlValueAccessor, OnInit {
     cdr: ChangeDetectorRef;
     private _end;
@@ -47,4 +48,6 @@ export declare abstract class AjfRange extends AjfBaseFieldComponent<AjfRangeFie
     registerOnTouched(fn: () => void): void;
     reset(): void;
     writeValue(value: number): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfRange, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfRange, never, never, { "end": "end"; "name": "name"; "start": "start"; "step": "step"; }, {}, never>;
 }

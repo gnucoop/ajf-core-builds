@@ -20,6 +20,7 @@
  *
  */
 import { PipeTransform } from '@angular/core';
+import * as i0 from "@angular/core";
 /**
  * It returns a array of numbers.
  * The numbers are incremental by step.
@@ -29,4 +30,6 @@ import { PipeTransform } from '@angular/core';
  */
 export declare class AjfRangePipe implements PipeTransform {
     transform(size?: number, start?: number, step?: number): number[];
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfRangePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfRangePipe, "ajfRange">;
 }

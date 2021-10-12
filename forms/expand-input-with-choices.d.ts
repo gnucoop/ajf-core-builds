@@ -21,10 +21,13 @@
  */
 import { PipeTransform } from '@angular/core';
 import { AjfFieldWithChoicesInstance } from './interface/fields-instances/field-with-choices-instance';
+import * as i0 from "@angular/core";
 /**
  * It returns true if AjfFieldWithChoices is forceExpanded and filteredChoices length is
  * less than equal threshold.
  */
 export declare class AjfExpandFieldWithChoicesPipe implements PipeTransform {
     transform(instance: AjfFieldWithChoicesInstance<any>, threshold: number): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfExpandFieldWithChoicesPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfExpandFieldWithChoicesPipe, "ajfExpandFieldWithChoices">;
 }

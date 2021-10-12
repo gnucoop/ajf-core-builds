@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/range",
-  "main": "../bundles/core-range.umd.js",
-  "fesm2015": "../fesm2015/range.js",
-  "esm2015": "../esm2015/range/index.js",
+  "fesm2020": "../fesm2020/range.mjs",
+  "fesm2015": "../fesm2015/range.mjs",
+  "esm2020": "../esm2020/range/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/range.js",
-  "es2015": "../fesm2015/range.js"
+  "module": "../fesm2015/range.mjs",
+  "es2020": "../fesm2020/range.mjs"
 }

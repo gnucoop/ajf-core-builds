@@ -20,9 +20,12 @@
  *
  */
 import { AfterContentInit, ElementRef } from '@angular/core';
+import * as i0 from "@angular/core";
 export declare class AutofocusDirective implements AfterContentInit {
     private _el;
     appAutoFocus: boolean;
     constructor(_el: ElementRef);
     ngAfterContentInit(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AutofocusDirective, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AutofocusDirective, "[autoFocus]", never, { "appAutoFocus": "appAutoFocus"; }, {}, never>;
 }

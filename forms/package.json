@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/forms",
-  "main": "../bundles/core-forms.umd.js",
-  "fesm2015": "../fesm2015/forms.js",
-  "esm2015": "../esm2015/forms/index.js",
+  "fesm2020": "../fesm2020/forms.mjs",
+  "fesm2015": "../fesm2015/forms.mjs",
+  "esm2020": "../esm2020/forms/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/forms.js",
-  "es2015": "../fesm2015/forms.js"
+  "module": "../fesm2015/forms.mjs",
+  "es2020": "../fesm2020/forms.mjs"
 }

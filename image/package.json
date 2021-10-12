@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/image",
-  "main": "../bundles/core-image.umd.js",
-  "fesm2015": "../fesm2015/image.js",
-  "esm2015": "../esm2015/image/index.js",
+  "fesm2020": "../fesm2020/image.mjs",
+  "fesm2015": "../fesm2015/image.mjs",
+  "esm2020": "../esm2020/image/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/image.js",
-  "es2015": "../fesm2015/image.js"
+  "module": "../fesm2015/image.mjs",
+  "es2020": "../fesm2020/image.mjs"
 }

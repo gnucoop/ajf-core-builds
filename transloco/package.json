@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/transloco",
-  "main": "../bundles/core-transloco.umd.js",
-  "fesm2015": "../fesm2015/transloco.js",
-  "esm2015": "../esm2015/transloco/index.js",
+  "fesm2020": "../fesm2020/transloco.mjs",
+  "fesm2015": "../fesm2015/transloco.mjs",
+  "esm2020": "../esm2020/transloco/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/transloco.js",
-  "es2015": "../fesm2015/transloco.js"
+  "module": "../fesm2015/transloco.mjs",
+  "es2020": "../fesm2020/transloco.mjs"
 }

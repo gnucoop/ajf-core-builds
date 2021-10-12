@@ -20,8 +20,11 @@
  *
  */
 import { ElementRef } from '@angular/core';
+import * as i0 from "@angular/core";
 export declare class AjfMapContainerDirective {
     private _el;
     get htmlElement(): HTMLElement;
     constructor(_el: ElementRef);
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfMapContainerDirective, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfMapContainerDirective, "[mapContainer]", never, {}, {}, never>;
 }

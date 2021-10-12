@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/models",
-  "main": "../bundles/core-models.umd.js",
-  "fesm2015": "../fesm2015/models.js",
-  "esm2015": "../esm2015/models/index.js",
+  "fesm2020": "../fesm2020/models.mjs",
+  "fesm2015": "../fesm2015/models.mjs",
+  "esm2020": "../esm2020/models/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/models.js",
-  "es2015": "../fesm2015/models.js"
+  "module": "../fesm2015/models.mjs",
+  "es2020": "../fesm2020/models.mjs"
 }

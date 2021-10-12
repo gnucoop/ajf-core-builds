@@ -22,6 +22,7 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { AjfReportInstance } from './interface/reports-instances/report-instance';
 import { AjfReport } from './interface/reports/report';
+import * as i0 from "@angular/core";
 export declare abstract class AjfReportRenderer {
     private _cdr;
     private _instance;
@@ -30,4 +31,6 @@ export declare abstract class AjfReportRenderer {
     private _report;
     get report(): AjfReport | null;
     constructor(_cdr: ChangeDetectorRef);
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportRenderer, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfReportRenderer, never, never, { "instance": "instance"; }, {}, never>;
 }

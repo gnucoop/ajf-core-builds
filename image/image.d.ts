@@ -24,6 +24,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { AjfImageIcon } from './image-icon';
 import { AjfImageType } from './image-type';
+import * as i0 from "@angular/core";
 export declare abstract class AjfImage implements OnDestroy, OnInit {
     private _el;
     private _renderer;
@@ -53,4 +54,6 @@ export declare abstract class AjfImage implements OnDestroy, OnInit {
     ngOnDestroy(): void;
     ngOnInit(): void;
     private _updateIconSize;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfImage, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfImage, never, never, { "type": "type"; "imageUrl": "imageUrl"; "icon": "icon"; "flag": "flag"; }, {}, never>;
 }

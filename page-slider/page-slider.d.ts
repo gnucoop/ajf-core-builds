@@ -24,6 +24,7 @@ import { AfterContentInit, ChangeDetectorRef, ElementRef, OnDestroy, QueryList, 
 import { Observable } from 'rxjs';
 import { AjfPageSliderItem } from './page-slider-item';
 import { AjfPageSliderSlideOptions } from './page-slider-slide-options';
+import * as i0 from "@angular/core";
 export declare type AjfPageSliderOrientation = 'horizontal' | 'vertical';
 export declare class AjfPageSlider implements AfterContentInit, OnDestroy {
     private _animationBuilder;
@@ -75,4 +76,6 @@ export declare class AjfPageSlider implements AfterContentInit, OnDestroy {
     private _onSlidesChange;
     private _updateSize;
     private _restoreCurrentPage;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfPageSlider, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfPageSlider, never, never, { "duration": "duration"; "orientation": "orientation"; "fixedOrientation": "fixedOrientation"; "currentPage": "currentPage"; "hideNavigationButtons": "hideNavigationButtons"; }, { "pageScrollFinish": "pageScrollFinish"; "orientationChange": "orientationChange"; }, ["pages"]>;
 }

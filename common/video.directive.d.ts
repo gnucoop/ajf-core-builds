@@ -20,6 +20,7 @@
  *
  */
 import { AfterViewInit, ElementRef, EventEmitter, Renderer2 } from '@angular/core';
+import * as i0 from "@angular/core";
 export declare class AjfVideoDirective implements AfterViewInit {
     private _el;
     private _renderer;
@@ -30,4 +31,6 @@ export declare class AjfVideoDirective implements AfterViewInit {
     constructor(_el: ElementRef, _renderer: Renderer2);
     private _initCam;
     ngAfterViewInit(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfVideoDirective, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfVideoDirective, "[ajfVideoDirective]", never, { "source": "source"; }, { "isInit": "isInit"; }, never>;
 }

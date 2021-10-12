@@ -1,9 +1,9 @@
 {
   "name": "@ajf/core/vfs-fonts",
-  "main": "../bundles/core-vfs-fonts.umd.js",
-  "fesm2015": "../fesm2015/vfs-fonts.js",
-  "esm2015": "../esm2015/vfs-fonts/index.js",
+  "fesm2020": "../fesm2020/vfs-fonts.mjs",
+  "fesm2015": "../fesm2015/vfs-fonts.mjs",
+  "esm2020": "../esm2020/vfs-fonts/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/vfs-fonts.js",
-  "es2015": "../fesm2015/vfs-fonts.js"
+  "module": "../fesm2015/vfs-fonts.mjs",
+  "es2020": "../fesm2020/vfs-fonts.mjs"
 }

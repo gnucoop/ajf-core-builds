@@ -22,6 +22,7 @@
 import { PipeTransform } from '@angular/core';
 import { AjfTableFieldInstance } from './interface/fields-instances/table-field-instance';
 import { AjfTableFormControl } from './interface/forms/table-form-control';
+import * as i0 from "@angular/core";
 /**
  * It returns all visible columns of form table.
  *
@@ -30,4 +31,6 @@ import { AjfTableFormControl } from './interface/forms/table-form-control';
  */
 export declare class AjfTableVisibleColumnsPipe implements PipeTransform {
     transform(instance: AjfTableFieldInstance): (string | number | AjfTableFormControl)[][];
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTableVisibleColumnsPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfTableVisibleColumnsPipe, "ajfTableVisibleColumns">;
 }

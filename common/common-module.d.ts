@@ -1,23 +1,12 @@
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
+import * as i0 from "@angular/core";
+import * as i1 from "./dnd-directive";
+import * as i2 from "./video.directive";
+import * as i3 from "./apply-styles-directive";
+import * as i4 from "./auto-focus.directive";
+import * as i5 from "./format-if-number";
+import * as i6 from "./translate-if-string";
 export declare class AjfCommonModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCommonModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfCommonModule, [typeof i1.AjfDndDirective, typeof i2.AjfVideoDirective, typeof i3.ApplyStylesDirective, typeof i4.AutofocusDirective, typeof i5.FormatIfNumber, typeof i6.TranslateIfString], never, [typeof i1.AjfDndDirective, typeof i2.AjfVideoDirective, typeof i3.ApplyStylesDirective, typeof i4.AutofocusDirective, typeof i5.FormatIfNumber, typeof i6.TranslateIfString]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfCommonModule>;
 }

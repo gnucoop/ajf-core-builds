@@ -21,6 +21,7 @@
  */
 import { PipeTransform } from '@angular/core';
 import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
+import * as i0 from "@angular/core";
 /**
  * It returns a completeName of AjfNodeInstance paramenter.
  *
@@ -29,4 +30,6 @@ import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
  */
 export declare class AjfNodeCompleteNamePipe implements PipeTransform {
     transform(instance: AjfNodeInstance): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfNodeCompleteNamePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfNodeCompleteNamePipe, "ajfNodeCompleteName">;
 }

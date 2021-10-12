@@ -25,6 +25,7 @@ import { Observable } from 'rxjs';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfFieldInstance } from './interface/fields-instances/field-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
+import * as i0 from "@angular/core";
 /**
  * It rappresents the base field component, the first overlay of ajfFieldInstance.
  * It keeps a reference to the relative control of the form.
@@ -52,4 +53,6 @@ export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance =
     ngOnDestroy(): void;
     protected _onInstanceChange(): void;
     private _setUpInstanceUpdate;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfBaseFieldComponent<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBaseFieldComponent<any>, never, never, {}, {}, never>;
 }
