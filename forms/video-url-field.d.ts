@@ -26,6 +26,7 @@ import { Observable } from 'rxjs';
 import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfWarningAlertService } from './warning-alert-service';
+import * as i0 from "@angular/core";
 export declare type AjfVideoProvider = 'youtube' | 'vimeo';
 /**
  * It allows the loading of video(youtube or vimeo) url inside an AjfForm.
@@ -37,4 +38,6 @@ export declare class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
     readonly validUrl: Observable<boolean>;
     readonly videoThumbnail: Observable<SafeResourceUrl>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer, httpClient: HttpClient);
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfVideoUrlFieldComponent, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfVideoUrlFieldComponent, never, never, {}, {}, never>;
 }

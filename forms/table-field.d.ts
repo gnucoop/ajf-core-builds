@@ -24,6 +24,7 @@ import { AjfBaseFieldComponent } from './base-field';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfTableFieldInstance } from './interface/fields-instances/table-field-instance';
 import { AjfWarningAlertService } from './warning-alert-service';
+import * as i0 from "@angular/core";
 /**
  * This component manages the table field data.
  * It exposes methods for managing the display of controllers.
@@ -67,4 +68,6 @@ export declare abstract class AjfTableFieldComponent extends AjfBaseFieldCompone
      * @return {*}
      */
     private _showCell;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTableFieldComponent, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfTableFieldComponent, never, never, {}, {}, never>;
 }

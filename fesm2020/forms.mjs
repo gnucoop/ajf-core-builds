@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Pipe, EventEmitter, Injectable, Directive, ViewChild, Input, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Output, ViewChildren, ChangeDetectorRef, NgModule } from '@angular/core';
+import { Pipe, EventEmitter, Injectable, Directive, ViewChild, Input, InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Output, ViewChildren, NgModule } from '@angular/core';
 import * as i4 from '@angular/forms';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subject, BehaviorSubject, Subscription, Observable, of, from, timer, defer } from 'rxjs';
@@ -18,11 +18,9 @@ import * as i4$1 from '@ajf/core/common';
 import { buildStringIdentifierOpts, buildStringIdentifier, AjfCommonModule } from '@ajf/core/common';
 import { AjfTranslocoModule } from '@ajf/core/transloco';
 import * as i3$2 from '@angular/common/http';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import * as i2$1 from '@angular/platform-browser';
-import { DomSanitizer } from '@angular/platform-browser';
 import * as i3$1 from '@ngneat/transloco';
-import { __decorate, __param, __metadata } from 'tslib';
 import { vfsFontsMap, vfsFonts } from '@ajf/core/vfs-fonts';
 import { createPdf } from 'pdfmake/build/pdfmake';
 
@@ -6079,7 +6077,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  * @export
  * @class AjfVideoUrlFieldComponent
  */
-let AjfVideoUrlFieldComponent = class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
+class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, was, domSanitizer, httpClient) {
         super(cdr, service, was);
         const video = this.control.pipe(filter(control => control != null), switchMap(control => {
@@ -6089,12 +6087,15 @@ let AjfVideoUrlFieldComponent = class AjfVideoUrlFieldComponent extends AjfBaseF
         this.validUrl = video.pipe(map(v => v != null));
         this.videoThumbnail = video.pipe(filter(info => info != null), switchMap(info => videoPreviewUrl(httpClient, info)), filter(url => url != null), map(url => domSanitizer.bypassSecurityTrustResourceUrl(url)));
     }
-};
-AjfVideoUrlFieldComponent = __decorate([
-    __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-    __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object, DomSanitizer,
-        HttpClient])
-], AjfVideoUrlFieldComponent);
+}
+AjfVideoUrlFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfVideoUrlFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }, { token: i3$2.HttpClient }], target: i0.ɵɵFactoryTarget.Directive });
+AjfVideoUrlFieldComponent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfVideoUrlFieldComponent, usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfVideoUrlFieldComponent, decorators: [{
+            type: Directive
+        }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
+                    type: Inject,
+                    args: [AJF_WARNING_ALERT_SERVICE]
+                }] }, { type: i2$1.DomSanitizer }, { type: i3$2.HttpClient }]; } });
 /**
  * it returns a url of thumbnail related to video or null.
  *
@@ -7205,7 +7206,7 @@ class AjfFormSerializer {
  * @abstract
  * @class AjfTableFieldComponent
  */
-let AjfTableFieldComponent = class AjfTableFieldComponent extends AjfBaseFieldComponent {
+class AjfTableFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr, service, was) {
         super(cdr, service, was);
     }
@@ -7284,11 +7285,15 @@ let AjfTableFieldComponent = class AjfTableFieldComponent extends AjfBaseFieldCo
             nextCell.show = true;
         }
     }
-};
-AjfTableFieldComponent = __decorate([
-    __param(2, Inject(AJF_WARNING_ALERT_SERVICE)),
-    __metadata("design:paramtypes", [ChangeDetectorRef, AjfFormRendererService, Object])
-], AjfTableFieldComponent);
+}
+AjfTableFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Directive });
+AjfTableFieldComponent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfTableFieldComponent, usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableFieldComponent, decorators: [{
+            type: Directive
+        }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
+                    type: Inject,
+                    args: [AJF_WARNING_ALERT_SERVICE]
+                }] }]; } });
 
 /**
  * @license
