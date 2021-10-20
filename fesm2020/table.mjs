@@ -75,8 +75,8 @@ class AjfTable {
         this._cdr.markForCheck();
     }
     _fixData(data) {
-        (data || []).forEach((elem) => {
-            (elem || []).forEach((subElem) => {
+        (data || []).forEach(elem => {
+            (elem || []).forEach(subElem => {
                 subElem.value = this._domSanitizer.bypassSecurityTrustHtml(subElem.value);
             });
         });
@@ -118,25 +118,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class AjfTableModule {
 }
 AjfTableModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableModule, declarations: [AjfTable], imports: [AjfCommonModule,
-        CommonModule], exports: [AjfTable] });
-AjfTableModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableModule, imports: [[
-            AjfCommonModule,
-            CommonModule,
-        ]] });
+AjfTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableModule, declarations: [AjfTable], imports: [AjfCommonModule, CommonModule], exports: [AjfTable] });
+AjfTableModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableModule, imports: [[AjfCommonModule, CommonModule]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        AjfCommonModule,
-                        CommonModule,
-                    ],
-                    declarations: [
-                        AjfTable,
-                    ],
-                    exports: [
-                        AjfTable,
-                    ]
+                    imports: [AjfCommonModule, CommonModule],
+                    declarations: [AjfTable],
+                    exports: [AjfTable],
                 }]
         }] });
 

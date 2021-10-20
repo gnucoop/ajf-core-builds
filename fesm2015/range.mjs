@@ -30,7 +30,7 @@ class AjfRange extends AjfBaseFieldComponent {
         this.cdr = cdr;
         this._end = 10;
         this._name = '';
-        this._onChangeCallback = (_) => { };
+        this._onChangeCallback = _ => { };
         this._onTouchedCallback = () => { };
         this._start = 1;
         this._step = 1;

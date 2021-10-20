@@ -61,11 +61,13 @@ class AjfImage {
         this._domSanitizer = _domSanitizer;
         this.imageTypes = AjfImageType;
         this._imageType = new BehaviorSubject(null);
-        this.imageType = this._imageType;
+        this.imageType = this
+            ._imageType;
         this._url = new BehaviorSubject(null);
         this.url = this._url;
         this._iconObj = new BehaviorSubject(null);
-        this.iconObj = this._iconObj;
+        this.iconObj = this
+            ._iconObj;
         this._flagName = new BehaviorSubject(null);
         this.flagName = this._flagName;
         this._iconSub = Subscription.EMPTY;
@@ -82,9 +84,9 @@ class AjfImage {
     }
     set imageUrl(imageUrl) {
         imageUrl = typeof imageUrl === 'string' ? imageUrl : '';
-        this._url.next(imageUrl.startsWith('data:image/svg+xml;base64,') ?
-            this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl) :
-            imageUrl);
+        this._url.next(imageUrl.startsWith('data:image/svg+xml;base64,')
+            ? this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl)
+            : imageUrl);
     }
     set icon(icon) {
         this._iconObj.next(icon);

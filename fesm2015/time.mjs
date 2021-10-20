@@ -49,8 +49,8 @@ class AjfTimeModel {
         }
     }
     toString() {
-        let minutes = this.minutes.toString().length > 1 && this.minutes || `0${this.minutes}`;
-        let hours = this.hours.toString().length > 1 && this.hours || `0${this.hours}`;
+        let minutes = (this.minutes.toString().length > 1 && this.minutes) || `0${this.minutes}`;
+        let hours = (this.hours.toString().length > 1 && this.hours) || `0${this.hours}`;
         return `${hours}:${minutes}`;
     }
     fromString(value) {
@@ -61,8 +61,7 @@ class AjfTimeModel {
                 this.minutes = parseInt(splitted[1]);
             }
         }
-        catch (e) {
-        }
+        catch (e) { }
     }
 }
 

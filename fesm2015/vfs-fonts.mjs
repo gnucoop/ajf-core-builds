@@ -54,7 +54,7 @@ const vfsFontsMap = {
         normal: 'roboto-all-400-normal.woff',
         bold: 'roboto-all-500-normal.woff',
         italics: 'roboto-all-400-italic.woff',
-        bolditalics: 'roboto-all-500-italic.woff'
+        bolditalics: 'roboto-all-500-italic.woff',
     },
 };
 

@@ -29,7 +29,7 @@ import { map } from 'rxjs/operators';
 const AJF_CHECKBOX_GROUP_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => AjfCheckboxGroup),
-    multi: true
+    multi: true,
 };
 class AjfCheckboxGroupItemChange {
 }
@@ -51,7 +51,7 @@ class AjfCheckboxGroup {
         /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
         this.onTouched = () => { };
         /** The method to be called in order to update ngModel. */
-        this._controlValueAccessorChangeFn = (_) => { };
+        this._controlValueAccessorChangeFn = _ => { };
     }
     get value() {
         return this._value;
@@ -136,7 +136,7 @@ class AjfCheckboxGroup {
         if (this.checkboxes == null) {
             return;
         }
-        this.checkboxes.forEach((checkbox) => {
+        this.checkboxes.forEach(checkbox => {
             if (checkbox == null) {
                 return;
             }
@@ -174,7 +174,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: 'ajf-checkbox-group,[ajf-checkbox-group]',
-                    providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR]
+                    providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR],
                 }]
         }], propDecorators: { value: [{
                 type: Input
@@ -201,8 +201,7 @@ class AjfCheckboxGroupItem {
         /** Event emitted when the group value changes. */
         this._change = new EventEmitter();
         this.change = this._change;
-        this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal)
-            .pipe(map(([checked, checkedIcon, notCheckedIcon]) => (checked ? checkedIcon : notCheckedIcon)));
+        this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal).pipe(map(([checked, checkedIcon, notCheckedIcon]) => (checked ? checkedIcon : notCheckedIcon)));
         if (checkboxGroup) {
             this.checkboxGroup = checkboxGroup;
             this.checkboxGroup.registerItem(this);
@@ -248,7 +247,8 @@ class AjfCheckboxGroupItem {
         if (this.id == null) {
             this.id = `ajf-checkbox-group-item-${_uniqueIdCounter++}`;
         }
-        if (this.checkboxGroup && this.checkboxGroup.value &&
+        if (this.checkboxGroup &&
+            this.checkboxGroup.value &&
             this.checkboxGroup.value.indexOf(this._value) > -1) {
             this.checked = true;
         }
@@ -318,21 +318,13 @@ class AjfCheckboxGroupModule {
 }
 AjfCheckboxGroupModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
 AjfCheckboxGroupModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupModule, declarations: [AjfCheckboxGroup], imports: [FormsModule], exports: [AjfCheckboxGroup] });
-AjfCheckboxGroupModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupModule, imports: [[
-            FormsModule,
-        ]] });
+AjfCheckboxGroupModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupModule, imports: [[FormsModule]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        FormsModule,
-                    ],
-                    declarations: [
-                        AjfCheckboxGroup,
-                    ],
-                    exports: [
-                        AjfCheckboxGroup,
-                    ]
+                    imports: [FormsModule],
+                    declarations: [AjfCheckboxGroup],
+                    exports: [AjfCheckboxGroup],
                 }]
         }] });
 

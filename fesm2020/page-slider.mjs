@@ -51,7 +51,8 @@ class AjfPageSliderItem {
             currentScroll = this._scrollY;
         }
         const maxScroll = containerSize - wrapperSize;
-        if (wrapperSize <= containerSize || (currentScroll === maxScroll && amount < 0) ||
+        if (wrapperSize <= containerSize ||
+            (currentScroll === maxScroll && amount < 0) ||
             (currentScroll === 0 && amount > 0)) {
             return false;
         }
@@ -86,11 +87,12 @@ class AjfPageSliderItem {
         const wrapper = this.wrapper.nativeElement;
         const maxScrollX = Math.min(0, content.clientWidth - wrapper.clientWidth);
         const maxScrollY = Math.min(0, content.clientHeight - wrapper.clientHeight);
-        if (maxScrollX !== 0 || maxScrollY !== 0 || (maxScrollX === 0 && this._scrollX !== 0) ||
+        if (maxScrollX !== 0 ||
+            maxScrollY !== 0 ||
+            (maxScrollX === 0 && this._scrollX !== 0) ||
             (maxScrollY === 0 && this._scrollY !== 0)) {
             this._scrollX = Math.max(maxScrollX, this._scrollX - (content.scrollLeft != null ? content.scrollLeft : 0));
-            this._scrollY =
-                Math.max(maxScrollY, this._scrollY - (content.scrollTop != null ? content.scrollTop : 0));
+            this._scrollY = Math.max(maxScrollY, this._scrollY - (content.scrollTop != null ? content.scrollTop : 0));
             content.scrollTop = content.scrollLeft = 0;
             this._renderer.setStyle(wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`);
             this._scrollEvt.emit({ x: this._scrollX, y: this._scrollY });
@@ -185,7 +187,8 @@ class AjfPageSlider {
         this._pageScrollFinish = new EventEmitter();
         this.pageScrollFinish = this._pageScrollFinish;
         this._orientationChange = new EventEmitter();
-        this.orientationChange = this._orientationChange;
+        this.orientationChange = this
+            ._orientationChange;
         this.duration = 300;
         this._orientation = 'horizontal';
         this._fixedOrientation = false;
@@ -194,29 +197,29 @@ class AjfPageSlider {
         this._pagesSub = Subscription.EMPTY;
         this._mouseWheelEvt = new EventEmitter();
         this._mouseWheelSub = Subscription.EMPTY;
-        this._mouseWheelSub =
-            this._mouseWheelEvt
-                .pipe(map(evt => {
-                const page = this._getCurrentPage();
-                if (page == null) {
-                    return null;
-                }
-                return { evt, res: page.setScroll(evt.dir, evt.amount, 0) };
-            }), filter(r => r != null && r.res === false &&
-                ((r.evt.dir === 'x' && this.orientation === 'horizontal') ||
-                    (r.evt.dir === 'y' && this.orientation === 'vertical'))), map(r => r.evt.amount), scan((acc, val) => {
-                if (acc === 0) {
-                    return val;
-                }
-                if (acc / Math.abs(acc) !== val / Math.abs(val)) {
-                    return 0;
-                }
-                return acc + val;
-            }, 0), filter(val => !this._animating && Math.abs(val) > 150), throttleTime(1500))
-                .subscribe(val => {
-                this._mouseWheelEvt.emit({ dir: 'x', amount: val > 0 ? -1 : +1 });
-                this.slide({ dir: val > 0 ? 'back' : 'forward' });
-            });
+        this._mouseWheelSub = this._mouseWheelEvt
+            .pipe(map(evt => {
+            const page = this._getCurrentPage();
+            if (page == null) {
+                return null;
+            }
+            return { evt, res: page.setScroll(evt.dir, evt.amount, 0) };
+        }), filter(r => r != null &&
+            r.res === false &&
+            ((r.evt.dir === 'x' && this.orientation === 'horizontal') ||
+                (r.evt.dir === 'y' && this.orientation === 'vertical'))), map(r => r.evt.amount), scan((acc, val) => {
+            if (acc === 0) {
+                return val;
+            }
+            if (acc / Math.abs(acc) !== val / Math.abs(val)) {
+                return 0;
+            }
+            return acc + val;
+        }, 0), filter(val => !this._animating && Math.abs(val) > 150), throttleTime(1500))
+            .subscribe(val => {
+            this._mouseWheelEvt.emit({ dir: 'x', amount: val > 0 ? -1 : +1 });
+            this.slide({ dir: val > 0 ? 'back' : 'forward' });
+        });
     }
     get orientation() {
         return this._orientation;
@@ -312,7 +315,9 @@ class AjfPageSlider {
         this._currentOrigin = { x: evt.touches[0].clientX, y: evt.touches[0].clientY, time: +new Date() };
     }
     onTouchMove(evt) {
-        if (evt.touches == null || evt.touches.length === 0 || this._currentOrigin == null ||
+        if (evt.touches == null ||
+            evt.touches.length === 0 ||
+            this._currentOrigin == null ||
             this._animating) {
             return;
         }
@@ -325,7 +330,8 @@ class AjfPageSlider {
         const absVelocityX = Math.abs(movement.velocityX);
         const absVelocityY = Math.abs(movement.velocityY);
         if (absVelocityX > absVelocityY) {
-            if (this.orientation === 'horizontal' && absVelocityX > 1.5 &&
+            if (this.orientation === 'horizontal' &&
+                absVelocityX > 1.5 &&
                 Math.abs(movement.deltaX) > 50) {
                 this._resetCurrentOrigin();
                 this.slide({ dir: movement.velocityX < 0 ? 'forward' : 'back' });
@@ -508,12 +514,8 @@ AjfPageSliderModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", ver
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfPageSliderModule, decorators: [{
             type: NgModule,
             args: [{
-                    declarations: [
-                        AjfPageSliderItem,
-                    ],
-                    exports: [
-                        AjfPageSliderItem,
-                    ]
+                    declarations: [AjfPageSliderItem],
+                    exports: [AjfPageSliderItem],
                 }]
         }] });
 

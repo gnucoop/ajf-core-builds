@@ -124,7 +124,7 @@ class AjfMapComponent {
         if (this._map == null || this._tileLayer == null) {
             return;
         }
-        this._map.eachLayer((l) => this._map.removeLayer(l));
+        this._map.eachLayer(l => this._map.removeLayer(l));
         tileLayer(this._tileLayer, { attribution: this._attribution }).addTo(this._map);
     }
     _disableMap() {
@@ -186,19 +186,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class AjfMapModule {
 }
 AjfMapModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfMapModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapModule, declarations: [AjfMapComponent,
-        AjfMapContainerDirective], exports: [AjfMapComponent] });
+AjfMapModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapModule, declarations: [AjfMapComponent, AjfMapContainerDirective], exports: [AjfMapComponent] });
 AjfMapModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapModule });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapModule, decorators: [{
             type: NgModule,
             args: [{
-                    declarations: [
-                        AjfMapComponent,
-                        AjfMapContainerDirective,
-                    ],
-                    exports: [
-                        AjfMapComponent,
-                    ],
+                    declarations: [AjfMapComponent, AjfMapContainerDirective],
+                    exports: [AjfMapComponent],
                 }]
         }] });
 

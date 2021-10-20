@@ -21,5 +21,5 @@
  */
 export * from './transloco.module';
 export * from './transloco-missing-handler';
-export { TranslocoService, TranslocoPipe, Translation, TranslocoLoader, TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER, TRANSLOCO_SCOPE, translocoConfig, HashMap } from '@ngneat/transloco';
+export { TranslocoService, TranslocoPipe, Translation, TranslocoLoader, TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER, TRANSLOCO_SCOPE, translocoConfig, HashMap, } from '@ngneat/transloco';
 export * from './lang';

@@ -65,12 +65,8 @@ AjfPageBreakModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", vers
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfPageBreakModule, decorators: [{
             type: NgModule,
             args: [{
-                    declarations: [
-                        AjfPageBreakComponent,
-                    ],
-                    exports: [
-                        AjfPageBreakComponent,
-                    ]
+                    declarations: [AjfPageBreakComponent],
+                    exports: [AjfPageBreakComponent],
                 }]
         }] });
 

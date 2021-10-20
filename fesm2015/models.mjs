@@ -215,7 +215,7 @@ const dateUtils = {
     getDay: dateFns.getDay,
     parse: dateFns.parseISO,
     startOfMonth: dateFns.startOfMonth,
-    startOfISOWeek: dateFns.startOfISOWeek
+    startOfISOWeek: dateFns.startOfISOWeek,
 };
 class AjfExpressionUtils {
 }
@@ -282,7 +282,9 @@ function evaluateExpression(expression, context, forceFormula) {
     if (/^"[^"]*"$/.test(formula)) {
         return formula.replace(/^"+|"+$/g, '');
     }
-    const identifiers = tokenize(formula).filter((t) => t.type === 'Identifier').map((t) => t.value);
+    const identifiers = tokenize(formula)
+        .filter((t) => t.type === 'Identifier')
+        .map((t) => t.value);
     const ctx = [];
     identifiers.forEach((key) => {
         let val = null;
@@ -311,7 +313,7 @@ function evaluateExpression(expression, context, forceFormula) {
  * It returns the count of digit inside x.
  */
 function digitCount(x) {
-    if (isNaN(x) || typeof (x) !== 'number') {
+    if (isNaN(x) || typeof x !== 'number') {
         return 0;
     }
     if (!isFinite(x)) {
@@ -336,10 +338,10 @@ function decimalCount(x) {
  * It is true if x is an integer.
  */
 function isInt(x) {
-    if (typeof (x) === 'string') {
+    if (typeof x === 'string') {
         return /^-?\d+$/.test(x);
     }
-    if (typeof (x) === 'number') {
+    if (typeof x === 'number') {
         return Math.round(x) === x;
     }
     return false;
@@ -348,7 +350,7 @@ function isInt(x) {
  * It is true if x is not empty.
  */
 function notEmpty(x) {
-    return (typeof x !== 'undefined' && x !== null ? x.toString().length > 0 : false);
+    return typeof x !== 'undefined' && x !== null ? x.toString().length > 0 : false;
 }
 /**
  * It is true if array contains x or array is equal to x.
@@ -379,7 +381,7 @@ function sum(array) {
 // TODO operation: 'add/remove' = 'add', v:number)
 function dateOperations(dString, period, operation, v) {
     const fmt = 'mm/dd/yyyy';
-    let d = (typeof dString !== 'undefined') ? dateUtils.parse(dString) : new Date();
+    let d = typeof dString !== 'undefined' ? dateUtils.parse(dString) : new Date();
     if (operation == 'remove') {
         v = -v;
     }
@@ -409,8 +411,7 @@ function round(num, digits) {
         try {
             f = parseFloat(num);
         }
-        catch (e) {
-        }
+        catch (e) { }
     }
     else {
         f = num;
@@ -589,8 +590,8 @@ function calculateTrendProperty(source, property) {
             lastLast--;
         }
     }
-    const lastProp = source[last] ? (source[last][property] || 0) : 0;
-    const lastLastProp = source[lastLast] ? (source[lastLast][property] || 0) : 0;
+    const lastProp = source[last] ? source[last][property] || 0 : 0;
+    const lastLastProp = source[lastLast] ? source[lastLast][property] || 0 : 0;
     if (lastProp == lastLastProp) {
         return '<p><i class="material-icons" style="color:blue">trending_flat</i></p>';
     }
@@ -606,8 +607,8 @@ function calculateTrendProperty(source, property) {
  */
 function calculateTrendByProperties(source, properties) {
     const arraysum = extractArraySum(source, properties);
-    const lastProp = arraysum.length > 0 ? (arraysum[arraysum.length - 1] || 0) : 0;
-    const lastLastProp = arraysum.length > 1 ? (arraysum[arraysum.length - 2] || 0) : lastProp;
+    const lastProp = arraysum.length > 0 ? arraysum[arraysum.length - 1] || 0 : 0;
+    const lastLastProp = arraysum.length > 1 ? arraysum[arraysum.length - 2] || 0 : lastProp;
     if (lastProp == lastLastProp) {
         return '<p><i class="material-icons" style="color:blue">trending_flat</i></p>';
     }
@@ -657,8 +658,9 @@ function calculateAvgPropertyArray(source, properties, range, coefficient) {
         let avg = 0;
         coefficient = coefficient || 1;
         range = range || 12;
-        const sourceArr = properties.length > 1 ? extractArraySum(source, properties) :
-            extractArray(source, properties[0]);
+        const sourceArr = properties.length > 1
+            ? extractArraySum(source, properties)
+            : extractArray(source, properties[0]);
         let l = sourceArr.length;
         for (let len = l; len > 0; len--) {
             let res = 0;
@@ -741,7 +743,7 @@ function COUNTFORMS(forms, expression = 'true') {
                 if (Object.keys(f).filter(key => key.includes(`__${i}`)).length === 0) {
                     break;
                 }
-                if (evaluateExpression(expression.replace('__', `__${i}`)), f) {
+                if ((evaluateExpression(expression.replace('__', `__${i}`)), f)) {
                     count++;
                 }
             }
@@ -749,7 +751,7 @@ function COUNTFORMS(forms, expression = 'true') {
         return count;
     }
     else {
-        return forms.filter((f) => evaluateExpression(expression, f)).length;
+        return forms.filter(f => evaluateExpression(expression, f)).length;
     }
 }
 /**
@@ -778,7 +780,7 @@ function SUM(forms, expression, condition) {
         return 0;
     }
     if (condition != null) {
-        forms = forms.filter((f) => evaluateExpression(condition, f));
+        forms = forms.filter(f => evaluateExpression(condition, f));
     }
     const isInRepeatingSlide = expression.includes(`__`);
     if (isInRepeatingSlide) {
@@ -795,7 +797,7 @@ function SUM(forms, expression, condition) {
         });
     }
     else {
-        forms.forEach((f) => acc += evaluateExpression(expression, f));
+        forms.forEach(f => (acc += evaluateExpression(expression, f)));
     }
     return acc;
 }
@@ -805,13 +807,13 @@ function SUM(forms, expression, condition) {
  */
 function MEAN(forms, expression) {
     forms = (forms || []).slice(0);
-    expression = (expression || '');
+    expression = expression || '';
     const length = forms.length;
     if (length === 0) {
         return 0;
     }
     let acc = 0;
-    forms.forEach((f) => {
+    forms.forEach(f => {
         acc += evaluateExpression(expression, f);
     });
     return Math.trunc(acc / length);
@@ -845,7 +847,8 @@ function MAX(forms, fieldName) {
     forms = (forms || []).slice(0);
     let max = 0;
     forms.forEach(form => {
-        if (form[fieldName] != null && !isNaN(form[fieldName]) &&
+        if (form[fieldName] != null &&
+            !isNaN(form[fieldName]) &&
             form[fieldName] > max) {
             max = form[fieldName];
         }
@@ -857,13 +860,14 @@ function MAX(forms, fieldName) {
  */
 function MEDIAN(forms, fieldName) {
     forms = (forms || []).slice(0);
-    const numbers = forms.filter(f => f[fieldName] != null && !isNaN(f[fieldName]))
+    const numbers = forms
+        .filter(f => f[fieldName] != null && !isNaN(f[fieldName]))
         .map(f => f[fieldName])
         .sort((a, b) => a - b)
         .filter((item, pos, self) => self.indexOf(item) == pos);
-    return Number.isInteger(numbers.length / 2) ?
-        numbers[numbers.length / 2] :
-        (numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2] +
+    return Number.isInteger(numbers.length / 2)
+        ? numbers[numbers.length / 2]
+        : (numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2] +
             numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2 + 1]) /
             2;
 }
@@ -883,7 +887,9 @@ function MODE(forms, fieldName) {
             maxCount = map[value];
         }
     });
-    return Object.keys(map).filter(v => map[+v] === maxCount).map(v => +v);
+    return Object.keys(map)
+        .filter(v => map[+v] === maxCount)
+        .map(v => +v);
 }
 
 /**
@@ -921,7 +927,7 @@ function getContextString(context) {
                 if (val instanceof Array) {
                     for (let i = 0; i < val.length; i++) {
                         val[i] =
-                            (val == null || isNaN(Number(val[i])) || val[i] === '') && val[i] || Number(val[i]);
+                            ((val == null || isNaN(Number(val[i])) || val[i] === '') && val[i]) || Number(val[i]);
                     }
                 }
                 val = JSON.stringify(val);

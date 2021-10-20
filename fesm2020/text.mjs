@@ -40,9 +40,9 @@ class AjfTextComponent {
     }
     set htmlText(htmlText) {
         // type checking and length checking for instant method
-        const htmlTextToBeTranslate = htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0 ?
-            this._ts.translate(htmlText) :
-            htmlText;
+        const htmlTextToBeTranslate = htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0
+            ? this._ts.translate(htmlText)
+            : htmlText;
         this._htmlText = this._domSanitizer.bypassSecurityTrustHtml(htmlTextToBeTranslate);
         this._cdr.markForCheck();
     }
@@ -83,25 +83,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class AjfTextModule {
 }
 AjfTextModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTextModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfTextModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTextModule, declarations: [AjfTextComponent], imports: [CommonModule,
-        AjfTranslocoModule], exports: [AjfTextComponent] });
-AjfTextModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTextModule, imports: [[
-            CommonModule,
-            AjfTranslocoModule,
-        ]] });
+AjfTextModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTextModule, declarations: [AjfTextComponent], imports: [CommonModule, AjfTranslocoModule], exports: [AjfTextComponent] });
+AjfTextModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTextModule, imports: [[CommonModule, AjfTranslocoModule]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTextModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        CommonModule,
-                        AjfTranslocoModule,
-                    ],
-                    declarations: [
-                        AjfTextComponent,
-                    ],
-                    exports: [
-                        AjfTextComponent,
-                    ]
+                    imports: [CommonModule, AjfTranslocoModule],
+                    declarations: [AjfTextComponent],
+                    exports: [AjfTextComponent],
                 }]
         }] });
 

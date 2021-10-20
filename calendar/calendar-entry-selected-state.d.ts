@@ -19,4 +19,4 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare type AjfCalendarEntrySelectedState = ('none' | 'partial' | 'full');
+export declare type AjfCalendarEntrySelectedState = 'none' | 'partial' | 'full';

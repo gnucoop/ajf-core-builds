@@ -136,7 +136,7 @@ const ENG = {
     'Set image': 'Set image',
     'Choose type of Chart': 'Choose type of Chart',
     'Labels': 'Labels',
-    'Border width': 'Border width'
+    'Border width': 'Border width',
 };
 
 /**
@@ -271,7 +271,7 @@ const ESP = {
     'Set image': 'Establecer imagen',
     'Choose type of Chart': 'Elija el tipo de gráfico',
     'Labels': 'Etiquetas',
-    'Border width': 'Ancho del borde'
+    'Border width': 'Ancho del borde',
 };
 
 /**
@@ -406,7 +406,7 @@ const ETH = {
     'Set image': 'የመጀመሪያ6',
     'Choose type of Chart': 'የመጀመሪያ7',
     'Labels': 'የመጀመሪያ8',
-    'Border width': 'የመጀመሪያ9'
+    'Border width': 'የመጀመሪያ9',
 };
 
 /**
@@ -438,9 +438,9 @@ const FRA = {
     'Camera': 'Caméra',
     'Save': 'Sauvegarder',
     'Errors': 'les erreurs',
-    'Drop image': 'Déposer l\'image',
+    'Drop image': "Déposer l'image",
     'Drop your image here!': 'Déposez votre image ici !',
-    'Edit choices origin': 'Modifier l\'origine des choix',
+    'Edit choices origin': "Modifier l'origine des choix",
     'Close': 'Fermer',
     'Name': 'Nom',
     'Label': 'Étiqueter',
@@ -484,13 +484,13 @@ const FRA = {
     'Force narrow selection': 'Forcer la sélection étroite',
     'Trigger selection': 'Sélection de déclencheur',
     'No trigger condition': 'Aucune condition de déclenchement',
-    'Edit identifier': 'Modifier l\'identifiant',
+    'Edit identifier': "Modifier l'identifiant",
     'Show': 'Spectacle',
     'All': 'Tout',
-    'First': 'D\'abord',
+    'First': "D'abord",
     'Last': 'Durer',
-    'Error message': 'Message d\'erreur',
-    'Warning message': 'Message d\'alerte',
+    'Error message': "Message d'erreur",
+    'Warning message': "Message d'alerte",
     'Invalid condition! Please check syntax.': 'État invalide ! Veuillez vérifier la syntaxe.',
     'Drop here': 'Déposer ici',
     'Main Data': 'Donnée principale',
@@ -538,10 +538,10 @@ const FRA = {
     'Column': 'Colonne',
     'Add column': 'Ajouter une colonne',
     'paste a link': 'coller un lien',
-    'Set image': 'Définir l\'image',
+    'Set image': "Définir l'image",
     'Choose type of Chart': 'Choisissez le type de graphique',
     'Labels': 'Étiquettes',
-    'Border width': 'Largeur de la bordure'
+    'Border width': 'Largeur de la bordure',
 };
 
 /**
@@ -676,7 +676,7 @@ const ITA = {
     'Set image': 'Imposta immagine',
     'Choose type of Chart': 'Scegli il tipo di grafico',
     'Labels': 'etichette',
-    'Border width': 'Larghezza del bordo'
+    'Border width': 'Larghezza del bordo',
 };
 
 /**
@@ -811,7 +811,7 @@ const PRT = {
     'Set image': 'Definir imagem',
     'Choose type of Chart': 'Escolha o tipo de gráfico',
     'Labels': 'Etiquetas',
-    'Border width': 'Border width'
+    'Border width': 'Border width',
 };
 
 /**
@@ -841,7 +841,7 @@ const langs = {
     FRA,
     ITA,
     PRT,
-    ETH
+    ETH,
 };
 
 /**
@@ -904,9 +904,7 @@ class AjfTranslocoModule {
     static forRoot() {
         return {
             ngModule: AjfTranslocoModule,
-            providers: [
-                TranslocoService,
-            ]
+            providers: [TranslocoService],
         };
     }
 }
@@ -920,9 +918,9 @@ AjfTranslocoModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", vers
                 defaultLang: 'ENG',
                 reRenderOnLangChange: true,
                 prodMode: false,
-            })
+            }),
         },
-        { provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler }
+        { provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler },
     ], imports: [[TranslocoModule], TranslocoModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTranslocoModule, decorators: [{
             type: NgModule,
@@ -937,9 +935,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                                 defaultLang: 'ENG',
                                 reRenderOnLangChange: true,
                                 prodMode: false,
-                            })
+                            }),
                         },
-                        { provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler }
+                        { provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler },
                     ],
                 }]
         }], ctorParameters: function () { return [{ type: i1.TranslocoService }]; } });

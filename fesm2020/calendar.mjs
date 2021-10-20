@@ -25,8 +25,8 @@ import 'rxjs';
  *
  */
 function isBetween(date, rangeLeft, rangeRight) {
-    return (isAfter(date, rangeLeft) || isSameDay(date, rangeLeft)) &&
-        (isBefore(date, rangeRight) || isSameDay(date, rangeRight));
+    return ((isAfter(date, rangeLeft) || isSameDay(date, rangeLeft)) &&
+        (isBefore(date, rangeRight) || isSameDay(date, rangeRight)));
 }
 function periodOrder(entryType) {
     return ['day', 'week', 'month', 'year'].indexOf(entryType);
@@ -94,7 +94,7 @@ class AjfCalendarService {
             let curDate = new Date(entry.date);
             return {
                 start: entry.type === 'month' ? startOfMonth(curDate) : startOfYear(curDate),
-                end: entry.type === 'month' ? endOfMonth(curDate) : endOfYear(curDate)
+                end: entry.type === 'month' ? endOfMonth(curDate) : endOfYear(curDate),
             };
         }
     }
@@ -227,7 +227,7 @@ class AjfCalendarService {
                     date: date,
                     selected: 'none',
                     highlight: format(todayDate, 'yyyy-MM-dd') === format(curDate, 'yyyy-MM-dd'),
-                    disabled: disabled
+                    disabled: disabled,
                 };
                 newEntry.selected = this.isEntrySelected(newEntry, selection);
                 row.push(newEntry);
@@ -379,27 +379,19 @@ AjfCalendarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", versi
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCalendarModule, decorators: [{
             type: NgModule,
             args: [{
-                    declarations: [
-                        AjfCalendarEntryLabelPipe,
-                    ],
-                    exports: [
-                        AjfCalendarEntryLabelPipe,
-                    ],
+                    declarations: [AjfCalendarEntryLabelPipe],
+                    exports: [AjfCalendarEntryLabelPipe],
                 }]
         }] });
 class AjfGregorianCalendarModule {
 }
 AjfGregorianCalendarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfGregorianCalendarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
 AjfGregorianCalendarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfGregorianCalendarModule });
-AjfGregorianCalendarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfGregorianCalendarModule, providers: [
-        AjfCalendarService,
-    ] });
+AjfGregorianCalendarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfGregorianCalendarModule, providers: [AjfCalendarService] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfGregorianCalendarModule, decorators: [{
             type: NgModule,
             args: [{
-                    providers: [
-                        AjfCalendarService,
-                    ],
+                    providers: [AjfCalendarService],
                 }]
         }] });
 
@@ -536,7 +528,16 @@ class AjfCalendarPeriod {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const weekDays = ['', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+const weekDays = [
+    '',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday',
+];
 class AjfCalendarChange {
 }
 class AjfCalendar {
@@ -641,7 +642,9 @@ class AjfCalendar {
         return this._selectedPeriod;
     }
     set value(period) {
-        if (this._dateOnlyForDay && this.selectionMode === 'day' && period instanceof Date &&
+        if (this._dateOnlyForDay &&
+            this.selectionMode === 'day' &&
+            period instanceof Date &&
             (this._selectedPeriod == null || period !== this._selectedPeriod.startDate)) {
             this.selectedPeriod = { type: 'day', startDate: period, endDate: period };
         }
@@ -694,12 +697,16 @@ class AjfCalendar {
         else if (this._selectionMode == 'week') {
             newPeriod = {
                 type: 'week',
-                startDate: this._isoMode ? startOfISOWeek(entry.date) : startOfWeek(entry.date, {
-                    weekStartsOn: this._startOfWeekDay
-                }),
-                endDate: this._isoMode ?
-                    endOfISOWeek(entry.date) :
-                    endOfWeek(entry.date, { weekStartsOn: this._startOfWeekDay })
+                startDate: this._isoMode
+                    ? startOfISOWeek(entry.date)
+                    : startOfWeek(entry.date, {
+                        weekStartsOn: this._startOfWeekDay,
+                    }),
+                endDate: this._isoMode
+                    ? endOfISOWeek(entry.date)
+                    : endOfWeek(entry.date, {
+                        weekStartsOn: this._startOfWeekDay,
+                    }),
             };
         }
         else if (this._selectionMode == 'month') {
@@ -707,14 +714,14 @@ class AjfCalendar {
             newPeriod = {
                 type: 'month',
                 startDate: new Date(monthBounds.start),
-                endDate: new Date(monthBounds.end)
+                endDate: new Date(monthBounds.end),
             };
         }
         else if (this._selectionMode == 'year') {
             newPeriod = {
                 type: 'year',
                 startDate: startOfYear(entry.date),
-                endDate: endOfYear(entry.date)
+                endDate: endOfYear(entry.date),
             };
         }
         this.value = newPeriod;

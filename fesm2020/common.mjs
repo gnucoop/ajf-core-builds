@@ -44,8 +44,7 @@ class ApplyStylesDirective {
             try {
                 this._renderer.setStyle(this._el.nativeElement, style, `${this._cssStyles[style]}`);
             }
-            catch (e) {
-            }
+            catch (e) { }
         });
     }
 }
@@ -219,7 +218,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         '(dragover)': 'onDragOver($event)',
                         '(dragleave)': 'onDragLeave($event)',
                         '(drop)': 'onDrop($event)',
-                    }
+                    },
                 }]
         }], propDecorators: { file: [{
                 type: Output
@@ -337,7 +336,8 @@ class AjfVideoDirective {
     }
     _initCam() {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
+            navigator.mediaDevices
+                .getUserMedia({ video: true })
                 .then((stream) => {
                 this._source.srcObject = stream;
                 this._source.play();

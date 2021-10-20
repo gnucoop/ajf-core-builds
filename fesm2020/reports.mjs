@@ -1340,13 +1340,8 @@ AjfReportsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version
 AjfReportsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReportsModule, declarations: [AjfGetColumnContentPipe,
         AjfReportStringIdentifierPipe,
         AjfWidgetHost,
-        AjfWidgetExport], imports: [CommonModule], exports: [AjfGetColumnContentPipe,
-        AjfReportStringIdentifierPipe,
-        AjfWidgetHost,
-        AjfWidgetExport] });
-AjfReportsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReportsModule, imports: [[
-            CommonModule,
-        ]] });
+        AjfWidgetExport], imports: [CommonModule], exports: [AjfGetColumnContentPipe, AjfReportStringIdentifierPipe, AjfWidgetHost, AjfWidgetExport] });
+AjfReportsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReportsModule, imports: [[CommonModule]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReportsModule, decorators: [{
             type: NgModule,
             args: [{
@@ -1356,15 +1351,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         AjfWidgetHost,
                         AjfWidgetExport,
                     ],
-                    imports: [
-                        CommonModule,
-                    ],
-                    exports: [
-                        AjfGetColumnContentPipe,
-                        AjfReportStringIdentifierPipe,
-                        AjfWidgetHost,
-                        AjfWidgetExport,
-                    ],
+                    imports: [CommonModule],
+                    exports: [AjfGetColumnContentPipe, AjfReportStringIdentifierPipe, AjfWidgetHost, AjfWidgetExport],
                 }]
         }] });
 
@@ -1480,9 +1468,10 @@ class AjfDatasetSerializer {
         if (json.formula == null || json.aggregation == null || json.label == null) {
             throw new Error('Malformed dataset');
         }
-        json.formula = json.formula instanceof Array ?
-            json.formula = json.formula.map(f => AjfFormulaSerializer.fromJson(f)) :
-            AjfFormulaSerializer.fromJson(json.formula);
+        json.formula =
+            json.formula instanceof Array
+                ? (json.formula = json.formula.map(f => AjfFormulaSerializer.fromJson(f)))
+                : AjfFormulaSerializer.fromJson(json.formula);
         json.aggregation = AjfAggregationSerializer.fromJson(json.aggregation);
         return createDataset(json);
     }
@@ -1543,8 +1532,9 @@ class AjfWidgetSerializer {
         if (json.widgetType == null) {
             throw new Error('Malformed widget');
         }
-        json.visibility =
-            json.visibility ? AjfConditionSerializer.fromJson(json.visibility) : alwaysCondition();
+        json.visibility = json.visibility
+            ? AjfConditionSerializer.fromJson(json.visibility)
+            : alwaysCondition();
         json.styles = json.styles || {};
         const obj = json;
         if (obj.widgetType === AjfWidgetType.Layout || obj.widgetType === AjfWidgetType.Column) {
@@ -1576,8 +1566,7 @@ class AjfWidgetSerializer {
         }
         else {
             if (json.widgetType === AjfWidgetType.Table) {
-                dataset = json.dataset
-                    .map(row => row.map(cell => AjfDatasetSerializer.fromJson(cell)));
+                dataset = json.dataset.map(row => row.map(cell => AjfDatasetSerializer.fromJson(cell)));
             }
             else {
                 dataset = json.dataset.map(d => AjfDatasetSerializer.fromJson(d));
@@ -1670,8 +1659,7 @@ class AjfReportSerializer {
         const containers = ['header', 'footer', 'content'];
         containers.forEach(c => {
             if (json[c]) {
-                json[c] =
-                    AjfReportContainerSerializer.fromJson(json[c]);
+                json[c] = AjfReportContainerSerializer.fromJson(json[c]);
             }
         });
         return createReport(json);
@@ -1721,7 +1709,9 @@ class AjfReportWidget {
         this._loadComponent();
     }
     _loadComponent() {
-        if (!this._init || this._instance == null || this.widgetHost == null ||
+        if (!this._init ||
+            this._instance == null ||
+            this.widgetHost == null ||
             !this.instance.visible) {
             return;
         }
@@ -1740,8 +1730,7 @@ class AjfReportWidget {
                 try {
                     this._renderer.setStyle(componentInstance.el.nativeElement, style, `${this._instance.widget.styles[style]}`);
                 }
-                catch (e) {
-                }
+                catch (e) { }
             });
             componentInstance.instance = this._instance;
             if (componentDef.inputs) {
@@ -1752,8 +1741,7 @@ class AjfReportWidget {
                 });
             }
         }
-        catch (e) {
-        }
+        catch (e) { }
     }
 }
 AjfReportWidget.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReportWidget, deps: [{ token: i0.ComponentFactoryResolver }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
@@ -1950,7 +1938,7 @@ function createWidgetInstance(widget, context, _ts) {
  */
 function trFormula(f, context, ts) {
     let formula = f.formula;
-    if (formula.substr(0, 1) === '"' || formula.substr(0, 1) === '\'') {
+    if (formula.substr(0, 1) === '"' || formula.substr(0, 1) === "'") {
         const ft = formula.slice(1, -1);
         const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.translate(ft) : ft;
         if (ft.length > 0) {
@@ -1958,9 +1946,10 @@ function trFormula(f, context, ts) {
         }
     }
     else {
-        formula = formula != null && typeof formula === 'string' && formula.trim().length > 0 ?
-            ts.translate(formula) :
-            formula;
+        formula =
+            formula != null && typeof formula === 'string' && formula.trim().length > 0
+                ? ts.translate(formula)
+                : formula;
     }
     return evaluateExpression(formula, context);
 }
@@ -2018,19 +2007,19 @@ function widgetToWidgetInstance(widget, context, ts) {
                     evf = evf.map(v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v);
                 }
                 else {
-                    evf = evf != null && typeof evf === 'string' && evf.trim().length > 0 ?
-                        ts.translate(evf) :
-                        evf;
+                    evf =
+                        evf != null && typeof evf === 'string' && evf.trim().length > 0
+                            ? ts.translate(evf)
+                            : evf;
                 }
             }
-            catch (_e) {
-            }
+            catch (_e) { }
             return evf;
         });
         cwi.labels = cw.labels instanceof Array ? evLabels : evLabels[0];
         cwi.datasets = cw.dataset.map(d => {
             let ds = {
-                ...d.options || {},
+                ...(d.options || {}),
                 data: evaluateAggregation(d.aggregation, d.formula, context),
             };
             if (d.chartType != null) {
@@ -2055,12 +2044,13 @@ function widgetToWidgetInstance(widget, context, ts) {
         if (cw.options != null && cw.options.plugins != null) {
             const plugins = cw.options.plugins;
             const pluginNames = Object.keys(plugins);
-            pluginNames.forEach((pluginName) => {
+            pluginNames.forEach(pluginName => {
                 const plugin = plugins[pluginName];
                 const pluginOptions = Object.keys(plugin);
                 pluginOptions.forEach((pluginOptionName) => {
                     const pluginOption = plugin[pluginOptionName];
-                    if (typeof pluginOption !== 'string' && pluginOption != null &&
+                    if (typeof pluginOption !== 'string' &&
+                        pluginOption != null &&
                         pluginOption.formula != null) {
                         plugin[pluginOptionName] = evaluateExpression(pluginOption.formula, context);
                     }
@@ -2072,36 +2062,36 @@ function widgetToWidgetInstance(widget, context, ts) {
         const tw = widget;
         const twi = wi;
         twi.dataset = tw.dataset.map(row => row.map(cell => {
-            return cell.formula instanceof Array ?
-                cell.formula.map(f => trFormula(f, context, ts)) :
-                trFormula(cell.formula, context, ts);
+            return cell.formula instanceof Array
+                ? cell.formula.map(f => trFormula(f, context, ts))
+                : trFormula(cell.formula, context, ts);
         }));
         twi.exportable =
             tw.exportable && (tw.exportable === true || tw.exportable === 'true') ? true : false;
         twi.data = (tw.dataset || []).map(row => row.map(cell => {
             let evf = '';
             try {
-                evf = cell.formula instanceof Array ?
-                    cell.formula.map(f => trFormula(f, context, ts)) :
-                    trFormula(cell.formula, context, ts);
+                evf =
+                    cell.formula instanceof Array
+                        ? cell.formula.map(f => trFormula(f, context, ts))
+                        : trFormula(cell.formula, context, ts);
             }
-            catch (_e) {
-            }
-            return ({
+            catch (_e) { }
+            return {
                 value: evf,
                 style: { ...tw.cellStyles, ...cell.style },
                 rowspan: cell.rowspan,
                 colspan: cell.colspan,
-            });
+            };
         }));
     }
     else if (widget.widgetType === AjfWidgetType.DynamicTable) {
         const tdw = widget;
         const tdwi = wi;
         tdwi.dataset = tdw.dataset.map((cell) => {
-            return cell.formula instanceof Array ?
-                cell.formula.map(f => trFormula(f, context, ts)) :
-                trFormula(cell.formula, context, ts);
+            return cell.formula instanceof Array
+                ? cell.formula.map(f => trFormula(f, context, ts))
+                : trFormula(cell.formula, context, ts);
         });
         tdwi.exportable =
             tdw.exportable && (tdw.exportable === true || tdw.exportable === 'true') ? true : false;
@@ -2113,30 +2103,30 @@ function widgetToWidgetInstance(widget, context, ts) {
                     trf = trf.map(v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v);
                 }
                 else {
-                    trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
-                        ts.translate(trf) :
-                        trf;
+                    trf =
+                        trf != null && typeof trf === 'string' && trf.trim().length > 0
+                            ? ts.translate(trf)
+                            : trf;
                 }
             }
-            catch (_e) {
-            }
-            return ({ ...cell, value: trf });
+            catch (_e) { }
+            return { ...cell, value: trf };
         }));
         const header = (tdw.dataset || []).map(cell => {
             let evf = '';
             try {
-                evf = cell.formula instanceof Array ?
-                    cell.formula.map(f => trFormula(f, context, ts)) :
-                    trFormula(cell.formula, context, ts);
+                evf =
+                    cell.formula instanceof Array
+                        ? cell.formula.map(f => trFormula(f, context, ts))
+                        : trFormula(cell.formula, context, ts);
             }
-            catch (_e) {
-            }
-            return ({
+            catch (_e) { }
+            return {
                 value: evf,
                 style: { ...tdw.cellStyles, ...cell.style },
                 rowspan: cell.rowspan,
                 colspan: cell.colspan,
-            });
+            };
         });
         tdwi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
     }
@@ -2157,19 +2147,22 @@ function widgetToWidgetInstance(widget, context, ts) {
         const icw = widget;
         const icwi = wi;
         if (icw.flags) {
-            icwi.flags = icw.flags instanceof Array ?
-                icw.flags.map(f => evaluateExpression(f.formula, context)) :
-                evaluateExpression(icw.flags.formula, context);
+            icwi.flags =
+                icw.flags instanceof Array
+                    ? icw.flags.map(f => evaluateExpression(f.formula, context))
+                    : evaluateExpression(icw.flags.formula, context);
         }
         if (icw.icons) {
-            icwi.icons = icw.icons instanceof Array ?
-                icw.icons.map(f => evaluateExpression(f.formula, context)) :
-                evaluateExpression(icw.icons.formula, context);
+            icwi.icons =
+                icw.icons instanceof Array
+                    ? icw.icons.map(f => evaluateExpression(f.formula, context))
+                    : evaluateExpression(icw.icons.formula, context);
         }
         if (icw.urls) {
-            icwi.urls = icw.urls instanceof Array ?
-                icw.urls.map(f => evaluateExpression(f.formula, context)) :
-                evaluateExpression(icw.urls.formula, context);
+            icwi.urls =
+                icw.urls instanceof Array
+                    ? icw.urls.map(f => evaluateExpression(f.formula, context))
+                    : evaluateExpression(icw.urls.formula, context);
         }
     }
     else if (widget.widgetType === AjfWidgetType.Text) {
@@ -2179,13 +2172,13 @@ function widgetToWidgetInstance(widget, context, ts) {
         const matches = [];
         let match;
         let htmlText = tew.htmlText;
-        while (match = formulaRegEx.exec(htmlText)) {
+        while ((match = formulaRegEx.exec(htmlText))) {
             const idx = match.index;
             const len = match[0].length;
             const formula = createFormula({ formula: match[1] });
             matches.push({ idx, len, formula });
         }
-        matches.reverse().forEach((m) => {
+        matches.reverse().forEach(m => {
             let calcValue;
             try {
                 calcValue = evaluateExpression(m.formula.formula, context);
@@ -2208,9 +2201,9 @@ function widgetToWidgetInstance(widget, context, ts) {
         mwi.coordinate = evaluateExpression(mw.coordinate.formula, context);
     }
     else if (widget.widgetType > 100) {
-        const iiFn = componentsMap[widget.widgetType] != null ?
-            componentsMap[widget.widgetType].initInstance :
-            null;
+        const iiFn = componentsMap[widget.widgetType] != null
+            ? componentsMap[widget.widgetType].initInstance
+            : null;
         if (iiFn != null) {
             return iiFn(wi, context, ts);
         }
@@ -2276,8 +2269,9 @@ function createReportInstance(report, context, ts) {
     return {
         report,
         header: report.header ? createReportContainerInstance(report.header, context, ts) : undefined,
-        content: report.content ? createReportContainerInstance(report.content, context, ts) :
-            undefined,
+        content: report.content
+            ? createReportContainerInstance(report.content, context, ts)
+            : undefined,
         footer: report.footer ? createReportContainerInstance(report.footer, context, ts) : undefined,
         styles: report.styles || {},
     };
@@ -2357,7 +2351,7 @@ const boxStyle = {
     dislay: 'block',
     padding: '10px',
     width: '100%',
-    height: '100%'
+    height: '100%',
 };
 const widgetStyle = {
     backgroundColor: 'white',
@@ -2365,43 +2359,313 @@ const widgetStyle = {
     border: '1px solid gray',
     padding: '10px',
     maxHeight: '500px',
-    marginBottom: '10px'
+    marginBottom: '10px',
 };
 const backgroundColor = [
-    '#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99',
-    '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', '#FF99E6', '#CCFF1A', '#FF1A66',
-    '#E6331A', '#33FFCC', '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC', '#66664D', '#991AFF',
-    '#E666FF', '#4DB3FF', '#1AB399', '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680', '#4D8066',
-    '#809980', '#E6FF80', '#1AFF33', '#999933', '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
-    '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF', '#F44336', '#FFEBEE', '#FFCDD2', '#EF9A9A',
-    '#E57373', '#EF5350', '#E53935', '#D32F2F', '#C62828', '#B71C1C', '#FF8A80', '#FF5252', '#FF1744',
-    '#D50000', '#FCE4EC', '#F8BBD0', '#F48FB1', '#F06292', '#EC407A', '#E91E63', '#D81B60', '#C2185B',
-    '#AD1457', '#880E4F', '#FF80AB', '#FF4081', '#F50057', '#C51162', '#F3E5F5', '#E1BEE7', '#CE93D8',
-    '#BA68C8', '#AB47BC', '#9C27B0', '#8E24AA', '#7B1FA2', '#6A1B9A', '#4A148C', '#EA80FC', '#E040FB',
-    '#D500F9', '#AA00FF', '#EDE7F6', '#D1C4E9', '#B39DDB', '#9575CD', '#7E57C2', '#673AB7', '#5E35B1',
-    '#512DA8', '#4527A0', '#311B92', '#B388FF', '#7C4DFF', '#651FFF', '#6200EA', '#E8EAF6', '#C5CAE9',
-    '#9FA8DA', '#7986CB', '#5C6BC0', '#3F51B5', '#3949AB', '#303F9F', '#283593', '#1A237E', '#8C9EFF',
-    '#536DFE', '#3D5AFE', '#304FFE', '#E3F2FD', '#BBDEFB', '#90CAF9', '#64B5F6', '#42A5F5', '#2196F3',
-    '#1E88E5', '#1976D2', '#1565C0', '#0D47A1', '#82B1FF', '#448AFF', '#2979FF', '#2962FF', '#E1F5FE',
-    '#B3E5FC', '#81D4FA', '#4FC3F7', '#29B6F6', '#03A9F4', '#039BE5', '#0288D1', '#0277BD', '#01579B',
-    '#80D8FF', '#40C4FF', '#00B0FF', '#0091EA', '#E0F7FA', '#B2EBF2', '#80DEEA', '#4DD0E1', '#26C6DA',
-    '#00BCD4', '#00ACC1', '#0097A7', '#00838F', '#6064', '#84FFFF', '#18FFFF', '#00E5FF', '#00B8D4',
-    '#E0F2F1', '#B2DFDB', '#80CBC4', '#4DB6AC', '#26A69A', '#9688', '#00897B', '#00796B', '#00695C',
-    '#004D40', '#A7FFEB', '#64FFDA', '#1DE9B6', '#00BFA5', '#E8F5E9', '#C8E6C9', '#A5D6A7', '#81C784',
-    '#66BB6A', '#4CAF50', '#43A047', '#388E3C', '#2E7D32', '#1B5E20', '#B9F6CA', '#69F0AE', '#00E676',
-    '#00C853', '#F1F8E9', '#DCEDC8', '#C5E1A5', '#AED581', '#9CCC65', '#8BC34A', '#7CB342', '#689F38',
-    '#558B2F', '#33691E', '#CCFF90', '#B2FF59', '#76FF03', '#64DD17', '#F9FBE7', '#F0F4C3', '#E6EE9C',
-    '#DCE775', '#D4E157', '#CDDC39', '#C0CA33', '#AFB42B', '#9E9D24', '#827717', '#F4FF81', '#EEFF41',
-    '#C6FF00', '#AEEA00', '#FFFDE7', '#FFF9C4', '#FFF59D', '#FFF176', '#FFEE58', '#FFEB3B', '#FDD835',
-    '#FBC02D', '#F9A825', '#F57F17', '#FFFF8D', '#FFFF00', '#FFEA00', '#FFD600', '#FFF8E1', '#FFECB3',
-    '#FFE082', '#FFD54F', '#FFCA28', '#FFC107', '#FFB300', '#FFA000', '#FF8F00', '#FF6F00', '#FFE57F',
-    '#FFD740', '#FFC400', '#FFAB00', '#FFF3E0', '#FFE0B2', '#FFCC80', '#FFB74D', '#FFA726', '#FF9800',
-    '#FB8C00', '#F57C00', '#EF6C00', '#E65100', '#FFD180', '#FFAB40', '#FF9100', '#FF6D00', '#FBE9E7',
-    '#FFCCBC', '#FFAB91', '#FF8A65', '#FF7043', '#FF5722', '#F4511E', '#E64A19', '#D84315', '#BF360C',
-    '#FF9E80', '#FF6E40', '#FF3D00', '#DD2C00', '#EFEBE9', '#D7CCC8', '#BCAAA4', '#A1887F', '#8D6E63',
-    '#795548', '#6D4C41', '#5D4037', '#4E342E', '#3E2723', '#FAFAFA', '#F5F5F5', '#EEEEEE', '#E0E0E0',
-    '#BDBDBD', '#9E9E9E', '#757575', '#616161', '#424242', '#212121', '#ECEFF1', '#CFD8DC', '#B0BEC5',
-    '#90A4AE', '#78909C', '#607D8B', '#546E7A', '#455A64', '#37474F', '#263238',
+    '#FF6633',
+    '#FFB399',
+    '#FF33FF',
+    '#FFFF99',
+    '#00B3E6',
+    '#E6B333',
+    '#3366E6',
+    '#999966',
+    '#99FF99',
+    '#B34D4D',
+    '#80B300',
+    '#809900',
+    '#E6B3B3',
+    '#6680B3',
+    '#66991A',
+    '#FF99E6',
+    '#CCFF1A',
+    '#FF1A66',
+    '#E6331A',
+    '#33FFCC',
+    '#66994D',
+    '#B366CC',
+    '#4D8000',
+    '#B33300',
+    '#CC80CC',
+    '#66664D',
+    '#991AFF',
+    '#E666FF',
+    '#4DB3FF',
+    '#1AB399',
+    '#E666B3',
+    '#33991A',
+    '#CC9999',
+    '#B3B31A',
+    '#00E680',
+    '#4D8066',
+    '#809980',
+    '#E6FF80',
+    '#1AFF33',
+    '#999933',
+    '#FF3380',
+    '#CCCC00',
+    '#66E64D',
+    '#4D80CC',
+    '#9900B3',
+    '#E64D66',
+    '#4DB380',
+    '#FF4D4D',
+    '#99E6E6',
+    '#6666FF',
+    '#F44336',
+    '#FFEBEE',
+    '#FFCDD2',
+    '#EF9A9A',
+    '#E57373',
+    '#EF5350',
+    '#E53935',
+    '#D32F2F',
+    '#C62828',
+    '#B71C1C',
+    '#FF8A80',
+    '#FF5252',
+    '#FF1744',
+    '#D50000',
+    '#FCE4EC',
+    '#F8BBD0',
+    '#F48FB1',
+    '#F06292',
+    '#EC407A',
+    '#E91E63',
+    '#D81B60',
+    '#C2185B',
+    '#AD1457',
+    '#880E4F',
+    '#FF80AB',
+    '#FF4081',
+    '#F50057',
+    '#C51162',
+    '#F3E5F5',
+    '#E1BEE7',
+    '#CE93D8',
+    '#BA68C8',
+    '#AB47BC',
+    '#9C27B0',
+    '#8E24AA',
+    '#7B1FA2',
+    '#6A1B9A',
+    '#4A148C',
+    '#EA80FC',
+    '#E040FB',
+    '#D500F9',
+    '#AA00FF',
+    '#EDE7F6',
+    '#D1C4E9',
+    '#B39DDB',
+    '#9575CD',
+    '#7E57C2',
+    '#673AB7',
+    '#5E35B1',
+    '#512DA8',
+    '#4527A0',
+    '#311B92',
+    '#B388FF',
+    '#7C4DFF',
+    '#651FFF',
+    '#6200EA',
+    '#E8EAF6',
+    '#C5CAE9',
+    '#9FA8DA',
+    '#7986CB',
+    '#5C6BC0',
+    '#3F51B5',
+    '#3949AB',
+    '#303F9F',
+    '#283593',
+    '#1A237E',
+    '#8C9EFF',
+    '#536DFE',
+    '#3D5AFE',
+    '#304FFE',
+    '#E3F2FD',
+    '#BBDEFB',
+    '#90CAF9',
+    '#64B5F6',
+    '#42A5F5',
+    '#2196F3',
+    '#1E88E5',
+    '#1976D2',
+    '#1565C0',
+    '#0D47A1',
+    '#82B1FF',
+    '#448AFF',
+    '#2979FF',
+    '#2962FF',
+    '#E1F5FE',
+    '#B3E5FC',
+    '#81D4FA',
+    '#4FC3F7',
+    '#29B6F6',
+    '#03A9F4',
+    '#039BE5',
+    '#0288D1',
+    '#0277BD',
+    '#01579B',
+    '#80D8FF',
+    '#40C4FF',
+    '#00B0FF',
+    '#0091EA',
+    '#E0F7FA',
+    '#B2EBF2',
+    '#80DEEA',
+    '#4DD0E1',
+    '#26C6DA',
+    '#00BCD4',
+    '#00ACC1',
+    '#0097A7',
+    '#00838F',
+    '#6064',
+    '#84FFFF',
+    '#18FFFF',
+    '#00E5FF',
+    '#00B8D4',
+    '#E0F2F1',
+    '#B2DFDB',
+    '#80CBC4',
+    '#4DB6AC',
+    '#26A69A',
+    '#9688',
+    '#00897B',
+    '#00796B',
+    '#00695C',
+    '#004D40',
+    '#A7FFEB',
+    '#64FFDA',
+    '#1DE9B6',
+    '#00BFA5',
+    '#E8F5E9',
+    '#C8E6C9',
+    '#A5D6A7',
+    '#81C784',
+    '#66BB6A',
+    '#4CAF50',
+    '#43A047',
+    '#388E3C',
+    '#2E7D32',
+    '#1B5E20',
+    '#B9F6CA',
+    '#69F0AE',
+    '#00E676',
+    '#00C853',
+    '#F1F8E9',
+    '#DCEDC8',
+    '#C5E1A5',
+    '#AED581',
+    '#9CCC65',
+    '#8BC34A',
+    '#7CB342',
+    '#689F38',
+    '#558B2F',
+    '#33691E',
+    '#CCFF90',
+    '#B2FF59',
+    '#76FF03',
+    '#64DD17',
+    '#F9FBE7',
+    '#F0F4C3',
+    '#E6EE9C',
+    '#DCE775',
+    '#D4E157',
+    '#CDDC39',
+    '#C0CA33',
+    '#AFB42B',
+    '#9E9D24',
+    '#827717',
+    '#F4FF81',
+    '#EEFF41',
+    '#C6FF00',
+    '#AEEA00',
+    '#FFFDE7',
+    '#FFF9C4',
+    '#FFF59D',
+    '#FFF176',
+    '#FFEE58',
+    '#FFEB3B',
+    '#FDD835',
+    '#FBC02D',
+    '#F9A825',
+    '#F57F17',
+    '#FFFF8D',
+    '#FFFF00',
+    '#FFEA00',
+    '#FFD600',
+    '#FFF8E1',
+    '#FFECB3',
+    '#FFE082',
+    '#FFD54F',
+    '#FFCA28',
+    '#FFC107',
+    '#FFB300',
+    '#FFA000',
+    '#FF8F00',
+    '#FF6F00',
+    '#FFE57F',
+    '#FFD740',
+    '#FFC400',
+    '#FFAB00',
+    '#FFF3E0',
+    '#FFE0B2',
+    '#FFCC80',
+    '#FFB74D',
+    '#FFA726',
+    '#FF9800',
+    '#FB8C00',
+    '#F57C00',
+    '#EF6C00',
+    '#E65100',
+    '#FFD180',
+    '#FFAB40',
+    '#FF9100',
+    '#FF6D00',
+    '#FBE9E7',
+    '#FFCCBC',
+    '#FFAB91',
+    '#FF8A65',
+    '#FF7043',
+    '#FF5722',
+    '#F4511E',
+    '#E64A19',
+    '#D84315',
+    '#BF360C',
+    '#FF9E80',
+    '#FF6E40',
+    '#FF3D00',
+    '#DD2C00',
+    '#EFEBE9',
+    '#D7CCC8',
+    '#BCAAA4',
+    '#A1887F',
+    '#8D6E63',
+    '#795548',
+    '#6D4C41',
+    '#5D4037',
+    '#4E342E',
+    '#3E2723',
+    '#FAFAFA',
+    '#F5F5F5',
+    '#EEEEEE',
+    '#E0E0E0',
+    '#BDBDBD',
+    '#9E9E9E',
+    '#757575',
+    '#616161',
+    '#424242',
+    '#212121',
+    '#ECEFF1',
+    '#CFD8DC',
+    '#B0BEC5',
+    '#90A4AE',
+    '#78909C',
+    '#607D8B',
+    '#546E7A',
+    '#455A64',
+    '#37474F',
+    '#263238',
 ];
 
 /**
@@ -2428,42 +2692,53 @@ const backgroundColor = [
 function createBooleanWidget(field) {
     return createWidget({
         widgetType: AjfWidgetType.Column,
-        content: [createWidget({
+        content: [
+            createWidget({
                 widgetType: AjfWidgetType.Chart,
                 type: AjfChartType.Pie,
-                labels: { formula: '[\'True\', \'False\']' },
-                dataset: [createDataset({
+                labels: { formula: "['True', 'False']" },
+                dataset: [
+                    createDataset({
                         label: 'true',
-                        formula: [createFormula({
-                                formula: `[COUNTFORMS(forms,"${field.name}===true"),COUNTFORMS(forms,"${field.name}===false")]`
-                            })],
-                        options: { backgroundColor: ['green', 'red'] }
-                    })],
+                        formula: [
+                            createFormula({
+                                formula: `[COUNTFORMS(forms,"${field.name}===true"),COUNTFORMS(forms,"${field.name}===false")]`,
+                            }),
+                        ],
+                        options: { backgroundColor: ['green', 'red'] },
+                    }),
+                ],
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    legend: { display: true, position: 'bottom' }
+                    legend: { display: true, position: 'bottom' },
                 },
                 styles: { width: '100%', height: '400px' },
-                exportable: true
-            })],
+                exportable: true,
+            }),
+        ],
     });
 }
 function createMultipleChoiceWidget(field) {
     const choices = field.choicesOrigin.choices;
     let dataset = choices.map((c, index) => createDataset({
         label: `${c.label}`,
-        formula: [createFormula({ formula: `[COUNTFORMS(forms,"${field.name}.indexOf('${c.value}') > -1")]` })],
+        formula: [
+            createFormula({
+                formula: `[COUNTFORMS(forms,"${field.name}.indexOf('${c.value}') > -1")]`,
+            }),
+        ],
         options: {
             backgroundColor: backgroundColor[index],
             stack: `Stack ${index}`,
-        }
+        },
     }));
     let chartType = AjfChartType.Bar;
     let labels = { formula: `[]` };
     return createWidget({
         widgetType: AjfWidgetType.Column,
-        content: [createWidget({
+        content: [
+            createWidget({
                 widgetType: AjfWidgetType.Chart,
                 type: chartType,
                 labels,
@@ -2471,18 +2746,20 @@ function createMultipleChoiceWidget(field) {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    legend: { display: true, position: 'bottom' }
+                    legend: { display: true, position: 'bottom' },
                 },
                 styles: { width: '100%', height: '400px' },
-                exportable: true
-            })],
+                exportable: true,
+            }),
+        ],
     });
 }
 function createNumberWidget(field) {
     return createWidget({
         widgetType: AjfWidgetType.Column,
         styles: widgetStyle,
-        content: [createWidget({
+        content: [
+            createWidget({
                 widgetType: AjfWidgetType.Layout,
                 columns: [0.33, 0.33, 0.33],
                 content: [
@@ -2499,8 +2776,8 @@ function createNumberWidget(field) {
                                 widgetType: AjfWidgetType.Text,
                                 'htmlText': `<p>[[MEAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
                                 styles: widgetTitleStyle,
-                            })
-                        ]
+                            }),
+                        ],
                     }),
                     createWidget({
                         widgetType: AjfWidgetType.Column,
@@ -2515,8 +2792,8 @@ function createNumberWidget(field) {
                                 widgetType: AjfWidgetType.Text,
                                 'htmlText': `<p>[[MEDIAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
                                 styles: widgetTitleStyle,
-                            })
-                        ]
+                            }),
+                        ],
                     }),
                     createWidget({
                         widgetType: AjfWidgetType.Column,
@@ -2531,11 +2808,12 @@ function createNumberWidget(field) {
                                 widgetType: AjfWidgetType.Text,
                                 htmlText: `<p>[[MODE(forms,"${field.name}")]]</p>`,
                                 styles: widgetTitleStyle,
-                            })
-                        ]
+                            }),
+                        ],
                     }),
-                ]
-            })]
+                ],
+            }),
+        ],
     });
 }
 function createSingleChoiceWidget(field) {
@@ -2546,15 +2824,19 @@ function createSingleChoiceWidget(field) {
     if (choices.length > 5) {
         labels = { formula: `[${choices.map(c => `${JSON.stringify(c.label)}`)}]` };
         chartType = AjfChartType.Pie;
-        dataset =
-            [createDataset({
-                    label: field.label,
-                    formula: [createFormula({
-                            formula: `[${choices.map((choice) => `COUNTFORMS(forms,"${field.name}==='${choice.value}'")`)
-                                .toString()}]`
-                        })],
-                    options: { backgroundColor }
-                })];
+        dataset = [
+            createDataset({
+                label: field.label,
+                formula: [
+                    createFormula({
+                        formula: `[${choices
+                            .map(choice => `COUNTFORMS(forms,"${field.name}==='${choice.value}'")`)
+                            .toString()}]`,
+                    }),
+                ],
+                options: { backgroundColor },
+            }),
+        ];
     }
     else {
         dataset = choices.map((c, index) => createDataset({
@@ -2563,12 +2845,13 @@ function createSingleChoiceWidget(field) {
             options: {
                 backgroundColor: backgroundColor[index],
                 stack: `Stack ${index}`,
-            }
+            },
         }));
     }
     return createWidget({
         widgetType: AjfWidgetType.Column,
-        content: [createWidget({
+        content: [
+            createWidget({
                 widgetType: AjfWidgetType.Chart,
                 type: chartType,
                 labels,
@@ -2576,11 +2859,12 @@ function createSingleChoiceWidget(field) {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    legend: { display: true, position: 'bottom' }
+                    legend: { display: true, position: 'bottom' },
                 },
                 styles: { width: '100%', height: '400px' },
-                exportable: true
-            })],
+                exportable: true,
+            }),
+        ],
     });
 }
 function createRangeWidget(field) {
@@ -2593,11 +2877,13 @@ function createRangeWidget(field) {
     let labels = { formula: `[${JSON.stringify(field.label)}]` };
     let dataset = choices.map((_, index) => createDataset({
         label: `${index + start}`,
-        formula: [createFormula({ formula: `[COUNTFORMS(forms,"${field.name}===${index + 1 + start}")]` })],
+        formula: [
+            createFormula({ formula: `[COUNTFORMS(forms,"${field.name}===${index + 1 + start}")]` }),
+        ],
         options: {
             backgroundColor: backgroundColor[index],
             stack: `Stack ${index}`,
-        }
+        },
     }));
     return createWidget({
         widgetType: AjfWidgetType.Column,
@@ -2620,8 +2906,8 @@ function createRangeWidget(field) {
                                 widgetType: AjfWidgetType.Text,
                                 'htmlText': `<p>[[MEAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
                                 styles: widgetTitleStyle,
-                            })
-                        ]
+                            }),
+                        ],
                     }),
                     createWidget({
                         widgetType: AjfWidgetType.Column,
@@ -2636,8 +2922,8 @@ function createRangeWidget(field) {
                                 widgetType: AjfWidgetType.Text,
                                 'htmlText': `<p>[[MEDIAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
                                 styles: widgetTitleStyle,
-                            })
-                        ]
+                            }),
+                        ],
                     }),
                     createWidget({
                         widgetType: AjfWidgetType.Column,
@@ -2652,10 +2938,10 @@ function createRangeWidget(field) {
                                 widgetType: AjfWidgetType.Text,
                                 htmlText: `<p>[[MODE(forms,"${field.name}")]]</p>`,
                                 styles: widgetTitleStyle,
-                            })
-                        ]
+                            }),
+                        ],
                     }),
-                ]
+                ],
             }),
             createWidget({
                 widgetType: AjfWidgetType.Chart,
@@ -2665,12 +2951,12 @@ function createRangeWidget(field) {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    legend: { display: true, position: 'bottom' }
+                    legend: { display: true, position: 'bottom' },
                 },
                 styles: { width: '100%', height: '400px' },
-                exportable: true
-            })
-        ]
+                exportable: true,
+            }),
+        ],
     });
 }
 /**
@@ -2693,7 +2979,7 @@ function reportFromForm(form, id) {
             const fieldTitleWidget = createWidget({
                 widgetType: AjfWidgetType.Text,
                 htmlText: `<div color="primary"><h5>${field.label} - [[COUNTFORMS(forms,"${field.name} != null")]] answers</h5></div>`,
-                styles: widgetTitleStyle
+                styles: widgetTitleStyle,
             });
             slideWidgets.push(fieldTitleWidget);
             switch (field.fieldType) {
@@ -2723,7 +3009,7 @@ function reportFromForm(form, id) {
             const slideTitleWidget = createWidget({
                 widgetType: AjfWidgetType.Text,
                 htmlText: `<div color="primary"><h1>${slide.label}</h1></div>`,
-                styles: slideTitleStyle
+                styles: slideTitleStyle,
             });
             reportWidgets.push(slideTitleWidget);
             // create the column with the slide widgets.
@@ -2953,14 +3239,14 @@ function imageToPdf(image, images, width) {
         return { text: '' };
     }
     const w = image.styles.width;
-    if (typeof (w) === 'string' && w.endsWith('px')) {
+    if (typeof w === 'string' && w.endsWith('px')) {
         width = Number(w.slice(0, -2));
     }
     return { image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets] };
 }
 function htmlTextToPdfText(htmlText, images) {
     const iconText = images[htmlText];
-    if (typeof (iconText) === 'string') {
+    if (typeof iconText === 'string') {
         return iconText;
     }
     return stripHTML(htmlText);
@@ -2989,7 +3275,7 @@ function tableToPdf(table, images) {
         const bodyRow = [];
         for (const cell of dataRow) {
             let text = '';
-            switch (typeof (cell.value)) {
+            switch (typeof cell.value) {
                 case 'number':
                     text = String(cell.value);
                     break;
@@ -2998,7 +3284,7 @@ function tableToPdf(table, images) {
                     break;
                 case 'object':
                     let val = cell.value.changingThisBreaksApplicationSecurity;
-                    if (typeof (val) === 'number') {
+                    if (typeof val === 'number') {
                         val = String(val);
                     }
                     text = htmlTextToPdfText(val || '', images);

@@ -19,4 +19,4 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare type AjfCalendarWeekDay = ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday');
+export declare type AjfCalendarWeekDay = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';

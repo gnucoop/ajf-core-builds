@@ -19,4 +19,4 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare type AjfCalendarPeriodType = ('day' | 'week' | 'month' | 'year');
+export declare type AjfCalendarPeriodType = 'day' | 'week' | 'month' | 'year';
