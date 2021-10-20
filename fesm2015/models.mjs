@@ -1,5 +1,5 @@
 import * as dateFns from 'date-fns';
-import { tokenize } from 'esprima';
+import { parseScript } from 'meriyah';
 import * as numbroMod from 'numbro';
 
 /**
@@ -206,6 +206,20 @@ function alwaysCondition() {
 let execContext = {};
 const numbro = numbroMod.default || numbroMod;
 const MAX_REPS = 30;
+const getCodeIdentifiers = (source, includeDollarValue = false) => {
+    const identifiers = [];
+    parseScript(source, {
+        onToken: (token, start, end) => {
+            if (token == 'Identifier') {
+                const identifier = source.substring(start, end);
+                if (includeDollarValue || identifier !== '$value') {
+                    identifiers.push(identifier);
+                }
+            }
+        },
+    });
+    return identifiers;
+};
 const dateUtils = {
     addDays: dateFns.addDays,
     addMonths: dateFns.addMonths,
@@ -282,9 +296,7 @@ function evaluateExpression(expression, context, forceFormula) {
     if (/^"[^"]*"$/.test(formula)) {
         return formula.replace(/^"+|"+$/g, '');
     }
-    const identifiers = tokenize(formula)
-        .filter((t) => t.type === 'Identifier')
-        .map((t) => t.value);
+    const identifiers = getCodeIdentifiers(formula, true);
     const ctx = [];
     identifiers.forEach((key) => {
         let val = null;
@@ -992,9 +1004,7 @@ function neverCondition() {
  */
 function normalizeExpression(formula, ancestorsNames, prefix) {
     const ancestorsNameStrings = Object.keys(ancestorsNames);
-    const tokens = tokenize(formula)
-        .filter((token) => token.type == 'Identifier' && token.value != '$value')
-        .map((token) => token.value);
+    const tokens = getCodeIdentifiers(formula);
     tokens.forEach((t) => {
         if (ancestorsNameStrings.indexOf(t) > -1) {
             formula = formula.replace(new RegExp(`\\b${t}\\b`, 'g'), `${t}__${prefix.slice(ancestorsNames[t]).join('__')}`);
@@ -1072,5 +1082,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, COUNTFORMS, COUNTFORMS_UNIQUE, LAST, MAX, MEAN, MEDIAN, MODE, PERCENT, SUM, alert, alwaysCondition, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, COUNTFORMS, COUNTFORMS_UNIQUE, LAST, MAX, MEAN, MEDIAN, MODE, PERCENT, SUM, alert, alwaysCondition, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=models.mjs.map

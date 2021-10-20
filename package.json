@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "13.0.0-next.9-876ca1b5",
+  "version": "13.0.0-next.9-3a699675",
   "description": "",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
     "@zxing/library": "^0.18.6",
     "chart.js": "^2.9.3",
     "date-fns": "^2.14.0",
-    "esprima": "^4.0.1",
+    "meriyah": "^4.0.0",
     "leaflet": "^1.6.0",
     "numbro": "^2.3.1",
     "pdfmake": "^0.1.68",
