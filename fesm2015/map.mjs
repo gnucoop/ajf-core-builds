@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Input, NgModule } from '@angular/core';
-import { map, tileLayer } from 'leaflet';
+import * as leaflet from 'leaflet';
 import { Subscription } from 'rxjs';
 
 /**
@@ -60,6 +60,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const { map, tileLayer } = (leaflet.default || leaflet);
 class AjfMapComponent {
     constructor() {
         this._columnWidthChanged = Subscription.EMPTY;

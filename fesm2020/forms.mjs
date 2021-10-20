@@ -4,9 +4,8 @@ import * as i4 from '@angular/forms';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subject, BehaviorSubject, Subscription, Observable, of, from, timer, defer } from 'rxjs';
 import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen, shareReplay, catchError } from 'rxjs/operators';
+import { evaluateExpression, alwaysCondition, neverCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, getCodeIdentifiers, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
-import { tokenize } from 'esprima';
-import { evaluateExpression, alwaysCondition, neverCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { format } from 'date-fns';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import * as i3 from '@ajf/core/file-input';
@@ -22,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import * as i2$1 from '@angular/platform-browser';
 import * as i3$1 from '@ngneat/transloco';
 import { vfsFontsMap, vfsFonts } from '@ajf/core/vfs-fonts';
-import { createPdf } from 'pdfmake/build/pdfmake';
+import * as pdfMakeModule from 'pdfmake/build/pdfmake';
 
 /**
  * @license
@@ -3262,6 +3261,27 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Injectable
         }], ctorParameters: function () { return []; } });
 
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 const updateSlideValidity = (slide) => {
     const subNodesNum = slide.flatNodes.length;
     let valid = true;
@@ -3401,7 +3421,8 @@ class AjfFormRendererService {
         }));
     }
     _initErrorsStreams() {
-        this._errorPositions = this._valueChanged.pipe(withLatestFrom(this._nodes, this._form), filter(([_, __, form]) => form != null && form.form != null), map(([_, nodes, formDef]) => {
+        this._errorPositions = this._valueChanged.pipe(withLatestFrom(this._nodes, this._form), filter(([_, __, form]) => form != null &&
+            form.form != null), map(([_, nodes, formDef]) => {
             const form = formDef.form;
             let currentPosition = 0;
             const errors = [];
@@ -3744,10 +3765,10 @@ class AjfFormRendererService {
             const deltaLen = delta.length;
             let updatedNodes = [];
             /*
-                  for each field update all properties map
-                  with the following rule  "if fieldname is in map update it" and
-                  push on updateNodes the node instance that wrap field
-                */
+                          for each field update all properties map
+                          with the following rule  "if fieldname is in map update it" and
+                          push on updateNodes the node instance that wrap field
+                        */
             delta.forEach(fieldName => {
                 updatedNodes = updatedNodes.concat(nodes.filter(n => nodeInstanceCompleteName(n) === fieldName));
                 if (editability[fieldName] != null) {
@@ -3805,7 +3826,8 @@ class AjfFormRendererService {
                 }
                 if (conditionalBranchesMap[fieldName] != null) {
                     conditionalBranchesMap[fieldName].forEach(nodeInstance => {
-                        // const branchChanged = nodeInstance.updateConditionalBranches(newFormValue);
+                        // const branchChanged =
+                        // nodeInstance.updateConditionalBranches(newFormValue);
                         updateConditionalBranches(nodeInstance, newFormValue);
                         // if (branchChanged) {
                         const verifiedBranch = nodeInstance.verifiedBranch;
@@ -4250,17 +4272,16 @@ class AjfFormRendererService {
         this._removeFromNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
     }
     _removeFromNodesMap(nodesMap, nodeInstance, formula) {
-        let tokens = tokenize(formula).filter((token) => token.type == 'Identifier' && token.value != '$value');
+        const tokens = getCodeIdentifiers(formula);
         if (tokens.length > 0) {
             nodesMap.next((vmap) => {
-                tokens.forEach((token) => {
-                    let tokenName = token.value;
-                    if (vmap[tokenName] != null) {
-                        const idx = vmap[tokenName].indexOf(nodeInstance);
+                tokens.forEach(token => {
+                    if (vmap[token] != null) {
+                        const idx = vmap[token].indexOf(nodeInstance);
                         if (idx > -1) {
-                            vmap[tokenName].splice(idx, 1);
-                            if (vmap[tokenName].length == 0) {
-                                delete vmap[tokenName];
+                            vmap[token].splice(idx, 1);
+                            if (vmap[token].length == 0) {
+                                delete vmap[token];
                             }
                         }
                     }
@@ -4300,16 +4321,15 @@ class AjfFormRendererService {
         this._addToNodesMap(this._nextSlideConditionsNodesMapUpdates, nodeInstance, formula);
     }
     _addToNodesMap(nodesMap, nodeInstance, formula) {
-        let tokens = tokenize(formula).filter((token) => token.type == 'Identifier' && token.value != '$value');
+        const tokens = getCodeIdentifiers(formula);
         if (tokens.length > 0) {
             nodesMap.next((vmap) => {
-                tokens.forEach((token) => {
-                    let tokenName = token.value;
-                    if (vmap[tokenName] == null) {
-                        vmap[tokenName] = [];
+                tokens.forEach(token => {
+                    if (vmap[token] == null) {
+                        vmap[token] = [];
                     }
-                    if (vmap[tokenName].indexOf(nodeInstance) === -1) {
-                        vmap[tokenName].push(nodeInstance);
+                    if (vmap[token].indexOf(nodeInstance) === -1) {
+                        vmap[token].push(nodeInstance);
                     }
                 });
                 return vmap;
@@ -7316,6 +7336,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const { createPdf } = (pdfMakeModule.default || pdfMakeModule);
 function createFormPdf(form, translate, orientation, header, context) {
     const t = translate ? translate : (s) => s;
     const pdfDef = formToPdf(form, t, orientation, header, context);

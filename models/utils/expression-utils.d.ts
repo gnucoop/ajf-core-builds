@@ -25,6 +25,7 @@ import { AjfValidationFn } from '../interface/validation-function';
 export interface Form {
     [key: string]: string | number | null;
 }
+export declare const getCodeIdentifiers: (source: string, includeDollarValue?: boolean) => string[];
 export declare const dateUtils: {
     addDays: typeof dateFns.addDays;
     addMonths: typeof dateFns.addMonths;

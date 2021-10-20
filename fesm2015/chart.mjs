@@ -1,4 +1,5 @@
-import { Chart } from 'chart.js';
+import * as chartJs from 'chart.js';
+import { Chart as Chart$1 } from 'chart.js';
 import { deepCopy } from '@ajf/core/utils';
 import * as i0 from '@angular/core';
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, NgModule } from '@angular/core';
@@ -26,7 +27,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, NgModule 
  */
 function registerChartPlugins(plugins) {
     if (plugins != null && plugins.length > 0) {
-        plugins.forEach(plugin => Chart.plugins.register(plugin));
+        plugins.forEach(plugin => Chart$1.plugins.register(plugin));
     }
 }
 
@@ -51,6 +52,7 @@ function registerChartPlugins(plugins) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const { Chart } = (chartJs.default || chartJs);
 class AjfChartComponent {
     constructor(_el, _renderer) {
         this._el = _el;
