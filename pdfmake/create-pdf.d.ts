@@ -19,7 +19,6 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfContext } from '@ajf/core/models';
-import { Content, PageOrientation, TCreatedPdf } from '@ajf/core/pdfmake';
-import { AjfForm } from '../interface/forms/form';
-export declare function createFormPdf(form: AjfForm, translate?: (s: string) => string, orientation?: PageOrientation, header?: Content[], context?: AjfContext): TCreatedPdf;
+import { TCreatedPdf } from 'pdfmake/build/pdfmake';
+import { TDocumentDefinitions } from 'pdfmake/interfaces';
+export declare const createPdf: (document: TDocumentDefinitions) => TCreatedPdf;

@@ -9,8 +9,7 @@ import { AjfFormulaSerializer, alwaysCondition, AjfConditionSerializer, evaluate
 import { deepCopy } from '@ajf/core/utils';
 import { AjfFieldType } from '@ajf/core/forms';
 import { AjfImageType } from '@ajf/core/image';
-import { vfsFontsMap, vfsFonts } from '@ajf/core/vfs-fonts';
-import * as pdfMakeModule from 'pdfmake/build/pdfmake';
+import { createPdf } from '@ajf/core/pdfmake';
 
 /**
  * @license
@@ -2249,7 +2248,6 @@ function loadWidgetImages(widget) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const { createPdf } = (pdfMakeModule.default || pdfMakeModule);
 const pageWidth = 800;
 const pageHeight = pageWidth * 1.4142; // A4 proportions
 const pageMargins = [40, 60];
@@ -2269,7 +2267,7 @@ function createReportPdf(report, orientation = 'portrait', icons = {}) {
             pdfDef.pageSize = { width: pageWidth, height: pageHeight };
             pdfDef.pageMargins = pageMargins;
             pdfDef.pageOrientation = orientation;
-            resolve(createPdf(pdfDef, undefined, vfsFontsMap, vfsFonts));
+            resolve(createPdf(pdfDef));
         });
     });
 }

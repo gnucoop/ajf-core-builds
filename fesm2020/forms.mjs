@@ -20,8 +20,7 @@ import * as i3$2 from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import * as i2$1 from '@angular/platform-browser';
 import * as i3$1 from '@ngneat/transloco';
-import { vfsFontsMap, vfsFonts } from '@ajf/core/vfs-fonts';
-import * as pdfMakeModule from 'pdfmake/build/pdfmake';
+import { createPdf } from '@ajf/core/pdfmake';
 
 /**
  * @license
@@ -7336,11 +7335,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-const { createPdf } = (pdfMakeModule.default || pdfMakeModule);
 function createFormPdf(form, translate, orientation, header, context) {
     const t = translate ? translate : (s) => s;
     const pdfDef = formToPdf(form, t, orientation, header, context);
-    return createPdf(pdfDef, undefined, vfsFontsMap, vfsFonts);
+    return createPdf(pdfDef);
 }
 function stripHTML(s) {
     return s.replace(/<\/?[^>]+(>|$)/g, '');

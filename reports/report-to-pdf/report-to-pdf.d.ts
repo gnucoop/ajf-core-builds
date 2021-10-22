@@ -19,8 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { TCreatedPdf } from 'pdfmake/build/pdfmake';
-import { PageOrientation } from 'pdfmake/interfaces';
+import { PageOrientation, TCreatedPdf } from '@ajf/core/pdfmake';
 import { AjfReportInstance } from '../interface/reports-instances/report-instance';
 import { ImageMap } from './load-report-images';
 export declare function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation, icons?: ImageMap): void;

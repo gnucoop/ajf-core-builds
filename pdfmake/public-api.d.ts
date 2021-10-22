@@ -19,5 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export * from './vfs-fonts';
-export * from './vfs-fonts-map';
+import { Column, Content, ContentStack, PageOrientation, TableCell, TDocumentDefinitions } from 'pdfmake/interfaces';
+import { TCreatedPdf } from 'pdfmake/build/pdfmake';
+export * from './create-pdf';
+export { Column, Content, ContentStack, PageOrientation, TableCell, TCreatedPdf, TDocumentDefinitions, };

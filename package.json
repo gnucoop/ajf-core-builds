@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "13.0.0-next.10-5b280dff",
+  "version": "13.0.0-next.10-6504f607",
   "description": "",
   "repository": {
     "type": "git",
@@ -161,6 +161,14 @@
       "node": "./fesm2015/page-slider.mjs",
       "default": "./fesm2020/page-slider.mjs"
     },
+    "./pdfmake": {
+      "types": "./pdfmake/index.d.ts",
+      "esm2020": "./esm2020/pdfmake/index.mjs",
+      "es2020": "./fesm2020/pdfmake.mjs",
+      "es2015": "./fesm2015/pdfmake.mjs",
+      "node": "./fesm2015/pdfmake.mjs",
+      "default": "./fesm2020/pdfmake.mjs"
+    },
     "./range": {
       "types": "./range/index.d.ts",
       "esm2020": "./esm2020/range/index.mjs",
@@ -216,14 +224,6 @@
       "es2015": "./fesm2015/utils.mjs",
       "node": "./fesm2015/utils.mjs",
       "default": "./fesm2020/utils.mjs"
-    },
-    "./vfs-fonts": {
-      "types": "./vfs-fonts/index.d.ts",
-      "esm2020": "./esm2020/vfs-fonts/index.mjs",
-      "es2020": "./fesm2020/vfs-fonts.mjs",
-      "es2015": "./fesm2015/vfs-fonts.mjs",
-      "node": "./fesm2015/vfs-fonts.mjs",
-      "default": "./fesm2020/vfs-fonts.mjs"
     }
   }
 }

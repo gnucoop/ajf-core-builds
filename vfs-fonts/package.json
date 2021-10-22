@@ -1,9 +1,0 @@
-{
-  "name": "@ajf/core/vfs-fonts",
-  "fesm2020": "../fesm2020/vfs-fonts.mjs",
-  "fesm2015": "../fesm2015/vfs-fonts.mjs",
-  "esm2020": "../esm2020/vfs-fonts/index.mjs",
-  "typings": "./index.d.ts",
-  "module": "../fesm2015/vfs-fonts.mjs",
-  "es2020": "../fesm2020/vfs-fonts.mjs"
-}
