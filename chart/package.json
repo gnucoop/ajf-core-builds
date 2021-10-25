@@ -2,8 +2,8 @@
   "name": "@ajf/core/chart",
   "fesm2020": "../fesm2020/chart.mjs",
   "fesm2015": "../fesm2015/chart.mjs",
-  "esm2020": "../esm2020/chart/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/chart/chart_public_index.mjs",
+  "typings": "./chart_public_index.d.ts",
   "module": "../fesm2015/chart.mjs",
   "es2020": "../fesm2020/chart.mjs"
 }

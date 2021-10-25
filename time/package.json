@@ -2,8 +2,8 @@
   "name": "@ajf/core/time",
   "fesm2020": "../fesm2020/time.mjs",
   "fesm2015": "../fesm2015/time.mjs",
-  "esm2020": "../esm2020/time/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/time/time_public_index.mjs",
+  "typings": "./time_public_index.d.ts",
   "module": "../fesm2015/time.mjs",
   "es2020": "../fesm2020/time.mjs"
 }

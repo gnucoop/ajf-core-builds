@@ -2,8 +2,8 @@
   "name": "@ajf/core/text",
   "fesm2020": "../fesm2020/text.mjs",
   "fesm2015": "../fesm2015/text.mjs",
-  "esm2020": "../esm2020/text/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/text/text_public_index.mjs",
+  "typings": "./text_public_index.d.ts",
   "module": "../fesm2015/text.mjs",
   "es2020": "../fesm2020/text.mjs"
 }

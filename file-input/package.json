@@ -2,8 +2,8 @@
   "name": "@ajf/core/file-input",
   "fesm2020": "../fesm2020/file-input.mjs",
   "fesm2015": "../fesm2015/file-input.mjs",
-  "esm2020": "../esm2020/file-input/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/file-input/file-input_public_index.mjs",
+  "typings": "./file-input_public_index.d.ts",
   "module": "../fesm2015/file-input.mjs",
   "es2020": "../fesm2020/file-input.mjs"
 }

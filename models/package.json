@@ -2,8 +2,8 @@
   "name": "@ajf/core/models",
   "fesm2020": "../fesm2020/models.mjs",
   "fesm2015": "../fesm2015/models.mjs",
-  "esm2020": "../esm2020/models/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/models/models_public_index.mjs",
+  "typings": "./models_public_index.d.ts",
   "module": "../fesm2015/models.mjs",
   "es2020": "../fesm2020/models.mjs"
 }

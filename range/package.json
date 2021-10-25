@@ -2,8 +2,8 @@
   "name": "@ajf/core/range",
   "fesm2020": "../fesm2020/range.mjs",
   "fesm2015": "../fesm2015/range.mjs",
-  "esm2020": "../esm2020/range/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/range/range_public_index.mjs",
+  "typings": "./range_public_index.d.ts",
   "module": "../fesm2015/range.mjs",
   "es2020": "../fesm2020/range.mjs"
 }

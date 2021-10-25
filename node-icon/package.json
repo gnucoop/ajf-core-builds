@@ -2,8 +2,8 @@
   "name": "@ajf/core/node-icon",
   "fesm2020": "../fesm2020/node-icon.mjs",
   "fesm2015": "../fesm2015/node-icon.mjs",
-  "esm2020": "../esm2020/node-icon/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/node-icon/node-icon_public_index.mjs",
+  "typings": "./node-icon_public_index.d.ts",
   "module": "../fesm2015/node-icon.mjs",
   "es2020": "../fesm2020/node-icon.mjs"
 }

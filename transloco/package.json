@@ -2,8 +2,8 @@
   "name": "@ajf/core/transloco",
   "fesm2020": "../fesm2020/transloco.mjs",
   "fesm2015": "../fesm2015/transloco.mjs",
-  "esm2020": "../esm2020/transloco/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/transloco/transloco_public_index.mjs",
+  "typings": "./transloco_public_index.d.ts",
   "module": "../fesm2015/transloco.mjs",
   "es2020": "../fesm2020/transloco.mjs"
 }

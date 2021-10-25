@@ -2,8 +2,8 @@
   "name": "@ajf/core/page-break",
   "fesm2020": "../fesm2020/page-break.mjs",
   "fesm2015": "../fesm2015/page-break.mjs",
-  "esm2020": "../esm2020/page-break/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/page-break/page-break_public_index.mjs",
+  "typings": "./page-break_public_index.d.ts",
   "module": "../fesm2015/page-break.mjs",
   "es2020": "../fesm2020/page-break.mjs"
 }

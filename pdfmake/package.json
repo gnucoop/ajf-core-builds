@@ -2,8 +2,8 @@
   "name": "@ajf/core/pdfmake",
   "fesm2020": "../fesm2020/pdfmake.mjs",
   "fesm2015": "../fesm2015/pdfmake.mjs",
-  "esm2020": "../esm2020/pdfmake/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/pdfmake/pdfmake_public_index.mjs",
+  "typings": "./pdfmake_public_index.d.ts",
   "module": "../fesm2015/pdfmake.mjs",
   "es2020": "../fesm2020/pdfmake.mjs"
 }
