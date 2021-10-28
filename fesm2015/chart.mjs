@@ -151,8 +151,8 @@ class AjfChartComponent {
             });
         }
     }
-    _fixChartOptions(options) {
-        options = options || {};
+    _fixChartOptions(chartOptions) {
+        const options = deepCopy(chartOptions) || {};
         if (options.legendCallback) {
             const legendCallback = (typeof options.legendCallback === 'string'
                 ? new Function(options.legendCallback)
@@ -255,7 +255,7 @@ class AjfChartComponent {
         if (options.scales.yAxes == null) {
             options.scales.yAxes = [];
         }
-        options.scales.yAxes.forEach(yAxe => {
+        options.scales.yAxes.forEach((yAxe) => {
             if (yAxe.ticks && yAxe.ticks.callback) {
                 const callback = (typeof yAxe.ticks.callback === 'string'
                     ? new Function(yAxe.ticks.callback)
@@ -263,7 +263,7 @@ class AjfChartComponent {
                 yAxe.ticks.callback = callback;
             }
         });
-        options.scales.xAxes.forEach(xAxe => {
+        options.scales.xAxes.forEach((xAxe) => {
             if (xAxe.ticks && xAxe.ticks.callback) {
                 const callback = (typeof xAxe.ticks.callback === 'string'
                     ? new Function(xAxe.ticks.callback)
@@ -272,7 +272,7 @@ class AjfChartComponent {
             }
         });
         if (this.chartType == 'pie') {
-            let newOptions = options;
+            let newOptions = deepCopy(options);
             newOptions.pieceLabel = Object.assign(Object.assign({}, Object.assign({ render: function (args) {
                     if (args.label) {
                         return args.label + ':' + args.value;
