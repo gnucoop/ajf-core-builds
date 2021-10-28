@@ -376,28 +376,59 @@ class AjfWidgetExport {
                     xlsxData.push(row);
                 }
                 break;
+            case AjfWidgetType.DynamicTable:
             case AjfWidgetType.Table:
-                this.data = this.data;
-                this.data.forEach((row, idxRow) => {
-                    const res = [];
-                    if (idxRow === 0) {
-                        row.forEach((elem) => {
-                            labels.push(elem.value.changingThisBreaksApplicationSecurity);
+                const tableData = this.data;
+                if (tableData.length > 1) {
+                    xlsxData = [];
+                    const nextRows = [];
+                    let nextRow = [];
+                    let totRowSpan = 0;
+                    let nextRowspanNum = 0;
+                    for (let i = 0; i < tableData.length; i++) {
+                        let isNewRowAfterRowspan = false;
+                        let res = [];
+                        nextRow = [];
+                        if (totRowSpan > 0) {
+                            res = [...nextRows[nextRowspanNum - 1]];
+                            isNewRowAfterRowspan = true;
+                        }
+                        tableData[i].forEach((elem, idxElem) => {
+                            res.push(elem.value.changingThisBreaksApplicationSecurity);
                             if (elem.colspan && elem.colspan > 1) {
-                                for (let i = 1; i < elem.colspan; i++) {
-                                    labels.push(' ');
+                                for (let j = 1; j < elem.colspan; j++) {
+                                    res.push(' ');
+                                }
+                            }
+                            if (isNewRowAfterRowspan) {
+                                if (elem.rowspan && elem.rowspan > 1) {
+                                    for (let idx = 1; idx < elem.rowspan; idx++) {
+                                        nextRow.push(' ');
+                                        nextRows[nextRowspanNum] = nextRows[nextRowspanNum].concat(nextRow);
+                                    }
+                                }
+                                if (idxElem === tableData[i].length - 1 && nextRowspanNum > 0) {
+                                    nextRowspanNum++;
+                                    if (nextRowspanNum === totRowSpan) {
+                                        totRowSpan = 0;
+                                        nextRowspanNum = 0;
+                                    }
+                                }
+                            }
+                            else {
+                                if (elem.rowspan && elem.rowspan > 1) {
+                                    totRowSpan = elem.rowspan;
+                                    nextRowspanNum = 1;
+                                    for (let idx = 1; idx < elem.rowspan; idx++) {
+                                        nextRow.push(' ');
+                                        nextRows[idx - 1] = nextRow;
+                                    }
                                 }
                             }
                         });
-                        xlsxData.push(labels);
-                    }
-                    else {
-                        row.forEach((elem) => {
-                            res.push(elem.value.changingThisBreaksApplicationSecurity);
-                        });
                         xlsxData.push(res);
                     }
-                });
+                }
                 break;
         }
         return xlsxData;
