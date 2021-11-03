@@ -32,9 +32,9 @@ class AjfMapContainerDirective {
         return this._el.nativeElement;
     }
 }
-AjfMapContainerDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapContainerDirective, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-AjfMapContainerDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfMapContainerDirective, selector: "[mapContainer]", ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapContainerDirective, decorators: [{
+AjfMapContainerDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfMapContainerDirective, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
+AjfMapContainerDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfMapContainerDirective, selector: "[mapContainer]", ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfMapContainerDirective, decorators: [{
             type: Directive,
             args: [{ selector: '[mapContainer]' }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }]; } });
@@ -145,9 +145,9 @@ class AjfMapComponent {
         }
     }
 }
-AjfMapComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-AjfMapComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfMapComponent, selector: "ajf-map", inputs: { coordinate: "coordinate", tileLayer: "tileLayer", attribution: "attribution", disabled: "disabled" }, viewQueries: [{ propertyName: "mapContainer", first: true, predicate: AjfMapContainerDirective, descendants: true, static: true }], ngImport: i0, template: "<div mapContainer></div>\n", styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"], directives: [{ type: AjfMapContainerDirective, selector: "[mapContainer]" }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapComponent, decorators: [{
+AjfMapComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfMapComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+AjfMapComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfMapComponent, selector: "ajf-map", inputs: { coordinate: "coordinate", tileLayer: "tileLayer", attribution: "attribution", disabled: "disabled" }, viewQueries: [{ propertyName: "mapContainer", first: true, predicate: AjfMapContainerDirective, descendants: true, static: true }], ngImport: i0, template: "<div mapContainer></div>\n", styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"], directives: [{ type: AjfMapContainerDirective, selector: "[mapContainer]" }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfMapComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-map', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<div mapContainer></div>\n", styles: ["ajf-map{display:block;position:relative;width:100%;min-height:200px}ajf-map [mapContainer]{position:absolute;min-width:100px;width:100%;height:100%}\n"] }]
         }], propDecorators: { mapContainer: [{
@@ -186,10 +186,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  */
 class AjfMapModule {
 }
-AjfMapModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfMapModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapModule, declarations: [AjfMapComponent, AjfMapContainerDirective], exports: [AjfMapComponent] });
-AjfMapModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapModule });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfMapModule, decorators: [{
+AjfMapModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfMapModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfMapModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfMapModule, declarations: [AjfMapComponent, AjfMapContainerDirective], exports: [AjfMapComponent] });
+AjfMapModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfMapModule });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfMapModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [AjfMapComponent, AjfMapContainerDirective],

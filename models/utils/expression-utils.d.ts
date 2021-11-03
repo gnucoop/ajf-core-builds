@@ -21,6 +21,7 @@
  */
 import { AjfContext } from '@ajf/core/common';
 import * as dateFns from 'date-fns';
+import { AjfTableCell } from '@ajf/core/table';
 import { AjfValidationFn } from '../interface/validation-function';
 export interface Form {
     [key: string]: string | number | null;
@@ -133,6 +134,11 @@ export declare function formatDate(date: Date | string, fmt?: string): string;
 export declare function isoMonth(date: Date, fmt?: string): string;
 export declare function getCoordinate(source: any, zoom?: number): [number, number, number];
 /**
+ * Calculates all the possible results that a field has taken
+ */
+export declare function ALL_VALUES_OF(forms: Form[], fieldName: string): string[];
+export declare function plainArray(params: any[]): any[];
+/**
  * Counts the collected forms. The form name must be specified. An optional condition can be added
  * to discriminate which forms to count in.
  */
@@ -172,3 +178,15 @@ export declare function MEDIAN(forms: Form[], fieldName: string): number;
  * Calculates the mode value of the field.
  */
 export declare function MODE(forms: Form[], fieldName: string): number[];
+export declare function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
+/**
+ *
+ * @param values all values of iteration
+ * @param forms the form data
+ * @param fn the fuction of expression-utils to apply at iteration
+ * @param param1 first param of fn
+ * @param param2 second param of fn
+ * @returns the result of fn applied to all values param conditions
+ * &current is an anchor key, The params with &current will be modified with the iteration values.
+ */
+export declare function REPEAT(values: string[], forms: Form[], fn: AjfValidationFn, param1: string, param2: string): any[];

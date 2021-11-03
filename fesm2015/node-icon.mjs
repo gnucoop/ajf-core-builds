@@ -49,9 +49,9 @@ class AjfNodeIcon {
         }
     }
 }
-AjfNodeIcon.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfNodeIcon, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-AjfNodeIcon.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfNodeIcon, inputs: { node: "node" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfNodeIcon, decorators: [{
+AjfNodeIcon.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfNodeIcon, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+AjfNodeIcon.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfNodeIcon, inputs: { node: "node" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfNodeIcon, decorators: [{
             type: Directive
         }], propDecorators: { node: [{
                 type: Input

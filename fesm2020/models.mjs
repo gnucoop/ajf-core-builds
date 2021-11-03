@@ -296,16 +296,22 @@ const numbro = numbroMod.default || numbroMod;
 const MAX_REPS = 30;
 const getCodeIdentifiers = (source, includeDollarValue = false) => {
     const identifiers = [];
-    parseScript(source, {
-        onToken: (token, start, end) => {
-            if (token == 'Identifier') {
-                const identifier = source.substring(start, end);
-                if (includeDollarValue || identifier !== '$value') {
-                    identifiers.push(identifier);
+    try {
+        parseScript(source.toString(), {
+            onToken: (token, start, end) => {
+                if (token == 'Identifier') {
+                    const identifier = source.toString().substring(start, end);
+                    if (includeDollarValue || identifier !== '$value') {
+                        identifiers.push(identifier);
+                    }
                 }
-            }
-        },
-    });
+            },
+        });
+    }
+    catch (e) {
+        console.log(source);
+        console.log(e);
+    }
     return identifiers;
 };
 const dateUtils = {
@@ -357,6 +363,7 @@ AjfExpressionUtils.utils = {
     parseFloat: { fn: parseFloat },
     parseDate: { fn: dateUtils.parse },
     Date: { fn: Date },
+    plainArray: { fn: plainArray },
     COUNTFORMS: { fn: COUNTFORMS },
     COUNTFORMS_UNIQUE: { fn: COUNTFORMS_UNIQUE },
     SUM: { fn: SUM },
@@ -366,6 +373,9 @@ AjfExpressionUtils.utils = {
     MAX: { fn: MAX },
     MEDIAN: { fn: MEDIAN },
     MODE: { fn: MODE },
+    ALL_VALUES_OF: { fn: ALL_VALUES_OF },
+    REPEAT: { fn: REPEAT },
+    buildDataset: { fn: buildDataset },
 };
 function evaluateExpression(expression, context, forceFormula) {
     let formula = forceFormula || expression || '';
@@ -824,6 +834,21 @@ function getCoordinate(source, zoom) {
     }
 }
 /**
+ * Calculates all the possible results that a field has taken
+ */
+function ALL_VALUES_OF(forms, fieldName) {
+    forms = (forms || []).slice(0);
+    return [...new Set(forms.map(f => `${f[fieldName]}`))];
+}
+function plainArray(params) {
+    let res = [];
+    params.forEach(param => {
+        param = Array.isArray(param) ? param : [param];
+        res = [...res, ...param];
+    });
+    return res;
+}
+/**
  * Counts the collected forms. The form name must be specified. An optional condition can be added
  * to discriminate which forms to count in.
  */
@@ -891,13 +916,13 @@ function SUM(forms, expression, condition) {
                 }
                 const evaluatedExpression = evaluateExpression(expression.replace('__', `__${i}`), f);
                 if (Number.isFinite(evaluateExpression)) {
-                    acc += evaluatedExpression;
+                    acc += +evaluatedExpression;
                 }
             }
         });
     }
     else {
-        forms.forEach(f => (acc += evaluateExpression(expression, f)));
+        forms.forEach(f => (acc += +evaluateExpression(expression, f)));
     }
     return acc;
 }
@@ -990,6 +1015,59 @@ function MODE(forms, fieldName) {
     return Object.keys(map)
         .filter(v => map[+v] === maxCount)
         .map(v => +v);
+}
+function buildDataset(dataset, colspans) {
+    const res = [];
+    const normalizeDataset = [];
+    dataset.forEach((row, indexRow) => {
+        row = Array.isArray(row) ? row : [row];
+        normalizeDataset[indexRow % colspans.length] =
+            normalizeDataset[indexRow % colspans.length] != null
+                ? [...normalizeDataset[indexRow % colspans.length], ...row]
+                : [...row];
+    });
+    const transpose = normalizeDataset[0].map((_, colIndex) => normalizeDataset.map((row) => row[colIndex]));
+    transpose.forEach((data, index) => {
+        const row = [];
+        data.forEach((cellValue, cellIndex) => {
+            row.push({
+                value: cellValue,
+                colspan: colspans[cellIndex],
+                rowspan: 1,
+                style: {
+                    textAlign: 'center',
+                    color: 'black',
+                    backgroundColor: index % 2 === 0 ? 'white' : '#ddd',
+                },
+            });
+        });
+        res.push(row);
+    });
+    return res;
+}
+/**
+ *
+ * @param values all values of iteration
+ * @param forms the form data
+ * @param fn the fuction of expression-utils to apply at iteration
+ * @param param1 first param of fn
+ * @param param2 second param of fn
+ * @returns the result of fn applied to all values param conditions
+ * &current is an anchor key, The params with &current will be modified with the iteration values.
+ */
+function REPEAT(values, forms, fn, param1, param2) {
+    const res = [];
+    const newExp1 = param1 != null && param1.includes('&current')
+        ? (v) => param1.replace('&current', `"${v}"`)
+        : () => param1;
+    const newExp2 = param2 != null && param2.includes('&current')
+        ? (v) => param2.replace('&current', `"${v}"`)
+        : () => param2;
+    values.forEach(v => {
+        const vv = fn(forms, newExp1(v), newExp2(v));
+        res.push(vv);
+    });
+    return res;
 }
 
 /**
@@ -1192,5 +1270,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, COUNTFORMS, COUNTFORMS_UNIQUE, LAST, MAX, MEAN, MEDIAN, MODE, PERCENT, SUM, alert, alwaysCondition, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { ALL_VALUES_OF, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, COUNTFORMS, COUNTFORMS_UNIQUE, LAST, MAX, MEAN, MEDIAN, MODE, PERCENT, REPEAT, SUM, alert, alwaysCondition, buildDataset, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=models.mjs.map

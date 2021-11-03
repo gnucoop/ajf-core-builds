@@ -56,9 +56,9 @@ import { AjfTranslocoModule } from '@ajf/core/transloco';
  */
 class AjfDropMessage {
 }
-AjfDropMessage.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfDropMessage, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-AjfDropMessage.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfDropMessage, selector: "[ajfDropMessage]", ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfDropMessage, decorators: [{
+AjfDropMessage.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfDropMessage, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+AjfDropMessage.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfDropMessage, selector: "[ajfDropMessage]", ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfDropMessage, decorators: [{
             type: Directive,
             args: [{ selector: '[ajfDropMessage]' }]
         }] });
@@ -80,9 +80,9 @@ class AjfFilePreview {
         this._valueSub.unsubscribe();
     }
 }
-AjfFilePreview.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFilePreview, deps: [{ token: i0.ViewContainerRef }], target: i0.ɵɵFactoryTarget.Directive });
-AjfFilePreview.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfFilePreview, selector: "[ajfFilePreview]", exportAs: ["ajfFilePreview"], ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFilePreview, decorators: [{
+AjfFilePreview.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFilePreview, deps: [{ token: i0.ViewContainerRef }], target: i0.ɵɵFactoryTarget.Directive });
+AjfFilePreview.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfFilePreview, selector: "[ajfFilePreview]", exportAs: ["ajfFilePreview"], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFilePreview, decorators: [{
             type: Directive,
             args: [{
                     selector: '[ajfFilePreview]',
@@ -177,15 +177,15 @@ class AjfFileInput {
         reader.readAsDataURL(file);
     }
 }
-AjfFileInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFileInput, deps: [{ token: i1.DomSanitizer }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component });
-AjfFileInput.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfFileInput, selector: "ajf-file-input", inputs: { accept: "accept", value: "value" }, outputs: { valueChange: "valueChange" }, host: { properties: { "class.ajf-file-input": "true" } }, providers: [
+AjfFileInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFileInput, deps: [{ token: i1.DomSanitizer }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component });
+AjfFileInput.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfFileInput, selector: "ajf-file-input", inputs: { accept: "accept", value: "value" }, outputs: { valueChange: "valueChange" }, host: { properties: { "class.ajf-file-input": "true" } }, providers: [
         {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => AjfFileInput),
             multi: true,
         },
     ], queries: [{ propertyName: "_dropMessageChildren", predicate: AjfDropMessage }, { propertyName: "_filePreviewChildren", predicate: AjfFilePreview }], viewQueries: [{ propertyName: "_nativeInput", first: true, predicate: ["nativeInput"], descendants: true }], ngImport: i0, template: "<div ajfDnd (file)=\"onFileDrop($event)\" class=\"ajf-drop-zone\">\n  <div *ngIf=\"value == null; else fileInfo\" class=\"ajf-drop-message\" (click)=\"triggerNativeInput()\">\n    <ng-container *ngIf=\"_dropMessageChildren?.length; else defaultDropMessage\">\n      <ng-content select=\"[ajfDropMessage]\"></ng-content>\n    </ng-container>\n    <ng-template #defaultDropMessage>{{'Drop your file here or click to select'|transloco}}</ng-template>\n  </div>\n  <ng-template #fileInfo>\n    <button (click)=\"resetValue()\" class=\"ajf-remove-file\">\n      <img [src]=\"removeIcon\" alt=\"\">\n      <div class=\"ajf-screen-reader-only\">{{ 'Delete'|transloco }}</div>\n    </button>\n    <div class=\"ajf-file-info\">\n      <ng-container *ngIf=\"_filePreviewChildren?.length; else defaultFilePreview\">\n        <ng-content select=\"[ajfFilePreview]\"></ng-content>\n      </ng-container>\n      <ng-template #defaultFilePreview>\n        <div class=\"ajf-file-info-content\">\n          <img [src]=\"fileIcon\" alt=\"\">\n          <div>{{ value.name }}</div>\n        </div>\n      </ng-template>\n    </div>\n  </ng-template>\n</div>\n<input #nativeInput [accept]=\"accept\" name=\"\" aria-label=\"file input\" type=\"file\" (change)=\"onSelectFile()\">\n", styles: [".ajf-file-input{display:flex;min-height:100px;align-items:stretch;position:relative;overflow:hidden}.ajf-file-input .ajf-drop-zone,.ajf-file-input .ajf-file-info,.ajf-file-input .ajf-drop-message{flex:1 1 auto;display:flex;align-items:center;justify-content:center}.ajf-file-input .ajf-drop-zone{background-color:#eee}.ajf-file-input .ajf-drop-zone.ajf-dnd-over{background-color:#999}.ajf-file-input .ajf-drop-message{cursor:pointer;align-self:stretch}.ajf-file-input .ajf-file-info-content{display:flex;align-items:center}.ajf-file-input .ajf-file-info-content img{width:32px;height:32px;margin-right:8px}.ajf-file-input input{position:absolute;top:-9999;left:-9999;opacity:0;z-index:-1}.ajf-file-input .ajf-screen-reader-only{display:none}.ajf-file-input .ajf-remove-file{position:absolute;top:16px;right:16px;padding:8px;cursor:pointer}.ajf-file-input .ajf-remove-file img{width:16px;height:16px;margin-right:0}\n"], directives: [{ type: i2.AjfDndDirective, selector: "[ajfDnd]", outputs: ["file"] }, { type: i3.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "transloco": i4.TranslocoPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFileInput, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFileInput, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-file-input', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, host: {
                         '[class.ajf-file-input]': 'true',
@@ -283,10 +283,10 @@ const trashIcon = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5
  */
 class AjfFileInputModule {
 }
-AjfFileInputModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFileInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfFileInputModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFileInputModule, declarations: [AjfDropMessage, AjfFileInput, AjfFilePreview], imports: [AjfCommonModule, CommonModule, AjfTranslocoModule], exports: [AjfDropMessage, AjfFileInput, AjfFilePreview] });
-AjfFileInputModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFileInputModule, imports: [[AjfCommonModule, CommonModule, AjfTranslocoModule]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFileInputModule, decorators: [{
+AjfFileInputModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFileInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfFileInputModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFileInputModule, declarations: [AjfDropMessage, AjfFileInput, AjfFilePreview], imports: [AjfCommonModule, CommonModule, AjfTranslocoModule], exports: [AjfDropMessage, AjfFileInput, AjfFilePreview] });
+AjfFileInputModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFileInputModule, imports: [[AjfCommonModule, CommonModule, AjfTranslocoModule]] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFileInputModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [AjfDropMessage, AjfFileInput, AjfFilePreview],

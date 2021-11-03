@@ -51,9 +51,9 @@ class AjfAsFieldInstancePipe {
         return instance;
     }
 }
-AjfAsFieldInstancePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfAsFieldInstancePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfAsFieldInstancePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfAsFieldInstancePipe, name: "ajfAsFieldInstance" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfAsFieldInstancePipe, decorators: [{
+AjfAsFieldInstancePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfAsFieldInstancePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfAsFieldInstancePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfAsFieldInstancePipe, name: "ajfAsFieldInstance" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfAsFieldInstancePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfAsFieldInstance' }]
         }] });
@@ -87,9 +87,9 @@ class AjfAsRepeatingSlideInstancePipe {
         return instance;
     }
 }
-AjfAsRepeatingSlideInstancePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfAsRepeatingSlideInstancePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, name: "ajfAsRepeatingSlideInstance" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, decorators: [{
+AjfAsRepeatingSlideInstancePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfAsRepeatingSlideInstancePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, name: "ajfAsRepeatingSlideInstance" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfAsRepeatingSlideInstance' }]
         }] });
@@ -3254,9 +3254,9 @@ class AjfValidationService {
         AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
     }
 }
-AjfValidationService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfValidationService, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-AjfValidationService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfValidationService });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfValidationService, decorators: [{
+AjfValidationService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfValidationService, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+AjfValidationService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfValidationService });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfValidationService, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return []; } });
 
@@ -4336,9 +4336,9 @@ class AjfFormRendererService {
         }
     }
 }
-AjfFormRendererService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormRendererService, deps: [{ token: AjfValidationService }], target: i0.ɵɵFactoryTarget.Injectable });
-AjfFormRendererService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormRendererService });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormRendererService, decorators: [{
+AjfFormRendererService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormRendererService, deps: [{ token: AjfValidationService }], target: i0.ɵɵFactoryTarget.Injectable });
+AjfFormRendererService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormRendererService });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormRendererService, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: AjfValidationService }]; } });
 
@@ -4449,9 +4449,9 @@ class AjfBaseFieldComponent {
         this._changeDetectorRef.detectChanges();
     }
 }
-AjfBaseFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfBaseFieldComponent, deps: "invalid", target: i0.ɵɵFactoryTarget.Directive });
-AjfBaseFieldComponent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfBaseFieldComponent, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfBaseFieldComponent, decorators: [{
+AjfBaseFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfBaseFieldComponent, deps: "invalid", target: i0.ɵɵFactoryTarget.Directive });
+AjfBaseFieldComponent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfBaseFieldComponent, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfBaseFieldComponent, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined }]; } });
 
@@ -4484,9 +4484,9 @@ class AjfBoolToIntPipe {
         return value ? 1 : 0;
     }
 }
-AjfBoolToIntPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfBoolToIntPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfBoolToIntPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfBoolToIntPipe, name: "ajfBoolToInt" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfBoolToIntPipe, decorators: [{
+AjfBoolToIntPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfBoolToIntPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfBoolToIntPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfBoolToIntPipe, name: "ajfBoolToInt" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfBoolToIntPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfBoolToInt' }]
         }] });
@@ -4524,9 +4524,9 @@ class AjfDateValuePipe {
         return date === 'today' ? new Date() : date;
     }
 }
-AjfDateValuePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfDateValuePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfDateValuePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfDateValuePipe, name: "ajfDateValue" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfDateValuePipe, decorators: [{
+AjfDateValuePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfDateValuePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfDateValuePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfDateValuePipe, name: "ajfDateValue" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfDateValuePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfDateValue' }]
         }] });
@@ -4566,10 +4566,10 @@ class AjfDateValueStringPipe {
         return format(dateObj, 'yyyy-MM-dd');
     }
 }
-AjfDateValueStringPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfDateValueStringPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfDateValueStringPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfDateValueStringPipe, name: "ajfDateValueString" });
-AjfDateValueStringPipe.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfDateValueStringPipe });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfDateValueStringPipe, decorators: [{
+AjfDateValueStringPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfDateValueStringPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfDateValueStringPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfDateValueStringPipe, name: "ajfDateValueString" });
+AjfDateValueStringPipe.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfDateValueStringPipe });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfDateValueStringPipe, decorators: [{
             type: Injectable
         }, {
             type: Pipe,
@@ -4641,9 +4641,9 @@ class AjfExpandFieldWithChoicesPipe {
                 (instance.filteredChoices && instance.filteredChoices.length <= threshold)));
     }
 }
-AjfExpandFieldWithChoicesPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfExpandFieldWithChoicesPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, name: "ajfExpandFieldWithChoices" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, decorators: [{
+AjfExpandFieldWithChoicesPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfExpandFieldWithChoicesPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, name: "ajfExpandFieldWithChoices" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfExpandFieldWithChoices' }]
         }] });
@@ -4677,9 +4677,9 @@ class AjfFieldHost {
         this.viewContainerRef = viewContainerRef;
     }
 }
-AjfFieldHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFieldHost, deps: [{ token: i0.ViewContainerRef }], target: i0.ɵɵFactoryTarget.Directive });
-AjfFieldHost.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfFieldHost, selector: "[ajf-field-host]", ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFieldHost, decorators: [{
+AjfFieldHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFieldHost, deps: [{ token: i0.ViewContainerRef }], target: i0.ɵɵFactoryTarget.Directive });
+AjfFieldHost.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfFieldHost, selector: "[ajf-field-host]", ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFieldHost, decorators: [{
             type: Directive,
             args: [{ selector: '[ajf-field-host]' }]
         }], ctorParameters: function () { return [{ type: i0.ViewContainerRef }]; } });
@@ -4794,9 +4794,9 @@ class AjfFormField {
         }
     }
 }
-AjfFormField.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormField, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ComponentFactoryResolver }], target: i0.ɵɵFactoryTarget.Directive });
-AjfFormField.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfFormField, inputs: { instance: "instance", readonly: "readonly" }, viewQueries: [{ propertyName: "fieldHost", first: true, predicate: AjfFieldHost, descendants: true, static: true }], ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormField, decorators: [{
+AjfFormField.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormField, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ComponentFactoryResolver }], target: i0.ɵɵFactoryTarget.Directive });
+AjfFormField.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfFormField, inputs: { instance: "instance", readonly: "readonly" }, viewQueries: [{ propertyName: "fieldHost", first: true, predicate: AjfFieldHost, descendants: true, static: true }], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormField, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.ComponentFactoryResolver }]; }, propDecorators: { fieldHost: [{
                 type: ViewChild,
@@ -4870,9 +4870,9 @@ class AjfFieldIconPipe {
         return fieldIconName(field.fieldType ? field.fieldType : field);
     }
 }
-AjfFieldIconPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFieldIconPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfFieldIconPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFieldIconPipe, name: "ajfFieldIcon" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFieldIconPipe, decorators: [{
+AjfFieldIconPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFieldIconPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfFieldIconPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFieldIconPipe, name: "ajfFieldIcon" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFieldIconPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfFieldIcon' }]
         }] });
@@ -4907,9 +4907,9 @@ class AjfFieldIsValidPipe {
         return validationResults != null && validationResults.filter(f => !f.result).length === 0;
     }
 }
-AjfFieldIsValidPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFieldIsValidPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfFieldIsValidPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFieldIsValidPipe, name: "ajfFieldIsValid" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFieldIsValidPipe, decorators: [{
+AjfFieldIsValidPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFieldIsValidPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfFieldIsValidPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFieldIsValidPipe, name: "ajfFieldIsValid" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFieldIsValidPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfFieldIsValid' }]
         }] });
@@ -5086,9 +5086,9 @@ class AjfFileFieldComponent extends AjfBaseFieldComponent {
         super(cdr, service, was);
     }
 }
-AjfFileFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFileFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
-AjfFileFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfFileFieldComponent, selector: "ajf-file-field", usesInheritance: true, ngImport: i0, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n", styles: ["\n"], components: [{ type: i3.AjfFileInput, selector: "ajf-file-input", inputs: ["accept", "value"], outputs: ["valueChange"] }], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFileFieldComponent, decorators: [{
+AjfFileFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFileFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
+AjfFileFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfFileFieldComponent, selector: "ajf-file-field", usesInheritance: true, ngImport: i0, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n", styles: ["\n"], components: [{ type: i3.AjfFileInput, selector: "ajf-file-input", inputs: ["accept", "value"], outputs: ["valueChange"] }], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFileFieldComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-file-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n", styles: ["\n"] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
@@ -5363,9 +5363,9 @@ class AjfFormRenderer {
         return nodeInstanceCompleteName(node);
     }
 }
-AjfFormRenderer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormRenderer, deps: [{ token: AjfFormRendererService }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Directive });
-AjfFormRenderer.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfFormRenderer, inputs: { title: "title", saveDisabled: "saveDisabled", hasStartMessage: "hasStartMessage", hasEndMessage: "hasEndMessage", hideTopToolbar: "hideTopToolbar", hideBottomToolbar: "hideBottomToolbar", hideNavigationButtons: "hideNavigationButtons", fixedOrientation: "fixedOrientation", readonly: "readonly", orientation: "orientation", form: "form" }, outputs: { orientationChange: "orientationChange", formAction: "formAction" }, viewQueries: [{ propertyName: "formSlider", first: true, predicate: ["formSlider"], descendants: true }, { propertyName: "fields", predicate: AjfFormField, descendants: true }], ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormRenderer, decorators: [{
+AjfFormRenderer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormRenderer, deps: [{ token: AjfFormRendererService }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Directive });
+AjfFormRenderer.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfFormRenderer, inputs: { title: "title", saveDisabled: "saveDisabled", hasStartMessage: "hasStartMessage", hasEndMessage: "hasEndMessage", hideTopToolbar: "hideTopToolbar", hideBottomToolbar: "hideBottomToolbar", hideNavigationButtons: "hideNavigationButtons", fixedOrientation: "fixedOrientation", readonly: "readonly", orientation: "orientation", form: "form" }, outputs: { orientationChange: "orientationChange", formAction: "formAction" }, viewQueries: [{ propertyName: "formSlider", first: true, predicate: ["formSlider"], descendants: true }, { propertyName: "fields", predicate: AjfFormField, descendants: true }], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormRenderer, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: AjfFormRendererService }, { type: i0.ChangeDetectorRef }]; }, propDecorators: { title: [{
                 type: Input
@@ -5473,9 +5473,9 @@ class AjfFormStringIdentifierPipe {
         return buildFormStringIdentifier(form, context, opts);
     }
 }
-AjfFormStringIdentifierPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormStringIdentifierPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfFormStringIdentifierPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormStringIdentifierPipe, name: "ajfFormStringIdentifier" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormStringIdentifierPipe, decorators: [{
+AjfFormStringIdentifierPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormStringIdentifierPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfFormStringIdentifierPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormStringIdentifierPipe, name: "ajfFormStringIdentifier" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormStringIdentifierPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfFormStringIdentifier' }]
         }] });
@@ -5516,9 +5516,9 @@ class AjfGetTableCellControlPipe {
         return ctrl;
     }
 }
-AjfGetTableCellControlPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfGetTableCellControlPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfGetTableCellControlPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfGetTableCellControlPipe, name: "ajfGetTableCellControl" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfGetTableCellControlPipe, decorators: [{
+AjfGetTableCellControlPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfGetTableCellControlPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfGetTableCellControlPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfGetTableCellControlPipe, name: "ajfGetTableCellControl" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfGetTableCellControlPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfGetTableCellControl' }]
         }] });
@@ -5539,9 +5539,9 @@ class AjfImageFieldComponent extends AjfBaseFieldComponent {
         this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
     }
 }
-AjfImageFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfImageFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }], target: i0.ɵɵFactoryTarget.Component });
-AjfImageFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfImageFieldComponent, selector: "ajf-image-field", usesInheritance: true, ngImport: i0, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n", styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"], components: [{ type: i3.AjfFileInput, selector: "ajf-file-input", inputs: ["accept", "value"], outputs: ["valueChange"] }], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }, { type: i3.AjfFilePreview, selector: "[ajfFilePreview]", exportAs: ["ajfFilePreview"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfImageFieldComponent, decorators: [{
+AjfImageFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfImageFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }], target: i0.ɵɵFactoryTarget.Component });
+AjfImageFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfImageFieldComponent, selector: "ajf-image-field", usesInheritance: true, ngImport: i0, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n", styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"], components: [{ type: i3.AjfFileInput, selector: "ajf-file-input", inputs: ["accept", "value"], outputs: ["valueChange"] }], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }, { type: i3.AjfFilePreview, selector: "[ajfFilePreview]", exportAs: ["ajfFilePreview"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfImageFieldComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-image-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n", styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
@@ -5581,9 +5581,9 @@ class AjfIncrementPipe {
         return value + increment;
     }
 }
-AjfIncrementPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIncrementPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfIncrementPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIncrementPipe, name: "ajfIncrement" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIncrementPipe, decorators: [{
+AjfIncrementPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIncrementPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfIncrementPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIncrementPipe, name: "ajfIncrement" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIncrementPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfIncrement' }]
         }] });
@@ -5623,9 +5623,9 @@ class AjfIsCellEditablePipe {
         return cell.editable === true;
     }
 }
-AjfIsCellEditablePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIsCellEditablePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfIsCellEditablePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIsCellEditablePipe, name: "ajfIsCellEditable" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIsCellEditablePipe, decorators: [{
+AjfIsCellEditablePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIsCellEditablePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfIsCellEditablePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIsCellEditablePipe, name: "ajfIsCellEditable" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIsCellEditablePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfIsCellEditable' }]
         }] });
@@ -5663,9 +5663,9 @@ class AjfIsReadonlyInputFieldPipe {
             instance.node.fieldType === AjfFieldType.Formula);
     }
 }
-AjfIsReadonlyInputFieldPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIsReadonlyInputFieldPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfIsReadonlyInputFieldPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIsReadonlyInputFieldPipe, name: "ajfIsReadonlyInputField" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIsReadonlyInputFieldPipe, decorators: [{
+AjfIsReadonlyInputFieldPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIsReadonlyInputFieldPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfIsReadonlyInputFieldPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIsReadonlyInputFieldPipe, name: "ajfIsReadonlyInputField" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIsReadonlyInputFieldPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfIsReadonlyInputField' }]
         }] });
@@ -5702,9 +5702,9 @@ class AjfIsRepeatingSlideInstancePipe {
         return isRepeatingSlideInstance(instance);
     }
 }
-AjfIsRepeatingSlideInstancePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIsRepeatingSlideInstancePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfIsRepeatingSlideInstancePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIsRepeatingSlideInstancePipe, name: "ajfIsRepeatingSlideInstance" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfIsRepeatingSlideInstancePipe, decorators: [{
+AjfIsRepeatingSlideInstancePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIsRepeatingSlideInstancePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfIsRepeatingSlideInstancePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIsRepeatingSlideInstancePipe, name: "ajfIsRepeatingSlideInstance" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfIsRepeatingSlideInstancePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfIsRepeatingSlideInstance' }]
         }] });
@@ -5741,9 +5741,9 @@ class AjfNodeCompleteNamePipe {
         return instance ? nodeInstanceCompleteName(instance) : '';
     }
 }
-AjfNodeCompleteNamePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfNodeCompleteNamePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfNodeCompleteNamePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfNodeCompleteNamePipe, name: "ajfNodeCompleteName" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfNodeCompleteNamePipe, decorators: [{
+AjfNodeCompleteNamePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfNodeCompleteNamePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfNodeCompleteNamePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfNodeCompleteNamePipe, name: "ajfNodeCompleteName" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfNodeCompleteNamePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfNodeCompleteName' }]
         }] });
@@ -5786,9 +5786,9 @@ class AjfRangePipe {
         return range;
     }
 }
-AjfRangePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfRangePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfRangePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfRangePipe, name: "ajfRange" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfRangePipe, decorators: [{
+AjfRangePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfRangePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfRangePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfRangePipe, name: "ajfRange" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfRangePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfRange' }]
         }] });
@@ -5861,9 +5861,9 @@ class AjfReadOnlyFieldComponent extends AjfInputFieldComponent {
         super(cdr, service, was);
     }
 }
-AjfReadOnlyFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlyFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
-AjfReadOnlyFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfReadOnlyFieldComponent, selector: "ajf-read-only-field", usesInheritance: true, ngImport: i0, template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n", styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlyFieldComponent, decorators: [{
+AjfReadOnlyFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlyFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
+AjfReadOnlyFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfReadOnlyFieldComponent, selector: "ajf-read-only-field", usesInheritance: true, ngImport: i0, template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n", styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlyFieldComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-read-only-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<span *ngIf=\"control|async as ctrl\">{{ctrl.value}}</span>\n", styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
@@ -5911,9 +5911,9 @@ class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
         this.fileName = fileStream.pipe(map(file => file.name));
     }
 }
-AjfReadOnlyFileFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlyFileFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }], target: i0.ɵɵFactoryTarget.Component });
-AjfReadOnlyFileFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfReadOnlyFileFieldComponent, selector: "ajf-read-only-file-field", usesInheritance: true, ngImport: i0, template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n", styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlyFileFieldComponent, decorators: [{
+AjfReadOnlyFileFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlyFileFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }], target: i0.ɵɵFactoryTarget.Component });
+AjfReadOnlyFileFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfReadOnlyFileFieldComponent, selector: "ajf-read-only-file-field", usesInheritance: true, ngImport: i0, template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n", styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlyFileFieldComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-read-only-file-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n", styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
@@ -5938,9 +5938,9 @@ class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
         this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
     }
 }
-AjfReadOnlyImageFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlyImageFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }], target: i0.ɵɵFactoryTarget.Component });
-AjfReadOnlyImageFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfReadOnlyImageFieldComponent, selector: "ajf-read-only-image-field", usesInheritance: true, ngImport: i0, template: "<img *ngIf=\"imageUrl|async as iu ; else noImage\" [src]=\"imageUrl|async\">\n<ng-template #noImage>\n  <div class=\"ajf-no-image-placeholder\"></div>\n</ng-template>\n", styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlyImageFieldComponent, decorators: [{
+AjfReadOnlyImageFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlyImageFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }], target: i0.ɵɵFactoryTarget.Component });
+AjfReadOnlyImageFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfReadOnlyImageFieldComponent, selector: "ajf-read-only-image-field", usesInheritance: true, ngImport: i0, template: "<img *ngIf=\"imageUrl|async as iu ; else noImage\" [src]=\"imageUrl|async\">\n<ng-template #noImage>\n  <div class=\"ajf-no-image-placeholder\"></div>\n</ng-template>\n", styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlyImageFieldComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-read-only-image-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<img *ngIf=\"imageUrl|async as iu ; else noImage\" [src]=\"imageUrl|async\">\n<ng-template #noImage>\n  <div class=\"ajf-no-image-placeholder\"></div>\n</ng-template>\n", styles: ["ajf-read-only-image-field .ajf-no-image-placeholder{width:100%;height:32px;background-color:#eee}\n"] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
@@ -5982,9 +5982,9 @@ class AjfReadOnlySelectFieldComponent extends AjfBaseFieldComponent {
         this.multiple = this.control.pipe(filter(control => control != null), map(() => this.instance.node.fieldType === AjfFieldType.MultipleChoice));
     }
 }
-AjfReadOnlySelectFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlySelectFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
-AjfReadOnlySelectFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfReadOnlySelectFieldComponent, selector: "ng-component", usesInheritance: true, ngImport: i0, template: "<ng-container *ngIf=\"control|async as ctrl\">\n    <ng-container *ngFor=\"let choice of instance.filteredChoices; let idx = index\">\n        <ng-container *ngIf=\"multiple|async; else singleChoice\">\n            <span *ngIf=\"ctrl.value && ctrl.value?.indexOf(choice.value) > -1\">\n                {{choice.label|transloco}}{{ctrl.value[ctrl.value.length - 1] !== choice.value ? ', ': ''}}\n            </span>\n        </ng-container>\n        <ng-template #singleChoice>\n            <span *ngIf=\"ctrl.value === choice.value\">{{choice.label|transloco}}</span>\n        </ng-template>\n    </ng-container>\n</ng-container>\n", styles: ["\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i2.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }], pipes: { "async": i2.AsyncPipe, "transloco": i3$1.TranslocoPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlySelectFieldComponent, decorators: [{
+AjfReadOnlySelectFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlySelectFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
+AjfReadOnlySelectFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfReadOnlySelectFieldComponent, selector: "ng-component", usesInheritance: true, ngImport: i0, template: "<ng-container *ngIf=\"control|async as ctrl\">\n    <ng-container *ngFor=\"let choice of instance.filteredChoices; let idx = index\">\n        <ng-container *ngIf=\"multiple|async; else singleChoice\">\n            <span *ngIf=\"ctrl.value && ctrl.value?.indexOf(choice.value) > -1\">\n                {{choice.label|transloco}}{{ctrl.value[ctrl.value.length - 1] !== choice.value ? ', ': ''}}\n            </span>\n        </ng-container>\n        <ng-template #singleChoice>\n            <span *ngIf=\"ctrl.value === choice.value\">{{choice.label|transloco}}</span>\n        </ng-template>\n    </ng-container>\n</ng-container>\n", styles: ["\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i2.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }], pipes: { "async": i2.AsyncPipe, "transloco": i3$1.TranslocoPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlySelectFieldComponent, decorators: [{
             type: Component,
             args: [{ changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<ng-container *ngIf=\"control|async as ctrl\">\n    <ng-container *ngFor=\"let choice of instance.filteredChoices; let idx = index\">\n        <ng-container *ngIf=\"multiple|async; else singleChoice\">\n            <span *ngIf=\"ctrl.value && ctrl.value?.indexOf(choice.value) > -1\">\n                {{choice.label|transloco}}{{ctrl.value[ctrl.value.length - 1] !== choice.value ? ', ': ''}}\n            </span>\n        </ng-container>\n        <ng-template #singleChoice>\n            <span *ngIf=\"ctrl.value === choice.value\">{{choice.label|transloco}}</span>\n        </ng-template>\n    </ng-container>\n</ng-container>\n", styles: ["\n"] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
@@ -6024,9 +6024,9 @@ class AjfTableRowClass {
         return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
     }
 }
-AjfTableRowClass.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableRowClass, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfTableRowClass.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableRowClass, name: "ajfTableRowClass" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableRowClass, decorators: [{
+AjfTableRowClass.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTableRowClass, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfTableRowClass.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTableRowClass, name: "ajfTableRowClass" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTableRowClass, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfTableRowClass' }]
         }] });
@@ -6064,9 +6064,9 @@ class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent {
         super(cdr, service, was);
     }
 }
-AjfReadOnlyTableFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlyTableFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
-AjfReadOnlyTableFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfReadOnlyTableFieldComponent, selector: "ng-component", usesInheritance: true, ngImport: i0, template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n", styles: ["\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i2.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: i2.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], pipes: { "ajfTableRowClass": AjfTableRowClass, "ajfFormatIfNumber": i4$1.FormatIfNumber, "ajfTranslateIfString": i4$1.TranslateIfString, "ajfGetTableCellControl": AjfGetTableCellControlPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlyTableFieldComponent, decorators: [{
+AjfReadOnlyTableFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlyTableFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
+AjfReadOnlyTableFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfReadOnlyTableFieldComponent, selector: "ng-component", usesInheritance: true, ngImport: i0, template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n", styles: ["\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i2.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: i2.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], pipes: { "ajfTableRowClass": AjfTableRowClass, "ajfFormatIfNumber": i4$1.FormatIfNumber, "ajfTranslateIfString": i4$1.TranslateIfString, "ajfGetTableCellControl": AjfGetTableCellControlPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlyTableFieldComponent, decorators: [{
             type: Component,
             args: [{ changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<table class=\"ajf-table-field\">\n  <ng-container *ngIf=\"instance.node as node\">\n    <ng-container *ngFor=\"let columns of instance.controls; let row = index\">\n      <tr [ngClass]=\"row | ajfTableRowClass\">\n        <td>\n          <ng-container *ngIf=\"columns && columns.length > 0 && columns[0] != null\">\n            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}\n          </ng-container>\n        </td>\n        <ng-container *ngIf=\"columns && columns.length > 1 && columns[1] != null\">\n          <td *ngFor=\"let c of columns[1]; let column = index\">\n            <ng-container *ngIf=\"c|ajfGetTableCellControl as contr\">\n              <ng-container *ngIf=\"contr != null\">\n                <span *ngIf=\"row > 0; else labelCell\"\n                  class=\"ajf-table-cell\">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>\n                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>\n              </ng-container>\n            </ng-container>\n          </td>\n        </ng-container>\n      </tr>\n    </ng-container>\n  </ng-container>\n</table>\n", styles: ["\n"] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
@@ -6112,9 +6112,9 @@ class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
         this.videoThumbnail = video.pipe(filter(info => info != null), switchMap(info => videoPreviewUrl(httpClient, info)), filter(url => url != null), map(url => domSanitizer.bypassSecurityTrustResourceUrl(url)));
     }
 }
-AjfVideoUrlFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfVideoUrlFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }, { token: i3$2.HttpClient }], target: i0.ɵɵFactoryTarget.Directive });
-AjfVideoUrlFieldComponent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfVideoUrlFieldComponent, usesInheritance: true, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfVideoUrlFieldComponent, decorators: [{
+AjfVideoUrlFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfVideoUrlFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }, { token: i3$2.HttpClient }], target: i0.ɵɵFactoryTarget.Directive });
+AjfVideoUrlFieldComponent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfVideoUrlFieldComponent, usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfVideoUrlFieldComponent, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
                     type: Inject,
@@ -6296,9 +6296,9 @@ class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
         super(cdr, service, was, domSanitizer, httpClient);
     }
 }
-AjfReadOnlyVideoUrlFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlyVideoUrlFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }, { token: i3$2.HttpClient }], target: i0.ɵɵFactoryTarget.Component });
-AjfReadOnlyVideoUrlFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfReadOnlyVideoUrlFieldComponent, selector: "ajf-read-only-video-url-field", usesInheritance: true, ngImport: i0, template: "<div *ngIf=\"control|async as ctrl\" class=\"ajf-video-thumbnail\">\n  <ng-container *ngIf=\"validUrl|async\">\n    <a target=\"_blank\" [href]=\"ctrl.value\">\n      <img *ngIf=\"videoThumbnail|async as thumb\" [src]=\"thumb\" class=\"\" alt=\"\">\n    </a>\n  </ng-container>\n</div>\n", styles: ["\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfReadOnlyVideoUrlFieldComponent, decorators: [{
+AjfReadOnlyVideoUrlFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlyVideoUrlFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }, { token: i3$2.HttpClient }], target: i0.ɵɵFactoryTarget.Component });
+AjfReadOnlyVideoUrlFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfReadOnlyVideoUrlFieldComponent, selector: "ajf-read-only-video-url-field", usesInheritance: true, ngImport: i0, template: "<div *ngIf=\"control|async as ctrl\" class=\"ajf-video-thumbnail\">\n  <ng-container *ngIf=\"validUrl|async\">\n    <a target=\"_blank\" [href]=\"ctrl.value\">\n      <img *ngIf=\"videoThumbnail|async as thumb\" [src]=\"thumb\" class=\"\" alt=\"\">\n    </a>\n  </ng-container>\n</div>\n", styles: ["\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfReadOnlyVideoUrlFieldComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-read-only-video-url-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<div *ngIf=\"control|async as ctrl\" class=\"ajf-video-thumbnail\">\n  <ng-container *ngIf=\"validUrl|async\">\n    <a target=\"_blank\" [href]=\"ctrl.value\">\n      <img *ngIf=\"videoThumbnail|async as thumb\" [src]=\"thumb\" class=\"\" alt=\"\">\n    </a>\n  </ng-container>\n</div>\n", styles: ["\n"] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
@@ -6352,9 +6352,9 @@ class AjfTableVisibleColumnsPipe {
         ]);
     }
 }
-AjfTableVisibleColumnsPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableVisibleColumnsPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfTableVisibleColumnsPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableVisibleColumnsPipe, name: "ajfTableVisibleColumns" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableVisibleColumnsPipe, decorators: [{
+AjfTableVisibleColumnsPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTableVisibleColumnsPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfTableVisibleColumnsPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTableVisibleColumnsPipe, name: "ajfTableVisibleColumns" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTableVisibleColumnsPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfTableVisibleColumns' }]
         }] });
@@ -6394,9 +6394,9 @@ class AjfValidSlidePipe {
         return validSlide(slide, idx);
     }
 }
-AjfValidSlidePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfValidSlidePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfValidSlidePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfValidSlidePipe, name: "ajfValidSlide", pure: false });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfValidSlidePipe, decorators: [{
+AjfValidSlidePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfValidSlidePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfValidSlidePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfValidSlidePipe, name: "ajfValidSlide", pure: false });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfValidSlidePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfValidSlide', pure: false }]
         }] });
@@ -6424,8 +6424,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  */
 class AjfFormsModule {
 }
-AjfFormsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfFormsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormsModule, declarations: [AjfAsFieldInstancePipe,
+AjfFormsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfFormsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormsModule, declarations: [AjfAsFieldInstancePipe,
         AjfAsRepeatingSlideInstancePipe,
         AjfBoolToIntPipe,
         AjfDateValuePipe,
@@ -6485,7 +6485,7 @@ AjfFormsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version:
         AjfTableRowClass,
         AjfTableVisibleColumnsPipe,
         AjfValidSlidePipe] });
-AjfFormsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormsModule, providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService], imports: [[
+AjfFormsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormsModule, providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService], imports: [[
             AjfCommonModule,
             AjfFileInputModule,
             CommonModule,
@@ -6493,7 +6493,7 @@ AjfFormsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version:
             ReactiveFormsModule,
             AjfTranslocoModule,
         ]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfFormsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfFormsModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [
@@ -7305,14 +7305,83 @@ class AjfTableFieldComponent extends AjfBaseFieldComponent {
         }
     }
 }
-AjfTableFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Directive });
-AjfTableFieldComponent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfTableFieldComponent, usesInheritance: true, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTableFieldComponent, decorators: [{
+AjfTableFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTableFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Directive });
+AjfTableFieldComponent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfTableFieldComponent, usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTableFieldComponent, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
                     type: Inject,
                     args: [AJF_WARNING_ALERT_SERVICE]
                 }] }]; } });
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+function generateRandomCtx(formSchema) {
+    const ctxMap = [];
+    const allFields = flattenNodes(formSchema.nodes).filter(f => isField(f));
+    const generateRandomNumberOfContext = Math.floor(Math.random() * 100) + 1;
+    for (let i = 0; i < generateRandomNumberOfContext; i++) {
+        const ctx = {};
+        allFields.forEach(field => {
+            switch (field.fieldType) {
+                default:
+                    ctx[field.name] = 0;
+                    break;
+                case AjfFieldType.Number:
+                    ctx[field.name] = Math.floor(Math.random() * 1000) + 1;
+                    break;
+                case AjfFieldType.Boolean:
+                    ctx[field.name] = Math.random() < 0.5;
+                    break;
+                case AjfFieldType.SingleChoice:
+                    const singleChoices = field.choicesOrigin.choices.map(c => c.value);
+                    ctx[field.name] = singleChoices[Math.floor(Math.random() * singleChoices.length)];
+                    break;
+                case AjfFieldType.MultipleChoice:
+                    const multipleChoices = field.choicesOrigin.choices.map(c => c.value);
+                    ctx[field.name] = [
+                        multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
+                        multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
+                    ];
+                    break;
+                case AjfFieldType.Range:
+                    const rangeField = field;
+                    const end = rangeField.end ?? 10;
+                    const start = rangeField.start ?? 1;
+                    const value = Math.floor(start + Math.random() * (end + 1 - start));
+                    ctx[field.name] = value;
+            }
+        });
+        ctxMap.push(ctx);
+    }
+    return ctxMap;
+}
+function buildformDatas(formSchemas) {
+    const forms = {};
+    Object.keys(formSchemas).forEach(nameSchema => {
+        forms[nameSchema] = generateRandomCtx(AjfFormSerializer.fromJson(formSchemas[nameSchema]));
+    });
+    return forms;
+}
 
 /**
  * @license
@@ -9583,5 +9652,5 @@ function notEmptyWarning() {
  * Generated bundle index. Do not edit.
  */
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFileFieldComponent, AjfFormActionEvent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormStringIdentifierPipe, AjfFormsModule, AjfGetTableCellControlPipe, AjfImageFieldComponent, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsReadonlyInputFieldPipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyFieldComponent, AjfReadOnlyFileFieldComponent, AjfReadOnlyImageFieldComponent, AjfReadOnlySelectFieldComponent, AjfReadOnlyTableFieldComponent, AjfReadOnlyVideoUrlFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfVideoUrlFieldComponent, AjfWarningGroupSerializer, buildFormStringIdentifier, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createFormPdf, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning };
+export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFileFieldComponent, AjfFormActionEvent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormStringIdentifierPipe, AjfFormsModule, AjfGetTableCellControlPipe, AjfImageFieldComponent, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsReadonlyInputFieldPipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyFieldComponent, AjfReadOnlyFileFieldComponent, AjfReadOnlyImageFieldComponent, AjfReadOnlySelectFieldComponent, AjfReadOnlyTableFieldComponent, AjfReadOnlyVideoUrlFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfVideoUrlFieldComponent, AjfWarningGroupSerializer, buildFormStringIdentifier, buildformDatas, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createFormPdf, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, generateRandomCtx, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning };
 //# sourceMappingURL=forms.mjs.map

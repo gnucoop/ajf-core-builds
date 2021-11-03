@@ -168,9 +168,9 @@ class AjfCheckboxGroup {
         this._change.emit(event);
     }
 }
-AjfCheckboxGroup.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroup, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-AjfCheckboxGroup.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfCheckboxGroup, selector: "ajf-checkbox-group,[ajf-checkbox-group]", inputs: { value: "value", name: "name", disabled: "disabled" }, outputs: { change: "change" }, providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR], ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroup, decorators: [{
+AjfCheckboxGroup.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfCheckboxGroup, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+AjfCheckboxGroup.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfCheckboxGroup, selector: "ajf-checkbox-group,[ajf-checkbox-group]", inputs: { value: "value", name: "name", disabled: "disabled" }, outputs: { change: "change" }, providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfCheckboxGroup, decorators: [{
             type: Directive,
             args: [{
                     selector: 'ajf-checkbox-group,[ajf-checkbox-group]',
@@ -271,9 +271,9 @@ class AjfCheckboxGroupItem {
         }
     }
 }
-AjfCheckboxGroupItem.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupItem, deps: [{ token: AjfCheckboxGroup }], target: i0.ɵɵFactoryTarget.Directive });
-AjfCheckboxGroupItem.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfCheckboxGroupItem, inputs: { id: "id", name: "name", checked: "checked", disabled: "disabled", value: "value", checkedIcon: "checkedIcon", notCheckedIcon: "notCheckedIcon" }, outputs: { change: "change" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupItem, decorators: [{
+AjfCheckboxGroupItem.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfCheckboxGroupItem, deps: [{ token: AjfCheckboxGroup }], target: i0.ɵɵFactoryTarget.Directive });
+AjfCheckboxGroupItem.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfCheckboxGroupItem, inputs: { id: "id", name: "name", checked: "checked", disabled: "disabled", value: "value", checkedIcon: "checkedIcon", notCheckedIcon: "notCheckedIcon" }, outputs: { change: "change" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfCheckboxGroupItem, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: AjfCheckboxGroup }]; }, propDecorators: { id: [{
                 type: Input
@@ -316,10 +316,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  */
 class AjfCheckboxGroupModule {
 }
-AjfCheckboxGroupModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfCheckboxGroupModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupModule, declarations: [AjfCheckboxGroup], imports: [FormsModule], exports: [AjfCheckboxGroup] });
-AjfCheckboxGroupModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupModule, imports: [[FormsModule]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfCheckboxGroupModule, decorators: [{
+AjfCheckboxGroupModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfCheckboxGroupModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfCheckboxGroupModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfCheckboxGroupModule, declarations: [AjfCheckboxGroup], imports: [FormsModule], exports: [AjfCheckboxGroup] });
+AjfCheckboxGroupModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfCheckboxGroupModule, imports: [[FormsModule]] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfCheckboxGroupModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [FormsModule],

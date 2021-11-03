@@ -138,9 +138,9 @@ class AjfTime {
         this._onTouchedCallback();
     }
 }
-AjfTime.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTime, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-AjfTime.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: AjfTime, inputs: { readonly: "readonly" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: AjfTime, decorators: [{
+AjfTime.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTime, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+AjfTime.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfTime, inputs: { readonly: "readonly" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTime, decorators: [{
             type: Directive
         }], ctorParameters: function () { return []; }, propDecorators: { readonly: [{
                 type: Input

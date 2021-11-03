@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "13.1.0-next.0-4dbfbf4a",
+  "version": "13.1.0-next.0-9ef65dd2",
   "description": "",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
     "meriyah": "^4.0.0",
     "leaflet": "^1.6.0",
     "numbro": "^2.3.1",
-    "pdfmake": "^0.1.68",
+    "pdfmake": "^0.2.0",
     "rxjs": "^6.5.3 || ^7.0.0",
     "xlsx": "^0.17.0"
   },
