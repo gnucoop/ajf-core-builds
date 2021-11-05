@@ -189,4 +189,4 @@ export declare function buildDataset(dataset: (string | number | string[] | numb
  * @returns the result of fn applied to all values param conditions
  * &current is an anchor key, The params with &current will be modified with the iteration values.
  */
-export declare function REPEAT(values: string[], forms: Form[], fn: AjfValidationFn, param1: string, param2: string): any[];
+export declare function REPEAT(forms: Form[], values: string[], fn: AjfValidationFn, param1: string, param2?: string): any[];

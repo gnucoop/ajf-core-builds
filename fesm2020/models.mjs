@@ -1055,7 +1055,7 @@ function buildDataset(dataset, colspans) {
  * @returns the result of fn applied to all values param conditions
  * &current is an anchor key, The params with &current will be modified with the iteration values.
  */
-function REPEAT(values, forms, fn, param1, param2) {
+function REPEAT(forms, values, fn, param1, param2 = 'true') {
     const res = [];
     const newExp1 = param1 != null && param1.includes('&current')
         ? (v) => param1.replace('&current', `"${v}"`)
