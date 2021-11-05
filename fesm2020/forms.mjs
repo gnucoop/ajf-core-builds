@@ -7335,9 +7335,33 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ng
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+function generateRandomInstanceFields(fields) {
+    const fieldReps = [];
+    fields.forEach(f => {
+        for (let i = 0; i < 5; i++) {
+            const newReps = deepCopy(f);
+            newReps.name = `${newReps.name}__${i}`;
+            fieldReps.push(newReps);
+        }
+    });
+    return fieldReps;
+}
+function flattenFields(nodes) {
+    let flatFields = [];
+    nodes.forEach((node) => {
+        if (isField(node)) {
+            flatFields.push(node);
+        }
+        if (isContainerNode(node)) {
+            const childs = generateRandomInstanceFields(node.nodes);
+            flatFields = flatFields.concat(flattenFields(childs));
+        }
+    });
+    return flatFields;
+}
 function generateRandomCtx(formSchema) {
     const ctxMap = [];
-    const allFields = flattenNodes(formSchema.nodes).filter(f => isField(f));
+    const allFields = flattenFields(formSchema.nodes);
     const generateRandomNumberOfContext = Math.floor(Math.random() * 100) + 1;
     for (let i = 0; i < generateRandomNumberOfContext; i++) {
         const ctx = {};

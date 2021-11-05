@@ -181,8 +181,8 @@ export declare function MODE(forms: Form[], fieldName: string): number[];
 export declare function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
 /**
  *
- * @param values all values of iteration
  * @param forms the form data
+ * @param values all values of iteration
  * @param fn the fuction of expression-utils to apply at iteration
  * @param param1 first param of fn
  * @param param2 second param of fn

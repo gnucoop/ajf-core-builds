@@ -750,7 +750,23 @@ function getCoordinate(source, zoom) {
  */
 function ALL_VALUES_OF(forms, fieldName) {
     forms = (forms || []).slice(0);
-    return [...new Set(forms.map(f => `${f[fieldName]}`))];
+    const isInRepeatingSlide = fieldName.includes(`__`);
+    if (isInRepeatingSlide) {
+        const repeation = [];
+        forms.forEach(f => {
+            for (let i = 0; i <= MAX_REPS; i++) {
+                const fieldRepetion = `${fieldName}${i}`;
+                if (f[fieldRepetion] == null) {
+                    break;
+                }
+                repeation.push(f[fieldRepetion]);
+            }
+        });
+        return [...new Set(repeation)];
+    }
+    else {
+        return [...new Set(forms.map(f => `${f[fieldName]}`))];
+    }
 }
 function plainArray(params) {
     let res = [];
@@ -816,27 +832,51 @@ function SUM(forms, expression, condition) {
     if (expression == null) {
         return 0;
     }
-    if (condition != null) {
-        forms = forms.filter(f => evaluateExpression(condition, f));
-    }
-    const isInRepeatingSlide = expression.includes(`__`);
-    if (isInRepeatingSlide) {
-        forms.forEach(f => {
-            for (let i = 0; i <= MAX_REPS; i++) {
-                if (Object.keys(f).filter(key => key.includes(`__${i}`)).length === 0) {
-                    break;
+    const expressionConditions = generateExpressionConditions(forms, expression, condition);
+    expressionConditions.forEach(exp => {
+        acc += +exp;
+    });
+    return acc;
+}
+function generateExpressionConditions(forms, expression, condition = 'true') {
+    const res = [];
+    const conditionIsReps = condition === null || condition === void 0 ? void 0 : condition.includes('__');
+    const expressionIsReps = expression.includes('__');
+    forms.forEach(f => {
+        if (conditionIsReps) {
+            const repeatedFieldCondition = `${condition.split('__')[0]}__`;
+            const keys = Object.keys(f).filter(frm => frm.includes(repeatedFieldCondition));
+            keys.forEach(key => {
+                const index = +key.split('__')[1];
+                const rCondition = condition.replace(/__/g, `__${index}`);
+                if (evaluateExpression(rCondition, f)) {
+                    const rExpression = expression.replace(/__/g, `__${index}`);
+                    res.push(evaluateExpression(rExpression, f));
                 }
-                const evaluatedExpression = evaluateExpression(expression.replace('__', `__${i}`), f);
-                if (Number.isFinite(evaluateExpression)) {
-                    acc += +evaluatedExpression;
+            });
+        }
+        else {
+            if (expressionIsReps) {
+                const repeatedFieldExpression = `${expression.split('__')[0]}__`;
+                const evaluatedCondition = evaluateExpression(condition, f);
+                if (evaluatedCondition) {
+                    const keys = Object.keys(f).filter(frm => frm.includes(repeatedFieldExpression));
+                    keys.forEach(key => {
+                        const index = +key.split('__')[1];
+                        const rExpression = expression.replace(/__/g, `__${index}`);
+                        res.push(evaluateExpression(rExpression, f));
+                    });
                 }
             }
-        });
-    }
-    else {
-        forms.forEach(f => (acc += +evaluateExpression(expression, f)));
-    }
-    return acc;
+            else {
+                const evaluatedCondition = evaluateExpression(condition, f);
+                if (evaluatedCondition) {
+                    res.push(evaluateExpression(expression, f));
+                }
+            }
+        }
+    });
+    return res;
 }
 /**
  * Calculates the mean of a simple or derived value. An optional condition can be added to
@@ -959,8 +999,8 @@ function buildDataset(dataset, colspans) {
 }
 /**
  *
- * @param values all values of iteration
  * @param forms the form data
+ * @param values all values of iteration
  * @param fn the fuction of expression-utils to apply at iteration
  * @param param1 first param of fn
  * @param param2 second param of fn
@@ -969,11 +1009,11 @@ function buildDataset(dataset, colspans) {
  */
 function REPEAT(forms, values, fn, param1, param2 = 'true') {
     const res = [];
-    const newExp1 = param1 != null && param1.includes('&current')
-        ? (v) => param1.replace('&current', `"${v}"`)
+    const newExp1 = param1 != null && param1.includes('current')
+        ? (v) => param1.replace('current', `"${v}"`)
         : () => param1;
-    const newExp2 = param2 != null && param2.includes('&current')
-        ? (v) => param2.replace('&current', `"${v}"`)
+    const newExp2 = param2 != null && param2.includes('current')
+        ? (v) => param2.replace('current', `"${v}"`)
         : () => param2;
     values.forEach(v => {
         const vv = fn(forms, newExp1(v), newExp2(v));
