@@ -328,6 +328,12 @@ class AjfWidgetExport {
         this.enable = false;
     }
     /**
+     * Allows rendering html icons as text.
+     */
+    static addIcons(icons) {
+        AjfWidgetExport._iconsMap = Object.assign(Object.assign({}, AjfWidgetExport._iconsMap), icons);
+    }
+    /**
      * Export widget data in CSV format
      * @deprecated Use `AjfWidgetExport.export` with 'csv' parameter.
      * @breaking-change 13.0.0
@@ -357,6 +363,7 @@ class AjfWidgetExport {
         });
     }
     _buildXlsxData() {
+        const iconsMap = AjfWidgetExport._iconsMap;
         let xlsxData = [];
         let labels = [];
         switch (this.widgetType) {
@@ -394,7 +401,11 @@ class AjfWidgetExport {
                             isNewRowAfterRowspan = true;
                         }
                         tableData[i].forEach((elem, idxElem) => {
-                            res.push(elem.value.changingThisBreaksApplicationSecurity);
+                            let val = elem.value.changingThisBreaksApplicationSecurity;
+                            if (iconsMap[val]) {
+                                val = iconsMap[val];
+                            }
+                            res.push(val);
                             if (elem.colspan && elem.colspan > 1) {
                                 for (let j = 1; j < elem.colspan; j++) {
                                     res.push(' ');
@@ -437,6 +448,7 @@ class AjfWidgetExport {
         return `${AjfWidgetType[widgetType]} ${format(new Date(), `yyyy-MM-dd`)}`;
     }
 }
+AjfWidgetExport._iconsMap = {};
 AjfWidgetExport.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfWidgetExport, deps: [], target: i0.ɵɵFactoryTarget.Component });
 AjfWidgetExport.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-rc.3", type: AjfWidgetExport, selector: "ajf-widget-export", inputs: { widgetType: "widgetType", data: "data", overlay: "overlay", enable: "enable" }, ngImport: i0, template: "<div class=\"ajf-widget-wrapper\">\n  <ng-content></ng-content>\n  <div *ngIf=\"enable\" class=\"ajf-export-menu\" [class.ajf-export-menu-overlay]=\"overlay\">\n      <button (click)=\"export('csv')\">CSV</button>\n      <button (click)=\"export('xlsx')\">XLSX</button>\n  </div>\n</div>\n", styles: ["ajf-widget-export{width:100%;height:inherit}ajf-widget-export .ajf-widget-wrapper{position:relative;height:inherit}ajf-widget-export .ajf-export-menu{position:absolute;right:0;top:0}ajf-widget-export .ajf-export-menu.ajf-export-menu-overlay{display:none}ajf-widget-export .ajf-export-menu button{margin:.5em;border:none;color:#fff;background-color:#4a403f;padding:7.5px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;cursor:pointer}ajf-widget-export .ajf-widget-wrapper:hover .ajf-export-menu-overlay{display:block}\n"], directives: [{ type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfWidgetExport, decorators: [{

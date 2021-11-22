@@ -28,6 +28,13 @@ export declare class AjfWidgetExport {
     data: ChartData | AjfTableCell[][];
     overlay: boolean;
     enable: boolean;
+    private static _iconsMap;
+    /**
+     * Allows rendering html icons as text.
+     */
+    static addIcons(icons: {
+        [html: string]: string;
+    }): void;
     constructor();
     /**
      * Export widget data in CSV format
