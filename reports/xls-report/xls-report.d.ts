@@ -19,7 +19,13 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export * from './transloco.module';
-export * from './transloco-missing-handler';
-export { FunctionalTranspiler, TranslocoService, TranslocoPipe, Translation, TranslocoLoader, TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER, TRANSLOCO_SCOPE, TRANSLOCO_TRANSPILER, translocoConfig, HashMap, } from '@ngneat/transloco';
-export * from './lang';
+import { AjfReport } from '../interface/reports/report';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+/**
+ * This function returns a basic report for any form passed in input.
+ *
+ * @param form the form schema
+ * @param [id] the id of the form inside the plathform.
+ */
+export declare function xlsReport(file: string, http: HttpClient): Observable<AjfReport>;

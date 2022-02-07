@@ -22,10 +22,12 @@
 import { AjfStyles } from '../styles';
 import { AjfWidget } from '../widgets/widget';
 import { AjfWidgetType } from '../widgets/widget-type';
+import { AjfFilterInstance } from './filter-instance';
 export interface AjfWidgetInstance {
     widget: AjfWidget;
     visible: boolean;
     styles: AjfStyles;
     widgetType: AjfWidgetType;
+    filter?: AjfFilterInstance;
     repetitions?: number;
 }

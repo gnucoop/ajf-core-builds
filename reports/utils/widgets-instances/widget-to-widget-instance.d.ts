@@ -21,6 +21,7 @@
  */
 import { AjfContext } from '@ajf/core/models';
 import { TranslocoService } from '@ajf/core/transloco';
+import { AjfReportVariable } from '../../interface/reports/report-variable';
 import { AjfWidgetInstance } from '../../interface/widgets-instances/widget-instance';
 import { AjfWidget } from '../../interface/widgets/widget';
-export declare function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext, ts: TranslocoService): AjfWidgetInstance;
+export declare function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext, ts: TranslocoService, variables?: AjfReportVariable[]): AjfWidgetInstance;

@@ -7,7 +7,9 @@ import { format } from 'date-fns';
 import * as XLSX from 'xlsx';
 import { AjfFormulaSerializer, alwaysCondition, AjfConditionSerializer, evaluateExpression, createFormula } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
-import { AjfFieldType } from '@ajf/core/forms';
+import { AjfFormSerializer, AjfNodeType, AjfFieldType } from '@ajf/core/forms';
+import { forkJoin, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AjfImageType } from '@ajf/core/image';
 import { createPdf } from '@ajf/core/pdfmake';
 
@@ -1058,12 +1060,21 @@ function evaluateAggregation(aggregation, formulas, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-function createWidgetInstance(widget, context, _ts) {
+function createWidgetInstance(widget, context, _ts, variables = []) {
+    let filter = undefined;
+    if (widget.filter != null && widget.filter.schema != null) {
+        filter = {
+            form: AjfFormSerializer.fromJson(widget.filter.schema, context),
+            context,
+            variables,
+        };
+    }
     return {
         widget,
         widgetType: widget.widgetType,
         visible: evaluateExpression(widget.visibility.condition, context),
         styles: widget.styles || {},
+        filter,
     };
 }
 
@@ -1134,8 +1145,8 @@ function trFormula(f, context, ts) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-function widgetToWidgetInstance(widget, context, ts) {
-    const wi = createWidgetInstance(widget, context, ts);
+function widgetToWidgetInstance(widget, context, ts, variables = []) {
+    const wi = createWidgetInstance(widget, context, ts, variables);
     if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
         const wwc = widget;
         const wwci = wi;
@@ -1145,18 +1156,18 @@ function widgetToWidgetInstance(widget, context, ts) {
                 wwci.repetitions = evaluateExpression(wwc.repetitions.formula, context);
                 if (typeof wwci.repetitions === 'number' && wwci.repetitions > 0) {
                     for (let i = 0; i < wwci.repetitions; i++) {
-                        content.push(widgetToWidgetInstance(c, Object.assign(Object.assign({}, context), { '$repetition': i }), ts));
+                        content.push(widgetToWidgetInstance(c, Object.assign(Object.assign({}, context), { '$repetition': i }), ts, variables));
                     }
                 }
             }
             else {
-                content.push(widgetToWidgetInstance(c, context, ts));
+                content.push(widgetToWidgetInstance(c, context, ts, variables));
             }
             wwci.content = content;
         });
     }
     else if (widget.widgetType === AjfWidgetType.Chart) {
-        const cw = widget;
+        const cw = Object.assign({ option: {} }, widget);
         const cwi = wi;
         const labels = cw.labels instanceof Array ? cw.labels : [cw.labels];
         const evLabels = labels.map(l => {
@@ -1388,8 +1399,10 @@ function widgetToWidgetInstance(widget, context, ts) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-function createReportContainerInstance(container, context, ts) {
-    const content = container.content.map(c => widgetToWidgetInstance(c, context, ts));
+function createReportContainerInstance(container, context, ts, variables = []) {
+    const content = container.content.map(c => {
+        return widgetToWidgetInstance(c, context, ts, variables);
+    });
     return {
         container,
         content,
@@ -1419,16 +1432,21 @@ function createReportContainerInstance(container, context, ts) {
  *
  */
 function createReportInstance(report, context, ts) {
+    console.log(context);
     (report.variables || []).forEach(variable => {
         context[variable.name] = evaluateExpression(variable.formula.formula, context);
     });
     return {
         report,
-        header: report.header ? createReportContainerInstance(report.header, context, ts) : undefined,
-        content: report.content
-            ? createReportContainerInstance(report.content, context, ts)
+        header: report.header
+            ? createReportContainerInstance(report.header, context, ts, report.variables)
             : undefined,
-        footer: report.footer ? createReportContainerInstance(report.footer, context, ts) : undefined,
+        content: report.content
+            ? createReportContainerInstance(report.content, context, ts, report.variables)
+            : undefined,
+        footer: report.footer
+            ? createReportContainerInstance(report.footer, context, ts, report.variables)
+            : undefined,
         styles: report.styles || {},
     };
 }
@@ -1858,7 +1876,7 @@ function createBooleanWidget(field) {
                         label: 'true',
                         formula: [
                             createFormula({
-                                formula: `[COUNTFORMS(forms,"${field.name}===true"),COUNTFORMS(forms,"${field.name}===false")]`,
+                                formula: `[COUNT_FORMS(forms,"${field.name}===true"),COUNT_FORMS(forms,"${field.name}===false")]`,
                             }),
                         ],
                         options: { backgroundColor: ['green', 'red'] },
@@ -1866,10 +1884,10 @@ function createBooleanWidget(field) {
                 ],
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
+                    maintainAspectRatio: true,
                     legend: { display: true, position: 'bottom' },
                 },
-                styles: { width: '100%', height: '400px' },
+                styles: { width: '100%', height: '100%' },
                 exportable: true,
             }),
         ],
@@ -1881,7 +1899,7 @@ function createMultipleChoiceWidget(field) {
         label: `${c.label}`,
         formula: [
             createFormula({
-                formula: `[COUNTFORMS(forms,"${field.name}.indexOf('${c.value}') > -1")]`,
+                formula: `[COUNT_FORMS(forms,"${field.name}.indexOf('${c.value}') > -1")]`,
             }),
         ],
         options: {
@@ -1901,10 +1919,10 @@ function createMultipleChoiceWidget(field) {
                 dataset,
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
+                    maintainAspectRatio: true,
                     legend: { display: true, position: 'bottom' },
                 },
-                styles: { width: '100%', height: '400px' },
+                styles: { width: '100%', height: '100%' },
                 exportable: true,
             }),
         ],
@@ -1986,7 +2004,7 @@ function createSingleChoiceWidget(field) {
                 formula: [
                     createFormula({
                         formula: `[${choices
-                            .map(choice => `COUNTFORMS(forms,"${field.name}==='${choice.value}'")`)
+                            .map(choice => `COUNT_FORMS(forms,"${field.name}==='${choice.value}'")`)
                             .toString()}]`,
                     }),
                 ],
@@ -1997,7 +2015,9 @@ function createSingleChoiceWidget(field) {
     else {
         dataset = choices.map((c, index) => createDataset({
             label: `${c.label}`,
-            formula: [createFormula({ formula: `[COUNTFORMS(forms,"${field.name}==='${c.value}'")]` })],
+            formula: [
+                createFormula({ formula: `[COUNT_FORMS(forms,"${field.name}==='${c.value}'")]` }),
+            ],
             options: {
                 backgroundColor: backgroundColor$1[index],
                 stack: `Stack ${index}`,
@@ -2014,10 +2034,10 @@ function createSingleChoiceWidget(field) {
                 dataset,
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
+                    maintainAspectRatio: true,
                     legend: { display: true, position: 'bottom' },
                 },
-                styles: { width: '100%', height: '400px' },
+                styles: { width: '100%', height: '100%' },
                 exportable: true,
             }),
         ],
@@ -2035,7 +2055,7 @@ function createRangeWidget(field) {
     let dataset = choices.map((_, index) => createDataset({
         label: `${index + start}`,
         formula: [
-            createFormula({ formula: `[COUNTFORMS(forms,"${field.name}===${index + 1 + start}")]` }),
+            createFormula({ formula: `[COUNT_FORMS(forms,"${field.name}===${index + 1 + start}")]` }),
         ],
         options: {
             backgroundColor: backgroundColor$1[index],
@@ -2107,10 +2127,10 @@ function createRangeWidget(field) {
                 dataset,
                 options: {
                     responsive: true,
-                    maintainAspectRatio: false,
+                    maintainAspectRatio: true,
                     legend: { display: true, position: 'bottom' },
                 },
-                styles: { width: '100%', height: '400px' },
+                styles: { width: '100%', height: '100%' },
                 exportable: true,
             }),
         ],
@@ -2122,7 +2142,7 @@ function createRangeWidget(field) {
  * @param form the form schema
  * @param [id] the id of the form inside the plathform.
  */
-function reportFromForm(form, id) {
+function automaticReport(form, id) {
     var _a;
     const report = {};
     const reportWidgets = [];
@@ -2132,11 +2152,13 @@ function reportFromForm(form, id) {
     }
     (_a = form.nodes) === null || _a === void 0 ? void 0 : _a.forEach(slide => {
         const slideWidgets = [];
+        const isInRepeating = slide.nodeType === AjfNodeType.AjfRepeatingSlide;
         slide.nodes.forEach((field) => {
+            field.name = isInRepeating ? field.name + '__' : field.name;
             // create the title of the widget.
             const fieldTitleWidget = createWidget({
                 widgetType: AjfWidgetType.Text,
-                htmlText: `<div color="primary"><h5>${field.label} - [[COUNTFORMS(forms,"${field.name} != null")]] answers</h5></div>`,
+                htmlText: `<div color="primary"><h5>${field.label} - [[COUNT_FORMS(forms,"${field.name} != null")]] answers</h5></div>`,
                 styles: widgetTitleStyle$1,
             });
             slideWidgets.push(fieldTitleWidget);
@@ -2469,9 +2491,10 @@ function parseFunctionCall(name, revToks) {
             return parseMathFunction(name, revToks);
         case 'ALL_VALUES_OF':
             return parseFieldFunction(name, revToks, true, false);
-        case 'COUNTFORMS':
+        case 'COUNT_FORMS':
+        case 'COUNT_REPS':
             return parseFieldFunction(name, revToks, false, true);
-        case 'COUNTFORMS_UNIQUE':
+        case 'COUNT_FORMS_UNIQUE':
             return parseFieldFunction(name, revToks, true, true);
         case 'INCLUDES':
             consume(revToks, 1 /* LParen */);
@@ -2491,6 +2514,171 @@ function parseFunctionCall(name, revToks) {
             return parseLast(revToks);
         case 'REPEAT':
             return parseRepeat(revToks);
+        case 'EVALUATE':
+            consume(revToks, 1 /* LParen */);
+            js = 'EVALUATE(' + parseExpression(revToks, 5 /* Comma */) + ', ';
+            consume(revToks, 5 /* Comma */);
+            js += parseExpression(revToks, 5 /* Comma */) + ', ';
+            consume(revToks, 5 /* Comma */);
+            js += parseExpression(revToks, 5 /* Comma */) + ')';
+            consume(revToks, 2 /* RParen */);
+            return js;
+        case 'FILTER_BY':
+            consume(revToks, 1 /* LParen */);
+            js = 'FILTER_BY(' + parseExpression(revToks, 5 /* Comma */) + ', ';
+            consume(revToks, 5 /* Comma */);
+            js += `\`${parseExpression(revToks, 5 /* Comma */)}\`)`;
+            consume(revToks, 2 /* RParen */);
+            return js;
+        case 'ISBEFORE':
+        case 'ISAFTER':
+            consume(revToks, 1 /* LParen */);
+            js = `${name}(${parseExpression(revToks, 5 /* Comma */)}, `;
+            consume(revToks, 5 /* Comma */);
+            js += `${parseExpression(revToks, 5 /* Comma */)})`;
+            consume(revToks, 2 /* RParen */);
+            return js;
+        case 'ISWITHININTERVAL':
+            consume(revToks, 1 /* LParen */);
+            js = 'ISWITHININTERVAL(' + parseExpression(revToks, 5 /* Comma */) + ', ';
+            consume(revToks, 5 /* Comma */);
+            js += parseExpression(revToks, 5 /* Comma */) + ', ';
+            consume(revToks, 5 /* Comma */);
+            js += parseExpression(revToks, 5 /* Comma */) + ')';
+            consume(revToks, 2 /* RParen */);
+            return js;
+        case 'TODAY':
+            return 'TODAY()';
+        case 'APPLY':
+            consume(revToks, 1 /* LParen */);
+            const form = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const field = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const expression = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 2 /* RParen */);
+            return `APPLY(${form}, \`${field}\`, \"${expression}\")`;
+        case 'GET_AGE':
+        case 'LEN':
+        case 'CONSOLE_LOG':
+            consume(revToks, 1 /* LParen */);
+            js = `${name}(${parseExpression(revToks, 2 /* RParen */)})`;
+            consume(revToks, 2 /* RParen */);
+            return js;
+        case 'JOIN_FORMS':
+            consume(revToks, 1 /* LParen */);
+            const formA = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const formB = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const fieldA = parseExpression(revToks, 5 /* Comma */);
+            const tok = revToks.pop();
+            switch (tok.type) {
+                case 2 /* RParen */:
+                    return `${name}(${formA}, ${formB},\`${fieldA}\`)`;
+                case 5 /* Comma */:
+                    const fieldB = parseExpression(revToks, 5 /* Comma */);
+                    consume(revToks, 2 /* RParen */);
+                    return `${name}(${formA}, ${formB},\`${fieldA}\`,\`${fieldB}\`)`;
+                default:
+                    throw unexpectedTokenError(tok, revToks);
+            }
+        case 'JOIN_REPEATING_SLIDES':
+            consume(revToks, 1 /* LParen */);
+            const mformA = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const mformB = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const mfieldA = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const mfieldB = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const msubFieldA = parseExpression(revToks, 5 /* Comma */);
+            const mtok = revToks.pop();
+            switch (mtok.type) {
+                case 2 /* RParen */:
+                    return `${name}(${mformA}, ${mformB},\`${mfieldA}\`,\`${mfieldB}\`,\`${msubFieldA}\`)`;
+                case 5 /* Comma */:
+                    const msubFieldB = parseExpression(revToks, 5 /* Comma */);
+                    consume(revToks, 2 /* RParen */);
+                    return `${name}(${mformA}, ${mformB},\`${mfieldA}\`,\`${mfieldB}\`,\`${msubFieldA}\`,\`${msubFieldB}\`)`;
+                default:
+                    throw unexpectedTokenError(mtok, revToks);
+            }
+        case 'FROM_REPS':
+            consume(revToks, 1 /* LParen */);
+            const mainFormFROM_REPS = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const exprFROM_REPS = parseExpression(revToks, 2 /* RParen */);
+            consume(revToks, 2 /* RParen */);
+            return `${name}(${mainFormFROM_REPS},\`${exprFROM_REPS}\`)`;
+        case 'ISIN':
+            consume(revToks, 1 /* LParen */);
+            const mainFormISIN = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const exprISIN = parseExpression(revToks, 2 /* RParen */);
+            consume(revToks, 2 /* RParen */);
+            return `${name}(${mainFormISIN},${exprISIN})`;
+        case 'OP':
+            consume(revToks, 1 /* LParen */);
+            const datasetA = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const datasetB = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const expr = parseExpression(revToks, 2 /* RParen */);
+            consume(revToks, 2 /* RParen */);
+            return `${name}(${datasetA},${datasetB},\`${expr}\`)`;
+        case 'GET_LABELS':
+            consume(revToks, 1 /* LParen */);
+            const schemaGET_LABELS = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const fieldGET_LABELS = parseExpression(revToks, 2 /* RParen */);
+            consume(revToks, 2 /* RParen */);
+            return `${name}(${schemaGET_LABELS},${fieldGET_LABELS})`;
+        case 'BUILD_DATASET':
+            consume(revToks, 1 /* LParen */);
+            const formsBUILD_DATASET = parseExpression(revToks, 5 /* Comma */);
+            const tokBUILD_DATASET = revToks.pop();
+            switch (tokBUILD_DATASET.type) {
+                case 2 /* RParen */:
+                    return `BUILD_DATASET(${formsBUILD_DATASET})`;
+                case 5 /* Comma */:
+                    const schemaBUILD_DATASET = parseExpression(revToks, 2 /* RParen */);
+                    consume(revToks, 2 /* RParen */);
+                    return `BUILD_DATASET(${formsBUILD_DATASET}, ${schemaBUILD_DATASET})`;
+                default:
+                    throw unexpectedTokenError(tokBUILD_DATASET, revToks);
+            }
+        case 'ROUND':
+            consume(revToks, 1 /* LParen */);
+            const valROUND = parseExpression(revToks, 2 /* RParen */);
+            const tokROUND = revToks.pop();
+            switch (tokROUND.type) {
+                case 2 /* RParen */:
+                    return `ROUND(${valROUND})`;
+                case 5 /* Comma */:
+                    const digitsROUND = parseExpression(revToks, 2 /* RParen */);
+                    consume(revToks, 2 /* RParen */);
+                    return `ROUND(${valROUND}, ${digitsROUND})`;
+                default:
+                    throw unexpectedTokenError(tokROUND, revToks);
+            }
+        case 'IS_BEFORE':
+        case 'IS_AFTER':
+            consume(revToks, 1 /* LParen */);
+            const dateIS = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const dateToCompareIS = parseExpression(revToks, 2 /* RParen */);
+            return `${name}(\`${dateIS}\`, \`${dateToCompareIS}\`)`;
+        case 'IS_WITHIN_INTERVAL':
+            consume(revToks, 1 /* LParen */);
+            const dateIS_IS_WITHIN_INTERVAL = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const dateStartIS_IS_WITHIN_INTERVAL = parseExpression(revToks, 5 /* Comma */);
+            consume(revToks, 5 /* Comma */);
+            const dateEndIS_IS_WITHIN_INTERVAL = parseExpression(revToks, 2 /* RParen */);
+            consume(revToks, 2 /* RParen */);
+            return `IS_WITHIN_INTERVAL(\`${dateIS_IS_WITHIN_INTERVAL}\`, \`${dateStartIS_IS_WITHIN_INTERVAL}\`, \`${dateEndIS_IS_WITHIN_INTERVAL}\`)`;
         default:
             throw new Error('unsupported function: ' + name);
     }
@@ -2565,11 +2753,11 @@ function parseRepeat(revToks) {
     const tok = revToks.pop();
     switch (tok.type) {
         case 2 /* RParen */:
-            return `REPEAT(${form}, ${array}, ${funcIdent}, \`${exp}\`)`;
+            return `REPEAT(${form}, ${array}, ${funcIdent}, \"${exp}\")`;
         case 5 /* Comma */:
             const condition = parseExpression(revToks, 5 /* Comma */);
             consume(revToks, 2 /* RParen */);
-            return `REPEAT(${form}, ${array}, ${funcIdent}, \`${exp}\`, \`${condition}\`)`;
+            return `REPEAT(${form}, ${array}, ${funcIdent}, \"${exp}\", \"${condition}\")`;
         default:
             throw unexpectedTokenError(tok, revToks);
     }
@@ -2970,48 +3158,98 @@ const backgroundColor = [
  * @param form the form schema
  * @param [id] the id of the form inside the plathform.
  */
-function reportFromXls(file) {
+function xlsReport(file, http) {
     const workbook = XLSX.read(file, { type: 'binary' });
     const report = {};
     const reportWidgets = [];
     const variables = [];
-    workbook.SheetNames.forEach(sheetName => {
+    const filters = {};
+    // create filters
+    workbook.SheetNames.forEach((sheetName, index) => {
         const sheet = workbook.Sheets[sheetName];
-        const json = XLSX.utils.sheet_to_json(sheet);
-        if (sheetName === 'variables') {
-            json
-                .filter(e => e != null && e.name != null && e.value != null)
-                .forEach(elem => {
-                let indicator = elem.value;
-                try {
-                    indicator = indicatorToJs(elem.value);
-                }
-                catch (e) {
-                    console.log(e);
-                }
-                variables.push({ name: elem.name, formula: { formula: indicator } });
-            });
-        }
-        else {
-            if (sheetName.includes('table')) {
-                const tableWidget = _buildTable(json);
-                reportWidgets.push(tableWidget);
-            }
-            else if (sheetName.includes('chart')) {
-                const chartWidget = _buildChart(json);
-                reportWidgets.push(chartWidget);
-            }
-            else if (sheetName.includes('html')) {
-                const chartWidget = _buildHtml(json);
-                reportWidgets.push(chartWidget);
-            }
+        if (sheetName.includes('filter') && index + 1 < workbook.SheetNames.length) {
+            const nextSheet = sheetName.includes('global')
+                ? 'global_filter'
+                : workbook.SheetNames[index + 1];
+            filters[nextSheet] = _buildFilter(workbook, sheet, http);
         }
     });
-    report.variables = variables;
-    report.content = createReportContainer({ content: [...reportWidgets] });
-    return report;
+    const obsFilterValues = Object.values(filters);
+    const filterNames = Object.keys(filters);
+    return forkJoin(obsFilterValues.length > 0 ? obsFilterValues : of([])).pipe(map(f => {
+        workbook.SheetNames.forEach(sheetName => {
+            const sheet = workbook.Sheets[sheetName];
+            const json = XLSX.utils.sheet_to_json(sheet);
+            if (sheetName === 'variables') {
+                json
+                    .filter(e => e != null && e.name != null && e.value != null)
+                    .forEach(elem => {
+                    let indicator = elem.value;
+                    try {
+                        indicator = indicatorToJs(elem.value);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                    variables.push({ name: elem.name, formula: { formula: indicator } });
+                });
+            }
+            else {
+                const idx = filterNames.indexOf(sheetName);
+                if (sheetName.includes('table')) {
+                    const tableWidget = _buildTable(json);
+                    reportWidgets.push(tableWidget);
+                }
+                else if (sheetName.includes('chart')) {
+                    const chartWidget = _buildChart(sheetName, json);
+                    reportWidgets.push(chartWidget);
+                }
+                else if (sheetName.includes('html')) {
+                    const chartWidget = _buildHtml(json);
+                    reportWidgets.push(chartWidget);
+                }
+                if (idx >= 0) {
+                    reportWidgets[reportWidgets.length - 1].filter = { schema: f[idx] };
+                }
+            }
+        });
+        const globalFilterIdx = filterNames.indexOf('global_filter');
+        const layoutWidget = {
+            widgetType: AjfWidgetType.Layout,
+            content: [
+                createWidget({
+                    widgetType: AjfWidgetType.Column,
+                    content: [...reportWidgets],
+                    filter: globalFilterIdx >= 0 ? { schema: f[globalFilterIdx] } : undefined,
+                }),
+            ],
+            columns: [1],
+            visibility: {
+                condition: 'true',
+            },
+            styles: {},
+        };
+        report.variables = variables;
+        report.content = createReportContainer(layoutWidget);
+        return report;
+    }));
 }
-function _buildChart(json) {
+function _buildFilter(wbook, sheet, http) {
+    const data = new FormData();
+    const filterBook = deepCopy(wbook);
+    const filterSheet = deepCopy(sheet);
+    const choicesSheet = deepCopy(wbook.Sheets['choices']);
+    filterBook.SheetNames = ['survey', 'choices'];
+    filterBook.Sheets = { survey: filterSheet, choices: choicesSheet };
+    const filterXlsx = XLSX.write(filterBook, {
+        bookType: 'xlsx',
+        type: 'array',
+    });
+    const file = new File([filterXlsx], 'filter.xlsx');
+    data.append('excelFile', file);
+    return http.post('https://formconv.herokuapp.com/result.json', data);
+}
+function _buildChart(name, json) {
     const optionLabels = ['chartType', 'title'];
     const chartOptions = {};
     const datasetObj = {};
@@ -3039,7 +3277,9 @@ function _buildChart(json) {
         });
     });
     if (datasetObj.labels != null) {
-        labels = { formula: `plainArray([${datasetObj.labels}])` };
+        labels = {
+            formula: `plainArray([${datasetObj.labels.map((label) => indicatorToJs(label))}])`,
+        };
         delete datasetObj.labels;
     }
     Object.keys(datasetObj).forEach((datasetObjKey, index) => {
@@ -3054,7 +3294,8 @@ function _buildChart(json) {
         const datasetOptions = { backgroundColor: backColor };
         dataset.push(Object.assign(Object.assign({}, createDataset({ aggregation: { aggregation: 0 }, formula, label: datasetObjKey })), { options: datasetOptions }));
     });
-    return _buildWidget({
+    return createWidget({
+        name,
         widgetType: AjfWidgetType.Chart,
         type: AjfChartType[chartOptions.chartType],
         labels,
@@ -3065,13 +3306,13 @@ function _buildChart(json) {
             legend: { display: true, position: 'bottom' },
             title: { display: true, text: `${chartOptions.title || ''}`.replace(/"/gi, '') },
         },
-        styles: { width: '100%', height: '500px' },
+        styles: Object.assign({ width: '100%', height: '100%', padding: '20px' }, widgetStyle),
         exportable: true,
     });
 }
 function _buildHtml(json) {
     const firstRow = json.length > 0 && json[0].html != null ? json[0] : { html: '' };
-    return _buildWidget({
+    return createWidget({
         widgetType: AjfWidgetType.Text,
         htmlText: `${firstRow.html}`,
         styles: htmlWidget,
@@ -3112,7 +3353,7 @@ function _buildTable(json) {
         });
         dataElements.push(elems);
     });
-    return _buildWidget({
+    return createWidget({
         widgetType: AjfWidgetType.DynamicTable,
         rowDefinition: {
             formula: `buildDataset([${dataElements}],${JSON.stringify(colspans)})`,
@@ -3127,14 +3368,6 @@ function _buildTable(json) {
         styles: {
             borderCollapse: 'collapse',
         },
-    });
-}
-function _buildWidget(widget) {
-    return createWidget({
-        widgetType: AjfWidgetType.Column,
-        columns: [1],
-        content: [createWidget(widget)],
-        styles: widgetStyle,
     });
 }
 
@@ -3485,5 +3718,5 @@ function stripHTML(s) {
  * Generated bundle index. Do not edit.
  */
 
-export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfGetColumnContentPipe, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportStringIdentifierPipe, AjfReportWidget, AjfReportsModule, AjfWidgetExport, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetService, AjfWidgetType, chartToChartJsType, createAggregation, createReportInstance, createReportPdf, createWidget, createWidgetInstance, openReportPdf, reportFromForm, reportFromXls, widgetToWidgetInstance };
+export { AjfAggregationSerializer, AjfAggregationType, AjfBaseWidgetComponent, AjfChartType, AjfDatasetSerializer, AjfGetColumnContentPipe, AjfReportContainerSerializer, AjfReportRenderer, AjfReportSerializer, AjfReportStringIdentifierPipe, AjfReportWidget, AjfReportsModule, AjfWidgetExport, AjfWidgetHost, AjfWidgetSerializer, AjfWidgetService, AjfWidgetType, automaticReport, chartToChartJsType, createAggregation, createReportInstance, createReportPdf, createWidget, createWidgetInstance, openReportPdf, widgetToWidgetInstance, xlsReport };
 //# sourceMappingURL=reports.mjs.map

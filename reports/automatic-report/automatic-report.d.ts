@@ -27,4 +27,4 @@ import { AjfReport } from '../interface/reports/report';
  * @param form the form schema
  * @param [id] the id of the form inside the plathform.
  */
-export declare function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport;
+export declare function automaticReport(form: Partial<AjfForm>, id?: number): AjfReport;

@@ -1843,6 +1843,7 @@ function normalizeRows(node) {
  * Assign empty array to controls
  */
 function createTableFieldInstance(instance, context) {
+    instance = deepCopy(instance);
     normalizeRows(instance.node);
     const fieldInstance = createFieldInstance(instance, context);
     return Object.assign(Object.assign({}, fieldInstance), { node: instance.node, context, hideEmptyRows: instance.hideEmptyRows || false, controls: [] });
@@ -7143,15 +7144,18 @@ function generateRandomInstanceFields(fields) {
     });
     return fieldReps;
 }
-function flattenFields(nodes) {
+function flattenFields(slides) {
     let flatFields = [];
-    nodes.forEach((node) => {
-        if (isField(node)) {
-            flatFields.push(node);
+    slides.forEach((slide) => {
+        if (isField(slide)) {
+            flatFields.push(slide);
         }
-        if (isContainerNode(node)) {
-            const childs = generateRandomInstanceFields(node.nodes);
+        else if (isRepeatingSlide(slide)) {
+            const childs = generateRandomInstanceFields(slide.nodes);
             flatFields = flatFields.concat(flattenFields(childs));
+        }
+        else {
+            flatFields = flatFields.concat([...slide.nodes]);
         }
     });
     return flatFields;

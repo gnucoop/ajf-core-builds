@@ -324,6 +324,7 @@ const dateUtils = {
     parse: dateFns.parseISO,
     startOfMonth: dateFns.startOfMonth,
     startOfISOWeek: dateFns.startOfISOWeek,
+    isBefore: dateFns.isBefore,
 };
 class AjfExpressionUtils {
 }
@@ -364,8 +365,9 @@ AjfExpressionUtils.utils = {
     parseDate: { fn: dateUtils.parse },
     Date: { fn: Date },
     plainArray: { fn: plainArray },
-    COUNTFORMS: { fn: COUNTFORMS },
-    COUNTFORMS_UNIQUE: { fn: COUNTFORMS_UNIQUE },
+    COUNT_FORMS: { fn: COUNT_FORMS },
+    COUNT_FORMS_UNIQUE: { fn: COUNT_FORMS_UNIQUE },
+    COUNT_REPS: { fn: COUNT_REPS },
     SUM: { fn: SUM },
     MEAN: { fn: MEAN },
     PERCENT: { fn: PERCENT },
@@ -375,8 +377,51 @@ AjfExpressionUtils.utils = {
     MODE: { fn: MODE },
     ALL_VALUES_OF: { fn: ALL_VALUES_OF },
     REPEAT: { fn: REPEAT },
+    EVALUATE: { fn: EVALUATE },
     buildDataset: { fn: buildDataset },
+    FILTER_BY: { fn: FILTER_BY },
+    IS_BEFORE: { fn: IS_BEFORE },
+    IS_AFTER: { fn: IS_AFTER },
+    IS_WITHIN_INTERVAL: { fn: IS_WITHIN_INTERVAL },
+    APPLY: { fn: APPLY },
+    TODAY: { fn: TODAY },
+    GET_AGE: { fn: GET_AGE },
+    BUILD_DATASET: { fn: BUILD_DATASET },
+    JOIN_FORMS: { fn: JOIN_FORMS },
+    LEN: { fn: LEN },
+    JOIN_REPEATING_SLIDES: { fn: JOIN_REPEATING_SLIDES },
+    FROM_REPS: { fn: FROM_REPS },
+    ISIN: { fn: ISIN },
+    OP: { fn: OP },
+    GET_LABELS: { fn: GET_LABELS },
+    ROUND: { fn: ROUND },
+    CONSOLE_LOG: { fn: CONSOLE_LOG },
 };
+/**
+ * UTILITY FUNCION
+ * This function provide a deep copy builder of array of main forms.
+ * That's a custom function related to mainforms that can be able to increase copy performance.
+ *
+ * @param {MainForm[]} forms
+ * @return {*}  {MainForm[]}
+ */
+function cloneMainForms(forms) {
+    let res = [];
+    forms.forEach(form => {
+        let reps = {};
+        if (form == null) {
+            res.push(null);
+        }
+        else if (form.reps != null) {
+            Object.keys(form.reps).forEach(key => {
+                reps[key] = form.reps[key].slice(0);
+            });
+        }
+        const f = { ...form, reps };
+        res.push(f);
+    });
+    return res;
+}
 function evaluateExpression(expression, context, forceFormula) {
     let formula = forceFormula || expression || '';
     if (formula === '') {
@@ -836,25 +881,16 @@ function getCoordinate(source, zoom) {
 /**
  * Calculates all the possible results that a field has taken
  */
-function ALL_VALUES_OF(forms, fieldName) {
-    forms = (forms || []).slice(0);
-    const isInRepeatingSlide = fieldName.includes(`__`);
-    if (isInRepeatingSlide) {
-        const repeation = [];
-        forms.forEach(f => {
-            for (let i = 0; i <= MAX_REPS; i++) {
-                const fieldRepetion = `${fieldName}${i}`;
-                if (f[fieldRepetion] == null) {
-                    break;
-                }
-                repeation.push(f[fieldRepetion]);
-            }
-        });
-        return [...new Set(repeation)];
-    }
-    else {
-        return [...new Set(forms.map(f => `${f[fieldName]}`))];
-    }
+function ALL_VALUES_OF(mainforms, fieldName) {
+    const allreps = (mainforms || [])
+        .slice(0)
+        .map(m => m.reps)
+        .filter(c => c != null)
+        .map((i) => Object.keys(i)
+        .map(k => i[k])
+        .flat())
+        .flat();
+    return [...new Set(allreps.filter(f => f[fieldName] != null).map(f => `${f[fieldName]}`))];
 }
 function plainArray(params) {
     let res = [];
@@ -867,39 +903,87 @@ function plainArray(params) {
 /**
  * Counts the collected forms. The form name must be specified. An optional condition can be added
  * to discriminate which forms to count in.
+ * the expression is first evaluated in mainForm if false the evaluation of expression is calculated
+ * in any reps. If expression is true in reps the form is counted
  */
-function COUNTFORMS(forms, expression = 'true') {
-    forms = (forms || []).slice(0);
+function COUNT_FORMS(formList, expression = 'true') {
+    // const forms: MainForm[] = deepCopy(formList).filter((f: MainForm) => f != null);
+    const forms = (formList || []).slice(0).filter((f) => f != null);
+    const identifiers = [...new Set(getCodeIdentifiers(expression, true))];
+    let count = 0;
     if (expression === 'true') {
         return forms.length;
     }
     if (forms.length === 0) {
         return 0;
     }
-    const isInRepeatingSlide = expression.includes(`__`);
-    if (isInRepeatingSlide) {
-        let count = 0;
-        forms.forEach(f => {
-            for (let i = 0; i <= MAX_REPS; i++) {
-                if (Object.keys(f).filter(key => key.includes(`__${i}`)).length === 0) {
-                    break;
-                }
-                if ((evaluateExpression(expression.replace('__', `__${i}`)), f)) {
-                    count++;
-                }
+    for (let i = 0; i < forms.length; i++) {
+        const mainForm = forms[i];
+        let exxpr = expression;
+        identifiers.forEach(identifier => {
+            const change = mainForm[identifier] ? mainForm[identifier] : null;
+            if (change != null) {
+                exxpr = exxpr.split(identifier).join(change);
             }
         });
-        return count;
+        if (mainForm.reps != null) {
+            const allreps = Object.keys(mainForm.reps)
+                .map((key) => mainForm.reps[key])
+                .flat()
+                .map((child) => evaluateExpression(exxpr, child))
+                .reduce((a, b) => (a += +b), 0);
+            if (allreps > 0) {
+                count++;
+            }
+        }
+        if (evaluateExpression(expression, mainForm)) {
+            count++;
+        }
     }
-    else {
-        return forms.filter(f => evaluateExpression(expression, f)).length;
+    return count;
+}
+/**
+ * Counts the reps of the form.
+ * the expression is first evaluated in mainForm  if true return all reps counting else the evaluation of expression is calculated
+ * in any reps and return the count of all reps that satisfied the expression.
+ */
+function COUNT_REPS(formList, expression = 'true') {
+    const forms = cloneMainForms(formList).filter((f) => f != null);
+    const identifiers = getCodeIdentifiers(expression, true);
+    let exxpr = expression;
+    let count = 0;
+    if (forms.length === 0) {
+        return 0;
     }
+    for (let i = 0; i < forms.length; i++) {
+        const mainForm = forms[i];
+        if (mainForm.reps != null) {
+            const allreps = Object.keys(mainForm.reps)
+                .map((key) => mainForm.reps[key])
+                .flat();
+            allreps.forEach((child) => {
+                if (evaluateExpression(expression, child)) {
+                    count++;
+                }
+            });
+        }
+        identifiers.forEach(identifier => {
+            const change = mainForm[identifier] ? mainForm[identifier] : null;
+            if (change) {
+                exxpr = expression.split(identifier).join(change);
+            }
+        });
+        if (evaluateExpression(exxpr, mainForm)) {
+            count++;
+        }
+    }
+    return count;
 }
 /**
  * Counts the amount of unique form values for a specific field. The form name must be specified. An
  * optional condition can be added to discriminate which forms to count in
  */
-function COUNTFORMS_UNIQUE(forms, fieldName, expression) {
+function COUNT_FORMS_UNIQUE(forms, fieldName, expression) {
     forms = (forms || []).slice(0);
     const values = [];
     if (expression != null) {
@@ -908,87 +992,89 @@ function COUNTFORMS_UNIQUE(forms, fieldName, expression) {
     forms.forEach(f => {
         values.push(evaluateExpression(fieldName, f));
     });
-    return Array.from(new Set(values)).length;
+    const aa = values.reduce((obj, b) => {
+        obj[b] = ++obj[b] || 1;
+        return obj;
+    }, {});
+    return Object.keys(aa)
+        .map((d) => aa[d])
+        .filter((q) => q === 1).length;
 }
 /**
  * Aggregates and sums the values of one or more. An optional condition can be added to discriminate
  * which forms to take for the sum.
  */
-function SUM(forms, expression, condition) {
-    let acc = 0;
-    forms = (forms || []).slice(0);
-    if (expression == null) {
+function SUM(mainForms, field, condition = 'true') {
+    // const forms: MainForm[] = deepCopy(mainForms).filter((f: MainForm) => f != null);
+    const forms = (mainForms || [])
+        .slice(0)
+        .filter((f) => f != null);
+    const identifiers = getCodeIdentifiers(condition, true);
+    let exxpr = condition;
+    let count = 0;
+    if (forms.length === 0) {
         return 0;
     }
-    const expressionConditions = generateExpressionConditions(forms, expression, condition);
-    expressionConditions.forEach(exp => {
-        acc += +exp;
-    });
-    return acc;
-}
-function generateExpressionConditions(forms, expression, condition = 'true') {
-    const res = [];
-    const conditionIsReps = condition?.includes('__');
-    const expressionIsReps = expression.includes('__');
-    forms.forEach(f => {
-        if (conditionIsReps) {
-            const repeatedFieldCondition = `${condition.split('__')[0]}__`;
-            const keys = Object.keys(f).filter(frm => frm.includes(repeatedFieldCondition));
-            keys.forEach(key => {
-                const index = +key.split('__')[1];
-                const rCondition = condition.replace(/__/g, `__${index}`);
-                if (evaluateExpression(rCondition, f)) {
-                    const rExpression = expression.replace(/__/g, `__${index}`);
-                    res.push(evaluateExpression(rExpression, f));
+    for (let i = 0; i < forms.length; i++) {
+        const mainForm = forms[i];
+        if (mainForm.reps != null) {
+            const allreps = Object.keys(mainForm.reps)
+                .map((key) => mainForm.reps[key])
+                .flat();
+            allreps
+                .filter(c => c[field] != null)
+                .forEach((child) => {
+                if (evaluateExpression(condition, child)) {
+                    count += +child[field] || 0;
                 }
             });
         }
-        else {
-            if (expressionIsReps) {
-                const repeatedFieldExpression = `${expression.split('__')[0]}__`;
-                const evaluatedCondition = evaluateExpression(condition, f);
-                if (evaluatedCondition) {
-                    const keys = Object.keys(f).filter(frm => frm.includes(repeatedFieldExpression));
-                    keys.forEach(key => {
-                        const index = +key.split('__')[1];
-                        const rExpression = expression.replace(/__/g, `__${index}`);
-                        res.push(evaluateExpression(rExpression, f));
-                    });
-                }
+        identifiers.forEach(identifier => {
+            const change = mainForm[identifier] ? mainForm[identifier] : null;
+            if (change) {
+                exxpr = condition.split(identifier).join(JSON.stringify(change));
             }
-            else {
-                const evaluatedCondition = evaluateExpression(condition, f);
-                if (evaluatedCondition) {
-                    res.push(evaluateExpression(expression, f));
-                }
-            }
+        });
+        if (evaluateExpression(exxpr, mainForm) && mainForm[field] != null) {
+            count += +mainForm[field] || 0;
         }
-    });
-    return res;
+    }
+    return count;
 }
 /**
  * Calculates the mean of a simple or derived value. An optional condition can be added to
  * discriminate which forms to take for the sum.
  */
-function MEAN(forms, expression) {
+function MEAN(forms, fieldName) {
     forms = (forms || []).slice(0);
-    expression = expression || '';
-    const length = forms.length;
-    if (length === 0) {
-        return 0;
-    }
+    fieldName = fieldName || '';
+    let length = 0;
     let acc = 0;
-    forms.forEach(f => {
-        acc += evaluateExpression(expression, f);
+    forms.forEach(form => {
+        if (form[fieldName] == null && form.reps != null) {
+            Object.keys(form.reps).forEach(rep => {
+                form.reps[rep].forEach(rform => {
+                    const rsVal = rform[fieldName];
+                    if (rsVal != null) {
+                        acc += evaluateExpression(`${rsVal}`, form);
+                        length++;
+                    }
+                });
+            });
+        }
+        else {
+            acc += evaluateExpression(fieldName, form);
+            length++;
+        }
     });
-    return Math.trunc(acc / length);
+    return `${ROUND(acc / length)}`;
 }
 /**
  * Calculates the % between two members.
  */
 function PERCENT(value1, value2) {
-    const res = +value1 / +value2;
-    return Number.isFinite(res) ? `${res}%` : 'err';
+    const res = (+value1 * 100) / +value2;
+    return Number.isFinite(res) ? `${ROUND(res)}%` : 'infinite';
 }
 /**
  * Calculates the expression in the last form by date.
@@ -1000,10 +1086,29 @@ function LAST(forms, expression, date = 'date_end') {
         return dateA - dateB;
     });
     if (forms.length > 0 && expression != null) {
+        const identifiers = getCodeIdentifiers(expression, true);
         const lastForm = forms[forms.length - 1] || [];
-        return evaluateExpression(expression, lastForm);
+        let exxpr = expression;
+        identifiers.forEach(identifier => {
+            const change = lastForm[identifier] ? lastForm[identifier] : null;
+            if (change != null) {
+                exxpr = exxpr.split(identifier).join(change);
+            }
+        });
+        const formEval = evaluateExpression(expression, lastForm);
+        if (formEval == false && lastForm.reps != null) {
+            const allreps = Object.keys(lastForm.reps)
+                .map((key) => lastForm.reps[key])
+                .flat()
+                .map((rep) => evaluateExpression(exxpr, rep))
+                .reduce((a, b) => (a += +b), 0);
+            if (allreps > 0) {
+                return `${allreps}`;
+            }
+        }
+        return formEval;
     }
-    return 0;
+    return '0';
 }
 /**
  * Calculates the max value of the field.
@@ -1012,10 +1117,23 @@ function MAX(forms, fieldName) {
     forms = (forms || []).slice(0);
     let max = 0;
     forms.forEach(form => {
-        if (form[fieldName] != null &&
-            !isNaN(form[fieldName]) &&
-            form[fieldName] > max) {
-            max = form[fieldName];
+        if (form[fieldName] == null && form.reps != null) {
+            Object.keys(form.reps).forEach(rep => {
+                form.reps[rep].forEach(rform => {
+                    if (form[fieldName] != null &&
+                        !isNaN(form[fieldName]) &&
+                        form[fieldName] > max) {
+                        max = form[fieldName];
+                    }
+                });
+            });
+        }
+        else {
+            if (form[fieldName] != null &&
+                !isNaN(form[fieldName]) &&
+                form[fieldName] > max) {
+                max = form[fieldName];
+            }
         }
     });
     return max;
@@ -1025,16 +1143,28 @@ function MAX(forms, fieldName) {
  */
 function MEDIAN(forms, fieldName) {
     forms = (forms || []).slice(0);
-    const numbers = forms
-        .filter(f => f[fieldName] != null && !isNaN(f[fieldName]))
-        .map(f => f[fieldName])
-        .sort((a, b) => a - b)
-        .filter((item, pos, self) => self.indexOf(item) == pos);
-    return Number.isInteger(numbers.length / 2)
+    let numbers = [];
+    forms.forEach(form => {
+        if (form[fieldName] == null && form.reps != null) {
+            Object.keys(form.reps).forEach(rep => {
+                form.reps[rep].forEach(rform => {
+                    if (rform[fieldName] != null) {
+                        numbers.push(rform[fieldName]);
+                    }
+                });
+            });
+        }
+        else {
+            numbers.push(form[fieldName]);
+        }
+    });
+    numbers = numbers.sort((a, b) => a - b).filter((item, pos, self) => self.indexOf(item) == pos);
+    const res = Number.isInteger(numbers.length / 2)
         ? numbers[numbers.length / 2]
         : (numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2] +
             numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2 + 1]) /
             2;
+    return `${ROUND(res)}`;
 }
 /**
  * Calculates the mode value of the field.
@@ -1044,12 +1174,27 @@ function MODE(forms, fieldName) {
     let maxCount = 0;
     const map = {};
     forms.forEach(f => {
-        const value = f[fieldName];
-        if (value != null) {
-            map[value] = map[value] != null ? map[value] + 1 : 1;
+        if (f[fieldName] == null && f.reps != null) {
+            Object.keys(f)
+                .filter(key => key.includes(fieldName))
+                .forEach(rsField => {
+                const value = f[rsField];
+                if (value != null) {
+                    map[value] = map[value] != null ? map[value] + 1 : 1;
+                }
+                if (map[value] > maxCount) {
+                    maxCount = map[value];
+                }
+            });
         }
-        if (map[value] > maxCount) {
-            maxCount = map[value];
+        else {
+            const value = f[fieldName];
+            if (value != null) {
+                map[value] = map[value] != null ? map[value] + 1 : 1;
+            }
+            if (map[value] > maxCount) {
+                maxCount = map[value];
+            }
         }
     });
     return Object.keys(map)
@@ -1088,26 +1233,608 @@ function buildDataset(dataset, colspans) {
 /**
  *
  * @param forms the form data
- * @param values all values of iteration
+ * @param iterations all values of iteration
  * @param fn the fuction of expression-utils to apply at iteration
  * @param param1 first param of fn
  * @param param2 second param of fn
  * @returns the result of fn applied to all values param conditions
  * &current is an anchor key, The params with &current will be modified with the iteration values.
  */
-function REPEAT(forms, values, fn, param1, param2 = 'true') {
+function REPEAT(forms, iterations, fn, param1, param2 = 'true') {
     const res = [];
     const newExp1 = param1 != null && param1.includes('current')
-        ? (v) => param1.replace('current', `"${v}"`)
+        ? (v) => param1.split('current').join(JSON.stringify(v))
         : () => param1;
     const newExp2 = param2 != null && param2.includes('current')
-        ? (v) => param2.replace('current', `"${v}"`)
+        ? (v) => param2.split('current').join(JSON.stringify(v))
         : () => param2;
-    values.forEach(v => {
+    iterations.forEach(v => {
         const vv = fn(forms, newExp1(v), newExp2(v));
         res.push(vv);
     });
     return res;
+}
+function buildFn(expression) {
+    return (v) => {
+        const newExp = expression
+            .split('ajf_form')
+            .join(`${JSON.stringify(v)}`)
+            .split('current')
+            .join(`${JSON.stringify(v)}`);
+        return newExp;
+    };
+}
+/**
+ * this function allow to define a new attribute of mainform.
+ * the attribute field will be added on every form and it takes the result of expression calculated
+ * for every mainform
+ *
+ * @export
+ * @param {MainForm[]} formList
+ * @param {string} field
+ * @param {string} expression
+ * @return {*}  {MainForm[]}
+ */
+function APPLY(formList, field, expression) {
+    const expFn = buildFn(expression);
+    formList = cloneMainForms(formList);
+    for (let i = 0; i < formList.length; i++) {
+        if (formList[i] == null) {
+            continue;
+        }
+        if (formList[i].reps != null) {
+            formList[i][field] = evaluateExpression(expFn(formList[i]), formList[i]);
+        }
+    }
+    return formList;
+}
+/**
+ * this function round a number,
+ * if you need can be define de digits of round
+ *
+ * @export
+ * @param {(number | string)} num
+ * @param {number} [digits]
+ * @return {*}  {number}
+ */
+function ROUND(num, digits) {
+    return round(num, digits);
+}
+/**
+ * this function evalueate a condition if true return branch1 else branch2
+ *
+ * @export
+ * @param {string} condition
+ * @param {*} branch1
+ * @param {*} branch2
+ * @return {*}  {*}
+ */
+function EVALUATE(condition, branch1, branch2) {
+    if (evaluateExpression(condition)) {
+        return branch1;
+    }
+    else {
+        return branch2;
+    }
+}
+/**
+ * This function builds a data structure that allows the use of the hindikit formulas
+ * for every forms with repeating slides.
+ * In particular, it builds a main data form with all the data relating to the slides and
+ * a dictionary with the name reps thus made instance slideName forms.
+ * Where a form is associated with each instance of the repeating slide.
+ * example:
+ * simple form:
+ *  {
+ *    $value: "AGO"
+ *    cittadinanza__0: "AGO"
+ *    codice_fiscale__0: "jdfljglòkòkò"
+ *    country__0: "AGO"
+ *    date_end: "2021-01-10"
+ *    date_start: "2021-01-10"
+ *    dob__0: "2021-03-11"
+ *    first_name__0: "pippo"
+ *    gender__0: "f"
+ *    id_family: "3bef3a3f-d95d-4a09-8df4-e812c55c61c6"
+ *    istruzione__0: null
+ *    last_name__0: "pippo"
+ *    permesso_soggiorno__0: "no"
+ *    relazione__0: "genitore"
+ *    solidando: "solidando1"
+ *    stato_civile__0: null
+ *  }
+ * after BUILD_DATASET
+ * MainForm:
+ * {
+ *    $value: "AGO"
+ *    ajf_form_id: 0 ** added atribute that rappresent the index position insides input form list.
+ *    ajf_family_component_count: 1** added atribute that rappresent the instance number of famili_component repeating slides.
+ *    date_end: "2021-01-10"
+ *    date_start: "2021-01-10"
+ *    id_family: "3bef3a3f-d95d-4a09-8df4-e812c55c61c6"
+ *    reps: {
+ *      family_component: [
+ *        {
+ *          ajf_family_component_rep: 0 ** added atribute that rappresent the order instance of family_component repeating slide.
+ *          cittadinanza: "AGO"
+ *          codice_fiscale: "jdfljglòkòkò"
+ *          country: "AGO"
+ *          dob: "2021-03-11"
+ *          first_name: "pippo"
+ *          gender: "f"
+ *          istruzione: null
+ *          last_name: "pippo"
+ *          permesso_soggiorno: "no"
+ *          relazione: "genitore"
+ *          stato_civile: null
+ *        }
+ *      ]
+ *    }
+ * }
+ *
+ * @param {Form[]} forms
+ * @param {*} [schema] if schema is provided the instances inside the reps match with effective
+ * slide name. Otherwise all repeating slides are associates to generic slide name "rep".
+ * @return {*}  {MainForm[]}
+ */
+function BUILD_DATASET(forms, schema) {
+    const res = [];
+    const generateMetadata = (slideName, slideInstance) => {
+        const resg = {};
+        resg[`ajf_${slideName}_rep`] = slideInstance;
+        return resg;
+    };
+    forms = (forms || []).slice(0);
+    if (schema != null) {
+        const repeatingSlides = schema.nodes.filter((node) => node.nodeType === 4);
+        const obj = {};
+        repeatingSlides.forEach(slide => {
+            let nodeFields = slide.nodes.map((n) => n.name);
+            nodeFields.forEach((nodeField) => {
+                obj[nodeField] = slide.name;
+            });
+        });
+        forms.forEach((f, formIdx) => {
+            const mainForm = { reps: {} };
+            const fKeys = Object.keys(f);
+            const instances = {};
+            fKeys.forEach(fkey => {
+                const splittedKey = fkey.split('__');
+                const splittedLength = splittedKey.length;
+                const fieldName = splittedKey[0];
+                const slideInstance = splittedKey[1] != null && Number.isInteger(+splittedKey[1]) ? +splittedKey[1] : null;
+                const slideName = obj[fieldName];
+                if (splittedLength === 2 && slideInstance != null && slideName != null) {
+                    instances[slideName] = instances[slideName] != null ? instances[slideName] : [];
+                    instances[slideName][slideInstance] =
+                        instances[slideName][slideInstance] != null
+                            ? instances[slideName][slideInstance]
+                            : generateMetadata(slideName, slideInstance);
+                    instances[slideName][slideInstance][fieldName] = f[fkey];
+                }
+                else {
+                    mainForm[fieldName] = f[fieldName];
+                }
+            });
+            mainForm[`ajf_form_id`] = formIdx;
+            const instanceKeys = Object.keys(instances);
+            instanceKeys.forEach(instanceKey => {
+                mainForm[`ajf_${instanceKey}_count`] = instances[instanceKey].length;
+            });
+            mainForm.reps = instances;
+            res.push(mainForm);
+        });
+        return res;
+    }
+    else {
+        forms.forEach(form => {
+            const fKeys = Object.keys(form);
+            const noRepeatingFields = fKeys.filter(fkey => fkey.indexOf('__') === -1);
+            const noRepForm = {};
+            noRepeatingFields.forEach(field => {
+                noRepForm[field] = form[field];
+            });
+            const mainForm = { ...noRepForm, reps: { slide: [] } };
+            for (let i = 0; i <= MAX_REPS; i++) {
+                const currentSlide = {};
+                const onlyCurrentInstanceKeys = fKeys.filter(fkey => fkey.indexOf(`__${i}`) > -1);
+                // se il numero di attributi coincide il form data non ha repeatingslides
+                if (onlyCurrentInstanceKeys.length === 0) {
+                    mainForm['ajf_rep_count'] = i;
+                    break;
+                }
+                onlyCurrentInstanceKeys.forEach(key => {
+                    const splittedKey = key.split('__');
+                    const fieldName = splittedKey[0];
+                    const slideInstance = splittedKey[1] != null ? +splittedKey[1] : null;
+                    currentSlide[fieldName] = form[key];
+                    currentSlide['ajf_rep'] = slideInstance != null ? slideInstance : currentSlide['ajf_rep'];
+                });
+                if (onlyCurrentInstanceKeys.length != 0) {
+                    mainForm.reps.slide.push(currentSlide);
+                }
+                else {
+                    mainForm.reps = undefined;
+                }
+            }
+            res.push(mainForm);
+        });
+        return res;
+    }
+}
+/**
+ * This function build a partition of formList by execution of expression.
+ * For every mainForm the expression match mainform field and replace it.
+ * If the evaluation of expression is true the mainForm was added to partition
+ * (that becouse the expression don't has repeating slide fields) else if
+ * there are reps for every rep the expression is updated with replacing of
+ * repeating slide instance fields and evaluated, if true was added to partition.
+ * All ajf attributes wad updated. /TODO
+ *
+ *
+ * @param {MainForm[]} formList a set of main forms
+ * @param {string} expression to be evaluated. that can be able to contains another
+ * hindikit functions or mainForm fields or reps fields.
+ * @return {*}  {MainForm[]}
+ */
+function FILTER_BY(formList, expression) {
+    const forms = cloneMainForms(formList || []).filter((f) => f != null);
+    const identifiers = [...new Set(getCodeIdentifiers(expression, true))];
+    let res = [];
+    if (expression === 'true') {
+        return forms;
+    }
+    if (forms.length === 0) {
+        return [];
+    }
+    for (let i = 0; i < forms.length; i++) {
+        const mainForm = forms[i];
+        let expr = expression;
+        if (mainForm == null) {
+            res.push(mainForm);
+            continue;
+        }
+        /* replace main form field inside expression */
+        identifiers.forEach(identifier => {
+            const change = mainForm[identifier] ? mainForm[identifier] : null;
+            if (change) {
+                expr = expr.split(identifier).join(`\`${change}\``);
+            }
+        });
+        /* if that's already true push it in res */
+        if (evaluateExpression(expr, mainForm)) {
+            res.push(mainForm);
+            continue;
+        }
+        let newReps;
+        const childKeys = Object.keys(mainForm.reps);
+        childKeys.forEach(childKey => {
+            const currentReps = mainForm.reps[childKey]
+                .filter((form) => {
+                let repExpr = expr;
+                /* replace rep field inside expression */
+                identifiers.forEach(identifier => {
+                    const changeInRep = form[identifier] ? form[identifier] : null;
+                    if (changeInRep) {
+                        repExpr = repExpr.split(identifier).join(`\`${changeInRep}\``);
+                    }
+                });
+                return evaluateExpression(repExpr, form);
+            })
+                .filter(f => f != null);
+            if (currentReps.length > 0) {
+                newReps = (newReps != null ? newReps : {});
+                newReps[childKey] = currentReps;
+            }
+            mainForm[`ajf_${childKey}_count`] = currentReps.length;
+        });
+        if (newReps == null) {
+            res.push(null);
+        }
+        else {
+            mainForm.reps = newReps;
+            res.push(mainForm);
+        }
+    }
+    return res;
+}
+/**
+ * return the today date
+ *
+ * @export
+ * @param {string} [format='yyyy-MM-dd']
+ * @return {*}  {string}
+ */
+function TODAY(format = 'yyyy-MM-dd') {
+    return dateFns.format(new Date(), format);
+}
+/**
+ * UTILITY FUNCTION
+ *  this function allow the console log of excel variables.
+ * @export
+ * @param {*} val
+ * @param {string} [text='log: ']
+ */
+function CONSOLE_LOG(val, text = 'log: ') {
+    console.log(text, val);
+}
+/**
+ * this function take a string date and return the difference in year from dob to today.
+ *
+ * @export
+ * @param {(string | null)} dob
+ * @return {*}  {number}
+ */
+function GET_AGE(dob) {
+    if (dob == null)
+        return +'<'; // need for generate false funcion in evaluateExpression
+    const date = new Date(dob);
+    const age = dateFns.differenceInYears(new Date(), date);
+    return age;
+}
+/**
+ * this function returns reps length if reps in defined or the length of dataset if dataset is array-
+ *
+ * @export
+ * @param {(MainForm | any[])} dataset
+ * @return {*}  {number}
+ */
+function LEN(dataset) {
+    if (dataset == null) {
+        return 0;
+    }
+    if (dataset.reps != null) {
+        const mainForm = dataset;
+        const reps = Object.keys(mainForm.reps)
+            .map(key => mainForm.reps[key].flat())
+            .flat();
+        return reps.length;
+    }
+    return dataset.length || 0;
+}
+/**
+ * return true if date is before then dateToCompare
+ *
+ * @export
+ * @param {string} date
+ * @param {string} dateToCompare
+ * @return {*}  {boolean}
+ */
+function IS_BEFORE(date, dateToCompare) {
+    const dateA = dateFns.parseISO(date);
+    const dateB = dateFns.parseISO(dateToCompare);
+    return dateFns.isBefore(dateA, dateB);
+}
+/**
+ * return true if date is after then dateToCompare
+ *
+ * @export
+ * @param {string} date
+ * @param {string} dateToCompare
+ * @return {*}  {boolean}
+ */
+function IS_AFTER(date, dateToCompare) {
+    const dateA = dateFns.parseISO(date);
+    const dateB = dateFns.parseISO(dateToCompare);
+    return dateFns.isAfter(dateA, dateB);
+}
+/**
+ * return true if date is whithin interval from dateStart to dateEnd
+ *
+ * @export
+ * @param {string} date
+ * @param {string} dateStart
+ * @param {string} dateEnd
+ * @return {*}  {boolean}
+ */
+function IS_WITHIN_INTERVAL(date, dateStart, dateEnd) {
+    const dateToCompare = dateFns.parseISO(date);
+    const interval = { start: dateFns.parseISO(dateStart), end: dateFns.parseISO(dateEnd) };
+    return dateFns.isWithinInterval(dateToCompare, interval);
+}
+/**
+ * this function extend formsA dataset.
+ * search all match of keyA in formsB, if found if merge formA and formB.
+ *
+ * @export
+ * @param {string} keyA
+ * @param {string} [keyB]
+ * @return {*}
+ */
+function JOIN_FORMS(formsA, formsB, keyA, keyB) {
+    formsA = cloneMainForms(formsA);
+    formsB = cloneMainForms(formsB);
+    const mergedForms = [];
+    if (keyA == null || formsA == null || formsA.length === 0) {
+        return mergedForms;
+    }
+    if (keyB == null) {
+        keyB = keyA;
+    }
+    if (formsB == null || formsB.length === 0) {
+        return formsA;
+    }
+    for (let i = 0; i < formsA.length; i++) {
+        const formA = formsA[i];
+        const keyAValue = formA[keyA];
+        let mergedForm = { ...formA };
+        if (formA == null || keyAValue == null) {
+            mergedForms.push(formA);
+            continue;
+        }
+        for (let j = 0; j < formsB.length; j++) {
+            const formB = formsB[j];
+            const keyBValue = formB[keyB];
+            if (formB == null || keyBValue == null) {
+                continue;
+            }
+            if (keyAValue === keyBValue) {
+                mergedForm = { ...formA, ...formB };
+                if (formA.reps != null && formB.reps != null) {
+                    mergedForm.reps = { ...formA.reps, ...formB.reps };
+                }
+                break;
+            }
+        }
+        mergedForms.push(mergedForm);
+    }
+    return mergedForms;
+}
+/**
+ * like JOIN_FORMS but extends the behaviour on the reps.
+ * search all match of subKeyA in formB
+ *
+ * @export
+ * @param {MainForm[]} formsA
+ * @param {MainForm[]} formsB
+ * @param {string} keyA
+ * @param {string} keyB
+ * @param {string} subKeyA
+ * @param {string} [subKeyB]
+ * @return {*}  {MainForm[]}
+ */
+function JOIN_REPEATING_SLIDES(formsA, formsB, keyA, keyB, subKeyA, subKeyB) {
+    const mergedForms = [];
+    formsA = cloneMainForms(formsA);
+    formsB = cloneMainForms(formsB);
+    if (keyA == null || formsA == null || formsA.length === 0) {
+        return mergedForms;
+    }
+    if (keyB == null) {
+        keyB = keyA;
+    }
+    if (formsB == null || formsB.length === 0) {
+        return formsA;
+    }
+    if (subKeyA == null) {
+        return JOIN_FORMS(formsA, formsB, keyA, keyB);
+    }
+    if (subKeyB == null) {
+        subKeyB = subKeyA;
+    }
+    for (let i = 0; i < formsA.length; i++) {
+        const formA = formsA[i];
+        const keyAValue = formA[keyA];
+        let mergedForm = { ...formA };
+        if (formA == null || keyAValue == null) {
+            mergedForms.push(formA);
+            continue;
+        }
+        for (let j = 0; j < formsB.length; j++) {
+            const formB = formsB[j];
+            const keyBValue = formB[keyB];
+            if (formB == null || keyBValue == null) {
+                continue;
+            }
+            if (keyAValue === keyBValue) {
+                mergedForm = { ...formA, ...formB };
+                mergedForm.reps = { ...formA.reps, ...formB.reps };
+                if (formA.reps != null && formB.reps != null) {
+                    const mergedReps = {};
+                    const childAKeys = Object.keys(formA.reps);
+                    const childB = Object.keys(formB.reps)
+                        .map(key => formB.reps[key].flat())
+                        .flat();
+                    childAKeys.forEach(key => {
+                        const instance = formA.reps[key];
+                        mergedReps[key] = JOIN_FORMS(instance, childB, subKeyA, subKeyB);
+                    });
+                    mergedForm.reps = mergedReps;
+                }
+                break;
+            }
+        }
+        mergedForms.push(mergedForm);
+    }
+    return mergedForms;
+}
+/**
+ * this function extract an array of evaluated expression from main form reps.
+ *
+ * @export
+ * @param {MainForm} mainForm
+ * @param {string} expression
+ * @return {*}  {any[]}
+ */
+function FROM_REPS(mainForm, expression) {
+    const res = [];
+    if (mainForm != null && mainForm.reps != null) {
+        const reps = Object.keys(mainForm.reps)
+            .map(key => mainForm.reps[key].flat())
+            .flat();
+        reps.forEach(child => {
+            res.push(evaluateExpression(expression, child));
+        });
+    }
+    return res;
+}
+/**
+ * this function return true if value is inside of dataset
+ *
+ * @export
+ * @param {any[]} dataset
+ * @param {*} value
+ * @return {*}  {boolean}
+ */
+function ISIN(dataset, value) {
+    if (dataset == null || value == null) {
+        return false;
+    }
+    return dataset.indexOf(value) >= 0;
+}
+/**
+ * the lengths of the datasets are assumed to be the same.
+ * this function return an array list of calculated values.
+ * each element of the array is calculated by replacing elemA with the current element of a
+ * and elemB with the current element of b inside the expression.
+ *
+ * @export
+ * @param {number[]} datasetA
+ * @param {number[]} datasetB
+ * @param {string} expression
+ * @return {*}  {number[]}
+ */
+function OP(datasetA, datasetB, expression) {
+    const res = [];
+    if (datasetA == null || datasetB.length > datasetA.length) {
+        return [];
+    }
+    if (datasetB == null) {
+        return datasetA;
+    }
+    for (let i = 0; i < datasetA.length; i++) {
+        const elemA = datasetA[i] || 0;
+        const elemB = datasetB[i] || 0;
+        const expr = expression
+            .split('elemA')
+            .join(JSON.stringify(elemA))
+            .split('elemB')
+            .join(JSON.stringify(elemB));
+        res.push(evaluateExpression(expr));
+    }
+    return res;
+}
+/**
+ * this function take a ajf schema and a list of field names as input and
+ * returns a list of label matched inside a schema choiche origins.
+ *
+ * @export
+ * @param {*} schema
+ * @param {string[]} fieldNames
+ * @return {*}  {string[]}
+ */
+function GET_LABELS(schema, fieldNames) {
+    const labels = {};
+    if (schema != null && schema.choicesOrigins != null) {
+        schema.choicesOrigins.forEach(choice => {
+            if (choice != null && choice.choices != null) {
+                choice.choices.forEach(element => {
+                    labels[element.value] = element.label;
+                });
+            }
+        });
+    }
+    return fieldNames.map(fieldName => (labels[fieldName] != null ? labels[fieldName] : fieldName));
 }
 
 /**
@@ -1310,5 +2037,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { ALL_VALUES_OF, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, COUNTFORMS, COUNTFORMS_UNIQUE, LAST, MAX, MEAN, MEDIAN, MODE, PERCENT, REPEAT, SUM, alert, alwaysCondition, buildDataset, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { ALL_VALUES_OF, APPLY, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FROM_REPS, GET_AGE, GET_LABELS, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildDataset, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=models.mjs.map

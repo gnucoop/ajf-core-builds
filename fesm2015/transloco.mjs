@@ -1,8 +1,8 @@
 import * as i0 from '@angular/core';
 import { NgModule } from '@angular/core';
 import * as i1 from '@ngneat/transloco';
-import { TranslocoService, TranslocoModule, TRANSLOCO_CONFIG, translocoConfig, TRANSLOCO_MISSING_HANDLER } from '@ngneat/transloco';
-export { TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER, TRANSLOCO_SCOPE, TranslocoPipe, TranslocoService, translocoConfig } from '@ngneat/transloco';
+import { TranslocoService, TranslocoModule, TRANSLOCO_CONFIG, translocoConfig, TRANSLOCO_MISSING_HANDLER, TRANSLOCO_TRANSPILER, FunctionalTranspiler } from '@ngneat/transloco';
+export { FunctionalTranspiler, TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER, TRANSLOCO_SCOPE, TRANSLOCO_TRANSPILER, TranslocoPipe, TranslocoService, translocoConfig } from '@ngneat/transloco';
 
 /**
  * @license
@@ -916,11 +916,14 @@ AjfTranslocoModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", vers
             useValue: translocoConfig({
                 availableLangs,
                 defaultLang: 'ENG',
-                reRenderOnLangChange: true,
                 prodMode: false,
             }),
         },
         { provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler },
+        {
+            provide: TRANSLOCO_TRANSPILER,
+            useClass: FunctionalTranspiler,
+        },
     ], imports: [[TranslocoModule], TranslocoModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ngImport: i0, type: AjfTranslocoModule, decorators: [{
             type: NgModule,
@@ -933,11 +936,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-rc.3", ng
                             useValue: translocoConfig({
                                 availableLangs,
                                 defaultLang: 'ENG',
-                                reRenderOnLangChange: true,
                                 prodMode: false,
                             }),
                         },
                         { provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler },
+                        {
+                            provide: TRANSLOCO_TRANSPILER,
+                            useClass: FunctionalTranspiler,
+                        },
                     ],
                 }]
         }], ctorParameters: function () { return [{ type: i1.TranslocoService }]; } });

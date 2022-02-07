@@ -21,10 +21,12 @@
  */
 import { AjfCondition, AjfFormula } from '@ajf/core/models';
 import { AjfStyles } from '../styles';
+import { AjfFilter } from './filter';
 import { AjfWidgetType } from './widget-type';
 export interface AjfWidget {
     widgetType: AjfWidgetType;
     styles: AjfStyles;
     visibility: AjfCondition;
     repetitions?: AjfFormula;
+    filter?: AjfFilter;
 }

@@ -19,11 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfReport } from '../interface/reports/report';
-/**
- * This function returns a basic report for any form passed in input.
- *
- * @param form the form schema
- * @param [id] the id of the form inside the plathform.
- */
-export declare function reportFromXls(file: string): AjfReport;
+import { AjfFormCreate } from '@ajf/core/forms';
+export interface AjfFilter {
+    schema: AjfFormCreate;
+}

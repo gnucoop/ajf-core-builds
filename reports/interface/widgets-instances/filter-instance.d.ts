@@ -19,7 +19,11 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export * from './transloco.module';
-export * from './transloco-missing-handler';
-export { FunctionalTranspiler, TranslocoService, TranslocoPipe, Translation, TranslocoLoader, TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TRANSLOCO_MISSING_HANDLER, TRANSLOCO_SCOPE, TRANSLOCO_TRANSPILER, translocoConfig, HashMap, } from '@ngneat/transloco';
-export * from './lang';
+import { AjfForm } from '@ajf/core/forms';
+import { AjfContext } from '@ajf/core/models';
+import { AjfReportVariable } from '../reports/report-variable';
+export interface AjfFilterInstance {
+    form: AjfForm;
+    variables: AjfReportVariable[];
+    context: AjfContext;
+}
