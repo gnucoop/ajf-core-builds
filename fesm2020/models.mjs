@@ -412,13 +412,15 @@ function cloneMainForms(forms) {
         if (form == null) {
             res.push(null);
         }
-        else if (form.reps != null) {
-            Object.keys(form.reps).forEach(key => {
-                reps[key] = form.reps[key].slice(0);
-            });
+        else {
+            if (form.reps != null) {
+                Object.keys(form.reps).forEach(key => {
+                    reps[key] = form.reps[key].slice(0);
+                });
+            }
+            const f = { ...form, reps };
+            res.push(f);
         }
-        const f = { ...form, reps };
-        res.push(f);
     });
     return res;
 }
@@ -923,7 +925,7 @@ function COUNT_FORMS(formList, expression = 'true') {
         identifiers.forEach(identifier => {
             const change = mainForm[identifier] ? mainForm[identifier] : null;
             if (change != null) {
-                exxpr = exxpr.split(identifier).join(change);
+                exxpr = exxpr.split(identifier).join(JSON.stringify(change));
             }
         });
         if (mainForm.reps != null) {
@@ -936,7 +938,7 @@ function COUNT_FORMS(formList, expression = 'true') {
                 count++;
             }
         }
-        if (evaluateExpression(expression, mainForm)) {
+        if (evaluateExpression(exxpr, mainForm)) {
             count++;
         }
     }
@@ -970,7 +972,7 @@ function COUNT_REPS(formList, expression = 'true') {
         identifiers.forEach(identifier => {
             const change = mainForm[identifier] ? mainForm[identifier] : null;
             if (change) {
-                exxpr = expression.split(identifier).join(change);
+                exxpr = expression.split(identifier).join(JSON.stringify(change));
             }
         });
         if (evaluateExpression(exxpr, mainForm)) {
@@ -1498,7 +1500,7 @@ function FILTER_BY(formList, expression) {
         identifiers.forEach(identifier => {
             const change = mainForm[identifier] ? mainForm[identifier] : null;
             if (change) {
-                expr = expr.split(identifier).join(`\`${change}\``);
+                expr = expr.split(identifier).join(JSON.stringify(change));
             }
         });
         /* if that's already true push it in res */
@@ -1516,7 +1518,7 @@ function FILTER_BY(formList, expression) {
                 identifiers.forEach(identifier => {
                     const changeInRep = form[identifier] ? form[identifier] : null;
                     if (changeInRep) {
-                        repExpr = repExpr.split(identifier).join(`\`${changeInRep}\``);
+                        repExpr = repExpr.split(identifier).join(JSON.stringify(changeInRep));
                     }
                 });
                 return evaluateExpression(repExpr, form);
