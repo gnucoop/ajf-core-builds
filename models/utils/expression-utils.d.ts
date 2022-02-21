@@ -163,7 +163,7 @@ export declare function COUNT_REPS(formList: MainForm[], expression?: string): n
  * Counts the amount of unique form values for a specific field. The form name must be specified. An
  * optional condition can be added to discriminate which forms to count in
  */
-export declare function COUNT_FORMS_UNIQUE(forms: Form[], fieldName: string, expression?: string): number;
+export declare function COUNT_FORMS_UNIQUE(formList: MainForm[], fieldName: string, expression?: string): number;
 /**
  * Aggregates and sums the values of one or more. An optional condition can be added to discriminate
  * which forms to take for the sum.

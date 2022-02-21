@@ -897,22 +897,41 @@ function COUNT_REPS(formList, expression = 'true') {
  * Counts the amount of unique form values for a specific field. The form name must be specified. An
  * optional condition can be added to discriminate which forms to count in
  */
-function COUNT_FORMS_UNIQUE(forms, fieldName, expression) {
-    forms = (forms || []).slice(0);
-    const values = [];
-    if (expression != null) {
-        forms = forms.filter(f => evaluateExpression(expression, f));
+function COUNT_FORMS_UNIQUE(formList, fieldName, expression = 'true') {
+    const forms = (formList || []).slice(0).filter((f) => f != null);
+    const identifiers = [...new Set(getCodeIdentifiers(expression, true))];
+    let values = [];
+    if (forms.length === 0) {
+        return 0;
     }
-    forms.forEach(f => {
-        values.push(evaluateExpression(fieldName, f));
-    });
-    const aa = values.reduce((obj, b) => {
-        obj[b] = ++obj[b] || 1;
-        return obj;
-    }, {});
-    return Object.keys(aa)
-        .map((d) => aa[d])
-        .filter((q) => q === 1).length;
+    for (let i = 0; i < forms.length; i++) {
+        const mainForm = forms[i];
+        let exxpr = expression;
+        identifiers.forEach(identifier => {
+            const change = mainForm[identifier] ? mainForm[identifier] : null;
+            if (change != null) {
+                exxpr = exxpr.split(identifier).join(JSON.stringify(change));
+            }
+        });
+        if (mainForm.reps != null) {
+            const fieldNameInMain = evaluateExpression(fieldName, mainForm);
+            const allreps = Object.keys(mainForm.reps)
+                .map((key) => mainForm.reps[key])
+                .flat()
+                .filter((child) => evaluateExpression(exxpr, child))
+                .map((child) => fieldNameInMain != null ? fieldNameInMain : evaluateExpression(fieldName, child));
+            if (allreps.length > 0) {
+                values = [...values, ...allreps];
+            }
+        }
+        if (evaluateExpression(exxpr, mainForm)) {
+            const mValue = evaluateExpression(fieldName, mainForm);
+            if (mValue != null) {
+                values.push(mValue);
+            }
+        }
+    }
+    return [...new Set(values)].length;
 }
 /**
  * Aggregates and sums the values of one or more. An optional condition can be added to discriminate
