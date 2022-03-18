@@ -1,9 +1,10 @@
 {
-  "name": "@ajf/core/image",
-  "fesm2020": "../fesm2020/image.mjs",
-  "fesm2015": "../fesm2015/image.mjs",
-  "esm2020": "../esm2020/image/image_public_index.mjs",
-  "typings": "./image_public_index.d.ts",
-  "module": "../fesm2015/image.mjs",
-  "es2020": "../fesm2020/image.mjs"
+  "module": "../fesm2015/ajf-core-image.mjs",
+  "es2020": "../fesm2020/ajf-core-image.mjs",
+  "esm2020": "../esm2020/image/ajf-core-image.mjs",
+  "fesm2020": "../fesm2020/ajf-core-image.mjs",
+  "fesm2015": "../fesm2015/ajf-core-image.mjs",
+  "typings": "ajf-core-image.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/image"
 }

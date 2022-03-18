@@ -25,8 +25,8 @@ export declare class AjfVideoDirective implements AfterViewInit {
     private _el;
     private _renderer;
     private _source;
-    get source(): HTMLVideoElement;
-    set source(source: HTMLVideoElement);
+    get source(): HTMLVideoElement | undefined;
+    set source(source: HTMLVideoElement | undefined);
     readonly isInit: EventEmitter<any>;
     constructor(_el: ElementRef, _renderer: Renderer2);
     private _initCam;

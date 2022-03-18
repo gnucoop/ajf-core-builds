@@ -31,7 +31,7 @@ export declare class AjfDropMessage {
 }
 export declare class AjfFilePreview implements OnDestroy {
     private _value;
-    get value(): AjfFile;
+    get value(): AjfFile | undefined;
     private _valueSub;
     constructor(vcr: ViewContainerRef);
     ngOnDestroy(): void;
@@ -45,7 +45,7 @@ export declare class AjfFileInput implements ControlValueAccessor {
     _nativeInput: ElementRef<HTMLInputElement>;
     readonly fileIcon: SafeResourceUrl;
     readonly removeIcon: SafeResourceUrl;
-    accept: string;
+    accept: string | undefined;
     private _value;
     get value(): any;
     set value(value: any);

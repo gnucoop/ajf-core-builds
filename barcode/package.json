@@ -1,9 +1,10 @@
 {
-  "name": "@ajf/core/barcode",
-  "fesm2020": "../fesm2020/barcode.mjs",
-  "fesm2015": "../fesm2015/barcode.mjs",
-  "esm2020": "../esm2020/barcode/barcode_public_index.mjs",
-  "typings": "./barcode_public_index.d.ts",
-  "module": "../fesm2015/barcode.mjs",
-  "es2020": "../fesm2020/barcode.mjs"
+  "module": "../fesm2015/ajf-core-barcode.mjs",
+  "es2020": "../fesm2020/ajf-core-barcode.mjs",
+  "esm2020": "../esm2020/barcode/ajf-core-barcode.mjs",
+  "fesm2020": "../fesm2020/ajf-core-barcode.mjs",
+  "fesm2015": "../fesm2015/ajf-core-barcode.mjs",
+  "typings": "ajf-core-barcode.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/barcode"
 }

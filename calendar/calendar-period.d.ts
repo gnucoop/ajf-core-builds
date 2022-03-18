@@ -20,7 +20,7 @@
  *
  */
 import { AjfCalendarPeriodType } from './calendar-period-type';
-export declare class AjfCalendarPeriod {
+export interface AjfCalendarPeriod {
     type: AjfCalendarPeriodType;
     startDate: Date;
     endDate: Date;

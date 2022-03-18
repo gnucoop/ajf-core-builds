@@ -82,7 +82,7 @@ export declare class AjfFormRendererService {
     getFormValue(): any;
     addGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean>;
     removeGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean>;
-    getControl(field: AjfFieldInstance): Observable<AbstractControl | null>;
+    getControl(field: AjfFieldInstance | undefined): Observable<AbstractControl | null>;
     private _initErrorsStreams;
     private _initUpdateMapStreams;
     private _initFormStreams;

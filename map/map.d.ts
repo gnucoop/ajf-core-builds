@@ -28,13 +28,13 @@ export declare class AjfMapComponent implements AfterViewInit, OnDestroy {
     private _coordinate;
     set coordinate(coordinate: number[]);
     private _tileLayer;
-    set tileLayer(tl: string);
+    set tileLayer(tl: string | undefined);
     private _attribution;
     set attribution(attribution: string);
     private _disabled;
     set disabled(disabled: boolean);
     private _map;
-    get map(): Map;
+    get map(): Map | undefined;
     private _columnWidthChanged;
     ngAfterViewInit(): void;
     redraw(): void;

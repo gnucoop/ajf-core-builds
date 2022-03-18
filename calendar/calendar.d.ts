@@ -29,7 +29,7 @@ import { AjfCalendarService } from './calendar-service';
 import { AjfCalendarViewMode } from './calendar-view-mode';
 import { AjfCalendarWeekDay } from './calendar-week-day';
 import * as i0 from "@angular/core";
-export declare class AjfCalendarChange {
+export interface AjfCalendarChange {
     source: AjfCalendar;
     period: AjfCalendarPeriod | null;
 }

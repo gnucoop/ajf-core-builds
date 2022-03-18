@@ -29,8 +29,8 @@ export declare abstract class AjfReportWidget implements OnInit {
     private _renderer;
     widgetHost: AjfWidgetHost;
     private _instance;
-    get instance(): AjfWidgetInstance;
-    set instance(instance: AjfWidgetInstance);
+    get instance(): AjfWidgetInstance | undefined;
+    set instance(instance: AjfWidgetInstance | undefined);
     protected abstract widgetsMap: AjfWidgetComponentsMap;
     private _init;
     constructor(_cfr: ComponentFactoryResolver, _renderer: Renderer2);

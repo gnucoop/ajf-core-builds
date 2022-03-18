@@ -1,9 +1,10 @@
 {
-  "name": "@ajf/core/calendar",
-  "fesm2020": "../fesm2020/calendar.mjs",
-  "fesm2015": "../fesm2015/calendar.mjs",
-  "esm2020": "../esm2020/calendar/calendar_public_index.mjs",
-  "typings": "./calendar_public_index.d.ts",
-  "module": "../fesm2015/calendar.mjs",
-  "es2020": "../fesm2020/calendar.mjs"
+  "module": "../fesm2015/ajf-core-calendar.mjs",
+  "es2020": "../fesm2020/ajf-core-calendar.mjs",
+  "esm2020": "../esm2020/calendar/ajf-core-calendar.mjs",
+  "fesm2020": "../fesm2020/ajf-core-calendar.mjs",
+  "fesm2015": "../fesm2015/ajf-core-calendar.mjs",
+  "typings": "ajf-core-calendar.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/calendar"
 }

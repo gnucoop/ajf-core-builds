@@ -32,7 +32,7 @@ import { AjfNodeInstance } from './interface/nodes-instances/node-instance';
 import { AjfRepeatingSlideInstance } from './interface/slides-instances/repeating-slide-instance';
 import { AjfSlideInstance } from './interface/slides-instances/slide-instance';
 import * as i0 from "@angular/core";
-export declare class AjfFormActionEvent {
+export interface AjfFormActionEvent {
     source: AjfFormRenderer;
     value: Object;
     action: string;

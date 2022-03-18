@@ -1,9 +1,10 @@
 {
-  "name": "@ajf/core/checkbox-group",
-  "fesm2020": "../fesm2020/checkbox-group.mjs",
-  "fesm2015": "../fesm2015/checkbox-group.mjs",
-  "esm2020": "../esm2020/checkbox-group/checkbox-group_public_index.mjs",
-  "typings": "./checkbox-group_public_index.d.ts",
-  "module": "../fesm2015/checkbox-group.mjs",
-  "es2020": "../fesm2020/checkbox-group.mjs"
+  "module": "../fesm2015/ajf-core-checkbox-group.mjs",
+  "es2020": "../fesm2020/ajf-core-checkbox-group.mjs",
+  "esm2020": "../esm2020/checkbox-group/ajf-core-checkbox-group.mjs",
+  "fesm2020": "../fesm2020/ajf-core-checkbox-group.mjs",
+  "fesm2015": "../fesm2015/ajf-core-checkbox-group.mjs",
+  "typings": "ajf-core-checkbox-group.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/checkbox-group"
 }

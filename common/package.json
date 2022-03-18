@@ -1,9 +1,10 @@
 {
-  "name": "@ajf/core/common",
-  "fesm2020": "../fesm2020/common.mjs",
-  "fesm2015": "../fesm2015/common.mjs",
-  "esm2020": "../esm2020/common/common_public_index.mjs",
-  "typings": "./common_public_index.d.ts",
-  "module": "../fesm2015/common.mjs",
-  "es2020": "../fesm2020/common.mjs"
+  "module": "../fesm2015/ajf-core-common.mjs",
+  "es2020": "../fesm2020/ajf-core-common.mjs",
+  "esm2020": "../esm2020/common/ajf-core-common.mjs",
+  "fesm2020": "../fesm2020/ajf-core-common.mjs",
+  "fesm2015": "../fesm2015/ajf-core-common.mjs",
+  "typings": "ajf-core-common.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/common"
 }

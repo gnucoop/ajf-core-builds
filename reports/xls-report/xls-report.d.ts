@@ -19,9 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfReport } from '../interface/reports/report';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AjfReport } from '../interface/reports/report';
 /**
  * This function returns a basic report for any form passed in input.
  *

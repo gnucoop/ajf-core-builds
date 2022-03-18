@@ -26,8 +26,8 @@ import * as i0 from "@angular/core";
 export declare abstract class AjfReportRenderer {
     private _cdr;
     private _instance;
-    get instance(): AjfReportInstance;
-    set instance(instance: AjfReportInstance);
+    get instance(): AjfReportInstance | undefined;
+    set instance(instance: AjfReportInstance | undefined);
     private _report;
     get report(): AjfReport | null;
     constructor(_cdr: ChangeDetectorRef);

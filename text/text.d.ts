@@ -37,7 +37,7 @@ export declare class AjfTextComponent {
      */
     private _htmlText;
     set htmlText(htmlText: string);
-    get innerHTML(): SafeHtml;
+    get innerHTML(): SafeHtml | undefined;
     constructor(_cdr: ChangeDetectorRef, _domSanitizer: DomSanitizer, _ts: TranslocoService);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfTextComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<AjfTextComponent, "ajf-text", never, { "htmlText": "htmlText"; }, {}, never, never>;

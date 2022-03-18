@@ -1,9 +1,10 @@
 {
-  "name": "@ajf/core/models",
-  "fesm2020": "../fesm2020/models.mjs",
-  "fesm2015": "../fesm2015/models.mjs",
-  "esm2020": "../esm2020/models/models_public_index.mjs",
-  "typings": "./models_public_index.d.ts",
-  "module": "../fesm2015/models.mjs",
-  "es2020": "../fesm2020/models.mjs"
+  "module": "../fesm2015/ajf-core-models.mjs",
+  "es2020": "../fesm2020/ajf-core-models.mjs",
+  "esm2020": "../esm2020/models/ajf-core-models.mjs",
+  "fesm2020": "../fesm2020/ajf-core-models.mjs",
+  "fesm2015": "../fesm2015/ajf-core-models.mjs",
+  "typings": "ajf-core-models.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/models"
 }

@@ -1,9 +1,10 @@
 {
-  "name": "@ajf/core/forms",
-  "fesm2020": "../fesm2020/forms.mjs",
-  "fesm2015": "../fesm2015/forms.mjs",
-  "esm2020": "../esm2020/forms/forms_public_index.mjs",
-  "typings": "./forms_public_index.d.ts",
-  "module": "../fesm2015/forms.mjs",
-  "es2020": "../fesm2020/forms.mjs"
+  "module": "../fesm2015/ajf-core-forms.mjs",
+  "es2020": "../fesm2020/ajf-core-forms.mjs",
+  "esm2020": "../esm2020/forms/ajf-core-forms.mjs",
+  "fesm2020": "../fesm2020/ajf-core-forms.mjs",
+  "fesm2015": "../fesm2015/ajf-core-forms.mjs",
+  "typings": "ajf-core-forms.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/forms"
 }

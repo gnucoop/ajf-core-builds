@@ -1,9 +1,10 @@
 {
-  "name": "@ajf/core/range",
-  "fesm2020": "../fesm2020/range.mjs",
-  "fesm2015": "../fesm2015/range.mjs",
-  "esm2020": "../esm2020/range/range_public_index.mjs",
-  "typings": "./range_public_index.d.ts",
-  "module": "../fesm2015/range.mjs",
-  "es2020": "../fesm2020/range.mjs"
+  "module": "../fesm2015/ajf-core-range.mjs",
+  "es2020": "../fesm2020/ajf-core-range.mjs",
+  "esm2020": "../esm2020/range/ajf-core-range.mjs",
+  "fesm2020": "../fesm2020/ajf-core-range.mjs",
+  "fesm2015": "../fesm2015/ajf-core-range.mjs",
+  "typings": "ajf-core-range.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/range"
 }

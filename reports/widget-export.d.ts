@@ -21,13 +21,14 @@
  */
 import { AjfTableCell } from '@ajf/core/table';
 import { ChartData } from 'chart.js';
-import { AjfWidgetType } from '../reports/interface/widgets/widget-type';
+import { AjfWidgetType } from './interface/widgets/widget-type';
 import * as i0 from "@angular/core";
 export declare class AjfWidgetExport {
-    widgetType: AjfWidgetType;
-    data: ChartData | AjfTableCell[][];
+    widgetType: AjfWidgetType | undefined;
+    data: ChartData | AjfTableCell[][] | undefined;
     overlay: boolean;
     enable: boolean;
+    showOverlay: boolean;
     private static _iconsMap;
     /**
      * Allows rendering html icons as text.

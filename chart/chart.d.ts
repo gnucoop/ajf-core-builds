@@ -8,10 +8,10 @@ interface ChartWidgetInstance {
 export declare class AjfChartComponent implements AfterViewInit, OnChanges {
     private _el;
     private _renderer;
-    data: ChartData;
-    options: ChartOptions;
-    chartType: ExtendedChartType;
-    instance: ChartWidgetInstance;
+    data?: ChartData;
+    options?: ChartOptions;
+    chartType?: ExtendedChartType;
+    instance?: ChartWidgetInstance;
     private _chart;
     private _chartCanvasElement;
     private _chartTypesNeedPoints;

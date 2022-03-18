@@ -42,8 +42,8 @@ export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance =
     private _service;
     private _warningAlertService;
     private _instance;
-    get instance(): T;
-    set instance(instance: T);
+    get instance(): T | undefined;
+    set instance(instance: T | undefined);
     private _control;
     get control(): Observable<FormControl | null>;
     private _warningTriggerSub;

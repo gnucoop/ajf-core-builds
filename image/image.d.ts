@@ -29,7 +29,7 @@ export declare abstract class AjfImage implements OnDestroy, OnInit {
     private _el;
     private _renderer;
     private _domSanitizer;
-    iconComponent: ElementRef;
+    iconComponent: ElementRef | undefined;
     /**
      * if 0 take image by url
      * if 1 take image by icon

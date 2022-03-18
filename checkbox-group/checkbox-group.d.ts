@@ -25,11 +25,11 @@ import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
 import * as i0 from "@angular/core";
 export declare const AJF_CHECKBOX_GROUP_VALUE_ACCESSOR: any;
-export declare class AjfCheckboxGroupItemChange<T> {
+export interface AjfCheckboxGroupItemChange<T> {
     source: AjfCheckboxGroupItem<T>;
     value: any;
 }
-export declare class AjfCheckboxGroupChange<T> {
+export interface AjfCheckboxGroupChange<T> {
     source: AjfCheckboxGroup<T>;
     value: any;
 }
@@ -89,7 +89,7 @@ export declare class AjfCheckboxGroupItem<T> implements OnInit {
     set id(id: string);
     name: string;
     /** The parent button toggle group (exclusive selection). Optional. */
-    readonly checkboxGroup: AjfCheckboxGroup<T>;
+    readonly checkboxGroup: AjfCheckboxGroup<T> | undefined;
     /** Whether or not this button toggle is checked. */
     private _checkedState;
     readonly checkedState: Observable<boolean>;
@@ -102,8 +102,8 @@ export declare class AjfCheckboxGroupItem<T> implements OnInit {
     set disabled(disabled: boolean);
     /** Value assigned to this button toggle. */
     private _value;
-    get value(): T;
-    set value(value: T);
+    get value(): T | undefined;
+    set value(value: T | undefined);
     private _checkedIconVal;
     get checkedIcon(): string;
     set checkedIcon(icon: string);

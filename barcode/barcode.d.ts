@@ -32,15 +32,15 @@ export declare abstract class AjfBarcode implements ControlValueAccessor, OnDest
     readonly startCalculation: EventEmitter<string>;
     readonly _startDetectionSub: Subscription;
     readonly _startCalculationSub: Subscription;
-    private _canvas;
-    get canvasCtx(): CanvasRenderingContext2D;
+    private _canvas?;
+    get canvasCtx(): CanvasRenderingContext2D | undefined;
     /**
      * A html video element created at runtime
      *
      * @memberof AjfBarcode
      */
-    private _video;
-    get videoSource(): HTMLVideoElement;
+    private _video?;
+    get videoSource(): HTMLVideoElement | undefined;
     /**
      * implement the control form value.
      * rappresent the barcode value.

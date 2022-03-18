@@ -1,9 +1,10 @@
 {
-  "name": "@ajf/core/file-input",
-  "fesm2020": "../fesm2020/file-input.mjs",
-  "fesm2015": "../fesm2015/file-input.mjs",
-  "esm2020": "../esm2020/file-input/file-input_public_index.mjs",
-  "typings": "./file-input_public_index.d.ts",
-  "module": "../fesm2015/file-input.mjs",
-  "es2020": "../fesm2020/file-input.mjs"
+  "module": "../fesm2015/ajf-core-file-input.mjs",
+  "es2020": "../fesm2020/ajf-core-file-input.mjs",
+  "esm2020": "../esm2020/file-input/ajf-core-file-input.mjs",
+  "fesm2020": "../fesm2020/ajf-core-file-input.mjs",
+  "fesm2015": "../fesm2015/ajf-core-file-input.mjs",
+  "typings": "ajf-core-file-input.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/file-input"
 }

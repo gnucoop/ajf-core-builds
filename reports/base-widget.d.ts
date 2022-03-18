@@ -21,11 +21,14 @@
  */
 import { ChangeDetectorRef, ElementRef } from '@angular/core';
 import { AjfWidgetInstance } from './interface/widgets-instances/widget-instance';
-export declare abstract class AjfBaseWidgetComponent<T extends AjfWidgetInstance = AjfWidgetInstance> {
-    private _cdr;
+import * as i0 from "@angular/core";
+export declare class AjfBaseWidgetComponent<T extends AjfWidgetInstance = AjfWidgetInstance> {
+    protected _cdr: ChangeDetectorRef;
     readonly el: ElementRef;
     private _instance;
-    get instance(): T;
-    set instance(instance: T);
+    get instance(): T | undefined;
+    set instance(instance: T | undefined);
     constructor(_cdr: ChangeDetectorRef, el: ElementRef);
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfBaseWidgetComponent<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBaseWidgetComponent<any>, never, never, { "instance": "instance"; }, {}, never>;
 }
