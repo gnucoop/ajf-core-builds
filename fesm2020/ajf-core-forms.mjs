@@ -3,7 +3,7 @@ import { Pipe, EventEmitter, Injectable, Directive, ViewChild, Input, InjectionT
 import * as i4 from '@angular/forms';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subject, BehaviorSubject, Subscription, Observable, of, from, timer, defer } from 'rxjs';
-import { map, withLatestFrom, filter, publishReplay, refCount, startWith, scan, share, switchMap, pairwise, debounceTime, delayWhen, shareReplay, catchError } from 'rxjs/operators';
+import { map, withLatestFrom, filter, share, startWith, scan, switchMap, distinctUntilChanged, pairwise, delayWhen, shareReplay, catchError } from 'rxjs/operators';
 import { evaluateExpression, alwaysCondition, neverCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, getCodeIdentifiers, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
 import { format } from 'date-fns';
@@ -3457,8 +3457,8 @@ class AjfFormRendererService {
             form.valid = errors.length == 0;
             this._slidesNum.next(currentPosition);
             return errors;
-        }), publishReplay(), refCount());
-        this._errors = this._errorPositions.pipe(map(e => (e != null ? e.length : 0)), startWith(0), publishReplay(), refCount());
+        }), share());
+        this._errors = this._errorPositions.pipe(map(e => (e != null ? e.length : 0)), startWith(0), share());
     }
     _initUpdateMapStreams() {
         this._editabilityNodesMap = (this._editabilityNodesMapUpdates).pipe(scan((rmap, op) => {
@@ -3738,7 +3738,13 @@ class AjfFormRendererService {
         return nodesInstances;
     }
     _formValueDelta(oldValue, newValue) {
-        return Object.keys(newValue).filter(k => oldValue[k] !== newValue[k]);
+        const allKeys = [];
+        [...Object.keys(oldValue), ...Object.keys(newValue)].forEach(key => {
+            if (key !== '$value' && allKeys.indexOf(key) === -1) {
+                allKeys.push(key);
+            }
+        });
+        return allKeys.filter(k => oldValue[k] !== newValue[k]);
     }
     _initFormGroupStreams(formGroup) {
         this._formGroupSubscription.unsubscribe();
@@ -3746,7 +3752,7 @@ class AjfFormRendererService {
         let initForm = true;
         this._formInitEvent.emit(0 /* Initializing */);
         this._formGroupSubscription = formGroup.valueChanges
-            .pipe(startWith({}), pairwise(), debounceTime(200), withLatestFrom(this._nodesMaps[0], this._nodesMaps[1], this._nodesMaps[2], this._nodesMaps[3], this._nodesMaps[4], this._nodesMaps[5], this._nodesMaps[6], this._nodesMaps[7], this._nodesMaps[8], this._nodesMaps[9], this._flatNodes))
+            .pipe(startWith({}), distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)), pairwise(), withLatestFrom(this._nodesMaps[0], this._nodesMaps[1], this._nodesMaps[2], this._nodesMaps[3], this._nodesMaps[4], this._nodesMaps[5], this._nodesMaps[6], this._nodesMaps[7], this._nodesMaps[8], this._nodesMaps[9], this._flatNodes))
             .subscribe(v => {
             const oldFormValue = (init && {}) || v[0][0];
             init = false;
@@ -3783,30 +3789,7 @@ class AjfFormRendererService {
                 }
                 if (visibilityMap[fieldName] != null) {
                     visibilityMap[fieldName].forEach(nodeInstance => {
-                        const completeName = nodeInstanceCompleteName(nodeInstance);
-                        const visibilityChanged = updateVisibility(nodeInstance, newFormValue);
-                        const isField = isFieldInstance(nodeInstance);
-                        if (visibilityChanged && !nodeInstance.visible) {
-                            const fg = this._formGroup.getValue();
-                            if (fg != null) {
-                                const s = timer(200).subscribe(() => {
-                                    if (s && !s.closed) {
-                                        s.unsubscribe();
-                                    }
-                                    fg.controls[completeName].setValue(null);
-                                });
-                            }
-                            if (isField) {
-                                nodeInstance.value = null;
-                            }
-                        }
-                        else if (visibilityChanged && nodeInstance.visible && isField) {
-                            const fg = this._formGroup.getValue();
-                            const res = updateFormula(nodeInstance, newFormValue);
-                            if (fg != null && res.changed) {
-                                fg.controls[completeName].setValue(res.value);
-                            }
-                        }
+                        updateVisibilityMapEntry(nodeInstance, this._formGroup, newFormValue);
                         if (updatedNodes.indexOf(nodeInstance) === -1) {
                             updatedNodes.push(nodeInstance);
                         }
@@ -3814,13 +3797,7 @@ class AjfFormRendererService {
                 }
                 if (repetitionMap[fieldName] != null) {
                     repetitionMap[fieldName].forEach(nodeInstance => {
-                        if (isRepeatingContainerNode(nodeInstance.node)) {
-                            const rnInstance = nodeInstance;
-                            const oldReps = updateRepsNum(rnInstance, newFormValue);
-                            if (oldReps !== rnInstance.reps) {
-                                this._adjustReps(nodes, rnInstance, oldReps, newFormValue);
-                            }
-                        }
+                        updateRepetitionMapEntry(nodeInstance, newFormValue, nodes, this._adjustReps);
                         if (updatedNodes.indexOf(nodeInstance) === -1) {
                             updatedNodes.push(nodeInstance);
                         }
@@ -3828,20 +3805,7 @@ class AjfFormRendererService {
                 }
                 if (conditionalBranchesMap[fieldName] != null) {
                     conditionalBranchesMap[fieldName].forEach(nodeInstance => {
-                        // const branchChanged =
-                        // nodeInstance.updateConditionalBranches(newFormValue);
-                        updateConditionalBranches(nodeInstance, newFormValue);
-                        // if (branchChanged) {
-                        const verifiedBranch = nodeInstance.verifiedBranch;
-                        nodeInstance.conditionalBranches.forEach((_condition, idx) => {
-                            if (idx == verifiedBranch) {
-                                this._showSubtree(newFormValue, nodes, nodeInstance, idx);
-                            }
-                            else {
-                                this._hideSubtree(newFormValue, nodes, nodeInstance, idx);
-                            }
-                        });
-                        // }
+                        updateConditionalBranchesMapEntry(nodeInstance, newFormValue, nodes, this._showSubtree, this._hideSubtree);
                         if (updatedNodes.indexOf(nodeInstance) === -1) {
                             updatedNodes.push(nodeInstance);
                         }
@@ -3849,15 +3813,7 @@ class AjfFormRendererService {
                 }
                 if (formulaMap[fieldName] != null) {
                     formulaMap[fieldName].forEach(nodeInstance => {
-                        if (isFieldInstance(nodeInstance)) {
-                            const fInstance = nodeInstance;
-                            const res = updateFormula(fInstance, newFormValue);
-                            const fg = this._formGroup.getValue();
-                            if (fg != null && res.changed) {
-                                updateValidation(fInstance, newFormValue);
-                                fg.controls[nodeInstanceCompleteName(nodeInstance)].setValue(res.value);
-                            }
-                        }
+                        updateFormulaMapEntry(nodeInstance, newFormValue, this._formGroup);
                         if (updatedNodes.indexOf(nodeInstance) === -1) {
                             updatedNodes.push(nodeInstance);
                         }
@@ -3865,11 +3821,7 @@ class AjfFormRendererService {
                 }
                 if (validationMap[fieldName] != null) {
                     validationMap[fieldName].forEach(nodeInstance => {
-                        if (isFieldInstance(nodeInstance)) {
-                            const fInstance = nodeInstance;
-                            newFormValue.$value = newFormValue[nodeInstanceCompleteName(nodeInstance)];
-                            updateValidation(fInstance, newFormValue, this.currentSupplementaryInformations);
-                        }
+                        updateValidationMapEntry(nodeInstance, newFormValue, this.currentSupplementaryInformations);
                         if (updatedNodes.indexOf(nodeInstance) === -1) {
                             updatedNodes.push(nodeInstance);
                         }
@@ -3877,14 +3829,7 @@ class AjfFormRendererService {
                 }
                 if (warningMap[fieldName] != null) {
                     warningMap[fieldName].forEach(nodeInstance => {
-                        if (isFieldInstance(nodeInstance)) {
-                            const fInstance = nodeInstance;
-                            updateWarning(fInstance, newFormValue);
-                            if (fInstance.warningResults != null &&
-                                fInstance.warningResults.filter(warning => warning.result).length > 0) {
-                                fInstance.warningTrigger.emit();
-                            }
-                        }
+                        updateWarningMapEntry(nodeInstance, newFormValue);
                         if (updatedNodes.indexOf(nodeInstance) === -1) {
                             updatedNodes.push(nodeInstance);
                         }
@@ -3903,12 +3848,7 @@ class AjfFormRendererService {
                 }
                 if (filteredChoicesMap[fieldName] != null) {
                     filteredChoicesMap[fieldName].forEach(nodeInstance => {
-                        if (isFieldInstance(nodeInstance)) {
-                            const fInstance = nodeInstance;
-                            if (isFieldWithChoices(fInstance.node)) {
-                                updateFilteredChoices(fInstance, newFormValue);
-                            }
-                        }
+                        updateFilteredChoicesMapEntry(nodeInstance, newFormValue);
                         if (updatedNodes.indexOf(nodeInstance) === -1) {
                             updatedNodes.push(nodeInstance);
                         }
@@ -3999,6 +3939,12 @@ class AjfFormRendererService {
     }
     _removeNodeInstance(nodeInstance) {
         const nodeName = nodeInstanceCompleteName(nodeInstance);
+        const fg = this._formGroup.getValue();
+        if (fg != null) {
+            const curValue = fg.value;
+            const newFormValue = { ...curValue, [nodeName]: undefined };
+            fg.patchValue(newFormValue);
+        }
         this._removeNodesVisibilityMapIndex(nodeName);
         this._removeNodesRepetitionMapIndex(nodeName);
         this._removeNodesConditionalBranchMapIndex(nodeName);
@@ -4344,6 +4290,93 @@ AjfFormRendererService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfFormRendererService, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: AjfValidationService }]; } });
+const updateVisibilityMapEntry = (nodeInstance, formGroup, newFormValue) => {
+    const completeName = nodeInstanceCompleteName(nodeInstance);
+    const visibilityChanged = updateVisibility(nodeInstance, newFormValue);
+    const isField = isFieldInstance(nodeInstance);
+    if (visibilityChanged && !nodeInstance.visible) {
+        const fg = formGroup.getValue();
+        if (fg != null) {
+            const s = timer(200).subscribe(() => {
+                if (s && !s.closed) {
+                    s.unsubscribe();
+                }
+                fg.controls[completeName].setValue(null);
+            });
+        }
+        if (isField) {
+            nodeInstance.value = null;
+        }
+    }
+    else if (visibilityChanged && nodeInstance.visible && isField) {
+        const fg = formGroup.getValue();
+        const res = updateFormula(nodeInstance, newFormValue);
+        if (fg != null && res.changed) {
+            fg.controls[completeName].setValue(res.value);
+        }
+    }
+};
+const updateRepetitionMapEntry = (nodeInstance, newFormValue, nodes, cb) => {
+    if (isRepeatingContainerNode(nodeInstance.node)) {
+        const rnInstance = nodeInstance;
+        const oldReps = updateRepsNum(rnInstance, newFormValue);
+        if (oldReps !== rnInstance.reps) {
+            cb(nodes, rnInstance, oldReps, newFormValue);
+        }
+    }
+};
+const updateConditionalBranchesMapEntry = (nodeInstance, newFormValue, nodes, showCb, hideCb) => {
+    // const branchChanged =
+    // nodeInstance.updateConditionalBranches(newFormValue);
+    updateConditionalBranches(nodeInstance, newFormValue);
+    // if (branchChanged) {
+    const verifiedBranch = nodeInstance.verifiedBranch;
+    nodeInstance.conditionalBranches.forEach((_condition, idx) => {
+        if (idx == verifiedBranch) {
+            showCb(newFormValue, nodes, nodeInstance, idx);
+        }
+        else {
+            hideCb(newFormValue, nodes, nodeInstance, idx);
+        }
+    });
+    // }
+};
+const updateFormulaMapEntry = (nodeInstance, newFormValue, formGroup) => {
+    if (isFieldInstance(nodeInstance)) {
+        const fInstance = nodeInstance;
+        const res = updateFormula(fInstance, newFormValue);
+        const fg = formGroup.getValue();
+        if (fg != null && res.changed) {
+            updateValidation(fInstance, newFormValue);
+            fg.controls[nodeInstanceCompleteName(nodeInstance)].setValue(res.value);
+        }
+    }
+};
+const updateValidationMapEntry = (nodeInstance, newFormValue, supp) => {
+    if (isFieldInstance(nodeInstance)) {
+        const fInstance = nodeInstance;
+        newFormValue.$value = newFormValue[nodeInstanceCompleteName(nodeInstance)];
+        updateValidation(fInstance, newFormValue, supp);
+    }
+};
+const updateWarningMapEntry = (nodeInstance, newFormValue) => {
+    if (isFieldInstance(nodeInstance)) {
+        const fInstance = nodeInstance;
+        updateWarning(fInstance, newFormValue);
+        if (fInstance.warningResults != null &&
+            fInstance.warningResults.filter(warning => warning.result).length > 0) {
+            fInstance.warningTrigger.emit();
+        }
+    }
+};
+const updateFilteredChoicesMapEntry = (nodeInstance, newFormValue) => {
+    if (isFieldInstance(nodeInstance)) {
+        const fInstance = nodeInstance;
+        if (isFieldWithChoices(fInstance.node)) {
+            updateFilteredChoices(fInstance, newFormValue);
+        }
+    }
+};
 
 /**
  * @license
