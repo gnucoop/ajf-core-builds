@@ -2490,291 +2490,100 @@ function parseList(revToks, expectedEnd) {
     }
 }
 // parseFunctionCall parses a function call expression.
-// The list of supported functions is here:
-// https://github.com/gnucoop/ajf/blob/master/src/core/models/utils/expression-utils.ts
+// The list of supported functions is in
+//   projects/core/models/utils/expression-utils.ts
 // The function name has already been scanned.
 function parseFunctionCall(name, revToks) {
-    let js;
+    const params = functionParams[name];
+    if (params) {
+        return parseFunctionWithParams(name, revToks, ...params);
+    }
     switch (name) {
-        case 'SUM':
-        case 'MEAN':
-        case 'MAX':
-        case 'MEDIAN':
-        case 'MODE':
-            return parseMathFunction(name, revToks);
-        case 'ALL_VALUES_OF':
-            return parseFieldFunction(name, revToks, true, false);
-        case 'COUNT_FORMS':
-        case 'COUNT_REPS':
-            return parseFieldFunction(name, revToks, false, true);
-        case 'COUNT_FORMS_UNIQUE':
-            return parseFieldFunction(name, revToks, true, true);
         case 'INCLUDES':
             consume(revToks, 1 /* LParen */);
-            js = '(' + parseExpression(revToks, 5 /* Comma */) + ').includes(';
-            consume(revToks, 5 /* Comma */);
-            js += parseExpression(revToks, 5 /* Comma */) + ')';
-            consume(revToks, 2 /* RParen */);
-            return js;
-        case 'PERCENT':
-            consume(revToks, 1 /* LParen */);
-            js = 'PERCENT(' + parseExpression(revToks, 5 /* Comma */) + ', ';
-            consume(revToks, 5 /* Comma */);
-            js += parseExpression(revToks, 5 /* Comma */) + ')';
-            consume(revToks, 2 /* RParen */);
-            return js;
-        case 'LAST':
-            return parseLast(revToks);
-        case 'REPEAT':
-            return parseRepeat(revToks);
-        case 'EVALUATE':
-            consume(revToks, 1 /* LParen */);
-            js = 'EVALUATE(' + parseExpression(revToks, 5 /* Comma */) + ', ';
-            consume(revToks, 5 /* Comma */);
-            js += parseExpression(revToks, 5 /* Comma */) + ', ';
-            consume(revToks, 5 /* Comma */);
-            js += parseExpression(revToks, 5 /* Comma */) + ')';
-            consume(revToks, 2 /* RParen */);
-            return js;
-        case 'FILTER_BY':
-            consume(revToks, 1 /* LParen */);
-            js = 'FILTER_BY(' + parseExpression(revToks, 5 /* Comma */) + ', ';
-            consume(revToks, 5 /* Comma */);
-            js += `\`${parseExpression(revToks, 5 /* Comma */)}\`)`;
-            consume(revToks, 2 /* RParen */);
-            return js;
-        case 'ISBEFORE':
-        case 'ISAFTER':
-            consume(revToks, 1 /* LParen */);
-            js = `${name}(${parseExpression(revToks, 5 /* Comma */)}, `;
-            consume(revToks, 5 /* Comma */);
-            js += `${parseExpression(revToks, 5 /* Comma */)})`;
-            consume(revToks, 2 /* RParen */);
-            return js;
-        case 'ISWITHININTERVAL':
-            consume(revToks, 1 /* LParen */);
-            js = 'ISWITHININTERVAL(' + parseExpression(revToks, 5 /* Comma */) + ', ';
-            consume(revToks, 5 /* Comma */);
-            js += parseExpression(revToks, 5 /* Comma */) + ', ';
+            let js = '(' + parseExpression(revToks, 5 /* Comma */) + ').includes(';
             consume(revToks, 5 /* Comma */);
             js += parseExpression(revToks, 5 /* Comma */) + ')';
             consume(revToks, 2 /* RParen */);
             return js;
         case 'TODAY':
+            consume(revToks, 1 /* LParen */);
+            consume(revToks, 2 /* RParen */);
             return 'TODAY()';
-        case 'APPLY':
-            consume(revToks, 1 /* LParen */);
-            const form = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const field = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const expression = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 2 /* RParen */);
-            return `APPLY(${form}, \`${field}\`, \"${expression}\")`;
-        case 'GET_AGE':
-        case 'LEN':
-        case 'CONSOLE_LOG':
-            consume(revToks, 1 /* LParen */);
-            js = `${name}(${parseExpression(revToks, 2 /* RParen */)})`;
-            consume(revToks, 2 /* RParen */);
-            return js;
-        case 'JOIN_FORMS':
-            consume(revToks, 1 /* LParen */);
-            const formA = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const formB = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const fieldA = parseExpression(revToks, 5 /* Comma */);
-            const tok = revToks.pop();
-            switch (tok.type) {
-                case 2 /* RParen */:
-                    return `${name}(${formA}, ${formB},\`${fieldA}\`)`;
-                case 5 /* Comma */:
-                    const fieldB = parseExpression(revToks, 5 /* Comma */);
-                    consume(revToks, 2 /* RParen */);
-                    return `${name}(${formA}, ${formB},\`${fieldA}\`,\`${fieldB}\`)`;
-                default:
-                    throw unexpectedTokenError(tok, revToks);
-            }
-        case 'JOIN_REPEATING_SLIDES':
-            consume(revToks, 1 /* LParen */);
-            const mformA = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const mformB = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const mfieldA = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const mfieldB = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const msubFieldA = parseExpression(revToks, 5 /* Comma */);
-            const mtok = revToks.pop();
-            switch (mtok.type) {
-                case 2 /* RParen */:
-                    return `${name}(${mformA}, ${mformB},\`${mfieldA}\`,\`${mfieldB}\`,\`${msubFieldA}\`)`;
-                case 5 /* Comma */:
-                    const msubFieldB = parseExpression(revToks, 5 /* Comma */);
-                    consume(revToks, 2 /* RParen */);
-                    return `${name}(${mformA}, ${mformB},\`${mfieldA}\`,\`${mfieldB}\`,\`${msubFieldA}\`,\`${msubFieldB}\`)`;
-                default:
-                    throw unexpectedTokenError(mtok, revToks);
-            }
-        case 'FROM_REPS':
-            consume(revToks, 1 /* LParen */);
-            const mainFormFROM_REPS = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const exprFROM_REPS = parseExpression(revToks, 2 /* RParen */);
-            consume(revToks, 2 /* RParen */);
-            return `${name}(${mainFormFROM_REPS},\`${exprFROM_REPS}\`)`;
-        case 'ISIN':
-            consume(revToks, 1 /* LParen */);
-            const mainFormISIN = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const exprISIN = parseExpression(revToks, 2 /* RParen */);
-            consume(revToks, 2 /* RParen */);
-            return `${name}(${mainFormISIN},${exprISIN})`;
-        case 'OP':
-            consume(revToks, 1 /* LParen */);
-            const datasetA = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const datasetB = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const expr = parseExpression(revToks, 2 /* RParen */);
-            consume(revToks, 2 /* RParen */);
-            return `${name}(${datasetA},${datasetB},\`${expr}\`)`;
-        case 'GET_LABELS':
-            consume(revToks, 1 /* LParen */);
-            const schemaGET_LABELS = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const fieldGET_LABELS = parseExpression(revToks, 2 /* RParen */);
-            consume(revToks, 2 /* RParen */);
-            return `${name}(${schemaGET_LABELS},${fieldGET_LABELS})`;
-        case 'BUILD_DATASET':
-            consume(revToks, 1 /* LParen */);
-            const formsBUILD_DATASET = parseExpression(revToks, 5 /* Comma */);
-            const tokBUILD_DATASET = revToks.pop();
-            switch (tokBUILD_DATASET.type) {
-                case 2 /* RParen */:
-                    return `BUILD_DATASET(${formsBUILD_DATASET})`;
-                case 5 /* Comma */:
-                    const schemaBUILD_DATASET = parseExpression(revToks, 2 /* RParen */);
-                    consume(revToks, 2 /* RParen */);
-                    return `BUILD_DATASET(${formsBUILD_DATASET}, ${schemaBUILD_DATASET})`;
-                default:
-                    throw unexpectedTokenError(tokBUILD_DATASET, revToks);
-            }
-        case 'ROUND':
-            consume(revToks, 1 /* LParen */);
-            const valROUND = parseExpression(revToks, 2 /* RParen */);
-            const tokROUND = revToks.pop();
-            switch (tokROUND.type) {
-                case 2 /* RParen */:
-                    return `ROUND(${valROUND})`;
-                case 5 /* Comma */:
-                    const digitsROUND = parseExpression(revToks, 2 /* RParen */);
-                    consume(revToks, 2 /* RParen */);
-                    return `ROUND(${valROUND}, ${digitsROUND})`;
-                default:
-                    throw unexpectedTokenError(tokROUND, revToks);
-            }
-        case 'IS_BEFORE':
-        case 'IS_AFTER':
-            consume(revToks, 1 /* LParen */);
-            const dateIS = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const dateToCompareIS = parseExpression(revToks, 2 /* RParen */);
-            return `${name}(\`${dateIS}\`, \`${dateToCompareIS}\`)`;
-        case 'IS_WITHIN_INTERVAL':
-            consume(revToks, 1 /* LParen */);
-            const dateIS_IS_WITHIN_INTERVAL = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const dateStartIS_IS_WITHIN_INTERVAL = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 5 /* Comma */);
-            const dateEndIS_IS_WITHIN_INTERVAL = parseExpression(revToks, 2 /* RParen */);
-            consume(revToks, 2 /* RParen */);
-            return `IS_WITHIN_INTERVAL(\`${dateIS_IS_WITHIN_INTERVAL}\`, \`${dateStartIS_IS_WITHIN_INTERVAL}\`, \`${dateEndIS_IS_WITHIN_INTERVAL}\`)`;
         default:
             throw new Error('unsupported function: ' + name);
     }
 }
-// Parses a function with parameters: form, expression, condition?
-function parseMathFunction(name, revToks) {
-    consume(revToks, 1 /* LParen */);
-    const form = parseExpression(revToks, 5 /* Comma */);
-    consume(revToks, 5 /* Comma */);
-    const exp = parseExpression(revToks, 5 /* Comma */);
-    const tok = revToks.pop();
-    switch (tok.type) {
-        case 2 /* RParen */:
-            return `${name}(${form}, \`${exp}\`)`;
-        case 5 /* Comma */:
-            const condition = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 2 /* RParen */);
-            return `${name}(${form}, \`${exp}\`, \`${condition}\`)`;
-        default:
-            throw unexpectedTokenError(tok, revToks);
+/*
+  Parses a function call expression.
+  stringifyParams tells how many parameters the function has
+  and if they need to be stringified.
+  For example, the indicator function
+    SUM(forms[0], $age, $gender = 'male')
+  can be parsed with
+    parseFunctionWithParams('SUM', revToks, false, true, true)
+  resulting in the following JavaScript:
+    SUM(forms[0], `age`, `gender === 'male'`)
+  stringifyParams.length >= 2 and the last parameter is considered optional.
+*/
+function parseFunctionWithParams(name, revToks, ...stringifyParams) {
+    if (stringifyParams.length < 2) {
+        throw new Error('parseFunctionWithParams only works with at least 2 parameters');
     }
-}
-// Parses a function with parameters: form, fieldName?, condition?
-function parseFieldFunction(name, revToks, hasField, canHaveCond) {
     consume(revToks, 1 /* LParen */);
-    let js = name + '(' + parseExpression(revToks, 5 /* Comma */);
-    if (hasField) {
+    let js = name + '(';
+    const firstParam = parseExpression(revToks, 5 /* Comma */);
+    js += stringifyParams[0] ? `\`${firstParam}\`` : firstParam;
+    for (let i = 1; i < stringifyParams.length - 1; i++) {
         consume(revToks, 5 /* Comma */);
-        const fieldName = consume(revToks, 20 /* Name */).text.slice(1);
-        js += `, \`${fieldName}\``;
+        const param = parseExpression(revToks, 5 /* Comma */);
+        js += stringifyParams[i] ? `, \`${param}\`` : `, ${param}`;
     }
-    const tok = revToks.pop();
-    if (tok.type === 2 /* RParen */) {
-        return js + ')';
-    }
-    if (!canHaveCond || tok.type !== 5 /* Comma */) {
-        throw unexpectedTokenError(tok, revToks);
-    }
-    const condition = parseExpression(revToks, 5 /* Comma */);
-    consume(revToks, 2 /* RParen */);
-    return js + `, \`${condition}\`)`;
-}
-// LAST has parameters: form, expression, date?
-// where date is a string constant.
-function parseLast(revToks) {
-    consume(revToks, 1 /* LParen */);
-    const form = parseExpression(revToks, 5 /* Comma */);
-    consume(revToks, 5 /* Comma */);
-    const exp = parseExpression(revToks, 5 /* Comma */);
+    // Last parameter, optional:
     const tok = revToks.pop();
     switch (tok.type) {
         case 2 /* RParen */:
-            return `LAST(${form}, \`${exp}\`)`;
+            return js + ')';
         case 5 /* Comma */:
-            const date = consume(revToks, 17 /* String */).text;
+            const lastParam = parseExpression(revToks, 5 /* Comma */);
             consume(revToks, 2 /* RParen */);
-            return `LAST(${form}, \`${exp}\`, ${date})`;
+            const stringify = stringifyParams[stringifyParams.length - 1];
+            return js + (stringify ? `, \`${lastParam}\`)` : `, ${lastParam})`);
         default:
             throw unexpectedTokenError(tok, revToks);
     }
 }
-// REPEAT has parameters: form, array, funcIndent, expression, condition?
-function parseRepeat(revToks) {
-    consume(revToks, 1 /* LParen */);
-    const form = parseExpression(revToks, 5 /* Comma */);
-    consume(revToks, 5 /* Comma */);
-    const array = parseExpression(revToks, 5 /* Comma */);
-    consume(revToks, 5 /* Comma */);
-    const funcIdent = consume(revToks, 19 /* Indent */).text;
-    consume(revToks, 5 /* Comma */);
-    const exp = parseExpression(revToks, 5 /* Comma */);
-    const tok = revToks.pop();
-    switch (tok.type) {
-        case 2 /* RParen */:
-            return `REPEAT(${form}, ${array}, ${funcIdent}, \"${exp}\")`;
-        case 5 /* Comma */:
-            const condition = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 2 /* RParen */);
-            return `REPEAT(${form}, ${array}, ${funcIdent}, \"${exp}\", \"${condition}\")`;
-        default:
-            throw unexpectedTokenError(tok, revToks);
-    }
-}
+const functionParams = {
+    'SUM': [false, true, true],
+    'MEAN': [false, true, true],
+    'MAX': [false, true, true],
+    'MEDIAN': [false, true, true],
+    'MODE': [false, true, true],
+    'COUNT_FORMS': [false, true],
+    'COUNT_REPS': [false, true],
+    'COUNT_FORMS_UNIQUE': [false, true, true],
+    'ALL_VALUES_OF': [false, true],
+    'PERCENT': [false, false],
+    'LAST': [false, true, false],
+    'REPEAT': [false, false, false, true, true],
+    'EVALUATE': [false, false, false],
+    'FILTER_BY': [false, true],
+    'APPLY': [false, true, true],
+    'GET_AGE': [false, false],
+    'LEN': [false, false],
+    'CONSOLE_LOG': [false, false],
+    'JOIN_FORMS': [false, false, true, true],
+    'JOIN_REPEATING_SLIDES': [false, false, true, true, true, true],
+    'FROM_REPS': [false, true],
+    'ISIN': [false, false],
+    'OP': [false, false, true],
+    'GET_LABELS': [false, false],
+    'BUILD_DATASET': [false, false],
+    'ROUND': [false, false],
+    'IS_BEFORE': [false, false],
+    'IS_AFTER': [false, false],
+    'IS_WITHIN_INTERVAL': [false, false, false],
+};
 
 /**
  * @license
