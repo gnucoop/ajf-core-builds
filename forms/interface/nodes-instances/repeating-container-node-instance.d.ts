@@ -19,15 +19,6 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfRepeatingContainerNode } from '../nodes/repeating-container-node';
-import { AjfContainerNodeInstance } from './container-node-instance';
-import { AjfRepeatingNodeInstance } from './repeating-node-instance';
-/**
- * A node instance containing an AjfRepeatingContainerNode node.
- */
-export interface AjfRepeatingContainerNodeInstance extends AjfContainerNodeInstance, AjfRepeatingNodeInstance {
-    /**
-     * The blueprint AjfRepeatingContainerNode.
-     */
-    node: AjfRepeatingContainerNode;
-}
+import { AjfRepeatingSlideInstance } from '../slides-instances/repeating-slide-instance';
+import { AjfNodeGroupInstance } from './node-group-instance';
+export declare type AjfRepeatingContainerNodeInstance = AjfNodeGroupInstance | AjfRepeatingSlideInstance;

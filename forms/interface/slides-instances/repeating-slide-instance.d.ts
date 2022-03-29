@@ -19,12 +19,12 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfRepeatingContainerNodeInstance } from '../nodes-instances/repeating-container-node-instance';
+import { AjfBaseRepeatingContainerNodeInstance } from '../nodes-instances/base-repeating-container-node-instance';
 import { AjfRepeatingSlide } from '../slides/repeating-slide';
 import { AjfBaseSlideInstance } from './base-slide-instance';
 /**
  * An AjfBaseSlideInstance with node of type AjfRepeatingSlide
  */
-export interface AjfRepeatingSlideInstance extends AjfBaseSlideInstance, AjfRepeatingContainerNodeInstance {
+export interface AjfRepeatingSlideInstance extends AjfBaseSlideInstance, Omit<AjfBaseRepeatingContainerNodeInstance, 'node'> {
     node: AjfRepeatingSlide;
 }

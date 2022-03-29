@@ -20,8 +20,8 @@
  *
  */
 import { AjfMapWidget } from '../widgets/map-widget';
-import { AjfWidgetInstance } from './widget-instance';
-export interface AjfMapWidgetInstance extends AjfWidgetInstance {
+import { AjfBaseWidgetInstance } from './base-widget-instance';
+export interface AjfMapWidgetInstance extends AjfBaseWidgetInstance {
     widget: AjfMapWidget;
     coordinate: number[];
 }

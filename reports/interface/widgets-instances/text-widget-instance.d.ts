@@ -20,8 +20,8 @@
  *
  */
 import { AjfTextWidget } from '../widgets/text-widget';
-import { AjfWidgetInstance } from './widget-instance';
-export interface AjfTextWidgetInstance extends AjfWidgetInstance {
+import { AjfBaseWidgetInstance } from './base-widget-instance';
+export interface AjfTextWidgetInstance extends AjfBaseWidgetInstance {
     widget: AjfTextWidget;
     htmlText: string;
 }

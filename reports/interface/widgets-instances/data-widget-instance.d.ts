@@ -20,8 +20,8 @@
  *
  */
 import { AjfDataWidget } from '../widgets/data-widget';
-import { AjfWidgetInstance } from './widget-instance';
-export interface AjfDataWidgetInstance extends AjfWidgetInstance {
+import { AjfBaseWidgetInstance } from './base-widget-instance';
+export interface AjfDataWidgetInstance extends AjfBaseWidgetInstance {
     widget: AjfDataWidget;
     dataset: any;
 }

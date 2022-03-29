@@ -66,9 +66,10 @@ class AjfFilePreview {
     constructor(vcr) {
         this._valueSub = Subscription.EMPTY;
         const input = vcr.parentInjector.get(AjfFileInput, null);
+        const isValueGuard = (value) => value != null;
         if (input) {
             this._value = input.value;
-            this._valueSub = input.valueChange.pipe(filter(value => value != null)).subscribe(value => {
+            this._valueSub = input.valueChange.pipe(filter(isValueGuard)).subscribe(value => {
                 this._value = value;
             });
         }
@@ -113,8 +114,7 @@ class AjfFileInput {
                 this._processFileUpload(value[0]);
             }
         }
-        else if (value == null ||
-            (isAjfFile(value) && isValidMimeType(value.type, this.accept))) {
+        else if (value == null || (isAjfFile(value) && isValidMimeType(value.type, this.accept))) {
             this._value = value;
             this._valueChange.emit(this._value);
             this._cdr.detectChanges();
@@ -164,7 +164,7 @@ class AjfFileInput {
         if (!isValidMimeType(type, this.accept)) {
             return;
         }
-        reader.onload = (e) => {
+        reader.onload = (_) => {
             const content = reader.result;
             if (typeof content !== 'string') {
                 return;

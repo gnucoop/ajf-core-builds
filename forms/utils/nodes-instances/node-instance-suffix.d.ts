@@ -19,8 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
+import { AjfBaseNodeInstance } from '../../interface/nodes-instances/base-node-instance';
 /**
  * It creates the node instance suffix.
  */
-export declare function nodeInstanceSuffix(instance: AjfNodeInstance): string;
+export declare function nodeInstanceSuffix(instance: AjfBaseNodeInstance): string;

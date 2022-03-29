@@ -20,11 +20,12 @@
  *
  */
 import { AjfCondition } from '@ajf/core/models';
+import { AjfBaseNode } from './base-node';
 import { AjfNode } from './node';
 /**
  * An AjfNode that contains other AjfNodes.
  */
-export interface AjfContainerNode extends AjfNode {
+export interface AjfContainerNode extends AjfBaseNode {
     /**
      * The children nodes
      */

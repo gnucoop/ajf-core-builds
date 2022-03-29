@@ -20,7 +20,7 @@
  *
  */
 import { InputType } from '../forms/table-form-control';
-import { AjfField } from './field';
+import { AjfBaseField } from './base-field';
 import { AjfFieldType } from './field-type';
 export interface AjfTableCell {
     /**
@@ -64,7 +64,7 @@ export interface AjfTableCell {
  * }
  *
  */
-export interface AjfTableField extends AjfField {
+export interface AjfTableField extends AjfBaseField {
     columnTypes: InputType[];
     fieldType: AjfFieldType.Table;
     /**

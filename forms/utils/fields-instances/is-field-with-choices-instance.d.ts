@@ -19,9 +19,10 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfFieldWithChoicesInstance } from '../../interface/fields-instances/field-with-choices-instance';
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
 /**
  * It is true if the nodeInstance is a fieldInstance and
  * if the node of instance is a field with choices.
  */
-export declare function isFieldWithChoicesInstance(nodeInstance: AjfNodeInstance): boolean;
+export declare function isFieldWithChoicesInstance(instance: AjfNodeInstance): instance is AjfFieldWithChoicesInstance<any>;

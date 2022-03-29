@@ -20,7 +20,8 @@
  *
  */
 import { AjfNode } from '../../interface/nodes/node';
+import { AjfContainerNode } from '../../interface/nodes/container-node';
 /**
  * It is true if node is AjfNodeGroup or slides nodes.
  */
-export declare function isContainerNode(node: AjfNode): boolean;
+export declare function isContainerNode(node: AjfNode): node is AjfContainerNode;

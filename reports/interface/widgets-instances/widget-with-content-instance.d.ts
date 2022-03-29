@@ -19,7 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfBaseWidgetInstance } from './base-widget-instance';
 import { AjfWidgetInstance } from './widget-instance';
-export interface AjfWidgetWithContentInstance extends AjfWidgetInstance {
+export interface AjfWidgetWithContentInstance extends AjfBaseWidgetInstance {
     content: AjfWidgetInstance[];
 }

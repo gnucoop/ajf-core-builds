@@ -19,8 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfField } from '../../interface/fields/field';
 import { AjfNode } from '../../interface/nodes/node';
 /**
  * It is true if node is an AjfField.
  */
-export declare function isField(node: AjfNode): boolean;
+export declare function isField(node: AjfNode): node is AjfField;

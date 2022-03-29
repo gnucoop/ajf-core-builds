@@ -19,12 +19,12 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfNode } from './node';
+import { AjfBaseNode } from './base-node';
 import { AjfNodeType } from './node-type';
 /**
  * Used by the formBuilder.
  * Represents an empty slot in which to insert a new ajfNode.
  */
-export interface AjfFieldNodeLink extends AjfNode {
+export interface AjfFieldNodeLink extends AjfBaseNode {
     nodeType: AjfNodeType.AjfFieldNodeLink;
 }

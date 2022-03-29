@@ -20,7 +20,9 @@
  *
  */
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
+import { AjfRepeatingSlideInstance } from '../../interface/slides-instances/repeating-slide-instance';
+import { AjfSlideInstance } from '../../interface/slides-instances/slide-instance';
 /**
  * It is true if nodeInstance is relative to AjfRepeatingSlide node or AjfSlide node.
  */
-export declare function isSlidesInstance(nodeInstance: AjfNodeInstance): boolean;
+export declare function isSlidesInstance(nodeInstance: AjfNodeInstance): nodeInstance is AjfRepeatingSlideInstance | AjfSlideInstance;

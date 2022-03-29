@@ -20,8 +20,8 @@
  *
  */
 import { AjfFormulaWidget } from '../widgets/formula-widget';
-import { AjfWidgetInstance } from './widget-instance';
-export interface AjfFormulaWidgetInstance extends AjfWidgetInstance {
+import { AjfBaseWidgetInstance } from './base-widget-instance';
+export interface AjfFormulaWidgetInstance extends AjfBaseWidgetInstance {
     widget: AjfFormulaWidget;
     formula: string;
 }

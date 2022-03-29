@@ -19,7 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfWidget } from './widget';
-export interface AjfTextWidget extends AjfWidget {
+import { AjfBaseWidget } from './base-widget';
+import { AjfWidgetType } from './widget-type';
+export interface AjfTextWidget extends AjfBaseWidget {
+    widgetType: AjfWidgetType.Text;
     htmlText: string;
 }

@@ -19,11 +19,12 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfBaseNodeInstance } from './base-node-instance';
 import { AjfNodeInstance } from './node-instance';
 /**
  * An AjfNodeInstance that contains other AjfNodeInstances.
  */
-export interface AjfContainerNodeInstance extends AjfNodeInstance {
+export interface AjfContainerNodeInstance extends AjfBaseNodeInstance {
     /**
      * The children NodeInstances
      */

@@ -19,5 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfWidgetType } from './widget-type';
 import { AjfWidgetWithContent } from './widget-with-content';
-export declare type AjfColumnWidget = AjfWidgetWithContent;
+export interface AjfColumnWidget extends AjfWidgetWithContent {
+    widgetType: AjfWidgetType.Column;
+}

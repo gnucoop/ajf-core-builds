@@ -19,9 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfField } from './field';
+import { AjfBaseField } from './base-field';
 import { AjfFieldType } from './field-type';
-export interface AjfRangeField extends AjfField {
+export interface AjfRangeField extends AjfBaseField {
     fieldType: AjfFieldType.Range;
     end?: number;
     start?: number;

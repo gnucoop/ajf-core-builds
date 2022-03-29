@@ -22,7 +22,9 @@
 import { AjfFormula } from '@ajf/core/models';
 import { AjfTableDataset } from '../dataset/table-dataset';
 import { AjfDataWidget } from './data-widget';
+import { AjfWidgetType } from './widget-type';
 export interface AjfDynamicTableWidget extends AjfDataWidget {
+    widgetType: AjfWidgetType.DynamicTable;
     /**
      * it should return a AjfTableCell[][]
      */

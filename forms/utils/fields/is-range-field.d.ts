@@ -20,7 +20,8 @@
  *
  */
 import { AjfField } from '../../interface/fields/field';
+import { AjfRangeField } from '../../interface/fields/range-field';
 /**
  * It is true if the field is a range field
  */
-export declare function isRangeField(field: AjfField): boolean;
+export declare function isRangeField(field: AjfField): field is AjfRangeField;

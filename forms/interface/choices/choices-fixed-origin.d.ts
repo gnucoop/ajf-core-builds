@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfChoicesOrigin } from './choices-origin';
-export interface AjfChoicesFixedOrigin<T> extends AjfChoicesOrigin<T> {
+import { AjfBaseChoicesOrigin } from './base-choices-origin';
+export interface AjfChoicesFixedOrigin<T> extends AjfBaseChoicesOrigin<T> {
     type: 'fixed';
 }

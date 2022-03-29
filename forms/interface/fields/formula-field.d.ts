@@ -19,11 +19,11 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfField } from './field';
+import { AjfBaseField } from './base-field';
 import { AjfFieldType } from './field-type';
 /**
  * An AjfField of type Formula
  */
-export interface AjfFormulaField extends AjfField {
+export interface AjfFormulaField extends AjfBaseField {
     fieldType: AjfFieldType.Formula;
 }

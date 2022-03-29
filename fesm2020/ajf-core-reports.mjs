@@ -2008,6 +2008,457 @@ function evaluateAggregation(aggregation, formulas, context) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const isChartWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.Chart;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isDynamicTableWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.DynamicTable;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isFormulaWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.Formula;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isImageContainerWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.ImageContainer;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isImageWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.Image;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isMapWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.Map;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isWidgetWithContent = (widget) => {
+    return (widget != null &&
+        (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout));
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isTableWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.Table;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isTextWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.Text;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isChartWidgetInstance = (instance) => {
+    return instance != null && isChartWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isDynamicTableWidgetInstance = (instance) => {
+    return instance != null && isDynamicTableWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isFormulaWidgetInstance = (instance) => {
+    return instance != null && isFormulaWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isImageContainerWidgetInstance = (instance) => {
+    return instance != null && isImageContainerWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isImageWidgetInstance = (instance) => {
+    return instance != null && isImageWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isMapWidgetInstance = (instance) => {
+    return instance != null && isMapWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isTableWidgetInstance = (instance) => {
+    return instance != null && isTableWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isTextWidgetInstance = (instance) => {
+    return instance != null && isTextWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isWidgetWithContentInstance = (instance) => {
+    return instance != null && isWidgetWithContent(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 function createWidgetInstance(widget, context, _ts, variables = []) {
     let filter = undefined;
     if (widget.filter != null && widget.filter.schema != null) {
@@ -2095,15 +2546,13 @@ function trFormula(f, context, ts) {
  */
 function widgetToWidgetInstance(widget, context, ts, variables = []) {
     const wi = createWidgetInstance(widget, context, ts, variables);
-    if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
-        const wwc = widget;
-        const wwci = wi;
+    if (isWidgetWithContent(widget) && isWidgetWithContentInstance(wi)) {
         let content = [];
-        wwc.content.forEach(c => {
-            if (wwc.repetitions != null) {
-                wwci.repetitions = evaluateExpression(wwc.repetitions.formula, context);
-                if (typeof wwci.repetitions === 'number' && wwci.repetitions > 0) {
-                    for (let i = 0; i < wwci.repetitions; i++) {
+        widget.content.forEach(c => {
+            if (widget.repetitions != null) {
+                wi.repetitions = evaluateExpression(widget.repetitions.formula, context);
+                if (typeof wi.repetitions === 'number' && wi.repetitions > 0) {
+                    for (let i = 0; i < wi.repetitions; i++) {
                         content.push(widgetToWidgetInstance(c, { ...context, '$repetition': i }, ts, variables));
                     }
                 }
@@ -2111,13 +2560,14 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             else {
                 content.push(widgetToWidgetInstance(c, context, ts, variables));
             }
-            wwci.content = content;
+            wi.content = content;
         });
     }
-    else if (widget.widgetType === AjfWidgetType.Chart) {
-        const cw = { ...{ option: {} }, ...widget };
-        const cwi = wi;
-        const labels = cw.labels instanceof Array ? cw.labels : [cw.labels];
+    else if (isChartWidget(widget) && isChartWidgetInstance(wi)) {
+        if (widget.option == null) {
+            widget.option = {};
+        }
+        const labels = widget.labels instanceof Array ? widget.labels : [widget.labels];
         const evLabels = labels.map(l => {
             let evf = evaluateExpression(l.formula, context);
             try {
@@ -2134,8 +2584,8 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             catch (_e) { }
             return evf;
         });
-        cwi.labels = cw.labels instanceof Array ? evLabels : evLabels[0];
-        cwi.datasets = cw.dataset.map(d => {
+        wi.labels = widget.labels instanceof Array ? evLabels : evLabels[0];
+        wi.datasets = widget.dataset.map(d => {
             let ds = {
                 ...(d.options || {}),
                 data: evaluateAggregation(d.aggregation, d.formula, context),
@@ -2155,12 +2605,14 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             }
             return ds;
         });
-        cwi.data = { labels: cwi.labels, datasets: cwi.datasets };
-        cwi.chartType = chartToChartJsType(cw.type || cw.chartType);
-        cwi.exportable =
-            cw.exportable && (cw.exportable === true || cw.exportable === 'true') ? true : false;
-        if (cw.options != null && cw.options.plugins != null) {
-            const plugins = cw.options.plugins;
+        wi.data = { labels: wi.labels, datasets: wi.datasets };
+        wi.chartType = chartToChartJsType(widget.type || widget.chartType);
+        wi.exportable =
+            widget.exportable && (widget.exportable === true || widget.exportable === 'true')
+                ? true
+                : false;
+        if (widget.options != null && widget.options.plugins != null) {
+            const plugins = widget.options.plugins;
             const pluginNames = Object.keys(plugins);
             pluginNames.forEach(pluginName => {
                 const plugin = plugins[pluginName];
@@ -2176,17 +2628,17 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             });
         }
     }
-    else if (widget.widgetType === AjfWidgetType.Table) {
-        const tw = widget;
-        const twi = wi;
-        twi.dataset = tw.dataset.map(row => row.map(cell => {
+    else if (isTableWidget(widget) && isTableWidgetInstance(wi)) {
+        wi.dataset = widget.dataset.map(row => row.map(cell => {
             return cell.formula instanceof Array
                 ? cell.formula.map(f => trFormula(f, context, ts))
                 : trFormula(cell.formula, context, ts);
         }));
-        twi.exportable =
-            tw.exportable && (tw.exportable === true || tw.exportable === 'true') ? true : false;
-        twi.data = (tw.dataset || []).map(row => row.map(cell => {
+        wi.exportable =
+            widget.exportable && (widget.exportable === true || widget.exportable === 'true')
+                ? true
+                : false;
+        wi.data = (widget.dataset || []).map(row => row.map(cell => {
             let evf = '';
             try {
                 evf =
@@ -2197,23 +2649,23 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             catch (_e) { }
             return {
                 value: evf,
-                style: { ...tw.cellStyles, ...cell.style },
+                style: { ...widget.cellStyles, ...cell.style },
                 rowspan: cell.rowspan,
                 colspan: cell.colspan,
             };
         }));
     }
-    else if (widget.widgetType === AjfWidgetType.DynamicTable) {
-        const tdw = widget;
-        const tdwi = wi;
-        tdwi.dataset = tdw.dataset.map((cell) => {
+    else if (isDynamicTableWidget(widget) && isDynamicTableWidgetInstance(wi)) {
+        wi.dataset = widget.dataset.map((cell) => {
             return cell.formula instanceof Array
                 ? cell.formula.map(f => trFormula(f, context, ts))
                 : trFormula(cell.formula, context, ts);
         });
-        tdwi.exportable =
-            tdw.exportable && (tdw.exportable === true || tdw.exportable === 'true') ? true : false;
-        let dataset = evaluateExpression(tdw.rowDefinition.formula, context) || [];
+        wi.exportable =
+            widget.exportable && (widget.exportable === true || widget.exportable === 'true')
+                ? true
+                : false;
+        let dataset = evaluateExpression(widget.rowDefinition.formula, context) || [];
         dataset = (dataset || []).map((row) => row.map(cell => {
             let trf = cell.value;
             try {
@@ -2230,7 +2682,7 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             catch (_e) { }
             return { ...cell, value: trf };
         }));
-        const header = (tdw.dataset || []).map(cell => {
+        const header = (widget.dataset || []).map(cell => {
             let evf = '';
             try {
                 evf =
@@ -2241,55 +2693,49 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             catch (_e) { }
             return {
                 value: evf,
-                style: { ...tdw.cellStyles, ...cell.style },
+                style: { ...widget.cellStyles, ...cell.style },
                 rowspan: cell.rowspan,
                 colspan: cell.colspan,
             };
         });
-        tdwi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
+        wi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
     }
-    else if (widget.widgetType === AjfWidgetType.Image) {
-        const iw = widget;
-        const iwi = wi;
-        if (iw.flag) {
-            iwi.flag = evaluateExpression(iw.flag.formula, context);
+    else if (isImageWidget(widget) && isImageWidgetInstance(wi)) {
+        if (widget.flag) {
+            wi.flag = evaluateExpression(widget.flag.formula, context);
         }
-        if (iw.icon) {
-            iwi.icon = evaluateExpression(iw.icon.formula, context);
+        if (widget.icon) {
+            wi.icon = evaluateExpression(widget.icon.formula, context);
         }
-        if (iw.url) {
-            iwi.url = evaluateExpression(iw.url.formula, context);
+        if (widget.url) {
+            wi.url = evaluateExpression(widget.url.formula, context);
         }
     }
-    else if (widget.widgetType === AjfWidgetType.ImageContainer) {
-        const icw = widget;
-        const icwi = wi;
-        if (icw.flags) {
-            icwi.flags =
-                icw.flags instanceof Array
-                    ? icw.flags.map(f => evaluateExpression(f.formula, context))
-                    : evaluateExpression(icw.flags.formula, context);
+    else if (isImageContainerWidget(widget) && isImageContainerWidgetInstance(wi)) {
+        if (widget.flags) {
+            wi.flags =
+                widget.flags instanceof Array
+                    ? widget.flags.map(f => evaluateExpression(f.formula, context))
+                    : evaluateExpression(widget.flags.formula, context);
         }
-        if (icw.icons) {
-            icwi.icons =
-                icw.icons instanceof Array
-                    ? icw.icons.map(f => evaluateExpression(f.formula, context))
-                    : evaluateExpression(icw.icons.formula, context);
+        if (widget.icons) {
+            wi.icons =
+                widget.icons instanceof Array
+                    ? widget.icons.map(f => evaluateExpression(f.formula, context))
+                    : evaluateExpression(widget.icons.formula, context);
         }
-        if (icw.urls) {
-            icwi.urls =
-                icw.urls instanceof Array
-                    ? icw.urls.map(f => evaluateExpression(f.formula, context))
-                    : evaluateExpression(icw.urls.formula, context);
+        if (widget.urls) {
+            wi.urls =
+                widget.urls instanceof Array
+                    ? widget.urls.map(f => evaluateExpression(f.formula, context))
+                    : evaluateExpression(widget.urls.formula, context);
         }
     }
-    else if (widget.widgetType === AjfWidgetType.Text) {
-        const tew = widget;
-        const tewi = wi;
+    else if (isTextWidget(widget) && isTextWidgetInstance(wi)) {
         const formulaRegEx = /\[{2}(.+?)\]{2}/g;
         const matches = [];
         let match;
-        let htmlText = tew.htmlText;
+        let htmlText = widget.htmlText;
         while ((match = formulaRegEx.exec(htmlText))) {
             const idx = match.index;
             const len = match[0].length;
@@ -2306,17 +2752,13 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             }
             htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
         });
-        tewi.htmlText = htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
+        wi.htmlText = htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
     }
-    else if (widget.widgetType === AjfWidgetType.Formula) {
-        const fw = widget;
-        const fwi = wi;
-        fwi.formula = evaluateExpression(fw.formula.formula, context);
+    else if (isFormulaWidget(widget) && isFormulaWidgetInstance(wi)) {
+        wi.formula = evaluateExpression(widget.formula.formula, context);
     }
-    else if (widget.widgetType === AjfWidgetType.Map) {
-        const mw = widget;
-        const mwi = wi;
-        mwi.coordinate = evaluateExpression(mw.coordinate.formula, context);
+    else if (isMapWidget(widget) && isMapWidgetInstance(wi)) {
+        wi.coordinate = evaluateExpression(widget.coordinate.formula, context);
     }
     else if (widget.widgetType > 100) {
         const iiFn = componentsMap[widget.widgetType] != null
@@ -2965,9 +3407,7 @@ function createSingleChoiceWidget(field) {
     else {
         dataset = choices.map((c, index) => createDataset({
             label: `${c.label}`,
-            formula: [
-                createFormula({ formula: `[COUNT_FORMS(forms,"${field.name}==='${c.value}'")]` }),
-            ],
+            formula: [createFormula({ formula: `[COUNT_FORMS(forms,"${field.name}==='${c.value}'")]` })],
             options: {
                 backgroundColor: backgroundColor$1[index],
                 stack: `Stack ${index}`,
@@ -3101,7 +3541,7 @@ function automaticReport(form, id) {
     form.nodes?.forEach(slide => {
         const slideWidgets = [];
         const isInRepeating = slide.nodeType === AjfNodeType.AjfRepeatingSlide;
-        slide.nodes.forEach((field) => {
+        slide.nodes.forEach(field => {
             field.name = isInRepeating ? field.name + '__' : field.name;
             // create the title of the widget.
             const fieldTitleWidget = createWidget({
@@ -3149,7 +3589,7 @@ function automaticReport(form, id) {
             reportWidgets.push(columnWidget);
         }
     });
-    report.content = createReportContainer({ content: [...reportWidgets] });
+    report.content = createReportContainer({ content: [...reportWidgets], styles: {} });
     return report;
 }
 

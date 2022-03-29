@@ -19,8 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfContainerNodeInstance } from '../../interface/nodes-instances/container-node-instance';
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
 /**
  * It is true if nodeInstance is realtive to an AjfNodeGroup or slides nodes.
  */
-export declare function isContainerNodeInstance(nodeInstance: AjfNodeInstance): boolean;
+export declare function isContainerNodeInstance(nodeInstance: AjfNodeInstance): nodeInstance is AjfContainerNodeInstance;

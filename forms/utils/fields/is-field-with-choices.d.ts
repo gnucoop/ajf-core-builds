@@ -20,7 +20,8 @@
  *
  */
 import { AjfField } from '../../interface/fields/field';
+import { AjfFieldWithChoices } from '../../interface/fields/field-with-choices';
 /**
  * It is true if the field type is a SingleChoice or MultipleChoice.
  */
-export declare function isFieldWithChoices(field: AjfField): boolean;
+export declare function isFieldWithChoices<T = any>(field: AjfField): field is AjfFieldWithChoices<T>;

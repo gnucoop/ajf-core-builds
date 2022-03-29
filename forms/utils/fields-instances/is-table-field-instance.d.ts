@@ -19,9 +19,10 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfTableFieldInstance } from '../../interface/fields-instances/table-field-instance';
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
 /**
- * It is true if the nodeInstance is a fieldInstance and
+ * It is true if the instance is a fieldInstance and
  * if the node of instance is a Table field.
  */
-export declare function isTableFieldInstance(nodeInstance: AjfNodeInstance): boolean;
+export declare function isTableFieldInstance(instance: AjfNodeInstance): instance is AjfTableFieldInstance;

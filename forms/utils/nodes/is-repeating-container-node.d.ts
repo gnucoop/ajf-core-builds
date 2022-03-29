@@ -20,7 +20,8 @@
  *
  */
 import { AjfNode } from '../../interface/nodes/node';
+import { AjfRepeatingContainerNode } from '../../interface/nodes/repeating-container-node';
 /**
  * It is true if node is AjfNodeGroup or AjfRepeatingSlide.
  */
-export declare function isRepeatingContainerNode(node: AjfNode): boolean;
+export declare function isRepeatingContainerNode(node: AjfNode): node is AjfRepeatingContainerNode;

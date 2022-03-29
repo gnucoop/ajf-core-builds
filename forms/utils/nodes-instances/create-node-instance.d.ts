@@ -19,8 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
-export declare type AjfNodeInstanceCreate = Pick<AjfNodeInstance, 'node'> & Partial<AjfNodeInstance>;
+import { AjfBaseNodeInstance } from '../../interface/nodes-instances/base-node-instance';
+export declare type AjfNodeInstanceCreate = Pick<AjfBaseNodeInstance, 'node'> & Partial<AjfBaseNodeInstance>;
 /**
  * It creates an AjfNodeInstance.
  * If instance.prefix is defined copy it else assign empty array.
@@ -28,4 +28,4 @@ export declare type AjfNodeInstanceCreate = Pick<AjfNodeInstance, 'node'> & Part
  * Assign empty array to conditionalBranches.
  * Assign new eventEmitter to updatedEvt.
  */
-export declare function createNodeInstance(instance: AjfNodeInstanceCreate): AjfNodeInstance;
+export declare function createNodeInstance(instance: AjfNodeInstanceCreate): AjfBaseNodeInstance;

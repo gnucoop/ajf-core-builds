@@ -19,8 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfFieldInstance } from '../../interface/fields-instances/field-instance';
 import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
 /**
  * It is true if the nodeInstance is relative to a AjfField.
  */
-export declare function isFieldInstance(nodeInstance: AjfNodeInstance): boolean;
+export declare function isFieldInstance(nodeInstance: AjfNodeInstance): nodeInstance is AjfFieldInstance;

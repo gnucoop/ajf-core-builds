@@ -19,9 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfBaseChoicesOrigin } from './base-choices-origin';
 import { AjfChoicesFunction } from './choices-function';
-import { AjfChoicesOrigin } from './choices-origin';
-export interface AjfChoicesFunctionOrigin<T> extends AjfChoicesOrigin<T> {
+export interface AjfChoicesFunctionOrigin<T> extends AjfBaseChoicesOrigin<T> {
     type: 'function';
     generator: AjfChoicesFunction<T>;
 }

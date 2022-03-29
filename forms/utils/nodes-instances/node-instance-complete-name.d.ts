@@ -19,8 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfNodeInstance } from '../../interface/nodes-instances/node-instance';
+import { AjfBaseNodeInstance } from '../../interface/nodes-instances/base-node-instance';
 /**
  * It creates the complete name of the instance.
  */
-export declare function nodeInstanceCompleteName(instance: AjfNodeInstance): string;
+export declare function nodeInstanceCompleteName(instance: AjfBaseNodeInstance): string;

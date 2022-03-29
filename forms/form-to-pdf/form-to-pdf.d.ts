@@ -22,4 +22,4 @@
 import { AjfContext } from '@ajf/core/models';
 import { Content, PageOrientation, TCreatedPdf } from '@ajf/core/pdfmake';
 import { AjfForm } from '../interface/forms/form';
-export declare function createFormPdf(form: AjfForm, translate?: (s: string) => string, orientation?: PageOrientation, header?: Content[], context?: AjfContext): TCreatedPdf;
+export declare function createFormPdf(form: AjfForm, translate?: (_: string) => string, orientation?: PageOrientation, header?: Content[], context?: AjfContext): TCreatedPdf;

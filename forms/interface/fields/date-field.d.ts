@@ -19,12 +19,12 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfField } from './field';
+import { AjfBaseField } from './base-field';
 import { AjfFieldType } from './field-type';
 /**
  * An AjfField of type Date.
  */
-export interface AjfDateField extends AjfField {
+export interface AjfDateField extends AjfBaseField {
     fieldType: AjfFieldType.Date;
     /**
      * The min selectable date of the calendar.

@@ -1141,7 +1141,7 @@ function MAX(forms, fieldName) {
     forms.forEach(form => {
         if (form[fieldName] == null && form.reps != null) {
             Object.keys(form.reps).forEach(rep => {
-                form.reps[rep].forEach(rform => {
+                form.reps[rep].forEach(_rform => {
                     if (form[fieldName] != null &&
                         !isNaN(form[fieldName]) &&
                         form[fieldName] > max) {
