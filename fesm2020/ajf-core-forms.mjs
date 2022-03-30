@@ -4470,18 +4470,22 @@ class AjfBaseFieldComponent {
                 const control = ctrl;
                 const s = this._warningAlertService
                     .showWarningAlertPrompt(this.instance.warningResults.filter(w => w.result).map(w => w.warning))
-                    .subscribe((r) => {
-                    if (r.result) {
-                        control.setValue(null);
-                    }
-                }, (_e) => {
-                    if (s) {
-                        s.unsubscribe();
-                    }
-                }, () => {
-                    if (s) {
-                        s.unsubscribe();
-                    }
+                    .subscribe({
+                    next: (r) => {
+                        if (r.result) {
+                            control.setValue(null);
+                        }
+                    },
+                    error: (_e) => {
+                        if (s) {
+                            s.unsubscribe();
+                        }
+                    },
+                    complete: () => {
+                        if (s) {
+                            s.unsubscribe();
+                        }
+                    },
                 });
             });
         }
@@ -4777,9 +4781,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
  * @class AjfFormField
  */
 class AjfFormField {
-    constructor(_cdr, _cfr) {
+    constructor(_cdr) {
         this._cdr = _cdr;
-        this._cfr = _cfr;
         /**
          * if true mean that component need to be a readonly component
          *
@@ -4850,8 +4853,7 @@ class AjfFormField {
             ? componentDef.readOnlyComponent
             : componentDef.component;
         try {
-            const componentFactory = this._cfr.resolveComponentFactory(component);
-            const componentRef = vcr.createComponent(componentFactory);
+            const componentRef = vcr.createComponent(component);
             this._componentInstance = componentRef.instance;
             this._componentInstance.instance = this._instance;
             const componentInstance = this._componentInstance;
@@ -4869,11 +4871,11 @@ class AjfFormField {
         }
     }
 }
-AjfFormField.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfFormField, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ComponentFactoryResolver }], target: i0.ɵɵFactoryTarget.Directive });
+AjfFormField.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfFormField, deps: [{ token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Directive });
 AjfFormField.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfFormField, inputs: { instance: "instance", readonly: "readonly" }, viewQueries: [{ propertyName: "fieldHost", first: true, predicate: AjfFieldHost, descendants: true }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfFormField, decorators: [{
             type: Directive
-        }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.ComponentFactoryResolver }]; }, propDecorators: { fieldHost: [{
+        }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }]; }, propDecorators: { fieldHost: [{
                 type: ViewChild,
                 args: [AjfFieldHost]
             }], instance: [{
@@ -5303,18 +5305,22 @@ class AjfFormRenderer {
         let s = this._rendererService
             .addGroup(nodeGroup)
             .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
-            .subscribe(r => {
-            if (r && this.formSlider != null) {
-                this.formSlider.slide({ dir: 'down' });
-            }
-        }, _e => {
-            if (s) {
-                s.unsubscribe();
-            }
-        }, () => {
-            if (s) {
-                s.unsubscribe();
-            }
+            .subscribe({
+            next: r => {
+                if (r && this.formSlider != null) {
+                    this.formSlider.slide({ dir: 'down' });
+                }
+            },
+            error: _e => {
+                if (s) {
+                    s.unsubscribe();
+                }
+            },
+            complete: () => {
+                if (s) {
+                    s.unsubscribe();
+                }
+            },
         });
     }
     /**
@@ -5324,18 +5330,22 @@ class AjfFormRenderer {
         let s = this._rendererService
             .removeGroup(nodeGroup)
             .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
-            .subscribe(r => {
-            if (r && this.formSlider != null) {
-                this.formSlider.slide({ dir: 'up' });
-            }
-        }, _e => {
-            if (s) {
-                s.unsubscribe();
-            }
-        }, () => {
-            if (s) {
-                s.unsubscribe();
-            }
+            .subscribe({
+            next: r => {
+                if (r && this.formSlider != null) {
+                    this.formSlider.slide({ dir: 'up' });
+                }
+            },
+            error: _e => {
+                if (s) {
+                    s.unsubscribe();
+                }
+            },
+            complete: () => {
+                if (s) {
+                    s.unsubscribe();
+                }
+            },
         });
     }
     onSave(_evt) {

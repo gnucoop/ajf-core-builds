@@ -19,13 +19,12 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { ComponentFactoryResolver, OnInit, Renderer2 } from '@angular/core';
+import { OnInit, Renderer2 } from '@angular/core';
 import { AjfWidgetInstance } from './interface/widgets-instances/widget-instance';
 import { AjfWidgetComponentsMap } from './interface/widgets/widget-components-map';
 import { AjfWidgetHost } from './widget-host';
 import * as i0 from "@angular/core";
 export declare abstract class AjfReportWidget implements OnInit {
-    private _cfr;
     private _renderer;
     widgetHost: AjfWidgetHost;
     private _instance;
@@ -33,7 +32,7 @@ export declare abstract class AjfReportWidget implements OnInit {
     set instance(instance: AjfWidgetInstance | undefined);
     protected abstract widgetsMap: AjfWidgetComponentsMap;
     private _init;
-    constructor(_cfr: ComponentFactoryResolver, _renderer: Renderer2);
+    constructor(_renderer: Renderer2);
     ngOnInit(): void;
     private _loadComponent;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportWidget, never>;

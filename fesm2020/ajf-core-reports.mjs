@@ -9,7 +9,7 @@ import { utils, writeFile } from 'xlsx';
 import { AjfFormulaSerializer, alwaysCondition, AjfConditionSerializer, evaluateExpression, createFormula } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
 import { AjfFormSerializer, AjfNodeType, AjfFieldType } from '@ajf/core/forms';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AjfImageType } from '@ajf/core/image';
 import { createPdf } from '@ajf/core/pdfmake';
@@ -1789,8 +1789,7 @@ class AjfReportSerializer {
  *
  */
 class AjfReportWidget {
-    constructor(_cfr, _renderer) {
-        this._cfr = _cfr;
+    constructor(_renderer) {
         this._renderer = _renderer;
         this._init = false;
     }
@@ -1825,8 +1824,7 @@ class AjfReportWidget {
         }
         const component = componentDef.component;
         try {
-            const componentFactory = this._cfr.resolveComponentFactory(component);
-            const componentRef = vcr.createComponent(componentFactory);
+            const componentRef = vcr.createComponent(component);
             const componentInstance = componentRef.instance;
             Object.keys(this._instance.widget.styles).forEach((style) => {
                 try {
@@ -1846,11 +1844,11 @@ class AjfReportWidget {
         catch (e) { }
     }
 }
-AjfReportWidget.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportWidget, deps: [{ token: i0.ComponentFactoryResolver }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
+AjfReportWidget.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportWidget, deps: [{ token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
 AjfReportWidget.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfReportWidget, inputs: { instance: "instance" }, viewQueries: [{ propertyName: "widgetHost", first: true, predicate: AjfWidgetHost, descendants: true, static: true }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportWidget, decorators: [{
             type: Directive
-        }], ctorParameters: function () { return [{ type: i0.ComponentFactoryResolver }, { type: i0.Renderer2 }]; }, propDecorators: { widgetHost: [{
+        }], ctorParameters: function () { return [{ type: i0.Renderer2 }]; }, propDecorators: { widgetHost: [{
                 type: ViewChild,
                 args: [AjfWidgetHost, { static: true }]
             }], instance: [{
@@ -2500,7 +2498,7 @@ function createWidgetInstance(widget, context, _ts, variables = []) {
  */
 function trFormula(f, context, ts) {
     let formula = f.formula;
-    if (formula.substr(0, 1) === '"' || formula.substr(0, 1) === "'") {
+    if (formula.substring(0, 1) === '"' || formula.substring(0, 1) === "'") {
         const ft = formula.slice(1, -1);
         const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.translate(ft) : ft;
         if (ft.length > 0) {
@@ -2750,7 +2748,7 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             catch (e) {
                 calcValue = '';
             }
-            htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
+            htmlText = `${htmlText.substring(0, m.idx)}${calcValue}${htmlText.substring(m.idx + m.len)}`;
         });
         wi.htmlText = htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
     }
@@ -4373,7 +4371,7 @@ function xlsReport(file, http) {
     });
     const obsFilterValues = Object.values(filters);
     const filterNames = Object.keys(filters);
-    return forkJoin(obsFilterValues.length > 0 ? obsFilterValues : of([])).pipe(map(f => {
+    return forkJoin(obsFilterValues.length > 0 ? obsFilterValues : []).pipe(map(f => {
         workbook.SheetNames.forEach(sheetName => {
             const sheet = workbook.Sheets[sheetName];
             const json = XLSX.utils.sheet_to_json(sheet);

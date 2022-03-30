@@ -43,7 +43,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
 class AjfFilePreview {
     constructor(vcr) {
         this._valueSub = Subscription.EMPTY;
-        const input = vcr.parentInjector.get(AjfFileInput, null);
+        const input = vcr.injector.get(AjfFileInput, null);
         const isValueGuard = (value) => value != null;
         if (input) {
             this._value = input.value;

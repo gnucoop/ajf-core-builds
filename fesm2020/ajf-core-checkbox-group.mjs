@@ -204,7 +204,11 @@ class AjfCheckboxGroupItem {
         /** Event emitted when the group value changes. */
         this._change = new EventEmitter();
         this.change = this._change;
-        this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal).pipe(map(([checked, checkedIcon, notCheckedIcon]) => (checked ? checkedIcon : notCheckedIcon)));
+        this.icon = combineLatest([
+            this._checkedState,
+            this._checkedIconVal,
+            this._notCheckedIconVal,
+        ]).pipe(map(([checked, checkedIcon, notCheckedIcon]) => (checked ? checkedIcon : notCheckedIcon)));
         if (checkboxGroup) {
             this.checkboxGroup = checkboxGroup;
             this.checkboxGroup.registerItem(this);
