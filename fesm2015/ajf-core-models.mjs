@@ -225,7 +225,7 @@ const getCodeIdentifiers = (source, includeDollarValue = false) => {
         console.log(source);
         console.log(e);
     }
-    return identifiers;
+    return identifiers.sort((i1, i2) => i2.localeCompare(i1));
 };
 const dateUtils = {
     addDays: dateFns.addDays,
