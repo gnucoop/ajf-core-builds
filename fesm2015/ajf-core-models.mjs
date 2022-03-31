@@ -1,3 +1,4 @@
+import { __rest } from 'tslib';
 import * as dateFns from 'date-fns';
 import { parseScript } from 'meriyah';
 import * as numbroMod from 'numbro';
@@ -183,27 +184,6 @@ function alwaysCondition() {
     return createCondition({ condition: 'true' });
 }
 
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
 let execContext = {};
 const numbro = numbroMod.default || numbroMod;
 const MAX_REPS = 30;
@@ -310,6 +290,7 @@ AjfExpressionUtils.utils = {
     ROUND: { fn: ROUND },
     CONSOLE_LOG: { fn: CONSOLE_LOG },
 };
+const nonNullInstances = (reps) => reps != null;
 /**
  * UTILITY FUNCION
  * This function provide a deep copy builder of array of main forms.
@@ -797,14 +778,20 @@ function getCoordinate(source, zoom) {
  * Calculates all the possible results that a field has taken
  */
 function ALL_VALUES_OF(mainforms, fieldName) {
-    const allreps = (mainforms || [])
-        .slice(0)
-        .map(m => m.reps)
-        .filter(c => c != null)
-        .map((i) => Object.keys(i)
-        .map(k => i[k])
-        .flat())
-        .flat();
+    const forms = [...(mainforms || [])];
+    const allreps = [
+        ...forms.map(form => {
+            const { reps } = form, v = __rest(form, ["reps"]);
+            return v;
+        }),
+        ...forms
+            .map(m => m.reps)
+            .filter(nonNullInstances)
+            .map(i => Object.keys(i)
+            .map(k => i[k])
+            .flat())
+            .flat(),
+    ];
     return [...new Set(allreps.filter(f => f[fieldName] != null).map(f => `${f[fieldName]}`))];
 }
 function plainArray(params) {

@@ -398,6 +398,7 @@ AjfExpressionUtils.utils = {
     ROUND: { fn: ROUND },
     CONSOLE_LOG: { fn: CONSOLE_LOG },
 };
+const nonNullInstances = (reps) => reps != null;
 /**
  * UTILITY FUNCION
  * This function provide a deep copy builder of array of main forms.
@@ -885,14 +886,20 @@ function getCoordinate(source, zoom) {
  * Calculates all the possible results that a field has taken
  */
 function ALL_VALUES_OF(mainforms, fieldName) {
-    const allreps = (mainforms || [])
-        .slice(0)
-        .map(m => m.reps)
-        .filter(c => c != null)
-        .map((i) => Object.keys(i)
-        .map(k => i[k])
-        .flat())
-        .flat();
+    const forms = [...(mainforms || [])];
+    const allreps = [
+        ...forms.map(form => {
+            const { reps, ...v } = form;
+            return v;
+        }),
+        ...forms
+            .map(m => m.reps)
+            .filter(nonNullInstances)
+            .map(i => Object.keys(i)
+            .map(k => i[k])
+            .flat())
+            .flat(),
+    ];
     return [...new Set(allreps.filter(f => f[fieldName] != null).map(f => `${f[fieldName]}`))];
 }
 function plainArray(params) {
