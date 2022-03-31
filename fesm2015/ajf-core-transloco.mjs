@@ -137,6 +137,8 @@ const ENG = {
     'Choose type of Chart': 'Choose type of Chart',
     'Labels': 'Labels',
     'Border width': 'Border width',
+    'Hide empty rows': 'Hide empty rows',
+    'Table definition': 'Table definition',
 };
 
 /**
@@ -272,6 +274,8 @@ const ESP = {
     'Choose type of Chart': 'Elija el tipo de gráfico',
     'Labels': 'Etiquetas',
     'Border width': 'Ancho del borde',
+    'Hide empty rows': 'Ocultar filas vacías',
+    'Table definition': 'Definición de la tabla',
 };
 
 /**
@@ -407,6 +411,8 @@ const ETH = {
     'Choose type of Chart': 'የመጀመሪያ7',
     'Labels': 'የመጀመሪያ8',
     'Border width': 'የመጀመሪያ9',
+    'Hide empty rows': 'ባዶ ረድፎችን ደብቅ',
+    'Table definition': 'የሠንጠረዥ ትርጉም',
 };
 
 /**
@@ -542,6 +548,8 @@ const FRA = {
     'Choose type of Chart': 'Choisissez le type de graphique',
     'Labels': 'Étiquettes',
     'Border width': 'Largeur de la bordure',
+    'Hide empty rows': 'Masquer les lignes vides',
+    'Table definition': 'Définition du tableau',
 };
 
 /**
@@ -677,6 +685,8 @@ const ITA = {
     'Choose type of Chart': 'Scegli il tipo di grafico',
     'Labels': 'etichette',
     'Border width': 'Larghezza del bordo',
+    'Hide empty rows': 'Nascondi righe vuote',
+    'Table definition': 'Definizione della tabella',
 };
 
 /**
@@ -812,6 +822,8 @@ const PRT = {
     'Choose type of Chart': 'Escolha o tipo de gráfico',
     'Labels': 'Etiquetas',
     'Border width': 'Border width',
+    'Hide empty rows': 'Ocultar linhas vazias',
+    'Table definition': 'Definição da tabela',
 };
 
 /**

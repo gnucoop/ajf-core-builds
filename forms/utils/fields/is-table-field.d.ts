@@ -20,7 +20,8 @@
  *
  */
 import { AjfField } from '../../interface/fields/field';
+import { AjfTableField } from '../../interface/fields/table-field';
 /**
  * It is true if the field type is Table.
  */
-export declare function isTableField(field: AjfField): boolean;
+export declare function isTableField(field: AjfField): field is AjfTableField;
