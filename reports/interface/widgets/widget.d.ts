@@ -33,7 +33,8 @@ import { AjfMapWidget } from './map-widget';
 import { AjfTextWidget } from './text-widget';
 import { AjfWidgetWithContent } from './widget-with-content';
 import { AjfWidgetType } from './widget-type';
+import { AjfGraphWidget } from './graph-widget';
 export interface AjfUnknownWidget extends AjfBaseWidget {
     widgetType: AjfWidgetType.LENGTH;
 }
-export declare type AjfWidget = AjfChartWidget | AjfColumnWidget | AjfDataWidget | AjfDynamicTableWidget | AjfFormulaWidget | AjfImageContainerWidget | AjfImageWidget | AjfLayoutWidget | AjfMapWidget | AjfPageBreakWidget | AjfTextWidget | AjfUnknownWidget | AjfWidgetWithContent;
+export declare type AjfWidget = AjfChartWidget | AjfColumnWidget | AjfDataWidget | AjfDynamicTableWidget | AjfFormulaWidget | AjfGraphWidget | AjfImageContainerWidget | AjfImageWidget | AjfLayoutWidget | AjfMapWidget | AjfPageBreakWidget | AjfTextWidget | AjfUnknownWidget | AjfWidgetWithContent;

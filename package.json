@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "13.1.3-c8148d70c",
+  "version": "13.1.3-921bd39bd",
   "description": "",
   "repository": {
     "type": "git",
@@ -22,12 +22,14 @@
     "@zxing/browser": "^0.1.1",
     "@zxing/library": "^0.19.1",
     "chart.js": "^2.9.4",
+    "dagre": "^0.8.5",
     "date-fns": "^2.28.0",
     "flag-icon-css": "^4.1.7",
     "leaflet": "^1.7.1",
     "meriyah": "^4.2.0",
     "numbro": "^2.3.6",
     "pdfmake": "^0.2.4",
+    "svg-pan-zoom": "^3.6.1",
     "xlsx": "^0.18.3"
   },
   "dependencies": {
@@ -106,6 +108,14 @@
       "es2015": "./fesm2015/ajf-core-forms.mjs",
       "node": "./fesm2015/ajf-core-forms.mjs",
       "default": "./fesm2020/ajf-core-forms.mjs"
+    },
+    "./graph": {
+      "types": "./graph/ajf-core-graph.d.ts",
+      "esm2020": "./esm2020/graph/ajf-core-graph.mjs",
+      "es2020": "./fesm2020/ajf-core-graph.mjs",
+      "es2015": "./fesm2015/ajf-core-graph.mjs",
+      "node": "./fesm2015/ajf-core-graph.mjs",
+      "default": "./fesm2020/ajf-core-graph.mjs"
     },
     "./image": {
       "types": "./image/ajf-core-image.d.ts",

@@ -1,0 +1,10 @@
+{
+  "module": "../fesm2015/ajf-core-graph.mjs",
+  "es2020": "../fesm2020/ajf-core-graph.mjs",
+  "esm2020": "../esm2020/graph/ajf-core-graph.mjs",
+  "fesm2020": "../fesm2020/ajf-core-graph.mjs",
+  "fesm2015": "../fesm2015/ajf-core-graph.mjs",
+  "typings": "ajf-core-graph.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/graph"
+}

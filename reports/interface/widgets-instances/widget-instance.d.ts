@@ -26,6 +26,7 @@ import { AjfColumnWidgetInstance } from './column-widget-instance';
 import { AjfDataWidgetInstance } from './data-widget-instance';
 import { AjfDynamicTableWidgetInstance } from './dynamic-table-widget-instance';
 import { AjfFormulaWidgetInstance } from './formula-widget-instance';
+import { AjfGraphWidgetInstance } from './graph-widget-instance';
 import { AjfImageContainerWidgetInstance } from './image-container-widget-instance';
 import { AjfImageWidgetInstance } from './image-widget-instance';
 import { AjfLayoutWidgetInstance } from './layout-widget-instance';
@@ -37,4 +38,4 @@ import { AjfWidgetWithContentInstance } from './widget-with-content-instance';
 export interface AjfUnknownWidgetInstance extends AjfBaseWidgetInstance {
     widget: AjfUnknownWidget;
 }
-export declare type AjfWidgetInstance = AjfChartWidgetInstance | AjfColumnWidgetInstance | AjfDataWidgetInstance | AjfDynamicTableWidgetInstance | AjfFormulaWidgetInstance | AjfImageContainerWidgetInstance | AjfImageWidgetInstance | AjfLayoutWidgetInstance | AjfMapWidgetInstance | AjfPageBreakWidgetInstance | AjfTableWidgetInstance | AjfTextWidgetInstance | AjfWidgetWithContentInstance;
+export declare type AjfWidgetInstance = AjfChartWidgetInstance | AjfColumnWidgetInstance | AjfDataWidgetInstance | AjfDynamicTableWidgetInstance | AjfFormulaWidgetInstance | AjfGraphWidgetInstance | AjfImageContainerWidgetInstance | AjfImageWidgetInstance | AjfLayoutWidgetInstance | AjfMapWidgetInstance | AjfPageBreakWidgetInstance | AjfTableWidgetInstance | AjfTextWidgetInstance | AjfWidgetWithContentInstance;

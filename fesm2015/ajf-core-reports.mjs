@@ -239,7 +239,8 @@ var AjfWidgetType;
     AjfWidgetType[AjfWidgetType["Formula"] = 8] = "Formula";
     AjfWidgetType[AjfWidgetType["ImageContainer"] = 9] = "ImageContainer";
     AjfWidgetType[AjfWidgetType["DynamicTable"] = 10] = "DynamicTable";
-    AjfWidgetType[AjfWidgetType["LENGTH"] = 11] = "LENGTH";
+    AjfWidgetType[AjfWidgetType["Graph"] = 11] = "Graph";
+    AjfWidgetType[AjfWidgetType["LENGTH"] = 12] = "LENGTH";
 })(AjfWidgetType || (AjfWidgetType = {}));
 
 /**
@@ -1147,6 +1148,31 @@ const isFormulaWidget = (widget) => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const isGraphWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.Graph;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 const isImageContainerWidget = (widget) => {
     return widget != null && widget.widgetType === AjfWidgetType.ImageContainer;
 };
@@ -1350,6 +1376,31 @@ const isDynamicTableWidgetInstance = (instance) => {
  */
 const isFormulaWidgetInstance = (instance) => {
     return instance != null && isFormulaWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isGraphWidgetInstance = (instance) => {
+    return instance != null && isGraphWidget(instance.widget);
 };
 
 /**
@@ -1586,6 +1637,34 @@ function trFormula(f, context, ts) {
     }
     return res;
 }
+/**
+ * Evaluate a string with expression inside, identified by double square brackets
+ * Example: "Number of positive identified: [[n_positive_campaign]]"
+ */
+function evaluateProperty(expression, context, ts) {
+    const formulaRegEx = /\[{2}(.+?)\]{2}/g;
+    const matches = [];
+    let match;
+    let htmlText = expression;
+    while ((match = formulaRegEx.exec(htmlText))) {
+        const idx = match.index;
+        const len = match[0].length;
+        const formula = createFormula({ formula: match[1] });
+        matches.push({ idx, len, formula });
+    }
+    matches.reverse().forEach(m => {
+        let calcValue;
+        try {
+            calcValue = evaluateExpression(m.formula.formula, context);
+        }
+        catch (e) {
+            calcValue = '';
+        }
+        htmlText = `${htmlText.substring(0, m.idx)}${calcValue}${htmlText.substring(m.idx + m.len)}`;
+    });
+    htmlText = htmlText === '[[]]' ? 'false' : htmlText;
+    return htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
+}
 
 /**
  * @license
@@ -1793,33 +1872,26 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
         }
     }
     else if (isTextWidget(widget) && isTextWidgetInstance(wi)) {
-        const formulaRegEx = /\[{2}(.+?)\]{2}/g;
-        const matches = [];
-        let match;
-        let htmlText = widget.htmlText;
-        while ((match = formulaRegEx.exec(htmlText))) {
-            const idx = match.index;
-            const len = match[0].length;
-            const formula = createFormula({ formula: match[1] });
-            matches.push({ idx, len, formula });
-        }
-        matches.reverse().forEach(m => {
-            let calcValue;
-            try {
-                calcValue = evaluateExpression(m.formula.formula, context);
-            }
-            catch (e) {
-                calcValue = '';
-            }
-            htmlText = `${htmlText.substring(0, m.idx)}${calcValue}${htmlText.substring(m.idx + m.len)}`;
-        });
-        wi.htmlText = htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
+        wi.htmlText = evaluateProperty(widget.htmlText, context, ts);
     }
     else if (isFormulaWidget(widget) && isFormulaWidgetInstance(wi)) {
         wi.formula = evaluateExpression(widget.formula.formula, context);
     }
     else if (isMapWidget(widget) && isMapWidgetInstance(wi)) {
         wi.coordinate = evaluateExpression(widget.coordinate.formula, context);
+    }
+    else if (isGraphWidget(widget) && isGraphWidgetInstance(wi)) {
+        if (widget.nodes != null) {
+            wi.nodes = widget.nodes.map(ds => {
+                let node = Object.assign({}, ds);
+                node.label = ds.label != null ? evaluateProperty(ds.label, context, ts) : ds.id;
+                node.red = evaluateExpression(ds.red, context);
+                node.yellow = evaluateExpression(ds.yellow, context);
+                node.green = evaluateExpression(ds.green, context);
+                node.color = ds.color ? evaluateExpression(ds.color, context) : undefined;
+                return node;
+            });
+        }
     }
     else if (widget.widgetType > 100) {
         const iiFn = componentsMap[widget.widgetType] != null

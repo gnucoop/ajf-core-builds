@@ -19,18 +19,10 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare enum AjfWidgetType {
-    Layout = 0,
-    PageBreak = 1,
-    Image = 2,
-    Text = 3,
-    Chart = 4,
-    Table = 5,
-    Map = 6,
-    Column = 7,
-    Formula = 8,
-    ImageContainer = 9,
-    DynamicTable = 10,
-    Graph = 11,
-    LENGTH = 12
+import { AjfGraphNodeDataset } from '../dataset/graph-dataset';
+import { AjfBaseWidget } from './base-widget';
+import { AjfWidgetType } from './widget-type';
+export interface AjfGraphWidget extends AjfBaseWidget {
+    widgetType: AjfWidgetType.Graph;
+    nodes: AjfGraphNodeDataset[];
 }

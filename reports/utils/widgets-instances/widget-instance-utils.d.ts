@@ -22,3 +22,8 @@
 import { AjfContext, AjfFormula } from '@ajf/core/models';
 import { TranslocoService } from '@ajf/core/transloco';
 export declare function trFormula(f: AjfFormula, context: AjfContext, ts: TranslocoService): any;
+/**
+ * Evaluate a string with expression inside, identified by double square brackets
+ * Example: "Number of positive identified: [[n_positive_campaign]]"
+ */
+export declare function evaluateProperty(expression: string, context: AjfContext, ts: TranslocoService): string;
