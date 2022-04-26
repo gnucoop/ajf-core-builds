@@ -9,7 +9,7 @@ import { utils, writeFile } from 'xlsx';
 import { AjfFormulaSerializer, alwaysCondition, AjfConditionSerializer, evaluateExpression, createFormula } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
 import { AjfFormSerializer, AjfNodeType, AjfFieldType } from '@ajf/core/forms';
-import { forkJoin } from 'rxjs';
+import { of, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AjfImageType } from '@ajf/core/image';
 import { createPdf } from '@ajf/core/pdfmake';
@@ -4531,9 +4531,11 @@ function xlsReport(file, http) {
             filters[nextSheet] = _buildFilter(workbook, sheet, http);
         }
     });
-    const obsFilterValues = Object.values(filters);
+    const obsFilterValues = Object.values(filters).length
+        ? Object.values(filters)
+        : [of({})];
     const filterNames = Object.keys(filters);
-    return forkJoin(obsFilterValues.length > 0 ? obsFilterValues : []).pipe(map(f => {
+    return forkJoin(obsFilterValues).pipe(map(f => {
         workbook.SheetNames.forEach(sheetName => {
             const sheet = workbook.Sheets[sheetName];
             const json = XLSX.utils.sheet_to_json(sheet);
@@ -4567,6 +4569,10 @@ function xlsReport(file, http) {
                 else if (sheetName.includes('html')) {
                     const chartWidget = _buildHtml(json);
                     reportWidgets.push(chartWidget);
+                }
+                else if (sheetName.includes('graph')) {
+                    const graphWidget = _buildGraph(sheetName, json);
+                    reportWidgets.push(graphWidget);
                 }
                 if (idx >= 0) {
                     reportWidgets[reportWidgets.length - 1].filter = {
@@ -4685,6 +4691,29 @@ function _buildChart(name, json) {
             ...widgetStyle,
         },
         exportable: true,
+    });
+}
+function _buildGraph(name, json) {
+    const nodes = [];
+    json.forEach(row => {
+        const rowKeys = Object.keys(row);
+        if (rowKeys.includes('id') && row['id']) {
+            const rowId = row['id'].trim().replace(/^["]|["]$/g, '');
+            if (rowId && rowId.length) {
+                let graphNodeObj = {};
+                rowKeys.forEach(rowKey => {
+                    const value = row[rowKey].toString();
+                    graphNodeObj[rowKey] = value;
+                });
+                graphNodeObj['id'] = rowId;
+                nodes.push(graphNodeObj);
+            }
+        }
+    });
+    return createWidget({
+        widgetType: AjfWidgetType.Graph,
+        nodes,
+        styles: {},
     });
 }
 function _buildHtml(json) {
