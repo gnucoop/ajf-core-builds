@@ -325,79 +325,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-class AjfVideoDirective {
-    constructor(_el, _renderer) {
-        this._el = _el;
-        this._renderer = _renderer;
-        this.isInit = new EventEmitter();
-    }
-    get source() {
-        return this._source;
-    }
-    set source(source) {
-        this._source = source;
-        this._initCam();
-    }
-    _initCam() {
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices
-                .getUserMedia({ video: true })
-                .then((stream) => {
-                this._source.srcObject = stream;
-                this._source.play();
-            })
-                .catch((err) => {
-                console.log(err);
-            });
-        }
-    }
-    ngAfterViewInit() {
-        this._renderer.appendChild(this._el.nativeElement, this._source);
-        this.isInit.emit();
-    }
-}
-AjfVideoDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfVideoDirective, deps: [{ token: i0.ElementRef }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
-AjfVideoDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfVideoDirective, selector: "[ajfVideoDirective]", inputs: { source: "source" }, outputs: { isInit: "isInit" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfVideoDirective, decorators: [{
-            type: Directive,
-            args: [{ selector: '[ajfVideoDirective]' }]
-        }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i0.Renderer2 }]; }, propDecorators: { source: [{
-                type: Input
-            }], isInit: [{
-                type: Output
-            }] } });
-
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
 class AjfCommonModule {
 }
 AjfCommonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCommonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
 AjfCommonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCommonModule, declarations: [AjfDndDirective,
-        AjfVideoDirective,
         ApplyStylesDirective,
         AutofocusDirective,
         FormatIfNumber,
         TranslateIfString], exports: [AjfDndDirective,
-        AjfVideoDirective,
         ApplyStylesDirective,
         AutofocusDirective,
         FormatIfNumber,
@@ -408,7 +343,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
             args: [{
                     declarations: [
                         AjfDndDirective,
-                        AjfVideoDirective,
                         ApplyStylesDirective,
                         AutofocusDirective,
                         FormatIfNumber,
@@ -416,7 +350,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
                     ],
                     exports: [
                         AjfDndDirective,
-                        AjfVideoDirective,
                         ApplyStylesDirective,
                         AutofocusDirective,
                         FormatIfNumber,
@@ -473,5 +406,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
  * Generated bundle index. Do not edit.
  */
 
-export { AjfCommonModule, AjfDndDirective, AjfVideoDirective, ApplyStylesDirective, AutofocusDirective, FormatIfNumber, TranslateIfString, buildStringIdentifier, buildStringIdentifierOpts };
+export { AjfCommonModule, AjfDndDirective, ApplyStylesDirective, AutofocusDirective, FormatIfNumber, TranslateIfString, buildStringIdentifier, buildStringIdentifierOpts };
 //# sourceMappingURL=ajf-core-common.mjs.map
