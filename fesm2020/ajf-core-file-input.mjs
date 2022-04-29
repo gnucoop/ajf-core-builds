@@ -117,6 +117,9 @@ class AjfFileInput {
         else if (value == null || (isAjfFile(value) && isValidMimeType(value.type, this.accept))) {
             this._value = value;
             this._valueChange.emit(this._value);
+            if (this._controlValueAccessorChangeFn != null) {
+                this._controlValueAccessorChangeFn(this.value);
+            }
             this._cdr.detectChanges();
         }
     }
@@ -170,9 +173,6 @@ class AjfFileInput {
                 return;
             }
             this.value = { name, size, type, content };
-            if (this._controlValueAccessorChangeFn != null) {
-                this._controlValueAccessorChangeFn(this.value);
-            }
         };
         reader.readAsDataURL(file);
     }
