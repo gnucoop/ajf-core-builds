@@ -2729,8 +2729,8 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
         });
     }
     else if (isChartWidget(widget) && isChartWidgetInstance(wi)) {
-        if (widget.option == null) {
-            widget.option = {};
+        if (widget.options == null) {
+            widget.options = {};
         }
         const labels = widget.labels instanceof Array ? widget.labels : [widget.labels];
         const evLabels = labels.map(l => {
