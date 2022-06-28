@@ -23,9 +23,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AjfReport } from '../interface/reports/report';
 /**
- * This function returns a basic report for any form passed in input.
- *
- * @param form the form schema
- * @param [id] the id of the form inside the plathform.
+ * This function builds a report from an excel file.
  */
 export declare function xlsReport(file: string, http: HttpClient): Observable<AjfReport>;

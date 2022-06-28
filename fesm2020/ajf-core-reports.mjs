@@ -4116,6 +4116,16 @@ function tokenize(s) {
     }
 }
 function indicatorToJs(formula) {
+    switch (typeof (formula)) {
+        case 'string':
+            break;
+        case 'number':
+        case 'boolean':
+            formula = String(formula);
+            break;
+        default:
+            throw new Error('formula is not a string');
+    }
     return parseExpression(tokenize(formula).reverse(), 0 /* END */);
 }
 function unexpectedTokenError(tok, rest) {
@@ -4760,10 +4770,7 @@ const backgroundColor = [
  *
  */
 /**
- * This function returns a basic report for any form passed in input.
- *
- * @param form the form schema
- * @param [id] the id of the form inside the plathform.
+ * This function builds a report from an excel file.
  */
 function xlsReport(file, http) {
     const workbook = XLSX.read(file, { type: 'binary' });
@@ -4791,25 +4798,28 @@ function xlsReport(file, http) {
             const json = XLSX.utils.sheet_to_json(sheet);
             if (sheetName === 'variables') {
                 json
-                    .filter(e => e != null && e.name != null && e.value != null)
+                    .filter(e => e != null && e.name != null && e.name !== '')
                     .forEach(elem => {
-                    let indicator = elem.value;
+                    let js;
                     try {
-                        indicator = indicatorToJs(elem.value);
+                        js = indicatorToJs(elem.value);
                     }
-                    catch (e) {
-                        console.log(e);
+                    catch (err) {
+                        const r = elem.__rowNum__;
+                        err = new Error(`Error in variable "${elem.name}" (row ${r}): ${err.message}`);
+                        window.alert(err.message);
+                        throw err;
                     }
                     variables.push({
                         name: elem.name,
-                        formula: { formula: indicator },
+                        formula: { formula: js },
                     });
                 });
             }
             else {
                 const idx = filterNames.indexOf(sheetName);
                 if (sheetName.includes('table')) {
-                    const tableWidget = _buildTable(json);
+                    const tableWidget = _buildTable(sheetName, json);
                     reportWidgets.push(tableWidget);
                 }
                 else if (sheetName.includes('chart')) {
@@ -4872,7 +4882,7 @@ function _buildChart(name, json) {
     const chartOptions = {};
     const datasetObj = {};
     const dataset = [];
-    let labels = { formula: `[]` };
+    let labels = { formula: '[]' };
     if (json.length > 0) {
         const firstRow = json[0];
         optionLabels.forEach(optionLabel => {
@@ -4896,19 +4906,34 @@ function _buildChart(name, json) {
     });
     const doLabels = datasetObj['labels'];
     if (doLabels != null) {
-        labels = {
-            formula: `plainArray([${doLabels.map((label) => indicatorToJs(label))}])`,
-        };
+        let labelsJs;
+        try {
+            labelsJs = indicatorToJs('[' + doLabels.join() + ']');
+        }
+        catch (err) {
+            err = new Error(`Error in "labels" of chart "${chartOptions['title']}": ${err.message}`);
+            window.alert(err.message);
+            throw err;
+        }
+        labels = { formula: `plainArray(${labelsJs})` };
         delete datasetObj['labels'];
     }
     Object.keys(datasetObj).forEach((datasetObjKey, index) => {
-        const datasetRow = datasetObj[datasetObjKey].map((r) => indicatorToJs(`${r}`));
+        let datasetJs;
+        try {
+            datasetJs = indicatorToJs('[' + datasetObj[datasetObjKey].join() + ']');
+        }
+        catch (err) {
+            err = new Error(`Error in "${datasetObjKey}" of chart "${chartOptions['title']}": ${err.message}`);
+            window.alert(err.message);
+            throw err;
+        }
         const chartType = chartOptions['chartType'];
         const colorCondition = chartType === 'Pie' || chartType === 'PolarArea' || chartType === 'Doughnut';
         const backColor = colorCondition ? backgroundColor$1 : backgroundColor$1[index];
-        const formula = [
-            createFormula({ formula: `plainArray([${datasetRow.toString()}])` }),
-        ];
+        const formula = [createFormula({
+                formula: `plainArray(${datasetJs})`
+            })];
         const datasetOptions = {
             backgroundColor: backColor,
         };
@@ -4933,7 +4958,7 @@ function _buildChart(name, json) {
             legend: { display: true, position: 'bottom' },
             title: {
                 display: true,
-                text: `${chartOptions['title'] || ''}`.replace(/"/gi, ''),
+                text: chartOptions['title'] || '',
             },
         },
         styles: {
@@ -4948,12 +4973,21 @@ function _buildGraph(name, json) {
     json.forEach(row => {
         const rowKeys = Object.keys(row);
         if (rowKeys.includes('id') && row['id']) {
-            const rowId = row['id'].trim().replace(/^["]|["]$/g, '');
+            const rowId = row['id'].trim().replace(/"/g, '');
             if (rowId && rowId.length) {
                 let graphNodeObj = {};
                 rowKeys.forEach(rowKey => {
-                    const value = row[rowKey].toString();
-                    graphNodeObj[rowKey] = value;
+                    let js;
+                    try {
+                        js = indicatorToJs(row[rowKey]);
+                    }
+                    catch (err) {
+                        const rowNum = row['__rowNum__'];
+                        err = new Error(`Error in "${name}", row ${rowNum}, column "${rowKey}": ${err.message}`);
+                        window.alert(err.message);
+                        throw err;
+                    }
+                    graphNodeObj[rowKey] = js;
                 });
                 graphNodeObj['id'] = rowId;
                 nodes.push(graphNodeObj);
@@ -4970,19 +5004,18 @@ function _buildHtml(json) {
     const firstRow = json.length > 0 && json[0]['html'] != null ? json[0] : { html: '' };
     return createWidget({
         widgetType: AjfWidgetType.Text,
-        htmlText: `${firstRow['html']}`,
+        htmlText: String(firstRow['html']),
         styles: htmlWidget,
     });
 }
-function _buildTable(json) {
+function _buildTable(sheetName, json) {
     const rowspan = 1;
-    const dataElements = [];
     const titles = Object.keys(json[0]);
     const colspans = Object.values(json[0]).map(r => +r);
     delete json[0];
     const tableHeader = titles.map((title, index) => ({
         label: '',
-        formula: { formula: `\"${title}\"` },
+        formula: { formula: `"${title}"` },
         aggregation: { aggregation: 0 },
         colspan: colspans[index],
         rowspan,
@@ -4993,24 +5026,31 @@ function _buildTable(json) {
             backgroundColor: '#3f51b5',
         },
     }));
+    console.log(json);
+    let dataRows = '[';
     json.forEach(row => {
-        const elems = [];
+        let dataRow = '[';
         titles.forEach(title => {
-            let elem = row[title] || `\"\"`;
+            let elem = row[title] || `''`;
             try {
                 elem = indicatorToJs(elem);
             }
             catch (err) {
-                elem = `${row[title]}`;
+                const rowNum = row['__rowNum__'];
+                err = new Error(`Error in "${sheetName}", row ${rowNum}, column "${title}": ${err.message}`);
+                window.alert(err.message);
+                throw err;
             }
-            elems.push(elem.replace(/[\*\r\n]|@[\w-]+/g, ''));
+            dataRow += elem + ',';
         });
-        dataElements.push(elems);
+        dataRow += ']';
+        dataRows += dataRow + ',';
     });
+    dataRows += ']';
     return createWidget({
         widgetType: AjfWidgetType.DynamicTable,
         rowDefinition: {
-            formula: `buildDataset([${dataElements}],${JSON.stringify(colspans)})`,
+            formula: `buildDataset(${dataRows},${JSON.stringify(colspans)})`,
         },
         dataset: tableHeader,
         exportable: true,
