@@ -1,0 +1,10 @@
+{
+  "module": "../fesm2015/ajf-core-heat-map.mjs",
+  "es2020": "../fesm2020/ajf-core-heat-map.mjs",
+  "esm2020": "../esm2020/heat-map/ajf-core-heat-map.mjs",
+  "fesm2020": "../fesm2020/ajf-core-heat-map.mjs",
+  "fesm2015": "../fesm2015/ajf-core-heat-map.mjs",
+  "typings": "ajf-core-heat-map.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/heat-map"
+}

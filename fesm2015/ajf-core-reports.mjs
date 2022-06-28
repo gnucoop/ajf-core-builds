@@ -240,7 +240,10 @@ var AjfWidgetType;
     AjfWidgetType[AjfWidgetType["ImageContainer"] = 9] = "ImageContainer";
     AjfWidgetType[AjfWidgetType["DynamicTable"] = 10] = "DynamicTable";
     AjfWidgetType[AjfWidgetType["Graph"] = 11] = "Graph";
-    AjfWidgetType[AjfWidgetType["LENGTH"] = 12] = "LENGTH";
+    AjfWidgetType[AjfWidgetType["PaginatedList"] = 12] = "PaginatedList";
+    AjfWidgetType[AjfWidgetType["Dialog"] = 13] = "Dialog";
+    AjfWidgetType[AjfWidgetType["HeatMap"] = 14] = "HeatMap";
+    AjfWidgetType[AjfWidgetType["LENGTH"] = 15] = "LENGTH";
 })(AjfWidgetType || (AjfWidgetType = {}));
 
 /**
@@ -1098,6 +1101,31 @@ const isChartWidget = (widget) => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const isDialogWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.Dialog;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 const isDynamicTableWidget = (widget) => {
     return widget != null && widget.widgetType === AjfWidgetType.DynamicTable;
 };
@@ -1150,6 +1178,31 @@ const isFormulaWidget = (widget) => {
  */
 const isGraphWidget = (widget) => {
     return widget != null && widget.widgetType === AjfWidgetType.Graph;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isHeatMapWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.HeatMap;
 };
 
 /**
@@ -1349,6 +1402,31 @@ const isChartWidgetInstance = (instance) => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const isDialogWidgetInstance = (instance) => {
+    return instance != null && isDialogWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 const isDynamicTableWidgetInstance = (instance) => {
     return instance != null && isDynamicTableWidget(instance.widget);
 };
@@ -1401,6 +1479,31 @@ const isFormulaWidgetInstance = (instance) => {
  */
 const isGraphWidgetInstance = (instance) => {
     return instance != null && isGraphWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isHeatMapWidgetInstance = (instance) => {
+    return instance != null && isHeatMapWidget(instance.widget);
 };
 
 /**
@@ -1892,6 +1995,21 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
                 return node;
             });
         }
+    }
+    else if (isDialogWidget(widget) && isDialogWidgetInstance(wi)) {
+        wi.toggle = widgetToWidgetInstance(widget.toggle, context, ts, variables);
+    }
+    else if (isHeatMapWidget(widget) && isHeatMapWidgetInstance(wi)) {
+        wi.idProp = widget.idProp || 'id';
+        wi.features = (typeof widget.features === 'string'
+            ? JSON.parse(widget.features)
+            : widget.features) || { type: 'FeatureCollection', features: [] };
+        wi.values =
+            (typeof widget.values === 'string' ? JSON.parse(widget.values) : widget.values) || [];
+        wi.startColor = widget.startColor || '#ffeb3b';
+        wi.endColor = widget.endColor || '#f44336';
+        wi.highlightColor = widget.highlightColor || '#009688';
+        wi.showVisualMap = widget.showVisualMap === true;
     }
     else if (widget.widgetType > 100) {
         const iiFn = componentsMap[widget.widgetType] != null

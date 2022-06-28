@@ -23,12 +23,15 @@ import { AjfBaseWidget } from './base-widget';
 import { AjfChartWidget } from './chart-widget';
 import { AjfColumnWidget } from './column-widget';
 import { AjfDataWidget } from './data-widget';
+import { AjfDialogWidget } from './dialog-widget';
 import { AjfDynamicTableWidget } from './dynamic-table-widget';
 import { AjfFormulaWidget } from './formula-widget';
+import { AjfHeatMapWidget } from './heat-map-widget';
 import { AjfImageContainerWidget } from './image-container-widget';
 import { AjfImageWidget } from './image-widget';
 import { AjfLayoutWidget } from './layout-widget';
 import { AjfPageBreakWidget } from './page-break-widget';
+import { AjfPaginatedListWidget } from './paginated-list-widget';
 import { AjfMapWidget } from './map-widget';
 import { AjfTextWidget } from './text-widget';
 import { AjfWidgetWithContent } from './widget-with-content';
@@ -37,4 +40,4 @@ import { AjfGraphWidget } from './graph-widget';
 export interface AjfUnknownWidget extends AjfBaseWidget {
     widgetType: AjfWidgetType.LENGTH;
 }
-export declare type AjfWidget = AjfChartWidget | AjfColumnWidget | AjfDataWidget | AjfDynamicTableWidget | AjfFormulaWidget | AjfGraphWidget | AjfImageContainerWidget | AjfImageWidget | AjfLayoutWidget | AjfMapWidget | AjfPageBreakWidget | AjfTextWidget | AjfUnknownWidget | AjfWidgetWithContent;
+export declare type AjfWidget = AjfChartWidget | AjfColumnWidget | AjfDataWidget | AjfDialogWidget | AjfDynamicTableWidget | AjfFormulaWidget | AjfGraphWidget | AjfHeatMapWidget | AjfImageContainerWidget | AjfImageWidget | AjfLayoutWidget | AjfMapWidget | AjfPageBreakWidget | AjfPaginatedListWidget | AjfTextWidget | AjfUnknownWidget | AjfWidgetWithContent;

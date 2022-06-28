@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "13.1.5-dfa25e489",
+  "version": "13.1.5-42165f891",
   "description": "",
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "chart.js": "^2.9.4",
     "dagre": "^0.8.5",
     "date-fns": "^2.28.0",
+    "echarts": "^5.3.2",
     "flag-icon-css": "^4.1.7",
     "leaflet": "^1.7.1",
     "meriyah": "^4.2.0",
@@ -93,6 +94,14 @@
       "node": "./fesm2015/ajf-core-common.mjs",
       "default": "./fesm2020/ajf-core-common.mjs"
     },
+    "./echarts": {
+      "types": "./echarts/ajf-core-echarts.d.ts",
+      "esm2020": "./esm2020/echarts/ajf-core-echarts.mjs",
+      "es2020": "./fesm2020/ajf-core-echarts.mjs",
+      "es2015": "./fesm2015/ajf-core-echarts.mjs",
+      "node": "./fesm2015/ajf-core-echarts.mjs",
+      "default": "./fesm2020/ajf-core-echarts.mjs"
+    },
     "./file-input": {
       "types": "./file-input/ajf-core-file-input.d.ts",
       "esm2020": "./esm2020/file-input/ajf-core-file-input.mjs",
@@ -116,6 +125,14 @@
       "es2015": "./fesm2015/ajf-core-graph.mjs",
       "node": "./fesm2015/ajf-core-graph.mjs",
       "default": "./fesm2020/ajf-core-graph.mjs"
+    },
+    "./heat-map": {
+      "types": "./heat-map/ajf-core-heat-map.d.ts",
+      "esm2020": "./esm2020/heat-map/ajf-core-heat-map.mjs",
+      "es2020": "./fesm2020/ajf-core-heat-map.mjs",
+      "es2015": "./fesm2015/ajf-core-heat-map.mjs",
+      "node": "./fesm2015/ajf-core-heat-map.mjs",
+      "default": "./fesm2020/ajf-core-heat-map.mjs"
     },
     "./image": {
       "types": "./image/ajf-core-image.d.ts",

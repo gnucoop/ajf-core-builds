@@ -1,0 +1,10 @@
+{
+  "module": "../fesm2015/ajf-core-echarts.mjs",
+  "es2020": "../fesm2020/ajf-core-echarts.mjs",
+  "esm2020": "../esm2020/echarts/ajf-core-echarts.mjs",
+  "fesm2020": "../fesm2020/ajf-core-echarts.mjs",
+  "fesm2015": "../fesm2015/ajf-core-echarts.mjs",
+  "typings": "ajf-core-echarts.d.ts",
+  "sideEffects": false,
+  "name": "@ajf/core/echarts"
+}

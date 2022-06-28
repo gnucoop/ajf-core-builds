@@ -19,21 +19,13 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare enum AjfWidgetType {
-    Layout = 0,
-    PageBreak = 1,
-    Image = 2,
-    Text = 3,
-    Chart = 4,
-    Table = 5,
-    Map = 6,
-    Column = 7,
-    Formula = 8,
-    ImageContainer = 9,
-    DynamicTable = 10,
-    Graph = 11,
-    PaginatedList = 12,
-    Dialog = 13,
-    HeatMap = 14,
-    LENGTH = 15
+import { ModuleWithProviders } from '@angular/core';
+import { AjfEchartsConfig } from './echarts-config';
+import * as i0 from "@angular/core";
+import * as i1 from "./echarts-directive";
+export declare class AjfEchartsModule {
+    static forRoot(config: AjfEchartsConfig): ModuleWithProviders<AjfEchartsModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfEchartsModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfEchartsModule, [typeof i1.AjfEchartsDirective], never, [typeof i1.AjfEchartsDirective]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfEchartsModule>;
 }

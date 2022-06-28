@@ -19,21 +19,6 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-export declare enum AjfWidgetType {
-    Layout = 0,
-    PageBreak = 1,
-    Image = 2,
-    Text = 3,
-    Chart = 4,
-    Table = 5,
-    Map = 6,
-    Column = 7,
-    Formula = 8,
-    ImageContainer = 9,
-    DynamicTable = 10,
-    Graph = 11,
-    PaginatedList = 12,
-    Dialog = 13,
-    HeatMap = 14,
-    LENGTH = 15
-}
+import { AjfHeatMapWidget } from '../../interface/widgets/heat-map-widget';
+import { AjfWidget } from '../../interface/widgets/widget';
+export declare const isHeatMapWidget: (widget: AjfWidget) => widget is AjfHeatMapWidget;
