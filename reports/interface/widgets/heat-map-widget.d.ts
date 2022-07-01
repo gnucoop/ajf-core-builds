@@ -19,6 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import { AjfFormula } from '@ajf/core/models';
 import { AjfHeatMapFeatureCollection } from '@ajf/core/heat-map';
 import { AjfBaseWidget } from './base-widget';
 import { AjfWidgetType } from './widget-type';
@@ -26,7 +27,7 @@ export interface AjfHeatMapWidget extends AjfBaseWidget {
     widgetType: AjfWidgetType.HeatMap;
     idProp?: string;
     features: AjfHeatMapFeatureCollection | string;
-    values: string | number[];
+    values: AjfFormula;
     startColor?: string;
     endColor?: string;
     highlightColor?: string;

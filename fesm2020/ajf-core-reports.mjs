@@ -3163,8 +3163,7 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
         wi.features = (typeof widget.features === 'string'
             ? JSON.parse(widget.features)
             : widget.features) || { type: 'FeatureCollection', features: [] };
-        wi.values =
-            (typeof widget.values === 'string' ? JSON.parse(widget.values) : widget.values) || [];
+        wi.values = evaluateExpression(widget.values.formula, context);
         wi.startColor = widget.startColor || '#ffeb3b';
         wi.endColor = widget.endColor || '#f44336';
         wi.highlightColor = widget.highlightColor || '#009688';
@@ -4834,6 +4833,10 @@ function xlsReport(file, http) {
                     const graphWidget = _buildGraph(sheetName, json);
                     reportWidgets.push(graphWidget);
                 }
+                else if (sheetName.indexOf('heatmap')) {
+                    const heatmapWidget = _buildHeatmap(sheetName, json);
+                    reportWidgets.push(heatmapWidget);
+                }
                 if (idx >= 0) {
                     reportWidgets[reportWidgets.length - 1].filter = {
                         schema: f[idx],
@@ -5064,6 +5067,30 @@ function _buildTable(sheetName, json) {
         },
     });
 }
+const _buildHeatmap = (_, json) => {
+    const defaultFeatures = {
+        type: 'FeatureCollection',
+        features: [],
+    };
+    const options = {
+        values: '[]',
+        idProp: 'id',
+        features: JSON.stringify(defaultFeatures),
+        startColor: '#ffeb3b',
+        endColor: '#f44336',
+        highlightColor: '#009688',
+        showVisualMap: false,
+        ...(json.length > 0 ? json[0] : {}),
+    };
+    return createWidget({
+        widgetType: AjfWidgetType.HeatMap,
+        ...options,
+        values: { formula: options.values },
+        styles: {
+            minHeight: '200px',
+        },
+    });
+};
 
 /**
  * @license
