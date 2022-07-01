@@ -40,11 +40,20 @@ export interface AjfFormActionEvent {
 export declare abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit, OnDestroy {
     private _rendererService;
     protected _changeDetectorRef: ChangeDetectorRef;
+    /**
+     * formGroup is an Observable FormGroup type
+     */
     readonly formGroup: Observable<FormGroup | null>;
+    /**
+     * slides is an observable AjfSlide array type
+     */
     readonly slides: Observable<AjfSlideInstance[]>;
     readonly slidesNum: Observable<number>;
     readonly errors: Observable<number>;
     readonly formIsInit: Observable<boolean>;
+    /**
+     * The available ajf field types.
+     */
     readonly ajfFieldTypes: typeof AjfFieldType;
     title: string;
     private _orientationChange;
@@ -79,7 +88,13 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
     formSlider: AjfPageSlider;
     fields: QueryList<AjfFormField>;
     private _errorMoveEvent;
+    /**
+     * Is a private subject structure that contains next and prev
+     */
     private _errorPositions;
+    /**
+     * is a private AjfForm
+     */
     private _form;
     private _init;
     private _nextSlideSubscription;

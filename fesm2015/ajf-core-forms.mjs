@@ -5037,7 +5037,7 @@ class AjfFileFieldComponent extends AjfBaseFieldComponent {
     }
 }
 AjfFileFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfFileFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
-AjfFileFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfFileFieldComponent, selector: "ajf-file-field", usesInheritance: true, ngImport: i0, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n", styles: [""], components: [{ type: i3.AjfFileInput, selector: "ajf-file-input", inputs: ["accept", "value"], outputs: ["valueChange"] }], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+AjfFileFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfFileFieldComponent, selector: "ajf-file-field", usesInheritance: true, ngImport: i0, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n", styles: [""], components: [{ type: i3.AjfFileInput, selector: "ajf-file-input", inputs: ["accept", "value"], outputs: ["valueChange", "deleteFile"] }], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfFileFieldComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-file-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" [formControl]=\"ctrl!\"></ajf-file-input>\n", styles: [""] }]
@@ -5055,8 +5055,9 @@ class AjfFormRenderer {
     constructor(_rendererService, _changeDetectorRef) {
         this._rendererService = _rendererService;
         this._changeDetectorRef = _changeDetectorRef;
-        // ajfFieldTypes [ Text, Number, Boolean, SingleChoice, MultipleChoice,
-        // Formula, Empty, Composed, LENGTH ]
+        /**
+         * The available ajf field types.
+         */
         this.ajfFieldTypes = AjfFieldType;
         this.title = '';
         this._orientationChange = new EventEmitter();
@@ -5072,7 +5073,6 @@ class AjfFormRenderer {
         this._readonly = false;
         this._orientation = 'horizontal';
         this._errorMoveEvent = new EventEmitter();
-        // _init is a private boolean
         this._init = false;
         this._nextSlideSubscription = Subscription.EMPTY;
         this._errorMoveSubscription = Subscription.EMPTY;
@@ -5528,11 +5528,19 @@ class AjfImageFieldComponent extends AjfBaseFieldComponent {
             control = control;
             return control.valueChanges.pipe(startWith(control.value));
         }), filter(value => value != null), shareReplay(1));
-        this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
+        this.imageUrl = fileStream.pipe(map(file => {
+            if (file.content && file.content.length) {
+                return domSanitizer.bypassSecurityTrustResourceUrl(file.content);
+            }
+            else if (file.url && file.url.length) {
+                return domSanitizer.bypassSecurityTrustResourceUrl(file.url);
+            }
+            return null;
+        }));
     }
 }
 AjfImageFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfImageFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }], target: i0.ɵɵFactoryTarget.Component });
-AjfImageFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfImageFieldComponent, selector: "ajf-image-field", usesInheritance: true, ngImport: i0, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n", styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"], components: [{ type: i3.AjfFileInput, selector: "ajf-file-input", inputs: ["accept", "value"], outputs: ["valueChange"] }], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }, { type: i3.AjfFilePreview, selector: "[ajfFilePreview]", exportAs: ["ajfFilePreview"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+AjfImageFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfImageFieldComponent, selector: "ajf-image-field", usesInheritance: true, ngImport: i0, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n", styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"], components: [{ type: i3.AjfFileInput, selector: "ajf-file-input", inputs: ["accept", "value"], outputs: ["valueChange", "deleteFile"] }], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i4.NgControlStatus, selector: "[formControlName],[ngModel],[formControl]" }, { type: i4.FormControlDirective, selector: "[formControl]", inputs: ["formControl", "disabled", "ngModel"], outputs: ["ngModelChange"], exportAs: ["ngForm"] }, { type: i3.AjfFilePreview, selector: "[ajfFilePreview]", exportAs: ["ajfFilePreview"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfImageFieldComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-image-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<ajf-file-input *ngIf=\"control|async as ctrl\" accept=\"image/*\" [formControl]=\"ctrl!\">\n  <div ajfFilePreview class=\"ajf-image-preview\">\n    <img [src]=\"imageUrl|async\">\n  </div>\n</ajf-file-input>\n", styles: ["ajf-image-field img{min-width:32px;min-height:32px}\n"] }]
@@ -5902,15 +5910,23 @@ class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
             control = control;
             return control.valueChanges.pipe(startWith(control.value));
         }), filter(value => value != null), shareReplay(1));
-        this.fileUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
+        this.fileUrl = fileStream.pipe(map(file => {
+            if (file.content && file.content.length) {
+                return domSanitizer.bypassSecurityTrustResourceUrl(file.content);
+            }
+            else if (file.url && file.url.length && !file.deleteUrl) {
+                return domSanitizer.bypassSecurityTrustResourceUrl(file.url);
+            }
+            return null;
+        }));
         this.fileName = fileStream.pipe(map(file => file.name));
     }
 }
 AjfReadOnlyFileFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReadOnlyFileFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }], target: i0.ɵɵFactoryTarget.Component });
-AjfReadOnlyFileFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfReadOnlyFileFieldComponent, selector: "ajf-read-only-file-field", usesInheritance: true, ngImport: i0, template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n", styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+AjfReadOnlyFileFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfReadOnlyFileFieldComponent, selector: "ajf-read-only-file-field", usesInheritance: true, ngImport: i0, template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\" target=\"_blank\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n", styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], pipes: { "async": i2.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReadOnlyFileFieldComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'ajf-read-only-file-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n", styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"] }]
+            args: [{ selector: 'ajf-read-only-file-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<a *ngIf=\"fileUrl|async as fu ; else noFile\" [href]=\"fu\" [download]=\"fileName|async\" target=\"_blank\">\n  <img [src]=\"fileIcon\"> {{ fileName|async }}\n</a>\n<ng-template #noFile>\n  <div class=\"ajf-no-file-placeholder\"></div>\n</ng-template>\n", styles: ["ajf-read-only-file-field img{width:32px;height:32px;margin-right:8px;vertical-align:middle}ajf-read-only-file-field .ajf-no-file-placeholder{width:100%;height:32px;background-color:#eee}\n"] }]
         }], ctorParameters: function () {
         return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
                         type: Inject,
@@ -5932,7 +5948,15 @@ class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
             control = control;
             return control.valueChanges.pipe(startWith(control.value));
         }), filter(value => value != null), shareReplay(1));
-        this.imageUrl = fileStream.pipe(map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)));
+        this.imageUrl = fileStream.pipe(map(file => {
+            if (file.content && file.content.length) {
+                return domSanitizer.bypassSecurityTrustResourceUrl(file.content);
+            }
+            else if (file.url && file.url.length) {
+                return domSanitizer.bypassSecurityTrustResourceUrl(file.url);
+            }
+            return null;
+        }));
     }
 }
 AjfReadOnlyImageFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReadOnlyImageFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }, { token: i2$1.DomSanitizer }], target: i0.ɵɵFactoryTarget.Component });

@@ -38,6 +38,12 @@ export declare class AjfFilePreview implements OnDestroy {
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFilePreview, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFilePreview, "[ajfFilePreview]", ["ajfFilePreview"], {}, {}, never>;
 }
+/**
+ * It allows the upload of a file inside an AjfForm.
+ *
+ * @export
+ * @class AjfFileInput
+ */
 export declare class AjfFileInput implements ControlValueAccessor {
     private _cdr;
     _dropMessageChildren: QueryList<AjfDropMessage>;
@@ -45,15 +51,33 @@ export declare class AjfFileInput implements ControlValueAccessor {
     _nativeInput: ElementRef<HTMLInputElement>;
     readonly fileIcon: SafeResourceUrl;
     readonly removeIcon: SafeResourceUrl;
+    /**
+     * Enable drop for a new file to upload
+     */
+    private _emptyFile;
+    get emptyFile(): boolean;
+    /**
+     * Accepted MimeType
+     * Es. "image/*" or "application/pdf"
+     */
     accept: string | undefined;
     private _value;
     get value(): any;
     set value(value: any);
     private _valueChange;
     readonly valueChange: Observable<AjfFile | undefined>;
-    /** The method to be called in order to update ngModel. */
+    /**
+     * Event emitter for the delete file action
+     */
+    private _deleteFile;
+    readonly deleteFile: Observable<string>;
+    /**
+     * The method to be called in order to update ngModel.
+     */
     _controlValueAccessorChangeFn: (value: any) => void;
-    /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+    /**
+     * onTouch function registered via registerOnTouch (ControlValueAccessor).
+     */
     _onTouched: () => any;
     constructor(domSanitizer: DomSanitizer, _cdr: ChangeDetectorRef);
     onFileDrop(files: FileList): void;
@@ -65,6 +89,6 @@ export declare class AjfFileInput implements ControlValueAccessor {
     writeValue(value: any): void;
     private _processFileUpload;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFileInput, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfFileInput, "ajf-file-input", never, { "accept": "accept"; "value": "value"; }, { "valueChange": "valueChange"; }, ["_dropMessageChildren", "_filePreviewChildren"], ["[ajfDropMessage]", "[ajfFilePreview]"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfFileInput, "ajf-file-input", never, { "accept": "accept"; "value": "value"; }, { "valueChange": "valueChange"; "deleteFile": "deleteFile"; }, ["_dropMessageChildren", "_filePreviewChildren"], ["[ajfDropMessage]", "[ajfFilePreview]"]>;
 }
 export declare const fileIcon: string;

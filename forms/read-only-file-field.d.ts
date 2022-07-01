@@ -14,7 +14,7 @@ import * as i0 from "@angular/core";
  */
 export declare class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
     readonly fileIcon: SafeResourceUrl;
-    readonly fileUrl: Observable<SafeResourceUrl>;
+    readonly fileUrl: Observable<SafeResourceUrl | null>;
     readonly fileName: Observable<string>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyFileFieldComponent, never>;

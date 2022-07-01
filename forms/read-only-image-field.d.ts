@@ -13,7 +13,7 @@ import * as i0 from "@angular/core";
  * @class AjfReadOnlyImageFieldComponent
  */
 export declare class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
-    readonly imageUrl: Observable<SafeResourceUrl>;
+    readonly imageUrl: Observable<SafeResourceUrl | null>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyImageFieldComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyImageFieldComponent, "ajf-read-only-image-field", never, {}, {}, never, never>;

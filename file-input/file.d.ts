@@ -21,7 +21,9 @@
  */
 export interface AjfFile {
     name: string;
-    size: number;
+    size?: number;
     type: string;
-    content: string;
+    content?: string;
+    url?: string;
+    deleteUrl: boolean;
 }
