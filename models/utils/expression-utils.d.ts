@@ -194,7 +194,45 @@ export declare function MEDIAN(forms: (Form | MainForm)[], fieldName: string): s
  * Calculates the mode value of the field.
  */
 export declare function MODE(forms: (Form | MainForm)[], fieldName: string): number[];
+/**
+ * Build a dataset for ajf dynamic table
+ * @param dataset the dataset for the table
+ * @param colspans colspan for each value in the dataset
+ * @returns An AjfTableCell list
+ */
 export declare function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
+/**
+ * Build a dataset based on a list of Forms, for ajf dynamic table
+ * @param dataset the dataset for the table
+ * @param fields the list of fields name for each row
+ * @param backgroundColorA the first backgroud color
+ * @param backgroundColorB the second backgroud color
+ * @returns An AjfTableCell list
+ */
+export declare function buildFormDataset(dataset: MainForm[], fields: string[], backgroundColorA?: string, backgroundColorB?: string): AjfTableCell[][];
+/**
+ * create a widget dataset into a content list, based on a list of Forms, for paginated widget
+ *
+ * @param dataset the dataset for the widgets
+ * @param fields the list of fields name for each row
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
+ * @param cellStyles css styles for cells
+ * @param rowStyle css styles for rows
+ * @param percWidth an array with the same length of fields param, with the width for the columns.
+ * ie: ['10%', '30%', '10%', '25%', '15%', '10%']
+ * @param backgroundColorA the first backgroud color
+ * @param backgroundColorB the second backgroud color
+ * @returns An AjfTableWidget list
+ */
+export declare function buildWidgetDataset(dataset: MainForm[], fields: string[], rowLink: {
+    link: string;
+    position: number;
+} | null, cellStyles: {
+    [key: string]: any;
+} | null, rowStyle: {
+    [key: string]: any;
+} | null, percWidth: string[], backgroundColorA?: string, backgroundColorB?: string): any[];
 /**
  *
  * @param forms the form data
@@ -375,6 +413,19 @@ export declare function IS_AFTER(date: string, dateToCompare: string): boolean;
  * @return {*}  {boolean}
  */
 export declare function IS_WITHIN_INTERVAL(date: string, dateStart: string, dateEnd: string): boolean;
+/**
+ * compare a date with two dates interval. Return '-1' (or the first element of labels array) if date
+ * is before the dateStart, '1' (or the second element) if date is after the dateEnd
+ * or '0' (or the last element) if date is within inteval.
+ *
+ * @export
+ * @param {string} date
+ * @param {string} dateStart
+ * @param {string} dateEnd
+ * @param {string[]} labels an optional array of string for the output values
+ * @return {*}  {string}
+ */
+export declare function COMPARE_DATE(date: string, dateStart: string, dateEnd: string, labels?: string[]): string;
 /**
  * this function extend formsA dataset.
  * search all match of keyA in formsB, if found if merge formA and formB.

@@ -20,6 +20,7 @@
  *
  */
 import { AjfColumnWidget } from '../../interface/widgets/column-widget';
+import { AjfDialogWidget } from '../../interface/widgets/dialog-widget';
 import { AjfLayoutWidget } from '../../interface/widgets/layout-widget';
 import { AjfWidget } from '../../interface/widgets/widget';
-export declare const isWidgetWithContent: (widget: AjfWidget) => widget is AjfColumnWidget | AjfLayoutWidget;
+export declare const isWidgetWithContent: (widget: AjfWidget) => widget is AjfColumnWidget | AjfDialogWidget | AjfLayoutWidget;

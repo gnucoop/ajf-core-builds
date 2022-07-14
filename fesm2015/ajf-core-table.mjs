@@ -3,7 +3,7 @@ import { AjfCommonModule } from '@ajf/core/common';
 import * as i2 from '@angular/common';
 import { CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, NgModule } from '@angular/core';
+import { SecurityContext, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, NgModule } from '@angular/core';
 import * as i1 from '@angular/platform-browser';
 
 /**
@@ -57,7 +57,7 @@ class AjfTable {
     _fixData(data) {
         (data || []).forEach(elem => {
             (elem || []).forEach(subElem => {
-                subElem.value = this._domSanitizer.bypassSecurityTrustHtml(subElem.value);
+                subElem.value = this._domSanitizer.sanitize(SecurityContext.HTML, this._domSanitizer.bypassSecurityTrustHtml(subElem.value));
             });
         });
         return data;

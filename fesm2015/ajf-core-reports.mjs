@@ -1303,7 +1303,9 @@ const isMapWidget = (widget) => {
  */
 const isWidgetWithContent = (widget) => {
     return (widget != null &&
-        (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout));
+        (widget.widgetType === AjfWidgetType.Column ||
+            widget.widgetType === AjfWidgetType.Layout ||
+            widget.widgetType === AjfWidgetType.Dialog));
 };
 
 /**
@@ -1354,6 +1356,31 @@ const isTableWidget = (widget) => {
  */
 const isTextWidget = (widget) => {
     return widget != null && widget.widgetType === AjfWidgetType.Text;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isPaginatedListWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.PaginatedList;
 };
 
 /**
@@ -1677,6 +1704,31 @@ const isWidgetWithContentInstance = (instance) => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const isPaginatedListWidgetInstance = (instance) => {
+    return instance != null && isPaginatedListWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 function createWidgetInstance(widget, context, _ts, variables = []) {
     let filter = undefined;
     if (widget.filter != null && widget.filter.schema != null) {
@@ -1808,6 +1860,9 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             }
             wi.content = content;
         });
+        if (isDialogWidget(widget) && isDialogWidgetInstance(wi)) {
+            wi.toggle = widgetToWidgetInstance(widget.toggle, context, ts, variables);
+        }
     }
     else if (isChartWidget(widget) && isChartWidgetInstance(wi)) {
         if (widget.options == null) {
@@ -1943,6 +1998,21 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
         });
         wi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
     }
+    else if (isPaginatedListWidget(widget) && isPaginatedListWidgetInstance(wi)) {
+        let content = [];
+        if (widget.contentDefinition) {
+            let contentDefinition = evaluateExpression(widget.contentDefinition.formula, context) || [];
+            contentDefinition.forEach(c => {
+                content.push(widgetToWidgetInstance(c, context, ts, variables));
+            });
+        }
+        else if (widget.content) {
+            widget.content.forEach(c => {
+                content.push(widgetToWidgetInstance(c, context, ts, variables));
+            });
+        }
+        wi.content = content;
+    }
     else if (isImageWidget(widget) && isImageWidgetInstance(wi)) {
         if (widget.flag) {
             wi.flag = evaluateExpression(widget.flag.formula, context);
@@ -1995,9 +2065,6 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
                 return node;
             });
         }
-    }
-    else if (isDialogWidget(widget) && isDialogWidgetInstance(wi)) {
-        wi.toggle = widgetToWidgetInstance(widget.toggle, context, ts, variables);
     }
     else if (isHeatMapWidget(widget) && isHeatMapWidgetInstance(wi)) {
         wi.idProp = widget.idProp || 'id';
@@ -3220,6 +3287,7 @@ const functionParams = {
     'IS_BEFORE': [false, false],
     'IS_AFTER': [false, false],
     'IS_WITHIN_INTERVAL': [false, false, false],
+    'COMPARE_DATE': [false, false, false, false],
 };
 
 /**
@@ -3676,7 +3744,7 @@ function xlsReport(file, http) {
                     const graphWidget = _buildGraph(sheetName, json);
                     reportWidgets.push(graphWidget);
                 }
-                else if (sheetName.indexOf('heatmap')) {
+                else if (sheetName.includes('heatmap')) {
                     const heatmapWidget = _buildHeatmap(sheetName, json);
                     reportWidgets.push(heatmapWidget);
                 }
@@ -3777,9 +3845,11 @@ function _buildChart(name, json) {
         const chartType = chartOptions['chartType'];
         const colorCondition = chartType === 'Pie' || chartType === 'PolarArea' || chartType === 'Doughnut';
         const backColor = colorCondition ? backgroundColor$1 : backgroundColor$1[index];
-        const formula = [createFormula({
-                formula: `plainArray(${datasetJs})`
-            })];
+        const formula = [
+            createFormula({
+                formula: `plainArray(${datasetJs})`,
+            }),
+        ];
         const datasetOptions = {
             backgroundColor: backColor,
         };
@@ -3890,7 +3960,7 @@ function _buildTable(sheetName, json) {
     return createWidget({
         widgetType: AjfWidgetType.DynamicTable,
         rowDefinition: {
-            formula: `buildDataset(${dataRows},${JSON.stringify(colspans)})`,
+            formula: `buildDataset(plainArray(${dataRows}),${JSON.stringify(colspans)})`,
         },
         dataset: tableHeader,
         exportable: true,

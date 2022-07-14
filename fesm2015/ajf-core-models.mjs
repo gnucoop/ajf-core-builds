@@ -272,10 +272,13 @@ AjfExpressionUtils.utils = {
     REPEAT: { fn: REPEAT },
     EVALUATE: { fn: EVALUATE },
     buildDataset: { fn: buildDataset },
+    buildFormDataset: { fn: buildFormDataset },
+    buildWidgetDataset: { fn: buildWidgetDataset },
     FILTER_BY: { fn: FILTER_BY },
     IS_BEFORE: { fn: IS_BEFORE },
     IS_AFTER: { fn: IS_AFTER },
     IS_WITHIN_INTERVAL: { fn: IS_WITHIN_INTERVAL },
+    COMPARE_DATE: { fn: COMPARE_DATE },
     APPLY: { fn: APPLY },
     TODAY: { fn: TODAY },
     GET_AGE: { fn: GET_AGE },
@@ -1122,6 +1125,12 @@ function MODE(forms, fieldName) {
         .filter(v => map[+v] === maxCount)
         .map(v => +v);
 }
+/**
+ * Build a dataset for ajf dynamic table
+ * @param dataset the dataset for the table
+ * @param colspans colspan for each value in the dataset
+ * @returns An AjfTableCell list
+ */
 function buildDataset(dataset, colspans) {
     const res = [];
     const normalizeDataset = [];
@@ -1149,6 +1158,119 @@ function buildDataset(dataset, colspans) {
         });
         res.push(row);
     });
+    return res;
+}
+/**
+ * Build a dataset based on a list of Forms, for ajf dynamic table
+ * @param dataset the dataset for the table
+ * @param fields the list of fields name for each row
+ * @param backgroundColorA the first backgroud color
+ * @param backgroundColorB the second backgroud color
+ * @returns An AjfTableCell list
+ */
+function buildFormDataset(dataset, fields, backgroundColorA, backgroundColorB) {
+    const res = [];
+    if (backgroundColorA == null) {
+        backgroundColorA = 'white';
+    }
+    if (backgroundColorB == null) {
+        backgroundColorB = '#ddd';
+    }
+    if (dataset) {
+        dataset.forEach((data, index) => {
+            if (data) {
+                const row = [];
+                fields.forEach((field) => {
+                    row.push({
+                        value: data[field],
+                        colspan: 1,
+                        rowspan: 1,
+                        style: {
+                            textAlign: 'center',
+                            color: 'black',
+                            backgroundColor: index % 2 === 0 ? backgroundColorA : backgroundColorB,
+                        },
+                    });
+                });
+                res.push(row);
+            }
+        });
+    }
+    return res;
+}
+/**
+ * create a widget dataset into a content list, based on a list of Forms, for paginated widget
+ *
+ * @param dataset the dataset for the widgets
+ * @param fields the list of fields name for each row
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
+ * @param cellStyles css styles for cells
+ * @param rowStyle css styles for rows
+ * @param percWidth an array with the same length of fields param, with the width for the columns.
+ * ie: ['10%', '30%', '10%', '25%', '15%', '10%']
+ * @param backgroundColorA the first backgroud color
+ * @param backgroundColorB the second backgroud color
+ * @returns An AjfTableWidget list
+ */
+function buildWidgetDataset(dataset, fields, rowLink, cellStyles, rowStyle, percWidth, backgroundColorA, backgroundColorB) {
+    const res = [];
+    if (backgroundColorA == null) {
+        backgroundColorA = 'white';
+    }
+    if (backgroundColorB == null) {
+        backgroundColorB = '#ddd';
+    }
+    if (rowStyle == null) {
+        rowStyle = {
+            'text-align': 'right',
+            'margin-bottom': 0,
+            'border-collapse': 'collapse',
+        };
+    }
+    if (cellStyles == null) {
+        cellStyles = {
+            textAlign: 'center',
+            color: 'black',
+        };
+    }
+    if (percWidth == null || percWidth.length !== fields.length) {
+        const cellWidth = 100 / fields.length + '%';
+        percWidth = [];
+        fields.forEach(_ => percWidth.push(cellWidth));
+    }
+    if (dataset) {
+        dataset.forEach((data, index) => {
+            if (data) {
+                const row = {
+                    styles: Object.assign({ 'text-align': 'right', 'margin-bottom': 0, 'border-collapse': 'collapse' }, rowStyle),
+                    visibility: { condition: 'true' },
+                    widgetType: 5,
+                    dataset: [[]],
+                    cellStyles: { 'border-top': '1px solid grey' },
+                };
+                fields.forEach((field, cellIdx) => {
+                    let formulaCell = '"' + data[field] + '"';
+                    if (rowLink != null && cellIdx === rowLink['position']) {
+                        formulaCell = `"<a href='${data[rowLink['link']]}'> ${data[field]}</a>"`;
+                    }
+                    row['dataset'][0].push({
+                        label: '',
+                        style: Object.assign(Object.assign({ textAlign: 'center', color: 'black', backgroundColor: index % 2 === 0 ? backgroundColorA : backgroundColorB }, cellStyles), { width: percWidth[cellIdx] }),
+                        formula: {
+                            formula: formulaCell,
+                        },
+                        colspan: 1,
+                        rowspan: 1,
+                        aggregation: {
+                            aggregation: 0,
+                        },
+                    });
+                });
+                res.push(row);
+            }
+        });
+    }
     return res;
 }
 /**
@@ -1557,6 +1679,41 @@ function IS_WITHIN_INTERVAL(date, dateStart, dateEnd) {
     return dateFns.isWithinInterval(dateToCompare, interval);
 }
 /**
+ * compare a date with two dates interval. Return '-1' (or the first element of labels array) if date
+ * is before the dateStart, '1' (or the second element) if date is after the dateEnd
+ * or '0' (or the last element) if date is within inteval.
+ *
+ * @export
+ * @param {string} date
+ * @param {string} dateStart
+ * @param {string} dateEnd
+ * @param {string[]} labels an optional array of string for the output values
+ * @return {*}  {string}
+ */
+function COMPARE_DATE(date, dateStart, dateEnd, labels) {
+    let res = '';
+    const dateToCompare = dateFns.parseISO(date);
+    const dateA = dateFns.parseISO(dateStart);
+    const dateB = dateFns.parseISO(dateEnd);
+    const interval = {
+        start: dateA,
+        end: dateB,
+    };
+    if (labels == null) {
+        labels = ['-1', '1', '0'];
+    }
+    if (dateFns.isBefore(dateToCompare, dateA)) {
+        res = labels[0];
+    }
+    else if (dateFns.isAfter(dateToCompare, dateB)) {
+        res = labels[1];
+    }
+    else if (dateFns.isWithinInterval(dateToCompare, interval)) {
+        res = labels[2];
+    }
+    return res;
+}
+/**
  * this function extend formsA dataset.
  * search all match of keyA in formsB, if found if merge formA and formB.
  *
@@ -1939,5 +2096,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { ALL_VALUES_OF, APPLY, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FROM_REPS, GET_AGE, GET_LABELS, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildDataset, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { ALL_VALUES_OF, APPLY, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FROM_REPS, GET_AGE, GET_LABELS, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildDataset, buildFormDataset, buildWidgetDataset, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=ajf-core-models.mjs.map

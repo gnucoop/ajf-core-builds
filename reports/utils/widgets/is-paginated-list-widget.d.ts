@@ -19,8 +19,6 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { AjfColumnWidgetInstance } from '../../interface/widgets-instances/column-widget-instance';
-import { AjfDialogWidgetInstance } from '../../interface/widgets-instances/dialog-widget-instance';
-import { AjfLayoutWidgetInstance } from '../../interface/widgets-instances/layout-widget-instance';
-import { AjfWidgetInstance } from '../../interface/widgets-instances/widget-instance';
-export declare const isWidgetWithContentInstance: (instance: AjfWidgetInstance) => instance is AjfColumnWidgetInstance | AjfDialogWidgetInstance | AjfLayoutWidgetInstance;
+import { AjfPaginatedListWidget } from '../../interface/widgets/paginated-list-widget';
+import { AjfWidget } from '../../interface/widgets/widget';
+export declare const isPaginatedListWidget: (widget: AjfWidget) => widget is AjfPaginatedListWidget;
