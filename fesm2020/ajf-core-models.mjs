@@ -1272,11 +1272,13 @@ function buildDataset(dataset, colspans) {
  * Build a dataset based on a list of Forms, for ajf dynamic table
  * @param dataset the dataset for the table
  * @param fields the list of fields name for each row
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
  * @param backgroundColorA the first backgroud color
  * @param backgroundColorB the second backgroud color
  * @returns An AjfTableCell list
  */
-function buildFormDataset(dataset, fields, backgroundColorA, backgroundColorB) {
+function buildFormDataset(dataset, fields, rowLink, backgroundColorA, backgroundColorB) {
     const res = [];
     if (backgroundColorA == null) {
         backgroundColorA = 'white';
@@ -1285,12 +1287,18 @@ function buildFormDataset(dataset, fields, backgroundColorA, backgroundColorB) {
         backgroundColorB = '#ddd';
     }
     if (dataset) {
-        dataset.forEach((data, index) => {
+        let index = 0;
+        dataset.forEach((data) => {
             if (data) {
+                index++;
                 const row = [];
-                fields.forEach((field) => {
+                fields.forEach((field, cellIdx) => {
+                    let cellValue = data[field] || '';
+                    if (rowLink != null && cellIdx === rowLink['position']) {
+                        cellValue = `<a href='${data[rowLink['link']]}'> ${data[field]}</a>`;
+                    }
                     row.push({
-                        value: data[field],
+                        value: cellValue,
                         colspan: 1,
                         rowspan: 1,
                         style: {
@@ -1348,8 +1356,10 @@ function buildWidgetDataset(dataset, fields, rowLink, cellStyles, rowStyle, perc
         fields.forEach(_ => percWidth.push(cellWidth));
     }
     if (dataset) {
-        dataset.forEach((data, index) => {
+        let index = 0;
+        dataset.forEach((data) => {
             if (data) {
+                index++;
                 const row = {
                     styles: {
                         'text-align': 'right',
@@ -1363,9 +1373,12 @@ function buildWidgetDataset(dataset, fields, rowLink, cellStyles, rowStyle, perc
                     cellStyles: { 'border-top': '1px solid grey' },
                 };
                 fields.forEach((field, cellIdx) => {
-                    let formulaCell = '"' + data[field] + '"';
-                    if (rowLink != null && cellIdx === rowLink['position']) {
-                        formulaCell = `"<a href='${data[rowLink['link']]}'> ${data[field]}</a>"`;
+                    let formulaCell = '""';
+                    if (data[field] != null) {
+                        formulaCell = '"' + data[field] + '"';
+                        if (rowLink != null && cellIdx === rowLink['position']) {
+                            formulaCell = `"<a href='${data[rowLink['link']]}'> ${data[field]}</a>"`;
+                        }
                     }
                     row['dataset'][0].push({
                         label: '',

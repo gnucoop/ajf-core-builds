@@ -12,6 +12,7 @@ class AjfHeatMap {
         this._endColor = '#f44336';
         this._highlightColor = '#009688';
         this._values = 'properties.value';
+        this._action = '';
         this._idProp = 'id';
         this._showVisualMap = false;
         this.featureSelected = new EventEmitter();
@@ -31,6 +32,13 @@ class AjfHeatMap {
     }
     set values(values) {
         this._values = values;
+    }
+    /**
+     * The codo to execute when an element is selected on heatmap.
+     * It is inserted into a function, which receives the selected object as input
+     */
+    set action(action) {
+        this._action = action;
     }
     set idProp(idProp) {
         this._idProp = idProp;
@@ -68,6 +76,13 @@ class AjfHeatMap {
             }
             const feature = this._features.features[idx];
             this.featureSelected.emit({ feature });
+            if (this._action && this._action.length) {
+                try {
+                    const actionFunction = new Function('v', this._action);
+                    actionFunction({ feature });
+                }
+                catch (e) { }
+            }
         });
         this._updateChartOptions();
     }
@@ -154,7 +169,7 @@ class AjfHeatMap {
     }
 }
 AjfHeatMap.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfHeatMap, deps: [{ token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component });
-AjfHeatMap.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfHeatMap, selector: "ajf-heat-map", inputs: { features: "features", startColor: "startColor", endColor: "endColor", highlightColor: "highlightColor", values: "values", idProp: "idProp", showVisualMap: "showVisualMap" }, outputs: { featureSelected: "featureSelected" }, usesOnChanges: true, ngImport: i0, template: "<div ajfEcharts (chartInit)=\"onChartInit($event)\" [options]=\"chartOptions\"></div>\n", styles: ["ajf-heat-map{display:block;position:relative}ajf-heat-map [ajfEcharts]{width:100%;height:100%}\n"], directives: [{ type: i1.AjfEchartsDirective, selector: "[ajfEcharts]", inputs: ["theme", "renderer", "options"], outputs: ["chartInit"], exportAs: ["ajfEcharts"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+AjfHeatMap.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfHeatMap, selector: "ajf-heat-map", inputs: { features: "features", startColor: "startColor", endColor: "endColor", highlightColor: "highlightColor", values: "values", action: "action", idProp: "idProp", showVisualMap: "showVisualMap" }, outputs: { featureSelected: "featureSelected" }, usesOnChanges: true, ngImport: i0, template: "<div ajfEcharts (chartInit)=\"onChartInit($event)\" [options]=\"chartOptions\"></div>\n", styles: ["ajf-heat-map{display:block;position:relative}ajf-heat-map [ajfEcharts]{width:100%;height:100%}\n"], directives: [{ type: i1.AjfEchartsDirective, selector: "[ajfEcharts]", inputs: ["theme", "renderer", "options"], outputs: ["chartInit"], exportAs: ["ajfEcharts"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfHeatMap, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-heat-map', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<div ajfEcharts (chartInit)=\"onChartInit($event)\" [options]=\"chartOptions\"></div>\n", styles: ["ajf-heat-map{display:block;position:relative}ajf-heat-map [ajfEcharts]{width:100%;height:100%}\n"] }]
@@ -167,6 +182,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
             }], highlightColor: [{
                 type: Input
             }], values: [{
+                type: Input
+            }], action: [{
                 type: Input
             }], idProp: [{
                 type: Input

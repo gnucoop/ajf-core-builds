@@ -45,6 +45,12 @@ export declare class AjfHeatMap implements OnChanges, OnDestroy {
     private _highlightColor;
     set values(values: string | number[]);
     private _values;
+    /**
+     * The codo to execute when an element is selected on heatmap.
+     * It is inserted into a function, which receives the selected object as input
+     */
+    set action(action: string);
+    private _action;
     set idProp(idProp: string);
     private _idProp;
     set showVisualMap(showVisualMap: BooleanInput);
@@ -62,5 +68,5 @@ export declare class AjfHeatMap implements OnChanges, OnDestroy {
     private _getChartSeries;
     private _getFeaturesData;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfHeatMap, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfHeatMap, "ajf-heat-map", never, { "features": "features"; "startColor": "startColor"; "endColor": "endColor"; "highlightColor": "highlightColor"; "values": "values"; "idProp": "idProp"; "showVisualMap": "showVisualMap"; }, { "featureSelected": "featureSelected"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfHeatMap, "ajf-heat-map", never, { "features": "features"; "startColor": "startColor"; "endColor": "endColor"; "highlightColor": "highlightColor"; "values": "values"; "action": "action"; "idProp": "idProp"; "showVisualMap": "showVisualMap"; }, { "featureSelected": "featureSelected"; }, never, never>;
 }

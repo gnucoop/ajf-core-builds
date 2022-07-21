@@ -31,4 +31,5 @@ export interface AjfHeatMapWidgetInstance extends AjfBaseWidgetInstance {
     endColor: string;
     highlightColor: string;
     showVisualMap: boolean;
+    action: string;
 }

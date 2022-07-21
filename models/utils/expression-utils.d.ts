@@ -205,11 +205,16 @@ export declare function buildDataset(dataset: (string | number | string[] | numb
  * Build a dataset based on a list of Forms, for ajf dynamic table
  * @param dataset the dataset for the table
  * @param fields the list of fields name for each row
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
  * @param backgroundColorA the first backgroud color
  * @param backgroundColorB the second backgroud color
  * @returns An AjfTableCell list
  */
-export declare function buildFormDataset(dataset: MainForm[], fields: string[], backgroundColorA?: string, backgroundColorB?: string): AjfTableCell[][];
+export declare function buildFormDataset(dataset: MainForm[], fields: string[], rowLink: {
+    link: string;
+    position: number;
+} | null, backgroundColorA?: string, backgroundColorB?: string): AjfTableCell[][];
 /**
  * create a widget dataset into a content list, based on a list of Forms, for paginated widget
  *
