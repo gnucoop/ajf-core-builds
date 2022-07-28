@@ -3030,6 +3030,9 @@ function tokenize(s) {
 function indicatorToJs(formula) {
     switch (typeof (formula)) {
         case 'string':
+            if (formula.startsWith('js:')) {
+                return formula.slice(3).trim();
+            }
             break;
         case 'number':
         case 'boolean':
