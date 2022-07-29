@@ -239,6 +239,29 @@ export declare function buildWidgetDataset(dataset: MainForm[], fields: string[]
     [key: string]: any;
 } | null, percWidth: string[], backgroundColorA?: string, backgroundColorB?: string): any[];
 /**
+ * create a widget dataset into a content list, based on a list of Forms, for paginated widget.
+ * Each row is a AjfDialogWidget and, on click, open a dialog.
+ *
+ * @param dataset the dataset for the widgets
+ * @param fields the list of fields name for each row
+ * @param dialogFields the list of fields name to show in the dialog
+ * @param dialogLabelFields the list of labels for each dialogFields
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
+ * @param cellStyles css styles for cells
+ * @param rowStyle css styles for rows
+ * @param percWidth an array with the same length of fields param, with the width for the columns.
+ * ie: ['10%', '30%', '10%', '25%', '15%', '10%']
+ * @param backgroundColorA the first backgroud color
+ * @param backgroundColorB the second backgroud color
+ * @returns An AjfDialogWidget list
+ */
+export declare function buildWidgetDatasetWithDialog(dataset: MainForm[], fields: string[], dialogFields: string[], dialogLabelFields: string[], cellStyles: {
+    [key: string]: any;
+} | null, rowStyle: {
+    [key: string]: any;
+} | null, percWidth: string[], backgroundColorA?: string, backgroundColorB?: string): any[];
+/**
  *
  * @param forms the form data
  * @param iterations all values of iteration
@@ -342,6 +365,23 @@ export declare function EVALUATE(condition: string, branch1: any, branch2: any):
  * @return {*}  {MainForm[]}
  */
 export declare function BUILD_DATASET(forms: Form[], schema?: any): MainForm[];
+/**
+ * This function take a list of forms, an ajf schema and a list of field names as input and builds
+ * a data structure that replace a list of label matched inside a schema choiche origins.
+ *
+ * @param {MainForm[]} formList
+ * @param {*} schema the ajf schema
+ * @param {string[]} fieldNames
+ * @return {*}  {MainForm[]}
+ */
+export declare function APPLY_LABELS(formList: MainForm[], schema: any, fieldNames: string[]): MainForm[];
+/**
+ *
+ * @param {MainForm[]} formList a set of main forms
+ * @param {string} expression to be evaluated, also with report variables values.
+ * @return {*}  {MainForm[]}
+ */
+export declare function FILTER_BY_VARS(formList: MainForm[], expression: string): MainForm[];
 /**
  * This function build a partition of formList by execution of expression.
  * For every mainForm the expression match mainform field and replace it.
@@ -487,12 +527,12 @@ export declare function ISIN(dataset: any[], value: any): boolean;
  */
 export declare function OP(datasetA: number[], datasetB: number[], expression: string): number[];
 /**
- * this function take a ajf schema and a list of field names as input and
+ * this function take a ajf schema and a list of values as input and
  * returns a list of label matched inside a schema choiche origins.
  *
  * @export
  * @param {*} schema
- * @param {string[]} fieldNames
+ * @param {string[]} values
  * @return {*}  {string[]}
  */
-export declare function GET_LABELS(schema: any, fieldNames: string[]): string[];
+export declare function GET_LABELS(schema: any, values: string[]): string[];

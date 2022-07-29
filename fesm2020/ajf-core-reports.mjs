@@ -4185,7 +4185,7 @@ function tokenize(s) {
     }
 }
 function indicatorToJs(formula) {
-    switch (typeof (formula)) {
+    switch (typeof formula) {
         case 'string':
             if (formula.startsWith('js:')) {
                 return formula.slice(3).trim();
@@ -4421,36 +4421,38 @@ function parseFunctionWithParams(name, revToks, ...stringifyParams) {
     }
 }
 const functionParams = {
-    'SUM': [false, true, true],
-    'MEAN': [false, true, true],
-    'MAX': [false, true, true],
-    'MEDIAN': [false, true, true],
-    'MODE': [false, true, true],
-    'COUNT_FORMS': [false, true],
-    'COUNT_REPS': [false, true],
-    'COUNT_FORMS_UNIQUE': [false, true, true],
-    'ALL_VALUES_OF': [false, true],
-    'PERCENT': [false, false],
-    'LAST': [false, true, false],
-    'REPEAT': [false, false, false, true, true],
-    'EVALUATE': [false, false, false],
-    'FILTER_BY': [false, true],
-    'APPLY': [false, true, true],
-    'GET_AGE': [false, false],
-    'LEN': [false, false],
-    'CONSOLE_LOG': [false, false],
-    'JOIN_FORMS': [false, false, true, true],
-    'JOIN_REPEATING_SLIDES': [false, false, true, true, true, true],
-    'FROM_REPS': [false, false],
-    'ISIN': [false, false],
-    'OP': [false, false, true],
-    'GET_LABELS': [false, false],
-    'BUILD_DATASET': [false, false],
-    'ROUND': [false, false],
-    'IS_BEFORE': [false, false],
-    'IS_AFTER': [false, false],
-    'IS_WITHIN_INTERVAL': [false, false, false],
-    'COMPARE_DATE': [false, false, false, false],
+    SUM: [false, true, true],
+    MEAN: [false, true, true],
+    MAX: [false, true, true],
+    MEDIAN: [false, true, true],
+    MODE: [false, true, true],
+    COUNT_FORMS: [false, true],
+    COUNT_REPS: [false, true],
+    COUNT_FORMS_UNIQUE: [false, true, true],
+    ALL_VALUES_OF: [false, true],
+    PERCENT: [false, false],
+    LAST: [false, true, false],
+    REPEAT: [false, false, false, true, true],
+    EVALUATE: [false, false, false],
+    FILTER_BY_VARS: [false, false],
+    FILTER_BY: [false, true],
+    APPLY: [false, true, true],
+    GET_AGE: [false, false],
+    LEN: [false, false],
+    CONSOLE_LOG: [false, false],
+    JOIN_FORMS: [false, false, true, true],
+    JOIN_REPEATING_SLIDES: [false, false, true, true, true, true],
+    FROM_REPS: [false, false],
+    ISIN: [false, false],
+    OP: [false, false, true],
+    GET_LABELS: [false, false],
+    APPLY_LABELS: [false, false, false],
+    BUILD_DATASET: [false, false],
+    ROUND: [false, false],
+    IS_BEFORE: [false, false],
+    IS_AFTER: [false, false],
+    IS_WITHIN_INTERVAL: [false, false, false],
+    COMPARE_DATE: [false, false, false, false],
 };
 
 /**
@@ -4919,6 +4921,10 @@ function xlsReport(file, http) {
                     const pagListWidget = _buildPaginatedListTable(sheetName, json);
                     reportWidgets.push(pagListWidget);
                 }
+                else if (sheetName.includes('paginatedDialogList')) {
+                    const pagListWidget = _buildPaginatedListTableWithDialog(sheetName, json);
+                    reportWidgets.push(pagListWidget);
+                }
                 if (idx >= 0) {
                     reportWidgets[reportWidgets.length - 1].filter = {
                         schema: f[idx],
@@ -5211,7 +5217,7 @@ function _buildFormListTable(_, json) {
     });
 }
 /**
- * Create a widget with a dynamic paginated table based on a list of Forms
+ * Create a widget with a dynamic paginated table based on a list of Forms. Each row is an AjfTable.
  * @param sheetName
  * @param json
  * @returns a Paginated AjfWidget with a formula like this:
@@ -5246,6 +5252,64 @@ function _buildPaginatedListTable(_, json) {
         const backgroundColorB = json[1]['backgroundColorB'];
         formula =
             `buildWidgetDataset(${dataset}, ${fields}, ${rowLink}, ${cellStyles},` +
+                `${rowStyle}, ${colsPercentageArray}, ${JSON.stringify(backgroundColorA)}, ${JSON.stringify(backgroundColorB)})`;
+    }
+    return createWidget({
+        widgetType: AjfWidgetType.PaginatedList,
+        pageSize: pageSize,
+        title: title,
+        contentDefinition: {
+            formula: formula,
+        },
+        exportable: true,
+        styles: {
+            height: '500px',
+        },
+    });
+}
+/**
+ * Create a widget with a dynamic paginated table based on a list of Forms. Each row is an AjfDialogWidget with an AjfTable
+ * that open, on click, a dialog.
+ * @param sheetName
+ * @param json
+ * @returns a Paginated AjfWidget with a formula like this:
+ * buildWidgetDatasetWithDialog(projectsDataset, ['id_p','donors','province_choicesLabel','dino_area_name','calc_progress','home_link_text',],
+ *  ['id_p','donors','province_choicesLabel','dino_area_name'], ['Codice progetto','Donors','Provinces','Settore di attivita'],
+ *  {'border': 'none'},{'width': '900px'}, ['10%','30%','10%','25%','15%','10%'], \"#f0f0f0\", \"white\")
+ */
+function _buildPaginatedListTableWithDialog(_, json) {
+    let formula = '';
+    let pageSize = 10;
+    let dataset = '';
+    let title = '';
+    if (json.length > 1) {
+        const colsPercentage = Object.values(json[0])
+            .map(r => `'${r}%'`)
+            .join(',');
+        const colsPercentageArray = `[${colsPercentage}]`;
+        let fields = '[';
+        Object.keys(json[0]).forEach(fieldColName => {
+            let elem = json[1][fieldColName] ? `'${json[1][fieldColName]}'` : `''`;
+            fields += elem + ',';
+        });
+        fields += ']';
+        let dialogFields = '[';
+        let dialogLabelFields = '[';
+        if (json.length > 3) {
+            dialogLabelFields += Object.values(json[2]).map(v => `'${v}'`).join(',');
+            dialogFields += Object.values(json[3]).map(v => `'${v}'`).join(',');
+        }
+        dialogFields += ']';
+        dialogLabelFields += ']';
+        dataset = json[1]['dataset'];
+        title = json[1]['title'];
+        pageSize = json[1]['pageSize'] ? +json[1]['pageSize'] : 10;
+        const cellStyles = json[1]['cellStyles'];
+        const rowStyle = json[1]['rowStyle'];
+        const backgroundColorA = json[1]['backgroundColorA'];
+        const backgroundColorB = json[1]['backgroundColorB'];
+        formula =
+            `buildWidgetDatasetWithDialog(${dataset}, ${fields}, ${dialogFields}, ${dialogLabelFields}, ${cellStyles},` +
                 `${rowStyle}, ${colsPercentageArray}, ${JSON.stringify(backgroundColorA)}, ${JSON.stringify(backgroundColorB)})`;
     }
     return createWidget({
