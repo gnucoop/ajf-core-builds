@@ -920,7 +920,7 @@ class AjfTranslocoModule {
                 TranslocoService,
                 {
                     provide: TRANSLOCO_CONFIG,
-                    useValue: translocoConfig(Object.assign(Object.assign({}, config), { availableLangs, defaultLang: 'ENG' })),
+                    useValue: translocoConfig(Object.assign(Object.assign({ availableLangs }, config), { defaultLang: 'ENG' })),
                 },
             ],
         };

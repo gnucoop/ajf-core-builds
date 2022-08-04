@@ -921,8 +921,8 @@ class AjfTranslocoModule {
                 {
                     provide: TRANSLOCO_CONFIG,
                     useValue: translocoConfig({
-                        ...config,
                         availableLangs,
+                        ...config,
                         defaultLang: 'ENG',
                     }),
                 },
