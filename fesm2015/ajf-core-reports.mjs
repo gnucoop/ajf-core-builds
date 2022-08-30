@@ -420,7 +420,10 @@ class AjfWidgetExport {
                         }
                         tableData[i].forEach((elem, idxElem) => {
                             let val = elem.value.changingThisBreaksApplicationSecurity;
-                            if (iconsMap[val]) {
+                            if (val === undefined) {
+                                val = elem.value;
+                            }
+                            if (val != null && iconsMap[val]) {
                                 val = iconsMap[val];
                             }
                             res.push(val);
