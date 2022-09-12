@@ -395,6 +395,8 @@ AjfExpressionUtils.utils = {
     BUILD_DATASET: { fn: BUILD_DATASET },
     JOIN_FORMS: { fn: JOIN_FORMS },
     LEN: { fn: LEN },
+    CONCAT: { fn: CONCAT },
+    REMOVE_DUPLICATES: { fn: REMOVE_DUPLICATES },
     JOIN_REPEATING_SLIDES: { fn: JOIN_REPEATING_SLIDES },
     FROM_REPS: { fn: FROM_REPS },
     ISIN: { fn: ISIN },
@@ -1964,6 +1966,27 @@ function LEN(dataset) {
     return dataset.length || 0;
 }
 /**
+ * Array concatenation.
+ *
+ * @export
+ * @param {any[]} a
+ * @param {any[]} b
+ * @return {*}  {any[]}
+ */
+function CONCAT(a, b) {
+    return a.concat(b);
+}
+/**
+ * Removes duplicate elements from an array.
+ *
+ * @export
+ * @param {any[]} arr
+ * @return {*}  {any[]}
+ */
+function REMOVE_DUPLICATES(arr) {
+    return [...(new Map(arr.map(v => [JSON.stringify(v), v]))).values()];
+}
+/**
  * return true if date is before then dateToCompare
  *
  * @export
@@ -2427,5 +2450,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FILTER_BY_VARS, FROM_REPS, GET_AGE, GET_LABELS, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FILTER_BY_VARS, FROM_REPS, GET_AGE, GET_LABELS, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=ajf-core-models.mjs.map

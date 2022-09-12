@@ -431,6 +431,23 @@ export declare function GET_AGE(dob: string | null): number;
  */
 export declare function LEN(dataset: MainForm | any[]): number;
 /**
+ * Array concatenation.
+ *
+ * @export
+ * @param {any[]} a
+ * @param {any[]} b
+ * @return {*}  {any[]}
+ */
+export declare function CONCAT(a: any[], b: any[]): any[];
+/**
+ * Removes duplicate elements from an array.
+ *
+ * @export
+ * @param {any[]} arr
+ * @return {*}  {any[]}
+ */
+export declare function REMOVE_DUPLICATES(arr: any[]): any[];
+/**
  * return true if date is before then dateToCompare
  *
  * @export
