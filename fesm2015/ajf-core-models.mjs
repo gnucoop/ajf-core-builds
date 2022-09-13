@@ -272,7 +272,9 @@ AjfExpressionUtils.utils = {
     REPEAT: { fn: REPEAT },
     EVALUATE: { fn: EVALUATE },
     buildDataset: { fn: buildDataset },
+    buildAlignedDataset: { fn: buildAlignedDataset },
     buildFormDataset: { fn: buildFormDataset },
+    buildAlignedFormDataset: { fn: buildAlignedFormDataset },
     buildWidgetDataset: { fn: buildWidgetDataset },
     buildWidgetDatasetWithDialog: { fn: buildWidgetDatasetWithDialog },
     FILTER_BY_VARS: { fn: FILTER_BY_VARS },
@@ -1130,13 +1132,17 @@ function MODE(forms, fieldName) {
         .filter(v => map[+v] === maxCount)
         .map(v => +v);
 }
+function buildDataset(dataset, colspans) {
+    return buildAlignedDataset(dataset, colspans, []);
+}
 /**
  * Build a dataset for ajf dynamic table
  * @param dataset the dataset for the table
  * @param colspans colspan for each value in the dataset
+ * @param textAlign alignment for each value in the dataset
  * @returns An AjfTableCell list
  */
-function buildDataset(dataset, colspans) {
+function buildAlignedDataset(dataset, colspans, textAlign) {
     const res = [];
     const normalizeDataset = [];
     dataset.forEach((row, indexRow) => {
@@ -1155,7 +1161,7 @@ function buildDataset(dataset, colspans) {
                 colspan: colspans[cellIndex],
                 rowspan: 1,
                 style: {
-                    textAlign: 'center',
+                    textAlign: textAlign[cellIndex] ? textAlign[cellIndex] : 'center',
                     color: 'black',
                     backgroundColor: index % 2 === 0 ? 'white' : '#ddd',
                 },
@@ -1175,14 +1181,23 @@ function buildDataset(dataset, colspans) {
  * @param backgroundColorB the second backgroud color
  * @returns An AjfTableCell list
  */
-function buildFormDataset(dataset, fields, rowLink, backgroundColorA, backgroundColorB) {
+function buildFormDataset(dataset, fields, rowLink, _backgroundColorA, _backgroundColorB) {
+    return buildAlignedFormDataset(dataset, fields, [], [], rowLink);
+}
+/**
+ * Build a dataset based on a list of Forms, for ajf dynamic table
+ * @param dataset the dataset for the table
+ * @param fields the list of fields name for each row
+ * @param colspans colspan for each value in the dataset
+ * @param textAlign alignment for each value in the dataset
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
+ * @returns An AjfTableCell list
+ */
+function buildAlignedFormDataset(dataset, fields, colspans, textAlign, rowLink) {
     const res = [];
-    if (backgroundColorA == null) {
-        backgroundColorA = 'white';
-    }
-    if (backgroundColorB == null) {
-        backgroundColorB = '#ddd';
-    }
+    const backgroundColorA = 'white';
+    const backgroundColorB = '#ddd';
     if (dataset) {
         let index = 0;
         dataset.forEach((data) => {
@@ -1196,10 +1211,10 @@ function buildFormDataset(dataset, fields, rowLink, backgroundColorA, background
                     }
                     row.push({
                         value: cellValue,
-                        colspan: 1,
+                        colspan: colspans[cellIdx] && colspans[cellIdx] > 0 ? colspans[cellIdx] : 1,
                         rowspan: 1,
                         style: {
-                            textAlign: 'center',
+                            textAlign: textAlign[cellIdx] ? textAlign[cellIdx] : 'center',
                             color: 'black',
                             backgroundColor: index % 2 === 0 ? backgroundColorA : backgroundColorB,
                         },
@@ -2317,5 +2332,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FILTER_BY_VARS, FROM_REPS, GET_AGE, GET_LABELS, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FILTER_BY_VARS, FROM_REPS, GET_AGE, GET_LABELS, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildAlignedDataset, buildAlignedFormDataset, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=ajf-core-models.mjs.map

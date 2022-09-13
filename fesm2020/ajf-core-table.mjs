@@ -1,9 +1,11 @@
-import * as i3 from '@ajf/core/common';
+import * as i4 from '@ajf/core/common';
 import { AjfCommonModule } from '@ajf/core/common';
-import * as i2 from '@angular/common';
+import * as i3 from '@angular/common';
 import { CommonModule } from '@angular/common';
+import * as i2 from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
 import * as i0 from '@angular/core';
-import { SecurityContext, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, NgModule } from '@angular/core';
+import { EventEmitter, SecurityContext, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, NgModule } from '@angular/core';
 import * as i1 from '@angular/platform-browser';
 
 /**
@@ -59,8 +61,18 @@ class AjfTable {
     constructor(_cdr, _domSanitizer) {
         this._cdr = _cdr;
         this._domSanitizer = _domSanitizer;
+        /**
+         * data to be shown in the table
+         */
         this._data = [];
+        /**
+         * cellpadding for all rows, include header
+         */
         this._cellpadding = '';
+        /**
+         * Emit an event when sort arrows are selected
+         */
+        this.sortSelected = new EventEmitter();
     }
     get data() {
         return this._data;
@@ -84,16 +96,40 @@ class AjfTable {
         });
         return data;
     }
+    /**
+     * Sort visible data and emit an event to use for paginated table
+     * @param sort
+     * @returns
+     */
+    sortData(sort) {
+        if (!sort.active || sort.direction === '') {
+            return;
+        }
+        const sortedData = this._data.slice(1).sort((a, b) => {
+            const isAsc = sort.direction === 'asc';
+            return this._compare(a[0], b[0], isAsc);
+        });
+        this._data = [this._data[0], ...sortedData];
+        this.sortSelected.emit(sort);
+    }
+    _compare(a, b, isAsc) {
+        return (a.value < b.value ? -1 : 1) * (isAsc ? 1 : -1);
+    }
+    ngOnDestroy() {
+        this.sortSelected.complete();
+    }
 }
 AjfTable.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTable, deps: [{ token: i0.ChangeDetectorRef }, { token: i1.DomSanitizer }], target: i0.ɵɵFactoryTarget.Component });
-AjfTable.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfTable, selector: "ajf-table", inputs: { data: "data", cellpadding: "cellpadding" }, ngImport: i0, template: "<table *ngIf=\"data\">\n  <tr *ngFor=\"let row of data\">\n    <td *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\">\n    </td>\n  </tr>\n</table>\n", styles: [""], directives: [{ type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i2.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: i3.ApplyStylesDirective, selector: "[applyStyles]", inputs: ["applyStyles"] }, { type: i2.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+AjfTable.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfTable, selector: "ajf-table", inputs: { data: "data", cellpadding: "cellpadding" }, outputs: { sortSelected: "sortSelected" }, ngImport: i0, template: "<table *ngIf=\"data\" matSort (matSortChange)=\"sortData($event)\">\n  <tr *ngIf=\"data.length > 0\">\n    <th\n      *ngFor=\"let headerCell of data[0]; let idx = index\"\n      [applyStyles]=\"headerCell.style\"\n      [ngStyle]=\"{'padding': cellpadding}\"\n      [attr.colspan]=\"headerCell.colspan\"\n      [attr.rowspan]=\"headerCell.rowspan\"\n      [mat-sort-header]=\"'column' + idx\"\n    >\n      {{headerCell.value}}\n    </th>\n  </tr>\n  <ng-container *ngIf=\"data.length > 1\">\n    <tr *ngFor=\"let row of data.slice(1)\">\n      <td\n        *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\"\n      ></td>\n    </tr>\n  </ng-container>\n</table>\n", styles: [""], components: [{ type: i2.MatSortHeader, selector: "[mat-sort-header]", inputs: ["disabled", "mat-sort-header", "arrowPosition", "start", "sortActionDescription", "disableClear"], exportAs: ["matSortHeader"] }], directives: [{ type: i3.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i2.MatSort, selector: "[matSort]", inputs: ["matSortDisabled", "matSortActive", "matSortStart", "matSortDirection", "matSortDisableClear"], outputs: ["matSortChange"], exportAs: ["matSort"] }, { type: i3.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: i4.ApplyStylesDirective, selector: "[applyStyles]", inputs: ["applyStyles"] }, { type: i3.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTable, decorators: [{
             type: Component,
-            args: [{ selector: 'ajf-table', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<table *ngIf=\"data\">\n  <tr *ngFor=\"let row of data\">\n    <td *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\">\n    </td>\n  </tr>\n</table>\n", styles: [""] }]
+            args: [{ selector: 'ajf-table', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<table *ngIf=\"data\" matSort (matSortChange)=\"sortData($event)\">\n  <tr *ngIf=\"data.length > 0\">\n    <th\n      *ngFor=\"let headerCell of data[0]; let idx = index\"\n      [applyStyles]=\"headerCell.style\"\n      [ngStyle]=\"{'padding': cellpadding}\"\n      [attr.colspan]=\"headerCell.colspan\"\n      [attr.rowspan]=\"headerCell.rowspan\"\n      [mat-sort-header]=\"'column' + idx\"\n    >\n      {{headerCell.value}}\n    </th>\n  </tr>\n  <ng-container *ngIf=\"data.length > 1\">\n    <tr *ngFor=\"let row of data.slice(1)\">\n      <td\n        *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\"\n      ></td>\n    </tr>\n  </ng-container>\n</table>\n", styles: [""] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: i1.DomSanitizer }]; }, propDecorators: { data: [{
                 type: Input
             }], cellpadding: [{
                 type: Input
+            }], sortSelected: [{
+                type: Output
             }] } });
 
 /**
@@ -120,12 +156,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
 class AjfTableModule {
 }
 AjfTableModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTableModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTableModule, declarations: [AjfTable], imports: [AjfCommonModule, CommonModule], exports: [AjfTable] });
-AjfTableModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTableModule, imports: [[AjfCommonModule, CommonModule]] });
+AjfTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTableModule, declarations: [AjfTable], imports: [AjfCommonModule, CommonModule, MatSortModule], exports: [AjfTable] });
+AjfTableModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTableModule, imports: [[AjfCommonModule, CommonModule, MatSortModule]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTableModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [AjfCommonModule, CommonModule],
+                    imports: [AjfCommonModule, CommonModule, MatSortModule],
                     declarations: [AjfTable],
                     exports: [AjfTable],
                 }]

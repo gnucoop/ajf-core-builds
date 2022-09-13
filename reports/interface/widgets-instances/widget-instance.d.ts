@@ -38,7 +38,8 @@ import { AjfPaginatedListWidgetInstance } from './paginated-list-widget-instance
 import { AjfTableWidgetInstance } from './table-widget-instance';
 import { AjfTextWidgetInstance } from './text-widget-instance';
 import { AjfWidgetWithContentInstance } from './widget-with-content-instance';
+import { AjfPaginatedTableWidgetInstance } from './paginated-table-widget-instance';
 export interface AjfUnknownWidgetInstance extends AjfBaseWidgetInstance {
     widget: AjfUnknownWidget;
 }
-export declare type AjfWidgetInstance = AjfChartWidgetInstance | AjfColumnWidgetInstance | AjfDataWidgetInstance | AjfDialogWidgetInstance | AjfDynamicTableWidgetInstance | AjfFormulaWidgetInstance | AjfGraphWidgetInstance | AjfHeatMapWidgetInstance | AjfImageContainerWidgetInstance | AjfImageWidgetInstance | AjfLayoutWidgetInstance | AjfMapWidgetInstance | AjfPageBreakWidgetInstance | AjfPaginatedListWidgetInstance | AjfTableWidgetInstance | AjfTextWidgetInstance | AjfWidgetWithContentInstance;
+export declare type AjfWidgetInstance = AjfChartWidgetInstance | AjfColumnWidgetInstance | AjfDataWidgetInstance | AjfDialogWidgetInstance | AjfDynamicTableWidgetInstance | AjfFormulaWidgetInstance | AjfGraphWidgetInstance | AjfHeatMapWidgetInstance | AjfImageContainerWidgetInstance | AjfImageWidgetInstance | AjfLayoutWidgetInstance | AjfMapWidgetInstance | AjfPageBreakWidgetInstance | AjfPaginatedListWidgetInstance | AjfTableWidgetInstance | AjfTextWidgetInstance | AjfWidgetWithContentInstance | AjfPaginatedTableWidgetInstance;

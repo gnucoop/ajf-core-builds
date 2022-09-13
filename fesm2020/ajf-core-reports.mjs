@@ -929,6 +929,28 @@ var AjfAggregationType;
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 // tslint:disable-next-line:prefer-const-enum
 var AjfWidgetType;
 (function (AjfWidgetType) {
@@ -947,8 +969,31 @@ var AjfWidgetType;
     AjfWidgetType[AjfWidgetType["PaginatedList"] = 12] = "PaginatedList";
     AjfWidgetType[AjfWidgetType["Dialog"] = 13] = "Dialog";
     AjfWidgetType[AjfWidgetType["HeatMap"] = 14] = "HeatMap";
-    AjfWidgetType[AjfWidgetType["LENGTH"] = 15] = "LENGTH";
+    AjfWidgetType[AjfWidgetType["PaginatedTable"] = 15] = "PaginatedTable";
+    AjfWidgetType[AjfWidgetType["LENGTH"] = 16] = "LENGTH";
 })(AjfWidgetType || (AjfWidgetType = {}));
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 
 /**
  * @license
@@ -2458,6 +2503,56 @@ const isMapWidget = (widget) => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const isPaginatedListWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.PaginatedList;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isPaginatedTableWidget = (widget) => {
+    return widget != null && widget.widgetType === AjfWidgetType.PaginatedTable;
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 const isWidgetWithContent = (widget) => {
     return (widget != null &&
         (widget.widgetType === AjfWidgetType.Column ||
@@ -2513,31 +2608,6 @@ const isTableWidget = (widget) => {
  */
 const isTextWidget = (widget) => {
     return widget != null && widget.widgetType === AjfWidgetType.Text;
-};
-
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
-const isPaginatedListWidget = (widget) => {
-    return widget != null && widget.widgetType === AjfWidgetType.PaginatedList;
 };
 
 /**
@@ -2786,6 +2856,56 @@ const isMapWidgetInstance = (instance) => {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+const isPaginatedListWidgetInstance = (instance) => {
+    return instance != null && isPaginatedListWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+const isPaginatedTableWidgetInstance = (instance) => {
+    return instance != null && isPaginatedTableWidget(instance.widget);
+};
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 const isTableWidgetInstance = (instance) => {
     return instance != null && isTableWidget(instance.widget);
 };
@@ -2838,31 +2958,6 @@ const isTextWidgetInstance = (instance) => {
  */
 const isWidgetWithContentInstance = (instance) => {
     return instance != null && isWidgetWithContent(instance.widget);
-};
-
-/**
- * @license
- * Copyright (C) Gnucoop soc. coop.
- *
- * This file is part of the Advanced JSON forms (ajf).
- *
- * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
- * General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with Advanced JSON forms (ajf).
- * If not, see http://www.gnu.org/licenses/.
- *
- */
-const isPaginatedListWidgetInstance = (instance) => {
-    return instance != null && isPaginatedListWidget(instance.widget);
 };
 
 /**
@@ -3113,7 +3208,8 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             };
         }));
     }
-    else if (isDynamicTableWidget(widget) && isDynamicTableWidgetInstance(wi)) {
+    else if ((isDynamicTableWidget(widget) && isDynamicTableWidgetInstance(wi)) ||
+        (isPaginatedTableWidget(widget) && isPaginatedTableWidgetInstance(wi))) {
         wi.dataset = widget.dataset.map((cell) => {
             return cell.formula instanceof Array
                 ? cell.formula.map(f => trFormula(f, context, ts))
@@ -3157,6 +3253,7 @@ function widgetToWidgetInstance(widget, context, ts, variables = []) {
             };
         });
         wi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
+        wi.styles = { ...wi.styles, alignItems: 'flex-start' };
     }
     else if (isPaginatedListWidget(widget) && isPaginatedListWidgetInstance(wi)) {
         let content = [];
@@ -4918,10 +5015,6 @@ function xlsReport(file, http) {
                     const heatmapWidget = _buildHeatmap(sheetName, json);
                     reportWidgets.push(heatmapWidget);
                 }
-                else if (sheetName.includes('formlist')) {
-                    const formListWidget = _buildFormListTable(sheetName, json);
-                    reportWidgets.push(formListWidget);
-                }
                 else if (sheetName.includes('paginatedlist')) {
                     const pagListWidget = _buildPaginatedListTable(sheetName, json);
                     reportWidgets.push(pagListWidget);
@@ -5107,119 +5200,131 @@ function _buildHtml(json) {
     });
 }
 function _buildTable(sheetName, json) {
-    const rowspan = 1;
-    const titles = Object.keys(json[0]);
-    const colspans = Object.values(json[0]).map(r => +r);
-    delete json[0];
-    const tableHeader = titles.map((title, index) => ({
-        label: '',
-        formula: { formula: `"${title}"` },
-        aggregation: { aggregation: 0 },
-        colspan: colspans[index],
-        rowspan,
-        style: {
-            textAlign: 'center',
-            fontWeight: 'bold',
-            color: 'white',
-            backgroundColor: '#3f51b5',
-        },
-    }));
-    console.log(json);
-    let dataRows = '[';
-    json.forEach(row => {
-        let dataRow = '[';
-        titles.forEach(title => {
-            let elem = row[title] || `''`;
-            try {
-                elem = indicatorToJs(elem);
-            }
-            catch (err) {
-                const rowNum = row['__rowNum__'];
-                err = new Error(`Error in "${sheetName}", row ${rowNum}, column "${title}": ${err.message}`);
-                window.alert(err.message);
-                throw err;
-            }
-            dataRow += elem + ',';
-        });
-        dataRow += ']';
-        dataRows += dataRow + ',';
-    });
-    dataRows += ']';
-    return createWidget({
-        widgetType: AjfWidgetType.DynamicTable,
-        rowDefinition: {
-            formula: `buildDataset(plainArray(${dataRows}),${JSON.stringify(colspans)})`,
-        },
-        dataset: tableHeader,
-        exportable: true,
-        cellStyles: {
-            textAlign: 'center',
-            color: 'black',
-            backgroundColor: 'white',
-        },
-        styles: {
-            borderCollapse: 'collapse',
-        },
-    });
-}
-/**
- * Create a widget with a dynamic table based on a list of Forms
- * @param sheetName
- * @param json
- * @returns a DynamicTable AjfWidget with a formula like this:
- * buildFormDataset(projectsDataset, ['id_p','donors','budget','dino_area_name','calc_progress',])"
- */
-function _buildFormListTable(_, json) {
     let tableHeader = [];
-    let dataset = '';
+    let dataRows = '[]';
     let formula = '';
+    let pageSize = 10;
+    let pagination = false;
     if (json.length > 1) {
         const rowspan = 1;
         const titles = Object.keys(json[0]);
-        const headerColspans = Object.values(json[0]).map(r => +r);
+        const colspans = Object.values(json[0]).map(r => +r.charAt(0));
+        const textAlign = Object.values(json[0]).map(r => {
+            switch (r.charAt(1)) {
+                case 'l':
+                    return 'left';
+                case 'r':
+                    return 'right';
+                case 'c':
+                    return 'center';
+                default:
+                    return 'center';
+            }
+        });
         tableHeader = titles.map((title, index) => ({
             label: '',
             formula: { formula: `"${title}"` },
             aggregation: { aggregation: 0 },
-            colspan: headerColspans[index],
+            colspan: colspans[index],
             rowspan,
             style: {
                 textAlign: 'center',
                 fontWeight: 'bold',
                 color: 'white',
                 backgroundColor: '#3f51b5',
+                borderBottom: '2px solid #ddd',
             },
         }));
+        pagination = json[1]['pagination'] ? json[1]['pagination'] : false;
+        if ('dataset' in json[1]) {
+            formula = _buildFormListTable(json, colspans, textAlign);
+        }
+        else {
+            delete json[0];
+            console.log(json);
+            dataRows = '[';
+            json.forEach(row => {
+                let dataRow = '[';
+                titles.forEach(title => {
+                    let elem = row[title] || `''`;
+                    try {
+                        elem = indicatorToJs(elem);
+                    }
+                    catch (err) {
+                        const rowNum = row['__rowNum__'];
+                        err = new Error(`Error in "${sheetName}", row ${rowNum}, column "${title}": ${err.message}`);
+                        window.alert(err.message);
+                        throw err;
+                    }
+                    dataRow += elem + ',';
+                });
+                dataRow += ']';
+                dataRows += dataRow + ',';
+            });
+            dataRows += ']';
+            formula = `buildAlignedDataset(plainArray(${dataRows}),${JSON.stringify(colspans)},${JSON.stringify(textAlign)})`;
+        }
+    }
+    if (pagination) {
+        return createWidget({
+            widgetType: AjfWidgetType.PaginatedTable,
+            pageSize: pageSize,
+            rowDefinition: {
+                formula: formula,
+            },
+            dataset: tableHeader,
+            exportable: true,
+            cellStyles: {
+                textAlign: 'center',
+                color: 'black',
+                backgroundColor: 'white',
+            },
+            styles: {
+                borderCollapse: 'collapse',
+            },
+        });
+    }
+    else {
+        return createWidget({
+            widgetType: AjfWidgetType.DynamicTable,
+            rowDefinition: {
+                formula: formula,
+            },
+            dataset: tableHeader,
+            exportable: true,
+            cellStyles: {
+                textAlign: 'center',
+                color: 'black',
+                backgroundColor: 'white',
+            },
+            styles: {
+                borderCollapse: 'collapse',
+            },
+        });
+    }
+}
+/**
+ * Create a formula for a dynamic table widget, based on a list of Forms
+ * @param json
+ * @returns the formula for the DynamicTable AjfWidget, like this:
+ * buildFormDataset(projectsDataset, ['id_p','donors','budget','dino_area_name','calc_progress',])"
+ */
+function _buildFormListTable(json, colspans, textAlign) {
+    let formula = '';
+    if (json.length > 1) {
         let fields = '[';
         Object.keys(json[0]).forEach(fieldColName => {
             let elem = json[1][fieldColName] ? `'${json[1][fieldColName]}'` : `''`;
             fields += elem + ',';
         });
         fields += ']';
-        dataset = json[1]['dataset'];
+        const dataset = json[1]['dataset'];
         const linkField = json[1]['link_field'];
         const linkPos = json[1]['link_position'] ? +json[1]['link_position'] : 0;
         const rowLink = linkField && linkField.length ? `{'link': '${linkField}', 'position': ${linkPos}}` : null;
-        const backgroundColorA = json[1]['backgroundColorA'] || null;
-        const backgroundColorB = json[1]['backgroundColorB'] || null;
-        formula = `buildFormDataset(${dataset}, ${fields}, ${rowLink}, ${JSON.stringify(backgroundColorA)}, ${JSON.stringify(backgroundColorB)})`;
+        formula = `buildAlignedFormDataset(${dataset}, ${fields}, ${JSON.stringify(colspans)}, ${JSON.stringify(textAlign)}, ${rowLink})`;
     }
-    return createWidget({
-        widgetType: AjfWidgetType.DynamicTable,
-        rowDefinition: {
-            formula: formula,
-        },
-        dataset: tableHeader,
-        exportable: true,
-        cellStyles: {
-            textAlign: 'center',
-            color: 'black',
-            backgroundColor: 'white',
-        },
-        styles: {
-            borderCollapse: 'collapse',
-        },
-    });
+    return formula;
 }
 /**
  * Create a widget with a dynamic paginated table based on a list of Forms. Each row is an AjfTable.

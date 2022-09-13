@@ -194,13 +194,15 @@ export declare function MEDIAN(forms: (Form | MainForm)[], fieldName: string): s
  * Calculates the mode value of the field.
  */
 export declare function MODE(forms: (Form | MainForm)[], fieldName: string): number[];
+export declare function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
 /**
  * Build a dataset for ajf dynamic table
  * @param dataset the dataset for the table
  * @param colspans colspan for each value in the dataset
+ * @param textAlign alignment for each value in the dataset
  * @returns An AjfTableCell list
  */
-export declare function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
+export declare function buildAlignedDataset(dataset: (string | number | string[] | number[])[], colspans: number[], textAlign: string[]): AjfTableCell[][];
 /**
  * Build a dataset based on a list of Forms, for ajf dynamic table
  * @param dataset the dataset for the table
@@ -214,7 +216,21 @@ export declare function buildDataset(dataset: (string | number | string[] | numb
 export declare function buildFormDataset(dataset: MainForm[], fields: string[], rowLink: {
     link: string;
     position: number;
-} | null, backgroundColorA?: string, backgroundColorB?: string): AjfTableCell[][];
+} | null, _backgroundColorA?: string, _backgroundColorB?: string): AjfTableCell[][];
+/**
+ * Build a dataset based on a list of Forms, for ajf dynamic table
+ * @param dataset the dataset for the table
+ * @param fields the list of fields name for each row
+ * @param colspans colspan for each value in the dataset
+ * @param textAlign alignment for each value in the dataset
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
+ * @returns An AjfTableCell list
+ */
+export declare function buildAlignedFormDataset(dataset: MainForm[], fields: string[], colspans: number[], textAlign: string[], rowLink: {
+    link: string;
+    position: number;
+} | null): AjfTableCell[][];
 /**
  * create a widget dataset into a content list, based on a list of Forms, for paginated widget
  *
