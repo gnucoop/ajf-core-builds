@@ -4001,8 +4001,9 @@ function _buildTable(sheetName, json) {
     if (json.length > 1) {
         const rowspan = 1;
         const titles = Object.keys(json[0]);
-        const colspans = Object.values(json[0]).map(r => +r.charAt(0));
-        const textAlign = Object.values(json[0]).map(r => {
+        const colspanRowValues = Object.values(json[0]).map(v => (v ? v.toString() : ''));
+        const colspans = colspanRowValues.map(r => +r.charAt(0));
+        const textAlign = colspanRowValues.map(r => {
             switch (r.charAt(1)) {
                 case 'l':
                     return 'left';
@@ -4030,11 +4031,32 @@ function _buildTable(sheetName, json) {
         }));
         pagination = json[1]['pagination'] ? json[1]['pagination'] : false;
         if ('dataset' in json[1]) {
-            formula = _buildFormListTable(json, colspans, textAlign);
+            const dialogFields = json[1]['dialog_fields']
+                ? json[1]['dialog_fields'].split(',').map(v => v.trim())
+                : [];
+            const dialogLabelFields = json[1]['dialog_fields_labels']
+                ? json[1]['dialog_fields_labels'].split(',').map(v => v.trim())
+                : [];
+            formula = _buildFormListTable(json, colspans, textAlign, dialogFields, dialogLabelFields);
+            if (dialogFields && dialogFields.length) {
+                tableHeader.push({
+                    label: '',
+                    formula: { formula: `" "` },
+                    aggregation: { aggregation: 0 },
+                    colspan: 1,
+                    rowspan,
+                    style: {
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                        color: 'white',
+                        backgroundColor: '#3f51b5',
+                        borderBottom: '2px solid #ddd',
+                    },
+                });
+            }
         }
         else {
             delete json[0];
-            console.log(json);
             dataRows = '[';
             json.forEach(row => {
                 let dataRow = '[';
@@ -4102,7 +4124,7 @@ function _buildTable(sheetName, json) {
  * @returns the formula for the DynamicTable AjfWidget, like this:
  * buildFormDataset(projectsDataset, ['id_p','donors','budget','dino_area_name','calc_progress',])"
  */
-function _buildFormListTable(json, colspans, textAlign) {
+function _buildFormListTable(json, colspans, textAlign, dialogFields, dialogLabelFields) {
     let formula = '';
     if (json.length > 1) {
         let fields = '[';
@@ -4115,7 +4137,7 @@ function _buildFormListTable(json, colspans, textAlign) {
         const linkField = json[1]['link_field'];
         const linkPos = json[1]['link_position'] ? +json[1]['link_position'] : 0;
         const rowLink = linkField && linkField.length ? `{'link': '${linkField}', 'position': ${linkPos}}` : null;
-        formula = `buildAlignedFormDataset(${dataset}, ${fields}, ${JSON.stringify(colspans)}, ${JSON.stringify(textAlign)}, ${rowLink})`;
+        formula = `buildAlignedFormDataset(${dataset}, ${fields}, ${JSON.stringify(colspans)}, ${JSON.stringify(textAlign)}, ${rowLink}, ${JSON.stringify(dialogFields)}, ${JSON.stringify(dialogLabelFields)})`;
     }
     return formula;
 }

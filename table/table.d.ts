@@ -19,7 +19,8 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnDestroy, TemplateRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AjfTableCell } from './table-cell';
@@ -27,6 +28,7 @@ import * as i0 from "@angular/core";
 export declare class AjfTable implements OnDestroy {
     private _cdr;
     private _domSanitizer;
+    private _dialog;
     /**
      * data to be shown in the table
      */
@@ -43,13 +45,14 @@ export declare class AjfTable implements OnDestroy {
      * Emit an event when sort arrows are selected
      */
     readonly sortSelected: EventEmitter<Sort>;
+    dialogContent: TemplateRef<HTMLElement>;
     /**
      * Creates an instance of TableComponent.
      *
      *
      * @memberOf TableComponent
      */
-    constructor(_cdr: ChangeDetectorRef, _domSanitizer: DomSanitizer);
+    constructor(_cdr: ChangeDetectorRef, _domSanitizer: DomSanitizer, _dialog: MatDialog);
     private _fixData;
     /**
      * Sort visible data and emit an event to use for paginated table
@@ -58,6 +61,11 @@ export declare class AjfTable implements OnDestroy {
      */
     sortData(sort: Sort): void;
     private _compare;
+    /**
+     * open a dialog when click on cell, if dialogHtmlContent is valid
+     * @param dialogHtmlContent the html to show in the dialog
+     */
+    openDialog(dialogHtmlContent: string | undefined): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfTable, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<AjfTable, "ajf-table", never, { "data": "data"; "cellpadding": "cellpadding"; }, { "sortSelected": "sortSelected"; }, never, never>;

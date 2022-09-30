@@ -788,7 +788,7 @@ function getCoordinate(source, zoom) {
  * Calculates all the possible results that a field has taken
  */
 function ALL_VALUES_OF(mainforms, fieldName) {
-    const forms = [...(mainforms || [])];
+    const forms = [...(mainforms.filter(form => form != null) || [])];
     const allreps = [
         ...forms.map(form => {
             const { reps } = form, v = __rest(form, ["reps"]);
@@ -838,7 +838,10 @@ function COUNT_FORMS(formList, expression = 'true') {
                 exxpr = exxpr.split(identifier).join(JSON.stringify(change));
             }
         });
-        if (mainForm.reps != null) {
+        if (evaluateExpression(exxpr, mainForm)) {
+            count++;
+        }
+        else if (mainForm.reps != null) {
             const allreps = Object.keys(mainForm.reps)
                 .map((key) => mainForm.reps[key])
                 .flat()
@@ -847,9 +850,6 @@ function COUNT_FORMS(formList, expression = 'true') {
             if (allreps > 0) {
                 count++;
             }
-        }
-        if (evaluateExpression(exxpr, mainForm)) {
-            count++;
         }
     }
     return count;
@@ -932,42 +932,35 @@ function COUNT_FORMS_UNIQUE(formList, fieldName, expression = 'true') {
     return [...new Set(values)].length;
 }
 /**
- * Aggregates and sums the values of one or more. An optional condition can be added to discriminate
+ * Aggregates and sums the values of one field. An optional condition can be added to discriminate
  * which forms to take for the sum.
  */
 function SUM(mainForms, field, condition = 'true') {
-    // const forms: MainForm[] = deepCopy(mainForms).filter((f: MainForm) => f != null);
     const forms = (mainForms || [])
         .slice(0)
         .filter((f) => f != null);
-    const identifiers = getCodeIdentifiers(condition, true);
-    let exxpr = condition;
     let count = 0;
     if (forms.length === 0) {
         return 0;
     }
     for (let i = 0; i < forms.length; i++) {
         const mainForm = forms[i];
-        if (mainForm.reps != null) {
-            const allreps = Object.keys(mainForm.reps)
-                .map((key) => mainForm.reps[key])
-                .flat();
-            allreps
-                .filter(c => c[field] != null)
-                .forEach((child) => {
-                if (evaluateExpression(condition, child)) {
-                    count += +child[field] || 0;
-                }
-            });
-        }
-        identifiers.forEach(identifier => {
-            const change = mainForm[identifier] ? mainForm[identifier] : null;
-            if (change) {
-                exxpr = condition.split(identifier).join(JSON.stringify(change));
-            }
-        });
-        if (evaluateExpression(exxpr, mainForm) && mainForm[field] != null) {
+        if (evaluateExpression(condition, mainForm)) {
             count += +mainForm[field] || 0;
+        }
+        else {
+            if (mainForm.reps != null) {
+                const allreps = Object.keys(mainForm.reps)
+                    .map((key) => mainForm.reps[key])
+                    .flat();
+                allreps
+                    .filter(c => c[field] != null)
+                    .forEach((child) => {
+                    if (evaluateExpression(condition, child)) {
+                        count += +child[field] || 0;
+                    }
+                });
+            }
         }
     }
     return count;
@@ -1010,7 +1003,7 @@ function PERCENT(value1, value2) {
 /**
  * Calculates the expression in the last form by date.
  */
-function LAST(forms, expression, date = 'date_end') {
+function LAST(forms, expression, date = 'created_at') {
     forms = (forms || []).slice(0).sort((a, b) => {
         const dateA = new Date(b[date]).getTime();
         const dateB = new Date(a[date]).getTime();
@@ -1182,7 +1175,7 @@ function buildAlignedDataset(dataset, colspans, textAlign) {
  * @returns An AjfTableCell list
  */
 function buildFormDataset(dataset, fields, rowLink, _backgroundColorA, _backgroundColorB) {
-    return buildAlignedFormDataset(dataset, fields, [], [], rowLink);
+    return buildAlignedFormDataset(dataset, fields, [], [], rowLink, [], []);
 }
 /**
  * Build a dataset based on a list of Forms, for ajf dynamic table
@@ -1194,7 +1187,7 @@ function buildFormDataset(dataset, fields, rowLink, _backgroundColorA, _backgrou
  * ie: {'link': 'home_link', 'position': 0}
  * @returns An AjfTableCell list
  */
-function buildAlignedFormDataset(dataset, fields, colspans, textAlign, rowLink) {
+function buildAlignedFormDataset(dataset, fields, colspans, textAlign, rowLink, dialogFields, dialogLabelFields) {
     const res = [];
     const backgroundColorA = 'white';
     const backgroundColorB = '#ddd';
@@ -1220,6 +1213,32 @@ function buildAlignedFormDataset(dataset, fields, colspans, textAlign, rowLink) 
                         },
                     });
                 });
+                if (dialogFields && dialogFields.length) {
+                    let dialogHtml = [];
+                    dialogFields.forEach((field, cellIdx) => {
+                        let fieldValue = '""';
+                        if (data[field] != null) {
+                            fieldValue =
+                                "<p class='dialog-item'><b>" +
+                                    dialogLabelFields[cellIdx].replace(/['\"]+/g, '') +
+                                    '</b> <span>' +
+                                    data[field] +
+                                    '</span></p>';
+                            dialogHtml.push(fieldValue);
+                        }
+                    });
+                    row.push({
+                        value: '<div class="read_more_cell"><p class="read_more_text">Read more</p><b class="material-icons">add_circle_outline</b></div>',
+                        dialogHtml: dialogHtml.join(' '),
+                        colspan: 1,
+                        rowspan: 1,
+                        style: {
+                            textAlign: 'center',
+                            color: 'black',
+                            backgroundColor: index % 2 === 0 ? backgroundColorA : backgroundColorB,
+                        },
+                    });
+                }
                 res.push(row);
             }
         });
@@ -1654,6 +1673,52 @@ function BUILD_DATASET(forms, schema) {
     }
 }
 /**
+ * UTILITY FUNCION
+ * This function take an ajf schema as input and extract a
+ * dict that match each choice value (also with choicesOrigin name prefix) with its label
+ * @param schema the ajf schema
+ * @returns A dict with:
+ *  {[choicesOriginName_choiceValue: string]: [choiceLabel: string]}
+ *  {[choiceValue: string]: [choiceLabel: string]}
+ */
+function extractLabelsBySchemaChoices(schema) {
+    const choiceLabels = {};
+    if (schema && schema.choicesOrigins != null) {
+        schema.choicesOrigins.forEach(choicesOrigin => {
+            if (choicesOrigin != null && choicesOrigin.choices != null) {
+                choicesOrigin.choices.forEach(choice => {
+                    choiceLabels[choicesOrigin.name + '_' + choice.value] = choice.label;
+                    choiceLabels[choice.value] = choice.label;
+                });
+            }
+        });
+    }
+    return choiceLabels;
+}
+/**
+ * UTILITY FUNCION
+ * This function take an ajf schema as input and extract a one
+ * dimensional array of AjfNode for each slide's field
+ *
+ * @param schema the ajf schema
+ * @returns An object with all fields:
+ *  {[fieldName: string]: ajf field}
+ */
+function extractFlattenNodes(schema) {
+    const fieldNodes = {};
+    if (schema && schema.nodes) {
+        const slides = schema.nodes.filter((node) => node.nodeType === 3 || node.nodeType === 4);
+        slides.forEach(slide => {
+            slide.nodes
+                .filter((node) => node.nodeType === 0)
+                .forEach((fieldNode) => {
+                fieldNodes[fieldNode.name] = fieldNode;
+            });
+        });
+    }
+    return fieldNodes;
+}
+/**
  * This function take a list of forms, an ajf schema and a list of field names as input and builds
  * a data structure that replace a list of label matched inside a schema choiche origins.
  *
@@ -1664,18 +1729,8 @@ function BUILD_DATASET(forms, schema) {
  */
 function APPLY_LABELS(formList, schema, fieldNames) {
     formList = cloneMainForms(formList);
-    const choiceLabels = {};
-    if (schema != null && schema.choicesOrigins != null) {
-        schema.choicesOrigins.forEach(choice => {
-            if (choice != null && choice.choices != null) {
-                choice.choices.forEach(element => {
-                    // TODO fix: add a prefix for each choice, to avoid duplicated values
-                    // choice.name + '_' + element.value
-                    choiceLabels[element.value] = element.label;
-                });
-            }
-        });
-    }
+    const choiceLabels = extractLabelsBySchemaChoices(schema);
+    const flattenNodes = extractFlattenNodes(schema);
     for (let i = 0; i < formList.length; i++) {
         if (formList[i] == null) {
             continue;
@@ -1684,13 +1739,15 @@ function APPLY_LABELS(formList, schema, fieldNames) {
             const f = formList[i];
             const fKeys = Object.keys(f);
             fKeys.forEach(fkey => {
+                const fieldNode = flattenNodes[fkey];
+                const choiceOriginNamePrefix = fieldNode && fieldNode.choicesOriginRef ? fieldNode.choicesOriginRef + '_' : '';
                 if (fieldNames.includes(fkey) && f[fkey] !== null) {
                     let choiceValue = [];
                     if (Array.isArray(f[fkey])) {
                         choiceValue = f[fkey];
                     }
                     else {
-                        const multipleVals = f[fkey].split(',');
+                        const multipleVals = f[fkey].split(',').map(v => v.trim());
                         if (multipleVals.length > 1) {
                             choiceValue = multipleVals;
                         }
@@ -1699,7 +1756,14 @@ function APPLY_LABELS(formList, schema, fieldNames) {
                         }
                     }
                     if (choiceValue != null) {
-                        const labels = choiceValue.map(val => choiceLabels[val] != null ? choiceLabels[val] : val);
+                        const labels = choiceValue.map(val => {
+                            const valWithPrefix = choiceOriginNamePrefix + val;
+                            return choiceLabels[valWithPrefix] != null
+                                ? choiceLabels[valWithPrefix]
+                                : choiceLabels[val] != null
+                                    ? choiceLabels[val]
+                                    : val;
+                        });
                         if (labels && labels.length) {
                             const labelFieldName = fkey + '_choicesLabel';
                             formList[i][labelFieldName] = labels.length > 1 ? labels.join(', ') : labels[0];
@@ -1869,7 +1933,7 @@ function CONCAT(a, b) {
  * @return {*}  {any[]}
  */
 function REMOVE_DUPLICATES(arr) {
-    return [...(new Map(arr.map(v => [JSON.stringify(v), v]))).values()];
+    return [...new Map(arr.map(v => [JSON.stringify(v), v])).values()];
 }
 /**
  * return true if date is before then dateToCompare
@@ -2141,17 +2205,8 @@ function OP(datasetA, datasetB, expression) {
  * @return {*}  {string[]}
  */
 function GET_LABELS(schema, values) {
-    const labels = {};
-    if (schema != null && schema.choicesOrigins != null) {
-        schema.choicesOrigins.forEach(choice => {
-            if (choice != null && choice.choices != null) {
-                choice.choices.forEach(element => {
-                    labels[element.value] = element.label;
-                });
-            }
-        });
-    }
-    return values.map(val => (labels[val] != null ? labels[val] : val));
+    const choiceLabels = extractLabelsBySchemaChoices(schema);
+    return values.map(val => (choiceLabels[val] != null ? choiceLabels[val] : val));
 }
 
 /**

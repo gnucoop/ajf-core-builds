@@ -30,7 +30,7 @@ export interface Instances {
     [instance: string]: Form[];
 }
 export interface MainForm {
-    [key: string]: string | number | null | Instances | undefined | null;
+    [key: string]: string | number | boolean | null | Instances | undefined | null;
     reps?: Instances;
 }
 export declare const getCodeIdentifiers: (source: string, includeDollarValue?: boolean) => string[];
@@ -165,7 +165,7 @@ export declare function COUNT_REPS(formList: MainForm[], expression?: string): n
  */
 export declare function COUNT_FORMS_UNIQUE(formList: MainForm[], fieldName: string, expression?: string): number;
 /**
- * Aggregates and sums the values of one or more. An optional condition can be added to discriminate
+ * Aggregates and sums the values of one field. An optional condition can be added to discriminate
  * which forms to take for the sum.
  */
 export declare function SUM(mainForms: (MainForm | Form)[], field: string, condition?: string): number;
@@ -230,7 +230,7 @@ export declare function buildFormDataset(dataset: MainForm[], fields: string[], 
 export declare function buildAlignedFormDataset(dataset: MainForm[], fields: string[], colspans: number[], textAlign: string[], rowLink: {
     link: string;
     position: number;
-} | null): AjfTableCell[][];
+} | null, dialogFields: string[], dialogLabelFields: string[]): AjfTableCell[][];
 /**
  * create a widget dataset into a content list, based on a list of Forms, for paginated widget
  *
