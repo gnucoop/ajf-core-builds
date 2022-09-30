@@ -597,7 +597,7 @@ function round(num, digits) {
  * else if only property is defined return him.
  */
 function extractArray(source, property, property2) {
-    source = (source || []).slice(0);
+    source = (source || []).slice(0).filter((f) => f != null);
     const l = source.length;
     const res = [];
     for (let i = 0; i < l; i++) {
@@ -655,7 +655,7 @@ function extractArraySum(source, properties) {
  * Draw a threshold line on chart related to the property.
  */
 function drawThreshold(source, property, threshold) {
-    source = (source || []).slice(0);
+    source = (source || []).slice(0).filter((f) => f != null);
     threshold = threshold || [0];
     if (!(threshold instanceof Array)) {
         threshold = [threshold];
@@ -680,7 +680,7 @@ function drawThreshold(source, property, threshold) {
  * Extract the dates of the source object with property != null
  */
 function extractDates(source, property, fmt) {
-    source = (source || []).slice(0);
+    source = (source || []).slice(0).filter((f) => f != null);
     const l = source.length;
     const res = [];
     let prefix = '';
@@ -709,7 +709,7 @@ function extractDates(source, property, fmt) {
  * Extract the last property contains in source != null
  */
 function lastProperty(source, property) {
-    source = (source || []).slice(0);
+    source = (source || []).slice(0).filter((f) => f != null);
     let l = source.length - 1;
     while (l >= 0 && source[l][property] == null) {
         l--;
@@ -723,7 +723,7 @@ function lastProperty(source, property) {
  * It sum the LAst properties of source.
  */
 function sumLastProperties(source, properties) {
-    source = (source || []).slice(0);
+    source = (source || []).slice(0).filter((f) => f != null);
     let sumVal = 0;
     let val = 0;
     for (let i = 0; i < properties.length; i++) {
@@ -738,7 +738,7 @@ function sumLastProperties(source, properties) {
  * Compute the trend of the property contained on the source.
  */
 function calculateTrendProperty(source, property) {
-    source = (source || []).slice(0);
+    source = (source || []).slice(0).filter((f) => f != null);
     let last = source.length - 1;
     while (source[last][property] == null) {
         if (last == 0) {
@@ -792,7 +792,7 @@ function calculateTrendByProperties(source, properties) {
  *
  */
 function calculateAvgProperty(source, property, range, coefficient) {
-    source = (source || []).slice(0);
+    source = (source || []).slice(0).filter((f) => f != null);
     coefficient = coefficient || 1;
     range = range || 12;
     let l = source.length;
@@ -821,7 +821,7 @@ function calculateAvgProperty(source, property, range, coefficient) {
     }
 }
 function calculateAvgPropertyArray(source, properties, range, coefficient) {
-    source = (source || []).slice(0);
+    source = (source || []).slice(0).filter((f) => f != null);
     const resArr = [];
     if (properties && properties.length > 0) {
         let avg = 0;
@@ -927,7 +927,6 @@ function plainArray(params) {
  * in any reps. If expression is true in reps the form is counted
  */
 function COUNT_FORMS(formList, expression = 'true') {
-    // const forms: MainForm[] = deepCopy(formList).filter((f: MainForm) => f != null);
     const forms = (formList || []).slice(0).filter((f) => f != null);
     const identifiers = [...new Set(getCodeIdentifiers(expression, true))];
     let count = 0;
@@ -1078,7 +1077,7 @@ function SUM(mainForms, field, condition = 'true') {
  * discriminate which forms to take for the sum.
  */
 function MEAN(forms, fieldName) {
-    forms = (forms || []).slice(0);
+    forms = (forms || []).slice(0).filter((f) => f != null);
     fieldName = fieldName || '';
     let length = 0;
     let acc = 0;
@@ -1112,7 +1111,10 @@ function PERCENT(value1, value2) {
  * Calculates the expression in the last form by date.
  */
 function LAST(forms, expression, date = 'created_at') {
-    forms = (forms || []).slice(0).sort((a, b) => {
+    forms = (forms || [])
+        .slice(0)
+        .filter((f) => f != null)
+        .sort((a, b) => {
         const dateA = new Date(b[date]).getTime();
         const dateB = new Date(a[date]).getTime();
         return dateA - dateB;
@@ -1146,7 +1148,7 @@ function LAST(forms, expression, date = 'created_at') {
  * Calculates the max value of the field.
  */
 function MAX(forms, fieldName) {
-    forms = (forms || []).slice(0);
+    forms = (forms || []).slice(0).filter((f) => f != null);
     let max = 0;
     forms.forEach(form => {
         if (form[fieldName] == null && form.reps != null) {
@@ -1174,7 +1176,7 @@ function MAX(forms, fieldName) {
  * Calculates the median value of the field.
  */
 function MEDIAN(forms, fieldName) {
-    forms = (forms || []).slice(0);
+    forms = (forms || []).slice(0).filter((f) => f != null);
     let numbers = [];
     forms.forEach(form => {
         if (form[fieldName] == null && form.reps != null) {
@@ -1202,7 +1204,7 @@ function MEDIAN(forms, fieldName) {
  * Calculates the mode value of the field.
  */
 function MODE(forms, fieldName) {
-    forms = (forms || []).slice(0);
+    forms = (forms || []).slice(0).filter((f) => f != null);
     let maxCount = 0;
     const map = {};
     forms.forEach(f => {
