@@ -46,6 +46,10 @@ class AjfTable {
          */
         this._data = [];
         /**
+         * sorted data to be shown in the table
+         */
+        this._sortedData = [];
+        /**
          * cellpadding for all rows, include header
          */
         this._cellpadding = '';
@@ -59,7 +63,11 @@ class AjfTable {
     }
     set data(data) {
         this._data = this._fixData(data);
+        this._sortedData = [...this._data];
         this._cdr.markForCheck();
+    }
+    get sortedData() {
+        return this._sortedData;
     }
     get cellpadding() {
         return this._cellpadding;
@@ -83,13 +91,16 @@ class AjfTable {
      */
     sortData(sort) {
         if (!sort.active || sort.direction === '') {
-            return;
+            this._sortedData = [...this._data];
         }
-        const sortedData = this._data.slice(1).sort((a, b) => {
-            const isAsc = sort.direction === 'asc';
-            return this._compare(a[0], b[0], isAsc);
-        });
-        this._data = [this._data[0], ...sortedData];
+        else {
+            const columnIdx = parseInt(sort.active.slice(-1)) || 0;
+            const sortedData = this._data.slice(1).sort((a, b) => {
+                const isAsc = sort.direction === 'asc';
+                return this._compare(a[columnIdx], b[columnIdx], isAsc);
+            });
+            this._sortedData = [this._data[0], ...sortedData];
+        }
         this.sortSelected.emit(sort);
     }
     _compare(a, b, isAsc) {
@@ -114,10 +125,10 @@ class AjfTable {
     }
 }
 AjfTable.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTable, deps: [{ token: i0.ChangeDetectorRef }, { token: i1.DomSanitizer }, { token: i2.MatDialog }], target: i0.ɵɵFactoryTarget.Component });
-AjfTable.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfTable, selector: "ajf-table", inputs: { data: "data", cellpadding: "cellpadding" }, outputs: { sortSelected: "sortSelected" }, viewQueries: [{ propertyName: "dialogContent", first: true, predicate: ["dialogContent"], descendants: true, read: TemplateRef }], ngImport: i0, template: "<table *ngIf=\"data\" matSort (matSortChange)=\"sortData($event)\">\n  <tr *ngIf=\"data.length > 0\">\n    <th\n      *ngFor=\"let headerCell of data[0]; let idx = index\"\n      [applyStyles]=\"headerCell.style\"\n      [ngStyle]=\"{'padding': cellpadding}\"\n      [attr.colspan]=\"headerCell.colspan\"\n      [attr.rowspan]=\"headerCell.rowspan\"\n      [mat-sort-header]=\"'column' + idx\"\n    >\n      {{headerCell.value}}\n    </th>\n  </tr>\n  <ng-container *ngIf=\"data.length > 1\">\n    <tr *ngFor=\"let row of data.slice(1)\">\n      <td\n        *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\"\n        (click)=\"openDialog(cell.dialogHtml)\"\n      ></td>\n    </tr>\n  </ng-container>\n</table>\n\n<ng-template #dialogContent let-data>\n  <div [innerHTML]=\"data.content\"></div>\n</ng-template>\n", styles: [""], components: [{ type: i3.MatSortHeader, selector: "[mat-sort-header]", inputs: ["disabled", "mat-sort-header", "arrowPosition", "start", "sortActionDescription", "disableClear"], exportAs: ["matSortHeader"] }], directives: [{ type: i4.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i3.MatSort, selector: "[matSort]", inputs: ["matSortDisabled", "matSortActive", "matSortStart", "matSortDirection", "matSortDisableClear"], outputs: ["matSortChange"], exportAs: ["matSort"] }, { type: i4.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: i5.ApplyStylesDirective, selector: "[applyStyles]", inputs: ["applyStyles"] }, { type: i4.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+AjfTable.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfTable, selector: "ajf-table", inputs: { data: "data", cellpadding: "cellpadding" }, outputs: { sortSelected: "sortSelected" }, viewQueries: [{ propertyName: "dialogContent", first: true, predicate: ["dialogContent"], descendants: true, read: TemplateRef }], ngImport: i0, template: "<table *ngIf=\"sortedData\" matSort (matSortChange)=\"sortData($event)\">\n  <tr *ngIf=\"sortedData.length > 0\">\n    <th\n      *ngFor=\"let headerCell of sortedData[0]; let idx = index\"\n      [applyStyles]=\"headerCell.style\"\n      [ngStyle]=\"{'padding': cellpadding}\"\n      [attr.colspan]=\"headerCell.colspan\"\n      [attr.rowspan]=\"headerCell.rowspan\"\n      [mat-sort-header]=\"'column' + idx\"\n    >\n      {{headerCell.value}}\n    </th>\n  </tr>\n  <ng-container *ngIf=\"sortedData.length > 1\">\n    <tr *ngFor=\"let row of sortedData.slice(1)\">\n      <td\n        *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\"\n        (click)=\"openDialog(cell.dialogHtml)\"\n      ></td>\n    </tr>\n  </ng-container>\n</table>\n\n<ng-template #dialogContent let-data>\n  <div [innerHTML]=\"data.content\"></div>\n</ng-template>\n", styles: [""], components: [{ type: i3.MatSortHeader, selector: "[mat-sort-header]", inputs: ["disabled", "mat-sort-header", "arrowPosition", "start", "sortActionDescription", "disableClear"], exportAs: ["matSortHeader"] }], directives: [{ type: i4.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i3.MatSort, selector: "[matSort]", inputs: ["matSortDisabled", "matSortActive", "matSortStart", "matSortDirection", "matSortDisableClear"], outputs: ["matSortChange"], exportAs: ["matSort"] }, { type: i4.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: i5.ApplyStylesDirective, selector: "[applyStyles]", inputs: ["applyStyles"] }, { type: i4.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTable, decorators: [{
             type: Component,
-            args: [{ selector: 'ajf-table', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<table *ngIf=\"data\" matSort (matSortChange)=\"sortData($event)\">\n  <tr *ngIf=\"data.length > 0\">\n    <th\n      *ngFor=\"let headerCell of data[0]; let idx = index\"\n      [applyStyles]=\"headerCell.style\"\n      [ngStyle]=\"{'padding': cellpadding}\"\n      [attr.colspan]=\"headerCell.colspan\"\n      [attr.rowspan]=\"headerCell.rowspan\"\n      [mat-sort-header]=\"'column' + idx\"\n    >\n      {{headerCell.value}}\n    </th>\n  </tr>\n  <ng-container *ngIf=\"data.length > 1\">\n    <tr *ngFor=\"let row of data.slice(1)\">\n      <td\n        *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\"\n        (click)=\"openDialog(cell.dialogHtml)\"\n      ></td>\n    </tr>\n  </ng-container>\n</table>\n\n<ng-template #dialogContent let-data>\n  <div [innerHTML]=\"data.content\"></div>\n</ng-template>\n", styles: [""] }]
+            args: [{ selector: 'ajf-table', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<table *ngIf=\"sortedData\" matSort (matSortChange)=\"sortData($event)\">\n  <tr *ngIf=\"sortedData.length > 0\">\n    <th\n      *ngFor=\"let headerCell of sortedData[0]; let idx = index\"\n      [applyStyles]=\"headerCell.style\"\n      [ngStyle]=\"{'padding': cellpadding}\"\n      [attr.colspan]=\"headerCell.colspan\"\n      [attr.rowspan]=\"headerCell.rowspan\"\n      [mat-sort-header]=\"'column' + idx\"\n    >\n      {{headerCell.value}}\n    </th>\n  </tr>\n  <ng-container *ngIf=\"sortedData.length > 1\">\n    <tr *ngFor=\"let row of sortedData.slice(1)\">\n      <td\n        *ngFor=\"let cell of row\"\n        [applyStyles]=\"cell.style\"\n        [ngStyle]=\"{'padding': cellpadding}\"\n        [attr.colspan]=\"cell.colspan\"\n        [attr.rowspan]=\"cell.rowspan\"\n        [innerHTML]=\"cell.value\"\n        (click)=\"openDialog(cell.dialogHtml)\"\n      ></td>\n    </tr>\n  </ng-container>\n</table>\n\n<ng-template #dialogContent let-data>\n  <div [innerHTML]=\"data.content\"></div>\n</ng-template>\n", styles: [""] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: i1.DomSanitizer }, { type: i2.MatDialog }]; }, propDecorators: { data: [{
                 type: Input
             }], cellpadding: [{

@@ -36,6 +36,11 @@ export declare class AjfTable implements OnDestroy {
     get data(): AjfTableCell[][];
     set data(data: AjfTableCell[][]);
     /**
+     * sorted data to be shown in the table
+     */
+    private _sortedData;
+    get sortedData(): AjfTableCell[][];
+    /**
      * cellpadding for all rows, include header
      */
     private _cellpadding;
