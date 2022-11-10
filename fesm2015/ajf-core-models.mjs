@@ -945,7 +945,21 @@ function SUM(mainForms, field, condition = 'true') {
     for (let i = 0; i < forms.length; i++) {
         const mainForm = forms[i];
         if (evaluateExpression(condition, mainForm)) {
-            count += +mainForm[field] || 0;
+            if (field in mainForm && mainForm[field] != null) {
+                count += +mainForm[field] || 0;
+            }
+            else {
+                if (mainForm.reps != null) {
+                    const allreps = Object.keys(mainForm.reps)
+                        .map((key) => mainForm.reps[key])
+                        .flat();
+                    allreps
+                        .filter(c => c[field] != null)
+                        .forEach((child) => {
+                        count += +child[field] || 0;
+                    });
+                }
+            }
         }
         else {
             if (mainForm.reps != null) {
