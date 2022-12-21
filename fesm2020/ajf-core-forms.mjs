@@ -1913,7 +1913,12 @@ function createFieldInstance(instance, context) {
             value = context[completeName];
         }
         else if (instance.node.defaultValue != null) {
-            context[completeName] = instance.node.defaultValue;
+            if (instance.node.defaultValue.formula != null) {
+                context[completeName] = evaluateExpression(instance.node.defaultValue.formula, context);
+            }
+            else {
+                context[completeName] = instance.node.defaultValue;
+            }
             value = context[completeName];
         }
     }

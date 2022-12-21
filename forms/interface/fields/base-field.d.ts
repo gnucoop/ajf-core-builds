@@ -53,7 +53,8 @@ export interface AjfBaseField extends AjfBaseNode {
      */
     formula?: AjfFormula;
     /**
-     * The default value of the Field
+     * The default value of the Field. It could be a value or a formula.
+     * Is used only when the value is null.
      */
     defaultValue: any;
     /**
