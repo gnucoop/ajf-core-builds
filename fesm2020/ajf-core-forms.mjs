@@ -1901,7 +1901,7 @@ function createNodeInstance(instance) {
  * If instance warningResults is not defined assign empty array.
  * Init valid with false.
  */
-function createFieldInstance(instance, context) {
+function createFieldInstance(instance, context, containerNode) {
     const nodeInstance = createNodeInstance(instance);
     let value = null;
     if (nodeInstance.node != null && context != null) {
@@ -1914,7 +1914,13 @@ function createFieldInstance(instance, context) {
         }
         else if (instance.node.defaultValue != null) {
             if (instance.node.defaultValue.formula != null) {
-                context[completeName] = evaluateExpression(instance.node.defaultValue.formula, context);
+                let visibility = nodeInstance.visible ? nodeInstance.visible : false;
+                if (visibility && containerNode && containerNode.visibility) {
+                    visibility = evaluateExpression(containerNode.visibility.condition, context);
+                }
+                if (visibility) {
+                    context[completeName] = evaluateExpression(instance.node.defaultValue.formula, context);
+                }
             }
             else {
                 context[completeName] = instance.node.defaultValue;
@@ -2305,6 +2311,47 @@ function getAncestorRepeatingNodesNames(allNodes, node) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+/**
+ * It returns the container node of the node.
+ */
+function getContainerNode(allNodes, node) {
+    let parentNode = null;
+    let curParent = node.parent;
+    while (curParent != null && parentNode == null) {
+        const curNode = allNodes
+            .map((n) => n.node || n)
+            .find(n => n.id == curParent);
+        if (curNode) {
+            if (isContainerNode(curNode)) {
+                parentNode = curNode;
+            }
+        }
+        curParent = curNode != null ? curNode.parent : null;
+    }
+    return parentNode;
+}
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
 function getInstanceCondition(condition, ancestorsNames, prefix) {
     const oldCondition = condition.condition;
     let newCondition = normalizeExpression(oldCondition, ancestorsNames, prefix);
@@ -2611,7 +2658,8 @@ function nodeToNodeInstance(allNodes, node, prefix, context) {
                         instance = createTableFieldInstance({ node: field, prefix }, context);
                         break;
                     default:
-                        instance = createFieldInstance({ node: field, prefix }, context);
+                        const containerNode = getContainerNode(allNodes, node);
+                        instance = createFieldInstance({ node: field, prefix }, context, containerNode);
                         break;
                 }
             }

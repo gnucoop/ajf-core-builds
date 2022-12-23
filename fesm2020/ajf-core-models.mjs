@@ -571,6 +571,15 @@ function dateOperations(dString, period, operation, v) {
     return dateUtils.format(dateOp(d, v), fmt);
 }
 /**
+ * Fixed decimals for floating number
+ * Resolve float sum problems like this: 0.1 + 0.2 = 0.30000000000000004
+ * @param num
+ * @returns
+ */
+function floatify(num) {
+    return parseFloat(num.toFixed(10));
+}
+/**
  * It rounds the num with the value of digits
  */
 function round(num, digits) {
@@ -1055,6 +1064,7 @@ function SUM(mainForms, field, condition = 'true') {
         if (evaluateExpression(condition, mainForm)) {
             if (field in mainForm && mainForm[field] != null) {
                 count += +mainForm[field] || 0;
+                count = floatify(count);
             }
             else {
                 if (mainForm.reps != null) {
@@ -1065,6 +1075,7 @@ function SUM(mainForms, field, condition = 'true') {
                         .filter(c => c[field] != null)
                         .forEach((child) => {
                         count += +child[field] || 0;
+                        count = floatify(count);
                     });
                 }
             }
@@ -1079,6 +1090,7 @@ function SUM(mainForms, field, condition = 'true') {
                     .forEach((child) => {
                     if (evaluateExpression(condition, child)) {
                         count += +child[field] || 0;
+                        count = floatify(count);
                     }
                 });
             }

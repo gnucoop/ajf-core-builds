@@ -21,6 +21,7 @@
  */
 import { AjfContext } from '@ajf/core/models';
 import { AjfFieldInstance } from '../../interface/fields-instances/field-instance';
+import { AjfNode } from '../../interface/nodes/node';
 import { AjfNodeInstanceCreate } from '../nodes-instances/create-node-instance';
 export declare type AjfFieldInstanceCreate = AjfNodeInstanceCreate & Partial<AjfFieldInstance>;
 /**
@@ -35,4 +36,4 @@ export declare type AjfFieldInstanceCreate = AjfNodeInstanceCreate & Partial<Ajf
  * If instance warningResults is not defined assign empty array.
  * Init valid with false.
  */
-export declare function createFieldInstance(instance: AjfFieldInstanceCreate, context: AjfContext): AjfFieldInstance;
+export declare function createFieldInstance(instance: AjfFieldInstanceCreate, context: AjfContext, containerNode?: AjfNode | null): AjfFieldInstance;
