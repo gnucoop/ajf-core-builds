@@ -142,58 +142,54 @@ export declare function formatDate(date: Date | string, fmt?: string): string;
 export declare function isoMonth(date: Date, fmt?: string): string;
 export declare function getCoordinate(source: any, zoom?: number): [number, number, number];
 /**
- * Calculates all the possible results that a field has taken
+ * Returns an array containing all the values that the specified field takes in the forms.
+ * The values are converted to strings.
  */
-export declare function ALL_VALUES_OF(mainforms: MainForm[], fieldName: string): string[];
+export declare function ALL_VALUES_OF(forms: MainForm[], field: string): string[];
 export declare function plainArray(params: any[]): any[];
 /**
- * Counts the collected forms. The form name must be specified. An optional condition can be added
- * to discriminate which forms to count in.
- * the expression is first evaluated in mainForm if false the evaluation of expression is calculated
- * in any reps. If expression is true in reps the form is counted
+ * Returns the number of forms for which filterExpression evaluates to true,
+ * for the form itself or for any of its repetitions.
  */
-export declare function COUNT_FORMS(formList: MainForm[], expression?: string): number;
+export declare function COUNT_FORMS(forms: MainForm[], expression?: string): number;
 /**
- * Counts the reps of the form.
- * the expression is first evaluated in mainForm  if true return all reps counting else the evaluation of expression is calculated
- * in any reps and return the count of all reps that satisfied the expression.
+ * Counts the forms and all of their repetitions for which the expression evaluates to true.
  */
-export declare function COUNT_REPS(formList: MainForm[], expression?: string): number;
+export declare function COUNT_REPS(forms: MainForm[], expression?: string): number;
 /**
- * Counts the amount of unique form values for a specific field. The form name must be specified. An
- * optional condition can be added to discriminate which forms to count in
+ * Counts the different values that the specified field takes in the forms (and their repetitions).
  */
-export declare function COUNT_FORMS_UNIQUE(formList: MainForm[], fieldName: string, expression?: string): number;
+export declare function COUNT_FORMS_UNIQUE(forms: MainForm[], field: string, expression?: string): number;
 /**
- * Aggregates and sums the values of one field. An optional condition can be added to discriminate
- * which forms to take for the sum.
+ * Aggregates and sums the values of the specified field.
+ * An optional expression can be added to filter which forms to take for the sum.
  */
-export declare function SUM(mainForms: (MainForm | Form)[], field: string, condition?: string): number;
+export declare function SUM(forms: (MainForm | Form)[], field: string, expression?: string): number;
 /**
- * Calculates the mean of a simple or derived value. An optional condition can be added to
- * discriminate which forms to take for the sum.
+ * Computes the mean of the values of the specified field.
+ * An optional expression can be added to filter which forms to take for the sum.
  */
-export declare function MEAN(forms: (Form | MainForm)[], fieldName: string): string;
+export declare function MEAN(forms: (Form | MainForm)[], field: string, expression?: string): number;
 /**
  * Calculates the % between two members.
  */
 export declare function PERCENT(value1: number, value2: number): string;
 /**
- * Calculates the expression in the last form by date.
+ * Evaluates the expression in the last form by date.
  */
-export declare function LAST(forms: (Form | MainForm)[], expression: string, date?: string): string;
+export declare function LAST(forms: (Form | MainForm)[], expression: string, date?: string): any;
 /**
- * Calculates the max value of the field.
+ * Computes the max value of the field.
  */
-export declare function MAX(forms: (Form | MainForm)[], fieldName: string): number;
+export declare function MAX(forms: (Form | MainForm)[], field: string, expression?: string): number;
 /**
- * Calculates the median value of the field.
+ * Computes the median value of the field.
  */
-export declare function MEDIAN(forms: (Form | MainForm)[], fieldName: string): string;
+export declare function MEDIAN(forms: (Form | MainForm)[], field: string, expression?: string): number;
 /**
- * Calculates the mode value of the field.
+ * Computes the mode value of the field.
  */
-export declare function MODE(forms: (Form | MainForm)[], fieldName: string): number[];
+export declare function MODE(forms: (Form | MainForm)[], field: string, expression?: string): number;
 export declare function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
 /**
  * Build a dataset for ajf dynamic table
