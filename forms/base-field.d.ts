@@ -20,7 +20,7 @@
  *
  */
 import { ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AjfFormRendererService } from './form-renderer';
 import { AjfFieldInstance } from './interface/fields-instances/field-instance';
@@ -45,7 +45,7 @@ export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance =
     get instance(): T | undefined;
     set instance(instance: T | undefined);
     private _control;
-    get control(): Observable<FormControl | null>;
+    get control(): Observable<UntypedFormControl | null>;
     private _warningTriggerSub;
     private _instanceUpdateSub;
     constructor(_changeDetectorRef: ChangeDetectorRef, _service: AjfFormRendererService, _warningAlertService: AjfWarningAlertService);
@@ -54,5 +54,5 @@ export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance =
     protected _onInstanceChange(): void;
     private _setUpInstanceUpdate;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfBaseFieldComponent<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBaseFieldComponent<any>, never, never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBaseFieldComponent<any>, never, never, {}, {}, never, never, false, never>;
 }

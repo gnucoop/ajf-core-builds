@@ -33,9 +33,9 @@ export class AjfNodeCompleteNamePipe {
         return instance ? nodeInstanceCompleteName(instance) : '';
     }
 }
-AjfNodeCompleteNamePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfNodeCompleteNamePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfNodeCompleteNamePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfNodeCompleteNamePipe, name: "ajfNodeCompleteName" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfNodeCompleteNamePipe, decorators: [{
+AjfNodeCompleteNamePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfNodeCompleteNamePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfNodeCompleteNamePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfNodeCompleteNamePipe, name: "ajfNodeCompleteName" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfNodeCompleteNamePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfNodeCompleteName' }]
         }] });

@@ -36,10 +36,10 @@ export class AjfDateValueStringPipe {
         return format(dateObj, 'yyyy-MM-dd');
     }
 }
-AjfDateValueStringPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfDateValueStringPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfDateValueStringPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfDateValueStringPipe, name: "ajfDateValueString" });
-AjfDateValueStringPipe.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfDateValueStringPipe });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfDateValueStringPipe, decorators: [{
+AjfDateValueStringPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfDateValueStringPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfDateValueStringPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfDateValueStringPipe, name: "ajfDateValueString" });
+AjfDateValueStringPipe.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfDateValueStringPipe });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfDateValueStringPipe, decorators: [{
             type: Injectable
         }, {
             type: Pipe,

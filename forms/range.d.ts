@@ -31,5 +31,5 @@ import * as i0 from "@angular/core";
 export declare class AjfRangePipe implements PipeTransform {
     transform(size?: number, start?: number, step?: number): number[];
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfRangePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfRangePipe, "ajfRange">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfRangePipe, "ajfRange", false>;
 }

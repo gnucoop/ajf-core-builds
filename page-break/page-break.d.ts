@@ -6,5 +6,5 @@ import * as i0 from "@angular/core";
  */
 export declare class AjfPageBreakComponent {
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfPageBreakComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfPageBreakComponent, "ajf-page-break", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfPageBreakComponent, "ajf-page-break", never, {}, {}, never, never, false, never>;
 }

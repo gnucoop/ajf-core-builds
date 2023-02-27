@@ -68,5 +68,5 @@ export declare class AjfHeatMap implements OnChanges, OnDestroy {
     private _getChartSeries;
     private _getFeaturesData;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfHeatMap, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfHeatMap, "ajf-heat-map", never, { "features": "features"; "startColor": "startColor"; "endColor": "endColor"; "highlightColor": "highlightColor"; "values": "values"; "action": "action"; "idProp": "idProp"; "showVisualMap": "showVisualMap"; }, { "featureSelected": "featureSelected"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfHeatMap, "ajf-heat-map", never, { "features": "features"; "startColor": "startColor"; "endColor": "endColor"; "highlightColor": "highlightColor"; "values": "values"; "action": "action"; "idProp": "idProp"; "showVisualMap": "showVisualMap"; }, { "featureSelected": "featureSelected"; }, never, never, false, never>;
 }

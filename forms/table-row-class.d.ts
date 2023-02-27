@@ -30,5 +30,5 @@ import * as i0 from "@angular/core";
 export declare class AjfTableRowClass implements PipeTransform {
     transform(value: number): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfTableRowClass, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfTableRowClass, "ajfTableRowClass">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfTableRowClass, "ajfTableRowClass", false>;
 }

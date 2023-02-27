@@ -32,5 +32,5 @@ import * as i0 from "@angular/core";
 export declare class AjfGetTableCellControlPipe implements PipeTransform {
     transform(ctrl: null | string | AjfTableFormControl): AjfTableFormControl | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfGetTableCellControlPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfGetTableCellControlPipe, "ajfGetTableCellControl">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfGetTableCellControlPipe, "ajfGetTableCellControl", false>;
 }

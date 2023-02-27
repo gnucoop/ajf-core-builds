@@ -29,5 +29,5 @@ import * as i0 from "@angular/core";
 export declare class AjfFieldIsValidPipe implements PipeTransform {
     transform(validationResults?: AjfValidationResult[]): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFieldIsValidPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfFieldIsValidPipe, "ajfFieldIsValid">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfFieldIsValidPipe, "ajfFieldIsValid", false>;
 }

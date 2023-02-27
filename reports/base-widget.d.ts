@@ -30,5 +30,5 @@ export declare class AjfBaseWidgetComponent<T extends AjfWidgetInstance = AjfWid
     set instance(instance: T | undefined);
     constructor(_cdr: ChangeDetectorRef, el: ElementRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfBaseWidgetComponent<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBaseWidgetComponent<any>, never, never, { "instance": "instance"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBaseWidgetComponent<any>, never, never, { "instance": "instance"; }, {}, never, never, false, never>;
 }

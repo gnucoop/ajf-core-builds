@@ -32,5 +32,5 @@ import * as i0 from "@angular/core";
 export declare class AjfTableVisibleColumnsPipe implements PipeTransform {
     transform(instance: AjfTableFieldInstance): (string | number | AjfTableFormControl)[][];
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfTableVisibleColumnsPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfTableVisibleColumnsPipe, "ajfTableVisibleColumns">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfTableVisibleColumnsPipe, "ajfTableVisibleColumns", false>;
 }

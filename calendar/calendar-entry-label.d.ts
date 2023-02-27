@@ -28,6 +28,6 @@ export declare class AjfCalendarEntryLabelPipe implements PipeTransform {
     constructor(_service: AjfCalendarService);
     transform(entry: AjfCalendarEntry): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfCalendarEntryLabelPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfCalendarEntryLabelPipe, "ajfCalendarEntryLabel">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfCalendarEntryLabelPipe, "ajfCalendarEntryLabel", false>;
     static ɵprov: i0.ɵɵInjectableDeclaration<AjfCalendarEntryLabelPipe>;
 }

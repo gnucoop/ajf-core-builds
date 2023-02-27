@@ -25,5 +25,5 @@ export declare class AjfWidgetHost {
     readonly viewContainerRef: ViewContainerRef;
     constructor(viewContainerRef: ViewContainerRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfWidgetHost, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfWidgetHost, "[ajf-widget-host]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfWidgetHost, "[ajf-widget-host]", never, {}, {}, never, never, false, never>;
 }

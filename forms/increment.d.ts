@@ -30,5 +30,5 @@ import * as i0 from "@angular/core";
 export declare class AjfIncrementPipe implements PipeTransform {
     transform(value: number, increment?: number): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfIncrementPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIncrementPipe, "ajfIncrement">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIncrementPipe, "ajfIncrement", false>;
 }

@@ -19,7 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 export declare type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week';
 /**
  * An ng FormControl of a table.
@@ -28,7 +28,7 @@ export interface AjfTableFormControl {
     /**
      * The ng FormControl
      */
-    control: FormControl;
+    control: UntypedFormControl;
     /**
      * If set to true, the FormControl is allocated.
      * If set to false the value of the FormControl is shown only as plain text.

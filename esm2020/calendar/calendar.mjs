@@ -289,9 +289,9 @@ export class AjfCalendar {
         this._buildCalendar();
     }
 }
-AjfCalendar.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendar, deps: [{ token: i0.ChangeDetectorRef }, { token: i1.AjfCalendarService }], target: i0.ɵɵFactoryTarget.Directive });
-AjfCalendar.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfCalendar, inputs: { viewDate: "viewDate", disabled: "disabled", dateOnlyForDay: "dateOnlyForDay", viewMode: "viewMode", selectionMode: "selectionMode", startOfWeekDay: "startOfWeekDay", isoMode: "isoMode", minDate: "minDate", maxDate: "maxDate", selectedPeriod: "selectedPeriod", value: "value" }, outputs: { change: "change" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendar, decorators: [{
+AjfCalendar.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendar, deps: [{ token: i0.ChangeDetectorRef }, { token: i1.AjfCalendarService }], target: i0.ɵɵFactoryTarget.Directive });
+AjfCalendar.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfCalendar, inputs: { viewDate: "viewDate", disabled: "disabled", dateOnlyForDay: "dateOnlyForDay", viewMode: "viewMode", selectionMode: "selectionMode", startOfWeekDay: "startOfWeekDay", isoMode: "isoMode", minDate: "minDate", maxDate: "maxDate", selectedPeriod: "selectedPeriod", value: "value" }, outputs: { change: "change" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendar, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: i1.AjfCalendarService }]; }, propDecorators: { viewDate: [{
                 type: Input

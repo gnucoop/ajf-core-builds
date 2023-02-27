@@ -32,9 +32,9 @@ export class AjfTableRowClass {
         return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
     }
 }
-AjfTableRowClass.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTableRowClass, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfTableRowClass.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTableRowClass, name: "ajfTableRowClass" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfTableRowClass, decorators: [{
+AjfTableRowClass.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfTableRowClass, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfTableRowClass.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfTableRowClass, name: "ajfTableRowClass" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfTableRowClass, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfTableRowClass' }]
         }] });

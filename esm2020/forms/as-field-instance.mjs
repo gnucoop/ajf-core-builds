@@ -29,9 +29,9 @@ export class AjfAsFieldInstancePipe {
         return instance;
     }
 }
-AjfAsFieldInstancePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfAsFieldInstancePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfAsFieldInstancePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfAsFieldInstancePipe, name: "ajfAsFieldInstance" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfAsFieldInstancePipe, decorators: [{
+AjfAsFieldInstancePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfAsFieldInstancePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfAsFieldInstancePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfAsFieldInstancePipe, name: "ajfAsFieldInstance" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfAsFieldInstancePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfAsFieldInstance' }]
         }] });

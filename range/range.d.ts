@@ -49,5 +49,5 @@ export declare abstract class AjfRange extends AjfBaseFieldComponent<AjfRangeFie
     reset(): void;
     writeValue(value: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfRange, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfRange, never, never, { "end": "end"; "name": "name"; "start": "start"; "step": "step"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfRange, never, never, { "end": "end"; "name": "name"; "start": "start"; "step": "step"; }, {}, never, never, false, never>;
 }

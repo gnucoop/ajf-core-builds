@@ -32,9 +32,9 @@ export class FormatIfNumber extends DecimalPipe {
         }
     }
 }
-FormatIfNumber.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: FormatIfNumber, deps: null, target: i0.ɵɵFactoryTarget.Pipe });
-FormatIfNumber.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: FormatIfNumber, name: "ajfFormatIfNumber" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: FormatIfNumber, decorators: [{
+FormatIfNumber.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: FormatIfNumber, deps: null, target: i0.ɵɵFactoryTarget.Pipe });
+FormatIfNumber.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: FormatIfNumber, name: "ajfFormatIfNumber" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: FormatIfNumber, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfFormatIfNumber' }]
         }] });

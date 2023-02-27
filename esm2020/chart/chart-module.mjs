@@ -24,10 +24,10 @@ import { AjfChartComponent } from './chart';
 import * as i0 from "@angular/core";
 export class AjfChartModule {
 }
-AjfChartModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfChartModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfChartModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfChartModule, declarations: [AjfChartComponent], exports: [AjfChartComponent] });
-AjfChartModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfChartModule });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfChartModule, decorators: [{
+AjfChartModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfChartModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfChartModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfChartModule, declarations: [AjfChartComponent], exports: [AjfChartComponent] });
+AjfChartModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfChartModule });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfChartModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [AjfChartComponent],

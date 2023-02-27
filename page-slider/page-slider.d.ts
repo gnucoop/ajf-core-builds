@@ -77,5 +77,5 @@ export declare class AjfPageSlider implements AfterContentInit, OnDestroy {
     private _updateSize;
     private _restoreCurrentPage;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfPageSlider, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfPageSlider, never, never, { "duration": "duration"; "orientation": "orientation"; "fixedOrientation": "fixedOrientation"; "currentPage": "currentPage"; "hideNavigationButtons": "hideNavigationButtons"; }, { "pageScrollFinish": "pageScrollFinish"; "orientationChange": "orientationChange"; }, ["pages"]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfPageSlider, never, never, { "duration": "duration"; "orientation": "orientation"; "fixedOrientation": "fixedOrientation"; "currentPage": "currentPage"; "hideNavigationButtons": "hideNavigationButtons"; }, { "pageScrollFinish": "pageScrollFinish"; "orientationChange": "orientationChange"; }, ["pages"], never, false, never>;
 }

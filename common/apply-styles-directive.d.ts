@@ -31,5 +31,5 @@ export declare class ApplyStylesDirective {
     constructor(_el: ElementRef, _renderer: Renderer2);
     private _updateStyles;
     static ɵfac: i0.ɵɵFactoryDeclaration<ApplyStylesDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<ApplyStylesDirective, "[applyStyles]", never, { "applyStyles": "applyStyles"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<ApplyStylesDirective, "[applyStyles]", never, { "applyStyles": "applyStyles"; }, {}, never, never, false, never>;
 }

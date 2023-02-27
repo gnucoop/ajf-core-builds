@@ -73,5 +73,5 @@ export declare class AjfTable implements OnDestroy {
     openDialog(dialogHtmlContent: string | undefined): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfTable, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfTable, "ajf-table", never, { "data": "data"; "cellpadding": "cellpadding"; }, { "sortSelected": "sortSelected"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfTable, "ajf-table", never, { "data": "data"; "cellpadding": "cellpadding"; }, { "sortSelected": "sortSelected"; }, never, never, false, never>;
 }

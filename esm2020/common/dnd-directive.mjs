@@ -53,9 +53,9 @@ export class AjfDndDirective {
         }
     }
 }
-AjfDndDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfDndDirective, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-AjfDndDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfDndDirective, selector: "[ajfDnd]", outputs: { file: "file" }, host: { listeners: { "dragover": "onDragOver($event)", "dragleave": "onDragLeave($event)", "drop": "onDrop($event)" }, properties: { "class.ajf-dnd-over": "over" } }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfDndDirective, decorators: [{
+AjfDndDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfDndDirective, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+AjfDndDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfDndDirective, selector: "[ajfDnd]", outputs: { file: "file" }, host: { listeners: { "dragover": "onDragOver($event)", "dragleave": "onDragLeave($event)", "drop": "onDrop($event)" }, properties: { "class.ajf-dnd-over": "over" } }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfDndDirective, decorators: [{
             type: Directive,
             args: [{
                     selector: '[ajfDnd]',

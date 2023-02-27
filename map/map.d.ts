@@ -44,5 +44,5 @@ export declare class AjfMapComponent implements AfterViewInit, OnDestroy {
     private _addTileLayerToMap;
     private _disableMap;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfMapComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfMapComponent, "ajf-map", never, { "coordinate": "coordinate"; "tileLayer": "tileLayer"; "attribution": "attribution"; "disabled": "disabled"; }, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfMapComponent, "ajf-map", never, { "coordinate": "coordinate"; "tileLayer": "tileLayer"; "attribution": "attribution"; "disabled": "disabled"; }, {}, never, never, false, never>;
 }

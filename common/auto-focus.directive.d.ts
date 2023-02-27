@@ -27,5 +27,5 @@ export declare class AutofocusDirective implements AfterContentInit {
     constructor(_el: ElementRef);
     ngAfterContentInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AutofocusDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AutofocusDirective, "[autoFocus]", never, { "appAutoFocus": "appAutoFocus"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AutofocusDirective, "[autoFocus]", never, { "appAutoFocus": "appAutoFocus"; }, {}, never, never, false, never>;
 }

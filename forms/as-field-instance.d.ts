@@ -29,5 +29,5 @@ import * as i0 from "@angular/core";
 export declare class AjfAsFieldInstancePipe implements PipeTransform {
     transform(instance: AjfNodeInstance): AjfFieldInstance;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfAsFieldInstancePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfAsFieldInstancePipe, "ajfAsFieldInstance">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfAsFieldInstancePipe, "ajfAsFieldInstance", false>;
 }

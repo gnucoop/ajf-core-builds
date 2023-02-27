@@ -120,9 +120,9 @@ class AjfEchartsDirective {
         }
     }
 }
-AjfEchartsDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfEchartsDirective, deps: [{ token: AJF_ECHARTS_PROVIDER }, { token: i0.ElementRef }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Directive });
-AjfEchartsDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfEchartsDirective, selector: "[ajfEcharts]", inputs: { theme: "theme", renderer: "renderer", options: "options" }, outputs: { chartInit: "chartInit" }, exportAs: ["ajfEcharts"], usesOnChanges: true, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfEchartsDirective, decorators: [{
+AjfEchartsDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfEchartsDirective, deps: [{ token: AJF_ECHARTS_PROVIDER }, { token: i0.ElementRef }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Directive });
+AjfEchartsDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfEchartsDirective, selector: "[ajfEcharts]", inputs: { theme: "theme", renderer: "renderer", options: "options" }, outputs: { chartInit: "chartInit" }, exportAs: ["ajfEcharts"], usesOnChanges: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfEchartsDirective, decorators: [{
             type: Directive,
             args: [{ selector: '[ajfEcharts]', exportAs: 'ajfEcharts' }]
         }], ctorParameters: function () {
@@ -152,10 +152,10 @@ class AjfEchartsModule {
         };
     }
 }
-AjfEchartsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfEchartsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfEchartsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfEchartsModule, declarations: [AjfEchartsDirective], exports: [AjfEchartsDirective] });
-AjfEchartsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfEchartsModule });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfEchartsModule, decorators: [{
+AjfEchartsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfEchartsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfEchartsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfEchartsModule, declarations: [AjfEchartsDirective], exports: [AjfEchartsDirective] });
+AjfEchartsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfEchartsModule });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfEchartsModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [AjfEchartsDirective],

@@ -31,5 +31,5 @@ export declare abstract class AjfNodeIcon {
     set node(node: AjfNode | undefined);
     private _getFontIcon;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfNodeIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfNodeIcon, never, never, { "node": "node"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfNodeIcon, never, never, { "node": "node"; }, {}, never, never, false, never>;
 }

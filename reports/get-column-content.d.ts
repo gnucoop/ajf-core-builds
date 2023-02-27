@@ -26,5 +26,5 @@ import * as i0 from "@angular/core";
 export declare class AjfGetColumnContentPipe implements PipeTransform {
     transform(instance: AjfLayoutWidgetInstance, column: number): AjfWidgetInstance | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfGetColumnContentPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfGetColumnContentPipe, "ajfGetColumnContent">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfGetColumnContentPipe, "ajfGetColumnContent", false>;
 }

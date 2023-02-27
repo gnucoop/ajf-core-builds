@@ -35,5 +35,5 @@ import * as i0 from "@angular/core";
 export declare class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyTableFieldComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyTableFieldComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyTableFieldComponent, "ng-component", never, {}, {}, never, never, false, never>;
 }

@@ -35,5 +35,5 @@ export interface BuildStringIdentifierOpts {
     labelSuffix?: string;
     valuesDivider?: string;
 }
-export declare const buildStringIdentifierOpts: (opts?: BuildStringIdentifierOpts | undefined) => Required<BuildStringIdentifierOpts>;
-export declare const buildStringIdentifier: (stringIdentifier: AjfStringIdentifier[] | undefined, context: AjfContext, opts?: BuildStringIdentifierOpts | undefined) => string;
+export declare const buildStringIdentifierOpts: (opts?: BuildStringIdentifierOpts) => Required<BuildStringIdentifierOpts>;
+export declare const buildStringIdentifier: (stringIdentifier: AjfStringIdentifier[] | undefined, context: AjfContext, opts?: BuildStringIdentifierOpts) => string;

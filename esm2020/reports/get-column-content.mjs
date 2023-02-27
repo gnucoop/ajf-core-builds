@@ -26,9 +26,9 @@ export class AjfGetColumnContentPipe {
         return column >= 0 && column < instance.content.length ? instance.content[column] : null;
     }
 }
-AjfGetColumnContentPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfGetColumnContentPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfGetColumnContentPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfGetColumnContentPipe, name: "ajfGetColumnContent" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfGetColumnContentPipe, decorators: [{
+AjfGetColumnContentPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfGetColumnContentPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfGetColumnContentPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfGetColumnContentPipe, name: "ajfGetColumnContent" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfGetColumnContentPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfGetColumnContent' }]
         }] });

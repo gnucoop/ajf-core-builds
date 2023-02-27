@@ -32,9 +32,9 @@ export class AjfExpandFieldWithChoicesPipe {
                 (instance.filteredChoices && instance.filteredChoices.length <= threshold)));
     }
 }
-AjfExpandFieldWithChoicesPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfExpandFieldWithChoicesPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, name: "ajfExpandFieldWithChoices" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, decorators: [{
+AjfExpandFieldWithChoicesPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfExpandFieldWithChoicesPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, name: "ajfExpandFieldWithChoices" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfExpandFieldWithChoicesPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfExpandFieldWithChoices' }]
         }] });

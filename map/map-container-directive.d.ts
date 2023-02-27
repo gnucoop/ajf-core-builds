@@ -26,5 +26,5 @@ export declare class AjfMapContainerDirective {
     get htmlElement(): HTMLElement;
     constructor(_el: ElementRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfMapContainerDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfMapContainerDirective, "[mapContainer]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfMapContainerDirective, "[mapContainer]", never, {}, {}, never, never, false, never>;
 }

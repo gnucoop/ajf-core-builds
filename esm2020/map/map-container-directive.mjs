@@ -30,9 +30,9 @@ export class AjfMapContainerDirective {
         return this._el.nativeElement;
     }
 }
-AjfMapContainerDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfMapContainerDirective, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-AjfMapContainerDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfMapContainerDirective, selector: "[mapContainer]", ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfMapContainerDirective, decorators: [{
+AjfMapContainerDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfMapContainerDirective, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
+AjfMapContainerDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfMapContainerDirective, selector: "[mapContainer]", ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfMapContainerDirective, decorators: [{
             type: Directive,
             args: [{ selector: '[mapContainer]' }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }]; } });

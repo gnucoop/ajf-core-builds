@@ -33,5 +33,5 @@ import * as i0 from "@angular/core";
 export declare class AjfFieldIconPipe implements PipeTransform {
     transform(field: AjfField | AjfFieldType): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFieldIconPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfFieldIconPipe, "ajfFieldIcon">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfFieldIconPipe, "ajfFieldIcon", false>;
 }

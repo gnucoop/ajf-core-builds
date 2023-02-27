@@ -42,5 +42,5 @@ export declare abstract class AjfFormField implements AfterViewInit, OnDestroy, 
      */
     private _loadComponent;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormField, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFormField, never, never, { "instance": "instance"; "readonly": "readonly"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFormField, never, never, { "instance": "instance"; "readonly": "readonly"; }, {}, never, never, false, never>;
 }

@@ -27,7 +27,7 @@ import { AjfFile } from './file';
 import * as i0 from "@angular/core";
 export declare class AjfDropMessage {
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfDropMessage, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfDropMessage, "[ajfDropMessage]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfDropMessage, "[ajfDropMessage]", never, {}, {}, never, never, false, never>;
 }
 export declare class AjfFilePreview implements OnDestroy {
     private _value;
@@ -36,7 +36,7 @@ export declare class AjfFilePreview implements OnDestroy {
     constructor(vcr: ViewContainerRef);
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFilePreview, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFilePreview, "[ajfFilePreview]", ["ajfFilePreview"], {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFilePreview, "[ajfFilePreview]", ["ajfFilePreview"], {}, {}, never, never, false, never>;
 }
 /**
  * It allows the upload of a file inside an AjfForm.
@@ -89,6 +89,6 @@ export declare class AjfFileInput implements ControlValueAccessor {
     writeValue(value: any): void;
     private _processFileUpload;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFileInput, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfFileInput, "ajf-file-input", never, { "accept": "accept"; "value": "value"; }, { "valueChange": "valueChange"; "deleteFile": "deleteFile"; }, ["_dropMessageChildren", "_filePreviewChildren"], ["[ajfDropMessage]", "[ajfFilePreview]"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfFileInput, "ajf-file-input", never, { "accept": "accept"; "value": "value"; }, { "valueChange": "valueChange"; "deleteFile": "deleteFile"; }, ["_dropMessageChildren", "_filePreviewChildren"], ["[ajfDropMessage]", "[ajfFilePreview]"], false, never>;
 }
 export declare const fileIcon: string;

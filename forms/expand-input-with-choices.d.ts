@@ -29,5 +29,5 @@ import * as i0 from "@angular/core";
 export declare class AjfExpandFieldWithChoicesPipe implements PipeTransform {
     transform(instance: AjfFieldWithChoicesInstance<any>, threshold: number): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfExpandFieldWithChoicesPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfExpandFieldWithChoicesPipe, "ajfExpandFieldWithChoices">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfExpandFieldWithChoicesPipe, "ajfExpandFieldWithChoices", false>;
 }

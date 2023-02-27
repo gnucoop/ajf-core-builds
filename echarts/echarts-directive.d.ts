@@ -52,5 +52,5 @@ export declare class AjfEchartsDirective implements OnChanges, OnDestroy, OnInit
     private _onResize;
     private _resizeChart;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfEchartsDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfEchartsDirective, "[ajfEcharts]", ["ajfEcharts"], { "theme": "theme"; "renderer": "renderer"; "options": "options"; }, { "chartInit": "chartInit"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfEchartsDirective, "[ajfEcharts]", ["ajfEcharts"], { "theme": "theme"; "renderer": "renderer"; "options": "options"; }, { "chartInit": "chartInit"; }, never, never, false, never>;
 }

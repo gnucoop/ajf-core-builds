@@ -37,5 +37,5 @@ export declare class AjfReadOnlySelectFieldComponent extends AjfBaseFieldCompone
     readonly multiple: Observable<boolean>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlySelectFieldComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlySelectFieldComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlySelectFieldComponent, "ng-component", never, {}, {}, never, never, false, never>;
 }

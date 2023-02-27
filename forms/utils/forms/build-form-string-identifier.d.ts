@@ -24,4 +24,4 @@ import { AjfForm } from '../../interface/forms/form';
 /**
  * It builds a string that contains information preview about the form and its context.
  */
-export declare const buildFormStringIdentifier: (form: AjfForm, context: AjfContext, opts?: BuildStringIdentifierOpts | undefined) => string;
+export declare const buildFormStringIdentifier: (form: AjfForm, context: AjfContext, opts?: BuildStringIdentifierOpts) => string;

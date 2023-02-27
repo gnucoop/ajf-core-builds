@@ -72,5 +72,5 @@ export declare abstract class AjfTableFieldComponent extends AjfBaseFieldCompone
      */
     private _showCell;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfTableFieldComponent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfTableFieldComponent, never, never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfTableFieldComponent, never, never, {}, {}, never, never, false, never>;
 }

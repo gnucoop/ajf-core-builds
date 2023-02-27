@@ -32,5 +32,5 @@ export declare abstract class AjfReportRenderer {
     get report(): AjfReport | null;
     constructor(_cdr: ChangeDetectorRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportRenderer, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfReportRenderer, never, never, { "instance": "instance"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfReportRenderer, never, never, { "instance": "instance"; }, {}, never, never, false, never>;
 }

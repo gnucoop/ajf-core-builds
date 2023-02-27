@@ -30,10 +30,10 @@ export class AjfCalendarEntryLabelPipe {
         return this._service.entryLabel(entry);
     }
 }
-AjfCalendarEntryLabelPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarEntryLabelPipe, deps: [{ token: i1.AjfCalendarService }], target: i0.ɵɵFactoryTarget.Pipe });
-AjfCalendarEntryLabelPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarEntryLabelPipe, name: "ajfCalendarEntryLabel" });
-AjfCalendarEntryLabelPipe.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarEntryLabelPipe });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarEntryLabelPipe, decorators: [{
+AjfCalendarEntryLabelPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarEntryLabelPipe, deps: [{ token: i1.AjfCalendarService }], target: i0.ɵɵFactoryTarget.Pipe });
+AjfCalendarEntryLabelPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarEntryLabelPipe, name: "ajfCalendarEntryLabel" });
+AjfCalendarEntryLabelPipe.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarEntryLabelPipe });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarEntryLabelPipe, decorators: [{
             type: Injectable
         }, {
             type: Pipe,

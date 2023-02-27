@@ -31,5 +31,5 @@ import * as i0 from "@angular/core";
 export declare class AjfIsCellEditablePipe implements PipeTransform {
     transform(cell: string | AjfTableCell): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfIsCellEditablePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIsCellEditablePipe, "ajfIsCellEditable">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIsCellEditablePipe, "ajfIsCellEditable", false>;
 }

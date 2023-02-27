@@ -36,5 +36,5 @@ export declare abstract class AjfReportWidget implements OnInit {
     ngOnInit(): void;
     private _loadComponent;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportWidget, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfReportWidget, never, never, { "instance": "instance"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfReportWidget, never, never, { "instance": "instance"; }, {}, never, never, false, never>;
 }

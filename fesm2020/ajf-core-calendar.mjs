@@ -237,9 +237,9 @@ class AjfCalendarService {
         return rows;
     }
 }
-AjfCalendarService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarService, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-AjfCalendarService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarService, providedIn: 'root' });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarService, decorators: [{
+AjfCalendarService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarService, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+AjfCalendarService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarService, providedIn: 'root' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarService, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }] });
@@ -273,10 +273,10 @@ class AjfCalendarEntryLabelPipe {
         return this._service.entryLabel(entry);
     }
 }
-AjfCalendarEntryLabelPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarEntryLabelPipe, deps: [{ token: AjfCalendarService }], target: i0.ɵɵFactoryTarget.Pipe });
-AjfCalendarEntryLabelPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarEntryLabelPipe, name: "ajfCalendarEntryLabel" });
-AjfCalendarEntryLabelPipe.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarEntryLabelPipe });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarEntryLabelPipe, decorators: [{
+AjfCalendarEntryLabelPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarEntryLabelPipe, deps: [{ token: AjfCalendarService }], target: i0.ɵɵFactoryTarget.Pipe });
+AjfCalendarEntryLabelPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarEntryLabelPipe, name: "ajfCalendarEntryLabel" });
+AjfCalendarEntryLabelPipe.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarEntryLabelPipe });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarEntryLabelPipe, decorators: [{
             type: Injectable
         }, {
             type: Pipe,
@@ -372,10 +372,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
  */
 class AjfCalendarModule {
 }
-AjfCalendarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfCalendarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarModule, declarations: [AjfCalendarEntryLabelPipe], exports: [AjfCalendarEntryLabelPipe] });
-AjfCalendarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarModule });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarModule, decorators: [{
+AjfCalendarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfCalendarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarModule, declarations: [AjfCalendarEntryLabelPipe], exports: [AjfCalendarEntryLabelPipe] });
+AjfCalendarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarModule });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [AjfCalendarEntryLabelPipe],
@@ -384,10 +384,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
         }] });
 class AjfGregorianCalendarModule {
 }
-AjfGregorianCalendarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfGregorianCalendarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfGregorianCalendarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfGregorianCalendarModule });
-AjfGregorianCalendarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfGregorianCalendarModule, providers: [AjfCalendarService] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfGregorianCalendarModule, decorators: [{
+AjfGregorianCalendarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfGregorianCalendarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfGregorianCalendarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfGregorianCalendarModule });
+AjfGregorianCalendarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfGregorianCalendarModule, providers: [AjfCalendarService] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfGregorianCalendarModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [AjfCalendarService],
@@ -791,9 +791,9 @@ class AjfCalendar {
         this._buildCalendar();
     }
 }
-AjfCalendar.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendar, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfCalendarService }], target: i0.ɵɵFactoryTarget.Directive });
-AjfCalendar.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfCalendar, inputs: { viewDate: "viewDate", disabled: "disabled", dateOnlyForDay: "dateOnlyForDay", viewMode: "viewMode", selectionMode: "selectionMode", startOfWeekDay: "startOfWeekDay", isoMode: "isoMode", minDate: "minDate", maxDate: "maxDate", selectedPeriod: "selectedPeriod", value: "value" }, outputs: { change: "change" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendar, decorators: [{
+AjfCalendar.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendar, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfCalendarService }], target: i0.ɵɵFactoryTarget.Directive });
+AjfCalendar.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfCalendar, inputs: { viewDate: "viewDate", disabled: "disabled", dateOnlyForDay: "dateOnlyForDay", viewMode: "viewMode", selectionMode: "selectionMode", startOfWeekDay: "startOfWeekDay", isoMode: "isoMode", minDate: "minDate", maxDate: "maxDate", selectedPeriod: "selectedPeriod", value: "value" }, outputs: { change: "change" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendar, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfCalendarService }]; }, propDecorators: { viewDate: [{
                 type: Input

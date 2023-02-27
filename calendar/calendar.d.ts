@@ -93,5 +93,5 @@ export declare abstract class AjfCalendar implements AfterContentInit, ControlVa
     private _canSelectEntry;
     private _nextViewMode;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfCalendar, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfCalendar, never, never, { "viewDate": "viewDate"; "disabled": "disabled"; "dateOnlyForDay": "dateOnlyForDay"; "viewMode": "viewMode"; "selectionMode": "selectionMode"; "startOfWeekDay": "startOfWeekDay"; "isoMode": "isoMode"; "minDate": "minDate"; "maxDate": "maxDate"; "selectedPeriod": "selectedPeriod"; "value": "value"; }, { "change": "change"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfCalendar, never, never, { "viewDate": "viewDate"; "disabled": "disabled"; "dateOnlyForDay": "dateOnlyForDay"; "viewMode": "viewMode"; "selectionMode": "selectionMode"; "startOfWeekDay": "startOfWeekDay"; "isoMode": "isoMode"; "minDate": "minDate"; "maxDate": "maxDate"; "selectedPeriod": "selectedPeriod"; "value": "value"; }, { "change": "change"; }, never, never, false, never>;
 }

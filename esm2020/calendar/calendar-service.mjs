@@ -236,9 +236,9 @@ export class AjfCalendarService {
         return rows;
     }
 }
-AjfCalendarService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarService, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-AjfCalendarService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarService, providedIn: 'root' });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCalendarService, decorators: [{
+AjfCalendarService.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarService, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+AjfCalendarService.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarService, providedIn: 'root' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCalendarService, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }] });

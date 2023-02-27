@@ -21,4 +21,4 @@
  */
 import { AjfContext, BuildStringIdentifierOpts } from '@ajf/core/common';
 import { AjfReport } from '../../interface/reports/report';
-export declare const buildReportStringIdentifier: (report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts | undefined) => string;
+export declare const buildReportStringIdentifier: (report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts) => string;

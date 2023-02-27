@@ -20,7 +20,7 @@
  *
  */
 import { AjfContext } from '@ajf/core/models';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AjfFieldInstance } from './interface/fields-instances/field-instance';
 import { AjfForm } from './interface/forms/form';
@@ -58,7 +58,7 @@ export declare class AjfFormRendererService {
     private _formInitEvent;
     readonly formInitEvent: Observable<AjfFormInitStatus>;
     private _formGroup;
-    readonly formGroup: Observable<FormGroup | null>;
+    readonly formGroup: Observable<UntypedFormGroup | null>;
     private _form;
     private _nodes;
     private _flatNodes;

@@ -28,9 +28,9 @@ import * as i0 from "@angular/core";
  */
 export class AjfPageBreakComponent {
 }
-AjfPageBreakComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfPageBreakComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-AjfPageBreakComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfPageBreakComponent, selector: "ajf-page-break", ngImport: i0, template: "&nbsp;", styles: ["@media print{ajf-page-break{display:block;page-break-after:always}}ajf-page-break{display:none}\n"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfPageBreakComponent, decorators: [{
+AjfPageBreakComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfPageBreakComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+AjfPageBreakComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "15.0.4", type: AjfPageBreakComponent, selector: "ajf-page-break", ngImport: i0, template: "&nbsp;", styles: ["@media print{ajf-page-break{display:block;page-break-after:always}}ajf-page-break{display:none}\n"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfPageBreakComponent, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-page-break', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, template: "&nbsp;", styles: ["@media print{ajf-page-break{display:block;page-break-after:always}}ajf-page-break{display:none}\n"] }]
         }] });

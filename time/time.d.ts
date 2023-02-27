@@ -43,5 +43,5 @@ export declare abstract class AjfTime implements ControlValueAccessor, OnDestroy
     registerOnTouched(fn: any): void;
     focusHandler(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfTime, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfTime, never, never, { "readonly": "readonly"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfTime, never, never, { "readonly": "readonly"; }, {}, never, never, false, never>;
 }

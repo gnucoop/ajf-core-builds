@@ -32,5 +32,5 @@ import * as i0 from "@angular/core";
 export declare class AjfFormStringIdentifierPipe implements PipeTransform {
     transform(form: AjfForm, context: AjfContext, opts?: BuildStringIdentifierOpts): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormStringIdentifierPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfFormStringIdentifierPipe, "ajfFormStringIdentifier">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfFormStringIdentifierPipe, "ajfFormStringIdentifier", false>;
 }

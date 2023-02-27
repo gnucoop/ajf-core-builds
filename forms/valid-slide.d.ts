@@ -31,5 +31,5 @@ import * as i0 from "@angular/core";
 export declare class AjfValidSlidePipe implements PipeTransform {
     transform(slide: AjfBaseSlideInstance, idx: number): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfValidSlidePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfValidSlidePipe, "ajfValidSlide">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfValidSlidePipe, "ajfValidSlide", false>;
 }

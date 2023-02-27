@@ -30,9 +30,9 @@ export class AjfFieldHost {
         this.viewContainerRef = viewContainerRef;
     }
 }
-AjfFieldHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfFieldHost, deps: [{ token: i0.ViewContainerRef }], target: i0.ɵɵFactoryTarget.Directive });
-AjfFieldHost.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfFieldHost, selector: "[ajf-field-host]", ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfFieldHost, decorators: [{
+AjfFieldHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfFieldHost, deps: [{ token: i0.ViewContainerRef }], target: i0.ɵɵFactoryTarget.Directive });
+AjfFieldHost.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfFieldHost, selector: "[ajf-field-host]", ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfFieldHost, decorators: [{
             type: Directive,
             args: [{ selector: '[ajf-field-host]' }]
         }], ctorParameters: function () { return [{ type: i0.ViewContainerRef }]; } });

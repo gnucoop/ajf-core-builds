@@ -39,5 +39,5 @@ export declare class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
     readonly videoThumbnail: Observable<SafeResourceUrl>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer, httpClient: HttpClient);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfVideoUrlFieldComponent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfVideoUrlFieldComponent, never, never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfVideoUrlFieldComponent, never, never, {}, {}, never, never, false, never>;
 }

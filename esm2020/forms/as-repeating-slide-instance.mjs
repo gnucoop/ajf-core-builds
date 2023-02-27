@@ -29,9 +29,9 @@ export class AjfAsRepeatingSlideInstancePipe {
         return instance;
     }
 }
-AjfAsRepeatingSlideInstancePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfAsRepeatingSlideInstancePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, name: "ajfAsRepeatingSlideInstance" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, decorators: [{
+AjfAsRepeatingSlideInstancePipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfAsRepeatingSlideInstancePipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, name: "ajfAsRepeatingSlideInstance" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfAsRepeatingSlideInstancePipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfAsRepeatingSlideInstance' }]
         }] });

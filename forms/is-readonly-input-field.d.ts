@@ -31,5 +31,5 @@ import * as i0 from "@angular/core";
 export declare class AjfIsReadonlyInputFieldPipe implements PipeTransform {
     transform(instance: AjfNodeInstance): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfIsReadonlyInputFieldPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIsReadonlyInputFieldPipe, "ajfIsReadonlyInputField">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIsReadonlyInputFieldPipe, "ajfIsReadonlyInputField", false>;
 }

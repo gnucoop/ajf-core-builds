@@ -50,9 +50,9 @@ class AjfBaseWidgetComponent {
         }
     }
 }
-AjfBaseWidgetComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfBaseWidgetComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-AjfBaseWidgetComponent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfBaseWidgetComponent, inputs: { instance: "instance" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfBaseWidgetComponent, decorators: [{
+AjfBaseWidgetComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfBaseWidgetComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
+AjfBaseWidgetComponent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfBaseWidgetComponent, inputs: { instance: "instance" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfBaseWidgetComponent, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.ElementRef }]; }, propDecorators: { instance: [{
                 type: Input
@@ -166,9 +166,9 @@ class AjfGetColumnContentPipe {
         return column >= 0 && column < instance.content.length ? instance.content[column] : null;
     }
 }
-AjfGetColumnContentPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfGetColumnContentPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfGetColumnContentPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfGetColumnContentPipe, name: "ajfGetColumnContent" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfGetColumnContentPipe, decorators: [{
+AjfGetColumnContentPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfGetColumnContentPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfGetColumnContentPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfGetColumnContentPipe, name: "ajfGetColumnContent" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfGetColumnContentPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfGetColumnContent' }]
         }] });
@@ -1473,9 +1473,9 @@ class AjfReportRenderer {
         return this._report;
     }
 }
-AjfReportRenderer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportRenderer, deps: [{ token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Directive });
-AjfReportRenderer.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfReportRenderer, inputs: { instance: "instance" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportRenderer, decorators: [{
+AjfReportRenderer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReportRenderer, deps: [{ token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Directive });
+AjfReportRenderer.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfReportRenderer, inputs: { instance: "instance" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReportRenderer, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }]; }, propDecorators: { instance: [{
                 type: Input
@@ -1518,9 +1518,9 @@ class AjfReportStringIdentifierPipe {
         return buildReportStringIdentifier(report, context, opts);
     }
 }
-AjfReportStringIdentifierPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportStringIdentifierPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
-AjfReportStringIdentifierPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportStringIdentifierPipe, name: "ajfReportStringIdentifier" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportStringIdentifierPipe, decorators: [{
+AjfReportStringIdentifierPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReportStringIdentifierPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfReportStringIdentifierPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfReportStringIdentifierPipe, name: "ajfReportStringIdentifier" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReportStringIdentifierPipe, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfReportStringIdentifier' }]
         }] });
@@ -1660,9 +1660,9 @@ class AjfWidgetExport {
     }
 }
 AjfWidgetExport._iconsMap = {};
-AjfWidgetExport.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfWidgetExport, deps: [], target: i0.ɵɵFactoryTarget.Component });
-AjfWidgetExport.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.5", type: AjfWidgetExport, selector: "ajf-widget-export", inputs: { widgetType: "widgetType", data: "data", overlay: "overlay", enable: "enable" }, ngImport: i0, template: "<div class=\"ajf-widget-wrapper\" (mouseenter)=\"showOverlay = true\" (mouseleave)=\"showOverlay = false\" [class.ajf-show-overlay]=\"showOverlay\">\n  <ng-content></ng-content>\n  <div *ngIf=\"enable\" class=\"ajf-export-menu\" [class.ajf-export-menu-overlay]=\"overlay\">\n      <button (click)=\"export('csv')\">CSV</button>\n      <button (click)=\"export('xlsx')\">XLSX</button>\n  </div>\n</div>\n", styles: ["ajf-widget-export{width:100%;height:inherit}ajf-widget-export .ajf-widget-wrapper{position:relative;height:inherit}ajf-widget-export .ajf-export-menu{position:absolute;right:0;top:20px}ajf-widget-export .ajf-export-menu.ajf-export-menu-overlay{display:none}ajf-widget-export .ajf-export-menu button{margin:.5em;border:none;color:#fff;background-color:#4a403f;padding:7.5px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;cursor:pointer}ajf-widget-export .ajf-widget-wrapper.ajf-show-overlay .ajf-export-menu-overlay{display:block}\n"], directives: [{ type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfWidgetExport, decorators: [{
+AjfWidgetExport.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfWidgetExport, deps: [], target: i0.ɵɵFactoryTarget.Component });
+AjfWidgetExport.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "15.0.4", type: AjfWidgetExport, selector: "ajf-widget-export", inputs: { widgetType: "widgetType", data: "data", overlay: "overlay", enable: "enable" }, ngImport: i0, template: "<div class=\"ajf-widget-wrapper\" (mouseenter)=\"showOverlay = true\" (mouseleave)=\"showOverlay = false\" [class.ajf-show-overlay]=\"showOverlay\">\n  <ng-content></ng-content>\n  <div *ngIf=\"enable\" class=\"ajf-export-menu\" [class.ajf-export-menu-overlay]=\"overlay\">\n      <button (click)=\"export('csv')\">CSV</button>\n      <button (click)=\"export('xlsx')\">XLSX</button>\n  </div>\n</div>\n", styles: ["ajf-widget-export{width:100%;height:inherit}ajf-widget-export .ajf-widget-wrapper{position:relative;height:inherit}ajf-widget-export .ajf-export-menu{position:absolute;right:0;top:20px}ajf-widget-export .ajf-export-menu.ajf-export-menu-overlay{display:none}ajf-widget-export .ajf-export-menu button{margin:.5em;border:none;color:#fff;background-color:#4a403f;padding:7.5px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;cursor:pointer}ajf-widget-export .ajf-widget-wrapper.ajf-show-overlay .ajf-export-menu-overlay{display:block}\n"], dependencies: [{ kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfWidgetExport, decorators: [{
             type: Component,
             args: [{ selector: 'ajf-widget-export', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"ajf-widget-wrapper\" (mouseenter)=\"showOverlay = true\" (mouseleave)=\"showOverlay = false\" [class.ajf-show-overlay]=\"showOverlay\">\n  <ng-content></ng-content>\n  <div *ngIf=\"enable\" class=\"ajf-export-menu\" [class.ajf-export-menu-overlay]=\"overlay\">\n      <button (click)=\"export('csv')\">CSV</button>\n      <button (click)=\"export('xlsx')\">XLSX</button>\n  </div>\n</div>\n", styles: ["ajf-widget-export{width:100%;height:inherit}ajf-widget-export .ajf-widget-wrapper{position:relative;height:inherit}ajf-widget-export .ajf-export-menu{position:absolute;right:0;top:20px}ajf-widget-export .ajf-export-menu.ajf-export-menu-overlay{display:none}ajf-widget-export .ajf-export-menu button{margin:.5em;border:none;color:#fff;background-color:#4a403f;padding:7.5px 16px;text-align:center;text-decoration:none;display:inline-block;font-size:16px;cursor:pointer}ajf-widget-export .ajf-widget-wrapper.ajf-show-overlay .ajf-export-menu-overlay{display:block}\n"] }]
         }], ctorParameters: function () { return []; }, propDecorators: { widgetType: [{
@@ -1702,9 +1702,9 @@ class AjfWidgetHost {
         this.viewContainerRef = viewContainerRef;
     }
 }
-AjfWidgetHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfWidgetHost, deps: [{ token: i0.ViewContainerRef }], target: i0.ɵɵFactoryTarget.Directive });
-AjfWidgetHost.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfWidgetHost, selector: "[ajf-widget-host]", ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfWidgetHost, decorators: [{
+AjfWidgetHost.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfWidgetHost, deps: [{ token: i0.ViewContainerRef }], target: i0.ɵɵFactoryTarget.Directive });
+AjfWidgetHost.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfWidgetHost, selector: "[ajf-widget-host]", ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfWidgetHost, decorators: [{
             type: Directive,
             args: [{ selector: '[ajf-widget-host]' }]
         }], ctorParameters: function () { return [{ type: i0.ViewContainerRef }]; } });
@@ -1732,13 +1732,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
  */
 class AjfReportsModule {
 }
-AjfReportsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfReportsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportsModule, declarations: [AjfGetColumnContentPipe,
+AjfReportsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReportsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfReportsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfReportsModule, declarations: [AjfGetColumnContentPipe,
         AjfReportStringIdentifierPipe,
         AjfWidgetHost,
         AjfWidgetExport], imports: [CommonModule], exports: [AjfGetColumnContentPipe, AjfReportStringIdentifierPipe, AjfWidgetHost, AjfWidgetExport] });
-AjfReportsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportsModule, imports: [[CommonModule]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportsModule, decorators: [{
+AjfReportsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReportsModule, imports: [CommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReportsModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [
@@ -2139,9 +2139,9 @@ class AjfReportWidget {
         catch (e) { }
     }
 }
-AjfReportWidget.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportWidget, deps: [{ token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
-AjfReportWidget.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfReportWidget, inputs: { instance: "instance" }, viewQueries: [{ propertyName: "widgetHost", first: true, predicate: AjfWidgetHost, descendants: true, static: true }], ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfReportWidget, decorators: [{
+AjfReportWidget.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReportWidget, deps: [{ token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
+AjfReportWidget.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfReportWidget, inputs: { instance: "instance" }, viewQueries: [{ propertyName: "widgetHost", first: true, predicate: AjfWidgetHost, descendants: true, static: true }], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReportWidget, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.Renderer2 }]; }, propDecorators: { widgetHost: [{
                 type: ViewChild,
@@ -4200,75 +4200,75 @@ function automaticReport(form, id) {
 // s must not begin with whitespace characters.
 function firstToken(s) {
     if (s.length === 0) {
-        return { type: 0 /* END */, text: '' };
+        return { type: 0 /* TokenType.END */, text: '' };
     }
     let m;
     const c = s.charAt(0);
     switch (c) {
         case '(':
-            return { type: 1 /* LParen */, text: '(' };
+            return { type: 1 /* TokenType.LParen */, text: '(' };
         case ')':
-            return { type: 2 /* RParen */, text: ')' };
+            return { type: 2 /* TokenType.RParen */, text: ')' };
         case '[':
-            return { type: 3 /* LBracket */, text: '[' };
+            return { type: 3 /* TokenType.LBracket */, text: '[' };
         case ']':
-            return { type: 4 /* RBracket */, text: ']' };
+            return { type: 4 /* TokenType.RBracket */, text: ']' };
         case ',':
-            return { type: 5 /* Comma */, text: ',' };
+            return { type: 5 /* TokenType.Comma */, text: ',' };
         case '+':
-            return { type: 6 /* Plus */, text: '+' };
+            return { type: 6 /* TokenType.Plus */, text: '+' };
         case '-':
-            return { type: 7 /* Minus */, text: '-' };
+            return { type: 7 /* TokenType.Minus */, text: '-' };
         case '*':
-            return { type: 8 /* Mul */, text: '*' };
+            return { type: 8 /* TokenType.Mul */, text: '*' };
         case '/':
-            return { type: 9 /* Div */, text: '/' };
+            return { type: 9 /* TokenType.Div */, text: '/' };
         case '<':
             if (s.length > 1 && s.charAt(1) === '=') {
-                return { type: 11 /* LessOrEq */, text: '<=' };
+                return { type: 11 /* TokenType.LessOrEq */, text: '<=' };
             }
-            return { type: 10 /* Less */, text: '<' };
+            return { type: 10 /* TokenType.Less */, text: '<' };
         case '>':
             if (s.length > 1 && s.charAt(1) === '=') {
-                return { type: 13 /* GreaterOrEq */, text: '>=' };
+                return { type: 13 /* TokenType.GreaterOrEq */, text: '>=' };
             }
-            return { type: 12 /* Greater */, text: '>' };
+            return { type: 12 /* TokenType.Greater */, text: '>' };
         case '=':
-            return { type: 14 /* Equal */, text: '=' };
+            return { type: 14 /* TokenType.Equal */, text: '=' };
         case '!':
             if (s.length > 1 && s.charAt(1) === '=') {
-                return { type: 15 /* NotEqual */, text: '!=' };
+                return { type: 15 /* TokenType.NotEqual */, text: '!=' };
             }
-            return { type: 16 /* Not */, text: '!' };
+            return { type: 16 /* TokenType.Not */, text: '!' };
         case '$':
             m = s.match(/^\$[a-zA-Z_]\w*/);
             if (m === null) {
                 throw new Error('invalid field name in: ' + s);
             }
-            return { type: 20 /* Name */, text: m[0] };
+            return { type: 20 /* TokenType.Name */, text: m[0] };
         case '"':
             m = s.match(/^"(\\\\|\\"|[^"])*"/);
             if (m === null) {
                 throw new Error('unterminated string literal in: ' + s);
             }
-            return { type: 17 /* String */, text: m[0] };
+            return { type: 17 /* TokenType.String */, text: m[0] };
         case "'":
             m = s.match(/^'(\\\\|\\'|[^'])*'/);
             if (m === null) {
                 throw new Error('unterminated string literal in: ' + s);
             }
-            return { type: 17 /* String */, text: m[0] };
+            return { type: 17 /* TokenType.String */, text: m[0] };
     }
     if (c >= '0' && c <= '9') {
         m = s.match(/^\d+(\.\d+)?([eE][\+\-]?\d+)?/);
         if (m === null) {
             throw new Error('impossible');
         }
-        return { type: 18 /* Number */, text: m[0] };
+        return { type: 18 /* TokenType.Number */, text: m[0] };
     }
     m = s.match(/^[a-zA-Z_]\w*/);
     if (m !== null) {
-        return { type: 19 /* Indent */, text: m[0] };
+        return { type: 19 /* TokenType.Indent */, text: m[0] };
     }
     if (s.match(/^\s/) !== null) {
         throw new Error('string s has a leading whitespace');
@@ -4281,7 +4281,7 @@ function tokenize(s) {
         s = s.trim();
         const t = firstToken(s);
         toks.push(t);
-        if (t.type === 0 /* END */) {
+        if (t.type === 0 /* TokenType.END */) {
             return toks;
         }
         s = s.slice(t.text.length);
@@ -4301,10 +4301,10 @@ function indicatorToJs(formula) {
         default:
             throw new Error('formula is not a string');
     }
-    return parseExpression(tokenize(formula).reverse(), 0 /* END */);
+    return parseExpression(tokenize(formula).reverse(), 0 /* TokenType.END */);
 }
 function unexpectedTokenError(tok, rest) {
-    if (tok.type === 0 /* END */) {
+    if (tok.type === 0 /* TokenType.END */) {
         return new Error('unexpected end of token stream');
     }
     rest.push(tok);
@@ -4314,11 +4314,11 @@ function printTokens(revToks) {
     let s = '';
     while (revToks.length > 0) {
         const tok = revToks.pop();
-        if (tok.type >= 6 /* Plus */ && tok.type <= 15 /* NotEqual */) {
+        if (tok.type >= 6 /* TokenType.Plus */ && tok.type <= 15 /* TokenType.NotEqual */) {
             // binary operators
             s += ' ' + tok.text + ' ';
         }
-        else if (tok.type === 5 /* Comma */) {
+        else if (tok.type === 5 /* TokenType.Comma */) {
             s += ', ';
         }
         else {
@@ -4340,10 +4340,10 @@ function consume(revToks, expectedType) {
 // this way, tokens can be consumed efficiently with revToks.pop().
 // After the expression, the function expects to find the token expectedEnd.
 function parseExpression(revToks, expectedEnd) {
-    if (expectedEnd !== 0 /* END */ &&
-        expectedEnd !== 2 /* RParen */ &&
-        expectedEnd !== 5 /* Comma */ &&
-        expectedEnd !== 4 /* RBracket */) {
+    if (expectedEnd !== 0 /* TokenType.END */ &&
+        expectedEnd !== 2 /* TokenType.RParen */ &&
+        expectedEnd !== 5 /* TokenType.Comma */ &&
+        expectedEnd !== 4 /* TokenType.RBracket */) {
         throw new Error('invalid expectedEnd');
     }
     let js = '';
@@ -4352,46 +4352,46 @@ function parseExpression(revToks, expectedEnd) {
         let tok = revToks.pop();
         let next;
         switch (tok.type) {
-            case 19 /* Indent */:
+            case 19 /* TokenType.Indent */:
                 next = revToks[revToks.length - 1];
-                if (next.type === 1 /* LParen */) {
+                if (next.type === 1 /* TokenType.LParen */) {
                     js += parseFunctionCall(tok.text, revToks);
                 }
-                else if (next.type === 3 /* LBracket */) {
-                    consume(revToks, 3 /* LBracket */);
-                    const index = parseExpression(revToks, 4 /* RBracket */);
-                    consume(revToks, 4 /* RBracket */);
+                else if (next.type === 3 /* TokenType.LBracket */) {
+                    consume(revToks, 3 /* TokenType.LBracket */);
+                    const index = parseExpression(revToks, 4 /* TokenType.RBracket */);
+                    consume(revToks, 4 /* TokenType.RBracket */);
                     js += `${tok.text}[${index}]`;
                 }
                 else {
                     js += tok.text;
                 }
                 break;
-            case 20 /* Name */:
+            case 20 /* TokenType.Name */:
                 js += tok.text.slice(1);
                 break;
-            case 17 /* String */:
-            case 18 /* Number */:
+            case 17 /* TokenType.String */:
+            case 18 /* TokenType.Number */:
                 js += tok.text;
                 break;
-            case 6 /* Plus */:
-            case 7 /* Minus */:
+            case 6 /* TokenType.Plus */:
+            case 7 /* TokenType.Minus */:
                 next = revToks[revToks.length - 1];
-                if (next.type === 6 /* Plus */ || next.type === 7 /* Minus */) {
+                if (next.type === 6 /* TokenType.Plus */ || next.type === 7 /* TokenType.Minus */) {
                     throw unexpectedTokenError(revToks.pop(), revToks);
                 }
                 js += tok.text;
                 continue;
-            case 16 /* Not */:
+            case 16 /* TokenType.Not */:
                 js += '!';
                 continue;
-            case 1 /* LParen */:
-                js += '(' + parseExpression(revToks, 2 /* RParen */) + ')';
-                consume(revToks, 2 /* RParen */);
+            case 1 /* TokenType.LParen */:
+                js += '(' + parseExpression(revToks, 2 /* TokenType.RParen */) + ')';
+                consume(revToks, 2 /* TokenType.RParen */);
                 break;
-            case 3 /* LBracket */:
-                js += '[' + parseList(revToks, 4 /* RBracket */) + ']';
-                consume(revToks, 4 /* RBracket */);
+            case 3 /* TokenType.LBracket */:
+                js += '[' + parseList(revToks, 4 /* TokenType.RBracket */) + ']';
+                consume(revToks, 4 /* TokenType.RBracket */);
                 break;
             default:
                 throw unexpectedTokenError(tok, revToks);
@@ -4404,18 +4404,18 @@ function parseExpression(revToks, expectedEnd) {
         // Note that we don't consume the end token.
         const type = revToks[revToks.length - 1].type;
         if (type === expectedEnd ||
-            (expectedEnd === 5 /* Comma */ && type === 2 /* RParen */) ||
-            (expectedEnd === 4 /* RBracket */ && type === 5 /* Comma */)) {
+            (expectedEnd === 5 /* TokenType.Comma */ && type === 2 /* TokenType.RParen */) ||
+            (expectedEnd === 4 /* TokenType.RBracket */ && type === 5 /* TokenType.Comma */)) {
             return js;
         }
         // Operator.
         tok = revToks.pop();
-        if (tok.type >= 6 /* Plus */ && tok.type <= 13 /* GreaterOrEq */) {
+        if (tok.type >= 6 /* TokenType.Plus */ && tok.type <= 13 /* TokenType.GreaterOrEq */) {
             js += ' ' + tok.text + ' ';
             continue;
         }
         switch (tok.type) {
-            case 19 /* Indent */:
+            case 19 /* TokenType.Indent */:
                 if (tok.text === 'AND') {
                     js += ' && ';
                     break;
@@ -4425,10 +4425,10 @@ function parseExpression(revToks, expectedEnd) {
                     break;
                 }
                 throw unexpectedTokenError(tok, revToks);
-            case 14 /* Equal */:
+            case 14 /* TokenType.Equal */:
                 js += ' === ';
                 break;
-            case 15 /* NotEqual */:
+            case 15 /* TokenType.NotEqual */:
                 js += ' !== ';
                 break;
             default:
@@ -4440,11 +4440,11 @@ function parseExpression(revToks, expectedEnd) {
 // expectedEnd is Comma for function arguments and RBracket for arrays,
 // according to the behavior of parseExpression.
 function parseList(revToks, expectedEnd) {
-    if (expectedEnd !== 5 /* Comma */ && expectedEnd !== 4 /* RBracket */) {
+    if (expectedEnd !== 5 /* TokenType.Comma */ && expectedEnd !== 4 /* TokenType.RBracket */) {
         throw new Error('invalid expectedEnd');
     }
     let next = revToks[revToks.length - 1];
-    if (next.type === 2 /* RParen */ || next.type === 4 /* RBracket */) {
+    if (next.type === 2 /* TokenType.RParen */ || next.type === 4 /* TokenType.RBracket */) {
         // empty list
         return '';
     }
@@ -4452,10 +4452,10 @@ function parseList(revToks, expectedEnd) {
     while (true) {
         js += parseExpression(revToks, expectedEnd);
         next = revToks[revToks.length - 1];
-        if (next.type === 2 /* RParen */ || next.type === 4 /* RBracket */) {
+        if (next.type === 2 /* TokenType.RParen */ || next.type === 4 /* TokenType.RBracket */) {
             return js;
         }
-        consume(revToks, 5 /* Comma */);
+        consume(revToks, 5 /* TokenType.Comma */);
         js += ', ';
     }
 }
@@ -4470,15 +4470,15 @@ function parseFunctionCall(name, revToks) {
     }
     switch (name) {
         case 'INCLUDES':
-            consume(revToks, 1 /* LParen */);
-            let js = '(' + parseExpression(revToks, 5 /* Comma */) + ').includes(';
-            consume(revToks, 5 /* Comma */);
-            js += parseExpression(revToks, 5 /* Comma */) + ')';
-            consume(revToks, 2 /* RParen */);
+            consume(revToks, 1 /* TokenType.LParen */);
+            let js = '(' + parseExpression(revToks, 5 /* TokenType.Comma */) + ').includes(';
+            consume(revToks, 5 /* TokenType.Comma */);
+            js += parseExpression(revToks, 5 /* TokenType.Comma */) + ')';
+            consume(revToks, 2 /* TokenType.RParen */);
             return js;
         case 'TODAY':
-            consume(revToks, 1 /* LParen */);
-            consume(revToks, 2 /* RParen */);
+            consume(revToks, 1 /* TokenType.LParen */);
+            consume(revToks, 2 /* TokenType.RParen */);
             return 'TODAY()';
         default:
             throw new Error('unsupported function: ' + name);
@@ -4500,23 +4500,23 @@ function parseFunctionWithParams(name, revToks, ...stringifyParams) {
     if (stringifyParams.length < 2) {
         throw new Error('parseFunctionWithParams only works with at least 2 parameters');
     }
-    consume(revToks, 1 /* LParen */);
+    consume(revToks, 1 /* TokenType.LParen */);
     let js = name + '(';
-    const firstParam = parseExpression(revToks, 5 /* Comma */);
+    const firstParam = parseExpression(revToks, 5 /* TokenType.Comma */);
     js += stringifyParams[0] ? `\`${firstParam}\`` : firstParam;
     for (let i = 1; i < stringifyParams.length - 1; i++) {
-        consume(revToks, 5 /* Comma */);
-        const param = parseExpression(revToks, 5 /* Comma */);
+        consume(revToks, 5 /* TokenType.Comma */);
+        const param = parseExpression(revToks, 5 /* TokenType.Comma */);
         js += stringifyParams[i] ? `, \`${param}\`` : `, ${param}`;
     }
     // Last parameter, optional:
     const tok = revToks.pop();
     switch (tok.type) {
-        case 2 /* RParen */:
+        case 2 /* TokenType.RParen */:
             return js + ')';
-        case 5 /* Comma */:
-            const lastParam = parseExpression(revToks, 5 /* Comma */);
-            consume(revToks, 2 /* RParen */);
+        case 5 /* TokenType.Comma */:
+            const lastParam = parseExpression(revToks, 5 /* TokenType.Comma */);
+            consume(revToks, 2 /* TokenType.RParen */);
             const stringify = stringifyParams[stringifyParams.length - 1];
             return js + (stringify ? `, \`${lastParam}\`)` : `, ${lastParam})`);
         default:

@@ -33,5 +33,5 @@ import * as i0 from "@angular/core";
 export declare class AjfFileFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFileFieldComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfFileFieldComponent, "ajf-file-field", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfFileFieldComponent, "ajf-file-field", never, {}, {}, never, never, false, never>;
 }

@@ -25,10 +25,10 @@ import { AjfMapContainerDirective } from './map-container-directive';
 import * as i0 from "@angular/core";
 export class AjfMapModule {
 }
-AjfMapModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfMapModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfMapModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfMapModule, declarations: [AjfMapComponent, AjfMapContainerDirective], exports: [AjfMapComponent] });
-AjfMapModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfMapModule });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfMapModule, decorators: [{
+AjfMapModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfMapModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfMapModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfMapModule, declarations: [AjfMapComponent, AjfMapContainerDirective], exports: [AjfMapComponent] });
+AjfMapModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfMapModule });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfMapModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [AjfMapComponent, AjfMapContainerDirective],

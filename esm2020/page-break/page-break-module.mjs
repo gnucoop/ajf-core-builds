@@ -24,10 +24,10 @@ import { AjfPageBreakComponent } from './page-break';
 import * as i0 from "@angular/core";
 export class AjfPageBreakModule {
 }
-AjfPageBreakModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfPageBreakModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfPageBreakModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfPageBreakModule, declarations: [AjfPageBreakComponent], exports: [AjfPageBreakComponent] });
-AjfPageBreakModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfPageBreakModule });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfPageBreakModule, decorators: [{
+AjfPageBreakModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfPageBreakModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfPageBreakModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfPageBreakModule, declarations: [AjfPageBreakComponent], exports: [AjfPageBreakComponent] });
+AjfPageBreakModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfPageBreakModule });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfPageBreakModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [AjfPageBreakComponent],

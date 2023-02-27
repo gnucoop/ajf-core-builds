@@ -63,6 +63,6 @@ export declare class AjfGraphComponent implements OnInit {
     ngOnInit(): void;
     private _calculateHeight;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfGraphComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfGraphComponent, "ajf-graph", never, { "nodes": "nodes"; }, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfGraphComponent, "ajf-graph", never, { "nodes": "nodes"; }, {}, never, never, false, never>;
 }
 export {};

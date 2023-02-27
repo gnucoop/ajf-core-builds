@@ -21,7 +21,7 @@
  */
 import { AjfPageSlider, AjfPageSliderOrientation } from '@ajf/core/page-slider';
 import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, OnDestroy, QueryList } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AjfFormField } from './field';
 import { AjfFormRendererService } from './form-renderer';
@@ -43,7 +43,7 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
     /**
      * formGroup is an Observable FormGroup type
      */
-    readonly formGroup: Observable<FormGroup | null>;
+    readonly formGroup: Observable<UntypedFormGroup | null>;
     /**
      * slides is an observable AjfSlide array type
      */
@@ -134,5 +134,5 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
     orientationChangeHandler(orientation: AjfPageSliderOrientation): void;
     trackNodeById(_: number, node: AjfNodeInstance): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormRenderer, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFormRenderer, never, never, { "title": "title"; "saveDisabled": "saveDisabled"; "hasStartMessage": "hasStartMessage"; "hasEndMessage": "hasEndMessage"; "hideTopToolbar": "hideTopToolbar"; "hideBottomToolbar": "hideBottomToolbar"; "hideNavigationButtons": "hideNavigationButtons"; "fixedOrientation": "fixedOrientation"; "readonly": "readonly"; "orientation": "orientation"; "form": "form"; }, { "orientationChange": "orientationChange"; "formAction": "formAction"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFormRenderer, never, never, { "title": "title"; "saveDisabled": "saveDisabled"; "hasStartMessage": "hasStartMessage"; "hasEndMessage": "hasEndMessage"; "hideTopToolbar": "hideTopToolbar"; "hideBottomToolbar": "hideBottomToolbar"; "hideNavigationButtons": "hideNavigationButtons"; "fixedOrientation": "fixedOrientation"; "readonly": "readonly"; "orientation": "orientation"; "form": "form"; }, { "orientationChange": "orientationChange"; "formAction": "formAction"; }, never, never, false, never>;
 }

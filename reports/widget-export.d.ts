@@ -56,5 +56,5 @@ export declare class AjfWidgetExport {
     private _buildXlsxData;
     private _buildTitle;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfWidgetExport, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfWidgetExport, "ajf-widget-export", never, { "widgetType": "widgetType"; "data": "data"; "overlay": "overlay"; "enable": "enable"; }, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfWidgetExport, "ajf-widget-export", never, { "widgetType": "widgetType"; "data": "data"; "overlay": "overlay"; "enable": "enable"; }, {}, never, ["*"], false, never>;
 }

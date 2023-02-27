@@ -73,5 +73,5 @@ export declare abstract class AjfBarcode implements ControlValueAccessor {
     private _initVideoStreams;
     private _setCurrentStream;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfBarcode, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBarcode, never, never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBarcode, never, never, {}, {}, never, never, false, never>;
 }

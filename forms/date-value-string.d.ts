@@ -29,6 +29,6 @@ import * as i0 from "@angular/core";
 export declare class AjfDateValueStringPipe implements PipeTransform {
     transform(date: Date | 'today' | undefined): string | undefined;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfDateValueStringPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfDateValueStringPipe, "ajfDateValueString">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfDateValueStringPipe, "ajfDateValueString", false>;
     static ɵprov: i0.ɵɵInjectableDeclaration<AjfDateValueStringPipe>;
 }

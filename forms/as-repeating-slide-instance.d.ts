@@ -29,5 +29,5 @@ import * as i0 from "@angular/core";
 export declare class AjfAsRepeatingSlideInstancePipe implements PipeTransform {
     transform(instance: AjfSlideInstance): AjfRepeatingSlideInstance;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfAsRepeatingSlideInstancePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfAsRepeatingSlideInstancePipe, "ajfAsRepeatingSlideInstance">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfAsRepeatingSlideInstancePipe, "ajfAsRepeatingSlideInstance", false>;
 }

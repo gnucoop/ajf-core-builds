@@ -36,5 +36,5 @@ import * as i0 from "@angular/core";
 export declare class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer, httpClient: HttpClient);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyVideoUrlFieldComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyVideoUrlFieldComponent, "ajf-read-only-video-url-field", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyVideoUrlFieldComponent, "ajf-read-only-video-url-field", never, {}, {}, never, never, false, never>;
 }

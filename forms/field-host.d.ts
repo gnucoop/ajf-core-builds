@@ -28,5 +28,5 @@ export declare class AjfFieldHost {
     readonly viewContainerRef: ViewContainerRef;
     constructor(viewContainerRef: ViewContainerRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFieldHost, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFieldHost, "[ajf-field-host]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFieldHost, "[ajf-field-host]", never, {}, {}, never, never, false, never>;
 }

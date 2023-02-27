@@ -23,6 +23,6 @@ export declare class AjfChartComponent implements AfterViewInit, OnChanges {
     private _rebuildChart;
     private _fixChartOptions;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfChartComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfChartComponent, "ajf-chart", never, { "data": "data"; "options": "options"; "chartType": "chartType"; "instance": "instance"; }, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfChartComponent, "ajf-chart", never, { "data": "data"; "options": "options"; "chartType": "chartType"; "instance": "instance"; }, {}, never, never, false, never>;
 }
 export {};

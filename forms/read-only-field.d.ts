@@ -33,5 +33,5 @@ import * as i0 from "@angular/core";
 export declare class AjfReadOnlyFieldComponent extends CoreComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyFieldComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyFieldComponent, "ajf-read-only-field", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyFieldComponent, "ajf-read-only-field", never, {}, {}, never, never, false, never>;
 }

@@ -9,5 +9,5 @@ export declare class AjfDndDirective {
     onDragLeave(evt: DragEvent): void;
     onDrop(evt: DragEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfDndDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfDndDirective, "[ajfDnd]", never, {}, { "file": "file"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfDndDirective, "[ajfDnd]", never, {}, { "file": "file"; }, never, never, false, never>;
 }

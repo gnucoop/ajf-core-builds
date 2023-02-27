@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "13.2.15-89c1a7d7",
+  "version": "15.0.0-932730d4",
   "description": "",
   "repository": {
     "type": "git",
@@ -13,18 +13,18 @@
   },
   "homepage": "https://github.com/gnucoop/ajf#readme",
   "peerDependencies": {
-    "@angular/cdk": "^13.2.5",
-    "@angular/common": "^13.2.5",
-    "@angular/core": "^13.2.5",
-    "@angular/forms": "^13.2.5",
-    "@angular/platform-browser": "^13.2.5",
+    "@angular/cdk": "^15.0.3",
+    "@angular/common": "^15.0.4",
+    "@angular/core": "^15.0.4",
+    "@angular/forms": "^15.0.4",
+    "@angular/platform-browser": "^15.0.4",
     "@ngneat/transloco": "^3.1.4",
     "@zxing/browser": "^0.1.1",
     "@zxing/library": "^0.19.1",
     "chart.js": "^2.9.4",
     "dagre": "^0.8.5",
     "date-fns": "^2.28.0",
-    "echarts": "^5.3.2",
+    "echarts": "^5.4.1",
     "flag-icon-css": "^4.1.7",
     "leaflet": "^1.7.1",
     "meriyah": "^4.2.0",
@@ -41,13 +41,13 @@
   "esm2020": "esm2020/ajf-core.mjs",
   "fesm2020": "fesm2020/ajf-core.mjs",
   "fesm2015": "fesm2015/ajf-core.mjs",
-  "typings": "ajf-core.d.ts",
+  "typings": "index.d.ts",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "types": "./ajf-core.d.ts",
+      "types": "./index.d.ts",
       "esm2020": "./esm2020/ajf-core.mjs",
       "es2020": "./fesm2020/ajf-core.mjs",
       "es2015": "./fesm2015/ajf-core.mjs",
@@ -55,7 +55,7 @@
       "default": "./fesm2020/ajf-core.mjs"
     },
     "./barcode": {
-      "types": "./barcode/ajf-core-barcode.d.ts",
+      "types": "./barcode/index.d.ts",
       "esm2020": "./esm2020/barcode/ajf-core-barcode.mjs",
       "es2020": "./fesm2020/ajf-core-barcode.mjs",
       "es2015": "./fesm2015/ajf-core-barcode.mjs",
@@ -63,7 +63,7 @@
       "default": "./fesm2020/ajf-core-barcode.mjs"
     },
     "./calendar": {
-      "types": "./calendar/ajf-core-calendar.d.ts",
+      "types": "./calendar/index.d.ts",
       "esm2020": "./esm2020/calendar/ajf-core-calendar.mjs",
       "es2020": "./fesm2020/ajf-core-calendar.mjs",
       "es2015": "./fesm2015/ajf-core-calendar.mjs",
@@ -71,7 +71,7 @@
       "default": "./fesm2020/ajf-core-calendar.mjs"
     },
     "./chart": {
-      "types": "./chart/ajf-core-chart.d.ts",
+      "types": "./chart/index.d.ts",
       "esm2020": "./esm2020/chart/ajf-core-chart.mjs",
       "es2020": "./fesm2020/ajf-core-chart.mjs",
       "es2015": "./fesm2015/ajf-core-chart.mjs",
@@ -79,7 +79,7 @@
       "default": "./fesm2020/ajf-core-chart.mjs"
     },
     "./checkbox-group": {
-      "types": "./checkbox-group/ajf-core-checkbox-group.d.ts",
+      "types": "./checkbox-group/index.d.ts",
       "esm2020": "./esm2020/checkbox-group/ajf-core-checkbox-group.mjs",
       "es2020": "./fesm2020/ajf-core-checkbox-group.mjs",
       "es2015": "./fesm2015/ajf-core-checkbox-group.mjs",
@@ -87,7 +87,7 @@
       "default": "./fesm2020/ajf-core-checkbox-group.mjs"
     },
     "./common": {
-      "types": "./common/ajf-core-common.d.ts",
+      "types": "./common/index.d.ts",
       "esm2020": "./esm2020/common/ajf-core-common.mjs",
       "es2020": "./fesm2020/ajf-core-common.mjs",
       "es2015": "./fesm2015/ajf-core-common.mjs",
@@ -95,7 +95,7 @@
       "default": "./fesm2020/ajf-core-common.mjs"
     },
     "./echarts": {
-      "types": "./echarts/ajf-core-echarts.d.ts",
+      "types": "./echarts/index.d.ts",
       "esm2020": "./esm2020/echarts/ajf-core-echarts.mjs",
       "es2020": "./fesm2020/ajf-core-echarts.mjs",
       "es2015": "./fesm2015/ajf-core-echarts.mjs",
@@ -103,7 +103,7 @@
       "default": "./fesm2020/ajf-core-echarts.mjs"
     },
     "./file-input": {
-      "types": "./file-input/ajf-core-file-input.d.ts",
+      "types": "./file-input/index.d.ts",
       "esm2020": "./esm2020/file-input/ajf-core-file-input.mjs",
       "es2020": "./fesm2020/ajf-core-file-input.mjs",
       "es2015": "./fesm2015/ajf-core-file-input.mjs",
@@ -111,7 +111,7 @@
       "default": "./fesm2020/ajf-core-file-input.mjs"
     },
     "./forms": {
-      "types": "./forms/ajf-core-forms.d.ts",
+      "types": "./forms/index.d.ts",
       "esm2020": "./esm2020/forms/ajf-core-forms.mjs",
       "es2020": "./fesm2020/ajf-core-forms.mjs",
       "es2015": "./fesm2015/ajf-core-forms.mjs",
@@ -119,7 +119,7 @@
       "default": "./fesm2020/ajf-core-forms.mjs"
     },
     "./graph": {
-      "types": "./graph/ajf-core-graph.d.ts",
+      "types": "./graph/index.d.ts",
       "esm2020": "./esm2020/graph/ajf-core-graph.mjs",
       "es2020": "./fesm2020/ajf-core-graph.mjs",
       "es2015": "./fesm2015/ajf-core-graph.mjs",
@@ -127,7 +127,7 @@
       "default": "./fesm2020/ajf-core-graph.mjs"
     },
     "./heat-map": {
-      "types": "./heat-map/ajf-core-heat-map.d.ts",
+      "types": "./heat-map/index.d.ts",
       "esm2020": "./esm2020/heat-map/ajf-core-heat-map.mjs",
       "es2020": "./fesm2020/ajf-core-heat-map.mjs",
       "es2015": "./fesm2015/ajf-core-heat-map.mjs",
@@ -135,7 +135,7 @@
       "default": "./fesm2020/ajf-core-heat-map.mjs"
     },
     "./image": {
-      "types": "./image/ajf-core-image.d.ts",
+      "types": "./image/index.d.ts",
       "esm2020": "./esm2020/image/ajf-core-image.mjs",
       "es2020": "./fesm2020/ajf-core-image.mjs",
       "es2015": "./fesm2015/ajf-core-image.mjs",
@@ -143,7 +143,7 @@
       "default": "./fesm2020/ajf-core-image.mjs"
     },
     "./map": {
-      "types": "./map/ajf-core-map.d.ts",
+      "types": "./map/index.d.ts",
       "esm2020": "./esm2020/map/ajf-core-map.mjs",
       "es2020": "./fesm2020/ajf-core-map.mjs",
       "es2015": "./fesm2015/ajf-core-map.mjs",
@@ -151,7 +151,7 @@
       "default": "./fesm2020/ajf-core-map.mjs"
     },
     "./models": {
-      "types": "./models/ajf-core-models.d.ts",
+      "types": "./models/index.d.ts",
       "esm2020": "./esm2020/models/ajf-core-models.mjs",
       "es2020": "./fesm2020/ajf-core-models.mjs",
       "es2015": "./fesm2015/ajf-core-models.mjs",
@@ -159,7 +159,7 @@
       "default": "./fesm2020/ajf-core-models.mjs"
     },
     "./node-icon": {
-      "types": "./node-icon/ajf-core-node-icon.d.ts",
+      "types": "./node-icon/index.d.ts",
       "esm2020": "./esm2020/node-icon/ajf-core-node-icon.mjs",
       "es2020": "./fesm2020/ajf-core-node-icon.mjs",
       "es2015": "./fesm2015/ajf-core-node-icon.mjs",
@@ -167,7 +167,7 @@
       "default": "./fesm2020/ajf-core-node-icon.mjs"
     },
     "./page-break": {
-      "types": "./page-break/ajf-core-page-break.d.ts",
+      "types": "./page-break/index.d.ts",
       "esm2020": "./esm2020/page-break/ajf-core-page-break.mjs",
       "es2020": "./fesm2020/ajf-core-page-break.mjs",
       "es2015": "./fesm2015/ajf-core-page-break.mjs",
@@ -175,7 +175,7 @@
       "default": "./fesm2020/ajf-core-page-break.mjs"
     },
     "./page-slider": {
-      "types": "./page-slider/ajf-core-page-slider.d.ts",
+      "types": "./page-slider/index.d.ts",
       "esm2020": "./esm2020/page-slider/ajf-core-page-slider.mjs",
       "es2020": "./fesm2020/ajf-core-page-slider.mjs",
       "es2015": "./fesm2015/ajf-core-page-slider.mjs",
@@ -183,7 +183,7 @@
       "default": "./fesm2020/ajf-core-page-slider.mjs"
     },
     "./pdfmake": {
-      "types": "./pdfmake/ajf-core-pdfmake.d.ts",
+      "types": "./pdfmake/index.d.ts",
       "esm2020": "./esm2020/pdfmake/ajf-core-pdfmake.mjs",
       "es2020": "./fesm2020/ajf-core-pdfmake.mjs",
       "es2015": "./fesm2015/ajf-core-pdfmake.mjs",
@@ -191,7 +191,7 @@
       "default": "./fesm2020/ajf-core-pdfmake.mjs"
     },
     "./range": {
-      "types": "./range/ajf-core-range.d.ts",
+      "types": "./range/index.d.ts",
       "esm2020": "./esm2020/range/ajf-core-range.mjs",
       "es2020": "./fesm2020/ajf-core-range.mjs",
       "es2015": "./fesm2015/ajf-core-range.mjs",
@@ -199,7 +199,7 @@
       "default": "./fesm2020/ajf-core-range.mjs"
     },
     "./reports": {
-      "types": "./reports/ajf-core-reports.d.ts",
+      "types": "./reports/index.d.ts",
       "esm2020": "./esm2020/reports/ajf-core-reports.mjs",
       "es2020": "./fesm2020/ajf-core-reports.mjs",
       "es2015": "./fesm2015/ajf-core-reports.mjs",
@@ -207,7 +207,7 @@
       "default": "./fesm2020/ajf-core-reports.mjs"
     },
     "./table": {
-      "types": "./table/ajf-core-table.d.ts",
+      "types": "./table/index.d.ts",
       "esm2020": "./esm2020/table/ajf-core-table.mjs",
       "es2020": "./fesm2020/ajf-core-table.mjs",
       "es2015": "./fesm2015/ajf-core-table.mjs",
@@ -215,7 +215,7 @@
       "default": "./fesm2020/ajf-core-table.mjs"
     },
     "./text": {
-      "types": "./text/ajf-core-text.d.ts",
+      "types": "./text/index.d.ts",
       "esm2020": "./esm2020/text/ajf-core-text.mjs",
       "es2020": "./fesm2020/ajf-core-text.mjs",
       "es2015": "./fesm2015/ajf-core-text.mjs",
@@ -223,7 +223,7 @@
       "default": "./fesm2020/ajf-core-text.mjs"
     },
     "./time": {
-      "types": "./time/ajf-core-time.d.ts",
+      "types": "./time/index.d.ts",
       "esm2020": "./esm2020/time/ajf-core-time.mjs",
       "es2020": "./fesm2020/ajf-core-time.mjs",
       "es2015": "./fesm2015/ajf-core-time.mjs",
@@ -231,7 +231,7 @@
       "default": "./fesm2020/ajf-core-time.mjs"
     },
     "./transloco": {
-      "types": "./transloco/ajf-core-transloco.d.ts",
+      "types": "./transloco/index.d.ts",
       "esm2020": "./esm2020/transloco/ajf-core-transloco.mjs",
       "es2020": "./fesm2020/ajf-core-transloco.mjs",
       "es2015": "./fesm2015/ajf-core-transloco.mjs",
@@ -239,7 +239,7 @@
       "default": "./fesm2020/ajf-core-transloco.mjs"
     },
     "./utils": {
-      "types": "./utils/ajf-core-utils.d.ts",
+      "types": "./utils/index.d.ts",
       "esm2020": "./esm2020/utils/ajf-core-utils.mjs",
       "es2020": "./fesm2020/ajf-core-utils.mjs",
       "es2015": "./fesm2015/ajf-core-utils.mjs",

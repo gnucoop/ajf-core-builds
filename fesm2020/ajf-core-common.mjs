@@ -49,9 +49,9 @@ class ApplyStylesDirective {
         });
     }
 }
-ApplyStylesDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: ApplyStylesDirective, deps: [{ token: i0.ElementRef }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
-ApplyStylesDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: ApplyStylesDirective, selector: "[applyStyles]", inputs: { applyStyles: "applyStyles" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: ApplyStylesDirective, decorators: [{
+ApplyStylesDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: ApplyStylesDirective, deps: [{ token: i0.ElementRef }, { token: i0.Renderer2 }], target: i0.ɵɵFactoryTarget.Directive });
+ApplyStylesDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: ApplyStylesDirective, selector: "[applyStyles]", inputs: { applyStyles: "applyStyles" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: ApplyStylesDirective, decorators: [{
             type: Directive,
             args: [{ selector: '[applyStyles]' }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i0.Renderer2 }]; }, propDecorators: { applyStyles: [{
@@ -89,9 +89,9 @@ class AutofocusDirective {
         this._el.nativeElement.focus();
     }
 }
-AutofocusDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AutofocusDirective, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-AutofocusDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AutofocusDirective, selector: "[autoFocus]", inputs: { appAutoFocus: "appAutoFocus" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AutofocusDirective, decorators: [{
+AutofocusDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AutofocusDirective, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
+AutofocusDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AutofocusDirective, selector: "[autoFocus]", inputs: { appAutoFocus: "appAutoFocus" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AutofocusDirective, decorators: [{
             type: Directive,
             args: [{ selector: '[autoFocus]' }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }]; }, propDecorators: { appAutoFocus: [{
@@ -210,9 +210,9 @@ class AjfDndDirective {
         }
     }
 }
-AjfDndDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfDndDirective, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-AjfDndDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AjfDndDirective, selector: "[ajfDnd]", outputs: { file: "file" }, host: { listeners: { "dragover": "onDragOver($event)", "dragleave": "onDragLeave($event)", "drop": "onDrop($event)" }, properties: { "class.ajf-dnd-over": "over" } }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfDndDirective, decorators: [{
+AjfDndDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfDndDirective, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+AjfDndDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AjfDndDirective, selector: "[ajfDnd]", outputs: { file: "file" }, host: { listeners: { "dragover": "onDragOver($event)", "dragleave": "onDragLeave($event)", "drop": "onDrop($event)" }, properties: { "class.ajf-dnd-over": "over" } }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfDndDirective, decorators: [{
             type: Directive,
             args: [{
                     selector: '[ajfDnd]',
@@ -259,9 +259,9 @@ class FormatIfNumber extends DecimalPipe {
         }
     }
 }
-FormatIfNumber.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: FormatIfNumber, deps: null, target: i0.ɵɵFactoryTarget.Pipe });
-FormatIfNumber.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: FormatIfNumber, name: "ajfFormatIfNumber" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: FormatIfNumber, decorators: [{
+FormatIfNumber.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: FormatIfNumber, deps: null, target: i0.ɵɵFactoryTarget.Pipe });
+FormatIfNumber.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: FormatIfNumber, name: "ajfFormatIfNumber" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: FormatIfNumber, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfFormatIfNumber' }]
         }] });
@@ -297,9 +297,9 @@ class TranslateIfString extends TranslocoPipe {
         }
     }
 }
-TranslateIfString.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: TranslateIfString, deps: null, target: i0.ɵɵFactoryTarget.Pipe });
-TranslateIfString.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: TranslateIfString, name: "ajfTranslateIfString" });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: TranslateIfString, decorators: [{
+TranslateIfString.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: TranslateIfString, deps: null, target: i0.ɵɵFactoryTarget.Pipe });
+TranslateIfString.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: TranslateIfString, name: "ajfTranslateIfString" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: TranslateIfString, decorators: [{
             type: Pipe,
             args: [{ name: 'ajfTranslateIfString' }]
         }] });
@@ -327,8 +327,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImpor
  */
 class AjfCommonModule {
 }
-AjfCommonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCommonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfCommonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCommonModule, declarations: [AjfDndDirective,
+AjfCommonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCommonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfCommonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfCommonModule, declarations: [AjfDndDirective,
         ApplyStylesDirective,
         AutofocusDirective,
         FormatIfNumber,
@@ -337,8 +337,8 @@ AjfCommonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version
         AutofocusDirective,
         FormatIfNumber,
         TranslateIfString] });
-AjfCommonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCommonModule });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCommonModule, decorators: [{
+AjfCommonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCommonModule });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCommonModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [

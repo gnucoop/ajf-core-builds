@@ -28,8 +28,8 @@ import { TranslateIfString } from './translate-if-string';
 import * as i0 from "@angular/core";
 export class AjfCommonModule {
 }
-AjfCommonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCommonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-AjfCommonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCommonModule, declarations: [AjfDndDirective,
+AjfCommonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCommonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+AjfCommonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfCommonModule, declarations: [AjfDndDirective,
         ApplyStylesDirective,
         AutofocusDirective,
         FormatIfNumber,
@@ -38,8 +38,8 @@ AjfCommonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version
         AutofocusDirective,
         FormatIfNumber,
         TranslateIfString] });
-AjfCommonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCommonModule });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AjfCommonModule, decorators: [{
+AjfCommonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCommonModule });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfCommonModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [

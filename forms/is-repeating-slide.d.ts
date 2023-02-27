@@ -31,5 +31,5 @@ import * as i0 from "@angular/core";
 export declare class AjfIsRepeatingSlideInstancePipe implements PipeTransform {
     transform(instance: AjfNodeInstance): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfIsRepeatingSlideInstancePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIsRepeatingSlideInstancePipe, "ajfIsRepeatingSlideInstance">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIsRepeatingSlideInstancePipe, "ajfIsRepeatingSlideInstance", false>;
 }

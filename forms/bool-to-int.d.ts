@@ -27,5 +27,5 @@ import * as i0 from "@angular/core";
 export declare class AjfBoolToIntPipe implements PipeTransform {
     transform(value: boolean): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfBoolToIntPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfBoolToIntPipe, "ajfBoolToInt">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfBoolToIntPipe, "ajfBoolToInt", false>;
 }

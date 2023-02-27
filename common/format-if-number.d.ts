@@ -25,5 +25,5 @@ import * as i0 from "@angular/core";
 export declare class FormatIfNumber extends DecimalPipe implements PipeTransform {
     transform(value: any, digitsInfo?: string, locale?: string): any;
     static ɵfac: i0.ɵɵFactoryDeclaration<FormatIfNumber, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<FormatIfNumber, "ajfFormatIfNumber">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<FormatIfNumber, "ajfFormatIfNumber", false>;
 }

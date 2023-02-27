@@ -31,9 +31,9 @@ export class AutofocusDirective {
         this._el.nativeElement.focus();
     }
 }
-AutofocusDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AutofocusDirective, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-AutofocusDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.5", type: AutofocusDirective, selector: "[autoFocus]", inputs: { appAutoFocus: "appAutoFocus" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.5", ngImport: i0, type: AutofocusDirective, decorators: [{
+AutofocusDirective.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AutofocusDirective, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
+AutofocusDirective.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.4", type: AutofocusDirective, selector: "[autoFocus]", inputs: { appAutoFocus: "appAutoFocus" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AutofocusDirective, decorators: [{
             type: Directive,
             args: [{ selector: '[autoFocus]' }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }]; }, propDecorators: { appAutoFocus: [{

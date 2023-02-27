@@ -25,5 +25,5 @@ import * as i0 from "@angular/core";
 export declare class TranslateIfString extends TranslocoPipe implements PipeTransform {
     transform(query: any, ...args: any[]): any;
     static ɵfac: i0.ɵɵFactoryDeclaration<TranslateIfString, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<TranslateIfString, "ajfTranslateIfString">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<TranslateIfString, "ajfTranslateIfString", false>;
 }

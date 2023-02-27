@@ -18,5 +18,5 @@ export declare class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent
     readonly fileName: Observable<string>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyFileFieldComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyFileFieldComponent, "ajf-read-only-file-field", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyFileFieldComponent, "ajf-read-only-file-field", never, {}, {}, never, never, false, never>;
 }

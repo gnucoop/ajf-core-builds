@@ -31,5 +31,5 @@ import * as i0 from "@angular/core";
 export declare class AjfNodeCompleteNamePipe implements PipeTransform {
     transform(instance: AjfNodeInstance): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfNodeCompleteNamePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDeclaration<AjfNodeCompleteNamePipe, "ajfNodeCompleteName">;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfNodeCompleteNamePipe, "ajfNodeCompleteName", false>;
 }

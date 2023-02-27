@@ -15,5 +15,5 @@ export declare class AjfImageFieldComponent extends AjfBaseFieldComponent {
     readonly imageUrl: Observable<SafeResourceUrl | null>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfImageFieldComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfImageFieldComponent, "ajf-image-field", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfImageFieldComponent, "ajf-image-field", never, {}, {}, never, never, false, never>;
 }

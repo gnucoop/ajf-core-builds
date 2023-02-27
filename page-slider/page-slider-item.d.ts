@@ -44,5 +44,5 @@ export declare class AjfPageSliderItem implements OnDestroy {
     private _onResize;
     private _fixScrollOnResize;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfPageSliderItem, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfPageSliderItem, "ajf-page-slider-item", never, {}, { "scroll": "scroll"; }, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfPageSliderItem, "ajf-page-slider-item", never, {}, { "scroll": "scroll"; }, never, ["*"], false, never>;
 }

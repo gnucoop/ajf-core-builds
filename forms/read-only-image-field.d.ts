@@ -16,5 +16,5 @@ export declare class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponen
     readonly imageUrl: Observable<SafeResourceUrl | null>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyImageFieldComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyImageFieldComponent, "ajf-read-only-image-field", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyImageFieldComponent, "ajf-read-only-image-field", never, {}, {}, never, never, false, never>;
 }
