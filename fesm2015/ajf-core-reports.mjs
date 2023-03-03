@@ -3102,7 +3102,7 @@ function indicatorToJs(formula) {
         default:
             throw new Error('formula is not a string');
     }
-    return parseExpression(tokenize(formula).reverse(), 0 /* TokenType.END */);
+    return parseExpression(tokenize(formula).reverse(), 0 /* TokenType.END */).js;
 }
 function unexpectedTokenError(tok, rest) {
     if (tok.type === 0 /* TokenType.END */) {
@@ -3148,6 +3148,7 @@ function parseExpression(revToks, expectedEnd) {
         throw new Error('invalid expectedEnd');
     }
     let js = '';
+    const vars = [];
     while (true) {
         // Expression.
         let tok = revToks.pop();
@@ -3156,16 +3157,20 @@ function parseExpression(revToks, expectedEnd) {
             case 19 /* TokenType.Indent */:
                 next = revToks[revToks.length - 1];
                 if (next.type === 1 /* TokenType.LParen */) {
-                    js += parseFunctionCall(tok.text, revToks);
+                    const func = parseFunctionCall(tok.text, revToks);
+                    js += func.js;
+                    vars.push(...func.vars);
                 }
                 else if (next.type === 3 /* TokenType.LBracket */) {
                     consume(revToks, 3 /* TokenType.LBracket */);
                     const index = parseExpression(revToks, 4 /* TokenType.RBracket */);
                     consume(revToks, 4 /* TokenType.RBracket */);
-                    js += `${tok.text}[${index}]`;
+                    js += `${tok.text}[${index.js}]`;
+                    vars.push(tok.text, ...index.vars);
                 }
                 else {
                     js += tok.text;
+                    vars.push(tok.text);
                 }
                 break;
             case 20 /* TokenType.Name */:
@@ -3187,12 +3192,16 @@ function parseExpression(revToks, expectedEnd) {
                 js += '!';
                 continue;
             case 1 /* TokenType.LParen */:
-                js += '(' + parseExpression(revToks, 2 /* TokenType.RParen */) + ')';
+                const paren = parseExpression(revToks, 2 /* TokenType.RParen */);
                 consume(revToks, 2 /* TokenType.RParen */);
+                js += '(' + paren.js + ')';
+                vars.push(...paren.vars);
                 break;
             case 3 /* TokenType.LBracket */:
-                js += '[' + parseList(revToks, 4 /* TokenType.RBracket */) + ']';
+                const list = parseList(revToks, 4 /* TokenType.RBracket */);
                 consume(revToks, 4 /* TokenType.RBracket */);
+                js += '[' + list.js + ']';
+                vars.push(...list.vars);
                 break;
             default:
                 throw unexpectedTokenError(tok, revToks);
@@ -3207,7 +3216,7 @@ function parseExpression(revToks, expectedEnd) {
         if (type === expectedEnd ||
             (expectedEnd === 5 /* TokenType.Comma */ && type === 2 /* TokenType.RParen */) ||
             (expectedEnd === 4 /* TokenType.RBracket */ && type === 5 /* TokenType.Comma */)) {
-            return js;
+            return { js, vars };
         }
         // Operator.
         tok = revToks.pop();
@@ -3244,17 +3253,20 @@ function parseList(revToks, expectedEnd) {
     if (expectedEnd !== 5 /* TokenType.Comma */ && expectedEnd !== 4 /* TokenType.RBracket */) {
         throw new Error('invalid expectedEnd');
     }
+    let js = '';
+    const vars = [];
     let next = revToks[revToks.length - 1];
     if (next.type === 2 /* TokenType.RParen */ || next.type === 4 /* TokenType.RBracket */) {
         // empty list
-        return '';
+        return { js, vars };
     }
-    let js = '';
     while (true) {
-        js += parseExpression(revToks, expectedEnd);
+        const elem = parseExpression(revToks, expectedEnd);
+        js += elem.js;
+        vars.push(...elem.vars);
         next = revToks[revToks.length - 1];
         if (next.type === 2 /* TokenType.RParen */ || next.type === 4 /* TokenType.RBracket */) {
-            return js;
+            return { js, vars };
         }
         consume(revToks, 5 /* TokenType.Comma */);
         js += ', ';
@@ -3265,100 +3277,111 @@ function parseList(revToks, expectedEnd) {
 //   projects/core/models/utils/expression-utils.ts
 // The function name has already been scanned.
 function parseFunctionCall(name, revToks) {
-    const params = functionParams[name];
-    if (params) {
-        return parseFunctionWithParams(name, revToks, ...params);
+    const args = functionArgs[name];
+    if (args) {
+        return parseFunctionWithArgs(name, revToks, args);
     }
-    switch (name) {
-        case 'INCLUDES':
-            consume(revToks, 1 /* TokenType.LParen */);
-            let js = '(' + parseExpression(revToks, 5 /* TokenType.Comma */) + ').includes(';
-            consume(revToks, 5 /* TokenType.Comma */);
-            js += parseExpression(revToks, 5 /* TokenType.Comma */) + ')';
-            consume(revToks, 2 /* TokenType.RParen */);
-            return js;
-        case 'TODAY':
-            consume(revToks, 1 /* TokenType.LParen */);
-            consume(revToks, 2 /* TokenType.RParen */);
-            return 'TODAY()';
-        default:
-            throw new Error('unsupported function: ' + name);
+    if (name === 'IF_THEN_ELSE') {
+        consume(revToks, 1 /* TokenType.LParen */);
+        const cond = parseExpression(revToks, 5 /* TokenType.Comma */);
+        let js = '(' + cond.js + ' ? ';
+        const vars = cond.vars;
+        consume(revToks, 5 /* TokenType.Comma */);
+        const then = parseExpression(revToks, 5 /* TokenType.Comma */);
+        js += then.js + ' : ';
+        vars.push(...then.vars);
+        consume(revToks, 5 /* TokenType.Comma */);
+        const otherwise = parseExpression(revToks, 5 /* TokenType.Comma */);
+        js += otherwise.js + ')';
+        vars.push(...otherwise.vars);
+        consume(revToks, 2 /* TokenType.RParen */);
+        return { js, vars };
     }
+    throw new Error('unsupported function: ' + name);
 }
 /*
   Parses a function call expression.
-  stringifyParams tells how many parameters the function has
-  and if they need to be stringified.
+  args tells how many arguments the function takes and their type.
   For example, the indicator function
-    SUM(forms[0], $age, $gender = 'male')
+    SUM(forms[0], $age, $gender = "male")
   can be parsed with
-    parseFunctionWithParams('SUM', revToks, false, true, true)
+    parseFunctionWithArgs('SUM', revToks, ['arg', 'field', 'formula?'])
   resulting in the following JavaScript:
-    SUM(forms[0], `age`, `gender === 'male'`)
-  stringifyParams.length >= 2 and the last parameter is considered optional.
+    SUM(forms[0], "age", "gender === \"male\"")
 */
-function parseFunctionWithParams(name, revToks, ...stringifyParams) {
-    if (stringifyParams.length < 2) {
-        throw new Error('parseFunctionWithParams only works with at least 2 parameters');
-    }
+function parseFunctionWithArgs(name, revToks, args) {
     consume(revToks, 1 /* TokenType.LParen */);
-    let js = name + '(';
-    const firstParam = parseExpression(revToks, 5 /* TokenType.Comma */);
-    js += stringifyParams[0] ? `\`${firstParam}\`` : firstParam;
-    for (let i = 1; i < stringifyParams.length - 1; i++) {
-        consume(revToks, 5 /* TokenType.Comma */);
-        const param = parseExpression(revToks, 5 /* TokenType.Comma */);
-        js += stringifyParams[i] ? `, \`${param}\`` : `, ${param}`;
+    let argsJs = '';
+    const allVars = [];
+    let formulaVars = [];
+    for (let i = 0; i < args.length; i++) {
+        let argType = args[i];
+        if (argType.endsWith('?') && revToks[revToks.length - 1].type === 2 /* TokenType.RParen */) {
+            break;
+        }
+        if (argType.endsWith('?')) {
+            argType = argType.slice(0, -1);
+        }
+        if (i !== 0) {
+            consume(revToks, 5 /* TokenType.Comma */);
+            argsJs += ', ';
+        }
+        const arg = argType === 'field' ?
+            { js: consume(revToks, 20 /* TokenType.Name */).text.slice(1), vars: [] } :
+            parseExpression(revToks, 5 /* TokenType.Comma */);
+        argsJs += argType === 'field' || argType === 'formula' ? quote(arg.js) : arg.js;
+        allVars.push(...arg.vars);
+        if (argType === 'formula') {
+            formulaVars.push(...arg.vars);
+        }
     }
-    // Last parameter, optional:
-    const tok = revToks.pop();
-    switch (tok.type) {
-        case 2 /* TokenType.RParen */:
-            return js + ')';
-        case 5 /* TokenType.Comma */:
-            const lastParam = parseExpression(revToks, 5 /* TokenType.Comma */);
-            consume(revToks, 2 /* TokenType.RParen */);
-            const stringify = stringifyParams[stringifyParams.length - 1];
-            return js + (stringify ? `, \`${lastParam}\`)` : `, ${lastParam})`);
-        default:
-            throw unexpectedTokenError(tok, revToks);
+    consume(revToks, 2 /* TokenType.RParen */);
+    if (formulaVars.length === 0) {
+        return { js: `${name}(${argsJs})`, vars: allVars };
     }
+    formulaVars = [...new Set(formulaVars)];
+    return { js: `${name}.call({${formulaVars.join(', ')}}, ${argsJs})`, vars: allVars };
 }
-const functionParams = {
-    SUM: [false, true, true],
-    MEAN: [false, true, true],
-    MAX: [false, true, true],
-    MEDIAN: [false, true, true],
-    MODE: [false, true, true],
-    COUNT_FORMS: [false, true],
-    COUNT_REPS: [false, true],
-    COUNT_FORMS_UNIQUE: [false, true, true],
-    ALL_VALUES_OF: [false, true],
-    PERCENT: [false, false],
-    LAST: [false, true, false],
-    REPEAT: [false, false, false, true, true],
-    EVALUATE: [false, false, false],
-    FILTER_BY_VARS: [false, false],
-    FILTER_BY: [false, true],
-    APPLY: [false, true, true],
-    GET_AGE: [false, false],
-    LEN: [false, false],
-    CONCAT: [false, false],
-    REMOVE_DUPLICATES: [false, false],
-    CONSOLE_LOG: [false, false],
-    JOIN_FORMS: [false, false, true, true],
-    JOIN_REPEATING_SLIDES: [false, false, true, true, true, true],
-    FROM_REPS: [false, false],
-    ISIN: [false, false],
-    OP: [false, false, true],
-    GET_LABELS: [false, false],
-    APPLY_LABELS: [false, false, false],
-    BUILD_DATASET: [false, false],
-    ROUND: [false, false],
-    IS_BEFORE: [false, false],
-    IS_AFTER: [false, false],
-    IS_WITHIN_INTERVAL: [false, false, false],
-    COMPARE_DATE: [false, false, false, false],
+function quote(s) {
+    if (typeof (s) !== 'string') {
+        throw new Error('quote argument is not a string');
+    }
+    return JSON.stringify(s);
+}
+const functionArgs = {
+    SUM: ["arg", "field", "formula?"],
+    MEAN: ["arg", "field", "formula?"],
+    MAX: ["arg", "field", "formula?"],
+    MEDIAN: ["arg", "field", "formula?"],
+    MODE: ["arg", "field", "formula?"],
+    COUNT_FORMS: ["arg", "field"],
+    COUNT_REPS: ["arg", "field"],
+    COUNT_FORMS_UNIQUE: ["arg", "field", "formula?"],
+    ALL_VALUES_OF: ["arg", "field"],
+    PERCENT: ["arg", "arg"],
+    LAST: ["arg", "field", "arg?"],
+    REPEAT: ["arg", "arg", "arg", "formula", "formula?"],
+    INCLUDES: ["arg", "arg"],
+    FILTER_BY: ["arg", "formula"],
+    APPLY: ["arg", "field", "formula"],
+    GET_AGE: ["arg"],
+    LEN: ["arg"],
+    CONCAT: ["arg", "arg"],
+    REMOVE_DUPLICATES: ["arg"],
+    CONSOLE_LOG: ["arg"],
+    JOIN_FORMS: ["arg", "arg", "field", "field?"],
+    JOIN_REPEATING_SLIDES: ["arg", "arg", "field", "field", "field", "field?"],
+    FROM_REPS: ["arg", "formula"],
+    OP: ["arg", "arg", "formula"],
+    GET_LABELS: ["arg", "arg"],
+    APPLY_LABELS: ["arg", "arg", "arg"],
+    BUILD_DATASET: ["arg", "arg?"],
+    ROUND: ["arg"],
+    IS_BEFORE: ["arg", "arg"],
+    IS_AFTER: ["arg", "arg"],
+    IS_WITHIN_INTERVAL: ["arg", "arg", "arg"],
+    COMPARE_DATE: ["arg", "arg", "arg", "arg?"],
+    TODAY: [],
 };
 
 /**

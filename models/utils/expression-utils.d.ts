@@ -151,25 +151,25 @@ export declare function plainArray(params: any[]): any[];
  * Returns the number of forms for which filterExpression evaluates to true,
  * for the form itself or for any of its repetitions.
  */
-export declare function COUNT_FORMS(forms: MainForm[], expression?: string): number;
+export declare function COUNT_FORMS(this: AjfContext | void, forms: MainForm[], expression?: string): number;
 /**
  * Counts the forms and all of their repetitions for which the expression evaluates to true.
  */
-export declare function COUNT_REPS(forms: MainForm[], expression?: string): number;
+export declare function COUNT_REPS(this: AjfContext | void, forms: MainForm[], expression?: string): number;
 /**
  * Counts the different values that the specified field takes in the forms (and their repetitions).
  */
-export declare function COUNT_FORMS_UNIQUE(forms: MainForm[], field: string, expression?: string): number;
+export declare function COUNT_FORMS_UNIQUE(this: AjfContext, forms: MainForm[], field: string, expression?: string): number;
 /**
  * Aggregates and sums the values of the specified field.
  * An optional expression can be added to filter which forms to take for the sum.
  */
-export declare function SUM(forms: (MainForm | Form)[], field: string, expression?: string): number;
+export declare function SUM(this: AjfContext | void, forms: (MainForm | Form)[], field: string, expression?: string): number;
 /**
  * Computes the mean of the values of the specified field.
  * An optional expression can be added to filter which forms to take for the sum.
  */
-export declare function MEAN(forms: (Form | MainForm)[], field: string, expression?: string): number;
+export declare function MEAN(this: AjfContext | void, forms: (Form | MainForm)[], field: string, expression?: string): number;
 /**
  * Calculates the % between two members.
  */
@@ -177,19 +177,19 @@ export declare function PERCENT(value1: number, value2: number): string;
 /**
  * Evaluates the expression in the last form by date.
  */
-export declare function LAST(forms: (Form | MainForm)[], expression: string, date?: string): any;
+export declare function LAST(this: AjfContext | void, forms: (Form | MainForm)[], expression: string, date?: string): any;
 /**
  * Computes the max value of the field.
  */
-export declare function MAX(forms: (Form | MainForm)[], field: string, expression?: string): number;
+export declare function MAX(this: AjfContext | void, forms: (Form | MainForm)[], field: string, expression?: string): number;
 /**
  * Computes the median value of the field.
  */
-export declare function MEDIAN(forms: (Form | MainForm)[], field: string, expression?: string): number;
+export declare function MEDIAN(this: AjfContext | void, forms: (Form | MainForm)[], field: string, expression?: string): number;
 /**
  * Computes the mode value of the field.
  */
-export declare function MODE(forms: (Form | MainForm)[], field: string, expression?: string): number;
+export declare function MODE(this: AjfContext | void, forms: (Form | MainForm)[], field: string, expression?: string): number;
 export declare function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
 /**
  * Build a dataset for ajf dynamic table
@@ -307,15 +307,13 @@ export declare function APPLY(formList: MainForm[], field: string, expression: s
  */
 export declare function ROUND(num: number | string, digits?: number): number;
 /**
- * this function evalueate a condition if true return branch1 else branch2
- *
- * @export
- * @param {string} condition
- * @param {*} branch1
- * @param {*} branch2
- * @return {*}  {*}
+ * Deprecated. Use IF_THEN_ELSE
  */
 export declare function EVALUATE(condition: string, branch1: any, branch2: any): any;
+/**
+ * Tells if arr includes elem
+ */
+export declare function INCLUDES(arr: any[], elem: any): boolean;
 /**
  * This function builds a data structure that allows the use of the hindikit formulas
  * for every forms with repeating slides.
@@ -388,10 +386,7 @@ export declare function BUILD_DATASET(forms: Form[], schema?: any): MainForm[];
  */
 export declare function APPLY_LABELS(formList: MainForm[], schema: any, fieldNames: string[]): MainForm[];
 /**
- *
- * @param {MainForm[]} formList a set of main forms
- * @param {string} expression to be evaluated, also with report variables values.
- * @return {*}  {MainForm[]}
+ * Deprecated. Use FILTER_BY
  */
 export declare function FILTER_BY_VARS(formList: MainForm[], expression: string): MainForm[];
 /**
@@ -534,12 +529,7 @@ export declare function JOIN_REPEATING_SLIDES(formsA: MainForm[], formsB: MainFo
  */
 export declare function FROM_REPS(mainForm: MainForm, expression: string): any[];
 /**
- * this function return true if value is inside of dataset
- *
- * @export
- * @param {any[]} dataset
- * @param {*} value
- * @return {*}  {boolean}
+ * Deprecated. Use INCLUDES
  */
 export declare function ISIN(dataset: any[], value: any): boolean;
 /**

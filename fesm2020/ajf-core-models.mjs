@@ -390,6 +390,7 @@ AjfExpressionUtils.utils = {
     ALL_VALUES_OF: { fn: ALL_VALUES_OF },
     REPEAT: { fn: REPEAT },
     EVALUATE: { fn: EVALUATE },
+    INCLUDES: { fn: INCLUDES },
     buildDataset: { fn: buildDataset },
     buildAlignedDataset: { fn: buildAlignedDataset },
     buildFormDataset: { fn: buildFormDataset },
@@ -935,18 +936,19 @@ function plainArray(params) {
  * for the form itself or for any of its repetitions.
  */
 function COUNT_FORMS(forms, expression = 'true') {
+    const varsContext = this || {};
     forms = (forms || []).filter(f => f != null);
     if (expression === 'true') {
         return forms.length;
     }
     let count = 0;
     for (const form of forms) {
-        if (evaluateExpression(expression, form)) {
+        if (evaluateExpression(expression, { ...varsContext, ...form })) {
             count++;
             continue;
         }
         for (const rep of allReps(form)) {
-            if (evaluateExpression(expression, { ...form, ...rep })) {
+            if (evaluateExpression(expression, { ...varsContext, ...form, ...rep })) {
                 count++;
                 break;
             }
@@ -958,14 +960,15 @@ function COUNT_FORMS(forms, expression = 'true') {
  * Counts the forms and all of their repetitions for which the expression evaluates to true.
  */
 function COUNT_REPS(forms, expression = 'true') {
+    const varsContext = this || {};
     forms = (forms || []).filter(f => f != null);
     let count = 0;
     for (const form of forms) {
-        if (evaluateExpression(expression, form)) {
+        if (evaluateExpression(expression, { ...varsContext, ...form })) {
             count++;
         }
         for (const rep of allReps(form)) {
-            if (evaluateExpression(expression, { ...form, ...rep })) {
+            if (evaluateExpression(expression, { ...varsContext, ...form, ...rep })) {
                 count++;
             }
         }
@@ -976,31 +979,33 @@ function COUNT_REPS(forms, expression = 'true') {
  * Counts the different values that the specified field takes in the forms (and their repetitions).
  */
 function COUNT_FORMS_UNIQUE(forms, field, expression = 'true') {
+    const varsContext = this || {};
     forms = (forms || []).filter(f => f != null);
     let values = [];
     for (const form of forms) {
-        if (form[field] != null && evaluateExpression(expression, form)) {
+        if (form[field] != null && evaluateExpression(expression, { ...varsContext, ...form })) {
             values.push(form[field]);
         }
         for (const rep of allReps(form)) {
-            if (rep[field] != null && evaluateExpression(expression, { ...form, ...rep })) {
+            if (rep[field] != null && evaluateExpression(expression, { ...varsContext, ...form, ...rep })) {
                 values.push(rep[field]);
             }
         }
     }
     return [...new Set(values)].length;
 }
-function getNumericValues(forms, field, expression = 'true') {
+function getNumericValues(varsContext, forms, field, expression = 'true') {
+    varsContext = varsContext || {};
     forms = (forms || []).filter(f => f != null);
     let values = [];
     for (const form of forms) {
         const val = form[field];
-        if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, form)) {
+        if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, { ...varsContext, ...form })) {
             values.push(Number(val));
         }
         for (const rep of allReps(form)) {
             const val = rep[field];
-            if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, { ...form, ...rep })) {
+            if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, { ...varsContext, ...form, ...rep })) {
                 values.push(Number(val));
             }
         }
@@ -1012,7 +1017,7 @@ function getNumericValues(forms, field, expression = 'true') {
  * An optional expression can be added to filter which forms to take for the sum.
  */
 function SUM(forms, field, expression = 'true') {
-    const values = getNumericValues(forms, field, expression);
+    const values = getNumericValues(this, forms, field, expression);
     let sum = 0;
     for (const val of values) {
         sum += val;
@@ -1024,7 +1029,7 @@ function SUM(forms, field, expression = 'true') {
  * An optional expression can be added to filter which forms to take for the sum.
  */
 function MEAN(forms, field, expression = 'true') {
-    const values = getNumericValues(forms, field, expression);
+    const values = getNumericValues(this, forms, field, expression);
     let sum = 0;
     for (const val of values) {
         sum += val;
@@ -1042,6 +1047,7 @@ function PERCENT(value1, value2) {
  * Evaluates the expression in the last form by date.
  */
 function LAST(forms, expression, date = 'created_at') {
+    const varsContext = this || {};
     forms = (forms || []).filter(f => f != null).sort((a, b) => {
         const dateA = new Date(b[date]).getTime();
         const dateB = new Date(a[date]).getTime();
@@ -1050,13 +1056,13 @@ function LAST(forms, expression, date = 'created_at') {
     if (forms.length === 0 || expression == null) {
         return undefined;
     }
-    return evaluateExpression(expression, forms[forms.length - 1]);
+    return evaluateExpression(expression, { ...varsContext, ...forms[forms.length - 1] });
 }
 /**
  * Computes the max value of the field.
  */
 function MAX(forms, field, expression = 'true') {
-    const values = getNumericValues(forms, field, expression);
+    const values = getNumericValues(this, forms, field, expression);
     let max = -Infinity;
     for (const val of values) {
         if (val > max) {
@@ -1069,7 +1075,7 @@ function MAX(forms, field, expression = 'true') {
  * Computes the median value of the field.
  */
 function MEDIAN(forms, field, expression = 'true') {
-    const values = getNumericValues(forms, field, expression).sort();
+    const values = getNumericValues(this, forms, field, expression).sort();
     if (values.length === 0) {
         return NaN;
     }
@@ -1079,7 +1085,7 @@ function MEDIAN(forms, field, expression = 'true') {
  * Computes the mode value of the field.
  */
 function MODE(forms, field, expression = 'true') {
-    const values = getNumericValues(forms, field, expression);
+    const values = getNumericValues(this, forms, field, expression);
     const counters = {};
     for (const val of values) {
         if (counters[val] == null) {
@@ -1510,13 +1516,7 @@ function ROUND(num, digits) {
     return round(num, digits);
 }
 /**
- * this function evalueate a condition if true return branch1 else branch2
- *
- * @export
- * @param {string} condition
- * @param {*} branch1
- * @param {*} branch2
- * @return {*}  {*}
+ * Deprecated. Use IF_THEN_ELSE
  */
 function EVALUATE(condition, branch1, branch2) {
     if (evaluateExpression(condition)) {
@@ -1525,6 +1525,12 @@ function EVALUATE(condition, branch1, branch2) {
     else {
         return branch2;
     }
+}
+/**
+ * Tells if arr includes elem
+ */
+function INCLUDES(arr, elem) {
+    return arr.includes(elem);
 }
 /**
  * This function builds a data structure that allows the use of the hindikit formulas
@@ -1787,10 +1793,7 @@ function APPLY_LABELS(formList, schema, fieldNames) {
     return formList;
 }
 /**
- *
- * @param {MainForm[]} formList a set of main forms
- * @param {string} expression to be evaluated, also with report variables values.
- * @return {*}  {MainForm[]}
+ * Deprecated. Use FILTER_BY
  */
 function FILTER_BY_VARS(formList, expression) {
     return FILTER_BY(formList, expression);
@@ -2164,12 +2167,7 @@ function FROM_REPS(mainForm, expression) {
     return res;
 }
 /**
- * this function return true if value is inside of dataset
- *
- * @export
- * @param {any[]} dataset
- * @param {*} value
- * @return {*}  {boolean}
+ * Deprecated. Use INCLUDES
  */
 function ISIN(dataset, value) {
     if (dataset == null || value == null) {
@@ -2401,5 +2399,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FILTER_BY_VARS, FROM_REPS, GET_AGE, GET_LABELS, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildAlignedDataset, buildAlignedFormDataset, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FILTER_BY_VARS, FROM_REPS, GET_AGE, GET_LABELS, INCLUDES, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildAlignedDataset, buildAlignedFormDataset, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=ajf-core-models.mjs.map
