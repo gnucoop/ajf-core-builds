@@ -131,6 +131,20 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
     scrollToSlide(slide: AjfSlideInstance): void;
+    /**
+     * Return a repeating slide repetition index (eg. 2/5)
+     * @param slide The repeating slide
+     * @param currentPage The formslider current page number
+     * @returns The rep slide index string
+     */
+    getRepeatingSlideRepIndex(slide: AjfSlideInstance, currentPage: number): Observable<string | null>;
+    /**
+     * True if the slide toggle should be checked
+     * @param slide The repeating slide
+     * @param currentPage The formslider current page number
+     * @returns The checked state
+     */
+    isSlideToggleChecked(slide: AjfSlideInstance, currentPage: number): boolean;
     orientationChangeHandler(orientation: AjfPageSliderOrientation): void;
     trackNodeById(_: number, node: AjfNodeInstance): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormRenderer, never>;
