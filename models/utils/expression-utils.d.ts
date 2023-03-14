@@ -145,7 +145,7 @@ export declare function getCoordinate(source: any, zoom?: number): [number, numb
  * Returns an array containing all the values that the specified field takes in the forms.
  * The values are converted to strings.
  */
-export declare function ALL_VALUES_OF(forms: MainForm[], field: string): string[];
+export declare function ALL_VALUES_OF(this: AjfContext | void, forms: MainForm[], field: string, expression?: string): string[];
 export declare function plainArray(params: any[]): any[];
 /**
  * Returns the number of forms for which filterExpression evaluates to true,
@@ -157,7 +157,7 @@ export declare function COUNT_FORMS(this: AjfContext | void, forms: MainForm[], 
  */
 export declare function COUNT_REPS(this: AjfContext | void, forms: MainForm[], expression?: string): number;
 /**
- * Counts the different values that the specified field takes in the forms (and their repetitions).
+ * Deprecated. Use LEN(ALL_VALUES_OF)
  */
 export declare function COUNT_FORMS_UNIQUE(this: AjfContext, forms: MainForm[], field: string, expression?: string): number;
 /**
@@ -274,36 +274,21 @@ export declare function buildWidgetDatasetWithDialog(dataset: MainForm[], fields
     [key: string]: any;
 } | null, percWidth: string[], backgroundColorA?: string, backgroundColorB?: string): any[];
 /**
- *
- * @param forms the form data
- * @param iterations all values of iteration
- * @param fn the fuction of expression-utils to apply at iteration
- * @param param1 first param of fn
- * @param param2 second param of fn
- * @returns the result of fn applied to all values param conditions
- * &current is an anchor key, The params with &current will be modified with the iteration values.
+ * Deprecated. Use MAP
  */
-export declare function REPEAT(forms: MainForm[], iterations: string[], fn: AjfValidationFn, param1: string, param2?: string): any[];
+export declare function REPEAT(this: AjfContext | void, forms: MainForm[], array: string[], fn: AjfValidationFn, field: string, expression?: string): any[];
 /**
- * this function allow to define a new attribute of mainform.
- * the attribute field will be added on every form and it takes the result of expression calculated
- * for every mainform
- *
- * @export
- * @param {MainForm[]} formList
- * @param {string} field
- * @param {string} expression
- * @return {*}  {MainForm[]}
+ * Evaluates the expression for each element of the array and returns the array of results.
+ * The current element can be accessed with the keyword elem.
  */
-export declare function APPLY(formList: MainForm[], field: string, expression: string): MainForm[];
+export declare function MAP(this: AjfContext | void, array: any[], expression: string): any[];
 /**
- * this function round a number,
- * if you need can be define de digits of round
- *
- * @export
- * @param {(number | string)} num
- * @param {number} [digits]
- * @return {*}  {number}
+ * For each form in forms, the specified field is set with the value given by the evaluation of expression.
+ * The form's fields can be used inside expression.
+ */
+export declare function APPLY(this: AjfContext | void, forms: MainForm[], field: string, expression: string): MainForm[];
+/**
+ * Rounds num to the specified number of digits after the point (or zero).
  */
 export declare function ROUND(num: number | string, digits?: number): number;
 /**
@@ -376,8 +361,8 @@ export declare function INCLUDES(arr: any[], elem: any): boolean;
  */
 export declare function BUILD_DATASET(forms: Form[], schema?: any): MainForm[];
 /**
- * This function take a list of forms, an ajf schema and a list of field names as input and builds
- * a data structure that replace a list of label matched inside a schema choiche origins.
+ * Returns a clone of forms, where the specified fields are replaced by the corresponding labels,
+ * as defined by the choice origins in schema.
  *
  * @param {MainForm[]} formList
  * @param {*} schema the ajf schema
@@ -390,23 +375,11 @@ export declare function APPLY_LABELS(formList: MainForm[], schema: any, fieldNam
  */
 export declare function FILTER_BY_VARS(formList: MainForm[], expression: string): MainForm[];
 /**
- * This function build a partition of formList by execution of expression.
- * For every mainForm the expression match mainform field and replace it.
- * If the evaluation of expression is true the mainForm was added to partition
- * (that becouse the expression don't has repeating slide fields) else if
- * there are reps for every rep the expression is updated with replacing of
- * repeating slide instance fields and evaluated, if true was added to partition.
- * All ajf attributes wad updated. /TODO
- *
- *
- * @param {MainForm[]} formList a set of main forms
- * @param {string} expression to be evaluated. that can be able to contains another
- * hindikit functions or mainForm fields or reps fields.
- * @return {*}  {MainForm[]}
+ * Returns a copy of forms and its repetitions, keeping only the ones for which expression evaluates to true.
  */
-export declare function FILTER_BY(formList: MainForm[], expression: string): MainForm[];
+export declare function FILTER_BY(this: AjfContext | void, forms: MainForm[], expression: string): MainForm[];
 /**
- * return the today date
+ * Returns today's date.
  *
  * @export
  * @param {string} [format='yyyy-MM-dd']
@@ -414,15 +387,14 @@ export declare function FILTER_BY(formList: MainForm[], expression: string): Mai
  */
 export declare function TODAY(format?: string): string;
 /**
- * UTILITY FUNCTION
- *  this function allow the console log of excel variables.
+ * Logs val to the console.
+ *
  * @export
  * @param {*} val
- * @param {string} [text='log: ']
  */
-export declare function CONSOLE_LOG(val: any, text?: string): void;
+export declare function CONSOLE_LOG(val: any): void;
 /**
- * this function take a string date and return the difference in year from dob to today.
+ * Computes the current age in years, given the date of birth.
  *
  * @export
  * @param {(string | null)} dob
@@ -430,7 +402,9 @@ export declare function CONSOLE_LOG(val: any, text?: string): void;
  */
 export declare function GET_AGE(dob: string | null): number;
 /**
- * this function returns reps length if reps in defined or the length of dataset if dataset is array-
+ * If data is a form with repetitions, returns the number of repetitions;
+ * If data is an array, returns its length;
+ * Otherwise returns 0.
  *
  * @export
  * @param {(MainForm | any[])} dataset
@@ -455,7 +429,7 @@ export declare function CONCAT(a: any[], b: any[]): any[];
  */
 export declare function REMOVE_DUPLICATES(arr: any[]): any[];
 /**
- * return true if date is before then dateToCompare
+ * Returns true if date is before dateToCompare.
  *
  * @export
  * @param {string} date
@@ -464,7 +438,7 @@ export declare function REMOVE_DUPLICATES(arr: any[]): any[];
  */
 export declare function IS_BEFORE(date: string, dateToCompare: string): boolean;
 /**
- * return true if date is after then dateToCompare
+ * Returns true if date is after dateToCompare.
  *
  * @export
  * @param {string} date
@@ -473,7 +447,7 @@ export declare function IS_BEFORE(date: string, dateToCompare: string): boolean;
  */
 export declare function IS_AFTER(date: string, dateToCompare: string): boolean;
 /**
- * return true if date is whithin interval from dateStart to dateEnd
+ * Returns true if date is between dateStart and dateEnd.
  *
  * @export
  * @param {string} date
@@ -483,9 +457,10 @@ export declare function IS_AFTER(date: string, dateToCompare: string): boolean;
  */
 export declare function IS_WITHIN_INTERVAL(date: string, dateStart: string, dateEnd: string): boolean;
 /**
- * compare a date with two dates interval. Return '-1' (or the first element of labels array) if date
- * is before the dateStart, '1' (or the second element) if date is after the dateEnd
- * or '0' (or the last element) if date is within inteval.
+ * Compares date with an interval.
+ * Returns '-1' (or the first element of labels) if date is before dateStart,
+ * '0' (or the second element) if date is between dateStart and dateEnd,
+ * '1' (or the third element) if date is after dateEnd.
  *
  * @export
  * @param {string} date
@@ -496,58 +471,36 @@ export declare function IS_WITHIN_INTERVAL(date: string, dateStart: string, date
  */
 export declare function COMPARE_DATE(date: string, dateStart: string, dateEnd: string, labels?: string[]): string;
 /**
- * this function extend formsA dataset.
- * search all match of keyA in formsB, if found if merge formA and formB.
- *
- * @export
- * @param {string} keyA
- * @param {string} [keyB]
- * @return {*}
+ * Performs a left join of formsA and formsB.
  */
 export declare function JOIN_FORMS(formsA: (MainForm | Form)[], formsB: (MainForm | Form)[], keyA: string, keyB?: string): (MainForm | Form)[];
 /**
- * like JOIN_FORMS but extends the behaviour on the reps.
- * search all match of subKeyA in formB
- *
- * @export
- * @param {MainForm[]} formsA
- * @param {MainForm[]} formsB
- * @param {string} keyA
- * @param {string} keyB
- * @param {string} subKeyA
- * @param {string} [subKeyB]
- * @return {*}  {MainForm[]}
+ * Performs a left join of formsA and formsB, like JOIN_FORMS.
+ * In addition, for each matching pair of formA and formB, their repeating slides are also joined.
  */
-export declare function JOIN_REPEATING_SLIDES(formsA: MainForm[], formsB: MainForm[], keyA: string, keyB: string, subKeyA: string, subKeyB?: string): MainForm[];
+export declare function JOIN_REPEATING_SLIDES(formsA: MainForm[], formsB: MainForm[], keyA: string, keyB: string, subkeyA: string, subkeyB?: string): MainForm[];
 /**
- * this function extract an array of evaluated expression from main form reps.
+ * Returns the array obtained by evaluating expression for every repetition of form.
  *
  * @export
- * @param {MainForm} mainForm
+ * @param {MainForm} form
  * @param {string} expression
  * @return {*}  {any[]}
  */
-export declare function FROM_REPS(mainForm: MainForm, expression: string): any[];
+export declare function FROM_REPS(this: AjfContext | void, form: MainForm, expression: string): any[];
 /**
  * Deprecated. Use INCLUDES
  */
 export declare function ISIN(dataset: any[], value: any): boolean;
 /**
- * the lengths of the datasets are assumed to be the same.
- * this function return an array list of calculated values.
- * each element of the array is calculated by replacing elemA with the current element of a
- * and elemB with the current element of b inside the expression.
- *
- * @export
- * @param {number[]} datasetA
- * @param {number[]} datasetB
- * @param {string} expression
- * @return {*}  {number[]}
+ * Applies the operation defined by expression for every pair of elements of arrayA and arrayB,
+ * returning the array of results. The current elements are identified by elemA and elemB.
+ * For example, `OP([1, 2, 3], [10, 20, 30], "elemA + elemB")` returns `[11, 22, 33]`
  */
-export declare function OP(datasetA: number[], datasetB: number[], expression: string): number[];
+export declare function OP(this: AjfContext | void, arrayA: any[], arrayB: any[], expression: string): any[];
 /**
- * this function take a ajf schema and a list of values as input and
- * returns a list of label matched inside a schema choiche origins.
+ * Given an array of values, returns the corresponding array of labels,
+ * as specified by the choices origin in schema.
  *
  * @export
  * @param {*} schema
