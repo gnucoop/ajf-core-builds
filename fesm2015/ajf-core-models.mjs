@@ -296,6 +296,7 @@ AjfExpressionUtils.utils = {
     MEAN: { fn: MEAN },
     PERCENT: { fn: PERCENT },
     LAST: { fn: LAST },
+    FIRST: { fn: FIRST },
     MAX: { fn: MAX },
     MEDIAN: { fn: MEDIAN },
     MODE: { fn: MODE },
@@ -358,46 +359,53 @@ function cloneMainForms(forms) {
     return res;
 }
 function evaluateExpression(expression, context, forceFormula) {
-    let formula = forceFormula || expression || '';
-    if (formula === '') {
-        return '';
+    return createFunction(forceFormula || expression)(context);
+}
+function createFunction(expression) {
+    if (!expression) {
+        return _ => '';
     }
-    if (formula === 'true') {
-        return true;
+    if (expression === 'true') {
+        return _ => true;
     }
-    if (formula === 'false') {
-        return false;
+    if (expression === 'false') {
+        return _ => false;
     }
-    if (context != null && context[formula] !== undefined) {
-        return context[formula];
+    if (/^[a-zA-Z_$][\w$]*$/.test(expression)) { // expression is an identifier
+        return c => c == null || c[expression] === undefined ? null : c[expression];
     }
-    if (/^"[^"]*"$/.test(formula)) {
-        return formula.replace(/^"+|"+$/g, '');
+    if (/^"[^"]*"$/.test(expression) || /^'[^']*'$/.test(expression)) {
+        let str = expression.slice(1, -1);
+        return _ => str;
     }
-    const identifiers = getCodeIdentifiers(formula, true);
-    const ctx = [];
-    identifiers.forEach((key) => {
-        let val = null;
-        if (context != null && context[key] !== undefined) {
-            val = context[key];
-        }
-        else if (AjfExpressionUtils.utils[key] !== undefined) {
-            const util = AjfExpressionUtils.utils[key];
-            val = util.fn;
-        }
-        ctx.push(val);
-    });
-    identifiers.push('execContext');
-    ctx.push(execContext);
+    const argNames = [...new Set(getCodeIdentifiers(expression, true)).add('execContext')];
+    let func;
     try {
-        let f = new Function(...identifiers, `return ${formula}`);
-        const res = f(...ctx);
-        f = null;
-        return res;
+        func = new Function(...argNames, 'return ' + expression);
     }
-    catch (e) {
-        return false;
+    catch (_a) {
+        return _ => false;
     }
+    return context => {
+        const argValues = argNames.map(name => {
+            if (context != null && context[name] !== undefined) {
+                return context[name];
+            }
+            if (AjfExpressionUtils.utils[name] !== undefined) {
+                return AjfExpressionUtils.utils[name].fn;
+            }
+            if (name === 'execContext') {
+                return execContext;
+            }
+            return null;
+        });
+        try {
+            return func(...argValues);
+        }
+        catch (_a) {
+            return false;
+        }
+    };
 }
 /**
  * It returns the count of digit inside x.
@@ -823,16 +831,18 @@ function getCoordinate(source, zoom) {
  * Returns an array containing all the values that the specified field takes in the forms.
  * The values are converted to strings.
  */
-function ALL_VALUES_OF(forms, field, expression = 'true') {
-    const varsContext = this || {};
+function ALL_VALUES_OF(forms, field, filter = 'true') {
     forms = (forms || []).filter(f => f != null);
+    if (typeof (filter) === 'string') {
+        filter = createFunction(filter);
+    }
     let values = [];
     for (const form of forms) {
-        if (form[field] != null && evaluateExpression(expression, Object.assign(Object.assign({}, varsContext), form))) {
+        if (form[field] != null && filter(form)) {
             values.push(String(form[field]));
         }
         for (const rep of allReps(form)) {
-            if (rep[field] != null && evaluateExpression(expression, Object.assign(Object.assign(Object.assign({}, varsContext), form), rep))) {
+            if (rep[field] != null && filter(Object.assign(Object.assign({}, form), rep))) {
                 values.push(String(rep[field]));
             }
         }
@@ -852,23 +862,25 @@ function plainArray(params) {
     return res;
 }
 /**
- * Returns the number of forms for which filterExpression evaluates to true,
+ * Returns the number of forms for which filter evaluates to true,
  * for the form itself or for any of its repetitions.
  */
-function COUNT_FORMS(forms, expression = 'true') {
-    const varsContext = this || {};
+function COUNT_FORMS(forms, filter = 'true') {
     forms = (forms || []).filter(f => f != null);
-    if (expression === 'true') {
+    if (filter === 'true') {
         return forms.length;
+    }
+    if (typeof (filter) === 'string') {
+        filter = createFunction(filter);
     }
     let count = 0;
     for (const form of forms) {
-        if (evaluateExpression(expression, Object.assign(Object.assign({}, varsContext), form))) {
+        if (filter(form)) {
             count++;
             continue;
         }
         for (const rep of allReps(form)) {
-            if (evaluateExpression(expression, Object.assign(Object.assign(Object.assign({}, varsContext), form), rep))) {
+            if (filter(Object.assign(Object.assign({}, form), rep))) {
                 count++;
                 break;
             }
@@ -877,18 +889,20 @@ function COUNT_FORMS(forms, expression = 'true') {
     return count;
 }
 /**
- * Counts the forms and all of their repetitions for which the expression evaluates to true.
+ * Counts the forms and all of their repetitions for which filter evaluates to true.
  */
-function COUNT_REPS(forms, expression = 'true') {
-    const varsContext = this || {};
+function COUNT_REPS(forms, filter = 'true') {
     forms = (forms || []).filter(f => f != null);
+    if (typeof (filter) === 'string') {
+        filter = createFunction(filter);
+    }
     let count = 0;
     for (const form of forms) {
-        if (evaluateExpression(expression, Object.assign(Object.assign({}, varsContext), form))) {
+        if (filter(form)) {
             count++;
         }
         for (const rep of allReps(form)) {
-            if (evaluateExpression(expression, Object.assign(Object.assign(Object.assign({}, varsContext), form), rep))) {
+            if (filter(Object.assign(Object.assign({}, form), rep))) {
                 count++;
             }
         }
@@ -898,21 +912,23 @@ function COUNT_REPS(forms, expression = 'true') {
 /**
  * Deprecated. Use LEN(ALL_VALUES_OF)
  */
-function COUNT_FORMS_UNIQUE(forms, field, expression = 'true') {
-    return ALL_VALUES_OF.call(this, forms, field, expression).length;
+function COUNT_FORMS_UNIQUE(forms, field, filter = 'true') {
+    return ALL_VALUES_OF(forms, field, filter).length;
 }
-function getNumericValues(varsContext, forms, field, expression = 'true') {
-    varsContext = varsContext || {};
+function getNumericValues(forms, field, filter = 'true') {
     forms = (forms || []).filter(f => f != null);
+    if (typeof (filter) === 'string') {
+        filter = createFunction(filter);
+    }
     let values = [];
     for (const form of forms) {
         const val = form[field];
-        if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, Object.assign(Object.assign({}, varsContext), form))) {
+        if (val != null && !isNaN(Number(val)) && filter(form)) {
             values.push(Number(val));
         }
         for (const rep of allReps(form)) {
             const val = rep[field];
-            if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, Object.assign(Object.assign(Object.assign({}, varsContext), form), rep))) {
+            if (val != null && !isNaN(Number(val)) && filter(Object.assign(Object.assign({}, form), rep))) {
                 values.push(Number(val));
             }
         }
@@ -923,8 +939,8 @@ function getNumericValues(varsContext, forms, field, expression = 'true') {
  * Aggregates and sums the values of the specified field.
  * An optional expression can be added to filter which forms to take for the sum.
  */
-function SUM(forms, field, expression = 'true') {
-    const values = getNumericValues(this, forms, field, expression);
+function SUM(forms, field, filter = 'true') {
+    const values = getNumericValues(forms, field, filter);
     let sum = 0;
     for (const val of values) {
         sum += val;
@@ -935,8 +951,8 @@ function SUM(forms, field, expression = 'true') {
  * Computes the mean of the values of the specified field.
  * An optional expression can be added to filter which forms to take for the sum.
  */
-function MEAN(forms, field, expression = 'true') {
-    const values = getNumericValues(this, forms, field, expression);
+function MEAN(forms, field, filter = 'true') {
+    const values = getNumericValues(forms, field, filter);
     let sum = 0;
     for (const val of values) {
         sum += val;
@@ -951,25 +967,44 @@ function PERCENT(value1, value2) {
     return Number.isFinite(res) ? Math.round(res) + '%' : 'infinite';
 }
 /**
- * Evaluates the expression in the last form by date.
+ * Evaluates the expression in the first form by date.
  */
-function LAST(forms, expression, date = 'created_at') {
-    const varsContext = this || {};
+function FIRST(forms, expression, date = 'created_at') {
+    if (typeof (expression) === 'string') {
+        expression = createFunction(expression);
+    }
     forms = (forms || []).filter(f => f != null).sort((a, b) => {
         const dateA = new Date(b[date]).getTime();
         const dateB = new Date(a[date]).getTime();
         return dateA - dateB;
     });
-    if (forms.length === 0 || expression == null) {
+    if (forms.length === 0) {
         return undefined;
     }
-    return evaluateExpression(expression, Object.assign(Object.assign({}, varsContext), forms[forms.length - 1]));
+    return expression(forms[0]);
+}
+/**
+ * Evaluates the expression in the last form by date.
+ */
+function LAST(forms, expression, date = 'created_at') {
+    if (typeof (expression) === 'string') {
+        expression = createFunction(expression);
+    }
+    forms = (forms || []).filter(f => f != null).sort((a, b) => {
+        const dateA = new Date(b[date]).getTime();
+        const dateB = new Date(a[date]).getTime();
+        return dateA - dateB;
+    });
+    if (forms.length === 0) {
+        return undefined;
+    }
+    return expression(forms[forms.length - 1]);
 }
 /**
  * Computes the max value of the field.
  */
-function MAX(forms, field, expression = 'true') {
-    const values = getNumericValues(this, forms, field, expression);
+function MAX(forms, field, filter = 'true') {
+    const values = getNumericValues(forms, field, filter);
     let max = -Infinity;
     for (const val of values) {
         if (val > max) {
@@ -981,8 +1016,8 @@ function MAX(forms, field, expression = 'true') {
 /**
  * Computes the median value of the field.
  */
-function MEDIAN(forms, field, expression = 'true') {
-    const values = getNumericValues(this, forms, field, expression).sort();
+function MEDIAN(forms, field, filter = 'true') {
+    const values = getNumericValues(forms, field, filter).sort();
     if (values.length === 0) {
         return NaN;
     }
@@ -991,8 +1026,8 @@ function MEDIAN(forms, field, expression = 'true') {
 /**
  * Computes the mode value of the field.
  */
-function MODE(forms, field, expression = 'true') {
-    const values = getNumericValues(this, forms, field, expression);
+function MODE(forms, field, filter = 'true') {
+    const values = getNumericValues(forms, field, filter);
     const counters = {};
     for (const val of values) {
         if (counters[val] == null) {
@@ -1333,30 +1368,33 @@ function buildWidgetDatasetWithDialog(dataset, fields, dialogFields, dialogLabel
 /**
  * Deprecated. Use MAP
  */
-function REPEAT(forms, array, fn, field, expression = 'true') {
-    const varsContext = this || {};
+function REPEAT(forms, array, fn, field, filter = 'true') {
+    if (typeof (filter) === 'string') {
+        filter = createFunction(filter);
+    }
     return array.map(current => {
-        return fn.call(Object.assign(Object.assign({}, varsContext), { current }), forms, field, expression);
+        const currentFilter = (ctx) => filter(Object.assign(Object.assign({}, ctx), { current }));
+        return fn(forms, field, currentFilter);
     });
 }
 /**
- * Evaluates the expression for each element of the array and returns the array of results.
- * The current element can be accessed with the keyword elem.
+ * Maps func to the elements of array.
  */
-function MAP(array, expression) {
-    const varsContext = this || {};
-    return array.map(elem => evaluateExpression(expression, Object.assign(Object.assign({}, varsContext), { elem })));
+function MAP(array, func) {
+    return array.map(func);
 }
 /**
- * For each form in forms, the specified field is set with the value given by the evaluation of expression.
+ * For each form in forms, the specified field is set with the value given by expression.
  * The form's fields can be used inside expression.
  */
 function APPLY(forms, field, expression) {
-    const varsContext = this || {};
     forms = cloneMainForms(forms);
+    if (typeof (expression) === 'string') {
+        expression = createFunction(expression);
+    }
     for (const form of forms) {
         if (form != null) {
-            form[field] = evaluateExpression(expression, Object.assign(Object.assign({}, varsContext), form));
+            form[field] = expression(form);
         }
     }
     return forms;
@@ -1654,10 +1692,12 @@ function FILTER_BY_VARS(formList, expression) {
  * Returns a copy of forms and its repetitions, keeping only the ones for which expression evaluates to true.
  */
 function FILTER_BY(forms, expression) {
-    const varsContext = this || {};
     forms = forms || [];
     if (expression === 'true') {
         return cloneMainForms(forms);
+    }
+    if (typeof (expression) === 'string') {
+        expression = createFunction(expression);
     }
     const res = [];
     for (let form of forms.filter(f => f != null)) {
@@ -1666,12 +1706,12 @@ function FILTER_BY(forms, expression) {
         let someReps = false;
         if (form.reps != null) {
             for (const key in form.reps) {
-                filteredReps[key] = form.reps[key].filter(rep => evaluateExpression(expression, Object.assign(Object.assign(Object.assign({}, varsContext), form), rep)));
+                filteredReps[key] = form.reps[key].filter(rep => expression(Object.assign(Object.assign({}, form), rep)));
                 form[`ajf_${key}_count`] = filteredReps[key].length;
                 someReps || (someReps = filteredReps[key].length > 0);
             }
         }
-        if (someReps || evaluateExpression(expression, Object.assign(Object.assign({}, varsContext), form))) {
+        if (someReps || expression(form)) {
             form.reps = filteredReps;
             res.push(form);
         }
@@ -1705,11 +1745,10 @@ function CONSOLE_LOG(val) {
  * @return {*}  {number}
  */
 function GET_AGE(dob) {
-    if (dob == null)
-        return +'<'; // need for generate false funcion in evaluateExpression
-    const date = new Date(dob);
-    const age = dateFns.differenceInYears(new Date(), date);
-    return age;
+    if (dob == null) {
+        return NaN;
+    }
+    return dateFns.differenceInYears(new Date(), new Date(dob));
 }
 /**
  * If data is a form with repetitions, returns the number of repetitions;
@@ -1885,8 +1924,10 @@ function JOIN_REPEATING_SLIDES(formsA, formsB, keyA, keyB, subkeyA, subkeyB) {
  * @return {*}  {any[]}
  */
 function FROM_REPS(form, expression) {
-    const varsContext = this || {};
-    return allReps(form || {}).map(rep => evaluateExpression(expression, Object.assign(Object.assign(Object.assign({}, varsContext), form), rep)));
+    if (typeof (expression) === 'string') {
+        expression = createFunction(expression);
+    }
+    return allReps(form || {}).map(rep => expression(Object.assign(Object.assign({}, form), rep)));
 }
 /**
  * Deprecated. Use INCLUDES
@@ -1898,16 +1939,13 @@ function ISIN(dataset, value) {
     return dataset.indexOf(value) >= 0;
 }
 /**
- * Applies the operation defined by expression for every pair of elements of arrayA and arrayB,
- * returning the array of results. The current elements are identified by elemA and elemB.
- * For example, `OP([1, 2, 3], [10, 20, 30], "elemA + elemB")` returns `[11, 22, 33]`
+ * Applies the operator to every pair of elements (arrayA[i], arrayB[i]),
+ * returning the array of results.
  */
-function OP(arrayA, arrayB, expression) {
-    const varsContext = this || {};
+function OP(arrayA, arrayB, operator) {
     const res = [];
     for (let i = 0; i < Math.min(arrayA.length, arrayB.length); i++) {
-        const context = Object.assign(Object.assign({}, varsContext), { elemA: arrayA[i], elemB: arrayB[i] });
-        const val = evaluateExpression(expression, context);
+        const val = operator(arrayA[i], arrayB[i]);
         res.push(val);
     }
     return res;
@@ -2104,5 +2142,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FILTER_BY_VARS, FROM_REPS, GET_AGE, GET_LABELS, INCLUDES, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAP, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildAlignedDataset, buildAlignedFormDataset, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FILTER_BY_VARS, FIRST, FROM_REPS, GET_AGE, GET_LABELS, INCLUDES, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAP, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildAlignedDataset, buildAlignedFormDataset, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, createFunction, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=ajf-core-models.mjs.map

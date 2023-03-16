@@ -4245,7 +4245,7 @@ function firstToken(s) {
             if (m === null) {
                 throw new Error('invalid field name in: ' + s);
             }
-            return { type: 20 /* TokenType.Name */, text: m[0] };
+            return { type: 20 /* TokenType.Field */, text: m[0] };
         case '"':
             m = s.match(/^"(\\\\|\\"|[^"])*"/);
             if (m === null) {
@@ -4301,7 +4301,7 @@ function indicatorToJs(formula) {
         default:
             throw new Error('formula is not a string');
     }
-    return parseExpression(tokenize(formula).reverse(), 0 /* TokenType.END */).js;
+    return parseExpression(tokenize(formula).reverse(), 0 /* TokenType.END */);
 }
 function unexpectedTokenError(tok, rest) {
     if (tok.type === 0 /* TokenType.END */) {
@@ -4347,7 +4347,6 @@ function parseExpression(revToks, expectedEnd) {
         throw new Error('invalid expectedEnd');
     }
     let js = '';
-    const vars = [];
     while (true) {
         // Expression.
         let tok = revToks.pop();
@@ -4356,24 +4355,20 @@ function parseExpression(revToks, expectedEnd) {
             case 19 /* TokenType.Ident */:
                 next = revToks[revToks.length - 1];
                 if (next.type === 1 /* TokenType.LParen */) {
-                    const func = parseFunctionCall(tok.text, revToks);
-                    js += func.js;
-                    vars.push(...func.vars);
+                    js += parseFunctionCall(tok.text, revToks);
                 }
                 else if (next.type === 3 /* TokenType.LBracket */) {
                     consume(revToks, 3 /* TokenType.LBracket */);
                     const index = parseExpression(revToks, 4 /* TokenType.RBracket */);
                     consume(revToks, 4 /* TokenType.RBracket */);
-                    js += `${tok.text}[${index.js}]`;
-                    vars.push(tok.text, ...index.vars);
+                    js += `${tok.text}[${index}]`;
                 }
                 else {
                     js += tok.text;
-                    vars.push(tok.text);
                 }
                 break;
-            case 20 /* TokenType.Name */:
-                js += tok.text.slice(1);
+            case 20 /* TokenType.Field */:
+                js += 'form.' + tok.text.slice('$'.length);
                 break;
             case 17 /* TokenType.String */:
             case 18 /* TokenType.Number */:
@@ -4391,16 +4386,12 @@ function parseExpression(revToks, expectedEnd) {
                 js += '!';
                 continue;
             case 1 /* TokenType.LParen */:
-                const paren = parseExpression(revToks, 2 /* TokenType.RParen */);
+                js += '(' + parseExpression(revToks, 2 /* TokenType.RParen */) + ')';
                 consume(revToks, 2 /* TokenType.RParen */);
-                js += '(' + paren.js + ')';
-                vars.push(...paren.vars);
                 break;
             case 3 /* TokenType.LBracket */:
-                const list = parseList(revToks, 4 /* TokenType.RBracket */);
+                js += '[' + parseList(revToks, 4 /* TokenType.RBracket */) + ']';
                 consume(revToks, 4 /* TokenType.RBracket */);
-                js += '[' + list.js + ']';
-                vars.push(...list.vars);
                 break;
             default:
                 throw unexpectedTokenError(tok, revToks);
@@ -4415,7 +4406,7 @@ function parseExpression(revToks, expectedEnd) {
         if (type === expectedEnd ||
             (expectedEnd === 5 /* TokenType.Comma */ && type === 2 /* TokenType.RParen */) ||
             (expectedEnd === 4 /* TokenType.RBracket */ && type === 5 /* TokenType.Comma */)) {
-            return { js, vars };
+            return js;
         }
         // Operator.
         tok = revToks.pop();
@@ -4452,20 +4443,17 @@ function parseList(revToks, expectedEnd) {
     if (expectedEnd !== 5 /* TokenType.Comma */ && expectedEnd !== 4 /* TokenType.RBracket */) {
         throw new Error('invalid expectedEnd');
     }
-    let js = '';
-    const vars = [];
     let next = revToks[revToks.length - 1];
     if (next.type === 2 /* TokenType.RParen */ || next.type === 4 /* TokenType.RBracket */) {
         // empty list
-        return { js, vars };
+        return '';
     }
+    let js = '';
     while (true) {
-        const elem = parseExpression(revToks, expectedEnd);
-        js += elem.js;
-        vars.push(...elem.vars);
+        js += parseExpression(revToks, expectedEnd);
         next = revToks[revToks.length - 1];
         if (next.type === 2 /* TokenType.RParen */ || next.type === 4 /* TokenType.RBracket */) {
-            return { js, vars };
+            return js;
         }
         consume(revToks, 5 /* TokenType.Comma */);
         js += ', ';
@@ -4482,19 +4470,13 @@ function parseFunctionCall(name, revToks) {
     }
     if (name === 'IF_THEN_ELSE') {
         consume(revToks, 1 /* TokenType.LParen */);
-        const cond = parseExpression(revToks, 5 /* TokenType.Comma */);
-        let js = '(' + cond.js + ' ? ';
-        const vars = cond.vars;
+        let js = '(' + parseExpression(revToks, 5 /* TokenType.Comma */) + ' ? ';
         consume(revToks, 5 /* TokenType.Comma */);
-        const then = parseExpression(revToks, 5 /* TokenType.Comma */);
-        js += then.js + ' : ';
-        vars.push(...then.vars);
+        js += parseExpression(revToks, 5 /* TokenType.Comma */) + ' : ';
         consume(revToks, 5 /* TokenType.Comma */);
-        const otherwise = parseExpression(revToks, 5 /* TokenType.Comma */);
-        js += otherwise.js + ')';
-        vars.push(...otherwise.vars);
+        js += parseExpression(revToks, 5 /* TokenType.Comma */) + ')';
         consume(revToks, 2 /* TokenType.RParen */);
-        return { js, vars };
+        return js;
     }
     throw new Error('unsupported function: ' + name);
 }
@@ -4504,15 +4486,13 @@ function parseFunctionCall(name, revToks) {
   For example, the indicator function
     SUM(forms[0], $age, $gender = "male")
   can be parsed with
-    parseFunctionWithArgs('SUM', revToks, ['arg', 'field', 'formula?'])
+    parseFunctionWithArgs('SUM', revToks, ['arg', 'field', 'func(form)?'])
   resulting in the following JavaScript:
-    SUM(forms[0], 'age', "gender === \"male\"")
+    SUM(forms[0], 'age', (form) => form.gender === "male")
 */
 function parseFunctionWithArgs(name, revToks, args) {
     consume(revToks, 1 /* TokenType.LParen */);
     let argsJs = '';
-    const allVars = [];
-    let formulaVars = [];
     for (let i = 0; i < args.length; i++) {
         let argType = args[i];
         if (argType.endsWith('?') && revToks[revToks.length - 1].type === 2 /* TokenType.RParen */) {
@@ -4525,56 +4505,37 @@ function parseFunctionWithArgs(name, revToks, args) {
             consume(revToks, 5 /* TokenType.Comma */);
             argsJs += ', ';
         }
-        const firstArgTok = revToks[revToks.length - 1];
-        const arg = parseExpression(revToks, 5 /* TokenType.Comma */);
-        allVars.push(...arg.vars);
-        if (argType === 'formula') {
-            formulaVars.push(...arg.vars);
-            arg.js = quote(arg.js);
+        let argJs = parseExpression(revToks, 5 /* TokenType.Comma */);
+        if (argType === 'field' && isField(argJs)) {
+            argJs = "'" + argJs.slice('form.'.length) + "'";
         }
-        else if (argType === 'field' && firstArgTok.type === 20 /* TokenType.Name */ && isIdentifier(arg.js)) {
-            arg.js = `'${arg.js}'`;
+        else if (argType.startsWith('func')) {
+            argJs = argType.slice('func'.length) + ' => ' + argJs;
         }
-        argsJs += arg.js;
+        argsJs += argJs;
     }
     consume(revToks, 2 /* TokenType.RParen */);
-    const varsSet = new Set(formulaVars);
-    if (name === 'MAP') {
-        varsSet.delete('elem');
-    }
-    else if (name === 'OP') {
-        varsSet.delete('elemA');
-        varsSet.delete('elemB');
-    }
-    if (varsSet.size === 0) {
-        return { js: `${name}(${argsJs})`, vars: allVars };
-    }
-    return { js: `${name}.call({${[...varsSet].join(', ')}}, ${argsJs})`, vars: allVars };
+    return `${name}(${argsJs})`;
 }
-function isIdentifier(js) {
-    return /^[a-zA-Z_]\w*$/.test(js);
-}
-function quote(s) {
-    if (typeof (s) !== 'string') {
-        throw new Error('quote argument is not a string');
-    }
-    return JSON.stringify(s);
+function isField(js) {
+    return /^form\.[a-zA-Z_]\w*$/.test(js);
 }
 const functionArgs = {
-    SUM: ["arg", "field", "formula?"],
-    MEAN: ["arg", "field", "formula?"],
-    MAX: ["arg", "field", "formula?"],
-    MEDIAN: ["arg", "field", "formula?"],
-    MODE: ["arg", "field", "formula?"],
-    COUNT_FORMS: ["arg", "field"],
-    COUNT_REPS: ["arg", "field"],
-    ALL_VALUES_OF: ["arg", "field", "formula?"],
+    SUM: ["arg", "field", "func(form)?"],
+    MEAN: ["arg", "field", "func(form)?"],
+    MAX: ["arg", "field", "func(form)?"],
+    MEDIAN: ["arg", "field", "func(form)?"],
+    MODE: ["arg", "field", "func(form)?"],
+    COUNT_FORMS: ["arg", "func(form)"],
+    COUNT_REPS: ["arg", "func(form)"],
+    ALL_VALUES_OF: ["arg", "field", "func(form)?"],
     PERCENT: ["arg", "arg"],
+    FIRST: ["arg", "field", "arg?"],
     LAST: ["arg", "field", "arg?"],
-    MAP: ["arg", "formula"],
+    MAP: ["arg", "func(elem)"],
     INCLUDES: ["arg", "arg"],
-    FILTER_BY: ["arg", "formula"],
-    APPLY: ["arg", "field", "formula"],
+    FILTER_BY: ["arg", "func(form)"],
+    APPLY: ["arg", "field", "func(form)"],
     GET_AGE: ["arg"],
     LEN: ["arg"],
     CONCAT: ["arg", "arg"],
@@ -4582,8 +4543,8 @@ const functionArgs = {
     CONSOLE_LOG: ["arg"],
     JOIN_FORMS: ["arg", "arg", "field", "field?"],
     JOIN_REPEATING_SLIDES: ["arg", "arg", "field", "field", "field", "field?"],
-    FROM_REPS: ["arg", "formula"],
-    OP: ["arg", "arg", "formula"],
+    FROM_REPS: ["arg", "func(form)"],
+    OP: ["arg", "arg", "func(elemA, elemB)"],
     GET_LABELS: ["arg", "arg"],
     APPLY_LABELS: ["arg", "arg", "arg"],
     BUILD_DATASET: ["arg", "arg?"],
@@ -5020,7 +4981,7 @@ function xlsReport(file, http) {
                         js = indicatorToJs(elem.value);
                     }
                     catch (err) {
-                        const r = elem.__rowNum__;
+                        const r = Number(elem.__rowNum__) + 1;
                         err = new Error(`Error in variable "${elem.name}" (row ${r}): ${err.message}`);
                         window.alert(err.message);
                         throw err;
@@ -5211,7 +5172,7 @@ function _buildGraph(name, json) {
                         js = indicatorToJs(row[rowKey]);
                     }
                     catch (err) {
-                        const rowNum = row['__rowNum__'];
+                        const rowNum = Number(row['__rowNum__']) + 1;
                         err = new Error(`Error in "${name}", row ${rowNum}, column "${rowKey}": ${err.message}`);
                         window.alert(err.message);
                         throw err;
@@ -5311,7 +5272,7 @@ function _buildTable(sheetName, json) {
                         elem = indicatorToJs(elem);
                     }
                     catch (err) {
-                        const rowNum = row['__rowNum__'];
+                        const rowNum = Number(row['__rowNum__']) + 1;
                         err = new Error(`Error in "${sheetName}", row ${rowNum}, column "${title}": ${err.message}`);
                         window.alert(err.message);
                         throw err;

@@ -56,6 +56,8 @@ export declare class AjfExpressionUtils {
     };
 }
 export declare function evaluateExpression(expression: string, context?: AjfContext, forceFormula?: string): any;
+declare type Func = (c?: AjfContext) => any;
+export declare function createFunction(expression: string): Func;
 /**
  * It returns the count of digit inside x.
  */
@@ -145,51 +147,55 @@ export declare function getCoordinate(source: any, zoom?: number): [number, numb
  * Returns an array containing all the values that the specified field takes in the forms.
  * The values are converted to strings.
  */
-export declare function ALL_VALUES_OF(this: AjfContext | void, forms: MainForm[], field: string, expression?: string): string[];
+export declare function ALL_VALUES_OF(forms: MainForm[], field: string, filter?: Func | string): string[];
 export declare function plainArray(params: any[]): any[];
 /**
- * Returns the number of forms for which filterExpression evaluates to true,
+ * Returns the number of forms for which filter evaluates to true,
  * for the form itself or for any of its repetitions.
  */
-export declare function COUNT_FORMS(this: AjfContext | void, forms: MainForm[], expression?: string): number;
+export declare function COUNT_FORMS(forms: MainForm[], filter?: Func | string): number;
 /**
- * Counts the forms and all of their repetitions for which the expression evaluates to true.
+ * Counts the forms and all of their repetitions for which filter evaluates to true.
  */
-export declare function COUNT_REPS(this: AjfContext | void, forms: MainForm[], expression?: string): number;
+export declare function COUNT_REPS(forms: MainForm[], filter?: Func | string): number;
 /**
  * Deprecated. Use LEN(ALL_VALUES_OF)
  */
-export declare function COUNT_FORMS_UNIQUE(this: AjfContext, forms: MainForm[], field: string, expression?: string): number;
+export declare function COUNT_FORMS_UNIQUE(forms: MainForm[], field: string, filter?: Func | string): number;
 /**
  * Aggregates and sums the values of the specified field.
  * An optional expression can be added to filter which forms to take for the sum.
  */
-export declare function SUM(this: AjfContext | void, forms: (MainForm | Form)[], field: string, expression?: string): number;
+export declare function SUM(forms: (MainForm | Form)[], field: string, filter?: Func | string): number;
 /**
  * Computes the mean of the values of the specified field.
  * An optional expression can be added to filter which forms to take for the sum.
  */
-export declare function MEAN(this: AjfContext | void, forms: (Form | MainForm)[], field: string, expression?: string): number;
+export declare function MEAN(forms: (Form | MainForm)[], field: string, filter?: Func | string): number;
 /**
  * Calculates the % between two members.
  */
 export declare function PERCENT(value1: number, value2: number): string;
 /**
+ * Evaluates the expression in the first form by date.
+ */
+export declare function FIRST(forms: (Form | MainForm)[], expression: Func | string, date?: string): any;
+/**
  * Evaluates the expression in the last form by date.
  */
-export declare function LAST(this: AjfContext | void, forms: (Form | MainForm)[], expression: string, date?: string): any;
+export declare function LAST(forms: (Form | MainForm)[], expression: Func | string, date?: string): any;
 /**
  * Computes the max value of the field.
  */
-export declare function MAX(this: AjfContext | void, forms: (Form | MainForm)[], field: string, expression?: string): number;
+export declare function MAX(forms: (Form | MainForm)[], field: string, filter?: Func | string): number;
 /**
  * Computes the median value of the field.
  */
-export declare function MEDIAN(this: AjfContext | void, forms: (Form | MainForm)[], field: string, expression?: string): number;
+export declare function MEDIAN(forms: (Form | MainForm)[], field: string, filter?: Func | string): number;
 /**
  * Computes the mode value of the field.
  */
-export declare function MODE(this: AjfContext | void, forms: (Form | MainForm)[], field: string, expression?: string): number;
+export declare function MODE(forms: (Form | MainForm)[], field: string, filter?: Func | string): number;
 export declare function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
 /**
  * Build a dataset for ajf dynamic table
@@ -276,17 +282,16 @@ export declare function buildWidgetDatasetWithDialog(dataset: MainForm[], fields
 /**
  * Deprecated. Use MAP
  */
-export declare function REPEAT(this: AjfContext | void, forms: MainForm[], array: string[], fn: AjfValidationFn, field: string, expression?: string): any[];
+export declare function REPEAT(forms: MainForm[], array: string[], fn: AjfValidationFn, field: string, filter?: Func | string): any[];
 /**
- * Evaluates the expression for each element of the array and returns the array of results.
- * The current element can be accessed with the keyword elem.
+ * Maps func to the elements of array.
  */
-export declare function MAP(this: AjfContext | void, array: any[], expression: string): any[];
+export declare function MAP(array: any[], func: (a: any) => any): any[];
 /**
- * For each form in forms, the specified field is set with the value given by the evaluation of expression.
+ * For each form in forms, the specified field is set with the value given by expression.
  * The form's fields can be used inside expression.
  */
-export declare function APPLY(this: AjfContext | void, forms: MainForm[], field: string, expression: string): MainForm[];
+export declare function APPLY(forms: MainForm[], field: string, expression: Func | string): MainForm[];
 /**
  * Rounds num to the specified number of digits after the point (or zero).
  */
@@ -377,7 +382,7 @@ export declare function FILTER_BY_VARS(formList: MainForm[], expression: string)
 /**
  * Returns a copy of forms and its repetitions, keeping only the ones for which expression evaluates to true.
  */
-export declare function FILTER_BY(this: AjfContext | void, forms: MainForm[], expression: string): MainForm[];
+export declare function FILTER_BY(forms: MainForm[], expression: Func | string): MainForm[];
 /**
  * Returns today's date.
  *
@@ -487,17 +492,16 @@ export declare function JOIN_REPEATING_SLIDES(formsA: MainForm[], formsB: MainFo
  * @param {string} expression
  * @return {*}  {any[]}
  */
-export declare function FROM_REPS(this: AjfContext | void, form: MainForm, expression: string): any[];
+export declare function FROM_REPS(form: MainForm, expression: Func | string): any[];
 /**
  * Deprecated. Use INCLUDES
  */
 export declare function ISIN(dataset: any[], value: any): boolean;
 /**
- * Applies the operation defined by expression for every pair of elements of arrayA and arrayB,
- * returning the array of results. The current elements are identified by elemA and elemB.
- * For example, `OP([1, 2, 3], [10, 20, 30], "elemA + elemB")` returns `[11, 22, 33]`
+ * Applies the operator to every pair of elements (arrayA[i], arrayB[i]),
+ * returning the array of results.
  */
-export declare function OP(this: AjfContext | void, arrayA: any[], arrayB: any[], expression: string): any[];
+export declare function OP(arrayA: any[], arrayB: any[], operator: (a: any, b: any) => any): any[];
 /**
  * Given an array of values, returns the corresponding array of labels,
  * as specified by the choices origin in schema.
@@ -508,3 +512,4 @@ export declare function OP(this: AjfContext | void, arrayA: any[], arrayB: any[]
  * @return {*}  {string[]}
  */
 export declare function GET_LABELS(schema: any, values: string[]): string[];
+export {};
