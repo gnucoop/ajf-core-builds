@@ -282,7 +282,7 @@ export declare function buildWidgetDatasetWithDialog(dataset: MainForm[], fields
 /**
  * Deprecated. Use MAP
  */
-export declare function REPEAT(forms: MainForm[], array: string[], fn: any, a: string, b?: string): any[];
+export declare function REPEAT(forms: MainForm[], array: string[], fn: any, arg1: string, arg2?: string): any[];
 /**
  * Maps func to the elements of array.
  */
@@ -501,7 +501,7 @@ export declare function ISIN(dataset: any[], value: any): boolean;
  * Applies the operator to every pair of elements (arrayA[i], arrayB[i]),
  * returning the array of results.
  */
-export declare function OP(arrayA: any[], arrayB: any[], operator: (a: any, b: any) => any): any[];
+export declare function OP(arrayA: any[], arrayB: any[], operator: ((a: any, b: any) => any) | string): any[];
 /**
  * Given an array of values, returns the corresponding array of labels,
  * as specified by the choices origin in schema.

@@ -362,9 +362,10 @@ function evaluateExpression(expression, context, forceFormula) {
     return createFunction(forceFormula || expression)(context);
 }
 function createFunction(expression) {
-    if (!expression) {
-        return _ => '';
+    if (expression == null) {
+        return _ => null;
     }
+    expression = String(expression);
     if (expression === 'true') {
         return _ => true;
     }
@@ -1368,21 +1369,12 @@ function buildWidgetDatasetWithDialog(dataset, fields, dialogFields, dialogLabel
 /**
  * Deprecated. Use MAP
  */
-function REPEAT(forms, array, fn, a, b = 'true') {
-    let funcA;
-    const isFuncA = fn === COUNT_FORMS || fn === COUNT_REPS || fn === FILTER_BY || fn === FROM_REPS;
-    if (isFuncA) {
-        funcA = createFunction(a);
-    }
-    let funcB;
-    const isFuncB = fn !== FIRST && fn !== LAST && fn !== APPLY_LABELS;
-    if (isFuncB) {
-        funcB = createFunction(b);
-    }
-    return array.map(current => {
-        const currentA = isFuncA ? (ctx) => funcA(Object.assign(Object.assign({}, ctx), { current })) : a;
-        const currentB = isFuncB ? (ctx) => funcB(Object.assign(Object.assign({}, ctx), { current })) : b;
-        return fn(forms, currentA, currentB);
+function REPEAT(forms, array, fn, arg1, arg2 = 'true') {
+    return array.map(v => {
+        const s = JSON.stringify(v);
+        const current1 = arg1.replaceAll('current', s);
+        const current2 = arg2.replaceAll('current', s);
+        return fn(forms, current1, current2);
     });
 }
 /**
@@ -1951,6 +1943,10 @@ function ISIN(dataset, value) {
  * returning the array of results.
  */
 function OP(arrayA, arrayB, operator) {
+    if (typeof (operator) === 'string') {
+        const func = createFunction(operator);
+        operator = (elemA, elemB) => func({ elemA, elemB });
+    }
     const res = [];
     for (let i = 0; i < Math.min(arrayA.length, arrayB.length); i++) {
         const val = operator(arrayA[i], arrayB[i]);
