@@ -282,7 +282,7 @@ export declare function buildWidgetDatasetWithDialog(dataset: MainForm[], fields
 /**
  * Deprecated. Use MAP
  */
-export declare function REPEAT(forms: MainForm[], array: string[], fn: AjfValidationFn, field: string, filter?: Func | string): any[];
+export declare function REPEAT(forms: MainForm[], array: string[], fn: any, a: string, b?: string): any[];
 /**
  * Maps func to the elements of array.
  */

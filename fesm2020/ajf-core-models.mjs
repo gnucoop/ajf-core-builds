@@ -1478,13 +1478,21 @@ function buildWidgetDatasetWithDialog(dataset, fields, dialogFields, dialogLabel
 /**
  * Deprecated. Use MAP
  */
-function REPEAT(forms, array, fn, field, filter = 'true') {
-    if (typeof (filter) === 'string') {
-        filter = createFunction(filter);
+function REPEAT(forms, array, fn, a, b = 'true') {
+    let funcA;
+    const isFuncA = fn === COUNT_FORMS || fn === COUNT_REPS || fn === FILTER_BY || fn === FROM_REPS;
+    if (isFuncA) {
+        funcA = createFunction(a);
+    }
+    let funcB;
+    const isFuncB = fn !== FIRST && fn !== LAST && fn !== APPLY_LABELS;
+    if (isFuncB) {
+        funcB = createFunction(b);
     }
     return array.map(current => {
-        const currentFilter = (ctx) => filter({ ...ctx, current });
-        return fn(forms, field, currentFilter);
+        const currentA = isFuncA ? (ctx) => funcA({ ...ctx, current }) : a;
+        const currentB = isFuncB ? (ctx) => funcB({ ...ctx, current }) : b;
+        return fn(forms, currentA, currentB);
     });
 }
 /**
