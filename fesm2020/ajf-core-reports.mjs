@@ -4468,7 +4468,7 @@ function parseFunctionCall(name, revToks) {
     if (args) {
         return parseFunctionWithArgs(name, revToks, args);
     }
-    if (name === 'IF_THEN_ELSE') {
+    if (name === 'IF') {
         consume(revToks, 1 /* TokenType.LParen */);
         let js = '(' + parseExpression(revToks, 5 /* TokenType.Comma */) + ' ? ';
         consume(revToks, 5 /* TokenType.Comma */);

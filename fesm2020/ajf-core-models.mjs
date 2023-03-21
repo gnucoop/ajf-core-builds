@@ -1516,7 +1516,7 @@ function ROUND(num, digits) {
     return round(num, digits);
 }
 /**
- * Deprecated. Use IF_THEN_ELSE
+ * Deprecated. Use IF
  */
 function EVALUATE(condition, branch1, branch2) {
     if (evaluateExpression(condition)) {

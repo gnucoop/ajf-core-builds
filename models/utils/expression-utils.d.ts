@@ -297,7 +297,7 @@ export declare function APPLY(forms: MainForm[], field: string, expression: Func
  */
 export declare function ROUND(num: number | string, digits?: number): number;
 /**
- * Deprecated. Use IF_THEN_ELSE
+ * Deprecated. Use IF
  */
 export declare function EVALUATE(condition: string, branch1: any, branch2: any): any;
 /**
