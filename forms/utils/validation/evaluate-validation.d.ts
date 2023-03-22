@@ -25,4 +25,4 @@ import { AjfValidationResult } from '../../interface/validation/validation-resul
 /**
  * It evaluates validation and returns an AjfValidationResult.
  */
-export declare function evaluateValidation(validation: AjfValidation, context?: AjfContext, forceFormula?: string): AjfValidationResult;
+export declare function evaluateValidation(validation: AjfValidation, context?: AjfContext): AjfValidationResult;

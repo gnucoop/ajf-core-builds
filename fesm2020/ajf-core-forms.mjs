@@ -718,9 +718,9 @@ function updateNextSlideCondition(instance, context) {
 /**
  * It evaluates validation and returns an AjfValidationResult.
  */
-function evaluateValidation(validation, context, forceFormula) {
+function evaluateValidation(validation, context) {
     return {
-        result: evaluateExpression(validation.condition, context, forceFormula),
+        result: evaluateExpression(validation.condition, context),
         error: validation.errorMessage,
         clientValidation: validation.clientValidation,
     };
@@ -1090,9 +1090,9 @@ function updateValidation(instance, context, supplementaryInformations) {
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-function evaluateWarning(warning, context, forceFormula) {
+function evaluateWarning(warning, context) {
     return {
-        result: evaluateExpression(warning.condition, context, forceFormula),
+        result: evaluateExpression(warning.condition, context),
         warning: warning.warningMessage,
     };
 }

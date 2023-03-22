@@ -446,8 +446,8 @@ function cloneMainForms(forms) {
     }
     return res;
 }
-function evaluateExpression(expression, context, forceFormula) {
-    return createFunction(forceFormula || expression)(context);
+function evaluateExpression(expression, context) {
+    return createFunction(expression)(context);
 }
 function createFunction(expression) {
     if (expression == null) {

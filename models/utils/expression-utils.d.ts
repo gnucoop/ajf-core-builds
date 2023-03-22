@@ -55,7 +55,7 @@ export declare class AjfExpressionUtils {
         [name: string]: AjfValidationFn;
     };
 }
-export declare function evaluateExpression(expression: string, context?: AjfContext, forceFormula?: string): any;
+export declare function evaluateExpression(expression: string, context?: AjfContext): any;
 declare type Func = (c?: AjfContext) => any;
 export declare function createFunction(expression: string): Func;
 /**

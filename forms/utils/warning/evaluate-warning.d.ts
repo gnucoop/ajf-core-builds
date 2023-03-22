@@ -22,4 +22,4 @@
 import { AjfContext } from '@ajf/core/models';
 import { AjfWarning } from '../../interface/warning/warning';
 import { AjfWarningResult } from '../../interface/warning/warning-result';
-export declare function evaluateWarning(warning: AjfWarning, context?: AjfContext, forceFormula?: string): AjfWarningResult;
+export declare function evaluateWarning(warning: AjfWarning, context?: AjfContext): AjfWarningResult;
