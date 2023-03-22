@@ -6,8 +6,8 @@ import { firstValueFrom, Subject, BehaviorSubject, Subscription, Observable, of,
 import { toArray, map, withLatestFrom, filter, share, startWith, scan, switchMap, distinctUntilChanged, pairwise, delayWhen, shareReplay, catchError } from 'rxjs/operators';
 import { evaluateExpression, alwaysCondition, neverCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, getCodeIdentifiers, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
-import { __awaiter, __rest } from 'tslib';
 import { format } from 'date-fns';
+import { __awaiter, __rest } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import * as i3 from '@ajf/core/file-input';
 import { fileIcon, AjfFileInputModule } from '@ajf/core/file-input';
@@ -3344,12 +3344,28 @@ class AjfFormRendererService {
             this._form.next({ form: form, context: context });
         }
     }
+    /**
+     * Replace date values in this format "2023-03-28T22:00:00.000Z" with "yyyy-MM-dd" format
+     * @param ctx
+     */
+    _fixDates(ctx) {
+        if (ctx) {
+            Object.keys(ctx).forEach(k => {
+                const v = ctx[k];
+                if (typeof v === 'string' && /^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\dZ$/.test(v)) {
+                    const d = format(new Date(v), 'yyyy-MM-dd');
+                    ctx[k] = d;
+                }
+            });
+        }
+    }
     getFormValue() {
         const formGroup = this._formGroup.getValue();
         if (formGroup == null) {
             return {};
         }
         let res = deepCopy(formGroup.value);
+        this._fixDates(res);
         return res;
     }
     addGroup(group) {

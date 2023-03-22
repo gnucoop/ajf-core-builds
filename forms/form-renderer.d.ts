@@ -79,6 +79,11 @@ export declare class AjfFormRendererService {
     get currentSupplementaryInformations(): any;
     constructor(_: AjfValidationService);
     setForm(form: AjfForm | null, context?: AjfContext): void;
+    /**
+     * Replace date values in this format "2023-03-28T22:00:00.000Z" with "yyyy-MM-dd" format
+     * @param ctx
+     */
+    private _fixDates;
     getFormValue(): any;
     addGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean>;
     removeGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean>;

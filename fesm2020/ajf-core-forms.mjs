@@ -3449,12 +3449,28 @@ class AjfFormRendererService {
             this._form.next({ form: form, context: context });
         }
     }
+    /**
+     * Replace date values in this format "2023-03-28T22:00:00.000Z" with "yyyy-MM-dd" format
+     * @param ctx
+     */
+    _fixDates(ctx) {
+        if (ctx) {
+            Object.keys(ctx).forEach(k => {
+                const v = ctx[k];
+                if (typeof v === 'string' && /^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d\.\d\d\dZ$/.test(v)) {
+                    const d = format(new Date(v), 'yyyy-MM-dd');
+                    ctx[k] = d;
+                }
+            });
+        }
+    }
     getFormValue() {
         const formGroup = this._formGroup.getValue();
         if (formGroup == null) {
             return {};
         }
         let res = deepCopy(formGroup.value);
+        this._fixDates(res);
         return res;
     }
     addGroup(group) {
