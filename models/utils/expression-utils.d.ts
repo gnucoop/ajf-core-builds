@@ -303,7 +303,7 @@ export declare function EVALUATE(condition: string, branch1: any, branch2: any):
 /**
  * Tells if arr includes elem
  */
-export declare function INCLUDES(arr: any[], elem: any): boolean;
+export declare function INCLUDES(arr: (any[]) | string, elem: any): boolean;
 /**
  * This function builds a data structure that allows the use of the hindikit formulas
  * for every forms with repeating slides.

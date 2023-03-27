@@ -415,6 +415,7 @@ AjfExpressionUtils.utils = {
     JOIN_REPEATING_SLIDES: { fn: JOIN_REPEATING_SLIDES },
     FROM_REPS: { fn: FROM_REPS },
     ISIN: { fn: ISIN },
+    MAP: { fn: MAP },
     OP: { fn: OP },
     GET_LABELS: { fn: GET_LABELS },
     APPLY_LABELS: { fn: APPLY_LABELS },
@@ -1530,6 +1531,9 @@ function EVALUATE(condition, branch1, branch2) {
  * Tells if arr includes elem
  */
 function INCLUDES(arr, elem) {
+    if (!Array.isArray(arr) && typeof (arr) !== 'string') {
+        return false;
+    }
     return arr.includes(elem);
 }
 /**
