@@ -433,6 +433,8 @@ export declare function CONCAT(a: any[], b: any[]): any[];
  * @return {*}  {any[]}
  */
 export declare function REMOVE_DUPLICATES(arr: any[]): any[];
+export declare function ADD_DAYS(date: string, days: number): string;
+export declare function DAYS_DIFF(a: string, b: string): number;
 /**
  * Returns true if date is before dateToCompare.
  *

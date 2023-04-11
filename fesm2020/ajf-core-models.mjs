@@ -400,6 +400,8 @@ AjfExpressionUtils.utils = {
     buildWidgetDatasetWithDialog: { fn: buildWidgetDatasetWithDialog },
     FILTER_BY_VARS: { fn: FILTER_BY_VARS },
     FILTER_BY: { fn: FILTER_BY },
+    ADD_DAYS: { fn: ADD_DAYS },
+    DAYS_DIFF: { fn: DAYS_DIFF },
     IS_BEFORE: { fn: IS_BEFORE },
     IS_AFTER: { fn: IS_AFTER },
     IS_WITHIN_INTERVAL: { fn: IS_WITHIN_INTERVAL },
@@ -1904,6 +1906,22 @@ function CONCAT(a, b) {
 function REMOVE_DUPLICATES(arr) {
     return [...new Map(arr.map(v => [JSON.stringify(v), v])).values()];
 }
+// Returns the date obtained by adding days to date.
+function ADD_DAYS(date, days) {
+    const d = new Date(date);
+    d.setDate(d.getDate() + days);
+    return d.toJSON().slice(0, 10);
+}
+// Returns the difference in days (a - b) between the two dates.
+function DAYS_DIFF(a, b) {
+    const dateA = new Date(a);
+    const dateB = new Date(b);
+    // UTC avoids bugs with daylight saving time.
+    const utcA = Date.UTC(dateA.getFullYear(), dateA.getMonth(), dateA.getDate());
+    const utcB = Date.UTC(dateB.getFullYear(), dateB.getMonth(), dateB.getDate());
+    const millisPerDay = 1000 * 60 * 60 * 24;
+    return Math.floor((utcA - utcB) / millisPerDay);
+}
 /**
  * Returns true if date is before dateToCompare.
  *
@@ -2260,5 +2278,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, EVALUATE, FILTER_BY, FILTER_BY_VARS, FIRST, FROM_REPS, GET_AGE, GET_LABELS, INCLUDES, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAP, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildAlignedDataset, buildAlignedFormDataset, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, createFunction, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { ADD_DAYS, ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, DAYS_DIFF, EVALUATE, FILTER_BY, FILTER_BY_VARS, FIRST, FROM_REPS, GET_AGE, GET_LABELS, INCLUDES, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAP, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildAlignedDataset, buildAlignedFormDataset, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, createFunction, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=ajf-core-models.mjs.map
