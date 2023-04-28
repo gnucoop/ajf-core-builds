@@ -1065,15 +1065,19 @@ function FIRST(forms, expression, date = 'created_at') {
     if (typeof (expression) === 'string') {
         expression = createFunction(expression);
     }
-    forms = (forms || []).filter(f => f != null).sort((a, b) => {
-        const dateA = new Date(b[date]).getTime();
-        const dateB = new Date(a[date]).getTime();
-        return dateA - dateB;
-    });
+    forms = (forms || []).filter(f => f != null && f[date] != null);
     if (forms.length === 0) {
         return undefined;
     }
-    return expression(forms[0]);
+    let form = forms[0];
+    let minDate = form[date];
+    for (let i = 1; i < forms.length; i++) {
+        if (forms[i][date] < minDate) {
+            form = forms[i];
+            minDate = form[date];
+        }
+    }
+    return expression(form);
 }
 /**
  * Evaluates the expression in the last form by date.
@@ -1082,15 +1086,19 @@ function LAST(forms, expression, date = 'created_at') {
     if (typeof (expression) === 'string') {
         expression = createFunction(expression);
     }
-    forms = (forms || []).filter(f => f != null).sort((a, b) => {
-        const dateA = new Date(b[date]).getTime();
-        const dateB = new Date(a[date]).getTime();
-        return dateA - dateB;
-    });
+    forms = (forms || []).filter(f => f != null && f[date] != null);
     if (forms.length === 0) {
         return undefined;
     }
-    return expression(forms[forms.length - 1]);
+    let form = forms[forms.length - 1];
+    let maxDate = form[date];
+    for (let i = forms.length - 2; i >= 0; i--) {
+        if (forms[i][date] > maxDate) {
+            form = forms[i];
+            maxDate = form[date];
+        }
+    }
+    return expression(form);
 }
 /**
  * Computes the max value of the field.
