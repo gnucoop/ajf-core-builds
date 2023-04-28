@@ -44,6 +44,46 @@ import { createPdf } from '@ajf/core/pdfmake';
  *
  */
 /**
+ * It casts an AjfNodeInstance as a string of all validation errors of an AjfFieldInstance.
+ */
+class AjfAsFieldInstanceErrorsPipe {
+    transform(instance) {
+        const fieldInstance = instance;
+        if (fieldInstance.valid || !fieldInstance.validationResults)
+            return null;
+        const errors = fieldInstance.validationResults.filter(res => !res.result);
+        return errors.map(vr => vr.error).join(', ');
+    }
+}
+AjfAsFieldInstanceErrorsPipe.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfAsFieldInstanceErrorsPipe, deps: [], target: i0.ɵɵFactoryTarget.Pipe });
+AjfAsFieldInstanceErrorsPipe.ɵpipe = i0.ɵɵngDeclarePipe({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfAsFieldInstanceErrorsPipe, name: "ajfAsFieldInstanceErrors" });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfAsFieldInstanceErrorsPipe, decorators: [{
+            type: Pipe,
+            args: [{ name: 'ajfAsFieldInstanceErrors' }]
+        }] });
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+/**
  * It casts an AjfNodeInstance as AjfFieldInstance.
  */
 class AjfAsFieldInstancePipe {
@@ -6525,6 +6565,7 @@ class AjfFormsModule {
 }
 AjfFormsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfFormsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
 AjfFormsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.4", ngImport: i0, type: AjfFormsModule, declarations: [AjfAsFieldInstancePipe,
+        AjfAsFieldInstanceErrorsPipe,
         AjfAsRepeatingSlideInstancePipe,
         AjfBoolToIntPipe,
         AjfDateValuePipe,
@@ -6557,6 +6598,7 @@ AjfFormsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version:
         HttpClientModule,
         ReactiveFormsModule,
         AjfTranslocoModule], exports: [AjfAsFieldInstancePipe,
+        AjfAsFieldInstanceErrorsPipe,
         AjfAsRepeatingSlideInstancePipe,
         AjfBoolToIntPipe,
         AjfDateValuePipe,
@@ -6595,6 +6637,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImpor
             args: [{
                     declarations: [
                         AjfAsFieldInstancePipe,
+                        AjfAsFieldInstanceErrorsPipe,
                         AjfAsRepeatingSlideInstancePipe,
                         AjfBoolToIntPipe,
                         AjfDateValuePipe,
@@ -6633,6 +6676,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImpor
                     ],
                     exports: [
                         AjfAsFieldInstancePipe,
+                        AjfAsFieldInstanceErrorsPipe,
                         AjfAsRepeatingSlideInstancePipe,
                         AjfBoolToIntPipe,
                         AjfDateValuePipe,
@@ -6661,7 +6705,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImpor
                         AjfTableVisibleColumnsPipe,
                         AjfValidSlidePipe,
                     ],
-                    providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService]
+                    providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService],
                 }]
         }] });
 
@@ -8260,5 +8304,5 @@ function notEmptyWarning() {
  * Generated bundle index. Do not edit.
  */
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFileFieldComponent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormStringIdentifierPipe, AjfFormsModule, AjfGetTableCellControlPipe, AjfImageFieldComponent, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsReadonlyInputFieldPipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyFieldComponent, AjfReadOnlyFileFieldComponent, AjfReadOnlyImageFieldComponent, AjfReadOnlySelectFieldComponent, AjfReadOnlyTableFieldComponent, AjfReadOnlyVideoUrlFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfVideoUrlFieldComponent, AjfWarningGroupSerializer, buildFormStringIdentifier, buildformDatas, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createFormPdf, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, generateRandomCtx, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRangeField, isRepeatingContainerNode, isSlidesNode, isTableField, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning };
+export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstanceErrorsPipe, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFileFieldComponent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormStringIdentifierPipe, AjfFormsModule, AjfGetTableCellControlPipe, AjfImageFieldComponent, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsReadonlyInputFieldPipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyFieldComponent, AjfReadOnlyFileFieldComponent, AjfReadOnlyImageFieldComponent, AjfReadOnlySelectFieldComponent, AjfReadOnlyTableFieldComponent, AjfReadOnlyVideoUrlFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfVideoUrlFieldComponent, AjfWarningGroupSerializer, buildFormStringIdentifier, buildformDatas, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createFormPdf, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, generateRandomCtx, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRangeField, isRepeatingContainerNode, isSlidesNode, isTableField, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning };
 //# sourceMappingURL=ajf-core-forms.mjs.map

@@ -19,6 +19,7 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+export * from './as-validation-errors-string';
 export * from './as-field-instance';
 export * from './as-repeating-slide-instance';
 export * from './base-field';
