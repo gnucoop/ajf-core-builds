@@ -3227,10 +3227,10 @@ function parseExpression(revToks, expectedEnd) {
                 }
                 throw unexpectedTokenError(tok, revToks);
             case 14 /* TokenType.Equal */:
-                js += ' === ';
+                js += ' == ';
                 break;
             case 15 /* TokenType.NotEqual */:
-                js += ' !== ';
+                js += ' != ';
                 break;
             default:
                 throw unexpectedTokenError(tok, revToks);

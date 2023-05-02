@@ -283,11 +283,7 @@ AjfExpressionUtils.utils = {
     formatDate: { fn: formatDate },
     isoMonth: { fn: isoMonth },
     getCoordinate: { fn: getCoordinate },
-    Math: { fn: Math },
-    parseInt: { fn: parseInt },
-    parseFloat: { fn: parseFloat },
     parseDate: { fn: dateUtils.parse },
-    Date: { fn: Date },
     plainArray: { fn: plainArray },
     COUNT_FORMS: { fn: COUNT_FORMS },
     COUNT_FORMS_UNIQUE: { fn: COUNT_FORMS_UNIQUE },
@@ -364,6 +360,10 @@ function cloneMainForms(forms) {
 function evaluateExpression(expression, context) {
     return createFunction(expression)(context);
 }
+const globals = [
+    'this', 'true', 'false', 'null', 'undefined', 'Infinity', 'NaN', 'isNaN', 'isFinite',
+    'Object', 'String', 'Array', 'Set', 'Map', 'Number', 'Date', 'Math', 'parseInt', 'parseFloat',
+];
 function createFunction(expression) {
     if (expression == null) {
         return _ => null;
@@ -382,7 +382,11 @@ function createFunction(expression) {
         let str = expression.slice(1, -1);
         return _ => str;
     }
-    const argNames = [...new Set(getCodeIdentifiers(expression, true)).add('execContext')];
+    const identifiers = new Set(getCodeIdentifiers(expression, true)).add('execContext');
+    for (const ide of globals) {
+        identifiers.delete(ide);
+    }
+    const argNames = [...identifiers];
     let func;
     try {
         func = new Function(...argNames, 'return ' + expression);
