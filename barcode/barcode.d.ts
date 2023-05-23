@@ -19,15 +19,22 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-import { ChangeDetectorRef, ElementRef, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
+import { Observable } from 'rxjs';
 import * as i0 from "@angular/core";
 export declare abstract class AjfBarcode implements ControlValueAccessor {
     protected _cdr: ChangeDetectorRef;
     private _renderer;
+    resetEvt: EventEmitter<void>;
     barcodeVideo: ElementRef<HTMLVideoElement>;
     barcodeVideoPreview: ElementRef<HTMLDivElement>;
     barcodeImagePreview: ElementRef<HTMLImageElement>;
+    /**
+     * The Mat select component for choosing the preferred video source
+     */
+    videoSourceSelect: MatSelect;
     /**
      * A html video element created at runtime
      *
@@ -51,9 +58,16 @@ export declare abstract class AjfBarcode implements ControlValueAccessor {
     set toggle(val: string);
     private _showSwitchButton;
     get showSwitchButton(): boolean;
-    private _deviceId?;
-    private _streams;
-    private _currentStream;
+    /**
+     * An observable of all video mediaDevices
+     */
+    private _videoDevices;
+    get videoDevices(): Observable<MediaDeviceInfo[]>;
+    /**
+     * The mediastream currently being streamed
+     */
+    private _currentVideoStream;
+    get currentVideoStream(): MediaStream | null;
     private _scannerControls?;
     private _codeReader;
     private _onChangeCallback;
@@ -70,8 +84,23 @@ export declare abstract class AjfBarcode implements ControlValueAccessor {
     registerOnTouched(fn: () => void): void;
     private _onSelect;
     private _setImagePreview;
-    private _initVideoStreams;
-    private _setCurrentStream;
+    protected initVideoStreams(): void;
+    /**
+     * Gets all video mediaDevices (cameras)
+     * @returns An observable with all video mediaDevices
+     */
+    private _getVideoDevices;
+    /**
+     * Gets the current video stream and updates the video element source
+     * @returns An observable of the current media stream
+     */
+    protected getStream(): Observable<MediaStream>;
+    /**
+     * Updates the video element source with the current video stream
+     * @param stream The video stream
+     */
+    private _gotStream;
+    stopCurrentStream(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfBarcode, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBarcode, never, never, {}, {}, never, never, false, never>;
 }
