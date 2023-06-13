@@ -397,7 +397,7 @@ export declare function TODAY(format?: string): string;
  * @export
  * @param {*} val
  */
-export declare function CONSOLE_LOG(val: any): void;
+export declare function CONSOLE_LOG(val: any): any;
 /**
  * Computes the current age in years, given the date of birth.
  *
