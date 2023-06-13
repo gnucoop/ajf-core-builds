@@ -6204,6 +6204,61 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImpor
                 }] }, { type: i2$1.DomSanitizer }]; } });
 
 /**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+/**
+ * This component allows you to show the geolocation info: latitude and longitude
+ * the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyGeolocationFieldComponent
+ */
+class AjfReadOnlyGeolocationFieldComponent extends AjfBaseFieldComponent {
+    constructor(cdr, service, was) {
+        super(cdr, service, was);
+        const coordinates = this.control.pipe(filter(control => control != null), map(ctrl => {
+            let coords = [];
+            if (ctrl) {
+                const values = ctrl.value;
+                if (values && values.length) {
+                    coords = values.split(',');
+                }
+            }
+            return coords;
+        }));
+        this.latitude = coordinates.pipe(map(coords => (coords && coords.length > 0 ? coords[0] : '')));
+        this.longitude = coordinates.pipe(map(coords => (coords && coords.length > 1 ? coords[1] : '')));
+    }
+}
+AjfReadOnlyGeolocationFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReadOnlyGeolocationFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
+AjfReadOnlyGeolocationFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "15.0.4", type: AjfReadOnlyGeolocationFieldComponent, selector: "ajf-read-only-geolocation-field", usesInheritance: true, ngImport: i0, template: "<ng-container *ngIf=\"control|async as ctrl\">\n  <div class=\"flex-container\">\n    <div class=\"flex-child\">\n      {{'Latitude'|transloco}}: {{latitude|async}}\n    </div>\n    <div class=\"flex-child\">\n      {{'Longitude'|transloco}}: {{longitude|async}}\n    </div>\n  </div>\n</ng-container>", styles: ["ajf-read-only-geolocation-field .flex-container{display:flex;flex-wrap:wrap}ajf-read-only-geolocation-field .flex-child:first-child{margin-right:15px}\n"], dependencies: [{ kind: "directive", type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "pipe", type: i2.AsyncPipe, name: "async" }, { kind: "pipe", type: i3$1.TranslocoPipe, name: "transloco" }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReadOnlyGeolocationFieldComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'ajf-read-only-geolocation-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<ng-container *ngIf=\"control|async as ctrl\">\n  <div class=\"flex-container\">\n    <div class=\"flex-child\">\n      {{'Latitude'|transloco}}: {{latitude|async}}\n    </div>\n    <div class=\"flex-child\">\n      {{'Longitude'|transloco}}: {{longitude|async}}\n    </div>\n  </div>\n</ng-container>", styles: ["ajf-read-only-geolocation-field .flex-container{display:flex;flex-wrap:wrap}ajf-read-only-geolocation-field .flex-child:first-child{margin-right:15px}\n"] }]
+        }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: undefined, decorators: [{
+                    type: Inject,
+                    args: [AJF_WARNING_ALERT_SERVICE]
+                }] }]; } });
+
+/**
  * This component allows you to show the image related to url contained in the control of
  * the form inherited from AjfBaseFieldComponent.
  *
@@ -6695,6 +6750,7 @@ AjfFormsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version:
         AjfRangePipe,
         AjfReadOnlyFieldComponent,
         AjfReadOnlyFileFieldComponent,
+        AjfReadOnlyGeolocationFieldComponent,
         AjfReadOnlyImageFieldComponent,
         AjfReadOnlySelectFieldComponent,
         AjfReadOnlyTableFieldComponent,
@@ -6728,6 +6784,7 @@ AjfFormsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version:
         AjfRangePipe,
         AjfReadOnlyFieldComponent,
         AjfReadOnlyFileFieldComponent,
+        AjfReadOnlyGeolocationFieldComponent,
         AjfReadOnlyImageFieldComponent,
         AjfReadOnlySelectFieldComponent,
         AjfReadOnlyTableFieldComponent,
@@ -6767,6 +6824,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImpor
                         AjfRangePipe,
                         AjfReadOnlyFieldComponent,
                         AjfReadOnlyFileFieldComponent,
+                        AjfReadOnlyGeolocationFieldComponent,
                         AjfReadOnlyImageFieldComponent,
                         AjfReadOnlySelectFieldComponent,
                         AjfReadOnlyTableFieldComponent,
@@ -6806,6 +6864,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImpor
                         AjfRangePipe,
                         AjfReadOnlyFieldComponent,
                         AjfReadOnlyFileFieldComponent,
+                        AjfReadOnlyGeolocationFieldComponent,
                         AjfReadOnlyImageFieldComponent,
                         AjfReadOnlySelectFieldComponent,
                         AjfReadOnlyTableFieldComponent,
@@ -10065,5 +10124,5 @@ function notEmptyWarning() {
  * Generated bundle index. Do not edit.
  */
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstanceErrorsPipe, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFileFieldComponent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormStringIdentifierPipe, AjfFormsModule, AjfGetTableCellControlPipe, AjfImageFieldComponent, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsReadonlyInputFieldPipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyFieldComponent, AjfReadOnlyFileFieldComponent, AjfReadOnlyImageFieldComponent, AjfReadOnlySelectFieldComponent, AjfReadOnlyTableFieldComponent, AjfReadOnlyVideoUrlFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfVideoUrlFieldComponent, AjfWarningGroupSerializer, buildFormStringIdentifier, buildformDatas, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createFormPdf, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, generateRandomCtx, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRangeField, isRepeatingContainerNode, isSlidesNode, isTableField, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning };
+export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstanceErrorsPipe, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFileFieldComponent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormStringIdentifierPipe, AjfFormsModule, AjfGetTableCellControlPipe, AjfImageFieldComponent, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsReadonlyInputFieldPipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyFieldComponent, AjfReadOnlyFileFieldComponent, AjfReadOnlyGeolocationFieldComponent, AjfReadOnlyImageFieldComponent, AjfReadOnlySelectFieldComponent, AjfReadOnlyTableFieldComponent, AjfReadOnlyVideoUrlFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfVideoUrlFieldComponent, AjfWarningGroupSerializer, buildFormStringIdentifier, buildformDatas, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createFormPdf, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, generateRandomCtx, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRangeField, isRepeatingContainerNode, isSlidesNode, isTableField, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning };
 //# sourceMappingURL=ajf-core-forms.mjs.map

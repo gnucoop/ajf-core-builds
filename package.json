@@ -1,6 +1,6 @@
 {
   "name": "@ajf/core",
-  "version": "15.2.2-c37c9740",
+  "version": "15.2.2-f0f33138",
   "description": "",
   "repository": {
     "type": "git",
@@ -117,6 +117,14 @@
       "es2015": "./fesm2015/ajf-core-forms.mjs",
       "node": "./fesm2015/ajf-core-forms.mjs",
       "default": "./fesm2020/ajf-core-forms.mjs"
+    },
+    "./geolocation": {
+      "types": "./geolocation/index.d.ts",
+      "esm2020": "./esm2020/geolocation/ajf-core-geolocation.mjs",
+      "es2020": "./fesm2020/ajf-core-geolocation.mjs",
+      "es2015": "./fesm2015/ajf-core-geolocation.mjs",
+      "node": "./fesm2015/ajf-core-geolocation.mjs",
+      "default": "./fesm2020/ajf-core-geolocation.mjs"
     },
     "./graph": {
       "types": "./graph/index.d.ts",
