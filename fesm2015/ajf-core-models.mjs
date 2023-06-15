@@ -1740,11 +1740,10 @@ function FILTER_BY(forms, expression) {
  * Returns today's date.
  *
  * @export
- * @param {string} [format='yyyy-MM-dd']
  * @return {*}  {string}
  */
-function TODAY(format = 'yyyy-MM-dd') {
-    return dateFns.format(new Date(), format);
+function TODAY() {
+    return new Date().toJSON().slice(0, 10);
 }
 /**
  * Logs val to the console.
@@ -1761,13 +1760,21 @@ function CONSOLE_LOG(val) {
  *
  * @export
  * @param {(string | null)} dob
+ * @param {(string | undefined)} when
  * @return {*}  {number}
  */
-function GET_AGE(dob) {
+function GET_AGE(dob, when) {
     if (dob == null) {
         return NaN;
     }
-    return dateFns.differenceInYears(new Date(), new Date(dob));
+    if (when == null) {
+        when = TODAY();
+    }
+    let yearsDiff = Number(when.slice(0, 4)) - Number(dob.slice(0, 4));
+    if (when.slice(5) < dob.slice(5)) { // birthday not reached yet in current year
+        yearsDiff--;
+    }
+    return yearsDiff;
 }
 /**
  * If data is a form with repetitions, returns the number of repetitions;
@@ -1834,9 +1841,7 @@ function DAYS_DIFF(a, b) {
  * @return {*}  {boolean}
  */
 function IS_BEFORE(date, dateToCompare) {
-    const dateA = dateFns.parseISO(date);
-    const dateB = dateFns.parseISO(dateToCompare);
-    return dateFns.isBefore(dateA, dateB);
+    return date < dateToCompare;
 }
 /**
  * Returns true if date is after dateToCompare.
@@ -1847,9 +1852,7 @@ function IS_BEFORE(date, dateToCompare) {
  * @return {*}  {boolean}
  */
 function IS_AFTER(date, dateToCompare) {
-    const dateA = dateFns.parseISO(date);
-    const dateB = dateFns.parseISO(dateToCompare);
-    return dateFns.isAfter(dateA, dateB);
+    return date > dateToCompare;
 }
 /**
  * Returns true if date is between dateStart and dateEnd.
@@ -1861,12 +1864,7 @@ function IS_AFTER(date, dateToCompare) {
  * @return {*}  {boolean}
  */
 function IS_WITHIN_INTERVAL(date, dateStart, dateEnd) {
-    const dateToCompare = dateFns.parseISO(date);
-    const interval = {
-        start: dateFns.parseISO(dateStart),
-        end: dateFns.parseISO(dateEnd),
-    };
-    return dateFns.isWithinInterval(dateToCompare, interval);
+    return date >= dateStart && date <= dateEnd;
 }
 /**
  * Compares date with an interval.
@@ -1882,23 +1880,16 @@ function IS_WITHIN_INTERVAL(date, dateStart, dateEnd) {
  * @return {*}  {string}
  */
 function COMPARE_DATE(date, dateStart, dateEnd, labels) {
-    const dateToCompare = dateFns.parseISO(date);
-    const dateA = dateFns.parseISO(dateStart);
-    const dateB = dateFns.parseISO(dateEnd);
-    const interval = {
-        start: dateA,
-        end: dateB,
-    };
     if (labels == null) {
         labels = ['-1', '0', '1'];
     }
-    if (dateFns.isBefore(dateToCompare, dateA)) {
+    if (IS_BEFORE(date, dateStart)) {
         return labels[0];
     }
-    if (dateFns.isWithinInterval(dateToCompare, interval)) {
+    if (IS_WITHIN_INTERVAL(date, dateStart, dateEnd)) {
         return labels[1];
     }
-    if (dateFns.isAfter(dateToCompare, dateB)) {
+    if (IS_AFTER(date, dateEnd)) {
         return labels[2];
     }
     return '';

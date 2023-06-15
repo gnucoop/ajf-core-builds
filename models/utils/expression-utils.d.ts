@@ -387,10 +387,9 @@ export declare function FILTER_BY(forms: MainForm[], expression: Func | string):
  * Returns today's date.
  *
  * @export
- * @param {string} [format='yyyy-MM-dd']
  * @return {*}  {string}
  */
-export declare function TODAY(format?: string): string;
+export declare function TODAY(): string;
 /**
  * Logs val to the console.
  *
@@ -403,9 +402,10 @@ export declare function CONSOLE_LOG(val: any): any;
  *
  * @export
  * @param {(string | null)} dob
+ * @param {(string | undefined)} when
  * @return {*}  {number}
  */
-export declare function GET_AGE(dob: string | null): number;
+export declare function GET_AGE(dob: string | null, when?: string): number;
 /**
  * If data is a form with repetitions, returns the number of repetitions;
  * If data is an array, returns its length;

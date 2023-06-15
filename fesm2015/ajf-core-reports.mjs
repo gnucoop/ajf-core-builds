@@ -3336,7 +3336,7 @@ const functionArgs = {
     FILTER_BY: ["arg", "func(form)"],
     FIRST: ["arg", "func(form)", "field?"],
     FROM_REPS: ["arg", "func(form)"],
-    GET_AGE: ["arg"],
+    GET_AGE: ["arg", "arg?"],
     GET_LABELS: ["arg", "arg"],
     INCLUDES: ["arg", "arg"],
     IS_AFTER: ["arg", "arg"],
