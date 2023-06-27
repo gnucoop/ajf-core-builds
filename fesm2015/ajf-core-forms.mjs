@@ -6,15 +6,16 @@ import { firstValueFrom, Subject, BehaviorSubject, Subscription, Observable, of,
 import { toArray, map, withLatestFrom, filter, share, startWith, scan, switchMap, distinctUntilChanged, pairwise, delayWhen, shareReplay, catchError } from 'rxjs/operators';
 import { evaluateExpression, alwaysCondition, neverCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, getCodeIdentifiers, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
-import { format } from 'date-fns';
+import { format, parse, toDate } from 'date-fns';
 import { __awaiter, __rest } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import * as i3 from '@ajf/core/file-input';
 import { fileIcon, AjfFileInputModule } from '@ajf/core/file-input';
 import * as i2 from '@angular/common';
-import { CommonModule } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import * as i3$2 from '@ajf/core/common';
 import { buildStringIdentifierOpts, buildStringIdentifier, AjfCommonModule } from '@ajf/core/common';
+import * as i2$2 from '@ajf/core/transloco';
 import { AjfTranslocoModule } from '@ajf/core/transloco';
 import * as i3$3 from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -6046,6 +6047,87 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImpor
  *
  */
 /**
+ * this component show the control value inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyDateFieldComponent
+ */
+class AjfReadOnlyDateFieldComponent extends AjfInputFieldComponent {
+    constructor(cdr, service, _ts, was) {
+        super(cdr, service, was);
+        this._ts = _ts;
+        this.date = this.control.pipe(filter(control => control != null), map(ctrl => {
+            if (ctrl) {
+                const val = ctrl.value;
+                if (val == null) {
+                    return '';
+                }
+                let dt = null;
+                if (typeof val === 'string') {
+                    dt = parse(val, 'yyyy-MM-dd', new Date());
+                }
+                else {
+                    dt = toDate(val);
+                }
+                if (!isNaN(dt.valueOf())) {
+                    const datePipe = new DatePipe(this._getCurrentLocale());
+                    return datePipe.transform(dt, 'shortDate');
+                }
+                return '';
+            }
+            return '';
+        }));
+    }
+    _getCurrentLocale() {
+        const lang = this._ts.getActiveLang();
+        switch (lang) {
+            case 'ESP':
+                return 'es';
+            case 'FRA':
+                return 'fr';
+            case 'ITA':
+                return 'it';
+            case 'PRT':
+                return 'pt';
+            default:
+                return 'en';
+        }
+    }
+}
+AjfReadOnlyDateFieldComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReadOnlyDateFieldComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: AjfFormRendererService }, { token: i2$2.TranslocoService }, { token: AJF_WARNING_ALERT_SERVICE }], target: i0.ɵɵFactoryTarget.Component });
+AjfReadOnlyDateFieldComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "15.0.4", type: AjfReadOnlyDateFieldComponent, selector: "ajf-read-date-only-field", usesInheritance: true, ngImport: i0, template: "<span *ngIf=\"date|async as dateVal\">{{dateVal}}</span>\n", styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"], dependencies: [{ kind: "directive", type: i2.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "pipe", type: i2.AsyncPipe, name: "async" }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImport: i0, type: AjfReadOnlyDateFieldComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'ajf-read-date-only-field', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<span *ngIf=\"date|async as dateVal\">{{dateVal}}</span>\n", styles: ["ajf-read-only-field span{min-height:1em;display:block}\n"] }]
+        }], ctorParameters: function () {
+        return [{ type: i0.ChangeDetectorRef }, { type: AjfFormRendererService }, { type: i2$2.TranslocoService }, { type: undefined, decorators: [{
+                        type: Inject,
+                        args: [AJF_WARNING_ALERT_SERVICE]
+                    }] }];
+    } });
+
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+/**
  * This component allows you to download the file contained in the control of
  * the form inherited from AjfBaseFieldComponent.
  *
@@ -6642,6 +6724,7 @@ AjfFormsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version:
         AjfNodeCompleteNamePipe,
         AjfRangePipe,
         AjfReadOnlyFieldComponent,
+        AjfReadOnlyDateFieldComponent,
         AjfReadOnlyFileFieldComponent,
         AjfReadOnlyGeolocationFieldComponent,
         AjfReadOnlyImageFieldComponent,
@@ -6676,6 +6759,7 @@ AjfFormsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version:
         AjfNodeCompleteNamePipe,
         AjfRangePipe,
         AjfReadOnlyFieldComponent,
+        AjfReadOnlyDateFieldComponent,
         AjfReadOnlyFileFieldComponent,
         AjfReadOnlyGeolocationFieldComponent,
         AjfReadOnlyImageFieldComponent,
@@ -6716,6 +6800,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImpor
                         AjfNodeCompleteNamePipe,
                         AjfRangePipe,
                         AjfReadOnlyFieldComponent,
+                        AjfReadOnlyDateFieldComponent,
                         AjfReadOnlyFileFieldComponent,
                         AjfReadOnlyGeolocationFieldComponent,
                         AjfReadOnlyImageFieldComponent,
@@ -6756,6 +6841,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.4", ngImpor
                         AjfNodeCompleteNamePipe,
                         AjfRangePipe,
                         AjfReadOnlyFieldComponent,
+                        AjfReadOnlyDateFieldComponent,
                         AjfReadOnlyFileFieldComponent,
                         AjfReadOnlyGeolocationFieldComponent,
                         AjfReadOnlyImageFieldComponent,
@@ -8365,5 +8451,5 @@ function notEmptyWarning() {
  * Generated bundle index. Do not edit.
  */
 
-export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstanceErrorsPipe, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFileFieldComponent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormStringIdentifierPipe, AjfFormsModule, AjfGetTableCellControlPipe, AjfImageFieldComponent, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsReadonlyInputFieldPipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyFieldComponent, AjfReadOnlyFileFieldComponent, AjfReadOnlyGeolocationFieldComponent, AjfReadOnlyImageFieldComponent, AjfReadOnlySelectFieldComponent, AjfReadOnlyTableFieldComponent, AjfReadOnlyVideoUrlFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfVideoUrlFieldComponent, AjfWarningGroupSerializer, buildFormStringIdentifier, buildformDatas, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createFormPdf, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, generateRandomCtx, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRangeField, isRepeatingContainerNode, isSlidesNode, isTableField, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning };
+export { AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfAsFieldInstanceErrorsPipe, AjfAsFieldInstancePipe, AjfAsRepeatingSlideInstancePipe, AjfAttachmentsOriginSerializer, AjfBaseFieldComponent, AjfBoolToIntPipe, AjfChoicesOriginSerializer, AjfDateValuePipe, AjfDateValueStringPipe, AjfExpandFieldWithChoicesPipe, AjfFieldHost, AjfFieldIconPipe, AjfFieldIsValidPipe, AjfFieldService, AjfFieldType, AjfFieldWithChoicesComponent, AjfFileFieldComponent, AjfFormField, AjfFormRenderer, AjfFormRendererService, AjfFormSerializer, AjfFormStringIdentifierPipe, AjfFormsModule, AjfGetTableCellControlPipe, AjfImageFieldComponent, AjfIncrementPipe, AjfInputFieldComponent, AjfInvalidFieldDefinitionError, AjfIsCellEditablePipe, AjfIsReadonlyInputFieldPipe, AjfIsRepeatingSlideInstancePipe, AjfNodeCompleteNamePipe, AjfNodeSerializer, AjfNodeType, AjfRangePipe, AjfReadOnlyDateFieldComponent, AjfReadOnlyFieldComponent, AjfReadOnlyFileFieldComponent, AjfReadOnlyGeolocationFieldComponent, AjfReadOnlyImageFieldComponent, AjfReadOnlySelectFieldComponent, AjfReadOnlyTableFieldComponent, AjfReadOnlyVideoUrlFieldComponent, AjfTableFieldComponent, AjfTableRowClass, AjfTableVisibleColumnsPipe, AjfValidSlidePipe, AjfValidationGroupSerializer, AjfValidationService, AjfVideoUrlFieldComponent, AjfWarningGroupSerializer, buildFormStringIdentifier, buildformDatas, createChoicesFixedOrigin, createChoicesFunctionOrigin, createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin, createChoicesPromiseOrigin, createContainerNode, createField, createFieldInstance, createFieldWithChoicesInstance, createForm, createFormPdf, createNode, createNodeInstance, createValidation, createValidationGroup, createWarning, createWarningGroup, fieldIconName, flattenNodes, generateRandomCtx, initChoicesOrigin, isChoicesFixedOrigin, isChoicesOrigin, isContainerNode, isCustomFieldWithChoices, isField, isFieldWithChoices, isNumberField, isRangeField, isRepeatingContainerNode, isSlidesNode, isTableField, maxDigitsValidation, maxValidation, minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning };
 //# sourceMappingURL=ajf-core-forms.mjs.map
