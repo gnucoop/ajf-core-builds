@@ -4,7 +4,7 @@ import * as i4 from '@angular/forms';
 import { UntypedFormGroup, UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { firstValueFrom, Subject, BehaviorSubject, Subscription, Observable, of, from, timer, defer } from 'rxjs';
 import { toArray, map, withLatestFrom, filter, share, startWith, scan, switchMap, distinctUntilChanged, pairwise, delayWhen, shareReplay, catchError } from 'rxjs/operators';
-import { evaluateExpression, alwaysCondition, neverCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, getCodeIdentifiers, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
+import { evaluateExpression, notEmpty, alwaysCondition, neverCondition, normalizeExpression, createCondition, createFormula, AjfExpressionUtils, getCodeIdentifiers, AjfError, AjfConditionSerializer, AjfFormulaSerializer } from '@ajf/core/models';
 import { deepCopy } from '@ajf/core/utils';
 import { format, parse, toDate } from 'date-fns';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -985,18 +985,21 @@ function evaluateValidationMinValue(validation, value) {
  * notEmpty is the associated AjfCondition
  */
 function evaluateValidationNotEmpty(validation, value) {
-    if (validation.notEmpty == null) {
+    let ne = validation.notEmpty;
+    if (ne == null || ne === false) {
         return null;
     }
-    const ctx = { '$value': value };
-    if (typeof validation.notEmpty === 'boolean') {
+    if (ne === true) {
+        ne = 'Value must not be empty';
+    }
+    if (typeof ne === 'string') {
         return {
-            result: evaluateExpression(`notEmpty($value) === ${validation.notEmpty}`, ctx),
-            error: 'Value must not be empty',
+            result: notEmpty(value),
+            error: ne,
             clientValidation: false,
         };
     }
-    return evaluateValidation(validation.notEmpty, ctx);
+    return evaluateValidation(ne, { '$value': value });
 }
 
 /**
