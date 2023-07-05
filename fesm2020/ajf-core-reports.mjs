@@ -4552,6 +4552,7 @@ const functionArgs = {
     MODE: ["arg", "field", "func(form)?"],
     OP: ["arg", "arg", "func(elemA, elemB)"],
     PERCENT: ["arg", "arg"],
+    PERCENTAGE_CHANGE: ["arg", "arg"],
     REMOVE_DUPLICATES: ["arg"],
     ROUND: ["arg", "arg?"],
     SUM: ["arg", "field", "func(form)?"],
@@ -5024,6 +5025,10 @@ function xlsReport(file, http) {
                     const pagListWidget = _buildPaginatedListTableWithDialog(sheetName, json);
                     reportWidgets.push(pagListWidget);
                 }
+                else if (sheetName.includes('single')) {
+                    const singleWidget = _buildSingleIndicator(json);
+                    reportWidgets.push(...singleWidget);
+                }
                 if (idx >= 0) {
                     reportWidgets[reportWidgets.length - 1].filter = {
                         schema: f[idx],
@@ -5199,6 +5204,61 @@ function _buildHtml(json) {
         htmlText: String(firstRow['html']),
         styles: htmlWidget,
     });
+}
+function getTrendWidget(value, color, condition, icon) {
+    let percValue = `[[${value}]]%`;
+    if (!value) {
+        percValue = '';
+    }
+    return createWidget({
+        widgetType: AjfWidgetType.Text,
+        htmlText: `<i class=\"material-icons\" style=\"vertical-align: bottom\">${icon}</i>${percValue}`,
+        styles: {
+            ...htmlWidget,
+            color: color,
+            justifyContent: 'center',
+        },
+        visibility: {
+            condition: condition,
+        },
+    });
+}
+function _buildSingleIndicator(json) {
+    const indicatorWidgets = [];
+    const firstRow = json.length > 0 && json[0]['html'] != null ? json[0] : { html: '' };
+    indicatorWidgets.push(createWidget({
+        widgetType: AjfWidgetType.Text,
+        htmlText: String(firstRow['html']),
+        styles: {
+            ...htmlWidget,
+            marginBottom: '0',
+            justifyContent: 'center',
+        },
+    }));
+    let showTrend = false;
+    let marginBottom = '10px';
+    if (firstRow['percentage_change']) {
+        showTrend = true;
+        marginBottom = '0';
+    }
+    indicatorWidgets.push(createWidget({
+        widgetType: AjfWidgetType.Text,
+        htmlText: '[[' + String(firstRow['current_value']) + ']]',
+        styles: {
+            ...htmlWidget,
+            marginBottom,
+            fontSize: '90px',
+            fontWeight: 'bold',
+            justifyContent: 'center',
+        },
+    }));
+    if (showTrend) {
+        indicatorWidgets.push(getTrendWidget(String(firstRow['percentage_change']), 'red', `${String(firstRow['percentage_change'])} < 0`, 'trending_down'));
+        indicatorWidgets.push(getTrendWidget(String(firstRow['percentage_change']), 'green', `${String(firstRow['percentage_change'])} > 0`, 'trending_up'));
+        indicatorWidgets.push(getTrendWidget(String(firstRow['percentage_change']), 'orange', `${String(firstRow['percentage_change'])} == 0`, 'trending_flat'));
+        indicatorWidgets.push(getTrendWidget(null, 'orange', `${String(firstRow['percentage_change'])} === '-'`, 'remove'));
+    }
+    return indicatorWidgets;
 }
 function _buildTable(sheetName, json) {
     let tableHeader = [];

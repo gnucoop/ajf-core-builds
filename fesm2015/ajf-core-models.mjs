@@ -326,6 +326,7 @@ AjfExpressionUtils.utils = {
     MODE: { fn: MODE },
     OP: { fn: OP },
     PERCENT: { fn: PERCENT },
+    PERCENTAGE_CHANGE: { fn: PERCENTAGE_CHANGE },
     REMOVE_DUPLICATES: { fn: REMOVE_DUPLICATES },
     REPEAT: { fn: REPEAT },
     ROUND: { fn: ROUND },
@@ -361,8 +362,25 @@ function evaluateExpression(expression, context) {
     return createFunction(expression)(context);
 }
 const globals = [
-    'this', 'true', 'false', 'null', 'undefined', 'Infinity', 'NaN', 'isNaN', 'isFinite',
-    'Object', 'String', 'Array', 'Set', 'Map', 'Number', 'Date', 'Math', 'parseInt', 'parseFloat',
+    'this',
+    'true',
+    'false',
+    'null',
+    'undefined',
+    'Infinity',
+    'NaN',
+    'isNaN',
+    'isFinite',
+    'Object',
+    'String',
+    'Array',
+    'Set',
+    'Map',
+    'Number',
+    'Date',
+    'Math',
+    'parseInt',
+    'parseFloat',
 ];
 function createFunction(expression) {
     if (expression == null) {
@@ -375,8 +393,9 @@ function createFunction(expression) {
     if (expression === 'false') {
         return _ => false;
     }
-    if (/^[a-zA-Z_$][\w$]*$/.test(expression)) { // expression is an identifier
-        return c => c == null || c[expression] === undefined ? null : c[expression];
+    if (/^[a-zA-Z_$][\w$]*$/.test(expression)) {
+        // expression is an identifier
+        return c => (c == null || c[expression] === undefined ? null : c[expression]);
     }
     if (/^"[^"]*"$/.test(expression) || /^'[^']*'$/.test(expression)) {
         let str = expression.slice(1, -1);
@@ -841,7 +860,7 @@ function getCoordinate(source, zoom) {
  */
 function ALL_VALUES_OF(forms, field, filter = 'true') {
     forms = (forms || []).filter(f => f != null);
-    if (typeof (filter) === 'string') {
+    if (typeof filter === 'string') {
         filter = createFunction(filter);
     }
     let values = [];
@@ -878,7 +897,7 @@ function COUNT_FORMS(forms, filter = 'true') {
     if (filter === 'true') {
         return forms.length;
     }
-    if (typeof (filter) === 'string') {
+    if (typeof filter === 'string') {
         filter = createFunction(filter);
     }
     let count = 0;
@@ -901,7 +920,7 @@ function COUNT_FORMS(forms, filter = 'true') {
  */
 function COUNT_REPS(forms, filter = 'true') {
     forms = (forms || []).filter(f => f != null);
-    if (typeof (filter) === 'string') {
+    if (typeof filter === 'string') {
         filter = createFunction(filter);
     }
     let count = 0;
@@ -925,7 +944,7 @@ function COUNT_FORMS_UNIQUE(forms, field, filter = 'true') {
 }
 function getNumericValues(forms, field, filter = 'true') {
     forms = (forms || []).filter(f => f != null);
-    if (typeof (filter) === 'string') {
+    if (typeof filter === 'string') {
         filter = createFunction(filter);
     }
     let values = [];
@@ -975,10 +994,28 @@ function PERCENT(value1, value2) {
     return Number.isFinite(res) ? Math.round(res) + '%' : 'infinite';
 }
 /**
+ * Calculates the percentage change between a value and his base reference value.
+ */
+function PERCENTAGE_CHANGE(value, reference_value) {
+    let curr = Number(value);
+    let ref = Number(reference_value);
+    if (typeof value === 'string' && isNaN(curr)) {
+        curr = Number(value.slice(0, -1));
+    }
+    if (typeof reference_value === 'string' && isNaN(ref)) {
+        ref = Number(reference_value.slice(0, -1));
+    }
+    if (!isNaN(curr) && !isNaN(ref) && ref > 0) {
+        const res = ((curr - ref) / ref) * 100;
+        return Number.isFinite(res) ? Math.round(res) : 0;
+    }
+    return '-';
+}
+/**
  * Evaluates the expression in the first form by date.
  */
 function FIRST(forms, expression, date = 'created_at') {
-    if (typeof (expression) === 'string') {
+    if (typeof expression === 'string') {
         expression = createFunction(expression);
     }
     forms = (forms || []).filter(f => f != null && f[date] != null);
@@ -999,7 +1036,7 @@ function FIRST(forms, expression, date = 'created_at') {
  * Evaluates the expression in the last form by date.
  */
 function LAST(forms, expression, date = 'created_at') {
-    if (typeof (expression) === 'string') {
+    if (typeof expression === 'string') {
         expression = createFunction(expression);
     }
     forms = (forms || []).filter(f => f != null && f[date] != null);
@@ -1404,7 +1441,7 @@ function MAP(array, func) {
  */
 function APPLY(forms, field, expression) {
     forms = cloneMainForms(forms);
-    if (typeof (expression) === 'string') {
+    if (typeof expression === 'string') {
         expression = createFunction(expression);
     }
     for (const form of forms) {
@@ -1435,7 +1472,7 @@ function EVALUATE(condition, branch1, branch2) {
  * Tells if arr includes elem
  */
 function INCLUDES(arr, elem) {
-    if (!Array.isArray(arr) && typeof (arr) !== 'string') {
+    if (!Array.isArray(arr) && typeof arr !== 'string') {
         return false;
     }
     return arr.includes(elem);
@@ -1714,7 +1751,7 @@ function FILTER_BY(forms, expression) {
     if (expression === 'true') {
         return cloneMainForms(forms);
     }
-    if (typeof (expression) === 'string') {
+    if (typeof expression === 'string') {
         expression = createFunction(expression);
     }
     const res = [];
@@ -1771,7 +1808,8 @@ function GET_AGE(dob, when) {
         when = TODAY();
     }
     let yearsDiff = Number(when.slice(0, 4)) - Number(dob.slice(0, 4));
-    if (when.slice(5) < dob.slice(5)) { // birthday not reached yet in current year
+    if (when.slice(5) < dob.slice(5)) {
+        // birthday not reached yet in current year
         yearsDiff--;
     }
     return yearsDiff;
@@ -1950,7 +1988,7 @@ function JOIN_REPEATING_SLIDES(formsA, formsB, keyA, keyB, subkeyA, subkeyB) {
  * @return {*}  {any[]}
  */
 function FROM_REPS(form, expression) {
-    if (typeof (expression) === 'string') {
+    if (typeof expression === 'string') {
         expression = createFunction(expression);
     }
     return allReps(form || {}).map(rep => expression(Object.assign(Object.assign({}, form), rep)));
@@ -1969,7 +2007,7 @@ function ISIN(dataset, value) {
  * returning the array of results.
  */
 function OP(arrayA, arrayB, operator) {
-    if (typeof (operator) === 'string') {
+    if (typeof operator === 'string') {
         const func = createFunction(operator);
         operator = (elemA, elemB) => func({ elemA, elemB });
     }
@@ -1991,7 +2029,7 @@ function OP(arrayA, arrayB, operator) {
  */
 function GET_LABELS(schema, values) {
     const choiceLabels = extractLabelsBySchemaChoices(schema);
-    return values.map(val => choiceLabels[val] != null ? choiceLabels[val] : val);
+    return values.map(val => (choiceLabels[val] != null ? choiceLabels[val] : val));
 }
 
 /**
@@ -2172,5 +2210,5 @@ function validateExpression(str, context) {
  * Generated bundle index. Do not edit.
  */
 
-export { ADD_DAYS, ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, DAYS_DIFF, EVALUATE, FILTER_BY, FILTER_BY_VARS, FIRST, FROM_REPS, GET_AGE, GET_LABELS, INCLUDES, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAP, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildAlignedDataset, buildAlignedFormDataset, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, createFunction, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
+export { ADD_DAYS, ALL_VALUES_OF, APPLY, APPLY_LABELS, AjfConditionSerializer, AjfError, AjfExpressionUtils, AjfFormulaSerializer, BUILD_DATASET, COMPARE_DATE, CONCAT, CONSOLE_LOG, COUNT_FORMS, COUNT_FORMS_UNIQUE, COUNT_REPS, DAYS_DIFF, EVALUATE, FILTER_BY, FILTER_BY_VARS, FIRST, FROM_REPS, GET_AGE, GET_LABELS, INCLUDES, ISIN, IS_AFTER, IS_BEFORE, IS_WITHIN_INTERVAL, JOIN_FORMS, JOIN_REPEATING_SLIDES, LAST, LEN, MAP, MAX, MEAN, MEDIAN, MODE, OP, PERCENT, PERCENTAGE_CHANGE, REMOVE_DUPLICATES, REPEAT, ROUND, SUM, TODAY, alert, alwaysCondition, buildAlignedDataset, buildAlignedFormDataset, buildDataset, buildFormDataset, buildWidgetDataset, buildWidgetDatasetWithDialog, calculateAvgProperty, calculateAvgPropertyArray, calculateTrendByProperties, calculateTrendProperty, createCondition, createFormula, createFunction, dateOperations, dateUtils, decimalCount, digitCount, drawThreshold, evaluateExpression, extractArray, extractArraySum, extractDates, extractSum, formatDate, formatNumber, getCodeIdentifiers, getContextString, getCoordinate, isInt, isoMonth, lastProperty, neverCondition, normalizeExpression, notEmpty, plainArray, round, scanGroupField, sum, sumLastProperties, validateExpression, valueInChoice };
 //# sourceMappingURL=ajf-core-models.mjs.map

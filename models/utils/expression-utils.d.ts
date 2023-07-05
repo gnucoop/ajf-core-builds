@@ -177,6 +177,10 @@ export declare function MEAN(forms: (Form | MainForm)[], field: string, filter?:
  */
 export declare function PERCENT(value1: number, value2: number): string;
 /**
+ * Calculates the percentage change between a value and his base reference value.
+ */
+export declare function PERCENTAGE_CHANGE(value: number | string, reference_value: number | string): number | string;
+/**
  * Evaluates the expression in the first form by date.
  */
 export declare function FIRST(forms: (Form | MainForm)[], expression: Func | string, date?: string): any;
@@ -303,7 +307,7 @@ export declare function EVALUATE(condition: string, branch1: any, branch2: any):
 /**
  * Tells if arr includes elem
  */
-export declare function INCLUDES(arr: (any[]) | string, elem: any): boolean;
+export declare function INCLUDES(arr: any[] | string, elem: any): boolean;
 /**
  * This function builds a data structure that allows the use of the hindikit formulas
  * for every forms with repeating slides.
