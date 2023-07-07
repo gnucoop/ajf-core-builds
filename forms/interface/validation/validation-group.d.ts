@@ -29,6 +29,7 @@ export interface AjfValidationGroup {
     maxValue?: AjfValidation;
     minValue?: AjfValidation;
     notEmpty?: AjfValidation;
+    notEmptyMessage?: string;
     maxDigits?: AjfValidation;
     minDigits?: AjfValidation;
     conditions: AjfValidation[];

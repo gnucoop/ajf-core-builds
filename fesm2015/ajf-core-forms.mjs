@@ -967,17 +967,14 @@ function evaluateValidationMinValue(validation, value) {
  * notEmpty is the associated AjfCondition
  */
 function evaluateValidationNotEmpty(validation, value) {
-    let ne = validation.notEmpty;
+    const ne = validation.notEmpty;
     if (ne == null || ne === false) {
         return null;
     }
     if (ne === true) {
-        ne = 'Value must not be empty';
-    }
-    if (typeof ne === 'string') {
         return {
             result: notEmpty(value),
-            error: ne,
+            error: validation.notEmptyMessage || 'Value must not be empty',
             clientValidation: false,
         };
     }
