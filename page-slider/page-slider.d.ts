@@ -42,7 +42,7 @@ export declare class AjfPageSlider implements AfterContentInit, OnDestroy {
     set orientation(orientation: AjfPageSliderOrientation);
     private _fixedOrientation;
     get fixedOrientation(): boolean;
-    set fixedOrientation(fixedOrientation: boolean);
+    set fixedOrientation(_: boolean);
     private _currentPage;
     get currentPage(): number;
     set currentPage(currentPage: number);

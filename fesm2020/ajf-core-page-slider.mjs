@@ -191,7 +191,7 @@ class AjfPageSlider {
             ._orientationChange;
         this.duration = 300;
         this._orientation = 'horizontal';
-        this._fixedOrientation = false;
+        this._fixedOrientation = true;
         this._currentPage = -1;
         this._hideNavigationButtons = false;
         this._animating = false;
@@ -238,9 +238,10 @@ class AjfPageSlider {
     get fixedOrientation() {
         return this._fixedOrientation;
     }
-    set fixedOrientation(fixedOrientation) {
-        this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
-        this._cdr.markForCheck();
+    set fixedOrientation(_) {
+        // Keep true to disable the change orientation button
+        // this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
+        // this._cdr.markForCheck();
     }
     get currentPage() {
         return this._currentPage;
