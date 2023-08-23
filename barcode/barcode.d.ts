@@ -28,7 +28,7 @@ export declare abstract class AjfBarcode implements ControlValueAccessor {
     protected _cdr: ChangeDetectorRef;
     private _renderer;
     resetEvt: EventEmitter<void>;
-    barcodeVideo: ElementRef<HTMLVideoElement>;
+    barcodeVideo: ElementRef<HTMLVideoElement> | undefined;
     barcodeVideoPreview: ElementRef<HTMLDivElement>;
     barcodeImagePreview: ElementRef<HTMLImageElement>;
     /**

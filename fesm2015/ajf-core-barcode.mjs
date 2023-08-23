@@ -84,11 +84,14 @@ class AjfBarcode {
         return this._currentVideoStream;
     }
     reset() {
+        var _a, _b;
         this.value = '';
-        const video = this.barcodeVideo.nativeElement;
+        const video = (_b = (_a = this.barcodeVideo) === null || _a === void 0 ? void 0 : _a.nativeElement) !== null && _b !== void 0 ? _b : null;
         this.resetEvt.emit();
         this.initVideoStreams();
-        video.play();
+        if (video) {
+            video.play();
+        }
         this._onTouchedCallback();
     }
     onSelectFile(evt) {
@@ -219,10 +222,15 @@ class AjfBarcode {
      */
     _gotStream(stream) {
         this._currentVideoStream = stream;
-        this.barcodeVideo.nativeElement.srcObject = stream;
+        if (this.barcodeVideo) {
+            this.barcodeVideo.nativeElement.srcObject = stream;
+        }
         this._cdr.markForCheck();
     }
     stopCurrentStream() {
+        if (this.barcodeVideo == undefined) {
+            return;
+        }
         const video = this.barcodeVideo.nativeElement;
         const stream = video.srcObject;
         if (stream == null)
